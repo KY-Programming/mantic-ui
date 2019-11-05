@@ -1,0 +1,9 @@
+{
+  "name": "@mantic-ui/fomantic-ui-angular",
+  "version": "0.1.0",
+  "peerDependencies": {
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "@mantic-ui/angular": "^0.0.0"
+  }
+}
