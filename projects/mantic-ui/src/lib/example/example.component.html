@@ -1,0 +1,11 @@
+<h4 *ngIf="header">{{header}}</h4>
+<p *ngIf="description">{{description}}</p>
+<button *ngIf="code" class="show-code" (click)="toggleCode()">&lt;&gt;</button>
+
+<div class="example-box" [class.hide-code]="!showCode">
+    <div class="header">Example</div>
+    <div class="live">
+        <ng-content></ng-content>
+    </div>
+    <code>{{code}}</code>
+</div>

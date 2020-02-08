@@ -1,0 +1,21 @@
+{
+  "name": "@mantic-ui/angular",
+  "version": "0.1.0-rc.2",
+  "description": "manti-ui core package",
+  "publishConfig": {
+    "registry": "http://ky-docker:4873"
+  },
+  "author": "KY-Programming",
+  "license": "UNLICENSED",
+  "scripts": {
+    "postbuild": "npm run copy-styles",
+    "copy-styles": "",
+    "copy-styles2": "mkdir ..\\..\\dist\\mantic-ui\\styles & xcopy /Y src\\lib\\styles ..\\..\\dist\\mantic-ui\\styles /S"
+  },
+  "peerDependencies": {
+    "@angular/common": "8-9",
+    "@angular/core": "8-9",
+    "@angular/forms": "8-9",
+    "rxjs": "^6.5.0"
+  }
+}

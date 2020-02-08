@@ -1,0 +1,12 @@
+<input type="hidden">
+<i class="dropdown icon"></i>
+<div *ngIf="showText; else defaultTextTemplate" class="text" #text></div>
+<ng-template #defaultTextTemplate>
+    <div class="default text">{{placeholder}}</div>
+</ng-template>
+<div class="menu" [class.visible]="isVisible" [style.display]="isVisible ? 'block' : ''"
+    [style.animation-duration.ms]="animationDuration" [class.transition]="isSlidingDown || isSlidingUp"
+    [class.animating]="isSlidingDown || isSlidingUp" [class.slide]="isSlidingDown || isSlidingUp"
+    [class.down]="isSlidingDown || isSlidingUp" [class.in]="isSlidingDown" [class.out]="isSlidingUp">
+    <ng-content></ng-content>
+</div>

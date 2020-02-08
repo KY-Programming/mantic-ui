@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ManticUiModule } from 'projects/mantic-ui/src/public-api';
+import { ManticUiModule } from '@mantic-ui/angular';
 import { FomanticUiThemeComponent } from './fomantic-ui-theme/fomantic-ui-theme.component';
 
 @NgModule({

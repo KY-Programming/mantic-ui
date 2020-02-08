@@ -1,0 +1,9 @@
+<m-menu [pointing]="pointing" [secondary]="secondary">
+    <a *ngFor="let tab of tabs" class="item" [class.active]="tab.active" (click)="activate(tab)">
+        {{tab.label}}
+    </a>
+</m-menu>
+
+<m-segment class="active tab">
+    <ng-content></ng-content>
+</m-segment>

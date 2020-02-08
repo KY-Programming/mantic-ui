@@ -1,0 +1,48 @@
+<h1 class="ui header">
+    Dropdown
+    <div class="sub header">
+        A dropdown allows a user to select a value from a series of options
+    </div>
+</h1>
+<m-divider></m-divider>
+
+<h2 class="ui dividing header">Types</h2>
+<m-example header="Dropdown" description="A dropdown" type="html">
+
+</m-example>
+
+<m-example header="Selection" description="A dropdown can be used to select between choices in a form" type="html">
+    <m-dropdown placeholder="Gender">
+        <m-dropdown-item [value]="1" text="Male">Male2</m-dropdown-item>
+        <m-dropdown-item [value]="0" text="Female">Female2</m-dropdown-item>
+    </m-dropdown>
+</m-example>
+
+<m-example>
+    <m-dropdown placeholder="Select Friend" mFluid>
+        <m-dropdown-item value="jenny">
+            <img class="ui mini avatar image" src="/assets/images/avatar/small/jenny.jpg">
+            Jenny Hess
+        </m-dropdown-item>
+        <m-dropdown-item value="elliot">
+            <img class="ui mini avatar image" src="/assets/images/avatar/small/elliot.jpg">
+            Elliot Fu
+        </m-dropdown-item>
+        <m-dropdown-item value="stevie">
+            <img class="ui mini avatar image" src="/assets/images/avatar/small/stevie.jpg">
+            Stevie Feliciano
+        </m-dropdown-item>
+        <m-dropdown-item value="christian">
+            <img class="ui mini avatar image" src="/assets/images/avatar/small/christian.jpg">
+            Christian
+        </m-dropdown-item>
+        <m-dropdown-item value="matt">
+            <img class="ui mini avatar image" src="/assets/images/avatar/small/matt.jpg">
+            Matt
+        </m-dropdown-item>
+        <m-dropdown-item value="justen">
+            <img class="ui mini avatar image" src="/assets/images/avatar/small/justen.jpg">
+            Justen Kitsune
+        </m-dropdown-item>
+    </m-dropdown>
+</m-example>

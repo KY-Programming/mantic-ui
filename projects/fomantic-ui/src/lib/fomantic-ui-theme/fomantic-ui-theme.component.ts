@@ -1,8 +1,8 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ThemeService } from 'projects/mantic-ui/src/lib/services/theme.service';
+import { ThemeService } from '@mantic-ui/angular';
 
 @Component({
-  selector: 'ky-fomantic-ui-theme',
+  selector: 'm-fomantic-ui-theme',
   template: '',
   styleUrls: ['./fomantic-ui-theme.component.css'],
   encapsulation: ViewEncapsulation.None

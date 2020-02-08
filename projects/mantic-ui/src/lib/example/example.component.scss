@@ -1,0 +1,73 @@
+$border-color: #d4d4d5;
+
+:host {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 2em 0;
+}
+
+h4 {
+    margin: 0;
+}
+
+p {
+    margin-bottom: 2em;
+}
+
+.show-code {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: transparent;
+    border: none;
+    color: #000000;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.example-box {
+    display: flex;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    background-color: #ffffff;
+    flex-direction: column;
+
+    &.hide-code {
+        border: none;
+
+        .header,
+        code {
+            display: none;
+        }
+
+        .live {
+            border: none;
+            padding: 0;
+        }
+    }
+}
+
+.header {
+    background-color: #F8F8F8;
+    padding: .75em 1em;
+    flex: 0 0 auto;
+    font-size: 0.75em;
+    font-weight: bold;
+    border-bottom: 1px solid $border-color;
+    color: rgba(0, 0, 0, .6);
+}
+
+.live,
+code {
+    flex: 1;
+    padding: 1em;
+}
+
+.live {
+    border-bottom: 1px solid $border-color;
+}
+
+code {
+    white-space: pre;
+}

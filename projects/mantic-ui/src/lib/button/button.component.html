@@ -1,0 +1,41 @@
+<ng-container *ngIf="animated">
+    <div class="visible content">
+        <ng-container [ngTemplateOutlet]="content"></ng-container>
+    </div>
+    <div class="hidden content">
+        <ng-container [ngTemplateOutlet]="animated"></ng-container>
+    </div>
+</ng-container>
+<ng-container *ngIf="label">
+    <ng-container *ngIf="labelPosition === 'left'; else defaultOrderTemplate">
+        <ng-container [ngTemplateOutlet]="labelTemplate"></ng-container>
+        <ng-container [ngTemplateOutlet]="buttonTemplate"></ng-container>
+    </ng-container>
+    <ng-template #defaultOrderTemplate>
+        <ng-container [ngTemplateOutlet]="buttonTemplate"></ng-container>
+        <ng-container [ngTemplateOutlet]="labelTemplate"></ng-container>
+    </ng-template>
+    <ng-template #buttonTemplate>
+        <div class="ui" [class.basic]="basic" [class.icon]="iconOnly" [ngClass]="Color.toClass(color)" [class.button]="true">
+            <ng-container [ngTemplateOutlet]="content"></ng-container>
+        </div>
+    </ng-template>
+    <ng-template #labelTemplate>
+        <m-label [basic]="true" [color]="color" [pointing]="pointing">
+            <ng-container [ngTemplateOutlet]="label"></ng-container>
+        </m-label>
+    </ng-template>
+</ng-container>
+<ng-container *ngIf="social">
+    <i class="{{social.toLowerCase()}} icon"></i>
+    {{social}}
+</ng-container>
+<ng-container *ngIf="!animated && !label && !social">
+    <!-- <button *ngIf="!animated && !label" class="ui" [class.inverted]="inverted" [class.primary]="primary" [class.secondary]="secondary" [class.positive]="positive" [class.negative]="negative" [ngClass]="Color.toClass(color)" [class.basic]="basic" [class.right]="labelPosition === 'right'" [class.labeled]="icon" [class.icon]="icon" [class.button]="true"> -->
+    <i *ngIf="icon" class="{{icon}} icon"></i>
+    <ng-container [ngTemplateOutlet]="content"></ng-container>
+    <!-- </button> -->
+</ng-container>
+<ng-template #content>
+    <ng-content></ng-content>
+</ng-template>

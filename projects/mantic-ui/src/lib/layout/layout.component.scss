@@ -1,0 +1,28 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+:host::ng-deep {
+  &>* {
+    flex: 1;
+  }
+
+  .menu {
+    flex: 0 0 auto;
+
+    &.ui.menu.fixed {
+      position: initial;
+      margin-bottom: 1em;
+    }
+  }
+
+  .footer {
+    flex: 0 0 auto;
+
+    &.ui.vertical.segment {
+      margin-top: 1em;
+    }
+  }
+}

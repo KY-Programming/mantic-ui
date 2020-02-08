@@ -1,0 +1,31 @@
+<m-menu>
+    <div class="ui vertical inverted menu">
+        <div class="item switch" (click)="switch()" title="Switch to Semantic UI Angular">
+            <span class="ui logo icon image">
+                <img src="/assets/fomantic.png">
+            </span>
+            <span><b>Fomantic UI Angular</b></span>
+        </div>
+        <a class="item" [routerLink]="['/semantic']">
+            <b>Getting Started</b>
+        </a>
+        <div class="item">
+            <div class="header">Elements</div>
+            <div class="menu">
+                <a class="item" [routerLink]="['button']" routerLinkActive="active">
+                    Button
+                </a>
+                <a class="item" [routerLink]="['divider']" routerLinkActive="active">
+                    Divider
+                </a>
+                <a class="item" [routerLink]="['input']" routerLinkActive="active">
+                    Input
+                </a>
+            </div>
+        </div>
+    </div>
+</m-menu>
+<div class="content">
+    <router-outlet></router-outlet>
+</div>
+<m-fomantic-ui-theme></m-fomantic-ui-theme>

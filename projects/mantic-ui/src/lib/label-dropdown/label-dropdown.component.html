@@ -1,0 +1,5 @@
+<div class="text">{{value}}</div>
+<m-icon [icon]="icon"></m-icon>
+<div class="menu" [class.visible]="isOpen">
+    <div *ngFor="let item of items" class="item" (click)="select(item)">{{item}}</div>
+</div>
