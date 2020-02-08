@@ -26,6 +26,12 @@ export class ElementBase implements OnChanges, OnInit {
             if (attribute.name.indexOf('_ng') === 0) {
                 continue;
             }
+            if (attribute.value !== '') {
+                if (attribute.value === 'false') {
+                    console.warn(`<${this.element.nativeElement.tagName.toLowerCase()} ${attribute.name}="false"> found. This results that ${attribute.name}-property will be set to true, because false is treaded as string and will be converted to true. Change your code to <${this.element.nativeElement.tagName.toLowerCase()} [${attribute.name}]="false"> to avoid this error.`);
+                }
+                continue;
+            }
             if (!this.classList.contains(attribute.name)) {
                 console.warn(`attribute ${attribute.name} on ${this.element.nativeElement.tagName.toLowerCase()} not found`);
                 continue;
