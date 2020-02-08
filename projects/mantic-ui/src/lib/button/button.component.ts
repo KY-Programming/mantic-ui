@@ -1,4 +1,4 @@
-import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
+import { Component, ContentChild, ElementRef, Input, TemplateRef } from '@angular/core';
 import { ButtonBase } from '../base/button-base';
 import { Color } from '../models/color';
 
@@ -35,8 +35,10 @@ export class ButtonComponent extends ButtonBase {
 
   public readonly Color = Color;
 
-  public constructor() {
-    super();
+  public constructor(
+    element: ElementRef<HTMLElement>
+  ) {
+    super(element);
     this.classList
       .registerAction('iconOnly', (entry) => entry.isActive = this.iconOnly && !this.label, undefined, 'icon')
       .register('animation')

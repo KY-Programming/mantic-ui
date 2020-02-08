@@ -14,29 +14,30 @@
     <m-input type="text" placeholder="Search..." [(value)]="inputValue"></m-input>
     <div>Current Value: {{inputValue}}</div>
 </m-example>
-<m-example header="Change event" description="A input with an subscribed change event. The event is triggered when focus is lost (click outside of the box)">
+<m-example header="Change event"
+    description="A input with an subscribed change event. The event is triggered when focus is lost (click outside of the box)">
     <m-input type="text" placeholder="Search..." (valueChange)="valueChange($event)"></m-input>
     <div>{{inputMessage}}</div>
 </m-example>
 
 <h2 class="ui dividing header">States</h2>
 <m-example header="Focus" description="An input field can show a user is currently interacting with it">
-    <m-input type="text" placeholder="Search..." [focused]="true"></m-input>
+    <m-input type="text" placeholder="Search..." focused></m-input>
 </m-example>
 <m-example header="Loading" description="An icon input field can show that it is currently loading data">
-    <m-input type="text" placeholder="Search..." icon="search" iconPosition="left" [loading]="true"></m-input>
+    <m-input type="text" placeholder="Search..." icon="search" iconPosition="left" loading></m-input>
 </m-example>
 <m-example>
-    <m-input type="text" placeholder="Search..." icon="search" [loading]="true"></m-input>
+    <m-input type="text" placeholder="Search..." icon="search" loading></m-input>
 </m-example>
 <m-example header="Disabled" description="An input field can show that it is disabled">
-    <m-input type="text" placeholder="Search..." [disabled]="true"></m-input>
+    <m-input type="text" placeholder="Search..." disabled></m-input>
 </m-example>
 <m-example>
-    <m-input type="text" placeholder="Search..." icon="search" [disabled]="true"></m-input>
+    <m-input type="text" placeholder="Search..." icon="search" disabled></m-input>
 </m-example>
 <m-example header="Error" description="An input field can show the data contains errors">
-    <m-input type="text" placeholder="Search..." [hasError]="true"></m-input>
+    <m-input type="text" placeholder="Search..." hasError></m-input>
 </m-example>
 <m-example header="Bind state" description="An input state can be bound">
     <div class="toolbar">
@@ -76,7 +77,8 @@
             Error
         </label>
     </div>
-    <m-input [type]="type" placeholder="Search..." [icon]="icon" [iconPosition]="iconPosition" [focused]="focus" [loading]="loading" [disabled]="disabled" [hasError]="error"></m-input>
+    <m-input [type]="type" placeholder="Search..." [icon]="icon" [iconPosition]="iconPosition" [focused]="focus"
+        [loading]="loading" [disabled]="disabled" [hasError]="error"></m-input>
 </m-example>
 
 <h2 class="ui dividing header">Variations</h2>

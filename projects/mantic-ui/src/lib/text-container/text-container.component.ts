@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { ElementBase } from '../base/element-base';
 
 @Component({
@@ -8,8 +8,10 @@ import { ElementBase } from '../base/element-base';
 })
 export class TextContainerComponent extends ElementBase {
 
-  constructor() {
-    super();
+  constructor(
+    readonly elementRef: ElementRef<HTMLElement>
+  ) {
+    super(elementRef);
     this.classList
       .registerFixed('text')
       .registerFixed('container');

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { ElementBase } from '../base/element-base';
 
 @Component({
@@ -22,8 +22,10 @@ export class SegmentComponent extends ElementBase {
   @Input()
   public attached: 'top' | 'bottom';
 
-  public constructor() {
-    super();
+  public constructor(
+    readonly elementRef: ElementRef<HTMLElement>
+  ) {
+    super(elementRef);
     this.raised = SegmentComponent.defaults.raised;
     this.classList
       .registerBoolean('inverted')

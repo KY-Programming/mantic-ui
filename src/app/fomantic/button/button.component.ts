@@ -20,14 +20,14 @@ export class FomanticButtonComponent {
     }
   }
 
-  public buttonEmphasisPrimaryCode = `<m-button [primary]="true">
+  public buttonEmphasisPrimaryCode = `<m-button primary>
   Save
 </m-button>
 <m-button>
   Discard
 </m-button>`;
 
-  public buttonEmphasisSecondaryCode = `<m-button [secondary]="true">
+  public buttonEmphasisSecondaryCode = `<m-button secondary>
   Okay
 </m-button>
 <m-button>
@@ -65,7 +65,7 @@ export class FomanticButtonComponent {
     2,048
   </ng-template>
 </m-button>
-<m-button labelPosition="left" [iconOnly]="true">
+<m-button labelPosition="left" iconOnly>
   <m-icon icon="fork"></m-icon>
   <ng-template #label>
     1,048
@@ -78,7 +78,7 @@ export class FomanticButtonComponent {
     1,048
   </ng-template>
 </m-button>
-<m-button color="blue" pointing="left" [basic]="true">
+<m-button color="blue" pointing="left" basic>
   <m-icon icon="fork"></m-icon> Forks
   <ng-template #label>
     1,048

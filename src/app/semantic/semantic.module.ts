@@ -12,6 +12,7 @@ import { SemanticMenuComponent } from './menu/menu.component';
 import { SemanticSegmentComponent } from './segment/segment.component';
 import { SemanticStartComponent } from './start/start.component';
 import { SemanticTabComponent } from './tab/tab.component';
+import { SemanticTestComponent } from './test/test.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { SemanticTabComponent } from './tab/tab.component';
         SemanticTabComponent,
         SemanticMenuComponent,
         SemanticSegmentComponent,
-        SemanticContainerComponent
+        SemanticContainerComponent,
+        SemanticTestComponent
     ],
     imports: [
         FormsModule,

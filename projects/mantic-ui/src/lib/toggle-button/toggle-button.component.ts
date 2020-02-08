@@ -1,4 +1,4 @@
-import { Component, ContentChild, HostListener, TemplateRef } from '@angular/core';
+import { Component, ContentChild, ElementRef, HostListener, TemplateRef } from '@angular/core';
 import { ButtonBase } from '../base/button-base';
 
 @Component({
@@ -11,8 +11,10 @@ export class ToggleButtonComponent extends ButtonBase {
   @ContentChild('active', { static: true })
   public activeTemplate: TemplateRef<HTMLElement>;
 
-  public constructor() {
-    super();
+  public constructor(
+    readonly elementRef: ElementRef<HTMLElement>
+  ) {
+    super(elementRef);
     this.classList
       .registerFixed('toggle', Number.MAX_VALUE - 2);
   }

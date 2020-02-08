@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { ElementBase } from '../base/element-base';
 import { ColorName } from '../models/color';
 
@@ -21,8 +21,10 @@ export class LabelComponent extends ElementBase {
   @Input()
   public color: ColorName;
 
-  public constructor() {
-    super();
+  public constructor(
+    readonly elementRef: ElementRef<HTMLElement>
+  ) {
+    super(elementRef);
     this.classList
       .register('pointing')
       .registerBoolean('pointing')

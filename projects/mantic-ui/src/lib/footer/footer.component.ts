@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { SegmentComponent } from '../segment/segment.component';
 
 @Component({
@@ -8,8 +8,10 @@ import { SegmentComponent } from '../segment/segment.component';
 })
 export class FooterComponent extends SegmentComponent {
 
-  constructor() {
-    super();
+  constructor(
+    readonly elementRef: ElementRef<HTMLElement>
+  ) {
+    super(elementRef);
     this.classList
       .registerFixed('vertical')
       .registerFixed('footer', Number.MAX_VALUE - 2);

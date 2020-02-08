@@ -16,12 +16,13 @@
         <ng-container [ngTemplateOutlet]="labelTemplate"></ng-container>
     </ng-template>
     <ng-template #buttonTemplate>
-        <div class="ui" [class.basic]="basic" [class.icon]="iconOnly" [ngClass]="Color.toClass(color)" [class.button]="true">
+        <div class="ui" [class.basic]="basic" [class.icon]="iconOnly" [ngClass]="Color.toClass(color)"
+            [class.button]="true">
             <ng-container [ngTemplateOutlet]="content"></ng-container>
         </div>
     </ng-template>
     <ng-template #labelTemplate>
-        <m-label [basic]="true" [color]="color" [pointing]="pointing">
+        <m-label basic [color]="color" [pointing]="pointing">
             <ng-container [ngTemplateOutlet]="label"></ng-container>
         </m-label>
     </ng-template>

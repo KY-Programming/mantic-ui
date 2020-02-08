@@ -16,7 +16,7 @@ export class DropdownItemComponent extends ElementBase {
     private readonly dropdownComponent: DropdownComponent,
     public readonly elementRef: ElementRef<HTMLElement>
   ) {
-    super();
+    super(elementRef);
     this.classList
       .registerFixed('item', Number.MAX_VALUE);
   }

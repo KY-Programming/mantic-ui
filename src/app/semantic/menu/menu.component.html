@@ -9,14 +9,14 @@
 <h2 class="ui dividing header">Types</h2>
 <m-example header="Menu" description="A menu" type="html">
     <m-menu class="three item">
-        <m-menu-link [active]="true">Editorials</m-menu-link>
+        <m-menu-link active>Editorials</m-menu-link>
         <m-menu-link>Reviews</m-menu-link>
         <m-menu-link>Upcoming Events</m-menu-link>
     </m-menu>
 </m-example>
 
 <m-example>
-    <m-menu [text]="true">
+    <m-menu text>
         <m-menu-item>
             <img src="/assets/images/new-school.jpg">
         </m-menu-item>
@@ -119,8 +119,8 @@
 </m-example>
 
 <m-example header="Secondary Menu" description="A menu can point to show its relationship to nearby content">
-    <m-menu [secondary]="true">
-        <m-menu-link [active]="true">Home</m-menu-link>
+    <m-menu secondary>
+        <m-menu-link active>Home</m-menu-link>
         <m-menu-link>Messages</m-menu-link>
         <m-menu-link>Friends</m-menu-link>
         <m-menu position="right">
@@ -133,13 +133,13 @@
 </m-example>
 
 <m-example header="Pointing" description="A menu can point to show its relationship to nearby content">
-    <m-menu [pointing]="true">
-        <m-menu-link [active]="true">Home</m-menu-link>
+    <m-menu pointing>
+        <m-menu-link active>Home</m-menu-link>
         <m-menu-link>Messages</m-menu-link>
         <m-menu-link>Friends</m-menu-link>
         <m-menu position="right">
             <m-menu-item>
-                <m-input [transparent]="true" placeholder="Search..." icon="search link"></m-input>
+                <m-input transparent placeholder="Search..." icon="search link"></m-input>
             </m-menu-item>
         </m-menu>
     </m-menu>
@@ -149,8 +149,8 @@
 </m-example>
 
 <m-example>
-    <m-menu [pointing]="true" [secondary]="true">
-        <m-menu-link [active]="true">Home</m-menu-link>
+    <m-menu pointing secondary>
+        <m-menu-link active>Home</m-menu-link>
         <m-menu-link>Messages</m-menu-link>
         <m-menu-link>Friends</m-menu-link>
         <m-menu position="right">
@@ -164,9 +164,9 @@
 
 <m-example header="Text" description="A menu can be formatted for text content">
     <!-- TODO: Hover -->
-    <m-menu [text]="true">
+    <m-menu text>
         <m-menu-header>Sort By</m-menu-header>
-        <m-menu-item [active]="true">Closest</m-menu-item>
+        <m-menu-item active>Closest</m-menu-item>
         <m-menu-item>Most Comments</m-menu-item>
         <m-menu-item>Most Popular</m-menu-item>
     </m-menu>

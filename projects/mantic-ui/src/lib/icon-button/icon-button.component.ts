@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { ButtonBase } from '../base/button-base';
 
 @Component({
@@ -14,8 +14,10 @@ export class IconButtonComponent extends ButtonBase {
   @Input()
   public social: string;
 
-  public constructor() {
-    super();
+  public constructor(
+    readonly elementRef: ElementRef<HTMLElement>
+  ) {
+    super(elementRef);
     this.classList
       .registerFixed('icon')
       .register('social');

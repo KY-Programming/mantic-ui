@@ -1,4 +1,4 @@
-import { Input } from '@angular/core';
+import { ElementRef, Input } from '@angular/core';
 import { ColorName } from '../models/color';
 import { ElementBase } from './element-base';
 
@@ -37,8 +37,10 @@ export class ButtonBase extends ElementBase {
     @Input()
     public size: string;
 
-    public constructor() {
-        super();
+    public constructor(
+        readonly elementRef: ElementRef<HTMLElement>
+    ) {
+        super(elementRef);
         this.classList
             .register('size')
             .registerBoolean('inverted')

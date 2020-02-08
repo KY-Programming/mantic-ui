@@ -1,4 +1,4 @@
-import { Component, Input, Optional, SkipSelf } from '@angular/core';
+import { Component, ElementRef, Input, Optional, SkipSelf } from '@angular/core';
 import { ElementBase } from '../base/element-base';
 
 @Component({
@@ -31,9 +31,10 @@ export class MenuComponent extends ElementBase {
   public text = false;
 
   public constructor(
+    readonly elementRef: ElementRef<HTMLElement>,
     @Optional() @SkipSelf() parentMenu?: MenuComponent
   ) {
-    super();
+    super(elementRef);
     this.ui = !parentMenu;
     this.classList
       .register('position')

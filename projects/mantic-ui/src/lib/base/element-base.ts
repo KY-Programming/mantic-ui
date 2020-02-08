@@ -1,4 +1,4 @@
-import { HostBinding, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ElementRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ClassList } from '../models/class-list';
 
 export class ElementBase implements OnChanges, OnInit {
@@ -15,6 +15,25 @@ export class ElementBase implements OnChanges, OnInit {
     @Input()
     public class: string;
 
+    constructor(
+        private readonly element: ElementRef<HTMLElement>
+    ) {
+    }
+
+    private readPropertiesFromAttributes(): void {
+        for (let index = 0; index < this.element.nativeElement.attributes.length; index++) {
+            const attribute = this.element.nativeElement.attributes[index];
+            if (attribute.name.indexOf('_ng') === 0) {
+                continue;
+            }
+            if (!this.classList.contains(attribute.name)) {
+                console.warn(`attribute ${attribute.name} on ${this.element.nativeElement.tagName.toLowerCase()} not found`);
+                continue;
+            }
+            this[attribute.name] = true;
+        }
+    }
+
     public ngOnChanges(changes: SimpleChanges): void {
         const relevantChanges = Object.keys(changes).filter(key => this.classList.contains(key));
         relevantChanges.forEach(key => {
@@ -27,6 +46,7 @@ export class ElementBase implements OnChanges, OnInit {
     }
 
     public ngOnInit(): void {
+        this.readPropertiesFromAttributes();
         this.refreshClasses();
     }
 

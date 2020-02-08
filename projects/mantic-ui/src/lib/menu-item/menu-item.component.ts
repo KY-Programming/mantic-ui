@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { ElementBase } from '../base/element-base';
 
 @Component({
@@ -11,8 +11,10 @@ export class MenuItemComponent extends ElementBase {
   @Input()
   public active = false;
 
-  constructor() {
-    super();
+  constructor(
+    readonly elementRef: ElementRef<HTMLElement>
+  ) {
+    super(elementRef);
     this.classList
       .registerBoolean('active')
       .registerFixed('item', Number.MAX_VALUE - 1);

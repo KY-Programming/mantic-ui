@@ -35,7 +35,7 @@ export class DropdownComponent extends ElementBase {
   constructor(
     private readonly elementRef: ElementRef<HTMLElement>
   ) {
-    super();
+    super(elementRef);
     this.classList
       .registerBoolean('isFluid', 'fluid')
       .registerFixed('selection')

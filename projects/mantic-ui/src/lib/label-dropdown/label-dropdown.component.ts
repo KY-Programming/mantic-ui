@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { ElementBase } from '../base/element-base';
 
 // TODO: Enable animation
@@ -26,8 +26,10 @@ export class LabelDropdownComponent extends ElementBase {
 
   private readonly onOutsideClickHandler = () => this.close();
 
-  public constructor() {
-    super();
+  public constructor(
+    readonly elementRef: ElementRef<HTMLElement>
+  ) {
+    super(elementRef);
     this.classList
       .registerFixed('dropdown', Number.MAX_VALUE - 2)
       .registerFixed('label', Number.MAX_VALUE - 1);

@@ -10,15 +10,17 @@
 <m-example header="Button" description="A standard button" [code]="button1Code" type="html">
     <m-button (click)="button1Click()">{{button1Text}}</m-button>
 </m-example>
-<m-example header="Emphasis" description="A button can be formatted to show different levels of emphasis" [code]="buttonEmphasisPrimaryCode" type="html">
-    <m-button mPrimary>Save</m-button>
+<m-example header="Emphasis" description="A button can be formatted to show different levels of emphasis"
+    [code]="buttonEmphasisPrimaryCode" type="html">
+    <m-button primary>Save</m-button>
     <m-button>Discard</m-button>
 </m-example>
 <m-example [code]="buttonEmphasisSecondaryCode" type="html">
-    <m-button mSecondary>Okay</m-button>
+    <m-button secondary>Okay</m-button>
     <m-button>Cancel</m-button>
 </m-example>
-<m-example header="Animated" description="A button can animate to show hidden content" [code]="buttonAnimatedCode" type="html">
+<m-example header="Animated" description="A button can animate to show hidden content" [code]="buttonAnimatedCode"
+    type="html">
     <m-button>
         Next
         <ng-template #animated>
@@ -51,7 +53,7 @@
             2,048
         </ng-template>
     </m-button>
-    <m-button labelPosition="left" [iconOnly]="true">
+    <m-button labelPosition="left" iconOnly>
         <m-icon icon="fork"></m-icon>
         <ng-template #label>
             1,048
@@ -65,7 +67,7 @@
             1,048
         </ng-template>
     </m-button>
-    <m-button color="blue" pointing="left" mBasic>
+    <m-button color="blue" pointing="left" basic>
         <m-icon icon="fork"></m-icon> Forks
         <ng-template #label>
             1,048
@@ -85,73 +87,73 @@
     </m-button>
 </m-example>
 <m-example header="Basic" description="A basic button is less pronounced">
-    <m-button mBasic>
+    <m-button basic>
         <m-icon icon="user"></m-icon>
         Add Friend
     </m-button>
 </m-example>
 <m-example>
-    <m-button mPrimary mBasic>Primary</m-button>
-    <m-button mSecondary mBasic>Secondary</m-button>
-    <m-button mPositive mBasic>Positive</m-button>
-    <m-button mNegative mBasic>Negative</m-button>
-    <m-icon-button icon="cloud" mBasic></m-icon-button>
+    <m-button primary basic>Primary</m-button>
+    <m-button secondary basic>Secondary</m-button>
+    <m-button positive basic>Positive</m-button>
+    <m-button negative basic>Negative</m-button>
+    <m-icon-button icon="cloud" basic></m-icon-button>
 </m-example>
 <m-example>
-    <m-button color="red" mBasic>Red</m-button>
-    <m-button color="orange" mBasic>Orange</m-button>
-    <m-button color="yellow" mBasic>Yellow</m-button>
-    <m-button color="olive" mBasic>Olive</m-button>
-    <m-button color="green" mBasic>Green</m-button>
-    <m-button color="teal" mBasic>Teal</m-button>
-    <m-button color="blue" mBasic>Blue</m-button>
-    <m-button color="violet" mBasic>Violet</m-button>
-    <m-button color="purple" mBasic>Purple</m-button>
-    <m-button color="pink" mBasic>Pink</m-button>
-    <m-button color="brown" mBasic>Brown</m-button>
-    <m-button color="grey" mBasic>Grey</m-button>
-    <m-button color="black" mBasic>Black</m-button>
+    <m-button color="red" basic>Red</m-button>
+    <m-button color="orange" basic>Orange</m-button>
+    <m-button color="yellow" basic>Yellow</m-button>
+    <m-button color="olive" basic>Olive</m-button>
+    <m-button color="green" basic>Green</m-button>
+    <m-button color="teal" basic>Teal</m-button>
+    <m-button color="blue" basic>Blue</m-button>
+    <m-button color="violet" basic>Violet</m-button>
+    <m-button color="purple" basic>Purple</m-button>
+    <m-button color="pink" basic>Pink</m-button>
+    <m-button color="brown" basic>Brown</m-button>
+    <m-button color="grey" basic>Grey</m-button>
+    <m-button color="black" basic>Black</m-button>
 </m-example>
 <m-example header="Inverted" description="A button can be formatted to appear on dark backgrounds">
-    <m-segment mInvert>
-        <m-button mInvert>Standard</m-button>
-        <m-button mPrimary mInvert>Primary</m-button>
-        <m-button mSecondary mInvert>Secondary</m-button>
-        <m-button color="red" mInvert>Red</m-button>
-        <m-button color="orange" mInvert>Orange</m-button>
-        <m-button color="yellow" mInvert>Yellow</m-button>
-        <m-button color="olive" mInvert>Olive</m-button>
-        <m-button color="green" mInvert>Green</m-button>
-        <m-button color="teal" mInvert>Teal</m-button>
-        <m-button color="blue" mInvert>Blue</m-button>
-        <m-button color="violet" mInvert>Violet</m-button>
-        <m-button color="purple" mInvert>Purple</m-button>
-        <m-button color="pink" mInvert>Pink</m-button>
-        <m-button color="brown" mInvert>Brown</m-button>
-        <m-button color="grey" mInvert>Grey</m-button>
-        <m-button color="black" mInvert>Black</m-button>
-        <m-icon-button icon="cloud" mInvert></m-icon-button>
+    <m-segment invert>
+        <m-button invert>Standard</m-button>
+        <m-button primary invert>Primary</m-button>
+        <m-button secondary invert>Secondary</m-button>
+        <m-button color="red" invert>Red</m-button>
+        <m-button color="orange" invert>Orange</m-button>
+        <m-button color="yellow" invert>Yellow</m-button>
+        <m-button color="olive" invert>Olive</m-button>
+        <m-button color="green" invert>Green</m-button>
+        <m-button color="teal" invert>Teal</m-button>
+        <m-button color="blue" invert>Blue</m-button>
+        <m-button color="violet" invert>Violet</m-button>
+        <m-button color="purple" invert>Purple</m-button>
+        <m-button color="pink" invert>Pink</m-button>
+        <m-button color="brown" invert>Brown</m-button>
+        <m-button color="grey" invert>Grey</m-button>
+        <m-button color="black" invert>Black</m-button>
+        <m-icon-button icon="cloud" invert></m-icon-button>
     </m-segment>
 </m-example>
 <m-example>
-    <m-segment mInvert>
-        <m-button mInvert mBasic>Basic</m-button>
-        <m-button mPrimary mInvert mBasic>Primary</m-button>
-        <m-button mSecondary mInvert mBasic>Secondary</m-button>
-        <m-button color="red" mInvert mBasic>Red</m-button>
-        <m-button color="orange" mInvert mBasic>Orange</m-button>
-        <m-button color="yellow" mInvert mBasic>Yellow</m-button>
-        <m-button color="olive" mInvert mBasic>Olive</m-button>
-        <m-button color="green" mInvert mBasic>Green</m-button>
-        <m-button color="teal" mInvert mBasic>Teal</m-button>
-        <m-button color="blue" mInvert mBasic>Blue</m-button>
-        <m-button color="violet" mInvert mBasic>Violet</m-button>
-        <m-button color="purple" mInvert mBasic>Purple</m-button>
-        <m-button color="pink" mInvert mBasic>Pink</m-button>
-        <m-button color="brown" mInvert mBasic>Brown</m-button>
-        <m-button color="grey" mInvert mBasic>Grey</m-button>
-        <m-button color="black" mInvert mBasic>Black</m-button>
-        <m-icon-button icon="cloud" mInvert mBasic></m-icon-button>
+    <m-segment invert>
+        <m-button invert basic>Basic</m-button>
+        <m-button primary invert basic>Primary</m-button>
+        <m-button secondary invert basic>Secondary</m-button>
+        <m-button color="red" invert basic>Red</m-button>
+        <m-button color="orange" invert basic>Orange</m-button>
+        <m-button color="yellow" invert basic>Yellow</m-button>
+        <m-button color="olive" invert basic>Olive</m-button>
+        <m-button color="green" invert basic>Green</m-button>
+        <m-button color="teal" invert basic>Teal</m-button>
+        <m-button color="blue" invert basic>Blue</m-button>
+        <m-button color="violet" invert basic>Violet</m-button>
+        <m-button color="purple" invert basic>Purple</m-button>
+        <m-button color="pink" invert basic>Pink</m-button>
+        <m-button color="brown" invert basic>Brown</m-button>
+        <m-button color="grey" invert basic>Grey</m-button>
+        <m-button color="black" invert basic>Black</m-button>
+        <m-icon-button icon="cloud" invert basic></m-icon-button>
     </m-segment>
 </m-example>
 
@@ -182,38 +184,38 @@
     <m-button-group>
         <m-button>Cancel</m-button>
         <m-or></m-or>
-        <m-button mPositive>Save</m-button>
+        <m-button positive>Save</m-button>
     </m-button-group>
 </m-example>
 <m-example>
     <m-button-group>
         <m-button>un</m-button>
         <m-or data-text="ou"></m-or>
-        <m-button mPositive>deux</m-button>
+        <m-button positive>deux</m-button>
     </m-button-group>
 </m-example>
 
 <h2 class="ui dividing header">States</h2>
 <m-example header="Active" description="A button can show it is currently the active user selection">
-    <m-button mActive>
+    <m-button active>
         <m-icon icon="user"></m-icon>
         Follow
     </m-button>
 </m-example>
 <m-example header="Disabled" description="A button can show it is currently unable to be interacted with">
-    <m-button mDisabled>
+    <m-button disabled>
         <m-icon icon="user"></m-icon>
         Followed
     </m-button>
 </m-example>
 <m-example header="Loading" description="A button can show a loading indicator">
-    <m-button mLoading>Loading</m-button>
-    <m-button mBasic mLoading>Loading</m-button>
-    <m-button mPrimary mLoading>Loading</m-button>
-    <m-button mSecondary mLoading>Loading</m-button>
-    <m-button mPositive mLoading>Loading</m-button>
-    <m-button mNegative mLoading>Loading</m-button>
-    <m-button color="purple" mLoading>Loading</m-button>
+    <m-button loading>Loading</m-button>
+    <m-button basic loading>Loading</m-button>
+    <m-button primary loading>Loading</m-button>
+    <m-button secondary loading>Loading</m-button>
+    <m-button positive loading>Loading</m-button>
+    <m-button negative loading>Loading</m-button>
+    <m-button color="purple" loading>Loading</m-button>
 </m-example>
 
 <h2 class="ui dividing header">Variations</h2>
@@ -267,10 +269,10 @@
     </m-toggle-button>
 </m-example>
 <m-example header="Positive" description="A button can hint towards a positive consequence">
-    <m-button mPositive>Positive Button</m-button>
+    <m-button positive>Positive Button</m-button>
 </m-example>
 <m-example header="Negative" description="A button can hint towards a negative consequence">
-    <m-button mNegative>Negative Button</m-button>
+    <m-button negative>Negative Button</m-button>
 </m-example>
 <m-example header="Fluid" description="A button can take the width of its container">
     <m-button class="fluid">Fits container</m-button>
@@ -290,7 +292,12 @@
 <m-example header="Vertically Attached" description="A button can be attached to the top or bottom of other content">
     <m-button class="top attached">Top</m-button>
     <m-segment class="attached">
-        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+            dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+            clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+            consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+            sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no
+            sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
     </m-segment>
     <m-button class="bottom attached">Bottom</m-button>
 </m-example>
@@ -300,7 +307,12 @@
         <m-button>Two</m-button>
     </m-button-group>
     <m-segment class="attached">
-        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+            dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+            clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+            consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+            sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no
+            sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
     </m-segment>
     <m-button-group class="two bottom attached">
         <m-button>One</m-button>
@@ -381,9 +393,9 @@
 </m-example>
 <m-example>
     <m-button-group>
-        <m-button color="red" mBasic>One</m-button>
-        <m-button color="blue" mBasic>Two</m-button>
-        <m-button color="green" mBasic>Three</m-button>
+        <m-button color="red" basic>One</m-button>
+        <m-button color="blue" basic>Two</m-button>
+        <m-button color="green" basic>Three</m-button>
     </m-button-group>
 </m-example>
 <m-example header="Group Sizes" description="Groups can have a shared size">

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { ElementBase } from '../base/element-base';
 
 @Component({
@@ -11,8 +11,10 @@ export class LogoComponent extends ElementBase {
   @Input()
   public src: string;
 
-  public constructor() {
-    super();
+  public constructor(
+    readonly elementRef: ElementRef<HTMLElement>
+  ) {
+    super(elementRef);
     this.classList
       .registerFixed('item', Number.MAX_VALUE - 1);
   }

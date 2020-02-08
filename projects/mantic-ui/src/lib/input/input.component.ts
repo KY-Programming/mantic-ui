@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
 import { LabeledBase } from '../base/labeled-base';
 
 @Component({
@@ -53,8 +53,10 @@ export class InputComponent extends LabeledBase {
     this.valueChange.emit(this.value);
   }
 
-  public constructor() {
-    super();
+  public constructor(
+    readonly elementRef: ElementRef<HTMLElement>
+  ) {
+    super(elementRef);
     this.classList
       .registerAction('icon', (entry, value) => entry.classes = value ? this.iconPosition || '' : '')
       .registerBoolean('icon')

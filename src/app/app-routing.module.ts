@@ -15,6 +15,7 @@ import { SemanticMenuComponent } from './semantic/menu/menu.component';
 import { SemanticSegmentComponent } from './semantic/segment/segment.component';
 import { SemanticStartComponent } from './semantic/start/start.component';
 import { SemanticTabComponent } from './semantic/tab/tab.component';
+import { SemanticTestComponent } from './semantic/test/test.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'semantic', pathMatch: 'full' },
@@ -28,7 +29,8 @@ const routes: Routes = [
       { path: 'tab', component: SemanticTabComponent },
       { path: 'menu', component: SemanticMenuComponent },
       { path: 'segment', component: SemanticSegmentComponent },
-      { path: 'container', component: SemanticContainerComponent }
+      { path: 'container', component: SemanticContainerComponent },
+      { path: 'test', component: SemanticTestComponent }
     ]
   },
   {

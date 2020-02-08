@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChildren, HostBinding, Input, QueryList } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, ElementRef, HostBinding, Input, QueryList } from '@angular/core';
 import { MenuComponent } from '../menu/menu.component';
 import { TabComponent } from '../tab/tab.component';
 
@@ -18,8 +18,10 @@ export class TabGroupComponent extends MenuComponent implements AfterViewInit {
   @Input()
   public position: 'top' | 'bottom' = 'top';
 
-  constructor() {
-    super();
+  constructor(
+    readonly elementRef: ElementRef<HTMLElement>
+  ) {
+    super(elementRef);
   }
 
   public ngAfterViewInit(): void {
