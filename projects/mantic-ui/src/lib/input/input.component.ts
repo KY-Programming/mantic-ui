@@ -26,6 +26,9 @@ export class InputComponent extends LabeledBase {
   @Input()
   public hasError: boolean;
 
+  @Input()
+  public transparent: boolean;
+
   /* HTMLInputElement Properties */
   // TODO: Add missing properties
   // TODO: Give the possibility to inject an input-tag via ng-content
@@ -58,6 +61,7 @@ export class InputComponent extends LabeledBase {
       .registerBoolean('focused', 'focus')
       .registerBoolean('loading')
       .registerBoolean('disabled')
+      .registerBoolean('transparent')
       .registerBoolean('hasError', 'error')
       .registerFixed('input', Number.MAX_VALUE - 1);
   }

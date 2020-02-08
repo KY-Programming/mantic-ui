@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChildren, HostBinding, QueryList } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, HostBinding, Input, QueryList } from '@angular/core';
 import { MenuComponent } from '../menu/menu.component';
 import { TabComponent } from '../tab/tab.component';
 
@@ -13,14 +13,17 @@ export class TabGroupComponent extends MenuComponent implements AfterViewInit {
   public tabs: QueryList<TabComponent>;
 
   @HostBinding('class')
-  public readonly empty;
+  public readonly empty = '';
+
+  @Input()
+  public position: 'top' | 'bottom' = 'top';
 
   constructor() {
     super();
   }
 
   public ngAfterViewInit(): void {
-    if (this.tabs && this.tabs.length > 0) {
+    if (this.tabs && this.tabs.length > 0 && this.tabs.toArray().every(tab => !tab.active)) {
       setTimeout(() => this.tabs.first.active = true);
     }
   }

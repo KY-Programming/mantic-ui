@@ -27,7 +27,9 @@ import { LabelDropdownComponent } from './label-dropdown/label-dropdown.componen
 import { LabelComponent } from './label/label.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LogoComponent } from './logo/logo.component';
+import { MenuHeaderComponent } from './menu-header/menu-header.component';
 import { MenuItemComponent } from './menu-item/menu-item.component';
+import { MenuLinkComponent } from './menu-link/menu-link.component';
 import { MenuComponent } from './menu/menu.component';
 import { OrComponent } from './or/or.component';
 import { SegmentDefaultsComponent } from './segment/segment-defaults.component';
@@ -75,7 +77,9 @@ import { WarningComponent } from './warning/warning.component';
     TabComponent,
     WarningComponent,
     DropdownComponent,
-    DropdownItemComponent
+    DropdownItemComponent,
+    MenuLinkComponent,
+    MenuHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -117,7 +121,9 @@ import { WarningComponent } from './warning/warning.component';
     TabComponent,
     WarningComponent,
     DropdownComponent,
-    DropdownItemComponent
+    DropdownItemComponent,
+    MenuLinkComponent,
+    MenuHeaderComponent
   ]
 })
 export class ManticUiModule { }

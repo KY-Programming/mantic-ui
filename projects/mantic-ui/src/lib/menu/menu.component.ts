@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Optional, SkipSelf } from '@angular/core';
 import { ElementBase } from '../base/element-base';
 
 @Component({
@@ -9,10 +9,10 @@ import { ElementBase } from '../base/element-base';
 export class MenuComponent extends ElementBase {
 
   @Input()
-  public position: 'top' | 'left' | 'bottom' | 'right' = 'top';
+  public position: 'top' | 'left' | 'bottom' | 'right' | undefined;
 
   @Input()
-  public fixed = true;
+  public fixed = false;
 
   @Input()
   public secondary = false;
@@ -20,13 +20,29 @@ export class MenuComponent extends ElementBase {
   @Input()
   public pointing = false;
 
-  public constructor() {
+  @Input()
+  // public attached = false;
+  public attached: 'top' | 'bottom';
+
+  @Input()
+  public tabular = false;
+
+  @Input()
+  public text = false;
+
+  public constructor(
+    @Optional() @SkipSelf() parentMenu?: MenuComponent
+  ) {
     super();
+    this.ui = !parentMenu;
     this.classList
       .register('position')
       .registerBoolean('fixed')
       .registerBoolean('pointing')
       .registerBoolean('secondary')
+      .registerAction('attached', (entry, value) => entry.classes = value ? value + ' attached' : '')
+      .registerBoolean('tabular')
+      .registerBoolean('text')
       .registerFixed('menu', Number.MAX_VALUE - 1);
   }
 }

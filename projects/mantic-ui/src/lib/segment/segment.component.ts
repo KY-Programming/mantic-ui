@@ -16,12 +16,20 @@ export class SegmentComponent extends ElementBase {
   @Input()
   public raised: boolean;
 
+  @Input()
+  public placeholder: boolean;
+
+  @Input()
+  public attached: 'top' | 'bottom';
+
   public constructor() {
     super();
     this.raised = SegmentComponent.defaults.raised;
     this.classList
       .registerBoolean('inverted')
       .registerBoolean('raised')
+      .registerBoolean('placeholder')
+      .registerAction('attached', (entry, value) => entry.classes = value ? value + ' attached' : '')
       .registerFixed('segment', Number.MAX_VALUE - 1);
   }
 }

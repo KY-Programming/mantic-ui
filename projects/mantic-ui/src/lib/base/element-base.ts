@@ -1,12 +1,19 @@
-import { HostBinding, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { HostBinding, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ClassList } from '../models/class-list';
 
 export class ElementBase implements OnChanges, OnInit {
 
-    protected readonly classList = new ClassList().registerFixed('ui').register('class', Number.MAX_VALUE);
+    protected readonly classList = new ClassList()
+        .registerBoolean('ui')
+        .register('class', Number.MAX_VALUE);
 
     @HostBinding('class')
     public classes: string;
+
+    public ui = true;
+
+    @Input()
+    public class: string;
 
     public ngOnChanges(changes: SimpleChanges): void {
         const relevantChanges = Object.keys(changes).filter(key => this.classList.contains(key));

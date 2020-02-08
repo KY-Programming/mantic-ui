@@ -14,8 +14,7 @@ export class TabComponent extends MenuItemComponent {
   @Input()
   public label: string;
 
-  constructor() {
-    super();
-  }
+  @Input()
+  public icon: string;
 
 }
