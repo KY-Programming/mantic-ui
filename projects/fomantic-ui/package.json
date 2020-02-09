@@ -1,16 +1,14 @@
 {
   "name": "@mantic-ui/fomantic-ui-angular",
   "version": "0.1.0-rc.0",
-  "description": "fomantic-ui theme for manti-ui",
+  "description": "Fomantic UI Angular theme for mantic UI",
   "publishConfig": {
     "registry": "http://ky-docker:4873"
   },
   "author": "KY-Programming",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
-    "postbuild": "npm run copy-styles",
-    "copy-styles": "",
-    "copy-styles2": "mkdir ..\\..\\dist\\fomantic-ui-angular\\styles & xcopy /Y src\\lib\\styles ..\\..\\dist\\fomantic-ui-angular\\styles /S"
+    "postbuild": ""
   },
   "peerDependencies": {
     "@angular/common": "8-9",

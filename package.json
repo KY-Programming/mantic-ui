@@ -10,6 +10,7 @@
     "e2e": "ng e2e",
     "mantic:build": "ng build mantic-ui && cd projects\\mantic-ui && npm run postbuild && cd ..\\..",
     "mantic:publish": "cd dist\\mantic-ui && npm publish && cd ..\\..",
+    "mantic:publish-public": "cd dist\\mantic-ui && npm publish --access public && cd ..\\..",
     "fomantic:build": "ng build fomantic-ui && cd projects\\fomantic-ui && npm run postbuild && cd ..\\..",
     "fomantic:publish": "cd dist\\fomantic-ui-angular && npm publish && cd ..\\..",
     "semantic:build": "ng build semantic-ui && cd projects\\semantic-ui && npm run postbuild && cd ..\\..",
