@@ -11,6 +11,7 @@ not yet released
 Installation for already installed Semanatic UI or Fomantic UI 
 
 [Semantic - Getting Started](https://semantic-ui.com/introduction/getting-started.html)
+
 [Fomantic - Getting Started](https://fomantic-ui.com/introduction/getting-started.html)
 
 Install mantic UI package for Angular
