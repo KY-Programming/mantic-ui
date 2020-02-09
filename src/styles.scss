@@ -5,9 +5,12 @@
 @import "~../projects/semantic-ui/assets/components/header.css";
 // TODO-END
 
-
+html,
+body {
+  font-size: initial;
+}
 
 
 m-segment pre {
-    margin: 0;
+  margin: 0;
 }

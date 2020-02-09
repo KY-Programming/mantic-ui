@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FomanticModule } from './fomantic/fomantic.module';
+import { IntroModule } from './intro/intro.module';
 import { SemanticModule } from './semantic/semantic.module';
 
 @NgModule({
@@ -14,6 +15,7 @@ import { SemanticModule } from './semantic/semantic.module';
     BrowserModule,
     RouterModule,
     AppRoutingModule,
+    IntroModule,
     SemanticModule,
     FomanticModule
   ],

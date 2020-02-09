@@ -5,6 +5,7 @@ import { FomanticDividerComponent } from './fomantic/divider/divider.component';
 import { FomanticInputComponent } from './fomantic/input/input.component';
 import { FomanticLayoutComponent } from './fomantic/layout/layout.component';
 import { FomanticStartComponent } from './fomantic/start/start.component';
+import { IntroComponent } from './intro/intro.component';
 import { SemanticButtonComponent } from './semantic/button/button.component';
 import { SemanticContainerComponent } from './semantic/container/container.component';
 import { SemanticDividerComponent } from './semantic/divider/divider.component';
@@ -18,7 +19,7 @@ import { SemanticTabComponent } from './semantic/tab/tab.component';
 import { SemanticTestComponent } from './semantic/test/test.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'semantic', pathMatch: 'full' },
+  { path: '', component: IntroComponent },
   {
     path: 'semantic', component: SemanticLayoutComponent, children: [
       { path: '', component: SemanticStartComponent },
