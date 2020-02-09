@@ -12,6 +12,7 @@
 
   display: flex;
   flex: 0 0 auto;
+  margin: 0;
 }
 
 .ui.logo {
@@ -27,8 +28,4 @@
   padding: 2rem;
   overflow-x: hidden;
   overflow-y: auto;
-}
-
-.switch {
-  cursor: pointer;
 }

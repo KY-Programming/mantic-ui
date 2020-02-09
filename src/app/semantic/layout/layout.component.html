@@ -1,11 +1,17 @@
 <!-- <m-menu position="left"> -->
 <div class="ui vertical inverted menu">
-    <div class="item switch" (click)="toFomantic()" title="Switch to Fomantic UI Angular">
+    <a class="item" [routerLink]="['']">
+        <span class="ui logo icon image">
+            <img src="/assets/mantic.png">
+        </span>
+        <span><b>mantic UI</b></span>
+    </a>
+    <a class="item active">
         <span class="ui logo icon image">
             <img src="/assets/semantic.png">
         </span>
         <span><b>Semantic UI Angular</b></span>
-    </div>
+    </a>
     <a class="item" [routerLink]="['/semantic']">
         <b>Getting Started</b>
     </a>
@@ -46,6 +52,12 @@
             </a>
         </div>
     </div>
+    <a class="item" (click)="toFomantic()" title="Switch to Fomantic UI Angular">
+        <span class="ui logo icon image">
+            <img src="/assets/fomantic.png">
+        </span>
+        <span><b>Fomantic UI Angular</b></span>
+    </a>
 </div>
 <!-- </m-menu> -->
 <div class="content">

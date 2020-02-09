@@ -15,7 +15,7 @@ export class FomanticLayoutComponent {
     document.title = 'Fomantic UI Angular';
   }
 
-  public switch(): void {
+  public toSemantic(): void {
     const url = this.router.url.replace('fomantic', 'semantic');
     window.location.href = url;
   }

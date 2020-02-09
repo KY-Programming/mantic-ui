@@ -1,30 +1,42 @@
-<m-menu>
-    <div class="ui vertical inverted menu">
-        <div class="item switch" (click)="switch()" title="Switch to Semantic UI Angular">
-            <span class="ui logo icon image">
-                <img src="/assets/fomantic.png">
-            </span>
-            <span><b>Fomantic UI Angular</b></span>
-        </div>
-        <a class="item" [routerLink]="['/semantic']">
-            <b>Getting Started</b>
-        </a>
-        <div class="item">
-            <div class="header">Elements</div>
-            <div class="menu">
-                <a class="item" [routerLink]="['button']" routerLinkActive="active">
-                    Button
-                </a>
-                <a class="item" [routerLink]="['divider']" routerLinkActive="active">
-                    Divider
-                </a>
-                <a class="item" [routerLink]="['input']" routerLinkActive="active">
-                    Input
-                </a>
-            </div>
+<!-- <m-menu> -->
+<div class="ui vertical inverted menu">
+    <a class="item" [routerLink]="['']">
+        <span class="ui logo icon image">
+            <img src="/assets/mantic.png">
+        </span>
+        <span><b>mantic UI</b></span>
+    </a>
+    <a class="item" (click)="toSemantic()" title="Switch to Semantic UI Angular">
+        <span class="ui logo icon image">
+            <img src="/assets/semantic.png">
+        </span>
+        <span><b>Semantic UI Angular</b></span>
+    </a>
+    <a class="item active">
+        <span class="ui logo icon image">
+            <img src="/assets/fomantic.png">
+        </span>
+        <span><b>Fomantic UI Angular</b></span>
+    </a>
+    <a class="item" [routerLink]="['/semantic']">
+        <b>Getting Started</b>
+    </a>
+    <div class="item">
+        <div class="header">Elements</div>
+        <div class="menu">
+            <a class="item" [routerLink]="['button']" routerLinkActive="active">
+                Button
+            </a>
+            <a class="item" [routerLink]="['divider']" routerLinkActive="active">
+                Divider
+            </a>
+            <a class="item" [routerLink]="['input']" routerLinkActive="active">
+                Input
+            </a>
         </div>
     </div>
-</m-menu>
+</div>
+<!-- </m-menu> -->
 <div class="content">
     <router-outlet></router-outlet>
 </div>
