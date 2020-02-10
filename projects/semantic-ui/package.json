@@ -12,8 +12,8 @@
     "copy-assets": "mkdir ..\\..\\dist\\semantic-ui-angular\\assets & xcopy /Y src\\assets ..\\..\\dist\\semantic-ui-angular\\assets /S"
   },
   "peerDependencies": {
-    "@angular/common": "^8.0.0 || ^9.0.0",
-    "@angular/core": "^8.0.0 || ^9.0.0",
+    "@angular/common": "8 - 9",
+    "@angular/core": "8 - 9",
     "@mantic-ui/angular": "^0.0.0  | ^0.1.0-rc.0"
   }
 }
