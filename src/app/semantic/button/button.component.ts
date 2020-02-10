@@ -20,6 +20,14 @@ export class SemanticButtonComponent {
     }
   }
 
+  public button2Code = `<button (click)="..." m-button>
+  Follow
+</button>`;
+
+  public linkButtonCode = `<a [routerLink]="['#test']" m-button>
+  Go to
+</a>`;
+
   public buttonEmphasisPrimaryCode = `<m-button primary>
   Save
 </m-button>

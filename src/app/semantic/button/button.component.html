@@ -7,11 +7,16 @@
 <m-divider></m-divider>
 
 <h2 class="ui dividing header">Types</h2>
-<m-example header="Button" description="A standard button" [code]="button1Code" type="html">
+<m-example header="Button" description="A button" [code]="button1Code" type="html">
     <m-button (click)="button1Click()">{{button1Text}}</m-button>
 </m-example>
-<m-example header="Emphasis" description="A button can be formatted to show different levels of emphasis"
-    [code]="buttonEmphasisPrimaryCode" type="html">
+<m-example description="Use a standard button" [code]="button2Code" type="html">
+    <button m-button>Follow</button>
+</m-example>
+<m-example description="Use a standard button" [code]="linkButtonCode" type="html">
+    <a [routerLink]="['#test']" m-button>Go to</a>
+</m-example>
+<m-example header="Emphasis" description="A button can be formatted to show different levels of emphasis" [code]="buttonEmphasisPrimaryCode" type="html">
     <m-button primary>Save</m-button>
     <m-button>Discard</m-button>
 </m-example>
@@ -19,8 +24,7 @@
     <m-button secondary>Okay</m-button>
     <m-button>Cancel</m-button>
 </m-example>
-<m-example header="Animated" description="A button can animate to show hidden content" [code]="buttonAnimatedCode"
-    type="html">
+<m-example header="Animated" description="A button can animate to show hidden content" [code]="buttonAnimatedCode" type="html">
     <m-button>
         Next
         <ng-template #animated>
@@ -115,45 +119,45 @@
     <m-button color="black" basic>Black</m-button>
 </m-example>
 <m-example header="Inverted" description="A button can be formatted to appear on dark backgrounds">
-    <m-segment invert>
-        <m-button invert>Standard</m-button>
-        <m-button primary invert>Primary</m-button>
-        <m-button secondary invert>Secondary</m-button>
-        <m-button color="red" invert>Red</m-button>
-        <m-button color="orange" invert>Orange</m-button>
-        <m-button color="yellow" invert>Yellow</m-button>
-        <m-button color="olive" invert>Olive</m-button>
-        <m-button color="green" invert>Green</m-button>
-        <m-button color="teal" invert>Teal</m-button>
-        <m-button color="blue" invert>Blue</m-button>
-        <m-button color="violet" invert>Violet</m-button>
-        <m-button color="purple" invert>Purple</m-button>
-        <m-button color="pink" invert>Pink</m-button>
-        <m-button color="brown" invert>Brown</m-button>
-        <m-button color="grey" invert>Grey</m-button>
-        <m-button color="black" invert>Black</m-button>
-        <m-icon-button icon="cloud" invert></m-icon-button>
+    <m-segment inverted>
+        <m-button inverted>Standard</m-button>
+        <m-button primary inverted>Primary</m-button>
+        <m-button secondary inverted>Secondary</m-button>
+        <m-button color="red" inverted>Red</m-button>
+        <m-button color="orange" inverted>Orange</m-button>
+        <m-button color="yellow" inverted>Yellow</m-button>
+        <m-button color="olive" inverted>Olive</m-button>
+        <m-button color="green" inverted>Green</m-button>
+        <m-button color="teal" inverted>Teal</m-button>
+        <m-button color="blue" inverted>Blue</m-button>
+        <m-button color="violet" inverted>Violet</m-button>
+        <m-button color="purple" inverted>Purple</m-button>
+        <m-button color="pink" inverted>Pink</m-button>
+        <m-button color="brown" inverted>Brown</m-button>
+        <m-button color="grey" inverted>Grey</m-button>
+        <m-button color="black" inverted>Black</m-button>
+        <m-icon-button icon="cloud" inverted></m-icon-button>
     </m-segment>
 </m-example>
 <m-example>
-    <m-segment invert>
-        <m-button invert basic>Basic</m-button>
-        <m-button primary invert basic>Primary</m-button>
-        <m-button secondary invert basic>Secondary</m-button>
-        <m-button color="red" invert basic>Red</m-button>
-        <m-button color="orange" invert basic>Orange</m-button>
-        <m-button color="yellow" invert basic>Yellow</m-button>
-        <m-button color="olive" invert basic>Olive</m-button>
-        <m-button color="green" invert basic>Green</m-button>
-        <m-button color="teal" invert basic>Teal</m-button>
-        <m-button color="blue" invert basic>Blue</m-button>
-        <m-button color="violet" invert basic>Violet</m-button>
-        <m-button color="purple" invert basic>Purple</m-button>
-        <m-button color="pink" invert basic>Pink</m-button>
-        <m-button color="brown" invert basic>Brown</m-button>
-        <m-button color="grey" invert basic>Grey</m-button>
-        <m-button color="black" invert basic>Black</m-button>
-        <m-icon-button icon="cloud" invert basic></m-icon-button>
+    <m-segment inverted>
+        <m-button inverted basic>Basic</m-button>
+        <m-button primary inverted basic>Primary</m-button>
+        <m-button secondary inverted basic>Secondary</m-button>
+        <m-button color="red" inverted basic>Red</m-button>
+        <m-button color="orange" inverted basic>Orange</m-button>
+        <m-button color="yellow" inverted basic>Yellow</m-button>
+        <m-button color="olive" inverted basic>Olive</m-button>
+        <m-button color="green" inverted basic>Green</m-button>
+        <m-button color="teal" inverted basic>Teal</m-button>
+        <m-button color="blue" inverted basic>Blue</m-button>
+        <m-button color="violet" inverted basic>Violet</m-button>
+        <m-button color="purple" inverted basic>Purple</m-button>
+        <m-button color="pink" inverted basic>Pink</m-button>
+        <m-button color="brown" inverted basic>Brown</m-button>
+        <m-button color="grey" inverted basic>Grey</m-button>
+        <m-button color="black" inverted basic>Black</m-button>
+        <m-icon-button icon="cloud" inverted basic></m-icon-button>
     </m-segment>
 </m-example>
 

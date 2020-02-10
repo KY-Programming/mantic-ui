@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { ButtonGroupComponent } from './button-group/button-group.component';
 import { ButtonComponent } from './button/button.component';
+import { ButtonDirective } from './directives/button.directive';
 import { DividerComponent } from './divider/divider.component';
 import { DropdownItemComponent } from './dropdown-item/dropdown-item.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
@@ -57,7 +58,8 @@ import { WarningComponent } from './warning/warning.component';
     DropdownComponent,
     DropdownItemComponent,
     MenuLinkComponent,
-    MenuHeaderComponent
+    MenuHeaderComponent,
+    ButtonDirective
   ],
   imports: [
     CommonModule,
@@ -90,7 +92,8 @@ import { WarningComponent } from './warning/warning.component';
     DropdownComponent,
     DropdownItemComponent,
     MenuLinkComponent,
-    MenuHeaderComponent
+    MenuHeaderComponent,
+    ButtonDirective
   ]
 })
 export class ManticUiModule { }
