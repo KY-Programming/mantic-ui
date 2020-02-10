@@ -7,8 +7,14 @@ export class ClassList {
         return this.registerInternal(key, sort, defaultClasses, true, (entry, value) => entry.classes = value === undefined ? undefined : value.toString());
     }
 
-    public registerBoolean(key: string, classes?: string, sort?: number, isActive = false): ClassList {
-        return this.registerInternal(key, sort, classes === undefined ? key : classes, isActive, (entry, value) => entry.isActive = !!value);
+    public registerBoolean(key: string | string[], classes?: string, sort?: number, isActive = false): ClassList {
+        if (Array.isArray(key)) {
+            key.forEach(k => this.registerBoolean(k, classes, sort, isActive));
+        }
+        else {
+            this.registerInternal(key, sort, classes === undefined ? key : classes, isActive, (entry, value) => entry.isActive = !!value);
+        }
+        return this;
     }
 
     public registerFixed(classes: string, sort?: number): ClassList {
@@ -38,6 +44,10 @@ export class ClassList {
 
     public contains(key: string): boolean {
         return this.entries.some(entry => entry.key === key);
+    }
+
+    public find(key: string): ClassListEntry {
+        return this.entries.find(entry => entry.key.toLowerCase() === key.toLowerCase());
     }
 
     public refresh(data: unknown): ClassList {

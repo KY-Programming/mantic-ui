@@ -37,10 +37,10 @@ export class DropdownComponent extends ElementBase {
   ) {
     super(elementRef);
     this.classList
-      .registerBoolean('isFluid', 'fluid')
+      .registerBoolean(['isFluid', 'fluid'], 'fluid')
       .registerFixed('selection')
-      .registerBoolean('isActive', 'active')
-      .registerBoolean('isVisible', 'visible')
+      .registerBoolean(['isActive', 'active'], 'active')
+      .registerBoolean(['isVisible', 'visible'], 'visible')
       .registerFixed('dropdown', Number.MAX_VALUE);
   }
 
