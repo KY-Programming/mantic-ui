@@ -47,3 +47,11 @@
         </m-dropdown-item>
     </m-dropdown>
 </m-example>
+
+<m-example header="Search Selection" description="A selection dropdown can allow a user to search through a large list of choices">
+    <m-dropdown placeholder="Select Country" fluid search>
+        <m-dropdown-item *ngFor="let country of countries" [value]="country.value">
+            <i class="{{country.value}} flag"></i> {{country.text}}
+        </m-dropdown-item>
+    </m-dropdown>
+</m-example>
