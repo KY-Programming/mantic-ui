@@ -11,11 +11,12 @@
 
 </m-example>
 
-<m-example header="Selection" description="A dropdown can be used to select between choices in a form" type="html">
-    <m-dropdown placeholder="Gender">
+<m-example header="Selection" description="A dropdown can be used to select between choices in a form" type="html" [code]="code1">
+    <m-dropdown placeholder="Gender" [(value)]="value1">
         <m-dropdown-item [value]="1">Male</m-dropdown-item>
         <m-dropdown-item [value]="0">Female</m-dropdown-item>
     </m-dropdown>
+    <span *ngIf="value1 !== undefined" class="result">Result: {{value1}}</span>
 </m-example>
 
 <m-example>

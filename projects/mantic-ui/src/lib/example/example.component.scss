@@ -1,73 +1,78 @@
 $border-color: #d4d4d5;
 
 :host {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    padding: 2em 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 2em 0;
+}
+
+.description {
+  position: relative;
 }
 
 h4 {
-    margin: 0;
+  margin: 0;
 }
 
 p {
-    margin-bottom: 2em;
+  margin-bottom: 2em;
 }
 
 .show-code {
-    position: absolute;
-    right: 0;
-    top: 0;
-    background-color: transparent;
-    border: none;
-    color: #000000;
-    font-size: 1.5em;
-    font-weight: bold;
+  position: absolute;
+  right: 0;
+  top: calc(100% - 0.5em);
+  background-color: transparent;
+  border: none;
+  color: #000000;
+  font-size: 1.5em;
+  font-weight: bold;
+  transform: translateY(-100%);
 }
 
 .example-box {
-    display: flex;
-    border: 1px solid $border-color;
-    border-radius: 4px;
-    background-color: #ffffff;
-    flex-direction: column;
+  display: flex;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  background-color: #ffffff;
+  flex-direction: column;
 
-    &.hide-code {
-        border: none;
+  &.hide-code {
+    border: none;
 
-        .header,
-        code {
-            display: none;
-        }
-
-        .live {
-            border: none;
-            padding: 0;
-        }
+    .header,
+    code {
+      display: none;
     }
+
+    .live {
+      border: none;
+      padding: 0;
+    }
+  }
 }
 
 .header {
-    background-color: #F8F8F8;
-    padding: .75em 1em;
-    flex: 0 0 auto;
-    font-size: 0.75em;
-    font-weight: bold;
-    border-bottom: 1px solid $border-color;
-    color: rgba(0, 0, 0, .6);
+  background-color: #F8F8F8;
+  padding: .75em 1em;
+  flex: 0 0 auto;
+  font-size: 0.75em;
+  font-weight: bold;
+  border-bottom: 1px solid $border-color;
+  color: rgba(0, 0, 0, .6);
 }
 
 .live,
 code {
-    flex: 1;
-    padding: 1em;
+  flex: 1;
+  padding: 1em;
 }
 
 .live {
-    border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
 }
 
 code {
-    white-space: pre;
+  white-space: pre;
 }

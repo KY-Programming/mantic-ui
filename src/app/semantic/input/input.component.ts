@@ -61,4 +61,7 @@ export class SemanticInputComponent {
     this.inputMessage = `Value changed to: ${event}`;
     setTimeout(() => this.inputMessage = undefined, 2000);
   }
+
+  public code1 = `<m-input type="text" placeholder="Search..."></m-input>`;
+  public code2 = `<m-input type="text" placeholder="Search..." [(value)]="inputValue"></m-input>`;
 }

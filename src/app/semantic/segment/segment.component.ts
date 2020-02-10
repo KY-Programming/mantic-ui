@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./segment.component.scss']
 })
 export class SemanticSegmentComponent {
-
+  public code1 = `<m-segment>...</m-segment>`;
+  public code3 = `<m-segment raised>...</m-segment>`;
 }
