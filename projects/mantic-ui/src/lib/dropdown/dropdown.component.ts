@@ -72,8 +72,8 @@ export class DropdownComponent extends ElementBase {
   public close(): void {
     this.isSlidingDown = false;
     this.isSlidingUp = true;
+    this.isActive = false;
     setTimeout(() => {
-      this.isActive = false;
       this.isVisible = false;
     }, this.animationDuration);
     this.refreshClasses();
