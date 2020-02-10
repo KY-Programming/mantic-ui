@@ -23,7 +23,7 @@ export class ElementBase implements OnChanges, OnInit {
     private readPropertiesFromAttributes(): void {
         for (let index = 0; index < this.element.nativeElement.attributes.length; index++) {
             const attribute = this.element.nativeElement.attributes[index];
-            if (attribute.name.indexOf('_ng') === 0) {
+            if (attribute.name.indexOf('_ng') === 0 || attribute.name.indexOf('m-') === 0) {
                 continue;
             }
             if (attribute.value !== '') {
@@ -32,11 +32,12 @@ export class ElementBase implements OnChanges, OnInit {
                 }
                 continue;
             }
-            if (!this.classList.contains(attribute.name)) {
-                console.warn(`attribute ${attribute.name} on ${this.element.nativeElement.tagName.toLowerCase()} not found`);
+            const entry = this.classList.find(attribute.name);
+            if (!entry) {
+                console.warn(`Unknown attribute '${attribute.name}' on <${this.element.nativeElement.tagName.toLowerCase()}> found.`);
                 continue;
             }
-            this[attribute.name] = true;
+            this[entry.key] = true;
         }
     }
 
