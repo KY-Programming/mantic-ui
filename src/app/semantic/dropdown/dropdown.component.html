@@ -48,10 +48,18 @@
     </m-dropdown>
 </m-example>
 
-<m-example header="Search Selection" description="A selection dropdown can allow a user to search through a large list of choices">
-    <m-dropdown placeholder="Select Country" fluid search>
-        <m-dropdown-item *ngFor="let country of countries" [value]="country.value">
-            <i class="{{country.value}} flag"></i> {{country.text}}
-        </m-dropdown-item>
-    </m-dropdown>
+<m-example header="Search Selection" description="A selection dropdown can allow a user to search through a large list of choices" [code]="itemsCode">
+    <m-dropdown [items]="countries" placeholder="Select Country" fluid search></m-dropdown>
+</m-example>
+
+<m-example description="Search only in text" [code]="onlyTextCode">
+    <m-dropdown [items]="countries" placeholder="Select Country" [filterValue]="false" fluid search></m-dropdown>
+</m-example>
+
+<m-example description="Search only in value" [code]="onlyValueCode">
+    <m-dropdown [items]="countries" placeholder="Select Country" [filterText]="false" fluid search></m-dropdown>
+</m-example>
+
+<m-example description="Search everywhere in value and text (use contains)" [code]="containsCode">
+    <m-dropdown [items]="countries" placeholder="Select Country" filterType="contains" fluid search></m-dropdown>
 </m-example>

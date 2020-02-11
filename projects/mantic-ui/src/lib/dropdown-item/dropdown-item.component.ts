@@ -12,12 +12,16 @@ export class DropdownItemComponent extends ElementBase {
   @Input()
   public value: unknown;
 
+  @Input()
+  public filtered = false;
+
   constructor(
     private readonly dropdownComponent: DropdownComponent,
     public readonly elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
     this.classList
+      .registerBoolean('filtered')
       .registerFixed('item', Number.MAX_VALUE);
   }
 

@@ -1,12 +1,24 @@
 <input type="hidden">
 <i class="dropdown icon"></i>
-<div *ngIf="showText; else defaultTextTemplate" class="text" #text></div>
-<ng-template #defaultTextTemplate>
-    <div class="default text">{{placeholder}}</div>
-</ng-template>
-<div class="menu" [class.visible]="isVisible" [style.display]="isVisible ? 'block' : ''"
-    [style.animation-duration.ms]="animationDuration" [class.transition]="isSlidingDown || isSlidingUp"
-    [class.animating]="isSlidingDown || isSlidingUp" [class.slide]="isSlidingDown || isSlidingUp"
-    [class.down]="isSlidingDown || isSlidingUp" [class.in]="isSlidingDown" [class.out]="isSlidingUp">
+<input *ngIf="search" [(ngModel)]="filter" class="search" autocomplete="off" tabindex="0" (input)="onFilter($event)" (keydown)="onKeyDown($event)">
+<div [class.default]="isDefault" [class.filtered]="isFiltered" class="text" #text>{{placeholder}}</div>
+<div class="menu" #menu
+     [class.visible]="isVisible"
+     [style.display]="isVisible ? 'block' : ''"
+     [style.animation-duration.ms]="animationDuration"
+     [class.transition]="isSlidingIn || isSlidingOut"
+     [class.hidden]="isHidden"
+     [class.animating]="isSlidingIn || isSlidingOut"
+     [class.slide]="isSlidingIn || isSlidingOut"
+     [class.down]="(isSlidingIn || isSlidingOut) && !isUpward"
+     [class.up]="(isSlidingIn || isSlidingOut) && isUpward"
+     [class.in]="isSlidingIn"
+     [class.out]="isSlidingOut"
+     [class.loading]="isLoading">
+    <ng-container *ngIf="items">
+        <m-dropdown-item *ngFor="let item of items" [value]="item.value" [filtered]="item.filtered">
+            <i *ngIf="item.icon" class="{{item.icon}}"></i> {{item.text}}
+        </m-dropdown-item>
+    </ng-container>
     <ng-content></ng-content>
 </div>
