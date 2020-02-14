@@ -92,31 +92,29 @@ export class DropdownComponent extends ElementBase {
   }
 
   public open(): void {
-
     this.isHidden = true;
-    // TODO: The commented code creates flickering animations
-    // this.isLoading = true;
-
+    this.isLoading = true;
     // Wait for rendering complete
     setTimeout(() => {
       // Only recalculate if the elements top has changed
-      // const elementTop = this.elementRef.nativeElement.getBoundingClientRect().top;
-      // if (this.lastElementTop !== elementTop) {
-      //   // setTimeout(() => {
-      //   const bounds = this.menuElement.nativeElement.getBoundingClientRect();
-      //   this.isUpward = bounds.bottom >= window.innerHeight;
-      //   this.lastElementTop = elementTop;
-      //   // });
-      // }
-      // TODO-END
+      const elementTop = this.elementRef.nativeElement.getBoundingClientRect().top;
+      if (this.lastElementTop !== elementTop) {
+        const bounds = this.menuElement.nativeElement.getBoundingClientRect();
+        this.isUpward = bounds.bottom >= window.innerHeight;
+        this.lastElementTop = elementTop;
+      }
 
-      this.isActive = true;
-      this.isVisible = true;
-      this.isSlidingIn = true;
-      this.isSlidingOut = false;
       this.isLoading = false;
       this.isHidden = false;
-      this.refreshClasses();
+
+      // Wait for rendering complete
+      setTimeout(() => {
+        this.isActive = true;
+        this.isVisible = true;
+        this.isSlidingIn = true;
+        this.isSlidingOut = false;
+        this.refreshClasses();
+      });
     });
   }
 
@@ -128,6 +126,7 @@ export class DropdownComponent extends ElementBase {
     this.filter = undefined;
     setTimeout(() => {
       this.isVisible = false;
+      this.isSlidingOut = false;
     }, this.animationDuration);
     this.refreshClasses();
   }
