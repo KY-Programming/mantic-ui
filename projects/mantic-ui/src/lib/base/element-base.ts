@@ -1,11 +1,14 @@
 import { ElementRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ClassList } from '../models/class-list';
+import { EventQueue } from '../models/event-queue';
 
 export class ElementBase implements OnChanges, OnInit {
 
     protected readonly classList = new ClassList()
         .registerBoolean('ui')
         .register('class', Number.MAX_VALUE);
+
+    protected readonly eventQueue = new EventQueue();
 
     @HostBinding('class')
     public classes: string;

@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { ElementBase } from '../base/element-base';
 import { DropdownValue } from './dropdown-value';
 
@@ -14,6 +14,9 @@ export class DropdownComponent extends ElementBase {
 
   @ViewChild('menu', { static: false })
   public menuElement: ElementRef<HTMLDivElement>;
+
+  @ViewChild('input', { static: false })
+  public inputElement: ElementRef<HTMLInputElement>;
 
   @Input()
   public placeholder: string;
@@ -45,9 +48,14 @@ export class DropdownComponent extends ElementBase {
   @Input()
   public filterType: 'startsWith' | 'contains' = 'startsWith';
 
+  @HostBinding('attr.tabindex')
+  public get tabIndex(): number {
+    return this.search ? undefined : 0;
+  }
+
   public isDefault = true;
   public isActive = false;
-  public isVisible = false;
+  public isMenuVisible = false;
   public isHidden = false;
   public isSlidingIn = false;
   public isSlidingOut = false;
@@ -56,6 +64,7 @@ export class DropdownComponent extends ElementBase {
   public isLoading = false;
 
   private lastElementTop: number;
+  private isFocused = false;
 
   @Output()
   public readonly valueChange = new EventEmitter<unknown>();
@@ -74,9 +83,29 @@ export class DropdownComponent extends ElementBase {
       .registerFixed('dropdown', Number.MAX_VALUE);
   }
 
+  @HostListener('focus')
+  public focus(): void {
+    // Ignore focus/blur of window
+    if (this.isFocused) {
+      return;
+    }
+    this.open();
+    setTimeout(() => this.isFocused = true, this.animationDuration);
+  }
+
+  @HostListener('blur')
+  public blur(): void {
+    // Ignore focus/blur of window
+    if (document.activeElement === this.elementRef.nativeElement) {
+      return;
+    }
+    this.isFocused = false;
+    this.close();
+  }
+
   @HostListener('click')
   public toggle(): void {
-    if (this.isVisible && !this.search) {
+    if (this.isFocused && this.isMenuVisible && !this.search) {
       this.close();
     }
     else {
@@ -84,14 +113,10 @@ export class DropdownComponent extends ElementBase {
     }
   }
 
-  @HostListener('window:click', ['$event'])
-  public onOutsideClick(event: MouseEvent): void {
-    if (!this.elementRef.nativeElement.contains(event.target as HTMLElement)) {
-      this.close();
-    }
-  }
-
   public open(): void {
+    if (this.search) {
+      this.inputElement.nativeElement.focus();
+    }
     this.isHidden = true;
     this.isLoading = true;
     // Wait for rendering complete
@@ -110,7 +135,7 @@ export class DropdownComponent extends ElementBase {
       // Wait for rendering complete
       setTimeout(() => {
         this.isActive = true;
-        this.isVisible = true;
+        this.isMenuVisible = true;
         this.isSlidingIn = true;
         this.isSlidingOut = false;
         this.refreshClasses();
@@ -125,8 +150,9 @@ export class DropdownComponent extends ElementBase {
     this.isFiltered = false;
     this.filter = undefined;
     setTimeout(() => {
-      this.isVisible = false;
+      this.isMenuVisible = false;
       this.isSlidingOut = false;
+      this.refreshClasses();
     }, this.animationDuration);
     this.refreshClasses();
   }
