@@ -1,8 +1,9 @@
 import { ElementRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { DestroyableComponent } from '../base/destroyable.component';
 import { ClassList } from '../models/class-list';
 import { EventQueue } from '../models/event-queue';
 
-export class ElementBase implements OnChanges, OnInit {
+export class ElementBase extends DestroyableComponent implements OnChanges, OnInit {
 
     protected readonly classList = new ClassList()
         .registerBoolean('ui')
@@ -21,6 +22,7 @@ export class ElementBase implements OnChanges, OnInit {
     constructor(
         private readonly element: ElementRef<HTMLElement>
     ) {
+        super();
     }
 
     private readPropertiesFromAttributes(): void {

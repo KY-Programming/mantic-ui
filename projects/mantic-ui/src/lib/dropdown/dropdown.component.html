@@ -1,8 +1,15 @@
 <input type="hidden">
 <i class="dropdown icon"></i>
-<input *ngIf="search" [(ngModel)]="filter" class="search" autocomplete="off" tabindex="0" (input)="onFilter($event)" (keydown)="onKeyDown($event)" (focus)="open()" (blur)="close()" #input>
-<div [class.default]="isDefault" [class.filtered]="isFiltered" class="text" #text>{{placeholder}}</div>
-<div class="menu" #menu
+<input *ngIf="search" [(ngModel)]="filter" class="search" autocomplete="off" tabindex="0" (input)="onFilter($event)" (keydown)="onKeyDown($event)" (focus)="focus()" (blur)="blur()" (keydown)="keyDown($event)" #inputElement>
+<div [class.default]="isDefault" [class.filtered]="isFiltered" class="text" #textElement>
+    <ng-container *ngIf="selectedItem; else placeholderTemplate">
+        <i *ngIf="selectedItem.icon" class="{{selectedItem.icon}}"></i> {{selectedItem.text === undefined ? selectedItem.value : selectedItem.text}}
+    </ng-container>
+    <ng-template #placeholderTemplate>
+        {{placeholder}}
+    </ng-template>
+</div>
+<div class="menu" #menuElement
      [class.visible]="isMenuVisible"
      [style.display]="isMenuVisible ? 'block' : ''"
      [style.animation-duration.ms]="animationDuration"
@@ -15,9 +22,9 @@
      [class.in]="isSlidingIn"
      [class.out]="isSlidingOut"
      [class.loading]="isLoading">
-    <ng-container *ngIf="items">
-        <m-dropdown-item *ngFor="let item of items" [value]="item.value" [filtered]="item.filtered">
-            <i *ngIf="item.icon" class="{{item.icon}}"></i> {{item.text}}
+    <ng-container *ngIf="items && !useItemComponents">
+        <m-dropdown-item *ngFor="let item of items; let index = index" [value]="item.value" [filtered]="item.filtered" [selected]="index === selectedIndex" (mousedown)="itemMouseDown(item)">
+            <i *ngIf="item.icon" class="{{item.icon}}"></i> {{item.text === undefined ? item.value : item.text}}
         </m-dropdown-item>
     </ng-container>
     <ng-content></ng-content>

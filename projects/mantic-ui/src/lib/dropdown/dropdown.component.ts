@@ -1,22 +1,34 @@
-import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { Component, ContentChildren, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, QueryList, ViewChild } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
 import { ElementBase } from '../base/element-base';
+import { DropdownItemComponent } from '../dropdown-item/dropdown-item.component';
+import { DropwDownSelectionService } from './dropdown-selection.service';
 import { DropdownValue } from './dropdown-value';
 
 @Component({
   selector: 'm-dropdown',
   templateUrl: './dropdown.component.html',
-  styleUrls: ['./dropdown.component.scss']
+  styleUrls: ['./dropdown.component.scss'],
+  providers: [DropwDownSelectionService]
 })
 export class DropdownComponent extends ElementBase {
 
-  @ViewChild('text', { static: false })
+  @ViewChild('textElement', { static: false })
   public textElement: ElementRef<HTMLDivElement>;
 
-  @ViewChild('menu', { static: false })
+  @ViewChild('menuElement', { static: false })
   public menuElement: ElementRef<HTMLDivElement>;
 
-  @ViewChild('input', { static: false })
+  @ViewChild('inputElement', { static: false })
   public inputElement: ElementRef<HTMLInputElement>;
+
+  @ContentChildren(DropdownItemComponent)
+  public set itemComponents(query: QueryList<DropdownItemComponent>) {
+    if (query.length > 0) {
+      this.refreshItems(query);
+    }
+    query.changes.subscribe(() => this.refreshItems(query));
+  }
 
   @Input()
   public placeholder: string;
@@ -62,14 +74,19 @@ export class DropdownComponent extends ElementBase {
   public isFiltered = false;
   public isUpward = false;
   public isLoading = false;
+  public selectedIndex: number;
+  public useItemComponents = false;
+  public selectedItem: DropdownValue;
 
   private lastElementTop: number;
   private isFocused = false;
+  private itemElements: DropdownItemComponent[];
 
   @Output()
   public readonly valueChange = new EventEmitter<unknown>();
 
   constructor(
+    private readonly dropwDownSelectionService: DropwDownSelectionService,
     private readonly elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
@@ -81,6 +98,8 @@ export class DropdownComponent extends ElementBase {
       .registerBoolean(['isVisible', 'visible'], 'visible')
       .registerBoolean(['isUpward', 'upward'], 'upward')
       .registerFixed('dropdown', Number.MAX_VALUE);
+
+    this.dropwDownSelectionService.selected.pipe(takeUntil(this.destroy)).subscribe(event => this.selectComponent(event.value, event.component));
   }
 
   @HostListener('focus')
@@ -96,7 +115,7 @@ export class DropdownComponent extends ElementBase {
   @HostListener('blur')
   public blur(): void {
     // Ignore focus/blur of window
-    if (document.activeElement === this.elementRef.nativeElement) {
+    if (document.activeElement === this.elementRef.nativeElement || this.inputElement && document.activeElement === this.inputElement.nativeElement) {
       return;
     }
     this.isFocused = false;
@@ -113,7 +132,40 @@ export class DropdownComponent extends ElementBase {
     }
   }
 
+  @HostListener('keydown', ['$event'])
+  public keyDown(event: KeyboardEvent): void {
+    if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      event.stopPropagation();
+      this.selectIndex(this.selectedIndex === undefined ? 0 : this.selectedIndex - 1);
+      this.open();
+    }
+    else if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      event.stopPropagation();
+      this.selectIndex(this.selectedIndex === undefined ? 0 : this.selectedIndex + 1);
+      this.open();
+    }
+    else if (event.key === 'Enter') {
+      event.preventDefault();
+      event.stopPropagation();
+      if (this.selectedIndex >= 0) {
+        if (this.useItemComponents) {
+          const component = this.itemElements[this.selectedIndex];
+          this.selectComponent(component.value, component.elementRef);
+        }
+        else {
+          this.select(this.items[this.selectedIndex]);
+        }
+        this.close();
+      }
+    }
+  }
+
   public open(): void {
+    if (this.isMenuVisible) {
+      return;
+    }
     if (this.search) {
       this.inputElement.nativeElement.focus();
     }
@@ -157,14 +209,28 @@ export class DropdownComponent extends ElementBase {
     this.refreshClasses();
   }
 
-  public select(value: unknown, content: ElementRef<HTMLElement>): void {
-    this.value = value;
-    this.valueChange.emit(value);
+  public select(item: DropdownValue): void {
+    this.value = item.value;
+    this.valueChange.emit(this.value);
+    this.selectedItem = item;
+    this.selectedIndex = this.items.indexOf(item);
     this.close();
     this.isDefault = false;
+  }
+
+  public selectIndex(index: number): void {
+    this.selectedIndex = Math.max(0, Math.min(index, this.items.length - 1));
+    if (this.useItemComponents) {
+      this.itemElements.forEach((item, itemIndex) => item.select(itemIndex === this.selectedIndex));
+    }
+  }
+
+  private selectComponent(value: unknown, component: ElementRef): void {
+    const item = this.items.find(x => x.value === value);
+    this.select(item);
     // HACK: This is a dirty hack, but currently i found no other solution. If you have a solution please create an issue
     setTimeout(() => {
-      this.textElement.nativeElement.innerHTML = content.nativeElement.innerHTML;
+      this.textElement.nativeElement.innerHTML = component.nativeElement.innerHTML;
     });
     // HACK-END
   }
@@ -191,5 +257,25 @@ export class DropdownComponent extends ElementBase {
     if (event.key === 'Escape') {
       this.close();
     }
+  }
+
+  private refreshItems(query: QueryList<DropdownItemComponent>): void {
+    this.itemElements = query.toArray();
+    if (this.useItemComponents || this.itemElements.length > 0) {
+      this.useItemComponents = true;
+      this.items = this.itemElements.map(item => item.toValue());
+    }
+  }
+
+  public itemMouseDown(item: DropdownValue): void {
+    this.select(item);
+    setTimeout(() => {
+      if (this.search) {
+        this.inputElement.nativeElement.focus();
+      }
+      else {
+        this.elementRef.nativeElement.focus();
+      }
+    });
   }
 }
