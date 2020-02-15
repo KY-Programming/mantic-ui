@@ -78,7 +78,6 @@ export class DropdownComponent extends ElementBase {
   public useItemComponents = false;
   public selectedItem: DropdownValue;
 
-  private lastElementTop: number;
   private isFocused = false;
   private itemElements: DropdownItemComponent[];
 
@@ -171,15 +170,12 @@ export class DropdownComponent extends ElementBase {
     }
     this.isHidden = true;
     this.isLoading = true;
+    this.isUpward = false;
+    this.refreshClasses();
     // Wait for rendering complete
     setTimeout(() => {
-      // Only recalculate if the elements top has changed
-      const elementTop = this.elementRef.nativeElement.getBoundingClientRect().top;
-      if (this.lastElementTop !== elementTop) {
-        const bounds = this.menuElement.nativeElement.getBoundingClientRect();
-        this.isUpward = bounds.bottom >= window.innerHeight;
-        this.lastElementTop = elementTop;
-      }
+      const bounds = this.menuElement.nativeElement.getBoundingClientRect();
+      this.isUpward = bounds.bottom >= window.innerHeight;
 
       this.isLoading = false;
       this.isHidden = false;
