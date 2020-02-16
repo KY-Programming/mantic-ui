@@ -38,6 +38,25 @@ p {
   background-color: #ffffff;
   flex-direction: column;
 
+  &::ng-deep {
+
+    m-info,
+    m-warning,
+    m-error {
+      display: none;
+
+      code {
+        background-color: rgba(0, 0, 0, 0.08);
+        border-radius: 3px;
+        display: inline-block;
+        font-size: 0.875em;
+        font-weight: bold;
+        padding: 1px 6px;
+        vertical-align: baseline;
+      }
+    }
+  }
+
   &.hide-code {
     border: none;
 
@@ -49,6 +68,15 @@ p {
     .live {
       border: none;
       padding: 0;
+
+      &::ng-deep {
+
+        m-info,
+        m-warning,
+        m-error {
+          display: block;
+        }
+      }
     }
   }
 }

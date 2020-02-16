@@ -7,6 +7,7 @@ import { SemanticButtonComponent } from './button/button.component';
 import { SemanticContainerComponent } from './container/container.component';
 import { SemanticDividerComponent } from './divider/divider.component';
 import { SemanticDropdownComponent } from './dropdown/dropdown.component';
+import { SemanticHeaderComponent } from './header/header.component';
 import { SemanticInputComponent } from './input/input.component';
 import { SemanticLayoutComponent } from './layout/layout.component';
 import { SemanticMenuComponent } from './menu/menu.component';
@@ -27,7 +28,8 @@ import { SemanticTestComponent } from './test/test.component';
         SemanticMenuComponent,
         SemanticSegmentComponent,
         SemanticContainerComponent,
-        SemanticTestComponent
+        SemanticTestComponent,
+        SemanticHeaderComponent
     ],
     imports: [
         CommonModule,

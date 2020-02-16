@@ -17,6 +17,9 @@ export class SegmentComponent extends ElementBase {
   public raised: boolean;
 
   @Input()
+  public vertical: boolean;
+
+  @Input()
   public placeholder: boolean;
 
   @Input()
@@ -30,6 +33,7 @@ export class SegmentComponent extends ElementBase {
     this.classList
       .registerBoolean('inverted')
       .registerBoolean('raised')
+      .registerBoolean('vertical')
       .registerBoolean('placeholder')
       .registerAction('attached', (entry, value) => entry.classes = value ? value + ' attached' : '')
       .registerFixed('segment', Number.MAX_VALUE - 1);

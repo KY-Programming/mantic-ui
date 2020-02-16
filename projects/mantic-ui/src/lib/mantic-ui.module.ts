@@ -5,13 +5,17 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { ButtonGroupComponent } from './button-group/button-group.component';
 import { ButtonComponent } from './button/button.component';
 import { ButtonDirective } from './directives/button.directive';
+import { HeaderDirective } from './directives/header.directive';
 import { DividerComponent } from './divider/divider.component';
 import { DropdownItemComponent } from './dropdown-item/dropdown-item.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
+import { ErrorComponent } from './error/error.component';
 import { ExampleComponent } from './example/example.component';
 import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 import { IconButtonComponent } from './icon-button/icon-button.component';
 import { IconComponent } from './icon/icon.component';
+import { InfoComponent } from './info/info.component';
 import { InputComponent } from './input/input.component';
 import { LabelDropdownComponent } from './label-dropdown/label-dropdown.component';
 import { LabelComponent } from './label/label.component';
@@ -54,12 +58,16 @@ import { WarningComponent } from './warning/warning.component';
     FooterComponent,
     TabGroupComponent,
     TabComponent,
+    InfoComponent,
     WarningComponent,
+    ErrorComponent,
     DropdownComponent,
     DropdownItemComponent,
     MenuLinkComponent,
     MenuHeaderComponent,
-    ButtonDirective
+    ButtonDirective,
+    HeaderDirective,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
@@ -88,12 +96,16 @@ import { WarningComponent } from './warning/warning.component';
     FooterComponent,
     TabGroupComponent,
     TabComponent,
+    InfoComponent,
     WarningComponent,
+    ErrorComponent,
     DropdownComponent,
     DropdownItemComponent,
     MenuLinkComponent,
     MenuHeaderComponent,
-    ButtonDirective
+    ButtonDirective,
+    HeaderDirective,
+    HeaderComponent
   ]
 })
 export class ManticUiModule { }

@@ -10,6 +10,7 @@ import { SemanticButtonComponent } from './semantic/button/button.component';
 import { SemanticContainerComponent } from './semantic/container/container.component';
 import { SemanticDividerComponent } from './semantic/divider/divider.component';
 import { SemanticDropdownComponent } from './semantic/dropdown/dropdown.component';
+import { SemanticHeaderComponent } from './semantic/header/header.component';
 import { SemanticInputComponent } from './semantic/input/input.component';
 import { SemanticLayoutComponent } from './semantic/layout/layout.component';
 import { SemanticMenuComponent } from './semantic/menu/menu.component';
@@ -31,6 +32,7 @@ const routes: Routes = [
       { path: 'menu', component: SemanticMenuComponent },
       { path: 'segment', component: SemanticSegmentComponent },
       { path: 'container', component: SemanticContainerComponent },
+      { path: 'header', component: SemanticHeaderComponent },
       { path: 'test', component: SemanticTestComponent }
     ]
   },
