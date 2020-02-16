@@ -58,6 +58,12 @@ export class DropdownComponent extends ElementBase {
   public filterText = true;
 
   @Input()
+  public multiple: boolean;
+
+  @Input()
+  public icon: string;
+
+  @Input()
   public filterType: 'startsWith' | 'contains' = 'startsWith';
 
   @HostBinding('attr.tabindex')
@@ -77,9 +83,11 @@ export class DropdownComponent extends ElementBase {
   public selectedIndex: number;
   public useItemComponents = false;
   public selectedItem: DropdownValue;
+  public selectedItems: DropdownValue[] = [];
 
   private isFocused = false;
-  private itemElements: DropdownItemComponent[];
+  private keepOpen = false;
+  private itemElements: DropdownItemComponent[] = [];
 
   @Output()
   public readonly valueChange = new EventEmitter<unknown>();
@@ -90,6 +98,7 @@ export class DropdownComponent extends ElementBase {
   ) {
     super(elementRef);
     this.classList
+      .registerBoolean('multiple')
       .registerBoolean('search')
       .registerBoolean(['isFluid', 'fluid'], 'fluid')
       .registerFixed('selection')
@@ -114,9 +123,10 @@ export class DropdownComponent extends ElementBase {
   @HostListener('blur')
   public blur(): void {
     // Ignore focus/blur of window
-    if (document.activeElement === this.elementRef.nativeElement || this.inputElement && document.activeElement === this.inputElement.nativeElement) {
+    if (document.activeElement === this.elementRef.nativeElement || this.inputElement && document.activeElement === this.inputElement.nativeElement || this.keepOpen) {
       return;
     }
+    console.log('blur', document.activeElement);
     this.isFocused = false;
     this.close();
   }
@@ -133,19 +143,19 @@ export class DropdownComponent extends ElementBase {
 
   @HostListener('keydown', ['$event'])
   public keyDown(event: KeyboardEvent): void {
-    if (event.key === 'ArrowUp') {
+    if (event.code === 'ArrowUp') {
       event.preventDefault();
       event.stopPropagation();
       this.selectIndex(this.selectedIndex === undefined ? 0 : this.selectedIndex - 1);
       this.open();
     }
-    else if (event.key === 'ArrowDown') {
+    else if (event.code === 'ArrowDown') {
       event.preventDefault();
       event.stopPropagation();
       this.selectIndex(this.selectedIndex === undefined ? 0 : this.selectedIndex + 1);
       this.open();
     }
-    else if (event.key === 'Enter') {
+    else if (event.code === 'Enter' || event.code === 'Space') {
       event.preventDefault();
       event.stopPropagation();
       if (this.selectedIndex >= 0) {
@@ -159,6 +169,25 @@ export class DropdownComponent extends ElementBase {
         this.close();
       }
     }
+    else if (event.code === 'Backspace') {
+      event.preventDefault();
+      event.stopPropagation();
+      if (this.multiple && this.selectedItems.length > 0) {
+        this.deselect(this.selectedItems[this.selectedItems.length - 1]);
+      }
+    }
+    else if (event.code === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+      this.items.forEach(item => item.filtered = false);
+      this.itemElements.forEach(component => component.filtered = false);
+      this.close();
+    }
+  }
+
+  public deleteClick(item: DropdownValue, event: MouseEvent): void {
+    event.preventDefault();
+    this.deselect(item);
   }
 
   public open(): void {
@@ -197,6 +226,7 @@ export class DropdownComponent extends ElementBase {
     this.isActive = false;
     this.isFiltered = false;
     this.filter = undefined;
+    this.keepOpen = false;
     setTimeout(() => {
       this.isMenuVisible = false;
       this.isSlidingOut = false;
@@ -208,10 +238,29 @@ export class DropdownComponent extends ElementBase {
   public select(item: DropdownValue): void {
     this.value = item.value;
     this.valueChange.emit(this.value);
-    this.selectedItem = item;
     this.selectedIndex = this.items.indexOf(item);
-    this.close();
+    if (this.multiple) {
+      this.selectedItem = undefined;
+      this.selectedItems.push(item);
+      item.filtered = true;
+    }
+    else {
+      this.selectedItem = item;
+    }
+    if (!this.multiple) {
+      this.close();
+    }
     this.isDefault = false;
+  }
+
+  public deselect(item: DropdownValue): void {
+    const index = this.selectedItems.indexOf(item);
+    if (index >= 0) {
+      this.selectedItems.splice(index, 1);
+    }
+    if (this.selectedItems.length === 0) {
+      this.isDefault = true;
+    }
   }
 
   public selectIndex(index: number): void {
@@ -264,7 +313,9 @@ export class DropdownComponent extends ElementBase {
   }
 
   public itemMouseDown(item: DropdownValue): void {
-    this.select(item);
+    console.log('mouse down');
+    this.keepOpen = true;
+    // this.select(item);
     setTimeout(() => {
       if (this.search) {
         this.inputElement.nativeElement.focus();
@@ -273,5 +324,10 @@ export class DropdownComponent extends ElementBase {
         this.elementRef.nativeElement.focus();
       }
     });
+  }
+
+  public itemMouseUp(item: DropdownValue): void {
+    console.log('mouse up');
+    this.keepOpen = false;
   }
 }

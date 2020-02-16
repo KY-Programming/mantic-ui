@@ -274,5 +274,5 @@ public countries: DropdownValue<string>[] = [
   public onlyTextCode = `<m-dropdown [items]="countries" [filterValue]="false" search></m-dropdown>`;
   public onlyValueCode = `<m-dropdown [items]="countries" [filterText]="false" search></m-dropdown>`;
   public containsCode = `<m-dropdown [items]="countries" filterType="contains" search></m-dropdown>`;
-
+  public multiselectCode = `<m-dropdown [items]="countries" multiple fluid search></m-dropdown>`;
 }

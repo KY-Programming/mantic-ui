@@ -1,4 +1,4 @@
-<h1 class="ui header">
+<h1 m-header>
     Dropdown
     <div class="sub header">
         A dropdown allows a user to select a value from a series of options
@@ -6,7 +6,7 @@
 </h1>
 <m-divider></m-divider>
 
-<h2 class="ui dividing header">Types</h2>
+<h2 m-header dividing>Types</h2>
 <m-example header="Dropdown" description="A dropdown" type="html">
 
 </m-example>
@@ -63,3 +63,11 @@
 <m-example description="Search everywhere in value and text (use contains)" [code]="containsCode">
     <m-dropdown [items]="countries" placeholder="Select Country" filterType="contains" fluid search></m-dropdown>
 </m-example>
+
+<m-example header="Multiple Selection" description="A selection dropdown can allow multiple selections" [code]="multiselectCode">
+    <m-dropdown [items]="countries" placeholder="Select Country" multiple fluid search></m-dropdown>
+</m-example>
+
+<!-- <m-example header="Search Dropdown" description="A dropdown can be searchable" [code]="multiselectCode">
+    <m-dropdown [items]="countries" placeholder="Select Country" icon="world" search></m-dropdown>
+</m-example> -->
