@@ -16,6 +16,12 @@ export class DimmerComponent extends ElementBase implements OnInit, OnDestroy {
   public page: boolean;
 
   @Input()
+  public useContent = true;
+
+  @Input()
+  public hideOnClick = true;
+
+  @Input()
   public set visible(value: boolean) {
     if (value) {
       this.show();
@@ -69,6 +75,8 @@ export class DimmerComponent extends ElementBase implements OnInit, OnDestroy {
 
   @HostListener('click')
   public onClick(): void {
-    this.hide();
+    if (this.hideOnClick) {
+      this.hide();
+    }
   }
 }

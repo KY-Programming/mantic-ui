@@ -1,0 +1,20 @@
+<m-dimmer page [useContent]="false" [hideOnClick]="showClose" (click)="onDimmerClick()">
+    <div class="ui" [class.basic]="basic" [class.active]="visible" [class.modal]="true">
+        <div [class.ui]="basic" [class.icon]="basic" class="header">
+            <ng-content select="m-modal-header"></ng-content>
+            <m-modal-header *m-fallback-for="'m-modal-header'">
+                {{header}}
+            </m-modal-header>
+            <i *ngIf="basic && showClose === true || !basic && (showClose || showClose === undefined)" class="close icon" (click)="onClose()"></i>
+        </div>
+        <div [class.image]="imageContent" class="content">
+            <ng-content></ng-content>
+        </div>
+        <div class="actions">
+            <ng-content select="m-modal-footer"></ng-content>
+            <m-modal-footer *m-fallback-for="'m-modal-footer'">
+                <m-button primary (click)="onClose()">Close</m-button>
+            </m-modal-footer>
+        </div>
+    </div>
+</m-dimmer>

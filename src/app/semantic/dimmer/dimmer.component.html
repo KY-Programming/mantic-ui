@@ -8,7 +8,7 @@
 
 <h2 m-header dividing>Types</h2>
 
-<m-example header="Dimmer" description="A simple dimmer displays no content">
+<m-example header="Dimmer" description="A simple dimmer displays no content" [code]="simpleCode">
     <m-segment dimmable>
         <h3 m-header>Overlayable Section</h3>
         <div class="ui small images">
@@ -23,7 +23,7 @@
     <m-button *ngIf="dim1" (click)="dim1 = false">Hide Dimmer</m-button>
 </m-example>
 
-<m-example header="Content Dimmer" description="A dimmer can display content">
+<m-example header="Content Dimmer" description="A dimmer can display content" [code]="contentCode">
     <m-segment>
         <h3 m-header>Overlayable Section</h3>
         <div class="ui small images">
@@ -43,7 +43,7 @@
     <m-button *ngIf="dim2" (click)="dim2 = false">Hide Dimmer</m-button>
 </m-example>
 
-<m-example header="Page Dimmer" description="A dimmer can be formatted to be fixed to the page">
+<m-example header="Page Dimmer" description="A dimmer can be formatted to be fixed to the page" [code]="pageCode">
     <m-dimmer *ngIf="dim3" (click)="dim3 = false" page>
         <h2 m-header inverted icon>
             <m-icon icon="mail"></m-icon>
@@ -53,4 +53,14 @@
     </m-dimmer>
     <m-button *ngIf="!dim3" (click)="dim3 = true">Show Dimmer</m-button>
     <m-button *ngIf="dim3" (click)="dim3 = false">Hide Dimmer</m-button>
+</m-example>
+
+<h2 m-header dividing>States</h2>
+
+<m-example header="Active" description="An active dimmer will dim its parent container">
+    <m-segment>
+        <img src="/assets/images/paragraph.png">
+        <img src="/assets/images/paragraph.png">
+        <m-dimmer></m-dimmer>
+    </m-segment>
 </m-example>

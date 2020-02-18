@@ -1,3 +1,6 @@
-<div class="content">
-    <ng-content></ng-content>
+<!-- <div *ngIf="useContent; else contentTemplate" class="content">
+    <ng-container [ngComponentOutlet]="contentTemplate"></ng-container>
 </div>
+<ng-template #contentTemplate> -->
+<ng-content></ng-content>
+<!-- </ng-template> -->

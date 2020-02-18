@@ -1,0 +1,14 @@
+.header {
+  display: flex !important;
+
+  &::ng-deep {
+    m-modal-header {
+      flex: 1;
+    }
+  }
+
+  .close {
+    flex: 0 0 auto;
+    cursor: pointer;
+  }
+}

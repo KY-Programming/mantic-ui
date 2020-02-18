@@ -1,0 +1,70 @@
+<!-- <m-menu position="left"> -->
+<div class="ui vertical inverted menu">
+    <a class="item" [routerLink]="['/']">
+        <span class="ui logo icon image">
+            <img src="/assets/mantic.png">
+        </span>
+        <span><b>mantic UI</b></span>
+    </a>
+    <a class="item active">
+        <span class="ui logo icon image">
+            <img src="/assets/semantic.png">
+        </span>
+        <span><b>Semantic UI Angular</b></span>
+    </a>
+    <a class="item" [routerLink]="['start']" routerLinkActive="active">
+        <b>Getting Started</b>
+    </a>
+    <div class="item">
+        <div class="header">Elements</div>
+        <div class="menu">
+            <a class="item" [routerLink]="['button']" routerLinkActive="active">
+                Button
+            </a>
+            <a class="item" [routerLink]="['container']" routerLinkActive="active">
+                Container
+            </a>
+            <a class="item" [routerLink]="['divider']" routerLinkActive="active">
+                Divider
+            </a>
+            <a class="item" [routerLink]="['dimmer']" routerLinkActive="active">
+                Dimmer
+            </a>
+            <a class="item" [routerLink]="['dropdown']" routerLinkActive="active">
+                Dropdown
+            </a>
+            <a class="item" [routerLink]="['header']" routerLinkActive="active">
+                Header
+            </a>
+            <a class="item" [routerLink]="['input']" routerLinkActive="active">
+                Input
+            </a>
+            <a class="item" [routerLink]="['layout']" routerLinkActive="active">
+                Layout
+            </a>
+            <a class="item" [routerLink]="['menu']" routerLinkActive="active">
+                Menu
+            </a>
+            <a class="item" [routerLink]="['modal']" routerLinkActive="active">
+                Modal
+            </a>
+            <a class="item" [routerLink]="['segment']" routerLinkActive="active">
+                Segment
+            </a>
+            <a class="item" [routerLink]="['tab']" routerLinkActive="active">
+                Tab
+            </a>
+        </div>
+    </div>
+    <a class="item" (click)="toFomantic()" title="Switch to Fomantic UI Angular">
+        <span class="ui logo icon image">
+            <img src="/assets/fomantic.png">
+        </span>
+        <span><b>Fomantic UI Angular</b></span>
+    </a>
+</div>
+<!-- </m-menu> -->
+<div class="content">
+    <router-outlet></router-outlet>
+</div>
+<m-semantic-ui-theme></m-semantic-ui-theme>
