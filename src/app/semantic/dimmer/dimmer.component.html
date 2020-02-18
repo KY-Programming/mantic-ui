@@ -1,0 +1,56 @@
+<h1 m-header>
+    Dimmer
+    <div class="sub header">
+        A dimmer hides distractions to focus attention on particular content
+    </div>
+</h1>
+<m-divider></m-divider>
+
+<h2 m-header dividing>Types</h2>
+
+<m-example header="Dimmer" description="A simple dimmer displays no content">
+    <m-segment dimmable>
+        <h3 m-header>Overlayable Section</h3>
+        <div class="ui small images">
+            <img src="/assets/images/image.png">
+            <img src="/assets/images/image.png">
+            <img src="/assets/images/image.png">
+        </div>
+        <img src="/assets/images/media-paragraph.png">
+        <m-dimmer *ngIf="dim1" (click)="dim1 = false"></m-dimmer>
+    </m-segment>
+    <m-button *ngIf="!dim1" (click)="dim1 = true">Show Dimmer</m-button>
+    <m-button *ngIf="dim1" (click)="dim1 = false">Hide Dimmer</m-button>
+</m-example>
+
+<m-example header="Content Dimmer" description="A dimmer can display content">
+    <m-segment>
+        <h3 m-header>Overlayable Section</h3>
+        <div class="ui small images">
+            <img src="/assets/images/image.png">
+            <img src="/assets/images/image.png">
+            <img src="/assets/images/image.png">
+        </div>
+        <img src="/assets/images/media-paragraph.png">
+        <m-dimmer *ngIf="dim2" (click)="dim2 = false">
+            <h2 m-header inverted icon>
+                <m-icon icon="heart"></m-icon>
+                Dimmed Message!
+            </h2>
+        </m-dimmer>
+    </m-segment>
+    <m-button *ngIf="!dim2" (click)="dim2 = true">Show Dimmer</m-button>
+    <m-button *ngIf="dim2" (click)="dim2 = false">Hide Dimmer</m-button>
+</m-example>
+
+<m-example header="Page Dimmer" description="A dimmer can be formatted to be fixed to the page">
+    <m-dimmer *ngIf="dim3" (click)="dim3 = false" page>
+        <h2 m-header inverted icon>
+            <m-icon icon="mail"></m-icon>
+            Dimmer Message
+            <div class="sub header">Dimmer sub-header</div>
+        </h2>
+    </m-dimmer>
+    <m-button *ngIf="!dim3" (click)="dim3 = true">Show Dimmer</m-button>
+    <m-button *ngIf="dim3" (click)="dim3 = false">Hide Dimmer</m-button>
+</m-example>
