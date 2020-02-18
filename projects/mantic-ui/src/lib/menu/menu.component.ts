@@ -21,7 +21,6 @@ export class MenuComponent extends ElementBase {
   public pointing = false;
 
   @Input()
-  // public attached = false;
   public attached: 'top' | 'bottom';
 
   @Input()
