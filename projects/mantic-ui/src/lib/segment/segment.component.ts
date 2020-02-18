@@ -1,12 +1,13 @@
 import { Component, ElementRef, Input } from '@angular/core';
-import { ElementBase } from '../base/element-base';
+import { DimmableComponent, DimmableService } from '../base/dimmable.component';
 
 @Component({
   selector: 'm-segment',
   templateUrl: './segment.component.html',
-  styleUrls: ['./segment.component.scss']
+  styleUrls: ['./segment.component.scss'],
+  providers: [DimmableService]
 })
-export class SegmentComponent extends ElementBase {
+export class SegmentComponent extends DimmableComponent {
 
   public static readonly defaults = { raised: false };
 
@@ -26,9 +27,10 @@ export class SegmentComponent extends ElementBase {
   public attached: 'top' | 'bottom';
 
   public constructor(
-    readonly elementRef: ElementRef<HTMLElement>
+    elementRef: ElementRef<HTMLElement>,
+    dimmableService: DimmableService
   ) {
-    super(elementRef);
+    super(elementRef, dimmableService);
     this.raised = SegmentComponent.defaults.raised;
     this.classList
       .registerBoolean('inverted')

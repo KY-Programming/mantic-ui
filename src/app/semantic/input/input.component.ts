@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 // tslint:disable: member-ordering
 @Component({
-  selector: 'app-semantic-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss']
 })

@@ -1,4 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
+import { DimmableService } from '../base/dimmable.component';
 import { SegmentComponent } from '../segment/segment.component';
 
 @Component({
@@ -9,9 +10,10 @@ import { SegmentComponent } from '../segment/segment.component';
 export class FooterComponent extends SegmentComponent {
 
   constructor(
-    readonly elementRef: ElementRef<HTMLElement>
+    elementRef: ElementRef<HTMLElement>,
+    dimmableService: DimmableService
   ) {
-    super(elementRef);
+    super(elementRef, dimmableService);
     this.classList
       .registerFixed('vertical')
       .registerFixed('footer', Number.MAX_VALUE - 2);

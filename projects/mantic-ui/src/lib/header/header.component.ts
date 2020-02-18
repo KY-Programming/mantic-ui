@@ -12,7 +12,7 @@ export class HeaderComponent extends ElementBase {
   public size: 'huge' | 'large' | 'medium' | 'small' | 'tiny';
 
   constructor(elementRef: ElementRef<HTMLElement>) {
-    super(elementRef)
+    super(elementRef);
     this.classList
       .register('size')
       .registerFixed('header', Number.MAX_VALUE - 1);

@@ -2,8 +2,10 @@
         <m-logo src="https://ky-programming.de/Images/Logos/32.png"></m-logo>
         <m-breadcrumb></m-breadcrumb>
     </m-menu> -->
-<m-menu>
-    <m-logo src="https://ky-programming.de/Images/Logos/32.png"></m-logo>
+<m-menu position="top" fixed>
+    <m-menu-item *ngIf="logo">
+        <img [src]="logo">
+    </m-menu-item>
     <m-menu-link>Abc</m-menu-link>
     <m-menu-link>Test</m-menu-link>
     <m-menu-link>Home</m-menu-link>

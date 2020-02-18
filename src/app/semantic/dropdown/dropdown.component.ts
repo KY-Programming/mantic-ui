@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { DropdownValue } from '@mantic-ui/angular';
 
 @Component({
-  selector: 'app-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss']
 })

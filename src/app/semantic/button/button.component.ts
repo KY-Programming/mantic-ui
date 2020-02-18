@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 // tslint:disable: member-ordering
 @Component({
-  selector: 'app-semantic-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss']
 })
