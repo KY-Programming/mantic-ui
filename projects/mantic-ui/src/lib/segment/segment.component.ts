@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input } from '@angular/core';
-import { DimmableComponent, DimmableService } from '../base/dimmable.component';
+import { DimmableComponent } from '../base/dimmable.component';
+import { DimmableService } from '../services/dimmable.service';
 
 @Component({
   selector: 'm-segment',

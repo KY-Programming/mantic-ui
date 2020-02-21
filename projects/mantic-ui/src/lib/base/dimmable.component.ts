@@ -1,18 +1,6 @@
-import { ElementRef, Injectable, Input } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { ElementRef, Input } from '@angular/core';
+import { DimmableService } from '../services/dimmable.service';
 import { ElementBase } from './element-base';
-
-@Injectable()
-export class DimmableService {
-    private readonly dimmedSubject = new ReplaySubject<boolean>(1);
-
-    public dimmable = false;
-    public readonly dimmed = this.dimmedSubject.asObservable();
-
-    public dim(value = true): void {
-        this.dimmedSubject.next(value);
-    }
-}
 
 export class DimmableComponent extends ElementBase {
     @Input()

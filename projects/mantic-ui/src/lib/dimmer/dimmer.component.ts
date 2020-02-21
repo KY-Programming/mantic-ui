@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional } from '@angular/core';
-import { DimmableService } from '../base/dimmable.component';
 import { ElementBase } from '../base/element-base';
+import { DimmableService } from '../services/dimmable.service';
 
 // TODO: Enable animation
 
