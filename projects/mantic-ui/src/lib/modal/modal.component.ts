@@ -1,6 +1,8 @@
 import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
 import { ElementBase } from '../base/element-base';
 
+export type ModalSize = 'mini' | 'tiny' | 'small' | 'large';
+
 @Component({
   selector: 'm-modal',
   templateUrl: './modal.component.html',
@@ -23,6 +25,15 @@ export class ModalComponent extends ElementBase {
   @Input()
   public imageContent = false;
 
+  @Input()
+  public fullscreen = false;
+
+  @Input()
+  public size: ModalSize;
+
+  @Input()
+  public scrolling = true;
+
   @Output()
   public readonly close = new EventEmitter<void>();
 
@@ -34,6 +45,9 @@ export class ModalComponent extends ElementBase {
     this.classList
       .registerBoolean('basic', '')
       .registerBoolean('visible', '')
+      .registerBoolean('fullscreen', '')
+      .registerBoolean('size', '')
+      .registerBoolean('scrolling', '')
       .registerBoolean('imageContent', '');
   }
 
@@ -41,7 +55,11 @@ export class ModalComponent extends ElementBase {
     this.close.emit();
   }
 
-  public onDimmerClick(): void {
+  public onDimmerClick(event: MouseEvent): void {
+    // Only close modal if dimmer was clicked
+    if ((event.target as HTMLElement).closest('.modal')) {
+      return;
+    }
     if (this.showClose || this.showClose === undefined) {
       this.onClose();
     }

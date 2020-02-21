@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ModalSize } from '@mantic-ui/angular';
 
 @Component({
   templateUrl: './modal.component.html',
@@ -10,6 +11,10 @@ export class SemanticModalComponent {
   public showDefault = false;
   public showBasic = false;
   public showHiddenClose = false;
+  public showFullscreen = false;
+  public showSize = false;
+  public size: ModalSize = 'mini';
+  public showScrolling = false;
 
   public standardCode = `<m-button (click)="showModal = true">Open</m-button>
 <m-modal *ngIf="showModal" (close)="showModal = false" imageContent>
@@ -25,8 +30,8 @@ export class SemanticModalComponent {
     <p>Is it okay to use this photo?</p>
   </div>
   <m-modal-footer>
-    <m-button color="black">Nope</m-button>
-    <m-button icon="checkmark" labelPosition="right" primary>Yep, that's me</m-button>
+    <m-button color="black" (click)="showModal = false">Nope</m-button>
+    <m-button icon="checkmark" labelPosition="right" primary (click)="showModal = false">Yep, that's me</m-button>
   </m-modal-footer>
 </m-modal>`;
 
@@ -34,11 +39,48 @@ export class SemanticModalComponent {
 <m-modal *ngIf="showModal" header="Some header" (close)="showModal = false">
   Some content
 </m-modal>`;
-
   public textHeaderCode = `<m-modal header="Some header"></m-modal>`;
   public templatedHeaderCode = `<m-modal>
   <m-modal-header>
     <m-icon icon="question"></m-icon> Profile Picture
   </m-modal-header>
 </m-modal>`;
+
+  public contentCode = `<m-modal>
+  <p></p>
+</m-modal>`;
+
+  public imageContentCode = `<m-modal imageContent>
+  <img class="image">
+  <div class="description">
+    <p></p>
+  </div>
+</m-modal>`;
+
+  public actionsCode = `<m-modal>
+  <m-modal-footer>
+    <p>Ask a question?</p>
+    <m-button (click)="onNope()">Nope</m-button>
+    <m-button primary (click)="onYep()">Yep</m-button>
+  </m-modal-footer>
+</m-modal>`;
+
+  public fullscreenCode = `<m-modal fullscreen></m-modal>`;
+
+  public sizeCode = `// test.component.html
+<m-modal [size]="size">
+  <m-dropdown [(value)]="size">
+    <m-dropdown-item [value]="undefined">Default</m-dropdown-item>
+    <m-dropdown-item value="mini">Mini</m-dropdown-item>
+    <m-dropdown-item value="tiny">Tiny</m-dropdown-item>
+    <m-dropdown-item value="small">Small</m-dropdown-item>
+    <m-dropdown-item value="large">Large</m-dropdown-item>
+  </m-dropdown>
+</m-modal>
+
+// test.component.ts
+import { ModalSize } from '@mantic-ui/angular';
+
+public size: ModalSize = 'mini';`;
+
 }
