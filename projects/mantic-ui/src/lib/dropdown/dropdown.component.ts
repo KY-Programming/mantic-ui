@@ -12,7 +12,6 @@ import { DropdownValue } from './dropdown-value';
   providers: [DropwDownSelectionService]
 })
 export class DropdownComponent extends ElementBase {
-
   @ViewChild('textElement', { static: false })
   public textElement: ElementRef<HTMLDivElement>;
 
@@ -34,7 +33,18 @@ export class DropdownComponent extends ElementBase {
   public placeholder: string;
 
   @Input()
-  public value: unknown;
+  public set value(value: unknown) {
+    if (this.valueField === value) {
+      return;
+    }
+    this.valueField = value;
+    if (this.items) {
+      this.select(this.items.find(item => item.value === value));
+    }
+  }
+  public get value(): unknown {
+    return this.valueField;
+  }
 
   @Input()
   public filter: string;
@@ -46,7 +56,16 @@ export class DropdownComponent extends ElementBase {
   public isFluid: boolean;
 
   @Input()
-  public items: DropdownValue[];
+  public set items(value: DropdownValue[]) {
+    if (this.itemsField === value) {
+      return;
+    }
+    this.itemsField = value;
+    this.select(value ? value.find(item => item.value === this.value) : undefined);
+  }
+  public get items(): DropdownValue[] {
+    return this.itemsField;
+  }
 
   @Input()
   public search: boolean;
@@ -88,6 +107,8 @@ export class DropdownComponent extends ElementBase {
   private isFocused = false;
   private keepOpen = false;
   private itemElements: DropdownItemComponent[] = [];
+  private valueField: unknown;
+  private itemsField: DropdownValue[];
 
   @Output()
   public readonly valueChange = new EventEmitter<unknown>();
@@ -236,10 +257,10 @@ export class DropdownComponent extends ElementBase {
   }
 
   public select(item: DropdownValue): void {
-    this.value = item.value;
+    this.value = item ? item.value : undefined;
     this.valueChange.emit(this.value);
-    this.selectedIndex = this.items.indexOf(item);
-    if (this.multiple) {
+    this.selectedIndex = this.items && item ? this.items.indexOf(item) : -1;
+    if (this.multiple && item) {
       this.selectedItem = undefined;
       this.selectedItems.push(item);
       item.filtered = true;
