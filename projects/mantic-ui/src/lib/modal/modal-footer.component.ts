@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
   template: '<ng-content></ng-content>'
 })
 export class ModalFooterComponent {
-
+  // TODO: Fix margins around buttons
 }
