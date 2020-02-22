@@ -41,6 +41,7 @@ import { TabGroupComponent } from './tab-group/tab-group.component';
 import { TabComponent } from './tab/tab.component';
 import { TextContainerComponent } from './text-container/text-container.component';
 import { ToggleButtonComponent } from './toggle-button/toggle-button.component';
+import { ToggleComponent } from './toggle/toggle.component';
 import { WarningComponent } from './warning/warning.component';
 
 @NgModule({
@@ -85,7 +86,8 @@ import { WarningComponent } from './warning/warning.component';
     ModalHeaderComponent,
     DimmerComponent,
     ExampleCodeComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    ToggleComponent
   ],
   imports: [
     CommonModule,
@@ -132,7 +134,8 @@ import { WarningComponent } from './warning/warning.component';
     ModalHeaderComponent,
     DimmerComponent,
     ExampleCodeComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    ToggleComponent
   ]
 })
 export class ManticUiModule { }

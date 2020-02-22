@@ -24,6 +24,7 @@ import { SemanticOuterComponent } from './semantic/outer/outer.component';
 import { SemanticSegmentComponent } from './semantic/segment/segment.component';
 import { SemanticStartComponent } from './semantic/start/start.component';
 import { SemanticTabComponent } from './semantic/tab/tab.component';
+import { SemanticToggleComponent } from './semantic/toggle/toggle.component';
 
 const routes: Routes = [
   { path: '', component: IntroComponent },
@@ -43,6 +44,7 @@ const routes: Routes = [
       { path: 'modal', component: SemanticModalComponent },
       { path: 'dimmer', component: SemanticDimmerComponent },
       { path: 'checkbox', component: SemanticCheckboxComponent },
+      { path: 'toggle', component: SemanticToggleComponent },
       { path: '**', redirectTo: 'start' }
     ]
   },

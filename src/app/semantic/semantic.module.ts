@@ -21,6 +21,7 @@ import { SemanticOuterComponent } from './outer/outer.component';
 import { SemanticSegmentComponent } from './segment/segment.component';
 import { SemanticStartComponent } from './start/start.component';
 import { SemanticTabComponent } from './tab/tab.component';
+import { SemanticToggleComponent } from './toggle/toggle.component';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import { SemanticTabComponent } from './tab/tab.component';
         SemanticLayoutIframeComponent,
         SemanticModalComponent,
         SemanticDimmerComponent,
-        SemanticCheckboxComponent
+        SemanticCheckboxComponent,
+        SemanticToggleComponent
     ],
     imports: [
         CommonModule,
