@@ -35,6 +35,7 @@ import { ModalHeaderComponent } from './modal/modal-header.component';
 import { ModalComponent } from './modal/modal.component';
 import { OrComponent } from './or/or.component';
 import { SafePipe } from './pipes/safe.pipe';
+import { RadioComponent } from './radio/radio.component';
 import { SegmentDefaultsComponent } from './segment/segment-defaults.component';
 import { SegmentComponent } from './segment/segment.component';
 import { TabGroupComponent } from './tab-group/tab-group.component';
@@ -87,7 +88,8 @@ import { WarningComponent } from './warning/warning.component';
     DimmerComponent,
     ExampleCodeComponent,
     CheckboxComponent,
-    ToggleComponent
+    ToggleComponent,
+    RadioComponent
   ],
   imports: [
     CommonModule,
@@ -135,7 +137,8 @@ import { WarningComponent } from './warning/warning.component';
     DimmerComponent,
     ExampleCodeComponent,
     CheckboxComponent,
-    ToggleComponent
+    ToggleComponent,
+    RadioComponent
   ]
 })
 export class ManticUiModule { }

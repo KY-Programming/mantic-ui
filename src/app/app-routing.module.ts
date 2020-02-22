@@ -21,6 +21,7 @@ import { SemanticMenuIframeFixed1Component } from './semantic/menu/iframe/fixed1
 import { SemanticMenuComponent } from './semantic/menu/menu.component';
 import { SemanticModalComponent } from './semantic/modal/modal.component';
 import { SemanticOuterComponent } from './semantic/outer/outer.component';
+import { SemanticRadioComponent } from './semantic/radio/radio.component';
 import { SemanticSegmentComponent } from './semantic/segment/segment.component';
 import { SemanticStartComponent } from './semantic/start/start.component';
 import { SemanticTabComponent } from './semantic/tab/tab.component';
@@ -45,6 +46,7 @@ const routes: Routes = [
       { path: 'dimmer', component: SemanticDimmerComponent },
       { path: 'checkbox', component: SemanticCheckboxComponent },
       { path: 'toggle', component: SemanticToggleComponent },
+      { path: 'radio', component: SemanticRadioComponent },
       { path: '**', redirectTo: 'start' }
     ]
   },

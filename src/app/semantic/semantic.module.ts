@@ -18,6 +18,7 @@ import { SemanticMenuIframeFixed1Component } from './menu/iframe/fixed1/fixed1.c
 import { SemanticMenuComponent } from './menu/menu.component';
 import { SemanticModalComponent } from './modal/modal.component';
 import { SemanticOuterComponent } from './outer/outer.component';
+import { SemanticRadioComponent } from './radio/radio.component';
 import { SemanticSegmentComponent } from './segment/segment.component';
 import { SemanticStartComponent } from './start/start.component';
 import { SemanticTabComponent } from './tab/tab.component';
@@ -43,7 +44,8 @@ import { SemanticToggleComponent } from './toggle/toggle.component';
         SemanticModalComponent,
         SemanticDimmerComponent,
         SemanticCheckboxComponent,
-        SemanticToggleComponent
+        SemanticToggleComponent,
+        SemanticRadioComponent
     ],
     imports: [
         CommonModule,

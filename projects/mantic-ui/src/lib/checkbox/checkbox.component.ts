@@ -37,6 +37,9 @@ export class CheckboxComponent extends ElementBase {
   @Input()
   public disabled: boolean;
 
+  @Input()
+  public canUncheck: boolean;
+
   constructor(
     elementRef: ElementRef<HTMLElement>
   ) {
@@ -60,6 +63,9 @@ export class CheckboxComponent extends ElementBase {
   }
 
   public set(value: boolean): void {
+    if (!value && !this.canUncheck) {
+      return;
+    }
     this.indeterminate = false;
     this.value = value;
     this.valueChange.emit(this.value);
