@@ -11,10 +11,10 @@
     "postbuild": ""
   },
   "peerDependencies": {
-    "@angular/common": "8 - 9",
-    "@angular/core": "^8 - 9",
-    "@angular/forms": "^8 - 9",
-    "@angular/platform-browser": "^8 - 9",
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "@angular/forms": "^8.0.0",
+    "@angular/platform-browser": "^8.0.0",
     "rxjs": "^6.5.0"
   }
 }

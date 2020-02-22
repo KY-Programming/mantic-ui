@@ -5,8 +5,8 @@ import { Directive, ElementRef, Input, TemplateRef, ViewContainerRef } from '@an
 })
 export class FallbackForDirective {
 
-  @Input()
-  public set 'm-fallback-for'(selector: string) {
+  @Input('m-fallback-for')
+  public set fallback(selector: string) {
     const foundElement = this.elemntRef.nativeElement.parentElement.querySelector(selector);
     if (foundElement) {
       this.viewContainer.clear();

@@ -2,7 +2,6 @@ import { Directive, ElementRef, Input } from '@angular/core';
 import { ElementBase } from '../base/element-base';
 
 @Directive({
-  // tslint:disable-next-line: directive-selector
   selector: '[m-header]'
 })
 export class HeaderDirective extends ElementBase {
