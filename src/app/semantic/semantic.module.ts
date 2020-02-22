@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SemanticUiModule } from 'projects/semantic-ui/src/public-api';
 import { SemanticButtonComponent } from './button/button.component';
+import { SemanticCheckboxComponent } from './checkbox/checkbox.component';
 import { SemanticContainerComponent } from './container/container.component';
 import { SemanticDimmerComponent } from './dimmer/dimmer.component';
 import { SemanticDividerComponent } from './divider/divider.component';
@@ -39,7 +40,8 @@ import { SemanticTabComponent } from './tab/tab.component';
         SemanticOuterComponent,
         SemanticLayoutIframeComponent,
         SemanticModalComponent,
-        SemanticDimmerComponent
+        SemanticDimmerComponent,
+        SemanticCheckboxComponent
     ],
     imports: [
         CommonModule,

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { ButtonGroupComponent } from './button-group/button-group.component';
 import { ButtonComponent } from './button/button.component';
+import { CheckboxComponent } from './checkbox/checkbox.component';
 import { DimmerComponent } from './dimmer/dimmer.component';
 import { ButtonDirective } from './directives/button.directive';
 import { FallbackForDirective } from './directives/fallback-for.directive';
@@ -83,7 +84,8 @@ import { WarningComponent } from './warning/warning.component';
     FallbackForDirective,
     ModalHeaderComponent,
     DimmerComponent,
-    ExampleCodeComponent
+    ExampleCodeComponent,
+    CheckboxComponent
   ],
   imports: [
     CommonModule,
@@ -129,7 +131,8 @@ import { WarningComponent } from './warning/warning.component';
     FallbackForDirective,
     ModalHeaderComponent,
     DimmerComponent,
-    ExampleCodeComponent
+    ExampleCodeComponent,
+    CheckboxComponent
   ]
 })
 export class ManticUiModule { }

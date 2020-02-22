@@ -1,0 +1,36 @@
+<h1 m-header>
+    Checkbox
+    <div class="sub header">
+        A checkbox allows a user to select a value from a small set of options, often binary
+    </div>
+</h1>
+<m-divider></m-divider>
+
+<h2 m-header dividing>Types</h2>
+<m-example header="Checkbox" description="A standard checkbox" [code]="standardCode">
+    <m-checkbox name="example">Make my profile visible</m-checkbox>
+</m-example>
+
+<h2 m-header dividing>States</h2>
+<m-example header="Read-only" description="A checkbox can be read-only and unable to change states" [code]="readonlyCode">
+    <m-checkbox readonly>Read Only</m-checkbox>
+</m-example>
+
+<m-example header="Checked" description="A checkbox can be checked" [code]="checkedCode">
+    <m-checkbox checked>Active</m-checkbox>
+</m-example>
+
+<m-example header="Indeterminate" description="A checkbox can be indeterminate" [code]="indeterminateCode">
+    <m-checkbox indeterminate>Indeterminate</m-checkbox>
+</m-example>
+
+<m-example header="Disabled" description="A checkbox can be read-only and unable to change states" [code]="disabledCode">
+    <m-checkbox disabled>Disabled</m-checkbox>
+</m-example>
+
+<h2 m-header dividing>Variations</h2>
+<m-example header="Fitted" description="A fitted checkbox does not leave padding for a label" [code]="fittedCode">
+    <m-segment class="left floated">
+        <m-checkbox fitted></m-checkbox>
+    </m-segment>
+</m-example>

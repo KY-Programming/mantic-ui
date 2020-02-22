@@ -7,6 +7,7 @@ import { FomanticLayoutComponent } from './fomantic/layout/layout.component';
 import { FomanticStartComponent } from './fomantic/start/start.component';
 import { IntroComponent } from './intro/intro.component';
 import { SemanticButtonComponent } from './semantic/button/button.component';
+import { SemanticCheckboxComponent } from './semantic/checkbox/checkbox.component';
 import { SemanticContainerComponent } from './semantic/container/container.component';
 import { SemanticDimmerComponent } from './semantic/dimmer/dimmer.component';
 import { SemanticDividerComponent } from './semantic/divider/divider.component';
@@ -41,6 +42,7 @@ const routes: Routes = [
       { path: 'layout', component: SemanticLayoutComponent },
       { path: 'modal', component: SemanticModalComponent },
       { path: 'dimmer', component: SemanticDimmerComponent },
+      { path: 'checkbox', component: SemanticCheckboxComponent },
       { path: '**', redirectTo: 'start' }
     ]
   },
