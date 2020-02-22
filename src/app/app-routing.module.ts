@@ -23,6 +23,7 @@ import { SemanticModalComponent } from './semantic/modal/modal.component';
 import { SemanticOuterComponent } from './semantic/outer/outer.component';
 import { SemanticRadioComponent } from './semantic/radio/radio.component';
 import { SemanticSegmentComponent } from './semantic/segment/segment.component';
+import { SemanticSliderComponent } from './semantic/slider/slider.component';
 import { SemanticStartComponent } from './semantic/start/start.component';
 import { SemanticTabComponent } from './semantic/tab/tab.component';
 import { SemanticToggleComponent } from './semantic/toggle/toggle.component';
@@ -47,6 +48,7 @@ const routes: Routes = [
       { path: 'checkbox', component: SemanticCheckboxComponent },
       { path: 'toggle', component: SemanticToggleComponent },
       { path: 'radio', component: SemanticRadioComponent },
+      { path: 'slider', component: SemanticSliderComponent },
       { path: '**', redirectTo: 'start' }
     ]
   },

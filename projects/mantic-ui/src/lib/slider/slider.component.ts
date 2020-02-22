@@ -4,19 +4,18 @@ import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { RadioService } from '../services/radio.service';
 
 @Component({
-  selector: 'm-radio',
-  templateUrl: './radio.component.html',
-  styleUrls: ['./radio.component.scss']
+  selector: 'm-slider',
+  templateUrl: './slider.component.html',
+  styleUrls: ['./slider.component.scss']
 })
-export class RadioComponent extends CheckboxComponent {
+export class SliderComponent extends CheckboxComponent {
 
   constructor(
     elementRef: ElementRef<HTMLElement>,
     private readonly radioService: RadioService
   ) {
     super(elementRef);
-    this.canUncheck = false;
-    this.classList.registerFixed('radio');
+    this.classList.registerFixed('slider');
     this.radioService.checked.pipe(
       filter(event => event.group && event.group === this.name && event.value !== this),
       takeUntil(this.destroy)

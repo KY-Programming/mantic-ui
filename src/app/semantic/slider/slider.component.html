@@ -1,0 +1,72 @@
+<h1 m-header>
+    Slider
+    <div class="sub header">
+        A slider allows a user to select between exclusive options
+    </div>
+</h1>
+<m-divider></m-divider>
+
+<h2 m-header dividing>Types</h2>
+<m-example header="Slider" description="A standard slider" [code]="standardCode">
+    <m-slider name="example">Accept terms and conditions</m-slider>
+</m-example>
+
+<m-example>
+    <div class="ui form">
+        <div class="inline fields">
+            <label>How often do you use checkboxes?</label>
+            <div class="field">
+                <m-slider name="frequency" checked>Once a week</m-slider>
+            </div>
+            <div class="field">
+                <m-slider name="frequency">2-3 times a week</m-slider>
+            </div>
+            <div class="field">
+                <m-slider name="frequency">Once a day</m-slider>
+            </div>
+            <div class="field">
+                <m-slider name="frequency">Twice a day</m-slider>
+            </div>
+        </div>
+    </div>
+</m-example>
+
+<m-example>
+    <div class="ui form">
+        <div class="grouped fields">
+            <label>How often do you use checkboxes?</label>
+            <div class="field">
+                <m-slider name="frequency2" checked>Once a week</m-slider>
+            </div>
+            <div class="field">
+                <m-slider name="frequency2">2-3 times a week</m-slider>
+            </div>
+            <div class="field">
+                <m-slider name="frequency2">Once a day</m-slider>
+            </div>
+            <div class="field">
+                <m-slider name="frequency2">Twice a day</m-slider>
+            </div>
+        </div>
+    </div>
+</m-example>
+
+<h2 m-header dividing>States</h2>
+<m-example header="Read-only" description="A slider can be read-only and unable to change states" [code]="readonlyCode">
+    <m-slider readonly>Read Only</m-slider>
+</m-example>
+
+<m-example header="Checked" description="A slider can be checked" [code]="checkedCode">
+    <m-slider checked>Active</m-slider>
+</m-example>
+
+<m-example header="Disabled" description="A slider can be read-only and unable to change states" [code]="disabledCode">
+    <m-slider disabled>Disabled</m-slider>
+</m-example>
+
+<h2 m-header dividing>Variations</h2>
+<m-example header="Fitted" description="A fitted slider does not leave padding for a label" [code]="fittedCode">
+    <m-segment class="left floated">
+        <m-slider fitted></m-slider>
+    </m-segment>
+</m-example>

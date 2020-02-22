@@ -38,7 +38,7 @@ export class CheckboxComponent extends ElementBase {
   public disabled: boolean;
 
   @Input()
-  public canUncheck: boolean;
+  public canUncheck = true;
 
   constructor(
     elementRef: ElementRef<HTMLElement>

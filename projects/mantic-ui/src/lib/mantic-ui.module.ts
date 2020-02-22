@@ -38,6 +38,7 @@ import { SafePipe } from './pipes/safe.pipe';
 import { RadioComponent } from './radio/radio.component';
 import { SegmentDefaultsComponent } from './segment/segment-defaults.component';
 import { SegmentComponent } from './segment/segment.component';
+import { SliderComponent } from './slider/slider.component';
 import { TabGroupComponent } from './tab-group/tab-group.component';
 import { TabComponent } from './tab/tab.component';
 import { TextContainerComponent } from './text-container/text-container.component';
@@ -89,7 +90,8 @@ import { WarningComponent } from './warning/warning.component';
     ExampleCodeComponent,
     CheckboxComponent,
     ToggleComponent,
-    RadioComponent
+    RadioComponent,
+    SliderComponent
   ],
   imports: [
     CommonModule,
@@ -138,7 +140,8 @@ import { WarningComponent } from './warning/warning.component';
     ExampleCodeComponent,
     CheckboxComponent,
     ToggleComponent,
-    RadioComponent
+    RadioComponent,
+    SliderComponent
   ]
 })
 export class ManticUiModule { }

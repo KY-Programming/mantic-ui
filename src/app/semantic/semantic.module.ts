@@ -20,6 +20,7 @@ import { SemanticModalComponent } from './modal/modal.component';
 import { SemanticOuterComponent } from './outer/outer.component';
 import { SemanticRadioComponent } from './radio/radio.component';
 import { SemanticSegmentComponent } from './segment/segment.component';
+import { SemanticSliderComponent } from './slider/slider.component';
 import { SemanticStartComponent } from './start/start.component';
 import { SemanticTabComponent } from './tab/tab.component';
 import { SemanticToggleComponent } from './toggle/toggle.component';
@@ -45,7 +46,8 @@ import { SemanticToggleComponent } from './toggle/toggle.component';
         SemanticDimmerComponent,
         SemanticCheckboxComponent,
         SemanticToggleComponent,
-        SemanticRadioComponent
+        SemanticRadioComponent,
+        SemanticSliderComponent
     ],
     imports: [
         CommonModule,
