@@ -1,4 +1,4 @@
-# Mantic UI
+# mantic UI
 
 ## Semantic UI for Angular ![npm (scoped)](https://img.shields.io/npm/v/@mantic-ui/semantic-ui-angular)
 not yet released

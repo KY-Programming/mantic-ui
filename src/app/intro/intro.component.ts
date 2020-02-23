@@ -15,7 +15,7 @@ export class IntroComponent implements OnInit {
   ) {
     const favicon = <HTMLLinkElement>document.getElementById('favicon');
     favicon.href = window.location.origin + '/assets/mantic.png';
-    document.title = 'Mantic UI';
+    document.title = 'mantic UI';
   }
 
   public ngOnInit(): void {
