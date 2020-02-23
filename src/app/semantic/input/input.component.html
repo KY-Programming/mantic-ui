@@ -92,44 +92,44 @@
                         <label>
                             Type
                         </label>
-                        <select [(ngModel)]="type">
-                            <option value="text">Text</option>
-                            <option value="number">Number</option>
-                        </select>
+                        <m-dropdown [(value)]="type">
+                            <m-dropdown-item value="text">Text</m-dropdown-item>
+                            <m-dropdown-item value="number">Number</m-dropdown-item>
+                        </m-dropdown>
                     </div>
                     <div class="field">
                         <label>
                             Icon
                         </label>
-                        <select [(ngModel)]="icon">
-                            <option value="">none</option>
-                            <option>search</option>
-                            <option>users</option>
-                        </select>
+                        <m-dropdown [(value)]="icon">
+                            <m-dropdown-item value="">None</m-dropdown-item>
+                            <m-dropdown-item value="search">Search</m-dropdown-item>
+                            <m-dropdown-item value="users">Users</m-dropdown-item>
+                        </m-dropdown>
                     </div>
                     <div clasS="field">
                         <label>&nbsp;</label>
-                        <select [(ngModel)]="iconPosition">
-                            <option>left</option>
-                            <option>right</option>
-                        </select>
+                        <m-dropdown [(value)]="iconPosition">
+                            <m-dropdown-item value="left">Left</m-dropdown-item>
+                            <m-dropdown-item value="right">Right</m-dropdown-item>
+                        </m-dropdown>
                     </div>
                 </div>
                 <div class="four fields">
                     <div class="field">
-                        <m-slider [(value)]="focus">Focus</m-slider>
+                        <m-toggle [(value)]="focus">Focus</m-toggle>
                     </div>
                     <div class="field">
-                        <m-slider [(value)]="loading">Loading</m-slider>
+                        <m-toggle [(value)]="loading">Loading</m-toggle>
                     </div>
                     <div class="field">
-                        <m-slider [(value)]="disabled">Disabled</m-slider>
+                        <m-toggle [(value)]="disabled">Disabled</m-toggle>
                     </div>
                     <div class="field">
-                        <m-slider [(value)]="error">Error</m-slider>
+                        <m-toggle [(value)]="error">Error</m-toggle>
                     </div>
                     <div class="field">
-                        <m-checkbox [(value)]="fluid">Fluid</m-checkbox>
+                        <m-toggle [(value)]="fluid">Fluid</m-toggle>
                     </div>
                 </div>
             </div>
@@ -138,7 +138,7 @@
         </m-example>
     </m-tab>
     <m-tab label="Events">
-        <m-example header="Change event" description="A input with an subscribed change event. The event is triggered when focus is lost (click outside of the box)" [code]="eventCode">
+        <m-example header="Change event" description="A input with a subscribed change event. The event is triggered when focus is lost (click outside of the box)" [code]="eventCode">
             <m-input type="text" placeholder="Search..." (valueChange)="valueChange($event)"></m-input>
             <div>{{inputMessage}}</div>
         </m-example>

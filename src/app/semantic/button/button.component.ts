@@ -92,4 +92,40 @@ export class SemanticButtonComponent {
   </ng-template>
 </m-button>`;
 
+  public bindCode = `<m-button [loading]="loading" [disabled]="disabled" [fluid]="fluid">{{text}}</m-button>`;
+
+  private loadingValue = false;
+  private disabledValue = false;
+
+  public text = 'Click Me';
+
+  public get loading(): boolean {
+    return this.loadingValue;
+  }
+  public set loading(value: boolean) {
+    this.reset();
+    this.loadingValue = value;
+  }
+
+  public get disabled(): boolean {
+    return this.disabledValue;
+  }
+  public set disabled(value: boolean) {
+    this.reset();
+    this.disabledValue = value;
+  }
+
+  public fluid: boolean;
+
+  private reset(): void {
+    this.loadingValue = false;
+    this.disabledValue = false;
+  }
+
+  public eventMessage: string;
+  public eventCode = `<m-button (click)="eventClick()">Click me</m-button>`;
+  public eventClick(): void {
+    this.eventMessage = 'Button was clicked';
+    setTimeout(() => this.eventMessage = undefined, 2000);
+  }
 }

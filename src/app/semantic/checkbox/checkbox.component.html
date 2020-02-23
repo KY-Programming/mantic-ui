@@ -35,6 +35,33 @@
         </m-example>
     </m-tab>
     <m-tab label="Binding">
-        <!-- TODO -->
+        <m-example header="Bind state" description="All button states can be bound" [code]="bindCode">
+            <div class="toolbar ui form">
+                <div class="three fields">
+                    <div class="field">
+                        <label>
+                            Text
+                        </label>
+                        <m-input [(value)]="text"></m-input>
+                    </div>
+                </div>
+                <div class="four fields">
+                    <div class="field">
+                        <m-toggle [(value)]="readonly">Read Only</m-toggle>
+                    </div>
+                    <div class="field">
+                        <m-toggle [(value)]="checked">Checked</m-toggle>
+                    </div>
+                    <div class="field">
+                        <m-toggle [(value)]="indeterminated">Indeterminate</m-toggle>
+                    </div>
+                    <div class="field">
+                        <m-toggle [(value)]="disabled">Disabled</m-toggle>
+                    </div>
+                </div>
+            </div>
+            <m-divider></m-divider>
+            <m-checkbox [readonly]="readonly" [(checked)]="checked" [(indeterminate)]="indeterminated" [disabled]="disabled">{{text}}</m-checkbox>
+        </m-example>
     </m-tab>
 </m-tab-group>

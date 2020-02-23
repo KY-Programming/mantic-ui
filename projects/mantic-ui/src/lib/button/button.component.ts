@@ -33,6 +33,9 @@ export class ButtonComponent extends ButtonBase {
   @Input()
   public social: string;
 
+  @Input()
+  public fluid: boolean;
+
   public readonly Color = Color;
 
   public constructor(
@@ -46,6 +49,7 @@ export class ButtonComponent extends ButtonBase {
       .register('labelPosition')
       .registerBoolean('label', 'labeled')
       .registerBoolean('icon', 'labeled icon')
+      .registerBoolean('fluid')
       .registerAction('social', (entry, value) => entry.classes = value === undefined ? undefined : value.toString().toLowerCase());
   }
 }

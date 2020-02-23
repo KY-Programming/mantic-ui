@@ -427,6 +427,53 @@
         </m-example>
     </m-tab>
     <m-tab label="Binding">
-        <!-- TODO -->
+        <m-example header="Bind state" description="All button states can be bound" [code]="bindCode">
+            <div class="toolbar ui form">
+                <div class="three fields">
+                    <div class="field">
+                        <label>
+                            Text
+                        </label>
+                        <m-input [(value)]="text"></m-input>
+                    </div>
+                    <!-- <div class="field">
+                        <label>
+                            Icon
+                        </label>
+                        <select [(ngModel)]="icon">
+                            <option value="">none</option>
+                            <option>search</option>
+                            <option>users</option>
+                        </select>
+                    </div>
+                    <div clasS="field">
+                        <label>&nbsp;</label>
+                        <select [(ngModel)]="iconPosition">
+                            <option>left</option>
+                            <option>right</option>
+                        </select>
+                    </div> -->
+                </div>
+                <div class="four fields">
+                    <div class="field">
+                        <m-toggle [(value)]="loading">Loading</m-toggle>
+                    </div>
+                    <div class="field">
+                        <m-toggle [(value)]="disabled">Disabled</m-toggle>
+                    </div>
+                    <div class="field">
+                        <m-toggle [(value)]="fluid">Fluid</m-toggle>
+                    </div>
+                </div>
+            </div>
+            <m-divider></m-divider>
+            <m-button [loading]="loading" [disabled]="disabled" [fluid]="fluid">{{text}}</m-button>
+        </m-example>
+    </m-tab>
+    <m-tab label="Events">
+        <m-example header="Click event" description="A button with a subscribed click event" [code]="eventCode">
+            <m-button (click)="eventClick()">Click me</m-button>
+            <div>{{eventMessage}}</div>
+        </m-example>
     </m-tab>
 </m-tab-group>

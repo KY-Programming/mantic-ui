@@ -1,7 +1,12 @@
 # mantic UI
 
-This project is currently work-in-progress
+Angular components for Semantic UI and Fomantic UI
 
-See our GitHub repository for details: https://github.com/KY-Programming/mantic-ui
+## Work-In-Progress
 
-Documantation: https://mantic-ui.ky-programming.de
+Currently we are heavily working to get all components and features implemented.
+
+To support us, visit our https://github.com/KY-Programming/mantic-ui
+
+## Documantation
+https://mantic-ui.ky-programming.de
