@@ -1,9 +1,10 @@
-import { ElementRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ElementRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DestroyableComponent } from '../base/destroyable.component';
 import { ClassList } from '../models/class-list';
 import { EventQueue } from '../models/event-queue';
 
-export class ElementBase extends DestroyableComponent implements OnChanges, OnInit {
+export class ElementBase extends DestroyableComponent implements OnChanges, OnInit, AfterContentInit, AfterViewInit {
+    private inited = false;
 
     protected readonly classList = new ClassList()
         .registerBoolean('ui')
@@ -58,8 +59,23 @@ export class ElementBase extends DestroyableComponent implements OnChanges, OnIn
     }
 
     public ngOnInit(): void {
+        this.inited = true;
         this.readPropertiesFromAttributes();
         this.refreshClasses();
+    }
+
+    public ngAfterContentInit(): void {
+        if (this.inited === false) {
+            console.warn(`${this.constructor.name} derive from ElementBase and implements OnInit, but does not calls super.ngOnInit(). Please ensure that all components derived from ElemntBase calls ngOnInit (only if Oninit is implemented)`);
+        }
+        this.inited = undefined;
+    }
+
+    public ngAfterViewInit(): void {
+        if (this.inited === false) {
+            console.warn(`${this.constructor.name} derive from ElementBase and implements OnInit, but does not calls super.ngOnInit(). Please ensure that all components derived from ElemntBase calls ngOnInit (only if Oninit is implemented)`);
+        }
+        this.inited = undefined;
     }
 
     protected refreshClasses(): void {
