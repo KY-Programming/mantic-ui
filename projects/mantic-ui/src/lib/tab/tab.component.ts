@@ -12,6 +12,9 @@ export class TabComponent extends MenuItemComponent {
   public readonly empty = '';
 
   @Input()
+  public name: string;
+
+  @Input()
   public label: string;
 
   @Input()

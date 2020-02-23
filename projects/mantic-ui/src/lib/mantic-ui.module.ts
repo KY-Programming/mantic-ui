@@ -14,9 +14,6 @@ import { DividerComponent } from './divider/divider.component';
 import { DropdownItemComponent } from './dropdown-item/dropdown-item.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { ErrorComponent } from './error/error.component';
-import { ExampleCodeComponent } from './example-code/example-code.component';
-import { ExampleFrameComponent } from './example-frame/example-frame.component';
-import { ExampleComponent } from './example/example.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { IconButtonComponent } from './icon-button/icon-button.component';
@@ -60,7 +57,6 @@ import { WarningComponent } from './warning/warning.component';
     InputComponent,
     LabelComponent,
     LabelDropdownComponent,
-    ExampleComponent,
     MenuComponent,
     LayoutComponent,
     BreadcrumbComponent,
@@ -80,14 +76,12 @@ import { WarningComponent } from './warning/warning.component';
     HeaderDirective,
     HeaderComponent,
     MenuItemDirective,
-    ExampleFrameComponent,
     SafePipe,
     ModalComponent,
     ModalFooterComponent,
     FallbackForDirective,
     ModalHeaderComponent,
     DimmerComponent,
-    ExampleCodeComponent,
     CheckboxComponent,
     ToggleComponent,
     RadioComponent,
@@ -110,7 +104,6 @@ import { WarningComponent } from './warning/warning.component';
     InputComponent,
     LabelComponent,
     LabelDropdownComponent,
-    ExampleComponent,
     MenuComponent,
     LayoutComponent,
     BreadcrumbComponent,
@@ -130,14 +123,12 @@ import { WarningComponent } from './warning/warning.component';
     HeaderDirective,
     HeaderComponent,
     MenuItemDirective,
-    ExampleFrameComponent,
     SafePipe,
     ModalComponent,
     ModalFooterComponent,
     FallbackForDirective,
     ModalHeaderComponent,
     DimmerComponent,
-    ExampleCodeComponent,
     CheckboxComponent,
     ToggleComponent,
     RadioComponent,

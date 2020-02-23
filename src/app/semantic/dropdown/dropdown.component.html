@@ -4,70 +4,78 @@
         A dropdown allows a user to select a value from a series of options
     </div>
 </h1>
-<m-divider></m-divider>
 
-<h2 m-header dividing>Types</h2>
-<m-example header="Dropdown" description="A dropdown" type="html">
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Examples">
 
-</m-example>
+        <m-example header="Dropdown" description="A dropdown">
+            <!-- TODO -->
+        </m-example>
 
-<m-example header="Selection" description="A dropdown can be used to select between choices in a form" type="html" [code]="code1">
-    <m-dropdown placeholder="Gender" [(value)]="value1">
-        <m-dropdown-item [value]="1">Male</m-dropdown-item>
-        <m-dropdown-item [value]="0">Female</m-dropdown-item>
-    </m-dropdown>
-    <span *ngIf="value1 !== undefined" class="result">Result: {{value1}}</span>
-</m-example>
+        <m-example header="Selection" description="A dropdown can be used to select between choices in a form" [code]="code1">
+            <m-dropdown placeholder="Gender" [(value)]="value1">
+                <m-dropdown-item [value]="1">Male</m-dropdown-item>
+                <m-dropdown-item [value]="0">Female</m-dropdown-item>
+            </m-dropdown>
+            <span *ngIf="value1 !== undefined" class="result">Result: {{value1}}</span>
+        </m-example>
 
-<m-example>
-    <m-dropdown placeholder="Select Friend" fluid>
-        <m-dropdown-item value="jenny">
-            <img class="ui mini avatar image" src="/assets/images/avatar/small/jenny.jpg">
-            Jenny Hess
-        </m-dropdown-item>
-        <m-dropdown-item value="elliot">
-            <img class="ui mini avatar image" src="/assets/images/avatar/small/elliot.jpg">
-            Elliot Fu
-        </m-dropdown-item>
-        <m-dropdown-item value="stevie">
-            <img class="ui mini avatar image" src="/assets/images/avatar/small/stevie.jpg">
-            Stevie Feliciano
-        </m-dropdown-item>
-        <m-dropdown-item value="christian">
-            <img class="ui mini avatar image" src="/assets/images/avatar/small/christian.jpg">
-            Christian
-        </m-dropdown-item>
-        <m-dropdown-item value="matt">
-            <img class="ui mini avatar image" src="/assets/images/avatar/small/matt.jpg">
-            Matt
-        </m-dropdown-item>
-        <m-dropdown-item value="justen">
-            <img class="ui mini avatar image" src="/assets/images/avatar/small/justen.jpg">
-            Justen Kitsune
-        </m-dropdown-item>
-    </m-dropdown>
-</m-example>
+        <m-example>
+            <m-dropdown placeholder="Select Friend" fluid>
+                <m-dropdown-item value="jenny">
+                    <img class="ui mini avatar image" src="/assets/images/avatar/small/jenny.jpg">
+                    Jenny Hess
+                </m-dropdown-item>
+                <m-dropdown-item value="elliot">
+                    <img class="ui mini avatar image" src="/assets/images/avatar/small/elliot.jpg">
+                    Elliot Fu
+                </m-dropdown-item>
+                <m-dropdown-item value="stevie">
+                    <img class="ui mini avatar image" src="/assets/images/avatar/small/stevie.jpg">
+                    Stevie Feliciano
+                </m-dropdown-item>
+                <m-dropdown-item value="christian">
+                    <img class="ui mini avatar image" src="/assets/images/avatar/small/christian.jpg">
+                    Christian
+                </m-dropdown-item>
+                <m-dropdown-item value="matt">
+                    <img class="ui mini avatar image" src="/assets/images/avatar/small/matt.jpg">
+                    Matt
+                </m-dropdown-item>
+                <m-dropdown-item value="justen">
+                    <img class="ui mini avatar image" src="/assets/images/avatar/small/justen.jpg">
+                    Justen Kitsune
+                </m-dropdown-item>
+            </m-dropdown>
+        </m-example>
 
-<m-example header="Search Selection" description="A selection dropdown can allow a user to search through a large list of choices" [code]="itemsCode">
-    <m-dropdown [items]="countries" placeholder="Select Country" fluid search></m-dropdown>
-</m-example>
+        <m-example header="Search Selection" description="A selection dropdown can allow a user to search through a large list of choices" [code]="itemsCode">
+            <m-dropdown [items]="countries" placeholder="Select Country" fluid search></m-dropdown>
+        </m-example>
 
-<m-example description="Search only in text" [code]="onlyTextCode">
-    <m-dropdown [items]="countries" placeholder="Select Country" [filterValue]="false" fluid search></m-dropdown>
-</m-example>
+        <m-example description="Search only in text" [code]="onlyTextCode">
+            <m-dropdown [items]="countries" placeholder="Select Country" [filterValue]="false" fluid search></m-dropdown>
+        </m-example>
 
-<m-example description="Search only in value" [code]="onlyValueCode">
-    <m-dropdown [items]="countries" placeholder="Select Country" [filterText]="false" fluid search></m-dropdown>
-</m-example>
+        <m-example description="Search only in value" [code]="onlyValueCode">
+            <m-dropdown [items]="countries" placeholder="Select Country" [filterText]="false" fluid search></m-dropdown>
+        </m-example>
 
-<m-example description="Search everywhere in value and text (use contains)" [code]="containsCode">
-    <m-dropdown [items]="countries" placeholder="Select Country" filterType="contains" fluid search></m-dropdown>
-</m-example>
+        <m-example description="Search everywhere in value and text (use contains)" [code]="containsCode">
+            <m-dropdown [items]="countries" placeholder="Select Country" filterType="contains" fluid search></m-dropdown>
+        </m-example>
 
-<m-example header="Multiple Selection" description="A selection dropdown can allow multiple selections" [code]="multiselectCode">
-    <m-dropdown [items]="countries" placeholder="Select Country" multiple fluid search></m-dropdown>
-</m-example>
+        <m-example header="Multiple Selection" description="A selection dropdown can allow multiple selections" [code]="multiselectCode">
+            <m-dropdown [items]="countries" placeholder="Select Country" multiple fluid search></m-dropdown>
+        </m-example>
 
-<!-- <m-example header="Search Dropdown" description="A dropdown can be searchable" [code]="multiselectCode">
+        <!-- <m-example header="Search Dropdown" description="A dropdown can be searchable" [code]="multiselectCode">
     <m-dropdown [items]="countries" placeholder="Select Country" icon="world" search></m-dropdown>
 </m-example> -->
+    </m-tab>
+    <m-tab label="States">
+        <!-- TODO -->
+    </m-tab>
+    <m-tab label="Binding">
+    </m-tab>
+</m-tab-group>

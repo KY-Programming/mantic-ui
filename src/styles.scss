@@ -5,6 +5,8 @@
 @import "~../projects/semantic-ui/src/assets/components/header.css";
 // TODO-END
 
+$pageMargin: 2rem;
+
 html,
 body {
   font-size: initial;
@@ -13,4 +15,23 @@ body {
 
 m-segment pre {
   margin: 0;
+}
+
+m-tab-group.page {
+  margin: 0 $pageMargin * -1;
+
+  &>.ui.menu {
+    position: sticky;
+    top: -2rem;
+    z-index: 10;
+    padding-left: $pageMargin;
+    padding-right: $pageMargin;
+    background-color: #f2f2f2;
+    border-radius: 0;
+  }
+
+  &>.ui.segment {
+    padding-left: $pageMargin;
+    padding-right: $pageMargin;
+  }
 }

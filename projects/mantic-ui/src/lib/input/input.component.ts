@@ -42,6 +42,9 @@ export class InputComponent extends LabeledBase {
   @Input()
   public value: string;
 
+  @Input()
+  public fluid: boolean;
+
   @Output()
   public readonly valueChange = new EventEmitter<string>();
 
@@ -64,6 +67,7 @@ export class InputComponent extends LabeledBase {
       .registerBoolean('loading')
       .registerBoolean('disabled')
       .registerBoolean('transparent')
+      .registerBoolean('fluid')
       .registerBoolean('hasError', 'error')
       .registerFixed('input', Number.MAX_VALUE - 1);
   }

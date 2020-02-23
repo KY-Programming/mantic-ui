@@ -7,20 +7,19 @@
 <m-divider></m-divider>
 
 <h2 m-header dividing>Types</h2>
-<m-example header="Button" description="A standard button" [code]="button1Code" type="html">
+<m-example header="Button" description="A standard button" [code]="button1Code">
     <m-button (click)="button1Click()">{{button1Text}}</m-button>
 </m-example>
 <m-example header="Emphasis" description="A button can be formatted to show different levels of emphasis"
-           [code]="buttonEmphasisPrimaryCode" type="html">
+           [code]="buttonEmphasisPrimaryCode">
     <m-button primary>Save</m-button>
     <m-button>Discard</m-button>
 </m-example>
-<m-example [code]="buttonEmphasisSecondaryCode" type="html">
+<m-example [code]="buttonEmphasisSecondaryCode">
     <m-button secondary>Okay</m-button>
     <m-button>Cancel</m-button>
 </m-example>
-<m-example header="Animated" description="A button can animate to show hidden content" [code]="buttonAnimatedCode"
-           type="html">
+<m-example header="Animated" description="A button can animate to show hidden content" [code]="buttonAnimatedCode">
     <m-button>
         Next
         <ng-template #animated>
@@ -40,7 +39,7 @@
         </ng-template>
     </m-button>
 </m-example>
-<m-example header="Labeled" description="A button can appear alongside a label" [code]="buttonLabeledCode" type="html">
+<m-example header="Labeled" description="A button can appear alongside a label" [code]="buttonLabeledCode">
     <m-button>
         <m-icon icon="heart"></m-icon> Like
         <ng-template #label>
@@ -60,7 +59,7 @@
         </ng-template>
     </m-button>
 </m-example>
-<m-example [code]="buttonLabeledColoredCode" type="html">
+<m-example [code]="buttonLabeledColoredCode">
     <m-button color="red" pointing="left">
         <m-icon icon="heart"></m-icon> Like
         <ng-template #label>

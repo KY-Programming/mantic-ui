@@ -1,6 +1,5 @@
-import { Component, ElementRef } from '@angular/core';
-import { SegmentComponent } from '../segment/segment.component';
-import { DimmableService } from '../services/dimmable.service';
+import { Component, ElementRef, Input } from '@angular/core';
+import { DimmableService, SegmentComponent } from '@mantic-ui/angular';
 
 @Component({
   selector: 'm-example-code',
@@ -9,6 +8,12 @@ import { DimmableService } from '../services/dimmable.service';
   providers: [DimmableService]
 })
 export class ExampleCodeComponent extends SegmentComponent {
+
+  @Input()
+  public code: string;
+
+  @Input()
+  public languages: string[] = ['html'];
 
   public constructor(
     elementRef: ElementRef<HTMLElement>,

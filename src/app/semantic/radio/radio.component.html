@@ -4,69 +4,74 @@
         A radio allows a user to select between exclusive options
     </div>
 </h1>
-<m-divider></m-divider>
 
-<h2 m-header dividing>Types</h2>
-<m-example header="Radio" description="A standard radio" [code]="standardCode">
-    <m-radio name="example">Radio choice</m-radio>
-</m-example>
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Examples">
+        <m-example header="Radio" description="A standard radio" [code]="standardCode">
+            <m-radio name="example">Radio choice</m-radio>
+        </m-example>
 
-<m-example>
-    <div class="ui form">
-        <div class="inline fields">
-            <label>How often do you use checkboxes?</label>
-            <div class="field">
-                <m-radio name="frequency" checked>Once a week</m-radio>
+        <m-example>
+            <div class="ui form">
+                <div class="inline fields">
+                    <label>How often do you use checkboxes?</label>
+                    <div class="field">
+                        <m-radio name="frequency" checked>Once a week</m-radio>
+                    </div>
+                    <div class="field">
+                        <m-radio name="frequency">2-3 times a week</m-radio>
+                    </div>
+                    <div class="field">
+                        <m-radio name="frequency">Once a day</m-radio>
+                    </div>
+                    <div class="field">
+                        <m-radio name="frequency">Twice a day</m-radio>
+                    </div>
+                </div>
             </div>
-            <div class="field">
-                <m-radio name="frequency">2-3 times a week</m-radio>
-            </div>
-            <div class="field">
-                <m-radio name="frequency">Once a day</m-radio>
-            </div>
-            <div class="field">
-                <m-radio name="frequency">Twice a day</m-radio>
-            </div>
-        </div>
-    </div>
-</m-example>
+        </m-example>
 
-<m-example>
-    <div class="ui form">
-        <div class="grouped fields">
-            <label>How often do you use checkboxes?</label>
-            <div class="field">
-                <m-radio name="frequency2" checked>Once a week</m-radio>
+        <m-example>
+            <div class="ui form">
+                <div class="grouped fields">
+                    <label>How often do you use checkboxes?</label>
+                    <div class="field">
+                        <m-radio name="frequency2" checked>Once a week</m-radio>
+                    </div>
+                    <div class="field">
+                        <m-radio name="frequency2">2-3 times a week</m-radio>
+                    </div>
+                    <div class="field">
+                        <m-radio name="frequency2">Once a day</m-radio>
+                    </div>
+                    <div class="field">
+                        <m-radio name="frequency2">Twice a day</m-radio>
+                    </div>
+                </div>
             </div>
-            <div class="field">
-                <m-radio name="frequency2">2-3 times a week</m-radio>
-            </div>
-            <div class="field">
-                <m-radio name="frequency2">Once a day</m-radio>
-            </div>
-            <div class="field">
-                <m-radio name="frequency2">Twice a day</m-radio>
-            </div>
-        </div>
-    </div>
-</m-example>
+        </m-example>
+    </m-tab>
+    <m-tab label="States">
+        <m-example header="Read-only" description="A radio can be read-only and unable to change states" [code]="readonlyCode">
+            <m-radio readonly>Read Only</m-radio>
+        </m-example>
 
-<h2 m-header dividing>States</h2>
-<m-example header="Read-only" description="A radio can be read-only and unable to change states" [code]="readonlyCode">
-    <m-radio readonly>Read Only</m-radio>
-</m-example>
+        <m-example header="Checked" description="A radio can be checked" [code]="checkedCode">
+            <m-radio checked>Active</m-radio>
+        </m-example>
 
-<m-example header="Checked" description="A radio can be checked" [code]="checkedCode">
-    <m-radio checked>Active</m-radio>
-</m-example>
-
-<m-example header="Disabled" description="A radio can be read-only and unable to change states" [code]="disabledCode">
-    <m-radio disabled>Disabled</m-radio>
-</m-example>
-
-<h2 m-header dividing>Variations</h2>
-<m-example header="Fitted" description="A fitted radio does not leave padding for a label" [code]="fittedCode">
-    <m-segment class="left floated">
-        <m-radio fitted></m-radio>
-    </m-segment>
-</m-example>
+        <m-example header="Disabled" description="A radio can be read-only and unable to change states" [code]="disabledCode">
+            <m-radio disabled>Disabled</m-radio>
+        </m-example>
+    </m-tab>
+    <m-tab label="Variations">
+        <m-example header="Fitted" description="A fitted radio does not leave padding for a label" [code]="fittedCode">
+            <m-segment class="left floated">
+                <m-radio fitted></m-radio>
+            </m-segment>
+        </m-example>
+    </m-tab>
+    <m-tab label="Binding">
+        <!-- TODO -->
+    </m-tab>
+</m-tab-group>

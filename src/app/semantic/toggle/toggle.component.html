@@ -4,29 +4,35 @@
         A toggle allows a user to select between on or off
     </div>
 </h1>
-<m-divider></m-divider>
 
-<h2 m-header dividing>Types</h2>
-<m-example header="Toggle" description="A standard toggle" [code]="standardCode">
-    <m-toggle name="example">Subscribe to weekly newsletter</m-toggle>
-</m-example>
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Examples">
+        <m-example header="Toggle" description="A standard toggle" [code]="standardCode">
+            <m-toggle name="example">Subscribe to weekly newsletter</m-toggle>
+        </m-example>
 
-<h2 m-header dividing>States</h2>
-<m-example header="Read-only" description="A toggle can be read-only and unable to change states" [code]="readonlyCode">
-    <m-toggle readonly>Read Only</m-toggle>
-</m-example>
+    </m-tab>
+    <m-tab label="States">
+        <m-example header="Read-only" description="A toggle can be read-only and unable to change states" [code]="readonlyCode">
+            <m-toggle readonly>Read Only</m-toggle>
+        </m-example>
 
-<m-example header="Checked" description="A toggle can be checked" [code]="checkedCode">
-    <m-toggle checked>Active</m-toggle>
-</m-example>
+        <m-example header="Checked" description="A toggle can be checked" [code]="checkedCode">
+            <m-toggle checked>Active</m-toggle>
+        </m-example>
 
-<m-example header="Disabled" description="A toggle can be read-only and unable to change states" [code]="disabledCode">
-    <m-toggle disabled>Disabled</m-toggle>
-</m-example>
-
-<h2 m-header dividing>Variations</h2>
-<m-example header="Fitted" description="A fitted toggle does not leave padding for a label" [code]="fittedCode">
-    <m-segment class="left floated">
-        <m-toggle fitted></m-toggle>
-    </m-segment>
-</m-example>
+        <m-example header="Disabled" description="A toggle can be read-only and unable to change states" [code]="disabledCode">
+            <m-toggle disabled>Disabled</m-toggle>
+        </m-example>
+    </m-tab>
+    <m-tab label="Variations">
+        <m-example header="Fitted" description="A fitted toggle does not leave padding for a label" [code]="fittedCode">
+            <m-segment class="left floated">
+                <m-toggle fitted></m-toggle>
+            </m-segment>
+        </m-example>
+    </m-tab>
+    <m-tab label="Binding">
+        <!-- TODO -->
+    </m-tab>
+</m-tab-group>

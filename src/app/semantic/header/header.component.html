@@ -4,61 +4,63 @@
         A header provides a short summary of conten
     </div>
 </h1>
-<m-divider></m-divider>
 
-<h2 m-header dividing>Types</h2>
-<m-example header="Page Headers" description="Headers may be oriented to give the hierarchy of a section in the context of the page" type="html" [code]="headerCode">
-    <m-info>Page headings are sized using <code>rem</code> and are not affected by surrounding content size.</m-info>
-    <h1 m-header>First Header</h1>
-    <img src="/assets/images/short-paragraph.png">
-    <h2 m-header>Second Header</h2>
-    <img src="/assets/images/short-paragraph.png">
-    <h3 m-header>Third Header</h3>
-    <img src="/assets/images/short-paragraph.png">
-    <h4 m-header>Fourth Header</h4>
-    <img src="/assets/images/short-paragraph.png">
-    <h5 m-header>Fifth Header</h5>
-    <img src="/assets/images/short-paragraph.png">
-    <h6 m-header>Sixth Header</h6>
-    <img src="/assets/images/short-paragraph.png">
-</m-example>
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Examples">
+        <m-example header="Page Headers" description="Headers may be oriented to give the hierarchy of a section in the context of the page" [code]="headerCode">
+            <m-info>Page headings are sized using <code>rem</code> and are not affected by surrounding content size.</m-info>
+            <h1 m-header>First Header</h1>
+            <img src="/assets/images/short-paragraph.png">
+            <h2 m-header>Second Header</h2>
+            <img src="/assets/images/short-paragraph.png">
+            <h3 m-header>Third Header</h3>
+            <img src="/assets/images/short-paragraph.png">
+            <h4 m-header>Fourth Header</h4>
+            <img src="/assets/images/short-paragraph.png">
+            <h5 m-header>Fifth Header</h5>
+            <img src="/assets/images/short-paragraph.png">
+            <h6 m-header>Sixth Header</h6>
+            <img src="/assets/images/short-paragraph.png">
+        </m-example>
 
-<m-example header="Content Headers" description="Headers may be oriented to give the importance of a section in the context of the content that surrounds it" type="html" [code]="contentCode">
-    <m-info>Content headings are sized with <code>em</code> and are based on the font-size of their container.</m-info>
-    <m-button-group>
-        <m-icon-button icon="plus" (click)="increase()"></m-icon-button>
-        <m-icon-button icon="minus" (click)="decrease()"></m-icon-button>
-    </m-button-group>
-    <m-segment [style.font-size.px]="fontSize" vertical>
-        <m-header size="huge">Huge Header</m-header>
-        <img class="ui image" src="/assets/images/short-paragraph.png">
-        <m-header size="large">Large Header</m-header>
-        <img class="ui image" src="/assets/images/short-paragraph.png">
-        <m-header size="medium">Medium Header</m-header>
-        <img class="ui image" src="/assets/images/short-paragraph.png">
-        <m-header size="small">Small Header</m-header>
-        <img class="ui image" src="/assets/images/short-paragraph.png">
-        <m-header size="tiny">Tiny Header</m-header>
-        <img class="ui image" src="/assets/images/short-paragraph.png">
-    </m-segment>
-</m-example>
+        <m-example header="Content Headers" description="Headers may be oriented to give the importance of a section in the context of the content that surrounds it" [code]="contentCode">
+            <m-info>Content headings are sized with <code>em</code> and are based on the font-size of their container.</m-info>
+            <m-button-group>
+                <m-icon-button icon="plus" (click)="increase()"></m-icon-button>
+                <m-icon-button icon="minus" (click)="decrease()"></m-icon-button>
+            </m-button-group>
+            <m-segment [style.font-size.px]="fontSize" vertical>
+                <m-header size="huge">Huge Header</m-header>
+                <img class="ui image" src="/assets/images/short-paragraph.png">
+                <m-header size="large">Large Header</m-header>
+                <img class="ui image" src="/assets/images/short-paragraph.png">
+                <m-header size="medium">Medium Header</m-header>
+                <img class="ui image" src="/assets/images/short-paragraph.png">
+                <m-header size="small">Small Header</m-header>
+                <img class="ui image" src="/assets/images/short-paragraph.png">
+                <m-header size="tiny">Tiny Header</m-header>
+                <img class="ui image" src="/assets/images/short-paragraph.png">
+            </m-segment>
+        </m-example>
 
-<m-example header="Icon Headers" description="A header can be formatted to emphasize an icon" type="html" [code]="contentCode">
-    <m-info>Content headings are sized with <code>em</code> and are based on the font-size of their container.</m-info>
-    <m-button-group>
-        <m-icon-button icon="plus" (click)="increase()"></m-icon-button>
-        <m-icon-button icon="minus" (click)="decrease()"></m-icon-button>
-    </m-button-group>
-    <m-segment [style.font-size.px]="fontSize" vertical>
-        <m-header size="huge">Huge Header</m-header>
-        <img class="ui image" src="/assets/images/short-paragraph.png">
-        <m-header size="large">Large Header</m-header>
-        <img class="ui image" src="/assets/images/short-paragraph.png">
-        <m-header size="medium">Medium Header</m-header>
-        <img class="ui image" src="/assets/images/short-paragraph.png">
-        <m-header size="small">Small Header</m-header>
-        <img class="ui image" src="/assets/images/short-paragraph.png">
-        <m-header size="tiny">Tiny Header</m-header>
-        <img class="ui image" src="/assets/images/short-paragraph.png">
-    </m-segment>
-</m-example>
+        <m-example header="Icon Headers" description="A header can be formatted to emphasize an icon" [code]="contentCode">
+            <m-info>Content headings are sized with <code>em</code> and are based on the font-size of their container.</m-info>
+            <m-button-group>
+                <m-icon-button icon="plus" (click)="increase()"></m-icon-button>
+                <m-icon-button icon="minus" (click)="decrease()"></m-icon-button>
+            </m-button-group>
+            <m-segment [style.font-size.px]="fontSize" vertical>
+                <m-header size="huge">Huge Header</m-header>
+                <img class="ui image" src="/assets/images/short-paragraph.png">
+                <m-header size="large">Large Header</m-header>
+                <img class="ui image" src="/assets/images/short-paragraph.png">
+                <m-header size="medium">Medium Header</m-header>
+                <img class="ui image" src="/assets/images/short-paragraph.png">
+                <m-header size="small">Small Header</m-header>
+                <img class="ui image" src="/assets/images/short-paragraph.png">
+                <m-header size="tiny">Tiny Header</m-header>
+                <img class="ui image" src="/assets/images/short-paragraph.png">
+            </m-segment>
+        </m-example>
+    </m-tab>
+</m-tab-group>

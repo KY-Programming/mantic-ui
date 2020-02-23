@@ -4,103 +4,108 @@
         A tab is a hidden section of content activated by a menu
     </div>
 </h1>
-<m-divider></m-divider>
 
-<h2 m-header dividing>Types</h2>
-<m-example header="Tab" description="A basic tab" type="html" [code]="code1">
-    <m-tab-group>
-        <m-tab label="Tab"></m-tab>
-    </m-tab-group>
-</m-example>
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Examples">
+        <m-example header="Tab" description="A basic tab" [code]="code1">
+            <m-tab-group>
+                <m-tab label="Tab"></m-tab>
+            </m-tab-group>
+        </m-example>
 
-<m-example [code]="code2">
-    <m-tab-group>
-        <m-tab label="Bio"></m-tab>
-        <m-tab label="Photos" active></m-tab>
-    </m-tab-group>
-</m-example>
+        <m-example [code]="code2">
+            <m-tab-group>
+                <m-tab label="Bio"></m-tab>
+                <m-tab label="Photos" active></m-tab>
+            </m-tab-group>
+        </m-example>
 
-<m-example>
-    <m-tab-group>
-        <m-tab label="Bio">
-            <img src="/assets/images/paragraph.png">
-        </m-tab>
-        <m-tab label="Photos">
-            <img src="/assets/images/media-paragraph.png">
-        </m-tab>
-        <!-- <m-menu position="right">
-            <m-menu-item>
-                <m-input transparent placeholder="Search..." icon="search link"></m-input>
-            </m-menu-item>
-        </m-menu> -->
-    </m-tab-group>
-</m-example>
+        <m-example>
+            <m-tab-group>
+                <m-tab label="Bio">
+                    <img src="/assets/images/paragraph.png">
+                </m-tab>
+                <m-tab label="Photos">
+                    <img src="/assets/images/media-paragraph.png">
+                </m-tab>
+                <!-- <m-menu position="right">
+                    <m-menu-item>
+                        <m-input transparent placeholder="Search..." icon="search link"></m-input>
+                    </m-menu-item>
+                </m-menu> -->
+            </m-tab-group>
+        </m-example>
 
-<m-example>
-    <m-tab-group position="bottom">
-        <m-tab label="Active Project">
-        </m-tab>
-        <m-tab label="Project #2">
-        </m-tab>
-        <m-tab label="Project #3">
-        </m-tab>
-        <!-- <m-menu position="right"> -->
-        <m-tab label="New Tab" icon="add" active>
-            <img src="/assets/images/paragraph.png"></m-tab>
-        <!-- </m-menu> -->
-    </m-tab-group>
-</m-example>
+        <m-example>
+            <m-tab-group position="bottom">
+                <m-tab label="Active Project">
+                </m-tab>
+                <m-tab label="Project #2">
+                </m-tab>
+                <m-tab label="Project #3">
+                </m-tab>
+                <!-- <m-menu position="right"> -->
+                <m-tab label="New Tab" icon="add" active>
+                    <img src="/assets/images/paragraph.png"></m-tab>
+                <!-- </m-menu> -->
+            </m-tab-group>
+        </m-example>
 
-<m-example>
-    <!-- TODO: Implement -->
-    <div class="ui grid">
-        <div class="four wide column">
-            <div class="ui vertical fluid tabular menu">
-                <a class="active item">
-                    Bio
-                </a>
-                <a class="item">
-                    Pics
-                </a>
-                <a class="item">
-                    Companies
-                </a>
-                <a class="item">
-                    Links
-                </a>
+        <m-example>
+            <!-- TODO: Implement -->
+            <div class="ui grid">
+                <div class="four wide column">
+                    <div class="ui vertical fluid tabular menu">
+                        <a class="active item">
+                            Bio
+                        </a>
+                        <a class="item">
+                            Pics
+                        </a>
+                        <a class="item">
+                            Companies
+                        </a>
+                        <a class="item">
+                            Links
+                        </a>
+                    </div>
+                </div>
+                <div class="twelve wide stretched column">
+                    <div class="ui segment">
+                        This is an stretched grid column. This segment will always match the tab height
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="twelve wide stretched column">
-            <div class="ui segment">
-                This is an stretched grid column. This segment will always match the tab height
-            </div>
-        </div>
-    </div>
-</m-example>
+        </m-example>
 
-<m-example>
-    <!-- TODO: Implement -->
-    <div class="ui grid">
-        <div class="twelve wide stretched column">
-            <div class="ui segment">
-                This is an stretched grid column. This segment will always match the tab height
+        <m-example>
+            <!-- TODO: Implement -->
+            <div class="ui grid">
+                <div class="twelve wide stretched column">
+                    <div class="ui segment">
+                        This is an stretched grid column. This segment will always match the tab height
+                    </div>
+                </div>
+                <div class="four wide column">
+                    <div class="ui vertical fluid right tabular menu">
+                        <a class="active item">
+                            Bio
+                        </a>
+                        <a class="item">
+                            Pics
+                        </a>
+                        <a class="item">
+                            Companies
+                        </a>
+                        <a class="item">
+                            Links
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="four wide column">
-            <div class="ui vertical fluid right tabular menu">
-                <a class="active item">
-                    Bio
-                </a>
-                <a class="item">
-                    Pics
-                </a>
-                <a class="item">
-                    Companies
-                </a>
-                <a class="item">
-                    Links
-                </a>
-            </div>
-        </div>
-    </div>
-</m-example>
+        </m-example>
+    </m-tab>
+    <m-tab label="States">
+        <!-- TODO -->
+    </m-tab>
+</m-tab-group>

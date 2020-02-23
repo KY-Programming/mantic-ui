@@ -1,0 +1,12 @@
+{
+  "name": "@mantic-ui/doc",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "@mantic-ui/angular": "^0.0.0",
+    "ngx-highlightjs": "^4.0.0",
+    "highlight.js": "^9.0.0",
+    "@types/highlight.js": "^9.0.0"
+  }
+}

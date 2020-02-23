@@ -25,6 +25,9 @@ export class SegmentComponent extends DimmableComponent {
   public placeholder: boolean;
 
   @Input()
+  public basic: boolean;
+
+  @Input()
   public attached: 'top' | 'bottom';
 
   public constructor(
@@ -38,6 +41,7 @@ export class SegmentComponent extends DimmableComponent {
       .registerBoolean('raised')
       .registerBoolean('vertical')
       .registerBoolean('placeholder')
+      .registerBoolean('basic')
       .registerAction('attached', (entry, value) => entry.classes = value ? value + ' attached' : '')
       .registerFixed('segment', Number.MAX_VALUE - 1);
   }

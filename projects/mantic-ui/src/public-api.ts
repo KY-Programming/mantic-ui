@@ -1,3 +1,4 @@
+export * from './lib/base/destroyable.component';
 export * from './lib/breadcrumb/breadcrumb.component';
 export * from './lib/button-group/button-group.component';
 export * from './lib/button/button.component';
@@ -12,9 +13,6 @@ export * from './lib/dropdown-item/dropdown-item.component';
 export * from './lib/dropdown/dropdown-value';
 export * from './lib/dropdown/dropdown.component';
 export * from './lib/error/error.component';
-export * from './lib/example-code/example-code.component';
-export * from './lib/example-frame/example-frame.component';
-export * from './lib/example/example.component';
 export * from './lib/footer/footer.component';
 export * from './lib/header/header.component';
 export * from './lib/icon-button/icon-button.component';
@@ -37,6 +35,7 @@ export * from './lib/pipes/safe.pipe';
 export * from './lib/radio/radio.component';
 export * from './lib/segment/segment-defaults.component';
 export * from './lib/segment/segment.component';
+export * from './lib/services/dimmable.service';
 export * from './lib/services/theme.service';
 export * from './lib/slider/slider.component';
 export * from './lib/tab-group/tab-group.component';
@@ -45,4 +44,3 @@ export * from './lib/text-container/text-container.component';
 export * from './lib/toggle-button/toggle-button.component';
 export * from './lib/toggle/toggle.component';
 export * from './lib/warning/warning.component';
-

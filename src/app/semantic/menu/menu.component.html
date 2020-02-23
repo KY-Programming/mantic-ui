@@ -4,187 +4,194 @@
         A menu displays grouped navigation actions
     </div>
 </h1>
-<m-divider></m-divider>
 
-<h2 m-header dividing>Types</h2>
-<m-example header="Menu" description="A menu" type="html">
-    <m-menu class="three item">
-        <m-menu-link active>Editorials</m-menu-link>
-        <m-menu-link>Reviews</m-menu-link>
-        <m-menu-link>Upcoming Events</m-menu-link>
-    </m-menu>
-</m-example>
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Examples">
+        <m-example header="Menu" description="A menu">
+            <m-menu class="three item">
+                <m-menu-link active>Editorials</m-menu-link>
+                <m-menu-link>Reviews</m-menu-link>
+                <m-menu-link>Upcoming Events</m-menu-link>
+            </m-menu>
+        </m-example>
 
-<m-example>
-    <m-menu text>
-        <m-menu-item>
-            <img src="/assets/images/new-school.jpg">
-        </m-menu-item>
-        <m-menu-item>
-            Browse Courses
-            <!-- <i class="dropdown icon"></i> -->
-            <!-- <div class="ui flowing basic admission popup">
-                <div class="ui three column relaxed divided grid">
-                    <div class="column">
-                        <h4 m-header>Business</h4>
-                        <div class="ui link list">
-                            <a class="item">Design &amp; Urban Ecologies</a>
-                            <a class="item">Fashion Design</a>
-                            <a class="item">Fine Art</a>
-                            <a class="item">Strategic Design</a>
+        <m-example>
+            <m-menu text>
+                <m-menu-item>
+                    <img src="/assets/images/new-school.jpg">
+                </m-menu-item>
+                <m-menu-item>
+                    Browse Courses
+                    <!-- <i class="dropdown icon"></i> -->
+                    <!-- <div class="ui flowing basic admission popup">
+                        <div class="ui three column relaxed divided grid">
+                            <div class="column">
+                                <h4 m-header>Business</h4>
+                                <div class="ui link list">
+                                    <a class="item">Design &amp; Urban Ecologies</a>
+                                    <a class="item">Fashion Design</a>
+                                    <a class="item">Fine Art</a>
+                                    <a class="item">Strategic Design</a>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <h4 m-header>Liberal Arts</h4>
+                                <div class="ui link list">
+                                    <a class="item">Anthropology</a>
+                                    <a class="item">Economics</a>
+                                    <a class="item">Media Studies</a>
+                                    <a class="item">Philosophy</a>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <h4 m-header>Social Sciences</h4>
+                                <div class="ui link list">
+                                    <a class="item">Food Studies</a>
+                                    <a class="item">Journalism</a>
+                                    <a class="item">Non Profit Management</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="column">
-                        <h4 m-header>Liberal Arts</h4>
-                        <div class="ui link list">
-                            <a class="item">Anthropology</a>
-                            <a class="item">Economics</a>
-                            <a class="item">Media Studies</a>
-                            <a class="item">Philosophy</a>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <h4 m-header>Social Sciences</h4>
-                        <div class="ui link list">
-                            <a class="item">Food Studies</a>
-                            <a class="item">Journalism</a>
-                            <a class="item">Non Profit Management</a>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-        </m-menu-item>
-        <!-- <m-menu-dropdown label="More" position="right">
-            <m-dropdown-item>Applications</m-dropdown-item>
-            <m-dropdown-item>International Students</m-dropdown-item>
-            <m-dropdown-item>Scholarships</m-dropdown-item>
-        </m-menu-dropdown> -->
-    </m-menu>
-</m-example>
+                    </div> -->
+                </m-menu-item>
+                <!-- <m-menu-dropdown label="More" position="right">
+                    <m-dropdown-item>Applications</m-dropdown-item>
+                    <m-dropdown-item>International Students</m-dropdown-item>
+                    <m-dropdown-item>Scholarships</m-dropdown-item>
+                </m-menu-dropdown> -->
+            </m-menu>
+        </m-example>
 
-<m-example>
-    <m-menu attached="top">
-        <m-menu-item>
-            <i class="wrench icon"></i>
-        </m-menu-item>
-        <m-menu position="right">
-            <m-input type="text" placeholder="Search animals..." icon="search"></m-input>
-        </m-menu>
-    </m-menu>
-    <m-segment attached="bottom">
-        <img src="/assets/images/paragraph.png">
-    </m-segment>
+        <m-example>
+            <m-menu attached="top">
+                <m-menu-item>
+                    <i class="wrench icon"></i>
+                </m-menu-item>
+                <m-menu position="right">
+                    <m-input type="text" placeholder="Search animals..." icon="search"></m-input>
+                </m-menu>
+            </m-menu>
+            <m-segment attached="bottom">
+                <img src="/assets/images/paragraph.png">
+            </m-segment>
 
-    <div class="ui top attached menu">
-        <div class="ui dropdown icon item">
-            <i class="wrench icon"></i>
-            <div class="menu">
-                <div class="item">
-                    <i class="dropdown icon"></i>
-                    <span class="text">New</span>
+            <div class="ui top attached menu">
+                <div class="ui dropdown icon item">
+                    <i class="wrench icon"></i>
                     <div class="menu">
-                        <div class="item">Document</div>
-                        <div class="item">Image</div>
+                        <div class="item">
+                            <i class="dropdown icon"></i>
+                            <span class="text">New</span>
+                            <div class="menu">
+                                <div class="item">Document</div>
+                                <div class="item">Image</div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            Open...
+                        </div>
+                        <div class="item">
+                            Save...
+                        </div>
+                        <div class="item">Edit Permissions</div>
+                        <div class="divider"></div>
+                        <div class="header">
+                            Export
+                        </div>
+                        <div class="item">
+                            Share...
+                        </div>
                     </div>
                 </div>
-                <div class="item">
-                    Open...
-                </div>
-                <div class="item">
-                    Save...
-                </div>
-                <div class="item">Edit Permissions</div>
-                <div class="divider"></div>
-                <div class="header">
-                    Export
-                </div>
-                <div class="item">
-                    Share...
+                <div class="right menu">
+                    <div class="ui right aligned category search item">
+                        <div class="ui transparent icon input">
+                            <input class="prompt" type="text" placeholder="Search animals...">
+                            <i class="search link icon"></i>
+                        </div>
+                        <div class="results"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="right menu">
-            <div class="ui right aligned category search item">
-                <div class="ui transparent icon input">
-                    <input class="prompt" type="text" placeholder="Search animals...">
-                    <i class="search link icon"></i>
-                </div>
-                <div class="results"></div>
+            <div class="ui bottom attached segment">
+                <img src="/assets/images/paragraph.png">
             </div>
-        </div>
-    </div>
-    <div class="ui bottom attached segment">
-        <img src="/assets/images/paragraph.png">
-    </div>
-</m-example>
+        </m-example>
 
-<m-example header="Secondary Menu" description="A menu can point to show its relationship to nearby content">
-    <m-menu secondary>
-        <m-menu-link active>Home</m-menu-link>
-        <m-menu-link>Messages</m-menu-link>
-        <m-menu-link>Friends</m-menu-link>
-        <m-menu position="right">
-            <m-menu-item>
-                <m-input placeholder="Search..." icon="search link"></m-input>
-            </m-menu-item>
-            <m-menu-link>Logout</m-menu-link>
-        </m-menu>
-    </m-menu>
-</m-example>
+        <m-example header="Secondary Menu" description="A menu can point to show its relationship to nearby content">
+            <m-menu secondary>
+                <m-menu-link active>Home</m-menu-link>
+                <m-menu-link>Messages</m-menu-link>
+                <m-menu-link>Friends</m-menu-link>
+                <m-menu position="right">
+                    <m-menu-item>
+                        <m-input placeholder="Search..." icon="search link"></m-input>
+                    </m-menu-item>
+                    <m-menu-link>Logout</m-menu-link>
+                </m-menu>
+            </m-menu>
+        </m-example>
 
-<m-example header="Pointing" description="A menu can point to show its relationship to nearby content">
-    <m-menu pointing>
-        <m-menu-link active>Home</m-menu-link>
-        <m-menu-link>Messages</m-menu-link>
-        <m-menu-link>Friends</m-menu-link>
-        <m-menu position="right">
-            <m-menu-item>
-                <m-input transparent placeholder="Search..." icon="search link"></m-input>
-            </m-menu-item>
-        </m-menu>
-    </m-menu>
-    <m-segment>
-        <img src="/assets/images/paragraph.png">
-    </m-segment>
-</m-example>
+        <m-example header="Pointing" description="A menu can point to show its relationship to nearby content">
+            <m-menu pointing>
+                <m-menu-link active>Home</m-menu-link>
+                <m-menu-link>Messages</m-menu-link>
+                <m-menu-link>Friends</m-menu-link>
+                <m-menu position="right">
+                    <m-menu-item>
+                        <m-input transparent placeholder="Search..." icon="search link"></m-input>
+                    </m-menu-item>
+                </m-menu>
+            </m-menu>
+            <m-segment>
+                <img src="/assets/images/paragraph.png">
+            </m-segment>
+        </m-example>
 
-<m-example>
-    <m-menu pointing secondary>
-        <m-menu-link active>Home</m-menu-link>
-        <m-menu-link>Messages</m-menu-link>
-        <m-menu-link>Friends</m-menu-link>
-        <m-menu position="right">
-            <m-menu-link>Logout</m-menu-link>
-        </m-menu>
-    </m-menu>
-    <m-segment>
-        <img src="/assets/images/media-paragraph.png">
-    </m-segment>
-</m-example>
+        <m-example>
+            <m-menu pointing secondary>
+                <m-menu-link active>Home</m-menu-link>
+                <m-menu-link>Messages</m-menu-link>
+                <m-menu-link>Friends</m-menu-link>
+                <m-menu position="right">
+                    <m-menu-link>Logout</m-menu-link>
+                </m-menu>
+            </m-menu>
+            <m-segment>
+                <img src="/assets/images/media-paragraph.png">
+            </m-segment>
+        </m-example>
 
-<m-example header="Text" description="A menu can be formatted for text content">
-    <!-- TODO: Hover -->
-    <m-menu text>
-        <m-menu-header>Sort By</m-menu-header>
-        <m-menu-item active>Closest</m-menu-item>
-        <m-menu-item>Most Comments</m-menu-item>
-        <m-menu-item>Most Popular</m-menu-item>
-    </m-menu>
-    <div class="ui text menu">
-        <div class="header item">Sort By</div>
-        <a class="active item">
-            Closest
-        </a>
-        <a class="item">
-            Most Comments
-        </a>
-        <a class="item">
-            Most Popular
-        </a>
-    </div>
-</m-example>
+        <m-example header="Text" description="A menu can be formatted for text content">
+            <!-- TODO: Hover -->
+            <m-menu text>
+                <m-menu-header>Sort By</m-menu-header>
+                <m-menu-item active>Closest</m-menu-item>
+                <m-menu-item>Most Comments</m-menu-item>
+                <m-menu-item>Most Popular</m-menu-item>
+            </m-menu>
+            <div class="ui text menu">
+                <div class="header item">Sort By</div>
+                <a class="active item">
+                    Closest
+                </a>
+                <a class="item">
+                    Most Comments
+                </a>
+                <a class="item">
+                    Most Popular
+                </a>
+            </div>
+        </m-example>
 
-<m-example header="Fixed" description="A menu can be fixed to a side of its context">
-    <m-info>These examples use a an <code>iframe</code>, to prevent content from sticking to the browser viewport.</m-info>
-    <m-example-frame src="iframe/semantic/menu-fixed-1"></m-example-frame>
-</m-example>
+        <m-example header="Fixed" description="A menu can be fixed to a side of its context">
+            <m-info>These examples use a an <code>iframe</code>, to prevent content from sticking to the browser viewport.</m-info>
+            <m-example-frame src="iframe/semantic/menu-fixed-1"></m-example-frame>
+        </m-example>
+    </m-tab>
+    <m-tab label="States">
+    </m-tab>
+    <m-tab label="Binding">
+        <!-- TODO -->
+    </m-tab>
+</m-tab-group>

@@ -15,6 +15,7 @@ export class SemanticInputComponent {
   public type = 'text';
   public icon = 'search';
   public iconPosition = 'left';
+  public selectedTabName: string;
 
   public get focus(): boolean {
     return this.focusValue;
@@ -48,6 +49,8 @@ export class SemanticInputComponent {
     this.errorValue = value;
   }
 
+  public fluid: boolean;
+
   private reset(): void {
     this.focusValue = false;
     this.loadingValue = false;
@@ -63,4 +66,6 @@ export class SemanticInputComponent {
 
   public code1 = `<m-input type="text" placeholder="Search..."></m-input>`;
   public code2 = `<m-input type="text" placeholder="Search..." [(value)]="inputValue"></m-input>`;
+  public code3 = `<m-input [type]="type" placeholder="Search..." [icon]="icon" [iconPosition]="iconPosition" [focused]="focus" [loading]="loading" [disabled]="disabled" [hasError]="error" [fluid]="fluid"></m-input>`;
+  public eventCode = `<m-input (valueChange)="valueChange($event)"></m-input>`;
 }

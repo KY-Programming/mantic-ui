@@ -4,126 +4,143 @@
         An input is a field used to elicit a response from a user
     </div>
 </h1>
-<m-divider></m-divider>
-
-<h2 m-header dividing>Types</h2>
-<m-example header="Input" description="A standard input" [code]="code1">
-    <m-input type="text" placeholder="Search..."></m-input>
-</m-example>
-<m-example header="Binding" description="A two-way bound input" [code]="code2">
-    <m-input type="text" placeholder="Search..." [(value)]="inputValue"></m-input>
-    <div>Current Value: {{inputValue}}</div>
-</m-example>
-<m-example header="Change event" description="A input with an subscribed change event. The event is triggered when focus is lost (click outside of the box)">
-    <m-input type="text" placeholder="Search..." (valueChange)="valueChange($event)"></m-input>
-    <div>{{inputMessage}}</div>
-</m-example>
-
-<h2 m-header dividing>States</h2>
-<m-example header="Focus" description="An input field can show a user is currently interacting with it">
-    <m-input type="text" placeholder="Search..." focused></m-input>
-</m-example>
-<m-example header="Loading" description="An icon input field can show that it is currently loading data">
-    <m-input type="text" placeholder="Search..." icon="search" iconPosition="left" loading></m-input>
-</m-example>
-<m-example>
-    <m-input type="text" placeholder="Search..." icon="search" loading></m-input>
-</m-example>
-<m-example header="Disabled" description="An input field can show that it is disabled">
-    <m-input type="text" placeholder="Search..." disabled></m-input>
-</m-example>
-<m-example>
-    <m-input type="text" placeholder="Search..." icon="search" disabled></m-input>
-</m-example>
-<m-example header="Error" description="An input field can show the data contains errors">
-    <m-input type="text" placeholder="Search..." hasError></m-input>
-</m-example>
-<m-example header="Bind state" description="An input state can be bound">
-    <div class="toolbar">
-        <label>
-            Type:
-            <select [(ngModel)]="type">
-                <option value="text">Text</option>
-                <option value="number">Number</option>
-            </select>
-        </label>
-        <label>
-            Icon:
-            <select [(ngModel)]="icon">
-                <option value="">none</option>
-                <option>search</option>
-                <option>users</option>
-            </select>
-            <select [(ngModel)]="iconPosition">
-                <option>left</option>
-                <option>right</option>
-            </select>
-        </label>
-        <label>
-            <input type="checkbox" [(ngModel)]="focus">
-            Focus
-        </label>
-        <label>
-            <input type="checkbox" [(ngModel)]="loading">
-            Loading
-        </label>
-        <label>
-            <input type="checkbox" [(ngModel)]="disabled">
-            Disabled
-        </label>
-        <label>
-            <input type="checkbox" [(ngModel)]="error">
-            Error
-        </label>
-    </div>
-    <m-input [type]="type" placeholder="Search..." [icon]="icon" [iconPosition]="iconPosition" [focused]="focus" [loading]="loading" [disabled]="disabled" [hasError]="error"></m-input>
-</m-example>
-
-<h2 m-header dividing>Variations</h2>
-<m-example header="Icon" description="An input can be formatted with an icon">
-    <m-input type="text" placeholder="Search..." icon="search"></m-input>
-</m-example>
-<m-example>
-    <m-input type="text" placeholder="Search..." icon="users" iconPosition="left"></m-input>
-</m-example>
-<m-example>
-    <m-input type="text" placeholder="Search..." icon="circular search"></m-input>
-</m-example>
-<m-example>
-    <m-input type="text" placeholder="Search..." icon="inverted circular search"></m-input>
-</m-example>
-<m-example header="Labeled" description="An input can be formatted with a label">
-    <m-input type="text" placeholder="mysite.com">
-        <m-label>http://</m-label>
-    </m-input>
-</m-example>
-<m-example>
-    <m-input type="text" placeholder="Find domain">
-        <m-label-dropdown position="right" value=".com" [items]="['.com', '.net', '.org']"></m-label-dropdown>
-    </m-input>
-</m-example>
-<m-example>
-    <m-input type="number" placeholder="Enter weight..">
-        <m-label position="right" class="basic">kg</m-label>
-    </m-input>
-</m-example>
-<m-example>
-    <p>TODO: This exapmle is currently not supported. Use the default behaviour</p>
-    <div class="ui right labeled input">
-        <label for="amount" class="ui label">$</label>
-        <input type="text" placeholder="Amount" id="amount">
-        <div class="ui basic label">.00</div>
-    </div>
-</m-example>
-<m-example>
-    <m-input icon="tags" iconPosition="left" placeholder="Enter tags">
-        <m-label position="right" class="tag">Add Tag</m-label>
-    </m-input>
-</m-example>
-<m-example>
-    <m-input type="text" class="corner" placeholder="Search...">
-        <m-label position="left" class="left corner">
-            <m-icon icon="asterisk"></m-icon>
-        </m-label>
-    </m-input>
-</m-example>
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Examples">
+        <m-example header="Input" description="A standard input">
+            <m-input type="text" placeholder="Search..."></m-input>
+            <m-example-code [code]="code1"></m-example-code>
+        </m-example>
+    </m-tab>
+    <m-tab label="States">
+        <m-example header="Focus" description="An input field can show a user is currently interacting with it">
+            <m-input type="text" placeholder="Search..." focused></m-input>
+        </m-example>
+        <m-example header="Loading" description="An icon input field can show that it is currently loading data">
+            <m-input type="text" placeholder="Search..." icon="search" iconPosition="left" loading></m-input>
+        </m-example>
+        <m-example>
+            <m-input type="text" placeholder="Search..." icon="search" loading></m-input>
+        </m-example>
+        <m-example header="Disabled" description="An input field can show that it is disabled">
+            <m-input type="text" placeholder="Search..." disabled></m-input>
+        </m-example>
+        <m-example>
+            <m-input type="text" placeholder="Search..." icon="search" disabled></m-input>
+        </m-example>
+        <m-example header="Error" description="An input field can show the data contains errors">
+            <m-input type="text" placeholder="Search..." hasError></m-input>
+        </m-example>
+    </m-tab>
+    <m-tab label="Variations">
+        <m-example header="Icon" description="An input can be formatted with an icon">
+            <m-input type="text" placeholder="Search..." icon="search"></m-input>
+        </m-example>
+        <m-example>
+            <m-input type="text" placeholder="Search..." icon="users" iconPosition="left"></m-input>
+        </m-example>
+        <m-example>
+            <m-input type="text" placeholder="Search..." icon="circular search"></m-input>
+        </m-example>
+        <m-example>
+            <m-input type="text" placeholder="Search..." icon="inverted circular search"></m-input>
+        </m-example>
+        <m-example header="Labeled" description="An input can be formatted with a label">
+            <m-input type="text" placeholder="mysite.com">
+                <m-label>http://</m-label>
+            </m-input>
+        </m-example>
+        <m-example>
+            <m-input type="text" placeholder="Find domain">
+                <m-label-dropdown position="right" value=".com" [items]="['.com', '.net', '.org']"></m-label-dropdown>
+            </m-input>
+        </m-example>
+        <m-example>
+            <m-input type="number" placeholder="Enter weight..">
+                <m-label position="right" class="basic">kg</m-label>
+            </m-input>
+        </m-example>
+        <m-example>
+            <p>TODO: This exapmle is currently not supported. Use the default behaviour</p>
+            <div class="ui right labeled input">
+                <label for="amount" class="ui label">$</label>
+                <input type="text" placeholder="Amount" id="amount">
+                <div class="ui basic label">.00</div>
+            </div>
+        </m-example>
+        <m-example>
+            <m-input icon="tags" iconPosition="left" placeholder="Enter tags">
+                <m-label position="right" class="tag">Add Tag</m-label>
+            </m-input>
+        </m-example>
+        <m-example>
+            <m-input type="text" class="corner" placeholder="Search...">
+                <m-label position="left" class="left corner">
+                    <m-icon icon="asterisk"></m-icon>
+                </m-label>
+            </m-input>
+        </m-example>
+    </m-tab>
+    <m-tab label="Binding">
+        <m-example header="Binding" description="A two-way bound input" [code]="code2">
+            <m-input type="text" placeholder="Search..." [(value)]="inputValue"></m-input>
+            <div>Current Value: {{inputValue}}</div>
+        </m-example>
+        <m-example header="Bind state" description="All input states can be bound" [code]="code3">
+            <div class="toolbar ui form">
+                <div class="three fields">
+                    <div class="field">
+                        <label>
+                            Type
+                        </label>
+                        <select [(ngModel)]="type">
+                            <option value="text">Text</option>
+                            <option value="number">Number</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>
+                            Icon
+                        </label>
+                        <select [(ngModel)]="icon">
+                            <option value="">none</option>
+                            <option>search</option>
+                            <option>users</option>
+                        </select>
+                    </div>
+                    <div clasS="field">
+                        <label>&nbsp;</label>
+                        <select [(ngModel)]="iconPosition">
+                            <option>left</option>
+                            <option>right</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="four fields">
+                    <div class="field">
+                        <m-slider [(value)]="focus">Focus</m-slider>
+                    </div>
+                    <div class="field">
+                        <m-slider [(value)]="loading">Loading</m-slider>
+                    </div>
+                    <div class="field">
+                        <m-slider [(value)]="disabled">Disabled</m-slider>
+                    </div>
+                    <div class="field">
+                        <m-slider [(value)]="error">Error</m-slider>
+                    </div>
+                    <div class="field">
+                        <m-checkbox [(value)]="fluid">Fluid</m-checkbox>
+                    </div>
+                </div>
+            </div>
+            <m-divider></m-divider>
+            <m-input [type]="type" placeholder="Search..." [icon]="icon" [iconPosition]="iconPosition" [focused]="focus" [loading]="loading" [disabled]="disabled" [hasError]="error" [fluid]="fluid"></m-input>
+        </m-example>
+    </m-tab>
+    <m-tab label="Events">
+        <m-example header="Change event" description="A input with an subscribed change event. The event is triggered when focus is lost (click outside of the box)" [code]="eventCode">
+            <m-input type="text" placeholder="Search..." (valueChange)="valueChange($event)"></m-input>
+            <div>{{inputMessage}}</div>
+        </m-example>
+    </m-tab>
+</m-tab-group>

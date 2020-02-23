@@ -36,6 +36,12 @@
       ],
       "mantic-ui/*": [
         "dist/mantic-ui/*"
+      ],
+      "mantic-ui-doc": [
+        "dist/mantic-ui-doc"
+      ],
+      "mantic-ui-doc/*": [
+        "dist/mantic-ui-doc/*"
       ]
     }
   },

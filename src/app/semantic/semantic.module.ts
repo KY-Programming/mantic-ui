@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ManticUiDocModule } from 'projects/mantic-ui-doc/src/public-api';
 import { SemanticUiModule } from 'projects/semantic-ui/src/public-api';
 import { SemanticButtonComponent } from './button/button.component';
 import { SemanticCheckboxComponent } from './checkbox/checkbox.component';
@@ -53,7 +54,8 @@ import { SemanticToggleComponent } from './toggle/toggle.component';
         CommonModule,
         FormsModule,
         RouterModule,
-        SemanticUiModule
+        SemanticUiModule,
+        ManticUiDocModule
     ],
     exports: [
     ]

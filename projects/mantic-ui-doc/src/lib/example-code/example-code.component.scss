@@ -8,4 +8,9 @@ pre {
 
 code {
   white-space: pre-wrap;
+
+  &.hljs {
+    background-color: initial;
+    padding: initial;
+  }
 }
