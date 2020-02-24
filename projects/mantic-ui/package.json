@@ -2,9 +2,6 @@
   "name": "@mantic-ui/angular",
   "version": "0.2.0",
   "description": "mantic UI for Angular",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.com"
-  },
   "author": "KY-Programming",
   "license": "MIT",
   "scripts": {
@@ -16,6 +13,6 @@
     "@angular/forms": "^8.0.0",
     "@angular/platform-browser": "^8.0.0",
     "@angular/router": "^8.0.0",
-    "rxjs": "^6.5.0"
+    "rxjs": "^6.0.0"
   }
 }

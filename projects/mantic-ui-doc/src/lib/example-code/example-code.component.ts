@@ -10,6 +10,9 @@ import { DimmableService, SegmentComponent } from '@mantic-ui/angular';
 export class ExampleCodeComponent extends SegmentComponent {
 
   @Input()
+  public label: string;
+
+  @Input()
   public code: string;
 
   @Input()

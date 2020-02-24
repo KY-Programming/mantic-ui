@@ -2,9 +2,6 @@
   "name": "@mantic-ui/fomantic-ui-angular",
   "version": "0.1.0-rc.0",
   "description": "Fomantic UI Angular theme for mantic UI",
-  "publishConfig": {
-    "registry": "http://ky-docker:4873"
-  },
   "author": "KY-Programming",
   "license": "MIT",
   "scripts": {

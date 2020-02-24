@@ -11,9 +11,9 @@ export function getHighlightLanguages(): unknown {
   return {
     css: () => import('highlight.js/lib/languages/css'),
     html: () => import('highlight.js/lib/languages/xml'),
-    javascript: () => import('highlight.js/lib/languages/javascript'),
+    js: () => import('highlight.js/lib/languages/javascript'),
     scss: () => import('highlight.js/lib/languages/scss'),
-    typescript: () => import('highlight.js/lib/languages/typescript')
+    ts: () => import('highlight.js/lib/languages/typescript')
   };
 }
 

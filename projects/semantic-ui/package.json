@@ -1,19 +1,16 @@
 {
   "name": "@mantic-ui/semantic-ui-angular",
-  "version": "0.1.0-rc.0",
+  "version": "0.2.0",
   "description": "Semantic UI Angular theme for mantic UI",
-  "publishConfig": {
-    "registry": "http://ky-docker:4873"
-  },
   "author": "KY-Programming",
   "license": "MIT",
   "scripts": {
     "postbuild": "npm run copy-assets",
-    "copy-assets": "mkdir ..\\..\\dist\\semantic-ui-angular\\assets & xcopy /Y src\\assets ..\\..\\dist\\semantic-ui-angular\\assets /S"
+    "copy-assets": "mkdir ..\\..\\dist\\semantic-ui\\assets & xcopy /Y src\\assets ..\\..\\dist\\semantic-ui\\assets /S"
   },
   "peerDependencies": {
     "@angular/common": "8 - 9",
     "@angular/core": "8 - 9",
-    "@mantic-ui/angular": "^0.0.0  | ^0.1.0-rc.0"
+    "@mantic-ui/angular": "^0.2.0"
   }
 }

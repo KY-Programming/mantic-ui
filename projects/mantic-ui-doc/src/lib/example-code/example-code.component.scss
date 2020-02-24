@@ -2,6 +2,12 @@
   display: block;
 }
 
+.label {
+  transform: translateY(-1em);
+  font-size: 0.75em;
+  font-weight: bold;
+}
+
 pre {
   margin: 0;
 }

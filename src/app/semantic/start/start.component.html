@@ -9,10 +9,15 @@
 <m-example-code>
     npm i @mantic-ui/angular @mantic-ui/semantic-ui-angular
 </m-example-code>
-<m-warning>
-    Currently <code>@mantic-ui/semantic-ui-angular</code> package is not ready so you have to add <code>semantic.min.css</code> on your own
-</m-warning>
-<p>Use a CDN</p>
+<m-example-code label="app.module.ts" [code]="appModuleCode" [languages]="['ts']"></m-example-code>
+
+<h3 m-header>Import styles in styles.scss</h3>
+<m-example-code [code]="styleScssCode" [languages]="['scss']"></m-example-code>
+
+<h3 m-header>Import styles in angular.json</h3>
+<m-example-code [code]="angularJsonCode" [languages]="['js']"></m-example-code>
+
+<h3 m-header>Use a CDN</h3>
 <m-example-code>{{code}}</m-example-code>
 <p>Or install via <a href="https://semantic-ui.com/introduction/getting-started.html">Semantic Docs</a></p>
 
