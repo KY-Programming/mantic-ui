@@ -13,14 +13,79 @@
              Page
 *******************************/
 
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin');
+/* @import url('https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin&display=swap'); */
+@font-face {
+  font-family: "Lato";
+  src: url('../fonts/lato/Lato-Black.ttf') format('truetype');
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url('../fonts/lato/Lato-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url('../fonts/lato/Lato-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url('../fonts/lato/Lato-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url('../fonts/lato/Lato-Italic.ttf') format('truetype');
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url('../fonts/lato/Lato-Light.ttf') format('truetype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url('../fonts/lato/Lato-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url('../fonts/lato/Lato-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url('../fonts/lato/Lato-Thin.ttf') format('truetype');
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url('../fonts/lato/Lato-ThinItalic.ttf') format('truetype');
+  font-weight: 100;
+  font-style: italic;
+}
+
 html,
 body {
   height: 100%;
 }
+
 html {
   font-size: 14px;
 }
+
 body {
   margin: 0px;
   padding: 0px;
@@ -46,26 +111,32 @@ h4,
 h5 {
   font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
   line-height: 1.28571429em;
-  margin: calc(2rem -  0.14285714em ) 0em 1rem;
+  margin: calc(2rem - 0.14285714em) 0em 1rem;
   font-weight: bold;
   padding: 0em;
 }
+
 h1 {
   min-height: 1rem;
   font-size: 2rem;
 }
+
 h2 {
   font-size: 1.71428571rem;
 }
+
 h3 {
   font-size: 1.28571429rem;
 }
+
 h4 {
   font-size: 1.07142857rem;
 }
+
 h5 {
   font-size: 1rem;
 }
+
 h1:first-child,
 h2:first-child,
 h3:first-child,
@@ -73,6 +144,7 @@ h4:first-child,
 h5:first-child {
   margin-top: 0em;
 }
+
 h1:last-child,
 h2:last-child,
 h3:last-child,
@@ -90,9 +162,11 @@ p {
   margin: 0em 0em 1em;
   line-height: 1.4285em;
 }
+
 p:first-child {
   margin-top: 0em;
 }
+
 p:last-child {
   margin-bottom: 0em;
 }
@@ -105,6 +179,7 @@ a {
   color: #4183C4;
   text-decoration: none;
 }
+
 a:hover {
   color: #1e70bf;
   text-decoration: none;
@@ -127,10 +202,12 @@ a:hover {
   background-color: #CCE2FF;
   color: rgba(0, 0, 0, 0.87);
 }
+
 ::-moz-selection {
   background-color: #CCE2FF;
   color: rgba(0, 0, 0, 0.87);
 }
+
 ::selection {
   background-color: #CCE2FF;
   color: rgba(0, 0, 0, 0.87);
@@ -142,11 +219,13 @@ input::-webkit-selection {
   background-color: rgba(100, 100, 100, 0.4);
   color: rgba(0, 0, 0, 0.87);
 }
+
 textarea::-moz-selection,
 input::-moz-selection {
   background-color: rgba(100, 100, 100, 0.4);
   color: rgba(0, 0, 0, 0.87);
 }
+
 textarea::selection,
 input::selection {
   background-color: rgba(100, 100, 100, 0.4);
@@ -159,10 +238,12 @@ body ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
+
 body ::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.1);
   border-radius: 0px;
 }
+
 body ::-webkit-scrollbar-thumb {
   cursor: pointer;
   border-radius: 5px;
@@ -170,9 +251,11 @@ body ::-webkit-scrollbar-thumb {
   -webkit-transition: color 0.2s ease;
   transition: color 0.2s ease;
 }
+
 body ::-webkit-scrollbar-thumb:window-inactive {
   background: rgba(0, 0, 0, 0.15);
 }
+
 body ::-webkit-scrollbar-thumb:hover {
   background: rgba(128, 135, 139, 0.8);
 }
@@ -181,12 +264,15 @@ body ::-webkit-scrollbar-thumb:hover {
 body .ui.inverted::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.1);
 }
+
 body .ui.inverted::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.25);
 }
+
 body .ui.inverted::-webkit-scrollbar-thumb:window-inactive {
   background: rgba(255, 255, 255, 0.15);
 }
+
 body .ui.inverted::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.35);
 }
@@ -201,4 +287,3 @@ body .ui.inverted::-webkit-scrollbar-thumb:hover {
 /*******************************
          Site Overrides
 *******************************/
-

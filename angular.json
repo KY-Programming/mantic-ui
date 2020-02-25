@@ -30,6 +30,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@mantic-ui/semantic-ui-angular/assets/components/site.css",
               "node_modules/highlight.js/styles/github.css",
               "src/styles.scss"
             ],

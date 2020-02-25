@@ -17,7 +17,10 @@ export class SemanticStartComponent {
 })
 export class AppModule { }`;
 
-  public styleScssCode = `@import '@mantic-ui/semantic-ui-angular/assets/all.css';`;
+  public styleScssCode = `// Import site.css to support lato font
+@import '@mantic-ui/semantic-ui-angular/assets/components/site.css';
+// Styles of all components
+@import '@mantic-ui/semantic-ui-angular/assets/all.css';`;
 
   public angularJsonCode = `{
 "projects": {
@@ -27,6 +30,9 @@ export class AppModule { }`;
         "options": {
           ...
           "styles": [
+            // Import site.css to support lato font
+            "node_modules/@mantic-ui/semantic-ui-angular/assets/components/site.css",
+            // Styles of all components
             "node_modules/@mantic-ui/semantic-ui-angular/assets/all.css",
             "src/styles.scss"
           ],
