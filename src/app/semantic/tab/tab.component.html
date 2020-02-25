@@ -108,4 +108,19 @@
     <m-tab label="States">
         <!-- TODO -->
     </m-tab>
+    <m-tab label="Binding">
+        <m-example header="Selected Tab" description="Two-Way-Binding of the selected tabs index" [code]="selectedIndexCode">
+            <m-tab-group [(selectedIndex)]="selectedTab">
+                <m-tab label="One">Content of One</m-tab>
+                <m-tab label="Two">Content of Two</m-tab>
+                <m-tab label="Three">Content of Three</m-tab>
+            </m-tab-group>
+            <m-divider></m-divider>
+            <label>Selected Index: </label>
+            <m-input type="number" [(numericValue)]="selectedTab" [min]="0" [max]="2"></m-input>
+        </m-example>
+    </m-tab>
+    <m-tab label="Events">
+
+    </m-tab>
 </m-tab-group>
