@@ -64,8 +64,9 @@ export class SemanticInputComponent {
     setTimeout(() => this.inputMessage = undefined, 2000);
   }
 
-  public code1 = `<m-input type="text" placeholder="Search..."></m-input>`;
+  public code1 = `<m-input type="text" placeholder="Search..." [(value)]="value"></m-input>`;
   public code2 = `<m-input type="text" placeholder="Search..." [(value)]="inputValue"></m-input>`;
   public code3 = `<m-input [type]="type" placeholder="Search..." [icon]="icon" [iconPosition]="iconPosition" [focused]="focus" [loading]="loading" [disabled]="disabled" [hasError]="error" [fluid]="fluid"></m-input>`;
   public eventCode = `<m-input (valueChange)="valueChange($event)"></m-input>`;
+  public numberCode = `<m-input type="number" [(numericValue)]="value"></m-input>`;
 }

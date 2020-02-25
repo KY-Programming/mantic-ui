@@ -1,5 +1,5 @@
 <ng-container *ngIf="!isRight" [ngTemplateOutlet]="content"></ng-container>
-<input [type]="type" [placeholder]="placeholder" [(ngModel)]="value" (change)="onChange()">
+<input [type]="type" [placeholder]="placeholder" [(ngModel)]="value" [min]="min" [max]="max" (change)="onChange()">
 <i *ngIf="icon" class="{{icon}} link icon"></i>
 <ng-container *ngIf="isRight" [ngTemplateOutlet]="content"></ng-container>
 <ng-template #content>

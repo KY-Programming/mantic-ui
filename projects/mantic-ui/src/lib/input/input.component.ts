@@ -43,17 +43,30 @@ export class InputComponent extends LabeledBase {
   public value: string;
 
   @Input()
+  public set numericValue(value: number) {
+    this.value = value === undefined ? undefined : value.toString();
+  }
+  public get numericValue(): number {
+    return parseInt(this.value);
+  }
+
+  @Input()
   public fluid: boolean;
+
+  @Input()
+  public min: number;
+
+  @Input()
+  public max: number;
 
   @Output()
   public readonly valueChange = new EventEmitter<string>();
 
+  @Output()
+  public readonly numericValueChange = new EventEmitter<number>();
+
   public get isRight(): boolean {
     return this.label && this.label.position === 'right' || this.labelDropdown && this.labelDropdown.position === 'right';
-  }
-
-  public onChange(): void {
-    this.valueChange.emit(this.value);
   }
 
   public constructor(
@@ -70,5 +83,10 @@ export class InputComponent extends LabeledBase {
       .registerBoolean('fluid')
       .registerBoolean('hasError', 'error')
       .registerFixed('input', Number.MAX_VALUE - 1);
+  }
+
+  public onChange(): void {
+    this.valueChange.emit(this.value);
+    this.numericValueChange.emit(this.numericValue);
   }
 }
