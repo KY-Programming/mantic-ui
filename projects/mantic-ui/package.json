@@ -4,6 +4,7 @@
   "description": "mantic UI for Angular",
   "author": "KY-Programming",
   "license": "MIT",
+  "keywords": ["mantic-ui", "mantic UI", "Angular"],
   "scripts": {
     "postbuild": ""
   },

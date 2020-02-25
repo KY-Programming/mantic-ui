@@ -4,6 +4,7 @@
   "description": "Semantic UI Angular theme for mantic UI",
   "author": "KY-Programming",
   "license": "MIT",
+  "keywords": ["mantic-ui", "mantic UI", "Angular", "Semantic-UI", "theme"],
   "scripts": {
     "postbuild": "npm run copy-assets",
     "copy-assets": "mkdir ..\\..\\dist\\semantic-ui\\assets & xcopy /Y src\\assets ..\\..\\dist\\semantic-ui\\assets /S"
@@ -11,6 +12,6 @@
   "peerDependencies": {
     "@angular/common": "8 - 9",
     "@angular/core": "8 - 9",
-    "@mantic-ui/angular": "^0.2.0"
+    "@mantic-ui/angular": "~0.2.0"
   }
 }

@@ -1,24 +1,17 @@
-# SemanticUi
+# Semantic UI Angular Theme for mantic UI
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.13.
+Semantic UI theme for Angular components
 
-## Code scaffolding
+## Work-In-Progress
 
-Run `ng generate component component-name --project semantic-ui` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project semantic-ui`.
-> Note: Don't forget to add `--project semantic-ui` or else it will be added to the default project in your `angular.json` file. 
+Currently we are heavily working to get all components and features implemented.
 
-## Build
+To support us, visit our https://github.com/KY-Programming/mantic-ui
 
-Run `ng build semantic-ui` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Documantation
+https://mantic-ui.ky-programming.de
 
-## Publishing
+## Credits
+Original css from Semantic UI
 
-After building your library with `ng build semantic-ui`, go to the dist folder `cd dist/semantic-ui` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test semantic-ui` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+https://semantic-ui.com/
