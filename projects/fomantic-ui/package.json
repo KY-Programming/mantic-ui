@@ -4,13 +4,21 @@
   "description": "Fomantic UI Angular theme for mantic UI",
   "author": "KY-Programming",
   "license": "MIT",
-  "keywords": ["mantic-ui", "mantic UI", "Angular", "Fomantic-UI", "theme"],
+  "keywords": [
+    "mantic-ui",
+    "mantic UI",
+    "Angular",
+    "Fomantic-UI",
+    "theme"
+  ],
   "scripts": {
     "postbuild": ""
   },
+  "dependencies": {
+    "@mantic-ui/angular": "~0.2.0"
+  },
   "peerDependencies": {
     "@angular/common": "8 - 9",
-    "@angular/core": "8 - 9",
-    "@mantic-ui/angular": "~0.2.0"
+    "@angular/core": "8 - 9"
   }
 }
