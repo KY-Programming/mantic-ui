@@ -26,6 +26,7 @@ import { SemanticSegmentComponent } from './semantic/segment/segment.component';
 import { SemanticSliderComponent } from './semantic/slider/slider.component';
 import { SemanticStartComponent } from './semantic/start/start.component';
 import { SemanticTabComponent } from './semantic/tab/tab.component';
+import { SemanticTestComponent } from './semantic/test/test.component';
 import { SemanticToggleComponent } from './semantic/toggle/toggle.component';
 
 const routes: Routes = [
@@ -65,6 +66,7 @@ const routes: Routes = [
       { path: 'radio/:tab', component: SemanticRadioComponent },
       { path: 'slider', redirectTo: 'slider/', pathMatch: 'full' },
       { path: 'slider/:tab', component: SemanticSliderComponent },
+      { path: 'test', component: SemanticTestComponent },
       { path: '**', redirectTo: 'start' }
     ]
   },

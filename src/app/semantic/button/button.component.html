@@ -54,55 +54,54 @@
         <m-example header="Animated" description="A button can animate to show hidden content" [code]="buttonAnimatedCode">
             <m-button>
                 Next
-                <ng-template #animated>
+                <m-animation>
                     <m-icon icon="right arrow"></m-icon>
-                </ng-template>
+                </m-animation>
             </m-button>
-            <m-button animation="vertical">
+            <m-button>
                 <m-icon icon="shop"></m-icon>
-                <ng-template #animated>
+                <m-animation direction="vertical">
                     Shop
-                </ng-template>
+                </m-animation>
             </m-button>
-            <m-button animation="fade">
+            <m-button>
                 Sign-up for a Pro account
-                <ng-template #animated>
+                <m-animation direction="fade">
                     $12.99 a month
-                </ng-template>
+                </m-animation>
             </m-button>
         </m-example>
         <m-example header="Labeled" description="A button can appear alongside a label" [code]="buttonLabeledCode">
             <m-button>
                 <m-icon icon="heart"></m-icon> Like
-                <ng-template #label>
+                <m-label basic>
                     2,048
-                </ng-template>
+                </m-label>
             </m-button>
-            <m-button labelPosition="left" pointing="right">
+            <m-button>
                 <m-icon icon="heart"></m-icon> Like
-                <ng-template #label>
+                <m-label basic position="left" pointing="right">
                     2,048
-                </ng-template>
+                </m-label>
             </m-button>
-            <m-button labelPosition="left" iconOnly>
-                <m-icon icon="fork"></m-icon>
-                <ng-template #label>
+            <m-button icon="fork">
+                <m-label basic position="left">
                     1,048
-                </ng-template>
+                </m-label>
             </m-button>
         </m-example>
         <m-example [code]="buttonLabeledColoredCode">
-            <m-button color="red" pointing="left">
+            <m-button color="red">
                 <m-icon icon="heart"></m-icon> Like
-                <ng-template #label>
+                <m-label basic color="red" pointing="left">
                     1,048
-                </ng-template>
+                </m-label>
             </m-button>
-            <m-button color="blue" pointing="left" basic>
+            <m-button color="blue" basic>
                 <m-icon icon="fork"></m-icon> Forks
-                <ng-template #label>
+                <m-label basic color="blue" pointing="left">
                     1,048
-                </ng-template>
+                </m-label>
             </m-button>
         </m-example>
         <m-example header="Icon" description="A button can have only an icon">
@@ -113,7 +112,7 @@
             <m-button icon="pause">
                 Pause
             </m-button>
-            <m-button icon="right arrow" labelPosition="right">
+            <m-button icon="right arrow" iconPosition="right">
                 Next
             </m-button>
         </m-example>
@@ -359,7 +358,7 @@
                     <m-icon icon="stop"></m-icon>
                     Stop
                 </m-button>
-                <m-button icon="right chevron" labelPosition="right">Forward</m-button>
+                <m-button icon="right chevron" iconPosition="right">Forward</m-button>
             </m-button-group>
         </m-example>
         <m-example header="Equal Width" description="Groups can have their widths divided evenly">
@@ -370,6 +369,7 @@
                 <m-button>Reviews</m-button>
                 <m-button>Support</m-button>
             </m-button-group>
+            <m-divider></m-divider>
             <m-button-group class="three">
                 <m-button>Overview</m-button>
                 <m-button>Specs</m-button>

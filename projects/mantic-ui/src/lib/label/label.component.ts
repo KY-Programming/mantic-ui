@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input } from '@angular/core';
 import { ElementBase } from '../base/element-base';
 import { ColorName } from '../models/color';
+import { LabelPosition } from './label-position';
 
 @Component({
   selector: 'm-label',
@@ -10,7 +11,7 @@ import { ColorName } from '../models/color';
 export class LabelComponent extends ElementBase {
 
   @Input()
-  public position: 'left' | 'right' | undefined;
+  public position: LabelPosition;
 
   @Input()
   public pointing: 'left' | 'right' | 'top' | 'bottom' | undefined;

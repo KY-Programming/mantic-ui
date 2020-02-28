@@ -24,6 +24,7 @@ import { SemanticSegmentComponent } from './segment/segment.component';
 import { SemanticSliderComponent } from './slider/slider.component';
 import { SemanticStartComponent } from './start/start.component';
 import { SemanticTabComponent } from './tab/tab.component';
+import { SemanticTestComponent } from './test/test.component';
 import { SemanticToggleComponent } from './toggle/toggle.component';
 
 @NgModule({
@@ -48,7 +49,8 @@ import { SemanticToggleComponent } from './toggle/toggle.component';
         SemanticCheckboxComponent,
         SemanticToggleComponent,
         SemanticRadioComponent,
-        SemanticSliderComponent
+        SemanticSliderComponent,
+        SemanticTestComponent
     ],
     imports: [
         CommonModule,

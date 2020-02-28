@@ -36,21 +36,21 @@ export class FomanticButtonComponent {
 
   public buttonAnimatedCode = `<m-button>
   Next
-  <ng-template #animated>
+  <m-animation>
     <m-icon icon="right arrow"></m-icon>
-  </ng-template>
+  </m-animation>
 </m-button>
 <m-button animation="vertical">
   <m-icon icon="shop"></m-icon>
-  <ng-template #animated>
+  <m-animation>
     Shop
-  </ng-template>
+  </m-animation>
 </m-button>
 <m-button animation="fade">
   Sign-up for a Pro account
-  <ng-template #animated>
+  <m-animation>
     $12.99 a month
-  </ng-template>
+  </m-animation>
 </m-button>`;
 
   public buttonLabeledCode = `<m-button>

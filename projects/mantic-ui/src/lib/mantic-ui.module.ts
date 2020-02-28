@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AnimationComponent } from './animation/animation.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { ButtonGroupComponent } from './button-group/button-group.component';
 import { ButtonComponent } from './button/button.component';
@@ -85,7 +86,8 @@ import { WarningComponent } from './warning/warning.component';
     CheckboxComponent,
     ToggleComponent,
     RadioComponent,
-    SliderComponent
+    SliderComponent,
+    AnimationComponent
   ],
   imports: [
     CommonModule,
@@ -132,7 +134,8 @@ import { WarningComponent } from './warning/warning.component';
     CheckboxComponent,
     ToggleComponent,
     RadioComponent,
-    SliderComponent
+    SliderComponent,
+    AnimationComponent
   ]
 })
 export class ManticUiModule { }

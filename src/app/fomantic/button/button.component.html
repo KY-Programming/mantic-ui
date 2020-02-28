@@ -22,21 +22,21 @@
 <m-example header="Animated" description="A button can animate to show hidden content" [code]="buttonAnimatedCode">
     <m-button>
         Next
-        <ng-template #animated>
+        <m-animation>
             <m-icon icon="right arrow"></m-icon>
-        </ng-template>
+        </m-animation>
     </m-button>
     <m-button animation="vertical">
         <m-icon icon="shop"></m-icon>
-        <ng-template #animated>
+        <m-animation>
             Shop
-        </ng-template>
+        </m-animation>
     </m-button>
     <m-button animation="fade">
         Sign-up for a Pro account
-        <ng-template #animated>
+        <m-animation>
             $12.99 a month
-        </ng-template>
+        </m-animation>
     </m-button>
 </m-example>
 <m-example header="Labeled" description="A button can appear alongside a label" [code]="buttonLabeledCode">
@@ -364,6 +364,7 @@
         <m-button>Reviews</m-button>
         <m-button>Support</m-button>
     </m-button-group>
+    <m-divider></m-divider>
     <m-button-group class="three">
         <m-button>Overview</m-button>
         <m-button>Specs</m-button>

@@ -43,21 +43,21 @@ export class SemanticButtonComponent {
 
   public buttonAnimatedCode = `<m-button>
   Next
-  <ng-template #animated>
+  <m-animation>
     <m-icon icon="right arrow"></m-icon>
-  </ng-template>
+  </m-animation>
 </m-button>
-<m-button animation="vertical">
+<m-button>
   <m-icon icon="shop"></m-icon>
-  <ng-template #animated>
+  <m-animation direction="vertical">
     Shop
-  </ng-template>
+  </m-animation>
 </m-button>
-<m-button animation="fade">
+<m-button>
   Sign-up for a Pro account
-  <ng-template #animated>
+  <m-animation direction="fade">
     $12.99 a month
-  </ng-template>
+  </m-animation>
 </m-button>`;
 
   public buttonLabeledCode = `<m-button>
@@ -66,18 +66,18 @@ export class SemanticButtonComponent {
     2,048
   </ng-template>
 </m-button>
-<m-button labelPosition="left" pointing="right">
+<m-button>
   <m-icon icon="heart"></m-icon> Like
-  <ng-template #label>
+  <m-label position="left" pointing="right">
     2,048
-  </ng-template>
+  </m-label>
 </m-button>
-<m-button labelPosition="left" iconOnly>
+<m-icon-button>
   <m-icon icon="fork"></m-icon>
-  <ng-template #label>
+  <m-label position="left">
     1,048
-  </ng-template>
-</m-button>`;
+  </m-label>
+</m-icon-button>`;
 
   public buttonLabeledColoredCode = `<m-button color="red" pointing="left">
   <m-icon icon="heart"></m-icon> Like
