@@ -3,5 +3,8 @@
   "dest": "../../dist/semantic-ui",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": [
+    "@mantic-ui/angular"
+  ]
 }

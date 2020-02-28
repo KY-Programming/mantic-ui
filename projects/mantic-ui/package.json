@@ -1,10 +1,14 @@
 {
   "name": "@mantic-ui/angular",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "mantic UI for Angular",
   "author": "KY-Programming",
   "license": "MIT",
-  "keywords": ["mantic-ui", "mantic UI", "Angular"],
+  "keywords": [
+    "mantic-ui",
+    "mantic UI",
+    "Angular"
+  ],
   "scripts": {
     "postbuild": ""
   },

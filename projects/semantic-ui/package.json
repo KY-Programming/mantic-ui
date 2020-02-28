@@ -1,6 +1,6 @@
 {
   "name": "@mantic-ui/semantic-ui-angular",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Semantic UI Angular theme for mantic UI",
   "author": "KY-Programming",
   "license": "MIT",
@@ -16,7 +16,7 @@
     "copy-assets": "mkdir ..\\..\\dist\\semantic-ui\\assets & xcopy /Y src\\assets ..\\..\\dist\\semantic-ui\\assets /S"
   },
   "dependencies": {
-    "@mantic-ui/angular": "~0.2.0"
+    "@mantic-ui/angular": "0.3.0"
   },
   "peerDependencies": {
     "@angular/common": "8 - 9",
