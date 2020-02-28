@@ -11,13 +11,17 @@ export class LabeledBase extends ElementBase {
     @ContentChild(LabelDropdownComponent, { static: true })
     public labelDropdown: LabelDropdownComponent;
 
+    public get isRight(): boolean {
+        return this.label && this.label.position === 'right' || this.labelDropdown && this.labelDropdown.position === 'right';
+    }
+
     public constructor(
         readonly elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
         this.classList
-            .registerAction('label', (entry) => entry.classes = this.label ? (this.label.position || '') + ' labeled' : undefined)
-            .registerAction('labelDropdown', (entry) => entry.classes = this.labelDropdown ? (this.labelDropdown.position || '') + ' labeled' : undefined);
+            .registerAction('label', (entry) => entry.classes = this.label ? ((this.label.position || '') + ' labeled').trim() : undefined)
+            .registerAction('labelDropdown', (entry) => entry.classes = this.labelDropdown ? ((this.labelDropdown.position || '') + ' labeled').trim() : undefined);
     }
 
 }

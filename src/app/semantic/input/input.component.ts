@@ -69,4 +69,7 @@ export class SemanticInputComponent {
   public code3 = `<m-input [type]="type" placeholder="Search..." [icon]="icon" [iconPosition]="iconPosition" [focused]="focus" [loading]="loading" [disabled]="disabled" [hasError]="error" [fluid]="fluid"></m-input>`;
   public eventCode = `<m-input (valueChange)="valueChange($event)"></m-input>`;
   public numberCode = `<m-input type="number" [(numericValue)]="value"></m-input>`;
+  public standardCode = `<m-input>
+  <input type="text" placeholder="Search..." maxlength="3">
+</m-input>`;
 }

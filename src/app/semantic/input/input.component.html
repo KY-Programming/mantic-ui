@@ -6,13 +6,19 @@
 </h1>
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Examples">
-        <m-example header="Input" description="A standard input">
+        <m-example header="Input" description="A input">
             <m-input type="text" placeholder="Search..."></m-input>
             <m-example-code [code]="code1"></m-example-code>
         </m-example>
         <m-example header="Numeric" description="A numeric input">
             <m-input type="number"></m-input>
             <m-example-code [code]="numberCode"></m-example-code>
+        </m-example>
+        <m-example header="Standard Input" description="Use a standard input for missing features">
+            <m-input>
+                <input type="text" placeholder="Search..." maxlength="3">
+            </m-input>
+            <m-example-code [code]="standardCode"></m-example-code>
         </m-example>
     </m-tab>
     <m-tab label="States">

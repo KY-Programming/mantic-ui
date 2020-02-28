@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, Input } from '@angular/core';
 import { ElementBase } from '../base/element-base';
+import { LabelPosition } from '../label/label-position';
 
 // TODO: Enable animation
 // TODO: Enable active state
@@ -13,7 +14,7 @@ export class LabelDropdownComponent extends ElementBase {
   public isOpen = false;
 
   @Input()
-  public position: 'left' | 'right' | undefined;
+  public position: LabelPosition;
 
   @Input()
   public icon = 'dropdown';

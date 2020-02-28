@@ -5,16 +5,12 @@
     <ng-content select="m-animation"></ng-content>
 </ng-container>
 <ng-container *ngIf="label">
-    <ng-container *ngIf="labelPosition === 'left'">
-        <ng-container [ngTemplateOutlet]="labelTemplate"></ng-container>
-    </ng-container>
+    <ng-container *ngIf="labelPosition === 'left'" [ngTemplateOutlet]="labelTemplate"></ng-container>
     <div class="ui" [class.basic]="basic" [class.icon]="icon" [ngClass]="Color.toClass(color)"
          [class.button]="true">
         <ng-container [ngTemplateOutlet]="content"></ng-container>
     </div>
-    <ng-container *ngIf="labelPosition !== 'left'">
-        <ng-container [ngTemplateOutlet]="labelTemplate"></ng-container>
-    </ng-container>
+    <ng-container *ngIf="labelPosition !== 'left'" [ngTemplateOutlet]="labelTemplate"></ng-container>
     <ng-template #labelTemplate>
         <ng-content select="m-label"></ng-content>
     </ng-template>

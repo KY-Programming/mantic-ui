@@ -65,10 +65,6 @@ export class InputComponent extends LabeledBase {
   @Output()
   public readonly numericValueChange = new EventEmitter<number>();
 
-  public get isRight(): boolean {
-    return this.label && this.label.position === 'right' || this.labelDropdown && this.labelDropdown.position === 'right';
-  }
-
   public constructor(
     readonly elementRef: ElementRef<HTMLElement>
   ) {

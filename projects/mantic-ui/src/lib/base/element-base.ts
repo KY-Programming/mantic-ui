@@ -66,14 +66,15 @@ export class ElementBase extends DestroyableComponent implements OnChanges, OnIn
 
     public ngAfterContentInit(): void {
         if (this.inited === false) {
-            console.warn(`${this.constructor.name} derive from ElementBase and implements OnInit, but does not calls super.ngOnInit(). Please ensure that all components derived from ElemntBase calls ngOnInit (only if Oninit is implemented)`);
+            console.warn(`${this.constructor.name} derive from ElementBase and implements OnInit, but does not calls super.ngOnInit(). Please ensure that all components derived from ElemntBase calls ngOnInit (only if OnInit is implemented)`);
         }
         this.inited = undefined;
+        this.refreshClasses();
     }
 
     public ngAfterViewInit(): void {
         if (this.inited === false) {
-            console.warn(`${this.constructor.name} derive from ElementBase and implements OnInit, but does not calls super.ngOnInit(). Please ensure that all components derived from ElemntBase calls ngOnInit (only if Oninit is implemented)`);
+            console.warn(`${this.constructor.name} derive from ElementBase and implements OnInit, but does not calls super.ngOnInit(). Please ensure that all components derived from ElemntBase calls ngOnInit (only if OnInit is implemented)`);
         }
         this.inited = undefined;
     }
