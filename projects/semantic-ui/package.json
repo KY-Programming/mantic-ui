@@ -19,6 +19,7 @@
     "@mantic-ui/angular": "0.3.0"
   },
   "peerDependencies": {
+    "@mantic-ui/angular": "^0.3.0",
     "@angular/common": "8 - 9",
     "@angular/core": "8 - 9"
   }

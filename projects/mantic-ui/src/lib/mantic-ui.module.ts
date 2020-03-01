@@ -5,6 +5,7 @@ import { AnimationComponent } from './animation/animation.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { ButtonGroupComponent } from './button-group/button-group.component';
 import { ButtonComponent } from './button/button.component';
+import { CellComponent } from './cell/cell.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { DimmerComponent } from './dimmer/dimmer.component';
 import { ButtonDirective } from './directives/button.directive';
@@ -16,6 +17,7 @@ import { DropdownItemComponent } from './dropdown-item/dropdown-item.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { ErrorComponent } from './error/error.component';
 import { FooterComponent } from './footer/footer.component';
+import { GridComponent } from './grid/grid.component';
 import { HeaderComponent } from './header/header.component';
 import { IconButtonComponent } from './icon-button/icon-button.component';
 import { IconComponent } from './icon/icon.component';
@@ -34,6 +36,7 @@ import { ModalComponent } from './modal/modal.component';
 import { OrComponent } from './or/or.component';
 import { SafePipe } from './pipes/safe.pipe';
 import { RadioComponent } from './radio/radio.component';
+import { SegmentGroupComponent } from './segment-group/segment-group.component';
 import { SegmentDefaultsComponent } from './segment/segment-defaults.component';
 import { SegmentComponent } from './segment/segment.component';
 import { SliderComponent } from './slider/slider.component';
@@ -53,6 +56,7 @@ import { WarningComponent } from './warning/warning.component';
     IconComponent,
     SegmentComponent,
     SegmentDefaultsComponent,
+    SegmentGroupComponent,
     DividerComponent,
     OrComponent,
     InputComponent,
@@ -87,7 +91,9 @@ import { WarningComponent } from './warning/warning.component';
     ToggleComponent,
     RadioComponent,
     SliderComponent,
-    AnimationComponent
+    AnimationComponent,
+    GridComponent,
+    CellComponent
   ],
   imports: [
     CommonModule,
@@ -101,6 +107,7 @@ import { WarningComponent } from './warning/warning.component';
     IconComponent,
     SegmentComponent,
     SegmentDefaultsComponent,
+    SegmentGroupComponent,
     DividerComponent,
     OrComponent,
     InputComponent,
@@ -135,7 +142,9 @@ import { WarningComponent } from './warning/warning.component';
     ToggleComponent,
     RadioComponent,
     SliderComponent,
-    AnimationComponent
+    AnimationComponent,
+    GridComponent,
+    CellComponent
   ]
 })
 export class ManticUiModule { }

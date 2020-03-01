@@ -1,0 +1,33 @@
+<h1 m-header>
+    Grid
+    <div class="sub header">
+        A grid is used to harmonize negative space in a layout
+    </div>
+</h1>
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Examples">
+        <m-example header="Grids" description="A grid with four cells">
+            <m-grid>
+                <m-cell size="four"></m-cell>
+                <m-cell size="four"></m-cell>
+                <m-cell size="four"></m-cell>
+                <m-cell size="four"></m-cell>
+            </m-grid>
+            <m-example-code [code]="code1"></m-example-code>
+        </m-example>
+
+        <m-example description="To fill full width, the sum of all column sizes has to be 16">
+            <m-grid>
+                <m-cell size="four"></m-cell>
+                <m-cell size="four"></m-cell>
+                <m-cell size="four"></m-cell>
+                <m-cell size="four"></m-cell>
+
+                <m-cell size="two"></m-cell>
+                <m-cell size="eight"></m-cell>
+                <m-cell size="six"></m-cell>
+            </m-grid>
+            <m-example-code [code]="code2"></m-example-code>
+        </m-example>
+    </m-tab>
+</m-tab-group>

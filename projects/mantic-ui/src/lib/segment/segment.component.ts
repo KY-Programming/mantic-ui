@@ -28,7 +28,16 @@ export class SegmentComponent extends DimmableComponent {
   public basic: boolean;
 
   @Input()
+  public secondary: boolean;
+
+  @Input()
+  public tertiary: boolean;
+
+  @Input()
   public attached: 'top' | 'bottom';
+
+  @Input()
+  public color: string;
 
   public constructor(
     elementRef: ElementRef<HTMLElement>,
@@ -42,6 +51,9 @@ export class SegmentComponent extends DimmableComponent {
       .registerBoolean('vertical')
       .registerBoolean('placeholder')
       .registerBoolean('basic')
+      .registerBoolean('secondary')
+      .registerBoolean('tertiary')
+      .register('color')
       .registerAction('attached', (entry, value) => entry.classes = value ? value + ' attached' : '')
       .registerFixed('segment', Number.MAX_VALUE - 1);
   }
