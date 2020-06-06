@@ -8,6 +8,7 @@ export * from './lib/directives/button.directive';
 export * from './lib/directives/fallback-for.directive';
 export * from './lib/directives/header.directive';
 export * from './lib/directives/menu-item.directive';
+export * from './lib/directives/to-template.directive';
 export * from './lib/divider/divider.component';
 export * from './lib/dropdown-item/dropdown-item.component';
 export * from './lib/dropdown/dropdown-value';
@@ -44,3 +45,4 @@ export * from './lib/text-container/text-container.component';
 export * from './lib/toggle-button/toggle-button.component';
 export * from './lib/toggle/toggle.component';
 export * from './lib/warning/warning.component';
+

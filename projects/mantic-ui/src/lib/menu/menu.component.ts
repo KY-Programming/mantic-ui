@@ -30,7 +30,7 @@ export class MenuComponent extends ElementBase {
   public text = false;
 
   public constructor(
-    readonly elementRef: ElementRef<HTMLElement>,
+    elementRef: ElementRef<HTMLElement>,
     @Optional() @SkipSelf() parentMenu?: MenuComponent
   ) {
     super(elementRef);

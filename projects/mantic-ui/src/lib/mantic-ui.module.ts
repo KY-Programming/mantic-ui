@@ -10,12 +10,16 @@ import { CheckboxComponent } from './checkbox/checkbox.component';
 import { DimmerComponent } from './dimmer/dimmer.component';
 import { ButtonDirective } from './directives/button.directive';
 import { FallbackForDirective } from './directives/fallback-for.directive';
+import { FooterLinkTemplateDirective } from './directives/footer-link-template.directive';
 import { HeaderDirective } from './directives/header.directive';
 import { MenuItemDirective } from './directives/menu-item.directive';
+import { MenuLinkTemplateDirective } from './directives/menu-link-template.directive';
+import { ToTemplateDirective } from './directives/to-template.directive';
 import { DividerComponent } from './divider/divider.component';
 import { DropdownItemComponent } from './dropdown-item/dropdown-item.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { ErrorComponent } from './error/error.component';
+import { FooterLinkComponent } from './footer-link/footer-link.component';
 import { FooterComponent } from './footer/footer.component';
 import { GridComponent } from './grid/grid.component';
 import { HeaderComponent } from './header/header.component';
@@ -76,6 +80,7 @@ import { WarningComponent } from './warning/warning.component';
     DropdownComponent,
     DropdownItemComponent,
     MenuLinkComponent,
+    FooterLinkComponent,
     MenuHeaderComponent,
     ButtonDirective,
     HeaderDirective,
@@ -93,7 +98,10 @@ import { WarningComponent } from './warning/warning.component';
     SliderComponent,
     AnimationComponent,
     GridComponent,
-    CellComponent
+    CellComponent,
+    ToTemplateDirective,
+    MenuLinkTemplateDirective,
+    FooterLinkTemplateDirective
   ],
   imports: [
     CommonModule,
@@ -127,6 +135,7 @@ import { WarningComponent } from './warning/warning.component';
     DropdownComponent,
     DropdownItemComponent,
     MenuLinkComponent,
+    FooterLinkComponent,
     MenuHeaderComponent,
     ButtonDirective,
     HeaderDirective,
@@ -144,7 +153,8 @@ import { WarningComponent } from './warning/warning.component';
     SliderComponent,
     AnimationComponent,
     GridComponent,
-    CellComponent
+    CellComponent,
+    ToTemplateDirective
   ]
 })
 export class ManticUiModule { }

@@ -1,14 +1,10 @@
-<!-- <m-menu>
-        <m-logo src="https://ky-programming.de/Images/Logos/32.png"></m-logo>
-        <m-breadcrumb></m-breadcrumb>
-    </m-menu> -->
 <m-menu position="top" fixed>
-    <m-menu-item *ngIf="logo">
-        <img [src]="logo">
+    <m-menu-item *ngIf="showHamburger">
+        <m-icon icon="bars"></m-icon>
     </m-menu-item>
-    <m-menu-link>Abc</m-menu-link>
-    <m-menu-link>Test</m-menu-link>
-    <m-menu-link>Home</m-menu-link>
-    <m-menu-link>Langes Element</m-menu-link>
+    <ng-container *ngFor="let template of menuTemplates" [ngTemplateOutlet]="template"></ng-container>
 </m-menu>
 <ng-content></ng-content>
+<m-footer>
+    <ng-container *ngFor="let template of footerTemplates" [ngTemplateOutlet]="template"></ng-container>
+</m-footer>
