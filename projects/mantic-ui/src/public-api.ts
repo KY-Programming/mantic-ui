@@ -14,7 +14,10 @@ export * from './lib/dropdown-item/dropdown-item.component';
 export * from './lib/dropdown/dropdown-value';
 export * from './lib/dropdown/dropdown.component';
 export * from './lib/error/error.component';
+export * from './lib/field-group/field-group.component';
+export * from './lib/field/field.component';
 export * from './lib/footer/footer.component';
+export * from './lib/form/form.component';
 export * from './lib/header/header.component';
 export * from './lib/icon-button/icon-button.component';
 export * from './lib/icon/icon.component';
@@ -45,4 +48,3 @@ export * from './lib/text-container/text-container.component';
 export * from './lib/toggle-button/toggle-button.component';
 export * from './lib/toggle/toggle.component';
 export * from './lib/warning/warning.component';
-

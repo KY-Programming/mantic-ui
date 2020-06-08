@@ -10,6 +10,7 @@ import { SemanticContainerComponent } from './container/container.component';
 import { SemanticDimmerComponent } from './dimmer/dimmer.component';
 import { SemanticDividerComponent } from './divider/divider.component';
 import { SemanticDropdownComponent } from './dropdown/dropdown.component';
+import { SemanticFormComponent } from './form/form.component';
 import { SemanticGridComponent } from './grid/grid.component';
 import { SemanticHeaderComponent } from './header/header.component';
 import { SemanticIframeComponent } from './iframe/iframe.component';
@@ -52,7 +53,8 @@ import { SemanticToggleComponent } from './toggle/toggle.component';
         SemanticRadioComponent,
         SemanticSliderComponent,
         SemanticTestComponent,
-        SemanticGridComponent
+        SemanticGridComponent,
+        SemanticFormComponent
     ],
     imports: [
         CommonModule,

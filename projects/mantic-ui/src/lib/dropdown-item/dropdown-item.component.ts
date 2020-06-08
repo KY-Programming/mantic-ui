@@ -19,6 +19,9 @@ export class DropdownItemComponent extends ElementBase {
   @Input()
   public selected = false;
 
+  @Input()
+  public icon: string;
+
   constructor(
     private readonly dropwDownSelectionService: DropwDownSelectionService,
     public readonly elementRef: ElementRef<HTMLElement>
@@ -43,7 +46,7 @@ export class DropdownItemComponent extends ElementBase {
   }
 
   public toValue(): DropdownValue {
-    return new DropdownValue(this.value);
+    return new DropdownValue(this.value, undefined, this.icon);
   }
 
 }

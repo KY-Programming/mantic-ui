@@ -12,6 +12,7 @@ import { SemanticContainerComponent } from './semantic/container/container.compo
 import { SemanticDimmerComponent } from './semantic/dimmer/dimmer.component';
 import { SemanticDividerComponent } from './semantic/divider/divider.component';
 import { SemanticDropdownComponent } from './semantic/dropdown/dropdown.component';
+import { SemanticFormComponent } from './semantic/form/form.component';
 import { SemanticGridComponent } from './semantic/grid/grid.component';
 import { SemanticHeaderComponent } from './semantic/header/header.component';
 import { SemanticIframeComponent } from './semantic/iframe/iframe.component';
@@ -69,6 +70,8 @@ const routes: Routes = [
       { path: 'slider/:tab', component: SemanticSliderComponent },
       { path: 'grid', redirectTo: 'grid/', pathMatch: 'full' },
       { path: 'grid/:tab', component: SemanticGridComponent },
+      { path: 'form', redirectTo: 'form/', pathMatch: 'full' },
+      { path: 'form/:tab', component: SemanticFormComponent },
       { path: 'test', component: SemanticTestComponent },
       { path: '**', redirectTo: 'start' }
     ]

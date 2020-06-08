@@ -19,8 +19,11 @@ import { DividerComponent } from './divider/divider.component';
 import { DropdownItemComponent } from './dropdown-item/dropdown-item.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { ErrorComponent } from './error/error.component';
+import { FieldGroupComponent } from './field-group/field-group.component';
+import { FieldComponent } from './field/field.component';
 import { FooterLinkComponent } from './footer-link/footer-link.component';
 import { FooterComponent } from './footer/footer.component';
+import { FormComponent } from './form/form.component';
 import { GridComponent } from './grid/grid.component';
 import { HeaderComponent } from './header/header.component';
 import { IconButtonComponent } from './icon-button/icon-button.component';
@@ -101,7 +104,10 @@ import { WarningComponent } from './warning/warning.component';
     CellComponent,
     ToTemplateDirective,
     MenuLinkTemplateDirective,
-    FooterLinkTemplateDirective
+    FooterLinkTemplateDirective,
+    FormComponent,
+    FieldComponent,
+    FieldGroupComponent
   ],
   imports: [
     CommonModule,
@@ -154,7 +160,10 @@ import { WarningComponent } from './warning/warning.component';
     AnimationComponent,
     GridComponent,
     CellComponent,
-    ToTemplateDirective
+    ToTemplateDirective,
+    FormComponent,
+    FieldComponent,
+    FieldGroupComponent
   ]
 })
 export class ManticUiModule { }
