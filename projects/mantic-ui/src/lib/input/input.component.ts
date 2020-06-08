@@ -59,6 +59,12 @@ export class InputComponent extends LabeledBase {
   @Input()
   public max: number;
 
+  @Input()
+  public for: string;
+
+  @Input()
+  public maxlength: number;
+
   @Output()
   public readonly valueChange = new EventEmitter<string>();
 
