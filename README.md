@@ -1,10 +1,11 @@
 # mantic UI
+[Documentation](https://mantic-ui.ky-programming.de)
 
 ## Semantic UI for Angular ![npm (scoped)](https://img.shields.io/npm/v/@mantic-ui/semantic-ui-angular)
-not yet released
+[Getting Started](https://mantic-ui.ky-programming.de/semantic/start)
 
 ## Fomantic UI for Angular ![npm (scoped)](https://img.shields.io/npm/v/@mantic-ui/fomantic-ui-angular)
-not yet released
+[Getting Started](https://mantic-ui.ky-programming.de/fomantic/start)
 
 ## mantic UI for Angular ![npm (scoped)](https://img.shields.io/npm/v/@mantic-ui/angular)
 
