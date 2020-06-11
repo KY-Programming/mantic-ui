@@ -16,7 +16,7 @@ export class HeaderDirective extends ElementBase {
   public icon: boolean;
 
   constructor(
-    readonly elementRef: ElementRef<HTMLElement>
+    elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
     this.classList

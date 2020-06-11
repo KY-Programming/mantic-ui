@@ -12,7 +12,7 @@ export class ToggleButtonComponent extends ButtonBase {
   public activeTemplate: TemplateRef<HTMLElement>;
 
   public constructor(
-    readonly elementRef: ElementRef<HTMLElement>
+    elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
     this.classList

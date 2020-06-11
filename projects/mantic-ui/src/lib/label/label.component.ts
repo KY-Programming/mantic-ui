@@ -23,7 +23,7 @@ export class LabelComponent extends ElementBase {
   public color: ColorName;
 
   public constructor(
-    readonly elementRef: ElementRef<HTMLElement>
+    elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
     this.classList

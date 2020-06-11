@@ -9,7 +9,7 @@ import { ElementBase } from '../base/element-base';
 export class MenuHeaderComponent extends ElementBase {
 
   constructor(
-    readonly elementRef: ElementRef<HTMLElement>
+    elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
     this.classList

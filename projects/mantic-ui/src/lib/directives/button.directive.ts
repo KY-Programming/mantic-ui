@@ -7,7 +7,7 @@ import { ButtonComponent } from '../button/button.component';
 export class ButtonDirective extends ButtonComponent {
 
   constructor(
-    readonly elementRef: ElementRef<HTMLElement>
+    elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
   }

@@ -7,7 +7,7 @@ import { MenuItemComponent } from '../menu-item/menu-item.component';
 export class MenuItemDirective extends MenuItemComponent {
 
   constructor(
-    readonly elementRef: ElementRef<HTMLElement>
+    elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
   }

@@ -15,7 +15,7 @@ export class IconButtonComponent extends ButtonBase {
   public social: string;
 
   public constructor(
-    readonly elementRef: ElementRef<HTMLElement>
+    elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
     this.classList

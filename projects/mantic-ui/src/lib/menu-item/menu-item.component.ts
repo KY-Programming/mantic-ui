@@ -12,7 +12,7 @@ export class MenuItemComponent extends ElementBase {
   public active = false;
 
   constructor(
-    readonly elementRef: ElementRef<HTMLElement>
+    elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
     this.classList

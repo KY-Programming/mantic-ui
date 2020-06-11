@@ -16,7 +16,7 @@ export class LabeledBase extends ElementBase {
     }
 
     public constructor(
-        readonly elementRef: ElementRef<HTMLElement>
+        elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
         this.classList

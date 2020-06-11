@@ -38,7 +38,7 @@ export class ButtonBase extends ElementBase {
     public size: string;
 
     public constructor(
-        readonly elementRef: ElementRef<HTMLElement>
+        elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
         this.classList

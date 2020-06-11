@@ -9,7 +9,7 @@ import { ElementBase } from '../base/element-base';
 export class ButtonGroupComponent extends ElementBase {
 
   public constructor(
-    readonly elementRef: ElementRef<HTMLElement>
+    elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
     this.classList

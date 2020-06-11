@@ -28,7 +28,7 @@ export class LabelDropdownComponent extends ElementBase {
   private readonly onOutsideClickHandler = () => this.close();
 
   public constructor(
-    readonly elementRef: ElementRef<HTMLElement>
+    elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
     this.classList

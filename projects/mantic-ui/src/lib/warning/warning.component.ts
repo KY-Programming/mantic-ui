@@ -19,7 +19,7 @@ export class WarningComponent extends ElementBase {
   public readonly close = new EventEmitter<void>();
 
   constructor(
-    readonly elementRef: ElementRef<HTMLElement>
+    elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
     this.classList

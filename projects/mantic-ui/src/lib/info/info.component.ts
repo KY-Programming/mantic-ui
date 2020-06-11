@@ -12,7 +12,7 @@ export class InfoComponent extends ElementBase {
   public ignored: boolean;
 
   constructor(
-    readonly elementRef: ElementRef<HTMLElement>
+    elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
     this.classList
