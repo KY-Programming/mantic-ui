@@ -1,2 +1,2 @@
-<label *ngIf="label && !checkboxComponent && !sliderComponent && !toggleComponent" [attr.for]="name">{{label}}</label>
+<label *ngIf="label && !checkboxComponent && !sliderComponent && !toggleComponent" [attr.for]="name" #label>{{label}}</label>
 <ng-content></ng-content>

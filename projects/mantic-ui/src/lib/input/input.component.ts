@@ -11,7 +11,7 @@ export class InputComponent extends LabeledBase {
   private readonlyValue: boolean;
   private disabledValue: boolean;
 
-  @ContentChild(HTMLInputElement, { static: false })
+  @ContentChild('input', { static: false })
   public set contentInputElement(input: HTMLInputElement) {
     this.inputElement = input;
     this.refreshInput();
