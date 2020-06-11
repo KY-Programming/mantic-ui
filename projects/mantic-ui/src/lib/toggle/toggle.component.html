@@ -1,4 +1,5 @@
 <input type="checkbox" [name]="name" [ngModel]="value" [indeterminate]="indeterminate" class="hidden">
 <label [attr.for]="name">
+    {{label}}
     <ng-content></ng-content>
 </label>

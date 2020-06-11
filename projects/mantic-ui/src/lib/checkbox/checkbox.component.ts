@@ -18,6 +18,9 @@ export class CheckboxComponent extends ElementBase {
   public name: string;
 
   @Input()
+  public label: string;
+
+  @Input()
   public set checked(value: boolean) {
     this.value = value;
   }
