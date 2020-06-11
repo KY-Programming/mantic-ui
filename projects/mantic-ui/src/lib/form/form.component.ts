@@ -27,15 +27,30 @@ export class FormComponent extends ElementBase {
   public novalidate: boolean;
 
   @Input()
+  public loading: boolean;
+
+  @Input()
+  public success: boolean;
+
+  @Input()
+  public error: boolean;
+
+  @Input()
+  public warning: boolean;
+
+  @Input()
   public target: '_blank' | '_self' | '_parent' | '_top';
 
   public constructor(
-    readonly elementRef: ElementRef<HTMLElement>
+    elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
     this.ui = false;
-    // this.classList
-    //   .registerFixed('form', Number.MAX_VALUE - 1);
+    this.classList
+      .registerBoolean('loading', '')
+      .registerBoolean('success', '')
+      .registerBoolean('warning', '')
+      .registerBoolean('error', '');
   }
 
 }

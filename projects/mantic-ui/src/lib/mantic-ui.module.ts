@@ -37,6 +37,7 @@ import { MenuHeaderComponent } from './menu-header/menu-header.component';
 import { MenuItemComponent } from './menu-item/menu-item.component';
 import { MenuLinkComponent } from './menu-link/menu-link.component';
 import { MenuComponent } from './menu/menu.component';
+import { MessageComponent } from './message/message.component';
 import { ModalFooterComponent } from './modal/modal-footer.component';
 import { ModalHeaderComponent } from './modal/modal-header.component';
 import { ModalComponent } from './modal/modal.component';
@@ -107,7 +108,8 @@ import { WarningComponent } from './warning/warning.component';
     FooterLinkTemplateDirective,
     FormComponent,
     FieldComponent,
-    FieldGroupComponent
+    FieldGroupComponent,
+    MessageComponent
   ],
   imports: [
     CommonModule,
@@ -163,7 +165,8 @@ import { WarningComponent } from './warning/warning.component';
     ToTemplateDirective,
     FormComponent,
     FieldComponent,
-    FieldGroupComponent
+    FieldGroupComponent,
+    MessageComponent
   ]
 })
 export class ManticUiModule { }

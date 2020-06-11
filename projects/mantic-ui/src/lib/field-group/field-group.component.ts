@@ -35,12 +35,16 @@ export class FieldGroupComponent extends ElementBase {
     }
   }
 
+  @Input()
+  public inline: boolean;
+
   public constructor(
-    readonly elementRef: ElementRef<HTMLElement>
+    elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
     this.ui = false;
     this.classList
+      .registerBoolean('inline')
       .register('fields')
       .registerFixed('fields', Number.MAX_VALUE - 1);
   }

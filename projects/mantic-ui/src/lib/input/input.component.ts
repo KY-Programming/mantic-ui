@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, Input, Output } from '@angular/core';
 import { LabeledBase } from '../base/labeled-base';
 
 @Component({
@@ -7,6 +7,15 @@ import { LabeledBase } from '../base/labeled-base';
   styleUrls: ['./input.component.scss']
 })
 export class InputComponent extends LabeledBase {
+  private inputElement: HTMLInputElement;
+  private readonlyValue: boolean;
+  private disabledValue: boolean;
+
+  @ContentChild(HTMLInputElement, { static: false })
+  public set contentInputElement(input: HTMLInputElement) {
+    this.inputElement = input;
+    this.refreshInput();
+  }
 
   @Input()
   public icon: string;
@@ -21,17 +30,28 @@ export class InputComponent extends LabeledBase {
   public loading: boolean;
 
   @Input()
-  public disabled: boolean;
+  public set disabled(value: boolean) {
+    this.disabledValue = value;
+    this.refreshInput();
+  }
+  public get disabled(): boolean {
+    return this.disabledValue;
+  }
+
+  @Input()
+  public set readonly(value: boolean) {
+    this.readonlyValue = value;
+    this.refreshInput();
+  }
+  public get readonly(): boolean {
+    return this.readonlyValue;
+  }
 
   @Input()
   public hasError: boolean;
 
   @Input()
   public transparent: boolean;
-
-  /* HTMLInputElement Properties */
-  // TODO: Add missing properties
-  // TODO: Give the possibility to inject an input-tag via ng-content
 
   @Input()
   public type: string;
@@ -72,7 +92,7 @@ export class InputComponent extends LabeledBase {
   public readonly numericValueChange = new EventEmitter<number>();
 
   public constructor(
-    readonly elementRef: ElementRef<HTMLElement>
+    elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
     this.classList
@@ -81,6 +101,7 @@ export class InputComponent extends LabeledBase {
       .registerBoolean('focused', 'focus')
       .registerBoolean('loading')
       .registerBoolean('disabled')
+      .registerBoolean('readonly')
       .registerBoolean('transparent')
       .registerBoolean('fluid')
       .registerBoolean('hasError', 'error')
@@ -90,5 +111,14 @@ export class InputComponent extends LabeledBase {
   public onChange(): void {
     this.valueChange.emit(this.value);
     this.numericValueChange.emit(this.numericValue);
+  }
+
+  private refreshInput(): void {
+    if (!this.inputElement) {
+      return;
+    }
+    this.inputElement.disabled = this.disabled;
+    this.inputElement.readOnly = this.readonly;
+    console.log(`set disabled to ${this.disabled ? 'true' : 'false'}. set readonly to ${this.readonly ? 'true' : 'false'}`);
   }
 }

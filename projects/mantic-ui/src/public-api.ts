@@ -31,6 +31,7 @@ export * from './lib/menu-header/menu-header.component';
 export * from './lib/menu-item/menu-item.component';
 export * from './lib/menu-link/menu-link.component';
 export * from './lib/menu/menu.component';
+export * from './lib/message/message.component';
 export * from './lib/modal/modal-footer.component';
 export * from './lib/modal/modal-header.component';
 export * from './lib/modal/modal.component';
