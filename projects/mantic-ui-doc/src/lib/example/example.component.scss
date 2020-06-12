@@ -11,7 +11,7 @@ $border-color: #d4d4d5;
   position: relative;
 }
 
-h4 {
+h4.ui.header {
   margin: 0;
 }
 
@@ -81,14 +81,16 @@ p {
   }
 }
 
-.header {
-  background-color: #F8F8F8;
-  padding: .75em 1em;
-  flex: 0 0 auto;
-  font-size: 0.75em;
-  font-weight: bold;
-  border-bottom: 1px solid $border-color;
-  color: rgba(0, 0, 0, .6);
+.example-box {
+  .header {
+    background-color: #F8F8F8;
+    padding: .75em 1em;
+    flex: 0 0 auto;
+    font-size: 0.75em;
+    font-weight: bold;
+    border-bottom: 1px solid $border-color;
+    color: rgba(0, 0, 0, .6);
+  }
 }
 
 .live,

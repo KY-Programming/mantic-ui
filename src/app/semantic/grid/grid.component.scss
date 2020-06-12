@@ -31,12 +31,11 @@
   position: relative;
 }
 
-.grid:before {
+.grid.colorize:before {
   position: absolute;
   top: 1rem;
   left: 1rem;
   background-color: rgba(0, 0, 0, .05);
-  ;
   content: '';
   width: calc(100% - 2rem);
   height: calc(100% - 2rem);
@@ -52,7 +51,7 @@
   margin-top: 1rem;
 }
 
-.grid .grid:before {
+.grid.colorize .grid:before {
   background-color: rgba(0, 0, 0, .05);
   ;
 }
@@ -63,10 +62,9 @@
 
 .grid>.column {
   position: relative;
-  z-index: 11;
 }
 
-.grid .column:not(.row):not(.grid):after {
+.grid.colorize .column:not(.row):not(.grid):after {
   background-color: rgba(86, 61, 124, .1);
   box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, .05) inset;
   content: "";
@@ -74,11 +72,11 @@
   min-height: 50px;
 }
 
-.grid .column:not(.grid):first-child {
+.grid.colorize .column:not(.grid):first-child {
   box-shadow: none;
 }
 
-.grid .column:not(.grid) {
+.grid.colorize .column:not(.grid) {
   min-height: 50px;
 }
 

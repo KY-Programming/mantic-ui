@@ -44,6 +44,7 @@ import { ModalComponent } from './modal/modal.component';
 import { OrComponent } from './or/or.component';
 import { SafePipe } from './pipes/safe.pipe';
 import { RadioComponent } from './radio/radio.component';
+import { RowComponent } from './row/row.component';
 import { SegmentGroupComponent } from './segment-group/segment-group.component';
 import { SegmentDefaultsComponent } from './segment/segment-defaults.component';
 import { SegmentComponent } from './segment/segment.component';
@@ -109,7 +110,8 @@ import { WarningComponent } from './warning/warning.component';
     FormComponent,
     FieldComponent,
     FieldGroupComponent,
-    MessageComponent
+    MessageComponent,
+    RowComponent
   ],
   imports: [
     CommonModule,
@@ -166,7 +168,8 @@ import { WarningComponent } from './warning/warning.component';
     FormComponent,
     FieldComponent,
     FieldGroupComponent,
-    MessageComponent
+    MessageComponent,
+    RowComponent
   ]
 })
 export class ManticUiModule { }

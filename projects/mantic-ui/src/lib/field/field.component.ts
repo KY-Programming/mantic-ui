@@ -2,10 +2,9 @@ import { Component, ContentChild, ElementRef, Input } from '@angular/core';
 import { ElementBase } from '../base/element-base';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { InputComponent } from '../input/input.component';
+import { FieldSize, fieldSizes } from '../models/field-size';
 import { SliderComponent } from '../slider/slider.component';
 import { ToggleComponent } from '../toggle/toggle.component';
-
-export declare type FieldSize = '' | 'one' | 'two' | 'three' | 'four' | 'five' | 'six' | 'seven' | 'eight' | 'nine' | 'ten' | 'eleven' | 'twelve' | 'thirteen' | 'fourteen' | 'fifteen' | 'sixteen' | number;
 
 @Component({
   selector: 'm-field',
@@ -13,7 +12,6 @@ export declare type FieldSize = '' | 'one' | 'two' | 'three' | 'four' | 'five' |
   styleUrls: ['./field.component.scss']
 })
 export class FieldComponent extends ElementBase {
-  private readonly fieldSizes: FieldSize[] = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen'];
   private labelElementValue: HTMLLabelElement;
   private inputComponentValue: InputComponent;
   private checkboxComponentValue: CheckboxComponent;
@@ -117,7 +115,7 @@ export class FieldComponent extends ElementBase {
   public set size(value: FieldSize) {
     const sizeNumber = value ? parseInt(value.toString()) : undefined;
     if (sizeNumber && !Number.isNaN(sizeNumber)) {
-      this.sizeValue = this.fieldSizes[value];
+      this.sizeValue = fieldSizes[value];
     } else {
       this.sizeValue = value;
     }

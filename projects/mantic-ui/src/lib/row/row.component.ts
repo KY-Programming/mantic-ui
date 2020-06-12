@@ -3,27 +3,15 @@ import { ElementBase } from '../base/element-base';
 import { FieldSize, fieldSizes } from '../models/field-size';
 
 @Component({
-  selector: 'm-grid',
-  templateUrl: './grid.component.html',
-  styleUrls: ['./grid.component.scss']
+  selector: 'm-row',
+  templateUrl: './row.component.html',
+  styleUrls: ['./row.component.scss']
 })
-export class GridComponent extends ElementBase {
+export class RowComponent extends ElementBase {
   private columnsValue: FieldSize;
 
   @Input()
-  public divided: boolean;
-
-  @Input()
-  public vertically: boolean;
-
-  @Input()
-  public celled: boolean;
-
-  @Input()
-  public internally: boolean;
-
-  @Input()
-  public width: 'equal';
+  public stretched: boolean;
 
   @Input()
   public set columns(value: FieldSize) {
@@ -42,17 +30,12 @@ export class GridComponent extends ElementBase {
     elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
+    this.ui = false;
     this.classList
-      .registerBoolean('vertically')
-      .registerBoolean('divided')
       .register('columns')
       .registerAction('columns', (entry, value) => entry.isActive = !!value, undefined, 'column')
-      .registerBoolean('internally')
-      .registerBoolean('celled')
-      .registerBoolean('equal')
-      .register('width')
-      .registerAction('width', (entry, value) => entry.isActive = !!value, undefined, 'width')
-      .registerFixed('grid');
+      .registerBoolean('stretched')
+      .registerFixed('row');
   }
 
 }

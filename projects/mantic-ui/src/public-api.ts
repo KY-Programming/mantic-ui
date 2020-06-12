@@ -38,6 +38,7 @@ export * from './lib/modal/modal.component';
 export * from './lib/or/or.component';
 export * from './lib/pipes/safe.pipe';
 export * from './lib/radio/radio.component';
+export * from './lib/row/row.component';
 export * from './lib/segment/segment-defaults.component';
 export * from './lib/segment/segment.component';
 export * from './lib/services/dimmable.service';

@@ -32,6 +32,18 @@ export class ExampleComponent {
   @HostBinding('id')
   public id: string;
 
+  @Input()
+  public hint: string;
+
+  @Input()
+  public hintClass = 'black';
+
+  @Input()
+  public hintLink: string;
+
+  @Input()
+  public hintTarget = '_blank';
+
   public toggleCode(): void {
     this.showCode = !this.showCode;
   }

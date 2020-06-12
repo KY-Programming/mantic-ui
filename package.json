@@ -20,6 +20,7 @@
     "link:fomantic": "rd /S/Q node_modules\\@mantic-ui\\fomantic-ui-angular & mkdir @mantic-ui\\fomantic-ui-angular & cd @mantic-ui\\fomantic-ui-angular && mklink /D lib ..\\..\\projects\\fomantic-ui\\src\\lib & mklink index.ts ..\\..\\projects\\fomantic-ui\\src\\public-api.ts & cd ..\\..\\..",
     "link:semantic": "rd /S/Q node_modules\\@mantic-ui\\semantic-ui-angular & mkdir @mantic-ui\\semantic-ui-angular & cd @mantic-ui\\semantic-ui-angular && mklink /D lib ..\\..\\projects\\semantic-ui\\src\\lib & mklink index.ts ..\\..\\projects\\semantic-ui\\src\\public-api.ts & cd ..\\..\\..",
     "link:mantic": "rd /S/Q node_modules\\@mantic-ui\\angular & mkdir @mantic-ui\\angular & cd @mantic-ui\\angular && mklink /D lib ..\\..\\projects\\mantic-ui\\src\\lib & mklink index.ts ..\\..\\projects\\mantic-ui\\src\\public-api.ts & cd ..\\..\\..",
+    "link:mantic-doc": "rd /S/Q node_modules\\@mantic-ui\\angular-doc & mkdir @mantic-ui\\angular-doc & cd @mantic-ui\\angular-doc && mklink /D lib ..\\..\\projects\\mantic-ui-doc\\src\\lib & mklink index.ts ..\\..\\projects\\mantic-ui-doc\\src\\public-api.ts & cd ..\\..\\..",
     "unlink": "rd /S/Q @mantic-ui & npm i"
   },
   "private": true,
