@@ -25,7 +25,7 @@ export class FieldComponent extends ElementBase {
   private disabledValue: boolean;
   private readonlyValue: boolean;
 
-  @ContentChild('label', { static: false })
+  @ContentChild('labelElement', { static: false })
   public set labelElement(value: HTMLLabelElement) {
     this.labelElementValue = value;
     if (this.labelElementValue) {
