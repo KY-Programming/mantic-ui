@@ -12,43 +12,45 @@
         </m-example>
 
         <m-example>
-            <div class="ui form">
-                <div class="inline fields">
+            <m-form>
+                <m-field-group inline>
                     <label>How often do you use checkboxes?</label>
-                    <div class="field">
-                        <m-slider name="frequency" checked>Once a week</m-slider>
-                    </div>
-                    <div class="field">
-                        <m-slider name="frequency">2-3 times a week</m-slider>
-                    </div>
-                    <div class="field">
-                        <m-slider name="frequency">Once a day</m-slider>
-                    </div>
-                    <div class="field">
-                        <m-slider name="frequency">Twice a day</m-slider>
-                    </div>
-                </div>
-            </div>
+                    <m-field name="frequency" label="Once a week">
+                        <m-slider checked></m-slider>
+                    </m-field>
+                    <m-field name="frequency" label="2-3 times a week">
+                        <m-slider></m-slider>
+                    </m-field>
+                    <m-field name="frequency" label="Once a day">
+                        <m-slider></m-slider>
+                    </m-field>
+                    <m-field name="frequency" label="Twice a day">
+                        <m-slider></m-slider>
+                    </m-field>
+                </m-field-group>
+            </m-form>
+            <m-example-code [code]="inline"></m-example-code>
         </m-example>
 
         <m-example>
-            <div class="ui form">
-                <div class="grouped fields">
+            <m-form>
+                <m-field-group grouped>
                     <label>How often do you use checkboxes?</label>
-                    <div class="field">
-                        <m-slider name="frequency2" checked>Once a week</m-slider>
-                    </div>
-                    <div class="field">
-                        <m-slider name="frequency2">2-3 times a week</m-slider>
-                    </div>
-                    <div class="field">
-                        <m-slider name="frequency2">Once a day</m-slider>
-                    </div>
-                    <div class="field">
-                        <m-slider name="frequency2">Twice a day</m-slider>
-                    </div>
-                </div>
-            </div>
+                    <m-field name="frequency2" label="Once a week">
+                        <m-slider checked></m-slider>
+                    </m-field>
+                    <m-field name="frequency2" label="2-3 times a week">
+                        <m-slider></m-slider>
+                    </m-field>
+                    <m-field name="frequency2" label="Once a day">
+                        <m-slider></m-slider>
+                    </m-field>
+                    <m-field name="frequency2" label="Twice a day">
+                        <m-slider></m-slider>
+                    </m-field>
+                </m-field-group>
+            </m-form>
+            <m-example-code [code]="grouped"></m-example-code>
         </m-example>
     </m-tab>
     <m-tab label="States">
