@@ -41,4 +41,40 @@ export class SemanticToggleComponent {
   public get disabled(): boolean {
     return this.disabledField;
   }
+
+  public readonly inline = `<m-form>
+  <m-field-group inline>
+      <label>How often do you use checkboxes?</label>
+      <m-field name="frequency" label="Once a week">
+          <m-toggle checked></m-toggle>
+      </m-field>
+      <m-field name="frequency" label="2-3 times a week">
+          <m-toggle></m-toggle>
+      </m-field>
+      <m-field name="frequency" label="Once a day">
+          <m-toggle></m-toggle>
+      </m-field>
+      <m-field name="frequency" label="Twice a day">
+          <m-toggle></m-toggle>
+      </m-field>
+  </m-field-group>
+</m-form>`;
+
+  public readonly grouped = `<m-form>
+  <m-field-group grouped>
+    <label>How often do you use checkboxes?</label>
+    <m-field name="frequency2" label="Once a week">
+        <m-toggle checked></m-toggle>
+    </m-field>
+    <m-field name="frequency2" label="2-3 times a week">
+        <m-toggle></m-toggle>
+    </m-field>
+    <m-field name="frequency2" label="Once a day">
+        <m-toggle></m-toggle>
+    </m-field>
+    <m-field name="frequency2" label="Twice a day">
+        <m-toggle></m-toggle>
+    </m-field>
+  </m-field-group>
+</m-form>`;
 }

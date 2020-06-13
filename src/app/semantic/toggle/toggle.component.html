@@ -7,10 +7,52 @@
 
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Examples">
-        <m-example header="Toggle" description="A standard toggle" [code]="standardCode">
+        <m-example header="Toggle" description="A standard toggle">
             <m-toggle name="example">Subscribe to weekly newsletter</m-toggle>
+            <m-example-code [code]="standardCode"></m-example-code>
         </m-example>
 
+        <m-example>
+            <m-form>
+                <m-field-group inline>
+                    <label>How often do you use checkboxes?</label>
+                    <m-field name="frequency" label="Once a week">
+                        <m-toggle checked></m-toggle>
+                    </m-field>
+                    <m-field name="frequency" label="2-3 times a week">
+                        <m-toggle></m-toggle>
+                    </m-field>
+                    <m-field name="frequency" label="Once a day">
+                        <m-toggle></m-toggle>
+                    </m-field>
+                    <m-field name="frequency" label="Twice a day">
+                        <m-toggle></m-toggle>
+                    </m-field>
+                </m-field-group>
+            </m-form>
+            <m-example-code [code]="inline"></m-example-code>
+        </m-example>
+
+        <m-example>
+            <m-form>
+                <m-field-group grouped>
+                    <label>How often do you use checkboxes?</label>
+                    <m-field name="frequency2" label="Once a week">
+                        <m-toggle checked></m-toggle>
+                    </m-field>
+                    <m-field name="frequency2" label="2-3 times a week">
+                        <m-toggle></m-toggle>
+                    </m-field>
+                    <m-field name="frequency2" label="Once a day">
+                        <m-toggle></m-toggle>
+                    </m-field>
+                    <m-field name="frequency2" label="Twice a day">
+                        <m-toggle></m-toggle>
+                    </m-field>
+                </m-field-group>
+            </m-form>
+            <m-example-code [code]="grouped"></m-example-code>
+        </m-example>
     </m-tab>
     <m-tab label="States">
         <m-example header="Read-only" description="A toggle can be read-only and unable to change states" [code]="readonlyCode">
