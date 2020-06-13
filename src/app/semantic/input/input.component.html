@@ -22,54 +22,54 @@
         </m-example>
     </m-tab>
     <m-tab label="States">
-        <m-example header="Focus" description="An input field can show a user is currently interacting with it">
+        <m-example header="Focus" description="An input field can show a user is currently interacting with it" [code]="states1">
             <m-input type="text" placeholder="Search..." focused></m-input>
         </m-example>
-        <m-example header="Loading" description="An icon input field can show that it is currently loading data">
+        <m-example header="Loading" description="An icon input field can show that it is currently loading data" [code]="states2">
             <m-input type="text" placeholder="Search..." icon="search" iconPosition="left" loading></m-input>
         </m-example>
-        <m-example>
+        <m-example [code]="states3">
             <m-input type="text" placeholder="Search..." icon="search" loading></m-input>
         </m-example>
-        <m-example header="Disabled" description="An input field can show that it is disabled">
+        <m-example header="Disabled" description="An input field can show that it is disabled" [code]="states4">
             <m-input type="text" placeholder="Search..." disabled></m-input>
         </m-example>
-        <m-example>
+        <m-example [code]="states5">
             <m-input type="text" placeholder="Search..." icon="search" disabled></m-input>
         </m-example>
-        <m-example header="Error" description="An input field can show the data contains errors">
+        <m-example header="Error" description="An input field can show the data contains errors" [code]="states6">
             <m-input type="text" placeholder="Search..." hasError></m-input>
         </m-example>
     </m-tab>
     <m-tab label="Variations">
-        <m-example header="Icon" description="An input can be formatted with an icon">
+        <m-example header="Icon" description="An input can be formatted with an icon" [code]="variations1">
             <m-input type="text" placeholder="Search..." icon="search"></m-input>
         </m-example>
-        <m-example>
+        <m-example [code]="variations2">
             <m-input type="text" placeholder="Search..." icon="users" iconPosition="left"></m-input>
         </m-example>
-        <m-example>
+        <m-example [code]="variations3">
             <m-input type="text" placeholder="Search..." icon="circular search"></m-input>
         </m-example>
-        <m-example>
+        <m-example [code]="variations4">
             <m-input type="text" placeholder="Search..." icon="inverted circular search"></m-input>
         </m-example>
-        <m-example header="Labeled" description="An input can be formatted with a label">
+        <m-example header="Labeled" description="An input can be formatted with a label" [code]="variations5">
             <m-input type="text" placeholder="mysite.com">
                 <m-label>http://</m-label>
             </m-input>
         </m-example>
-        <m-example>
+        <m-example [code]="variations6">
             <m-input type="text" placeholder="Find domain">
                 <m-label-dropdown position="right" value=".com" [items]="['.com', '.net', '.org']"></m-label-dropdown>
             </m-input>
         </m-example>
-        <m-example>
+        <m-example [code]="variations7">
             <m-input type="number" placeholder="Enter weight..">
                 <m-label position="right" class="basic">kg</m-label>
             </m-input>
         </m-example>
-        <m-example>
+        <m-example [code]="variations8">
             <p>TODO: This exapmle is currently not supported. Use the default behaviour</p>
             <div class="ui right labeled input">
                 <label for="amount" class="ui label">$</label>
@@ -77,12 +77,12 @@
                 <div class="ui basic label">.00</div>
             </div>
         </m-example>
-        <m-example>
+        <m-example [code]="variations9">
             <m-input icon="tags" iconPosition="left" placeholder="Enter tags">
                 <m-label position="right" class="tag">Add Tag</m-label>
             </m-input>
         </m-example>
-        <m-example>
+        <m-example [code]="variations10">
             <m-input type="text" class="corner" placeholder="Search...">
                 <m-label position="left" class="left corner">
                     <m-icon icon="asterisk"></m-icon>
