@@ -3,6 +3,7 @@ import { ElementBase } from '../base/element-base';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { InputComponent } from '../input/input.component';
 import { FieldSize, fieldSizes } from '../models/field-size';
+import { RadioComponent } from '../radio/radio.component';
 import { SliderComponent } from '../slider/slider.component';
 import { ToggleComponent } from '../toggle/toggle.component';
 
@@ -17,6 +18,7 @@ export class FieldComponent extends ElementBase {
   private checkboxComponentValue: CheckboxComponent;
   private sliderComponentValue: SliderComponent;
   private toggleComponentValue: ToggleComponent;
+  private radioComponentValue: RadioComponent;
   private nameValue: string;
   private labelValue: string;
   private sizeValue: FieldSize;
@@ -51,9 +53,10 @@ export class FieldComponent extends ElementBase {
   public set checkboxComponent(value: CheckboxComponent) {
     this.checkboxComponentValue = value;
     if (this.checkboxComponentValue) {
+      this.checkboxComponentValue.name = this.name;
       this.checkboxComponentValue.label = this.label;
       this.checkboxComponentValue.readonly = this.readonly;
-      this.sliderComponentValue.disabled = this.disabled;
+      this.checkboxComponentValue.disabled = this.disabled;
     }
   }
   public get checkboxComponent(): CheckboxComponent {
@@ -64,6 +67,7 @@ export class FieldComponent extends ElementBase {
   public set sliderComponent(value: SliderComponent) {
     this.sliderComponentValue = value;
     if (this.sliderComponentValue) {
+      this.sliderComponentValue.name = this.name;
       this.sliderComponentValue.label = this.label;
       this.sliderComponentValue.readonly = this.readonly;
       this.sliderComponentValue.disabled = this.disabled;
@@ -77,6 +81,7 @@ export class FieldComponent extends ElementBase {
   public set toggleComponent(value: ToggleComponent) {
     this.toggleComponentValue = value;
     if (this.toggleComponentValue) {
+      this.toggleComponentValue.name = this.name;
       this.toggleComponentValue.label = this.label;
       this.toggleComponentValue.readonly = this.readonly;
       this.toggleComponentValue.disabled = this.disabled;
@@ -84,6 +89,20 @@ export class FieldComponent extends ElementBase {
   }
   public get toggleComponent(): ToggleComponent {
     return this.toggleComponentValue;
+  }
+
+  @ContentChild(RadioComponent, { static: false })
+  public set radioComponent(value: RadioComponent) {
+    this.radioComponentValue = value;
+    if (this.radioComponentValue) {
+      this.radioComponentValue.name = this.name;
+      this.radioComponentValue.label = this.label;
+      this.radioComponentValue.readonly = this.readonly;
+      this.radioComponentValue.disabled = this.disabled;
+    }
+  }
+  public get radioComponent(): RadioComponent {
+    return this.radioComponentValue;
   }
 
   @Input()
@@ -95,6 +114,18 @@ export class FieldComponent extends ElementBase {
     if (this.inputComponent) {
       this.inputComponent.for = value;
     }
+    if (this.checkboxComponent) {
+      this.checkboxComponent.name = value;
+    }
+    if (this.sliderComponent) {
+      this.sliderComponent.name = value;
+    }
+    if (this.toggleComponent) {
+      this.toggleComponent.name = value;
+    }
+    if (this.radioComponent) {
+      this.radioComponent.name = value;
+    }
   }
   public get name(): string {
     return this.nameValue;
@@ -105,6 +136,15 @@ export class FieldComponent extends ElementBase {
     this.labelValue = value;
     if (this.checkboxComponent) {
       this.checkboxComponent.label = value;
+    }
+    if (this.sliderComponent) {
+      this.sliderComponent.label = value;
+    }
+    if (this.toggleComponent) {
+      this.toggleComponent.label = value;
+    }
+    if (this.radioComponent) {
+      this.radioComponent.label = value;
     }
   }
   public get label(): string {
@@ -142,6 +182,9 @@ export class FieldComponent extends ElementBase {
     if (this.sliderComponent) {
       this.sliderComponent.disabled = value;
     }
+    if (this.radioComponent) {
+      this.radioComponent.disabled = value;
+    }
   }
   public get disabled(): boolean {
     return this.disabledValue;
@@ -161,6 +204,9 @@ export class FieldComponent extends ElementBase {
     }
     if (this.sliderComponent) {
       this.sliderComponent.readonly = value;
+    }
+    if (this.radioComponent) {
+      this.radioComponent.readonly = value;
     }
   }
   public get readonly(): boolean {

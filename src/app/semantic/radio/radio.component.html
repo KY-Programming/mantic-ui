@@ -7,48 +7,51 @@
 
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Examples">
-        <m-example header="Radio" description="A standard radio" [code]="standardCode">
+        <m-example header="Radio" description="A standard radio">
             <m-radio name="example">Radio choice</m-radio>
+            <m-example-code [code]="standardCode"></m-example-code>
         </m-example>
 
         <m-example>
-            <div class="ui form">
-                <div class="inline fields">
+            <m-form>
+                <m-field-group inline>
                     <label>How often do you use checkboxes?</label>
-                    <div class="field">
-                        <m-radio name="frequency" checked>Once a week</m-radio>
-                    </div>
-                    <div class="field">
-                        <m-radio name="frequency">2-3 times a week</m-radio>
-                    </div>
-                    <div class="field">
-                        <m-radio name="frequency">Once a day</m-radio>
-                    </div>
-                    <div class="field">
-                        <m-radio name="frequency">Twice a day</m-radio>
-                    </div>
-                </div>
-            </div>
+                    <m-field name="frequency" label="Once a week">
+                        <m-radio checked></m-radio>
+                    </m-field>
+                    <m-field name="frequency" label="2-3 times a week">
+                        <m-radio></m-radio>
+                    </m-field>
+                    <m-field name="frequency" label="Once a day">
+                        <m-radio></m-radio>
+                    </m-field>
+                    <m-field name="frequency" label="Twice a day">
+                        <m-radio></m-radio>
+                    </m-field>
+                </m-field-group>
+            </m-form>
+            <m-example-code [code]="inline"></m-example-code>
         </m-example>
 
         <m-example>
-            <div class="ui form">
-                <div class="grouped fields">
+            <m-form>
+                <m-field-group grouped>
                     <label>How often do you use checkboxes?</label>
-                    <div class="field">
-                        <m-radio name="frequency2" checked>Once a week</m-radio>
-                    </div>
-                    <div class="field">
-                        <m-radio name="frequency2">2-3 times a week</m-radio>
-                    </div>
-                    <div class="field">
-                        <m-radio name="frequency2">Once a day</m-radio>
-                    </div>
-                    <div class="field">
-                        <m-radio name="frequency2">Twice a day</m-radio>
-                    </div>
-                </div>
-            </div>
+                    <m-field name="frequency2" label="Once a week">
+                        <m-radio checked></m-radio>
+                    </m-field>
+                    <m-field name="frequency2" label="2-3 times a week">
+                        <m-radio></m-radio>
+                    </m-field>
+                    <m-field name="frequency2" label="Once a day">
+                        <m-radio></m-radio>
+                    </m-field>
+                    <m-field name="frequency2" label="Twice a day">
+                        <m-radio></m-radio>
+                    </m-field>
+                </m-field-group>
+            </m-form>
+            <m-example-code [code]="grouped"></m-example-code>
         </m-example>
     </m-tab>
     <m-tab label="States">

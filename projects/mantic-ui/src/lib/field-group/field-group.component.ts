@@ -38,6 +38,9 @@ export class FieldGroupComponent extends ElementBase {
   @Input()
   public inline: boolean;
 
+  @Input()
+  public grouped: boolean;
+
   public constructor(
     elementRef: ElementRef<HTMLElement>
   ) {
@@ -45,6 +48,7 @@ export class FieldGroupComponent extends ElementBase {
     this.ui = false;
     this.classList
       .registerBoolean('inline')
+      .registerBoolean('grouped', 'grouped fields')
       .register('fields')
       .registerFixed('fields', Number.MAX_VALUE - 1);
   }
