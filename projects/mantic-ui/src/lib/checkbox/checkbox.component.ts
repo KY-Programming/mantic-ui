@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { ElementBase } from '../base/element-base';
+import { Key } from '../models/key';
 
 @Component({
   selector: 'm-checkbox',
@@ -65,14 +66,27 @@ export class CheckboxComponent extends ElementBase {
     this.set(!this.value);
   }
 
+  @HostListener('keydown', ['$event'])
+  public onKeyDown(event: KeyboardEvent): void {
+    if (this.readonly || this.disabled || event.code !== Key.space) {
+      return;
+    }
+    event.preventDefault();
+    this.set(!this.value);
+  }
+
   public set(value: boolean): void {
     if (!value && !this.canUncheck) {
       return;
     }
     this.indeterminate = false;
     this.value = value;
-    this.valueChange.emit(this.value);
+    this.onChange();
     this.refreshClasses();
+  }
+
+  public onChange(): void {
+    this.valueChange.emit(this.value);
   }
 
   public onInputValueChange(event: Event): void {
