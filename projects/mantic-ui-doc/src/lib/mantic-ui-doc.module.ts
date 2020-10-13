@@ -5,10 +5,13 @@ import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { ExampleCodeComponent } from './example-code/example-code.component';
 import { ExampleFrameComponent } from './example-frame/example-frame.component';
 import { ExampleComponent } from './example/example.component';
+import { NugetInstallComponent } from './nuget-install/nuget-install.component';
+import { NugetComponent } from './nuget/nuget.component';
 
 // tslint:disable-next-line: only-arrow-functions
 export function getHighlightLanguages(): unknown {
   return {
+    cs: () => import('highlight.js/lib/languages/cs'),
     css: () => import('highlight.js/lib/languages/css'),
     html: () => import('highlight.js/lib/languages/xml'),
     js: () => import('highlight.js/lib/languages/javascript'),
@@ -21,7 +24,9 @@ export function getHighlightLanguages(): unknown {
   declarations: [
     ExampleComponent,
     ExampleCodeComponent,
-    ExampleFrameComponent
+    ExampleFrameComponent,
+    NugetComponent,
+    NugetInstallComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +36,9 @@ export function getHighlightLanguages(): unknown {
   exports: [
     ExampleComponent,
     ExampleCodeComponent,
-    ExampleFrameComponent
+    ExampleFrameComponent,
+    NugetComponent,
+    NugetInstallComponent
   ],
   providers: [
     {
