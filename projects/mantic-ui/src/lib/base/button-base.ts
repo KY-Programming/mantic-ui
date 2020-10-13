@@ -37,10 +37,14 @@ export class ButtonBase extends ElementBase {
     @Input()
     public size: string;
 
+    @Input()
+    public circular: boolean;
+
     public constructor(
-        elementRef: ElementRef<HTMLElement>
+        public readonly elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
+        elementRef.nativeElement.setAttribute('tabindex', '0');
         this.classList
             .register('size')
             .registerBoolean('inverted')
@@ -48,6 +52,7 @@ export class ButtonBase extends ElementBase {
             .registerBoolean('secondary')
             .registerBoolean('positive')
             .registerBoolean('negative')
+            .registerBoolean('circular')
             .register('color')
             .registerBoolean('basic')
             .registerBoolean('active')

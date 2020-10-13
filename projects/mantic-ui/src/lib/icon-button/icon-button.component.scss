@@ -1,5 +1,12 @@
 :host {
-    .icon {
-        margin-right: 0;
+  &::ng-deep .icon {
+    margin-right: 0;
+  }
+
+  &.circular {
+    &::ng-deep .icon {
+      width: 1em;
     }
+
+  }
 }
