@@ -79,6 +79,19 @@ export class SemanticGridComponent {
   </m-row>
 </m-grid>`;
 
+  public readonly types5 = `<m-grid internally celled class="colorize">
+  <m-row>
+      <m-cell size="3"></m-cell>
+      <m-cell size="10"></m-cell>
+      <m-cell size="3"></m-cell>
+  </m-row>
+  <m-row>
+      <m-cell size="3"></m-cell>
+      <m-cell size="10"></m-cell>
+      <m-cell size="3"></m-cell>
+  </m-row>
+</m-grid>`;
+
   public readonly variations1 = `<m-grid>
   <m-cell float="left" size="5"></m-cell>
   <m-cell float="right" size="5"></m-cell>
@@ -148,6 +161,39 @@ export class SemanticGridComponent {
           <m-segment>1 of 3</m-segment>
           <m-segment>2 of 3</m-segment>
           <m-segment>3 of 3</m-segment>
+      </m-cell>
+  </m-row>
+</m-grid>`;
+
+  public readonly variations6 = `<m-grid width="equal" divided>
+  <m-row stretched>
+      <m-cell>
+          <m-segment>1 of 2</m-segment>
+          <m-segment>2 of 2</m-segment>
+      </m-cell>
+      <m-cell size="6">
+          <m-segment>
+              <img src="./assets/images/image.png" height="145">
+          </m-segment>
+      </m-cell>
+      <m-cell>
+          <m-segment>1 of 2</m-segment>
+          <m-segment>2 of 2</m-segment>
+      </m-cell>
+  </m-row>
+  <m-row>
+      <m-cell>
+          <m-segment>1 of 2</m-segment>
+          <m-segment>2 of 2</m-segment>
+      </m-cell>
+      <m-cell size="6">
+          <m-segment>
+              <img src="./assets/images/image.png" height="145">
+          </m-segment>
+      </m-cell>
+      <m-cell>
+          <m-segment>1 of 2</m-segment>
+          <m-segment>2 of 2</m-segment>
       </m-cell>
   </m-row>
 </m-grid>`;
