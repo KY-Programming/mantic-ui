@@ -42,16 +42,24 @@ import { ModalFooterComponent } from './modal/modal-footer.component';
 import { ModalHeaderComponent } from './modal/modal-header.component';
 import { ModalComponent } from './modal/modal.component';
 import { OrComponent } from './or/or.component';
+import { DebugPipe } from './pipes/debug.pipe';
+import { DebuggerPipe } from './pipes/debugger.pipe';
+import { IsFilledPipe } from './pipes/is-filled.pipe';
+import { IsMailPipe } from './pipes/is-mail.pipe';
+import { LogPipe } from './pipes/log.pipe';
 import { SafePipe } from './pipes/safe.pipe';
+import { TitlePipe } from './pipes/title.pipe';
 import { RadioComponent } from './radio/radio.component';
 import { RowComponent } from './row/row.component';
 import { SegmentGroupComponent } from './segment-group/segment-group.component';
 import { SegmentDefaultsComponent } from './segment/segment-defaults.component';
 import { SegmentComponent } from './segment/segment.component';
 import { SliderComponent } from './slider/slider.component';
+import { SubmitComponent } from './submit/submit.component';
 import { TabGroupComponent } from './tab-group/tab-group.component';
 import { TabComponent } from './tab/tab.component';
 import { TextContainerComponent } from './text-container/text-container.component';
+import { TextareaComponent } from './textarea/textarea.component';
 import { ToggleButtonComponent } from './toggle-button/toggle-button.component';
 import { ToggleComponent } from './toggle/toggle.component';
 import { WarningComponent } from './warning/warning.component';
@@ -111,7 +119,15 @@ import { WarningComponent } from './warning/warning.component';
     FieldComponent,
     FieldGroupComponent,
     MessageComponent,
-    RowComponent
+    RowComponent,
+    TextareaComponent,
+    IsFilledPipe,
+    IsMailPipe,
+    LogPipe,
+    DebuggerPipe,
+    DebugPipe,
+    TitlePipe,
+    SubmitComponent
   ],
   imports: [
     CommonModule,
@@ -169,7 +185,15 @@ import { WarningComponent } from './warning/warning.component';
     FieldComponent,
     FieldGroupComponent,
     MessageComponent,
-    RowComponent
+    RowComponent,
+    TextareaComponent,
+    IsFilledPipe,
+    IsMailPipe,
+    LogPipe,
+    DebuggerPipe,
+    DebugPipe,
+    TitlePipe,
+    SubmitComponent
   ]
 })
 export class ManticUiModule { }
