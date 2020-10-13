@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { AfterViewInit, Component, ContentChildren, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, QueryList } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
 import { MenuComponent } from '../menu/menu.component';
 import { TabComponent } from '../tab/tab.component';
 
@@ -43,11 +44,17 @@ export class TabGroupComponent extends MenuComponent implements OnInit, AfterVie
 
   constructor(
     private readonly route: ActivatedRoute,
+    private readonly router: Router,
     private readonly location: Location,
     elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
     this.classList.registerBoolean('selectByRoute', '');
+    this.router.events.pipe(takeUntil(this.destroy)).subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.refreshTab();
+      }
+    });
   }
 
   public ngAfterViewInit(): void {
@@ -56,16 +63,25 @@ export class TabGroupComponent extends MenuComponent implements OnInit, AfterVie
         this.tabs.forEach((tab, index) => tab.active = index === (this.selectedIndex || 0));
       });
     }
-    if (this.selectByRoute) {
-      let selectedTabName = this.route.snapshot.params[this.routeParameterName];
-      const selectedTabIndex = parseInt(selectedTabName);
-      if (selectedTabName) {
-        selectedTabName = selectedTabName.toLowerCase();
-        const found = this.tabs.find((tab, index) => tab.name && tab.name.toLocaleLowerCase() === selectedTabName || !tab.name && this.toName(tab.label) === selectedTabName || selectedTabIndex === index);
-        if (found) {
-          setTimeout(() => this.activate(found));
-        }
-      }
+    this.refreshTab();
+  }
+
+  private refreshTab(): void {
+    if (!this.selectByRoute) {
+      return;
+    }
+    let selectedTabName = this.route.snapshot.params[this.routeParameterName];
+    const selectedTabIndex = parseInt(selectedTabName);
+    let found: TabComponent;
+    if (selectedTabName) {
+      selectedTabName = selectedTabName.toLowerCase();
+      found = this.tabs.find((tab, index) => tab.name && tab.name.toLocaleLowerCase() === selectedTabName || !tab.name && this.toName(tab.label) === selectedTabName || selectedTabIndex === index);
+
+    } else {
+      found = this.tabs.find((_, index) => index === selectedTabIndex) || this.tabs.find((_, index) => index === 0);
+    }
+    if (found) {
+      setTimeout(() => this.activate(found));
     }
   }
 
