@@ -30,8 +30,13 @@ export class ClassList {
         return this;
     }
 
+    public ignore(key: string): ClassList {
+        this.entries.push(new ClassListEntry(key, undefined, undefined, undefined, undefined, true));
+        return this;
+    }
+
     public set(key: string, value: unknown): ClassList {
-        this.entries.filter(x => x.key === key).forEach(entry => {
+        this.entries.filter(x => x.key === key && x.action).forEach(entry => {
             entry.action(entry, value);
         });
         return this;
@@ -57,6 +62,7 @@ export class ClassList {
 
     public toString(): string {
         return this.entries.filter(x => x.classes && x.isActive)
+            .filter(x => x.ignored !== true)
             .sort((a, b) => a.sort > b.sort ? 1 : a.sort < b.sort ? -1 : 0)
             .map(x => x.classes)
             .join(' ');

@@ -28,6 +28,7 @@ import { SemanticStartComponent } from './start/start.component';
 import { SemanticTabComponent } from './tab/tab.component';
 import { SemanticTestComponent } from './test/test.component';
 import { SemanticToggleComponent } from './toggle/toggle.component';
+import { MyValidationPipe } from './form/my-validation.pipe';
 
 @NgModule({
     declarations: [
@@ -54,7 +55,8 @@ import { SemanticToggleComponent } from './toggle/toggle.component';
         SemanticSliderComponent,
         SemanticTestComponent,
         SemanticGridComponent,
-        SemanticFormComponent
+        SemanticFormComponent,
+        MyValidationPipe
     ],
     imports: [
         CommonModule,

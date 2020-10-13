@@ -1,3 +1,12 @@
 <form class="ui form" [class.loading]="loading" [class.success]="success" [class.error]="error" [class.warning]="warning" [attr.action]="action" [attr.autocomplete]="autocomplete" [attr.enctype]="enctype" [attr.method]="method" [attr.name]="name" [attr.novalidate]="novalidate ? 'novalidate' : undefined" [attr.target]="target">
     <ng-content></ng-content>
+    <div *ngIf="error" class="ui error message">
+        <ul class="list">
+            <ng-container *ngFor="let field of fieldComponents">
+                <ng-container *ngIf="field.error">
+                    <li *ngFor="let error of field.errors">{{error.label}} {{error.message}}</li>
+                </ng-container>
+            </ng-container>
+        </ul>
+    </div>
 </form>

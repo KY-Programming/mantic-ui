@@ -80,6 +80,9 @@ export class InputComponent extends LabeledBase {
   public max: number;
 
   @Input()
+  public name: string;
+
+  @Input()
   public for: string;
 
   @Input()
@@ -119,6 +122,5 @@ export class InputComponent extends LabeledBase {
     }
     this.inputElement.disabled = this.disabled;
     this.inputElement.readOnly = this.readonly;
-    console.log(`set disabled to ${this.disabled ? 'true' : 'false'}. set readonly to ${this.readonly ? 'true' : 'false'}`);
   }
 }

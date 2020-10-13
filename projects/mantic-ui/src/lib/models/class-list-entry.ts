@@ -7,6 +7,8 @@ export class ClassListEntry {
         public isActive: boolean,
         public sort: number,
         // public readonly type: 'string' | 'boolean' = 'string'
-        public readonly action: ClassListEntryAction) {
+        public readonly action: ClassListEntryAction,
+        public readonly ignored = false
+    ) {
     }
 }

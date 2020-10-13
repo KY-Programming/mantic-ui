@@ -10,6 +10,15 @@ export class SemanticFormComponent {
     public countries = DemoData.countries;
     public states = DemoData.states;
 
+    public name1: string;
+    public name2: string;
+    public name3: string;
+    public name4: string;
+    public name5: string;
+    public name6: string;
+    public email1: string;
+    public email2: string;
+
     public readonly code1 = `<m-form>
   <m-field name="first-name" label="First Name">
       <m-input placeholder="First Name"></m-input>
@@ -20,7 +29,7 @@ export class SemanticFormComponent {
   <m-field>
       <m-checkbox>I agree to the Terms and Conditions</m-checkbox>
   </m-field>
-  <m-button type="submit">Submit</m-button>
+  <m-submit>Submit</m-submit>
 </m-form>`;
 
     public readonly code2 = `<m-form>
@@ -101,7 +110,7 @@ export class SemanticFormComponent {
           <m-toggle>Do not include a receipt in the package</m-toggle>
       </m-field>
   </m-segment>
-  <m-button type="submit">Submit Order</m-button>
+  <m-submit>Submit Order</m-submit>
 </m-form>`;
 
     public readonly code3 = `<m-form>
@@ -172,7 +181,7 @@ export class SemanticFormComponent {
   <m-message success header="Form Completed">
       <p>You're all signed up for the newsletter.</p>
   </m-message>
-  <m-button type="submit">Submit</m-button>
+  <m-submit>Submit</m-submit>
 </m-form>`;
 
     public readonly states3 = `<m-form error>
@@ -182,7 +191,7 @@ export class SemanticFormComponent {
   <m-message error header="Action Forbidden">
     <p>You can only sign up for an account once with a given e-mail address.</p>
   </m-message>
-  <m-button type="submit">Submit</m-button>
+  <m-submit>Submit</m-submit>
 </m-form>`;
 
     public readonly states4 = `<m-form warning>
@@ -192,7 +201,7 @@ export class SemanticFormComponent {
   <m-message warning header="Could you check something!">
       <p>That e-mail has been subscribed, but you have not yet clicked the verification link in your e-mail.</p>
   </m-message>
-  <m-button type="submit">Submit</m-button>
+  <m-submit>Submit</m-submit>
 </m-form>`;
 
     public readonly states5 = `<m-form>
@@ -236,4 +245,68 @@ export class SemanticFormComponent {
         </m-field>
     </m-field-group>
 </m-form>`;
+
+    public readonly mandatory1 = `<m-form>
+    <m-field label="Name" [valid]="name | mIsFilled">
+        <m-input [(value)]="name"></m-input>
+    </m-field>
+</m-form>`;
+
+    public readonly mandatory2 = `<m-form>
+    <m-field label="Name" [valid]="name | mIsFilled:'can not be empty. Sorry!'">
+        <m-input [(value)]="name"></m-input>
+    </m-field>
+</m-form>`;
+
+    public readonly mandatory3 = `<m-form>
+    <m-field label="Name" [valid]="name | mIsFilled | mTitle:'-Better title than Name-'">
+        <m-input [(value)]="name"></m-input>
+    </m-field>
+</m-form>`;
+
+    public readonly emailCode1 = `<m-form>
+    <m-field label="Email" [valid]="email | mIsMail">
+        <m-input type="email" [(value)]="email"></m-input>
+    </m-field>
+</m-form>`;
+
+    public readonly emailCode2 = `<m-form>
+    <m-field label="Email" [valid]="email | mIsFilled | mIsMail">
+        <m-input type="email" [(value)]="email"></m-input>
+    </m-field>
+</m-form>`;
+
+    public readonly custom1 = `<m-form>
+    <m-field label="Name" [valid]="name | myValidation">
+        <m-input [(value)]="name"></m-input>
+    </m-field>
+</m-form>`;
+
+    public readonly custom2 = `import { Pipe, PipeTransform } from '@angular/core';
+import { FormValidation, isFormValidation, ValidationPipe } from '@mantic-ui/angular';
+
+@Pipe({
+  name: 'myValidation'
+})
+export class MyValidationPipe implements ValidationPipe, PipeTransform {
+  public transform(value: unknown, ...args: unknown[]): FormValidation {
+    // Check the type of value and returns the FormValidation from previous validation step or undefined
+    const validation = isFormValidation(value) ? value : undefined;
+    // Check if the previous validation is already invalid and stop validation
+    if (validation && !validation.valid) {
+      return validation;
+    }
+    // In this example we only check strings. All other types where converted to undefined to force an invalid result
+    const rawValue = validation ? validation.value : value;
+    const stringValue = typeof rawValue === 'string' ? rawValue : undefined;
+    return {
+      // Do the validation
+      valid: stringValue && stringValue.indexOf('a') >= 0,
+      // Create an validation message. args[0] can be used to override the validation message
+      message: value ? undefined : args[0] as string || 'has to contain at least one \\\'a\\\'',
+      // Provide the value for the next validation step
+      value
+    };
+  }
+}`;
 }

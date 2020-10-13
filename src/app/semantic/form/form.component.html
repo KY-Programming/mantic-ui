@@ -17,7 +17,7 @@
                 <m-field>
                     <m-checkbox>I agree to the Terms and Conditions</m-checkbox>
                 </m-field>
-                <m-button type="submit">Submit</m-button>
+                <m-submit>Submit</m-submit>
             </m-form>
             <m-example-code [code]="code1"></m-example-code>
         </m-example>
@@ -101,7 +101,7 @@
                         <m-toggle>Do not include a receipt in the package</m-toggle>
                     </m-field>
                 </m-segment>
-                <m-button type="submit">Submit Order</m-button>
+                <m-submit>Submit Order</m-submit>
             </m-form>
             <m-example-code [code]="code2"></m-example-code>
         </m-example>
@@ -194,19 +194,19 @@
                 <m-message success header="Form Completed">
                     <p>You're all signed up for the newsletter.</p>
                 </m-message>
-                <m-button type="submit">Submit</m-button>
+                <m-submit>Submit</m-submit>
             </m-form>
         </m-example>
 
         <m-example header="Error" description="If a form is in an error state, it will automatically show any error message blocks." [code]="states3">
-            <m-form error>
-                <m-field label="Email">
+            <m-form>
+                <m-field label="Email" [error]="true">
                     <m-input type="email" placeholder="hello@ky-programming.de"></m-input>
                 </m-field>
                 <m-message error header="Action Forbidden">
                     <p>You can only sign up for an account once with a given e-mail address.</p>
                 </m-message>
-                <m-button type="submit">Submit</m-button>
+                <m-submit>Submit</m-submit>
             </m-form>
         </m-example>
 
@@ -218,7 +218,7 @@
                 <m-message warning header="Could you check something!">
                     <p>That e-mail has been subscribed, but you have not yet clicked the verification link in your e-mail.</p>
                 </m-message>
-                <m-button type="submit">Submit</m-button>
+                <m-submit>Submit</m-submit>
             </m-form>
         </m-example>
 
@@ -270,9 +270,72 @@
             </m-form>
         </m-example>
     </m-tab>
-    <!-- <m-tab header="Variations">
-        <m-example header="Size" description="A form can vary in size">
-TODO
+    <m-tab label="Validation">
+        <m-example header="Mandatory field" description="Check if a field is filled">
+            <m-form>
+                <m-field label="Name" [valid]="name1 | mIsFilled">
+                    <m-input [(value)]="name1"></m-input>
+                </m-field>
+            </m-form>
+            <m-example-code [code]="mandatory2"></m-example-code>
         </m-example>
-    </m-tab> -->
+
+        <m-example header="Validate field" description="Check if the field is a valid email">
+            <m-form>
+                <m-field label="Email" [valid]="email1 | mIsMail">
+                    <m-input type="email" [(value)]="email1"></m-input>
+                </m-field>
+            </m-form>
+            <m-example-code [code]="emailCode1"></m-example-code>
+        </m-example>
+
+        <m-example header="Multiple validations per field" description="Check if the field is filled and a valid email">
+            <m-form>
+                <m-field label="Email" [valid]="email2 | mIsFilled | mIsMail">
+                    <m-input type="email" [(value)]="email2"></m-input>
+                </m-field>
+            </m-form>
+            <m-example-code [code]="emailCode2"></m-example-code>
+        </m-example>
+
+        <m-example header="Custom message" description="Replace the default message with your own">
+            <m-form>
+                <m-field label="Name" [valid]="name2 | mIsFilled:'can not be empty. Sorry!'">
+                    <m-input [(value)]="name2"></m-input>
+                </m-field>
+            </m-form>
+            <m-example-code [code]="mandatory2"></m-example-code>
+        </m-example>
+
+        <m-example header="Custom title" description="Replace the default title of a field with your own">
+            <m-form>
+                <m-field label="Name" [valid]="name6 | mIsFilled | mTitle:'-Better title than Name-'">
+                    <m-input [(value)]="name6"></m-input>
+                </m-field>
+            </m-form>
+            <m-example-code [code]="mandatory3"></m-example-code>
+        </m-example>
+
+        <m-example header="Custom validation" description="Implement your own validation pipe">
+            <m-form>
+                <m-field label="Name" [valid]="name3 | myValidation">
+                    <m-input [(value)]="name3"></m-input>
+                </m-field>
+            </m-form>
+            <m-example-code [code]="custom1"></m-example-code>
+            <m-example-code [code]="custom2" [languages]="['ts']"></m-example-code>
+        </m-example>
+
+        <!-- <m-example header="Show initial validation error" description="Marks the field red, until it is correct">
+            <m-form>
+                <m-field label="I stay initially white" [valid]="name4 | mIsFilled">
+                    <m-input [(value)]="name4"></m-input>
+                </m-field>
+                <m-field label="I am directly red" [valid]="name5 | mIsFilled" [hideInitialError]="false">
+                    <m-input [(value)]="name5"></m-input>
+                </m-field>
+            </m-form>
+            <m-example-code [code]="mandatory2"></m-example-code>
+        </m-example> -->
+    </m-tab>
 </m-tab-group>
