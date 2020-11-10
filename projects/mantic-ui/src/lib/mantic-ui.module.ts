@@ -14,6 +14,8 @@ import { FooterLinkTemplateDirective } from './directives/footer-link-template.d
 import { HeaderDirective } from './directives/header.directive';
 import { MenuItemDirective } from './directives/menu-item.directive';
 import { MenuLinkTemplateDirective } from './directives/menu-link-template.directive';
+import { PositionAbsoluteDirective } from './directives/position-absolute.directive';
+import { ToBodyDirective } from './directives/to-body.directive';
 import { ToTemplateDirective } from './directives/to-template.directive';
 import { DividerComponent } from './divider/divider.component';
 import { DropdownItemComponent } from './dropdown-item/dropdown-item.component';
@@ -113,6 +115,8 @@ import { WarningComponent } from './warning/warning.component';
     GridComponent,
     CellComponent,
     ToTemplateDirective,
+    ToBodyDirective,
+    PositionAbsoluteDirective,
     MenuLinkTemplateDirective,
     FooterLinkTemplateDirective,
     FormComponent,
@@ -181,6 +185,8 @@ import { WarningComponent } from './warning/warning.component';
     GridComponent,
     CellComponent,
     ToTemplateDirective,
+    ToBodyDirective,
+    PositionAbsoluteDirective,
     FormComponent,
     FieldComponent,
     FieldGroupComponent,

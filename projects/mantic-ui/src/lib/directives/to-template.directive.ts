@@ -1,4 +1,5 @@
 import { Directive, Input, TemplateRef } from '@angular/core';
+import { TemplateTarget } from '../models/template-target';
 
 @Directive({
     selector: '[m-to-template]'
@@ -12,8 +13,4 @@ export class ToTemplateDirective {
     constructor(
         private readonly template: TemplateRef<unknown>
     ) { }
-}
-
-export class TemplateTarget {
-    public template: TemplateRef<unknown>;
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TemplateTarget } from '../directives/to-template.directive';
+import { TemplateTarget } from '../models/template-target';
 
 @Component({
   selector: 'm-menu-link',
