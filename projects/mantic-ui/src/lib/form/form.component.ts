@@ -11,6 +11,11 @@ import { FieldComponent } from '../field/field.component';
 export class FormComponent extends ElementBase {
   private fieldComponentsValue: QueryList<FieldComponent>;
   private subscriptions: Subscription[];
+  private isValidValue = false;
+
+  public get fieldComponents(): QueryList<FieldComponent> {
+    return this.fieldComponentsValue;
+  }
 
   @ContentChildren(FieldComponent)
   public set fieldComponents(value: QueryList<FieldComponent>) {
@@ -24,10 +29,6 @@ export class FormComponent extends ElementBase {
         this.subscribeFields();
       });
     }
-  }
-
-  public get fieldComponents(): QueryList<FieldComponent> {
-    return this.fieldComponentsValue;
   }
 
   @Input()
@@ -63,8 +64,20 @@ export class FormComponent extends ElementBase {
   @Input()
   public target: '_blank' | '_self' | '_parent' | '_top';
 
+  public get isValid(): boolean {
+    return this.isValidValue;
+  }
+
+  @Input()
+  public set isValid(_: boolean) {
+    // Ignore the value from the binding
+  }
+
   @Output()
   public readonly submit = new EventEmitter<void>();
+
+  @Output()
+  public readonly isValidChange = new EventEmitter<boolean>();
 
   public constructor(
     elementRef: ElementRef<HTMLElement>
@@ -92,7 +105,14 @@ export class FormComponent extends ElementBase {
   }
 
   private refreshIsValid(): void {
-    this.error = this.fieldComponents.some(field => field.error);
+    const hasError = this.fieldComponents.some(field => field.error);
+    const isValid = !hasError;
+    this.error = hasError;
+    if (this.isValidValue !== isValid) {
+      this.isValidValue = isValid;
+      // Delay the notification be fire the change outside the check to ensure a change detection run will be started
+      setTimeout(() => this.isValidChange.emit(isValid));
+    }
   }
 
   public validateAndSubmit(): void {

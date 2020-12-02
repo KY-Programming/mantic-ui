@@ -65,6 +65,8 @@ import { TextareaComponent } from './textarea/textarea.component';
 import { ToggleButtonComponent } from './toggle-button/toggle-button.component';
 import { ToggleComponent } from './toggle/toggle.component';
 import { WarningComponent } from './warning/warning.component';
+import { ExternalRouteComponent } from './helpers/external-route.component';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
   declarations: [
@@ -131,7 +133,9 @@ import { WarningComponent } from './warning/warning.component';
     DebuggerPipe,
     DebugPipe,
     TitlePipe,
-    SubmitComponent
+    SubmitComponent,
+    ExternalRouteComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,
@@ -199,7 +203,9 @@ import { WarningComponent } from './warning/warning.component';
     DebuggerPipe,
     DebugPipe,
     TitlePipe,
-    SubmitComponent
+    SubmitComponent,
+    ExternalRouteComponent,
+    TableComponent
   ]
 })
 export class ManticUiModule { }
