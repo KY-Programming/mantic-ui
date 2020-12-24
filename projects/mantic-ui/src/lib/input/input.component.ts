@@ -1,4 +1,4 @@
-import { Component, ContentChild, ElementRef, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { LabeledBase } from '../base/labeled-base';
 
 @Component({
@@ -15,6 +15,13 @@ export class InputComponent extends LabeledBase {
   public set contentInputElement(input: HTMLInputElement) {
     this.inputElement = input;
     this.refreshInput();
+    this.bindEvents();
+  }
+
+  @ViewChild('input', { static: false })
+  public set viewInputElement(input: HTMLInputElement) {
+    this.inputElement = input;
+    this.bindEvents();
   }
 
   @Input()
@@ -71,6 +78,15 @@ export class InputComponent extends LabeledBase {
   }
 
   @Input()
+  public set dateValue(value: Date) {
+    // this.value = value === undefined ? undefined : value.toISOString().replace('T', ' ').replace('Z', '');
+    this.value = value === undefined ? undefined : value.toISOString().split('T')[0];
+  }
+  public get dateValue(): Date {
+    return new Date(this.value);
+  }
+
+  @Input()
   public fluid: boolean;
 
   @Input()
@@ -94,6 +110,18 @@ export class InputComponent extends LabeledBase {
   @Output()
   public readonly numericValueChange = new EventEmitter<number>();
 
+  @Output()
+  public readonly dateValueChange = new EventEmitter<Date>();
+
+  @Output()
+  public readonly keyDown = new EventEmitter<KeyboardEvent>();
+
+  @Output()
+  public readonly keyUp = new EventEmitter<KeyboardEvent>();
+
+  @Output()
+  public readonly keyPress = new EventEmitter<Event>();
+
   public constructor(
     elementRef: ElementRef<HTMLElement>
   ) {
@@ -114,6 +142,7 @@ export class InputComponent extends LabeledBase {
   public onChange(): void {
     this.valueChange.emit(this.value);
     this.numericValueChange.emit(this.numericValue);
+    this.dateValueChange.emit(this.dateValue);
   }
 
   private refreshInput(): void {
@@ -122,5 +151,14 @@ export class InputComponent extends LabeledBase {
     }
     this.inputElement.disabled = this.disabled;
     this.inputElement.readOnly = this.readonly;
+  }
+
+  private bindEvents(): void {
+    if (!this.inputElement) {
+      return;
+    }
+    this.inputElement.addEventListener('keydown', event => this.keyDown.emit(event));
+    this.inputElement.addEventListener('keyup', event => this.keyUp.emit(event));
+    this.inputElement.addEventListener('keyPress', event => this.keyPress.emit(event));
   }
 }

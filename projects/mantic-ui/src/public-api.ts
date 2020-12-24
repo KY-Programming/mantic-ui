@@ -42,6 +42,8 @@ export * from './lib/modal/modal-header.component';
 export * from './lib/modal/modal.component';
 export * from './lib/models/form-validation';
 export * from './lib/models/key';
+export * from './lib/notification/notification.component';
+export * from './lib/notification/notification.service';
 export * from './lib/or/or.component';
 export * from './lib/pipes/debug.pipe';
 export * from './lib/pipes/debugger.pipe';

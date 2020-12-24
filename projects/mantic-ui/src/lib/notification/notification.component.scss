@@ -1,0 +1,27 @@
+:host {
+  display: block;
+  z-index: 9999999;
+
+  &.ui.message {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: -2px 0 0 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  &:not(.visible) {
+    display: none;
+  }
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+}

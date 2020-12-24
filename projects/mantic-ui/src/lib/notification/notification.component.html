@@ -1,0 +1,3 @@
+<span *ngIf="messages?.length">{{messages[0].text}}</span>
+<ng-content *ngIf="!messages"></ng-content>
+<span class="close" (click)="close(messages[0])">x</span>

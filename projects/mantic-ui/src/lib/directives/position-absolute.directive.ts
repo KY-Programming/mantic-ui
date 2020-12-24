@@ -27,7 +27,7 @@ export class PositionAbsoluteDirective implements AfterViewInit, OnDestroy {
 
     private refresh(): void {
         if (!this.elementRef.nativeElement.style.position) {
-            this.elementRef.nativeElement.style.position = 'absolute';
+            this.elementRef.nativeElement.style.position = 'fixed';//'absolute';
         }
 
         const rect = this.parent.getBoundingClientRect();
@@ -68,10 +68,20 @@ export class PositionAbsoluteDirective implements AfterViewInit, OnDestroy {
     }
 
     private setTop(top: number): void {
-        this.elementRef.nativeElement.style.top = top === undefined ? undefined : top + 'px';
+        const style = this.elementRef.nativeElement.style;
+        style.top = top === undefined ? undefined : top + 'px';
+        style.maxHeight = `calc(100vh - ${top}px)`;
     }
 
     private setLeft(left: number): void {
-        this.elementRef.nativeElement.style.left = left === undefined ? undefined : left + 'px';
+        const width = this.elementRef.nativeElement.getBoundingClientRect().width;
+        const style = this.elementRef.nativeElement.style;
+        if (left && width > 0 && left + width > window.innerWidth) {
+            style.right = '0px';
+            style.left = '';
+        }
+        else {
+            style.left = left === undefined ? undefined : left + 'px';
+        }
     }
 }

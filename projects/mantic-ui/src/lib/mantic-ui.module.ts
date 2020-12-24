@@ -67,6 +67,7 @@ import { ToggleComponent } from './toggle/toggle.component';
 import { WarningComponent } from './warning/warning.component';
 import { ExternalRouteComponent } from './helpers/external-route.component';
 import { TableComponent } from './table/table.component';
+import { NotificationComponent } from './notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -135,7 +136,8 @@ import { TableComponent } from './table/table.component';
     TitlePipe,
     SubmitComponent,
     ExternalRouteComponent,
-    TableComponent
+    TableComponent,
+    NotificationComponent
   ],
   imports: [
     CommonModule,
@@ -205,7 +207,8 @@ import { TableComponent } from './table/table.component';
     TitlePipe,
     SubmitComponent,
     ExternalRouteComponent,
-    TableComponent
+    TableComponent,
+    NotificationComponent
   ]
 })
 export class ManticUiModule { }

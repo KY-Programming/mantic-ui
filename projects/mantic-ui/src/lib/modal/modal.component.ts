@@ -17,6 +17,12 @@ export class ModalComponent extends ElementBase {
   public showClose: boolean;
 
   @Input()
+  public showHeader = true;
+
+  @Input()
+  public showFooter = true;
+
+  @Input()
   public basic = false;
 
   @Input()
@@ -33,6 +39,9 @@ export class ModalComponent extends ElementBase {
 
   @Input()
   public scrolling = true;
+
+  @Input()
+  public maxContentHeight: string;
 
   @Output()
   public readonly close = new EventEmitter<void>();
