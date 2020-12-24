@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
-import { ElementBase } from '../base/element-base';
+import { BaseComponent } from '../base/base.component';
 
 export type ModalSize = 'mini' | 'tiny' | 'small' | 'large';
 
@@ -8,7 +8,7 @@ export type ModalSize = 'mini' | 'tiny' | 'small' | 'large';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent extends ElementBase {
+export class ModalComponent extends BaseComponent {
 
   @Input()
   public header: string;

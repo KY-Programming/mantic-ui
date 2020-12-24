@@ -7,7 +7,7 @@ export class FallbackForDirective {
 
   @Input('m-fallback-for')
   public set fallback(selector: string) {
-    const foundElement = this.elemntRef.nativeElement.parentElement.querySelector(selector);
+    const foundElement = this.elementRef.nativeElement.parentElement?.querySelector(selector);
     if (foundElement) {
       this.viewContainer.clear();
     }
@@ -17,7 +17,7 @@ export class FallbackForDirective {
   }
 
   constructor(
-    private readonly elemntRef: ElementRef<HTMLElement>,
+    private readonly elementRef: ElementRef<HTMLElement>,
     private readonly templateRef: TemplateRef<unknown>,
     private readonly viewContainer: ViewContainerRef
   ) { }

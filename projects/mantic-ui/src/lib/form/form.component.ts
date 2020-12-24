@@ -1,14 +1,14 @@
 import { Component, ContentChildren, ElementRef, EventEmitter, Input, Output, QueryList } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ElementBase } from '../base/element-base';
 import { FieldComponent } from '../field/field.component';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'm-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-export class FormComponent extends ElementBase {
+export class FormComponent extends BaseComponent {
   private fieldComponentsValue: QueryList<FieldComponent>;
   private subscriptions: Subscription[];
   private isValidValue = false;

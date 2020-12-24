@@ -1,25 +1,25 @@
 import { Component, ContentChild, ElementRef, EventEmitter, HostListener, Input, Output, TemplateRef } from '@angular/core';
-import { ButtonBase } from '../base/button-base';
 import { Key } from '../models/key';
+import { ButtonBaseComponent } from '../base/button-base.component';
 
 @Component({
   selector: 'm-toggle-button',
   templateUrl: './toggle-button.component.html',
   styleUrls: ['./toggle-button.component.scss']
 })
-export class ToggleButtonComponent extends ButtonBase {
+export class ToggleButtonComponent extends ButtonBaseComponent {
 
-  @ContentChild('active', { static: true })
+  @ContentChild('active')
   public activeTemplate: TemplateRef<HTMLElement>;
 
   @Input()
-  public set checked(value: boolean) {
+  public set checked(value: boolean | string) {
     this.active = value;
-    this.checkedChange.emit(value);
-    this.refreshClasses();
+    // this.checkedChange.emit(value);
+    // this.refreshClasses();
   }
 
-  public get checked(): boolean {
+  public get checked(): boolean | string {
     return this.active;
   }
 

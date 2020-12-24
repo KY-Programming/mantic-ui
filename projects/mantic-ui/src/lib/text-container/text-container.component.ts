@@ -1,12 +1,12 @@
 import { Component, ElementRef } from '@angular/core';
-import { ElementBase } from '../base/element-base';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'm-text-container',
   templateUrl: './text-container.component.html',
   styleUrls: ['./text-container.component.scss']
 })
-export class TextContainerComponent extends ElementBase {
+export class TextContainerComponent extends BaseComponent {
 
   constructor(
     elementRef: ElementRef<HTMLElement>

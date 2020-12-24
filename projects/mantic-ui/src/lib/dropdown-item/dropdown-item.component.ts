@@ -1,14 +1,14 @@
 import { Component, ElementRef, HostListener, Input } from '@angular/core';
-import { ElementBase } from '../base/element-base';
 import { DropwDownSelectionService } from '../dropdown/dropdown-selection.service';
 import { DropdownValue } from '../dropdown/dropdown-value';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'm-dropdown-item',
   templateUrl: './dropdown-item.component.html',
   styleUrls: ['./dropdown-item.component.scss']
 })
-export class DropdownItemComponent extends ElementBase {
+export class DropdownItemComponent extends BaseComponent {
 
   @Input()
   public value: unknown;

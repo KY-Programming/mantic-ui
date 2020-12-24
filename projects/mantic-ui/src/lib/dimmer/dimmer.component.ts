@@ -1,82 +1,95 @@
-import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit, Optional } from '@angular/core';
-import { ElementBase } from '../base/element-base';
+import { Component, ElementRef, HostBinding, HostListener, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import { DimmableService } from '../services/dimmable.service';
+import { BaseComponent } from '../base/base.component';
 
 // TODO: Enable animation
 
 @Component({
-  selector: 'm-dimmer',
-  templateUrl: './dimmer.component.html',
-  styleUrls: ['./dimmer.component.scss']
+    selector: 'm-dimmer',
+    templateUrl: './dimmer.component.html',
+    styleUrls: ['./dimmer.component.scss']
 })
-export class DimmerComponent extends ElementBase implements OnInit, OnDestroy {
-  private visibleValue: boolean;
+export class DimmerComponent extends BaseComponent implements OnInit, OnDestroy {
+    private visibleValue: boolean;
+    private isPage: boolean;
 
-  @Input()
-  public page: boolean;
-
-  @Input()
-  public useContent = true;
-
-  @Input()
-  public hideOnClick = true;
-
-  @Input()
-  public set visible(value: boolean) {
-    if (value) {
-      this.show();
+    @Input()
+    @HostBinding('class.page')
+    public get page(): boolean | string {
+        return this.isPage;
     }
-    else {
-      this.hide();
+
+    public set page(value: string | boolean) {
+        this.isPage = this.toBoolean(value);
     }
-  }
-  public get visible(): boolean {
-    return this.visibleValue;
-  }
 
-  constructor(
-    elementRef: ElementRef<HTMLElement>,
-    @Optional() private readonly dimmableService: DimmableService
-  ) {
-    super(elementRef);
-    this.classList
-      .registerBoolean('page')
-      .registerBoolean('visible', 'visible active')
-      .registerFixed('dimmer', Number.MAX_VALUE - 1);
-  }
+    @Input()
+    public useContent = true;
 
-  public ngOnInit(): void {
-    super.ngOnInit();
-    if (this.visible === undefined) {
-      this.show();
+    @Input()
+    public hideOnClick = true;
+
+    @Input()
+    @HostBinding('class.visible')
+    @HostBinding('class.active')
+    public get visible(): boolean | string {
+        return this.visibleValue;
     }
-  }
 
-  public show(): void {
-    this.visibleValue = true;
-    if (this.dimmableService) {
-      this.dimmableService.dim();
+    public set visible(value: boolean | string) {
+        if (this.toBoolean(value)) {
+            this.show();
+        }
+        else {
+            this.hide();
+        }
     }
-    this.refreshClasses();
-  }
 
-  public ngOnDestroy(): void {
-    super.ngOnDestroy();
-    this.hide();
-  }
+    @HostBinding('class.dimmer')
+    public readonly dimmer = true;
 
-  public hide(): void {
-    this.visibleValue = false;
-    if (this.dimmableService) {
-      this.dimmableService.dim(false);
+    constructor(
+        elementRef: ElementRef<HTMLElement>,
+        @Optional() private readonly dimmableService: DimmableService
+    ) {
+        super(elementRef);
+        this.classList
+            .registerBoolean('page')
+            .registerBoolean('visible', 'visible active');
     }
-    this.refreshClasses();
-  }
 
-  @HostListener('click')
-  public onClick(): void {
-    if (this.hideOnClick) {
-      this.hide();
+    public ngOnInit(): void {
+        super.ngOnInit();
+        if (this.visible === undefined) {
+            this.show();
+        }
     }
-  }
+
+    public show(): void {
+        this.visibleValue = true;
+        if (this.dimmableService) {
+            this.dimmableService.dim();
+        }
+        this.refreshClasses();
+    }
+
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this.hide();
+    }
+
+    public hide(): void {
+        this.visibleValue = false;
+        if (this.dimmableService) {
+            this.dimmableService.dim(false);
+        }
+        this.refreshClasses();
+    }
+
+    @HostListener('click')
+    public onClick(): void {
+        if (this.hideOnClick) {
+            this.hide();
+        }
+    }
 }

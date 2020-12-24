@@ -1,16 +1,22 @@
-import { ElementRef, Input } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { DimmableService } from '../services/dimmable.service';
-import { ElementBase } from './element-base';
+import { BaseComponent } from './base.component';
 
-export class DimmableComponent extends ElementBase {
-    @Input()
-    public set dimmable(value: boolean) {
-        this.dimmableService.dimmable = value;
-    }
+@Component({
+    template: ''
+})
+export class DimmableComponent extends BaseComponent {
     public get dimmable(): boolean {
         return this.dimmableService.dimmable;
     }
 
+    @Input()
+    @HostBinding('class.dimmable')
+    public set dimmable(value: boolean) {
+        this.dimmableService.dimmable = value;
+    }
+
+    @HostBinding('class.dimmed')
     public isDimmed = false;
 
     constructor(
@@ -21,9 +27,6 @@ export class DimmableComponent extends ElementBase {
         this.classList
             .registerBoolean('dimmable')
             .registerBoolean('isDimmed', 'dimmed');
-        this.dimmableService.dimmed.subscribe(value => {
-            this.isDimmed = value;
-            this.refreshClasses();
-        });
+        this.dimmableService.dimmed.subscribe(value => this.isDimmed = value);
     }
 }

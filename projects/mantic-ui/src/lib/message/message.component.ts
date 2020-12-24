@@ -1,12 +1,12 @@
 import { Component, ElementRef, Input } from '@angular/core';
-import { ElementBase } from '../base/element-base';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'm-message',
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.scss']
 })
-export class MessageComponent extends ElementBase {
+export class MessageComponent extends BaseComponent {
 
   @Input()
   public header: string;

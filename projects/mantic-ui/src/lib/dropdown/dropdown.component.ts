@@ -1,9 +1,9 @@
 import { Component, ContentChildren, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, QueryList, ViewChild } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
-import { ElementBase } from '../base/element-base';
 import { DropdownItemComponent } from '../dropdown-item/dropdown-item.component';
 import { DropwDownSelectionService } from './dropdown-selection.service';
 import { DropdownValue } from './dropdown-value';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'm-dropdown',
@@ -11,14 +11,14 @@ import { DropdownValue } from './dropdown-value';
   styleUrls: ['./dropdown.component.scss'],
   providers: [DropwDownSelectionService]
 })
-export class DropdownComponent extends ElementBase {
-  @ViewChild('textElement', { static: false })
+export class DropdownComponent extends BaseComponent {
+  @ViewChild('textElement')
   public textElement: ElementRef<HTMLDivElement>;
 
-  @ViewChild('menuElement', { static: false })
+  @ViewChild('menuElement')
   public menuElement: ElementRef<HTMLDivElement>;
 
-  @ViewChild('inputElement', { static: false })
+  @ViewChild('inputElement')
   public inputElement: ElementRef<HTMLInputElement>;
 
   @ContentChildren(DropdownItemComponent)
@@ -113,6 +113,9 @@ export class DropdownComponent extends ElementBase {
   @Output()
   public readonly valueChange = new EventEmitter<unknown>();
 
+  @HostBinding('class.dropdown')
+  public readonly dropdown = true;
+
   constructor(
     private readonly dropwDownSelectionService: DropwDownSelectionService,
     private readonly elementRef: ElementRef<HTMLElement>
@@ -125,8 +128,7 @@ export class DropdownComponent extends ElementBase {
       .registerFixed('selection')
       .registerBoolean(['isActive', 'active'], 'active')
       .registerBoolean(['isVisible', 'visible'], 'visible')
-      .registerBoolean(['isUpward', 'upward'], 'upward')
-      .registerFixed('dropdown', Number.MAX_VALUE);
+      .registerBoolean(['isUpward', 'upward'], 'upward');
 
     this.dropwDownSelectionService.selected.pipe(takeUntil(this.destroy)).subscribe(event => this.selectComponent(event.value, event.component));
   }

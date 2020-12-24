@@ -1,12 +1,12 @@
 import { Component, ElementRef, Input, Optional, SkipSelf } from '@angular/core';
-import { ElementBase } from '../base/element-base';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'm-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent extends ElementBase {
+export class MenuComponent extends BaseComponent {
 
   @Input()
   public position: 'top' | 'left' | 'bottom' | 'right' | undefined;

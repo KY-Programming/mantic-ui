@@ -1,10 +1,10 @@
 import { Directive, ElementRef, Input } from '@angular/core';
-import { ElementBase } from '../base/element-base';
 
 @Directive({
   selector: '[m-header]'
 })
-export class HeaderDirective extends ElementBase {
+// TODO: Implement
+export class HeaderDirective /*extends ElementBase*/ {
 
   @Input()
   public dividing: boolean;
@@ -18,12 +18,12 @@ export class HeaderDirective extends ElementBase {
   constructor(
     elementRef: ElementRef<HTMLElement>
   ) {
-    super(elementRef);
-    this.classList
-      .registerBoolean('inverted')
-      .registerBoolean('icon')
-      .registerBoolean('dividing')
-      .registerFixed('header', Number.MAX_VALUE - 1);
+    // super(elementRef);
+    // this.classList
+    //   .registerBoolean('inverted')
+    //   .registerBoolean('icon')
+    //   .registerBoolean('dividing')
+    //   .registerFixed('header', Number.MAX_VALUE - 1);
   }
 
 }

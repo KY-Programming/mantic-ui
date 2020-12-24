@@ -1,6 +1,6 @@
 import { Component, ContentChildren, ElementRef, Input, QueryList } from '@angular/core';
-import { ElementBase } from '../base/element-base';
 import { FieldComponent } from '../field/field.component';
+import { BaseComponent } from '../base/base.component';
 
 export declare type FieldsType = '' | 'two' | 'three' | 'four' | 'five' | 'six' | 'seven' | 'eight' | 'nine' | 'ten' | number;
 
@@ -9,7 +9,7 @@ export declare type FieldsType = '' | 'two' | 'three' | 'four' | 'five' | 'six' 
   templateUrl: './field-group.component.html',
   styleUrls: ['./field-group.component.scss']
 })
-export class FieldGroupComponent extends ElementBase {
+export class FieldGroupComponent extends BaseComponent {
   private readonly fieldClasses: FieldsType[] = ['', '', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
   private fieldsValue: FieldsType;
   private fieldsAutoValue: FieldsType;

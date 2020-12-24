@@ -1,12 +1,12 @@
 import { Component, ElementRef, EventEmitter, HostBinding, Input, Output } from '@angular/core';
-import { ElementBase } from '../base/element-base';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'm-warning',
   templateUrl: './warning.component.html',
   styleUrls: ['./warning.component.scss']
 })
-export class WarningComponent extends ElementBase {
+export class WarningComponent extends BaseComponent {
 
   @Input()
   public showClose = true;

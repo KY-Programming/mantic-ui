@@ -1,13 +1,13 @@
 import { Component, ElementRef, Input } from '@angular/core';
-import { ElementBase } from '../base/element-base';
 import { FieldSize, fieldSizes } from '../models/field-size';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'm-row',
   templateUrl: './row.component.html',
   styleUrls: ['./row.component.scss']
 })
-export class RowComponent extends ElementBase {
+export class RowComponent extends BaseComponent {
   private columnsValue: FieldSize;
 
   @Input()

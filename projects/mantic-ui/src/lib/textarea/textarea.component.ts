@@ -1,17 +1,17 @@
 import { ApplicationRef, Component, ContentChild, ElementRef, EventEmitter, Input, Output } from '@angular/core';
-import { ElementBase } from '../base/element-base';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'm-textarea',
   templateUrl: './textarea.component.html',
   styleUrls: ['./textarea.component.scss']
 })
-export class TextareaComponent extends ElementBase {
+export class TextareaComponent extends BaseComponent {
   private textareaElement: HTMLTextAreaElement;
   private readonlyValue: boolean;
   private disabledValue: boolean;
 
-  @ContentChild('textarea', { static: false })
+  @ContentChild('textarea')
   public set contentTextareaElement(textarea: HTMLTextAreaElement) {
     this.textareaElement = textarea;
     this.refreshTextarea();

@@ -1,15 +1,20 @@
-import { Directive, ElementRef } from '@angular/core';
-import { MenuItemComponent } from '../menu-item/menu-item.component';
+import { Directive, ElementRef, Input } from '@angular/core';
 
 @Directive({
-  selector: '[m-menu-item]'
+    selector: '[m-menu-item]'
 })
-export class MenuItemDirective extends MenuItemComponent {
+// TODO: Implement
+export class MenuItemDirective /*extends MenuItemComponent*/ {
 
-  constructor(
-    elementRef: ElementRef<HTMLElement>
-  ) {
-    super(elementRef);
-  }
+    @Input()
+    public active = false;
 
+    constructor(
+        elementRef: ElementRef<HTMLElement>
+    ) {
+        // super(elementRef);
+        // this.classList
+        //     .registerBoolean('active')
+        //     .registerFixed('item', Number.MAX_VALUE - 1);
+    }
 }

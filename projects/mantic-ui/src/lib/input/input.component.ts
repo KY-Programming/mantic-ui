@@ -1,24 +1,24 @@
 import { Component, ContentChild, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { LabeledBase } from '../base/labeled-base';
+import { LabeledBaseComponent } from '../base/labeled-base.component';
 
 @Component({
   selector: 'm-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss']
 })
-export class InputComponent extends LabeledBase {
+export class InputComponent extends LabeledBaseComponent {
   private inputElement: HTMLInputElement;
   private readonlyValue: boolean;
   private disabledValue: boolean;
 
-  @ContentChild('input', { static: false })
+  @ContentChild('input')
   public set contentInputElement(input: HTMLInputElement) {
     this.inputElement = input;
     this.refreshInput();
     this.bindEvents();
   }
 
-  @ViewChild('input', { static: false })
+  @ViewChild('input')
   public set viewInputElement(input: HTMLInputElement) {
     this.inputElement = input;
     this.bindEvents();

@@ -1,14 +1,17 @@
-import { ContentChild, ElementRef } from '@angular/core';
+import { Component, ContentChild, ElementRef } from '@angular/core';
 import { LabelDropdownComponent } from '../label-dropdown/label-dropdown.component';
 import { LabelComponent } from '../label/label.component';
-import { ElementBase } from './element-base';
+import { BaseComponent } from './base.component';
 
-export class LabeledBase extends ElementBase {
+@Component({
+    template: ''
+})
+export class LabeledBaseComponent extends BaseComponent {
 
-    @ContentChild(LabelComponent, { static: true })
+    @ContentChild(LabelComponent)
     public label: LabelComponent;
 
-    @ContentChild(LabelDropdownComponent, { static: true })
+    @ContentChild(LabelDropdownComponent)
     public labelDropdown: LabelDropdownComponent;
 
     public get isRight(): boolean {

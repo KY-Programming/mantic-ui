@@ -1,18 +1,19 @@
-import { Component, ElementRef } from '@angular/core';
-import { ElementBase } from '../base/element-base';
+import { Component, ElementRef, HostBinding } from '@angular/core';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
-  selector: 'm-divider',
-  templateUrl: './divider.component.html',
-  styleUrls: ['./divider.component.scss']
+    selector: 'm-divider',
+    templateUrl: './divider.component.html',
+    styleUrls: ['./divider.component.scss']
 })
-export class DividerComponent extends ElementBase {
+export class DividerComponent extends BaseComponent {
 
-  public constructor(
-    elementRef: ElementRef<HTMLElement>
-  ) {
-    super(elementRef);
-    this.classList
-      .registerFixed('divider', Number.MAX_VALUE - 1);
-  }
+    @HostBinding('class.divider')
+    public readonly divider = true;
+
+    public constructor(
+        elementRef: ElementRef<HTMLElement>
+    ) {
+        super(elementRef);
+    }
 }

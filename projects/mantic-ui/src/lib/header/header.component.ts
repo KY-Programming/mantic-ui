@@ -1,12 +1,12 @@
 import { Component, ElementRef, Input } from '@angular/core';
-import { ElementBase } from '../base/element-base';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'm-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent extends ElementBase {
+export class HeaderComponent extends BaseComponent {
 
   @Input()
   public size: 'huge' | 'large' | 'medium' | 'small' | 'tiny';

@@ -1,12 +1,12 @@
 import { Component, ElementRef, Input } from '@angular/core';
-import { ElementBase } from '../base/element-base';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'm-info',
   templateUrl: './info.component.html',
   styleUrls: ['./info.component.scss']
 })
-export class InfoComponent extends ElementBase {
+export class InfoComponent extends BaseComponent {
 
   @Input()
   public ignored: boolean;

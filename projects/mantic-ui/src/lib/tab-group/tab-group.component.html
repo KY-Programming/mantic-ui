@@ -7,7 +7,7 @@
 <ng-container *ngIf="position === 'bottom'" [ngTemplateOutlet]="menuTemplate"></ng-container>
 
 <ng-template #menuTemplate>
-    <m-menu [pointing]="pointing" [secondary]="secondary" [attached]="position" tabular>
+    <m-menu [pointing]="pointing" [secondary]="secondary" [attached]="position" [tabular]="true">
         <a *ngFor="let tab of tabs" class="item" [class.active]="tab.active" (click)="activate(tab)">
             <m-icon *ngIf="tab.icon" [icon]="tab.icon"></m-icon> {{tab.label}}
         </a>

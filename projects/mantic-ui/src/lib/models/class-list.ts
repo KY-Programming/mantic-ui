@@ -17,14 +17,17 @@ export class ClassList {
         return this;
     }
 
+    // TODO: Delete
     public registerFixed(classes: string, sort?: number): ClassList {
         return this.register('', sort, classes);
     }
 
+    // TODO: Delete
     public registerAction(key: string, action: ClassListEntryAction, sort?: number, defaultClasses?: string): ClassList {
         return this.registerInternal(key, sort, defaultClasses, true, action);
     }
 
+    // TODO: Delete
     private registerInternal(key: string, sort: number, classes: string, isActive: boolean, action: ClassListEntryAction): ClassList {
         this.entries.push(new ClassListEntry(key, classes, isActive, sort === undefined ? this.entries.length : sort, action));
         return this;
@@ -35,6 +38,7 @@ export class ClassList {
         return this;
     }
 
+    // TODO: Delete
     public set(key: string, value: unknown): ClassList {
         this.entries.filter(x => x.key === key && x.action).forEach(entry => {
             entry.action(entry, value);
@@ -42,6 +46,7 @@ export class ClassList {
         return this;
     }
 
+    // TODO: Delete
     public setActive(key: string, value = true): ClassList {
         this.entries.filter(x => x.key === key).forEach(x => x.isActive = value);
         return this;

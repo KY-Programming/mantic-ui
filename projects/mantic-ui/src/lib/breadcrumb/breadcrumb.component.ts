@@ -1,18 +1,19 @@
-import { Component, ElementRef } from '@angular/core';
-import { ElementBase } from '../base/element-base';
+import { Component, ElementRef, HostBinding } from '@angular/core';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
-  selector: 'm-breadcrumb',
-  templateUrl: './breadcrumb.component.html',
-  styleUrls: ['./breadcrumb.component.scss']
+    selector: 'm-breadcrumb',
+    templateUrl: './breadcrumb.component.html',
+    styleUrls: ['./breadcrumb.component.scss']
 })
-export class BreadcrumbComponent extends ElementBase {
+export class BreadcrumbComponent extends BaseComponent {
 
-  public constructor(
-    elementRef: ElementRef<HTMLElement>
-  ) {
-    super(elementRef);
-    this.classList
-      .registerFixed('breadcrumb', Number.MAX_VALUE - 1);
-  }
+    @HostBinding('class.breadcrumb')
+    public readonly breadcrumb = true;
+
+    public constructor(
+        elementRef: ElementRef<HTMLElement>
+    ) {
+        super(elementRef);
+    }
 }

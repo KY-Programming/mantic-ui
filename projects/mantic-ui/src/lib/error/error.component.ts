@@ -1,12 +1,12 @@
 import { Component, ElementRef, Input } from '@angular/core';
-import { ElementBase } from '../base/element-base';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'm-error',
   templateUrl: './error.component.html',
   styleUrls: ['./error.component.scss']
 })
-export class ErrorComponent extends ElementBase {
+export class ErrorComponent extends BaseComponent {
 
   @Input()
   public ignored: boolean;

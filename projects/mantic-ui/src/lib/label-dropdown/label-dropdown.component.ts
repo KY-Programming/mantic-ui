@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, Input } from '@angular/core';
-import { ElementBase } from '../base/element-base';
 import { LabelPosition } from '../label/label-position';
+import { BaseComponent } from '../base/base.component';
 
 // TODO: Enable animation
 // TODO: Enable active state
@@ -9,7 +9,7 @@ import { LabelPosition } from '../label/label-position';
   templateUrl: './label-dropdown.component.html',
   styleUrls: ['./label-dropdown.component.scss']
 })
-export class LabelDropdownComponent extends ElementBase {
+export class LabelDropdownComponent extends BaseComponent {
 
   public isOpen = false;
 

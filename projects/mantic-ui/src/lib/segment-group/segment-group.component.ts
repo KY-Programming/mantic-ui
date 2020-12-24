@@ -1,12 +1,12 @@
 import { Component, ElementRef, Input } from '@angular/core';
-import { ElementBase } from '../base/element-base';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'm-segment-group',
   templateUrl: './segment-group.component.html',
   styleUrls: ['./segment-group.component.scss']
 })
-export class SegmentGroupComponent extends ElementBase {
+export class SegmentGroupComponent extends BaseComponent {
 
   @Input()
   public horizontal: boolean;

@@ -1,12 +1,12 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import { ElementBase } from '../base/element-base';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'm-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent extends ElementBase {
+export class TableComponent extends BaseComponent {
 
   @Input()
   public celled = true;

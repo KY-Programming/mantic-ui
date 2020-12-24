@@ -1,13 +1,13 @@
 import { Component, ElementRef, Input } from '@angular/core';
-import { ElementBase } from '../base/element-base';
 import { FieldSize, fieldSizes } from '../models/field-size';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'm-grid',
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss']
 })
-export class GridComponent extends ElementBase {
+export class GridComponent extends BaseComponent {
   private columnsValue: FieldSize;
 
   @Input()

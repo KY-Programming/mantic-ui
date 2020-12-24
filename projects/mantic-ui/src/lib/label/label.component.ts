@@ -1,14 +1,14 @@
 import { Component, ElementRef, Input } from '@angular/core';
-import { ElementBase } from '../base/element-base';
 import { ColorName } from '../models/color';
 import { LabelPosition } from './label-position';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'm-label',
   templateUrl: './label.component.html',
   styleUrls: ['./label.component.scss']
 })
-export class LabelComponent extends ElementBase {
+export class LabelComponent extends BaseComponent {
 
   @Input()
   public position: LabelPosition;

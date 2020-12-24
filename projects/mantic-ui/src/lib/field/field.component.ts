@@ -1,5 +1,4 @@
 import { Component, ContentChild, ElementRef, EventEmitter, Input, Output } from '@angular/core';
-import { ElementBase } from '../base/element-base';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { InputComponent } from '../input/input.component';
 import { FieldSize, fieldSizes } from '../models/field-size';
@@ -9,13 +8,14 @@ import { RadioComponent } from '../radio/radio.component';
 import { SliderComponent } from '../slider/slider.component';
 import { TextareaComponent } from '../textarea/textarea.component';
 import { ToggleComponent } from '../toggle/toggle.component';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
   selector: 'm-field',
   templateUrl: './field.component.html',
   styleUrls: ['./field.component.scss']
 })
-export class FieldComponent extends ElementBase {
+export class FieldComponent extends BaseComponent {
   private labelElementValue: HTMLLabelElement;
   private inputComponentValue: InputComponent;
   private checkboxComponentValue: CheckboxComponent;
@@ -34,7 +34,7 @@ export class FieldComponent extends ElementBase {
   public wasAnytimeValid = false;
   public readonly errors: FormError[] = [];
 
-  @ContentChild('labelElement', { static: false })
+  @ContentChild('labelElement')
   public set labelElement(value: HTMLLabelElement) {
     this.labelElementValue = value;
     if (this.labelElementValue) {
@@ -45,7 +45,7 @@ export class FieldComponent extends ElementBase {
     return this.labelElementValue;
   }
 
-  @ContentChild(InputComponent, { static: false })
+  @ContentChild(InputComponent)
   public set inputComponent(value: InputComponent) {
     this.inputComponentValue = value;
     if (this.inputComponentValue) {
@@ -59,7 +59,7 @@ export class FieldComponent extends ElementBase {
     return this.inputComponentValue;
   }
 
-  @ContentChild(CheckboxComponent, { static: false })
+  @ContentChild(CheckboxComponent)
   public set checkboxComponent(value: CheckboxComponent) {
     this.checkboxComponentValue = value;
     if (this.checkboxComponentValue) {
@@ -73,7 +73,7 @@ export class FieldComponent extends ElementBase {
     return this.checkboxComponentValue;
   }
 
-  @ContentChild(SliderComponent, { static: false })
+  @ContentChild(SliderComponent)
   public set sliderComponent(value: SliderComponent) {
     this.sliderComponentValue = value;
     if (this.sliderComponentValue) {
@@ -87,7 +87,7 @@ export class FieldComponent extends ElementBase {
     return this.sliderComponentValue;
   }
 
-  @ContentChild(ToggleComponent, { static: false })
+  @ContentChild(ToggleComponent)
   public set toggleComponent(value: ToggleComponent) {
     this.toggleComponentValue = value;
     if (this.toggleComponentValue) {
@@ -101,7 +101,7 @@ export class FieldComponent extends ElementBase {
     return this.toggleComponentValue;
   }
 
-  @ContentChild(RadioComponent, { static: false })
+  @ContentChild(RadioComponent)
   public set radioComponent(value: RadioComponent) {
     this.radioComponentValue = value;
     if (this.radioComponentValue) {
@@ -115,7 +115,7 @@ export class FieldComponent extends ElementBase {
     return this.radioComponentValue;
   }
 
-  @ContentChild(TextareaComponent, { static: false })
+  @ContentChild(TextareaComponent)
   public set textareaComponent(value: TextareaComponent) {
     this.textareaComponentValue = value;
     if (this.textareaComponentValue) {
