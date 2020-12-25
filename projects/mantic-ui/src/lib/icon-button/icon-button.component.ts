@@ -1,25 +1,29 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { ButtonBaseComponent } from '../base/button-base.component';
 
 @Component({
-  selector: 'm-icon-button',
-  templateUrl: './icon-button.component.html',
-  styleUrls: ['./icon-button.component.scss']
+    selector: 'm-icon-button',
+    templateUrl: './icon-button.component.html',
+    styleUrls: ['./icon-button.component.scss']
 })
 export class IconButtonComponent extends ButtonBaseComponent {
 
-  @Input()
-  public icon: string;
+    @Input()
+    public icon: string;
 
-  @Input()
-  public social: string;
+    @Input()
+    @HostBinding('class.social')
+    public social: string;
 
-  public constructor(
-    elementRef: ElementRef<HTMLElement>
-  ) {
-    super(elementRef);
-    this.classList
-      .registerFixed('icon')
-      .register('social');
-  }
+    @HostBinding('class.icon')
+    public readonly iconHost = true;
+
+    public constructor(
+        elementRef: ElementRef<HTMLElement>
+    ) {
+        super(elementRef);
+        this.classList
+            .register('icon')
+            .register('social');
+    }
 }

@@ -1,60 +1,91 @@
-import { Component, ContentChildren, ElementRef, Input, QueryList } from '@angular/core';
+import { Component, ContentChildren, ElementRef, HostBinding, Input, QueryList } from '@angular/core';
 import { FieldComponent } from '../field/field.component';
 import { BaseComponent } from '../base/base.component';
 
-export declare type FieldsType = '' | 'two' | 'three' | 'four' | 'five' | 'six' | 'seven' | 'eight' | 'nine' | 'ten' | number;
+export declare type FieldsType =
+    ''
+    | 'two'
+    | 'three'
+    | 'four'
+    | 'five'
+    | 'six'
+    | 'seven'
+    | 'eight'
+    | 'nine'
+    | 'ten'
+    | number;
 
 @Component({
-  selector: 'm-field-group',
-  templateUrl: './field-group.component.html',
-  styleUrls: ['./field-group.component.scss']
+    selector: 'm-field-group',
+    templateUrl: './field-group.component.html',
+    styleUrls: ['./field-group.component.scss']
 })
 export class FieldGroupComponent extends BaseComponent {
-  private readonly fieldClasses: FieldsType[] = ['', '', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
-  private fieldsValue: FieldsType;
-  private fieldsAutoValue: FieldsType;
+    private readonly fieldClasses: FieldsType[] = ['', '', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+    private fieldsValue: FieldsType;
+    private fieldsAutoValue: FieldsType;
+    private isInline: boolean;
+    private isGrouped: boolean;
 
-  @Input()
-  public set fields(value: FieldsType) {
-    if (typeof value === 'number') {
-      this.fieldsValue = this.fieldClasses[value];
+    public get fields(): FieldsType {
+        return this.fieldsValue || this.fieldsAutoValue;
     }
-    else {
-      this.fieldsValue = value;
+
+    @Input()
+    public set fields(value: FieldsType) {
+        // TODO: Parse number as string e.g. '2'
+        if (typeof value === 'number') {
+            this.fieldsValue = this.fieldClasses[value];
+        }
+        else {
+            this.fieldsValue = value;
+        }
     }
-  }
-  public get fields(): FieldsType {
-    return this.fieldsValue || this.fieldsAutoValue;
-  }
 
-  @ContentChildren(FieldComponent)
-  public set fieldComponents(query: QueryList<FieldComponent>) {
-    if (query) {
-      this.refreshFields(query.length);
-      query.changes.subscribe(() => this.refreshFields(query.length));
+    @ContentChildren(FieldComponent)
+    public set fieldComponents(query: QueryList<FieldComponent>) {
+        if (query) {
+            this.refreshFields(query.length);
+            query.changes.subscribe(() => this.refreshFields(query.length));
+        }
     }
-  }
 
-  @Input()
-  public inline: boolean;
+    @Input()
+    @HostBinding('class.inline')
+    public get inline(): boolean | string {
+        return this.isInline;
+    }
 
-  @Input()
-  public grouped: boolean;
+    public set inline(value: string | boolean) {
+        this.isInline = this.toBoolean(value);
+    }
 
-  public constructor(
-    elementRef: ElementRef<HTMLElement>
-  ) {
-    super(elementRef);
-    this.ui = false;
-    this.classList
-      .registerBoolean('inline')
-      .registerBoolean('grouped', 'grouped fields')
-      .register('fields')
-      .registerFixed('fields', Number.MAX_VALUE - 1);
-  }
+    @Input()
+    @HostBinding('class.grouped')
+    public get grouped(): boolean | string {
+        return this.isGrouped;
+    }
 
-  private refreshFields(count: number): void {
-    this.fieldsAutoValue = this.fieldClasses[count];
-  }
+    public set grouped(value: string | boolean) {
+        this.isGrouped = this.toBoolean(value);
+    }
+
+    @HostBinding('class.fields')
+    public readonly fieldsHost = true;
+
+    public constructor(
+        elementRef: ElementRef<HTMLElement>
+    ) {
+        super(elementRef);
+        this.ui = false;
+        this.classList
+            .registerBoolean('inline')
+            .registerBoolean('grouped', 'grouped fields')
+            .register('fields');
+    }
+
+    private refreshFields(count: number): void {
+        this.fieldsAutoValue = this.fieldClasses[count];
+    }
 
 }

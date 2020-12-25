@@ -1,15 +1,19 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef, HostBinding } from '@angular/core';
 
 @Directive({
-  selector: '[m-button]'
+    selector: '[m-button]'
 })
 // TODO: Implement
 export class ButtonDirective /*extends ButtonComponent*/ {
 
-  constructor(
-    elementRef: ElementRef<HTMLElement>
-  ) {
-    // super(elementRef);
-  }
+    @HostBinding('class.ui')
+    @HostBinding('class.button')
+    public readonly ui = true
+
+    constructor(
+        elementRef: ElementRef<HTMLElement>
+    ) {
+        // super(elementRef);
+    }
 
 }

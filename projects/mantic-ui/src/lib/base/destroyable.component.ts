@@ -1,6 +1,9 @@
-import { OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 
+@Component({
+    template: ''
+})
 export abstract class DestroyableComponent implements OnDestroy {
     private readonly destroySubject = new Subject<void>();
     protected readonly destroy = this.destroySubject.asObservable();

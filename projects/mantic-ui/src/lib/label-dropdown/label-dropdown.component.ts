@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input } from '@angular/core';
+import { Component, ElementRef, HostBinding, HostListener, Input } from '@angular/core';
 import { LabelPosition } from '../label/label-position';
 import { BaseComponent } from '../base/base.component';
 
@@ -27,13 +27,14 @@ export class LabelDropdownComponent extends BaseComponent {
 
   private readonly onOutsideClickHandler = () => this.close();
 
+  @HostBinding('class.dropdown')
+  @HostBinding('class.label')
+  public readonly label = true;
+
   public constructor(
     elementRef: ElementRef<HTMLElement>
   ) {
     super(elementRef);
-    this.classList
-      .registerFixed('dropdown', Number.MAX_VALUE - 2)
-      .registerFixed('label', Number.MAX_VALUE - 1);
   }
 
   @HostListener('click', ['$event'])

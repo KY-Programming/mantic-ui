@@ -1,48 +1,112 @@
-import { Component, ElementRef, Input, Optional, SkipSelf } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, Optional, SkipSelf } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
+export declare type MenuPosition = 'top' | 'left' | 'bottom' | 'right' | undefined;
+export declare type MenuAttached = 'top' | 'bottom';
+
 @Component({
-  selector: 'm-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+    selector: 'm-menu',
+    templateUrl: './menu.component.html',
+    styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent extends BaseComponent {
+    private isFixed: boolean;
+    private positionValue: MenuPosition;
+    private isSecondary: boolean;
+    private isPointing: boolean;
+    private attachedValue: MenuAttached;
+    private isTabular: boolean;
+    private isText: boolean;
 
-  @Input()
-  public position: 'top' | 'left' | 'bottom' | 'right' | undefined;
+    public get position(): MenuPosition {
+        return this.positionValue;
+    }
 
-  @Input()
-  public fixed = false;
+    @Input()
+    public set position(value: MenuPosition) {
+        this.positionValue = value;
+        this.classList.set('position', value);
+        this.refreshClasses();
+    }
 
-  @Input()
-  public secondary = false;
+    @Input()
+    @HostBinding('class.fixed')
+    public get fixed(): boolean | string {
+        return this.isFixed;
+    }
 
-  @Input()
-  public pointing = false;
+    public set fixed(value: string | boolean) {
+        this.isFixed = this.toBoolean(value);
+    }
 
-  @Input()
-  public attached: 'top' | 'bottom';
+    @Input()
+    @HostBinding('class.secondary')
+    public get secondary(): boolean | string {
+        return this.isSecondary;
+    }
 
-  @Input()
-  public tabular = false;
+    public set secondary(value: string | boolean) {
+        this.isSecondary = this.toBoolean(value);
+    }
 
-  @Input()
-  public text = false;
+    @Input()
+    @HostBinding('class.pointing')
+    public get pointing(): boolean | string {
+        return this.isPointing;
+    }
 
-  public constructor(
-    elementRef: ElementRef<HTMLElement>,
-    @Optional() @SkipSelf() parentMenu?: MenuComponent
-  ) {
-    super(elementRef);
-    this.ui = !parentMenu;
-    this.classList
-      .register('position')
-      .registerBoolean('fixed')
-      .registerBoolean('pointing')
-      .registerBoolean('secondary')
-      .registerAction('attached', (entry, value) => entry.classes = value ? value + ' attached' : '')
-      .registerBoolean('tabular')
-      .registerBoolean('text')
-      .registerFixed('menu', Number.MAX_VALUE - 1);
-  }
+    public set pointing(value: string | boolean) {
+        this.isPointing = this.toBoolean(value);
+    }
+
+    public get attached(): MenuAttached {
+        return this.attachedValue;
+    }
+
+    @Input()
+    @HostBinding('class.attached')
+    public set attached(value: MenuAttached) {
+        this.attachedValue = value;
+        this.classList.set('attached', value);
+        this.refreshClasses();
+    }
+
+    @Input()
+    @HostBinding('class.tabular')
+    public get tabular(): boolean | string {
+        return this.isTabular;
+    }
+
+    public set tabular(value: string | boolean) {
+        this.isTabular = this.toBoolean(value);
+    }
+
+    @Input()
+    @HostBinding('class.text')
+    public get text(): boolean | string {
+        return this.isText;
+    }
+
+    public set text(value: string | boolean) {
+        this.isText = this.toBoolean(value);
+    }
+
+    @HostBinding('class.menu')
+    public readonly menu = true;
+
+    public constructor(
+        elementRef: ElementRef<HTMLElement>,
+        @Optional() @SkipSelf() parentMenu?: MenuComponent
+    ) {
+        super(elementRef);
+        this.ui = !parentMenu;
+        this.classList
+            .register('position')
+            .registerBoolean('fixed')
+            .registerBoolean('pointing')
+            .registerBoolean('secondary')
+            // .registerAction('attached', (entry, value) => entry.classes = value ? value + ' attached' : '')
+            .registerBoolean('tabular')
+            .registerBoolean('text');
+    }
 }

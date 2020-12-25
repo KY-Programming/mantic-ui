@@ -1,27 +1,45 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
-  selector: 'm-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+    selector: 'm-table',
+    templateUrl: './table.component.html',
+    styleUrls: ['./table.component.scss']
 })
 export class TableComponent extends BaseComponent {
+    private isCelled = true;
+    private isUnstackable: boolean;
 
-  @Input()
-  public celled = true;
+    @Input()
+    @HostBinding('class.celled')
+    public get celled(): boolean | string {
+        return this.isCelled;
+    }
 
-  @Input()
-  public unstackable = false;
+    public set celled(value: string | boolean) {
+        this.isCelled = this.toBoolean(value);
+    }
 
-  constructor(
-    elementRef: ElementRef<HTMLElement>
-  ) {
-    super(elementRef);
-    this.classList
-      .registerBoolean('celled')
-      .registerBoolean('unstackable')
-      .registerFixed('table', Number.MAX_VALUE - 1);
-  }
+    @Input()
+    @HostBinding('class.unstackable')
+    public get unstackable(): boolean | string {
+        return this.isUnstackable;
+    }
+
+    public set unstackable(value: string | boolean) {
+        this.isUnstackable = this.toBoolean(value);
+    }
+
+    @HostBinding('class.table')
+    public readonly table = true;
+
+    constructor(
+        elementRef: ElementRef<HTMLElement>
+    ) {
+        super(elementRef);
+        this.classList
+            .registerBoolean('celled')
+            .registerBoolean('unstackable');
+    }
 
 }

@@ -38,6 +38,7 @@ export class BaseComponent extends DestroyableComponent implements OnInit {
         }
     }
 
+    // TODO: Check usage
     protected refreshClasses(): void {
         this.classes = this.classList.toString();
     }

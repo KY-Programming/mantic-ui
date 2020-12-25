@@ -2,34 +2,35 @@ import { Component, ElementRef, EventEmitter, HostBinding, Input, Output } from 
 import { BaseComponent } from '../base/base.component';
 
 @Component({
-  selector: 'm-warning',
-  templateUrl: './warning.component.html',
-  styleUrls: ['./warning.component.scss']
+    selector: 'm-warning',
+    templateUrl: './warning.component.html',
+    styleUrls: ['./warning.component.scss']
 })
 export class WarningComponent extends BaseComponent {
 
-  @Input()
-  public showClose = true;
+    @Input()
+    public showClose = true;
 
-  @Input()
-  @HostBinding('class.closed')
-  public closed = false;
+    @Input()
+    @HostBinding('class.closed')
+    public closed = false;
 
-  @Output()
-  public readonly close = new EventEmitter<void>();
+    @Output()
+    public readonly close = new EventEmitter<void>();
 
-  constructor(
-    elementRef: ElementRef<HTMLElement>
-  ) {
-    super(elementRef);
-    this.classList
-      .registerFixed('warning', Number.MAX_VALUE - 2)
-      .registerFixed('message', Number.MAX_VALUE - 1);
-  }
+    @HostBinding('class.warning')
+    @HostBinding('class.message')
+    public readonly message = true;
 
-  public onClose(): void {
-    this.closed = true;
-    this.close.emit();
-  }
+    constructor(
+        elementRef: ElementRef<HTMLElement>
+    ) {
+        super(elementRef);
+    }
+
+    public onClose(): void {
+        this.closed = true;
+        this.close.emit();
+    }
 
 }

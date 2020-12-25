@@ -1,23 +1,33 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
-  selector: 'm-segment-group',
-  templateUrl: './segment-group.component.html',
-  styleUrls: ['./segment-group.component.scss']
+    selector: 'm-segment-group',
+    templateUrl: './segment-group.component.html',
+    styleUrls: ['./segment-group.component.scss']
 })
 export class SegmentGroupComponent extends BaseComponent {
+    private isHorizontal: boolean;
 
-  @Input()
-  public horizontal: boolean;
+    @Input()
+    @HostBinding('class.horizontal')
+    public get horizontal(): boolean | string {
+        return this.isHorizontal;
+    }
 
-  constructor(
-    elementRef: ElementRef<HTMLElement>
-  ) {
-    super(elementRef);
-    this.classList
-      .registerBoolean('horizontal')
-      .registerFixed('segments', Number.MAX_VALUE - 1);
-  }
+    public set horizontal(value: string | boolean) {
+        this.isHorizontal = this.toBoolean(value);
+    }
+
+    @HostBinding('class.segments')
+    public readonly segments = true;
+
+    constructor(
+        elementRef: ElementRef<HTMLElement>
+    ) {
+        super(elementRef);
+        this.classList
+            .registerBoolean('horizontal');
+    }
 
 }

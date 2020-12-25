@@ -6,6 +6,7 @@ import { TemplateTarget } from '../models/template-target';
   templateUrl: './footer-link.component.html',
   styleUrls: ['./footer-link.component.scss']
 })
+// TODO: Implement
 export class FooterLinkComponent /*extends ElementBase*/ {
 
   public readonly target = new TemplateTarget();

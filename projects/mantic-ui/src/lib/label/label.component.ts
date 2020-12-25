@@ -1,36 +1,80 @@
-import { Component, ElementRef, Input } from '@angular/core';
-import { ColorName } from '../models/color';
+import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { LabelPosition } from './label-position';
 import { BaseComponent } from '../base/base.component';
+import { ColorName } from '../models/color';
+
+export declare type LabelPointing =
+    'left'
+    | 'right'
+    | 'top'
+    | 'bottom'
+    | undefined;
 
 @Component({
-  selector: 'm-label',
-  templateUrl: './label.component.html',
-  styleUrls: ['./label.component.scss']
+    selector: 'm-label',
+    templateUrl: './label.component.html',
+    styleUrls: ['./label.component.scss']
 })
 export class LabelComponent extends BaseComponent {
+    private positionValue: LabelPosition;
+    private pointingValue: LabelPointing;
+    private isBasic: boolean;
+    private colorValue: ColorName;
 
-  @Input()
-  public position: LabelPosition;
+    public get position(): LabelPosition {
+        return this.positionValue;
+    }
 
-  @Input()
-  public pointing: 'left' | 'right' | 'top' | 'bottom' | undefined;
+    @Input()
+    public set position(value: LabelPosition) {
+        this.positionValue = value;
+        this.classList.set('position', value);
+        this.refreshClasses();
+    }
 
-  @Input()
-  public basic: boolean;
+    public get pointing(): LabelPointing {
+        return this.pointingValue;
+    }
 
-  @Input()
-  public color: ColorName;
+    @Input()
+    public set pointing(value: LabelPointing) {
+        this.pointingValue = value;
+        this.classList.set('color', value);
+        this.refreshClasses();
+    }
 
-  public constructor(
-    elementRef: ElementRef<HTMLElement>
-  ) {
-    super(elementRef);
-    this.classList
-      .register('pointing')
-      .registerBoolean('pointing')
-      .register('color')
-      .registerBoolean('basic')
-      .registerFixed('label', Number.MAX_VALUE - 1);
-  }
+    public get basic(): boolean | string {
+        return this.isBasic;
+    }
+
+    @Input()
+    @HostBinding('class.basic')
+    public set basic(value: boolean | string) {
+        this.isBasic = this.toBoolean(value);
+    }
+
+    public get color(): ColorName {
+        return this.colorValue;
+    }
+
+    @Input()
+    public set color(value: ColorName) {
+        this.colorValue = value;
+        this.classList.set('color', value);
+        this.refreshClasses();
+    }
+
+    @HostBinding('class.label')
+    public readonly label = true;
+
+    public constructor(
+        elementRef: ElementRef<HTMLElement>
+    ) {
+        super(elementRef);
+        this.classList
+            .register('pointing')
+            .registerBoolean('pointing')
+            .register('color')
+            .registerBoolean('basic');
+    }
 }
