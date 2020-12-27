@@ -1,29 +1,33 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, HostBinding, Input } from '@angular/core';
 
 @Directive({
-  selector: '[m-header]'
+    selector: '[m-header]'
 })
 // TODO: Implement
 export class HeaderDirective /*extends ElementBase*/ {
 
-  @Input()
-  public dividing: boolean;
+    @HostBinding('class.ui')
+    public readonly ui = true;
 
-  @Input()
-  public inverted: boolean;
+    @Input()
+    @HostBinding('class.dividing')
+    public dividing: boolean;
 
-  @Input()
-  public icon: boolean;
+    @Input()
+    @HostBinding('class.inverted')
+    public inverted: boolean;
 
-  constructor(
-    elementRef: ElementRef<HTMLElement>
-  ) {
-    // super(elementRef);
-    // this.classList
-    //   .registerBoolean('inverted')
-    //   .registerBoolean('icon')
-    //   .registerBoolean('dividing')
-    //   .registerFixed('header', Number.MAX_VALUE - 1);
-  }
+    @Input()
+    @HostBinding('class.icon')
+    public icon: boolean;
+
+    @HostBinding('class.header')
+    public readonly header = true;
+
+    constructor(
+        elementRef: ElementRef<HTMLElement>
+    ) {
+        // super(elementRef);
+    }
 
 }

@@ -28,7 +28,6 @@ export class HeaderComponent extends BaseComponent {
 
     constructor(elementRef: ElementRef<HTMLElement>) {
         super(elementRef);
-        this.classList
-            .register('size');
+        this.classList.register('size');
     }
 }

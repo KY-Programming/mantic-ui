@@ -37,9 +37,7 @@ export class TableComponent extends BaseComponent {
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList
-            .registerBoolean('celled')
-            .registerBoolean('unstackable');
+        this.classList.register('celled', 'unstackable');
     }
 
 }

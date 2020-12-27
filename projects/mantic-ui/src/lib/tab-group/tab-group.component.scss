@@ -1,7 +1,13 @@
 :host {
-  display: block;
+    display: flex;
+    flex-direction: column;
 }
 
-.ui.secondary.menu+.ui.basic.segment {
-  border: none;
+.ui.secondary.menu + .ui.basic.segment {
+    border: none;
+}
+
+m-segment {
+    display: flex;
+    flex: 1;
 }

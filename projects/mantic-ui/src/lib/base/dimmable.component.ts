@@ -24,9 +24,7 @@ export class DimmableComponent extends BaseComponent {
         private readonly dimmableService: DimmableService
     ) {
         super(elementRef);
-        this.classList
-            .registerBoolean('dimmable')
-            .registerBoolean('isDimmed', 'dimmed');
+        this.classList.register('dimmable', 'isDimmed');
         this.dimmableService.dimmed.subscribe(value => this.isDimmed = value);
     }
 }

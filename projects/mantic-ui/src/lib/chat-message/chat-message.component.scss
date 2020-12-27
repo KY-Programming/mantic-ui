@@ -1,0 +1,49 @@
+$space-tiny: 5px !default;
+$space-small: 10px !default;
+$space: 20px !default;
+$space-large: 30px !default;
+$chat-message-background: white !default;
+$chat-message-foreground: inherit !default;
+
+:host {
+    display: flex;
+
+    .wrapper {
+        display: inline-block;
+        border-radius: $space-tiny;
+        background-color: $chat-message-background;
+        color: $chat-message-foreground;
+        padding: $space-small;
+        flex: 1;
+    }
+
+    &.grouped {
+        margin-top: $space-tiny;
+    }
+
+    &.in {
+        align-self: flex-start;
+    }
+
+    &.out {
+        align-self: flex-end;
+    }
+
+    .header {
+        font-size: 0.75em;
+        font-weight: bold;
+    }
+
+    //.option {
+    //    padding: $space-tiny;
+    //    display: inline-block;
+    //    border-radius: $space-tiny;
+    //}
+    //
+    //a.option {
+    //    cursor: pointer;
+    //    background-color: $dark-blue;
+    //    color: $white;
+    //    margin-right: $space-tiny;
+    //}
+}

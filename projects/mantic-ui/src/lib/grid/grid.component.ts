@@ -95,16 +95,7 @@ export class GridComponent extends BaseComponent {
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList
-            .registerBoolean('vertically')
-            .registerBoolean('divided')
-            .register('columns')
-            // .registerAction('columns', (entry, value) => entry.isActive = !!value, undefined, 'column')
-            .registerBoolean('internally')
-            .registerBoolean('celled')
-            .registerBoolean('equal')
-            .register('width');
-            // .registerAction('width', (entry, value) => entry.isActive = !!value, undefined, 'width');
+        this.classList.register('vertically', 'divided', 'columns', 'internally', 'celled', 'equal', 'width');
     }
 
 }

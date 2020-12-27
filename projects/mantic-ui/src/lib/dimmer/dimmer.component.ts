@@ -53,9 +53,7 @@ export class DimmerComponent extends BaseComponent implements OnInit, OnDestroy 
         @Optional() private readonly dimmableService: DimmableService
     ) {
         super(elementRef);
-        this.classList
-            .registerBoolean('page')
-            .registerBoolean('visible', 'visible active');
+        this.classList.register('page', 'visible');
     }
 
     public ngOnInit(): void {

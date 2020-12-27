@@ -1,6 +1,6 @@
 <ng-container *ngIf="!isRight" [ngTemplateOutlet]="labelTemplate"></ng-container>
 <ng-content></ng-content>
-<input *m-fallback-for="'input'" [type]="type || 'text'" [placeholder]="placeholder || ''" [(ngModel)]="value" [min]="min || ''" [max]="max || ''" [attr.name]="name" [attr.for]="for" [attr.maxlength]="maxlength" [attr.readOnly]="readonly" [attr.disabled]="disabled" (ngModelChange)="onChange()">
+<input *m-fallback-for="'input'" [type]="type || 'text'" [placeholder]="placeholder || ''" [(ngModel)]="value" [min]="min || ''" [max]="max || ''" [attr.name]="name" [attr.for]="for" [attr.maxlength]="maxlength" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onChange()">
 <i *ngIf="icon" class="{{icon}} link icon"></i>
 <ng-container *ngIf="isRight" [ngTemplateOutlet]="labelTemplate"></ng-container>
 

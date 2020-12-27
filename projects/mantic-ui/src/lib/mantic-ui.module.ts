@@ -68,14 +68,16 @@ import { WarningComponent } from './warning/warning.component';
 import { ExternalRouteComponent } from './helpers/external-route.component';
 import { TableComponent } from './table/table.component';
 import { NotificationComponent } from './notification/notification.component';
-import { BaseComponent } from './base/base.component';
 import { ButtonBaseComponent } from './base/button-base.component';
 import { DimmableComponent } from './base/dimmable.component';
 import { LabeledBaseComponent } from './base/labeled-base.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { LoaderComponent } from './loader/loader.component';
+import { ChatComponent } from './chat/chat.component';
+import { ChatMessageComponent } from './chat-message/chat-message.component';
 
 @NgModule({
     declarations: [
-        BaseComponent,
         ButtonBaseComponent,
         DimmableComponent,
         LabeledBaseComponent,
@@ -145,7 +147,11 @@ import { LabeledBaseComponent } from './base/labeled-base.component';
         SubmitComponent,
         ExternalRouteComponent,
         TableComponent,
-        NotificationComponent
+        NotificationComponent,
+        SidebarComponent,
+        LoaderComponent,
+        ChatComponent,
+        ChatMessageComponent
     ],
     imports: [
         CommonModule,
@@ -216,7 +222,11 @@ import { LabeledBaseComponent } from './base/labeled-base.component';
         SubmitComponent,
         ExternalRouteComponent,
         TableComponent,
-        NotificationComponent
+        NotificationComponent,
+        SidebarComponent,
+        LoaderComponent,
+        ChatComponent,
+        ChatMessageComponent
     ]
 })
 export class ManticUiModule {

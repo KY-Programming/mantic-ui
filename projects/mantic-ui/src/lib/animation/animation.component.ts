@@ -22,9 +22,7 @@ export class AnimationComponent extends BaseComponent {
   constructor(
     elementRef: ElementRef<HTMLElement>
   ) {
-    super(elementRef);
-    this.ui = false;
-    this.classList
-      .registerBoolean('hidden');
+    super(elementRef, false);
+    this.classList.register('hidden');
   }
 }

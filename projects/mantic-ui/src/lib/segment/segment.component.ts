@@ -1,10 +1,11 @@
 import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { DimmableComponent } from '../base/dimmable.component';
 import { DimmableService } from '../services/dimmable.service';
-import { FieldSize, fieldSizes } from '../models/field-size';
 import { ColorName } from '../models/color';
 
-export declare type SegmentAttached = 'top' | 'bottom';
+export declare type SegmentAttached =
+    'top'
+    | 'bottom';
 
 @Component({
     selector: 'm-segment',
@@ -24,75 +25,83 @@ export class SegmentComponent extends DimmableComponent {
     private isTertiary: boolean;
     private attachedValue: SegmentAttached;
     private colorValue: ColorName;
+    private isNoPadding: boolean;
 
     @Input()
-    @HostBinding('class.inverted')
     public get inverted(): boolean | string {
         return this.isInverted;
     }
 
     public set inverted(value: string | boolean) {
         this.isInverted = this.toBoolean(value);
+        this.classList.set('inverted', this.isInverted);
+        this.refreshClasses();
     }
 
     @Input()
-    @HostBinding('class.raised')
     public get raised(): boolean | string {
         return this.isRaised;
     }
 
     public set raised(value: string | boolean) {
         this.isRaised = this.toBoolean(value);
+        this.classList.set('raised', this.isRaised);
+        this.refreshClasses();
     }
 
     @Input()
-    @HostBinding('class.vertical')
     public get vertical(): boolean | string {
         return this.isVertical;
     }
 
     public set vertical(value: string | boolean) {
         this.isVertical = this.toBoolean(value);
+        this.classList.set('vertical', this.isVertical);
+        this.refreshClasses();
     }
 
     @Input()
-    @HostBinding('class.placeholder')
     public get placeholder(): boolean | string {
         return this.isPlaceholder;
     }
 
     public set placeholder(value: string | boolean) {
         this.isPlaceholder = this.toBoolean(value);
+        this.classList.set('placeholder', this.isPlaceholder);
+        this.refreshClasses();
     }
 
     @Input()
-    @HostBinding('class.basic')
     public get basic(): boolean | string {
         return this.isBasic;
     }
 
     public set basic(value: string | boolean) {
         this.isBasic = this.toBoolean(value);
+        this.classList.set('basic', this.isBasic);
+        this.refreshClasses();
     }
 
     @Input()
-    @HostBinding('class.secondary')
     public get secondary(): boolean | string {
         return this.isSecondary;
     }
 
     public set secondary(value: string | boolean) {
         this.isSecondary = this.toBoolean(value);
+        this.classList.set('secondary', this.isSecondary);
+        this.refreshClasses();
     }
 
     @Input()
-    @HostBinding('class.tertiary')
     public get tertiary(): boolean | string {
         return this.isTertiary;
     }
 
     public set tertiary(value: string | boolean) {
         this.isTertiary = this.toBoolean(value);
+        this.classList.set('tertiary', this.isTertiary);
+        this.refreshClasses();
     }
 
     public get color(): ColorName {
@@ -100,7 +109,6 @@ export class SegmentComponent extends DimmableComponent {
     }
 
     @Input()
-    @HostBinding('class.attached')
     public set color(value: ColorName) {
         this.colorValue = value;
         this.classList.set('color', value);
@@ -114,9 +122,22 @@ export class SegmentComponent extends DimmableComponent {
     @Input()
     public set attached(value: SegmentAttached) {
         this.attachedValue = value;
-        this.classList.set('attached', value);
+        this.classList.set('attachedValue', value);
+        this.classList.set('attached', !!value);
         this.refreshClasses();
     }
+
+    @Input()
+    public get noPadding(): boolean | string {
+        return this.isNoPadding;
+    }
+
+    public set noPadding(value: string | boolean) {
+        this.isNoPadding = this.toBoolean(value);
+        this.classList.set('noPadding', this.isNoPadding ? 'no-padding' : undefined);
+        this.refreshClasses();
+    }
+
     @HostBinding('class.segment')
     public readonly segment = true;
 
@@ -125,16 +146,7 @@ export class SegmentComponent extends DimmableComponent {
         dimmableService: DimmableService
     ) {
         super(elementRef, dimmableService);
+        this.classList.register('inverted', 'raised', 'vertical', 'placeholder', 'basic', 'secondary', 'tertiary', 'color', 'attached', 'attachedValue', 'noPadding');
         this.raised = SegmentComponent.defaults.raised;
-        this.classList
-            .registerBoolean('inverted')
-            .registerBoolean('raised')
-            .registerBoolean('vertical')
-            .registerBoolean('placeholder')
-            .registerBoolean('basic')
-            .registerBoolean('secondary')
-            .registerBoolean('tertiary')
-            .register('color');
-            // .registerAction('attached', (entry, value) => entry.classes = value ? value + ' attached' : '')
     }
 }

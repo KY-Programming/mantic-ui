@@ -1,8 +1,9 @@
 import { Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, Output, ViewChild } from '@angular/core';
 import { LabeledBaseComponent } from '../base/labeled-base.component';
-import { ColorName } from '../models/color';
 
-export declare type InputIconPosition = 'left' | 'right';
+export declare type InputIconPosition =
+    'left'
+    | 'right';
 
 @Component({
     selector: 'm-input',
@@ -184,16 +185,7 @@ export class InputComponent extends LabeledBaseComponent {
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList
-            // .registerAction('icon', (entry, value) => entry.classes = value ? this.iconPosition || '' : '')
-            .registerBoolean('icon')
-            .registerBoolean('focused', 'focus')
-            .registerBoolean('loading')
-            .registerBoolean('disabled')
-            .registerBoolean('readonly')
-            .registerBoolean('transparent')
-            .registerBoolean('fluid')
-            .registerBoolean('hasError', 'error');
+        this.classList.register('icon', 'focused', 'loading', 'disabled', 'readonly', 'transparent', 'fluid', 'hasError');
     }
 
     public onChange(): void {

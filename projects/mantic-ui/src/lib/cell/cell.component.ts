@@ -51,11 +51,8 @@ export class CellComponent extends BaseComponent {
     constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
-        super(elementRef);
-        this.ui = false;
-        this.classList
-            .register('size')
-            .register('float');
+        super(elementRef, false);
+        this.classList.register('size', 'float');
     }
 
 }

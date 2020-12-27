@@ -105,13 +105,7 @@ export class CheckboxComponent extends BaseComponent {
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList
-            .registerBoolean('readonly', 'read-only')
-            .registerBoolean('indeterminate')
-            .registerBoolean('disabled')
-            .registerBoolean('fitted')
-            .registerBoolean('checked')
-            .registerBoolean('value', 'checked');
+        this.classList.register('readonly', 'indeterminate', 'disabled', 'fitted', 'checked', 'value', 'checked')
     }
 
     @HostListener('click', ['$event'])

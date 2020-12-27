@@ -153,14 +153,7 @@ export class DropdownComponent extends BaseComponent {
         private readonly elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList
-            .registerBoolean('multiple')
-            .registerBoolean('search')
-            .registerBoolean(['isFluid', 'fluid'], 'fluid')
-            .registerBoolean(['isActive', 'active'], 'active')
-            .registerBoolean(['isVisible', 'visible'], 'visible')
-            .registerBoolean(['isUpward', 'upward'], 'upward');
-
+        this.classList.register('multiple', 'search', 'fluid', 'active', 'visible', 'upward');
         this.dropwDownSelectionService.selected.pipe(takeUntil(this.destroy)).subscribe(event => this.selectComponent(event.value, event.component));
     }
 

@@ -19,3 +19,5 @@
 @import "./components/header.css";
 @import "./components/image.css";
 @import "./components/table.css";
+@import "./components/sidebar.css";
+@import "./components/loader.css";

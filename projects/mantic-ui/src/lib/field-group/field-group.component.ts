@@ -76,12 +76,8 @@ export class FieldGroupComponent extends BaseComponent {
     public constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
-        super(elementRef);
-        this.ui = false;
-        this.classList
-            .registerBoolean('inline')
-            .registerBoolean('grouped', 'grouped fields')
-            .register('fields');
+        super(elementRef, false);
+        this.classList.register('inline', 'grouped', 'fields');
     }
 
     private refreshFields(count: number): void {

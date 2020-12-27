@@ -333,16 +333,8 @@ export class FieldComponent extends BaseComponent {
     public constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
-        super(elementRef);
-        this.ui = false;
-        this.classList
-            .register('size')
-            // .registerAction('size', (entry, value) => entry.isActive = !!value, undefined, 'wide')
-            // .registerBoolean('visibleError', 'error')
-            // .ignore('error')
-            .registerBoolean('disabled')
-            .registerBoolean('readonly')
-            .registerBoolean('inline');
+        super(elementRef, false);
+        this.classList.register('size', 'disabled', 'readonly', 'inline');
     }
 
     public forceValidation(): void {

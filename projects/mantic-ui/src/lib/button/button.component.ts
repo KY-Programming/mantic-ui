@@ -3,10 +3,15 @@ import { AnimationDirection } from '../animation/animation-direction';
 import { AnimationComponent } from '../animation/animation.component';
 import { LabelPosition } from '../label/label-position';
 import { LabelComponent } from '../label/label.component';
-import { Color, ColorName } from '../models/color';
+import { Color } from '../models/color';
 import { ButtonBaseComponent } from '../base/button-base.component';
 
-export declare type Pointing = 'left' | 'right' | 'top' | 'bottom' | undefined;
+export declare type Pointing =
+    'left'
+    | 'right'
+    | 'top'
+    | 'bottom'
+    | undefined;
 
 @Component({
     selector: 'm-button',
@@ -111,14 +116,6 @@ export class ButtonComponent extends ButtonBaseComponent {
         element: ElementRef<HTMLElement>
     ) {
         super(element);
-        this.classList
-            .register('animation')
-            .registerBoolean('animated')
-            .register('labelPosition')
-            .register('iconPosition')
-            .registerBoolean('label', 'labeled')
-            // .registerAction('icon', entry => entry.isActive = this.icon && !this.label, undefined, 'labeled icon')
-            .registerBoolean('fluid');
-        // .registerAction('social', (entry, value) => entry.classes = value === undefined ? undefined : value.toString().toLowerCase());
+        this.classList.register('animation', 'animated', 'labelPosition', 'iconPosition', 'label', 'fluid', 'social');
     }
 }

@@ -23,8 +23,9 @@ export class LabeledBaseComponent extends BaseComponent {
     ) {
         super(elementRef);
         this.classList
-            .registerAction('label', (entry) => entry.classes = this.label ? ((this.label.position || '') + ' labeled').trim() : undefined)
-            .registerAction('labelDropdown', (entry) => entry.classes = this.labelDropdown ? ((this.labelDropdown.position || '') + ' labeled').trim() : undefined);
+            //TODO: Implement actions
+            // .registerAction('label', (entry) => entry.classes = this.label ? ((this.label.position || '') + ' labeled').trim() : undefined)
+        // .registerAction('labelDropdown', (entry) => entry.classes = this.labelDropdown ? ((this.labelDropdown.position || '') + ' labeled').trim() : undefined);
     }
 
 }

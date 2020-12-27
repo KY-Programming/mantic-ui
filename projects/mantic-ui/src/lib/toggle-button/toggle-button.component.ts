@@ -35,8 +35,7 @@ export class ToggleButtonComponent extends ButtonBaseComponent {
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList
-            .registerBoolean('checked');
+        this.classList.register('checked');
     }
 
     @HostListener('click')

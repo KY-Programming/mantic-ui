@@ -63,10 +63,7 @@ export class TextareaComponent extends BaseComponent {
         private readonly applicationRef: ApplicationRef
     ) {
         super(elementRef);
-        this.classList
-            .registerBoolean('disabled')
-            .registerBoolean('readonly')
-            .registerBoolean('hasError', 'error');
+        this.classList.register('disabled', 'readonly', 'hasError');
     }
 
     public onChange(): void {

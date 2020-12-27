@@ -45,12 +45,8 @@ export class RowComponent extends BaseComponent {
     constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
-        super(elementRef);
-        this.ui = false;
-        this.classList
-            .register('columns')
-            // .registerAction('columns', (entry, value) => entry.isActive = !!value, undefined, 'column')
-            .registerBoolean('stretched');
+        super(elementRef, false);
+        this.classList.register('columns', 'stretched');
     }
 
 }

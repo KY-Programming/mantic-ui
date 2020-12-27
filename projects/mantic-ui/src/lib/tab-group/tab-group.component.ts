@@ -1,24 +1,31 @@
 import { Location } from '@angular/common';
-import { AfterViewInit, Component, ContentChildren, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, QueryList } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, ElementRef, EventEmitter, Input, OnInit, Output, QueryList } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { MenuComponent } from '../menu/menu.component';
+import { MenuPosition } from '../menu/menu.component';
 import { TabComponent } from '../tab/tab.component';
+import { BaseComponent } from '../base/base.component';
 
 @Component({
     selector: 'm-tab-group',
     templateUrl: './tab-group.component.html',
     styleUrls: ['./tab-group.component.scss']
 })
-export class TabGroupComponent extends MenuComponent implements OnInit, AfterViewInit {
+export class TabGroupComponent extends BaseComponent implements OnInit, AfterViewInit {
     private selectedIndexField: number;
     private isSelectByRoute: boolean;
 
     @ContentChildren(TabComponent)
     public tabs: QueryList<TabComponent>;
 
-    @HostBinding('class')
-    public class: string;
+    @Input()
+    public pointing: boolean | string;
+
+    @Input()
+    public secondary: boolean | string;
+
+    @Input()
+    public position: MenuPosition = 'top';
 
     @Input()
     public get selectByRoute(): boolean | string {
@@ -44,6 +51,9 @@ export class TabGroupComponent extends MenuComponent implements OnInit, AfterVie
         }
     }
 
+    @Input()
+    public noPadding: boolean | string;
+
     @Output()
     public readonly selectedIndexChange = new EventEmitter<number>();
 
@@ -54,8 +64,7 @@ export class TabGroupComponent extends MenuComponent implements OnInit, AfterVie
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.position = 'top';
-        this.classList.registerBoolean('selectByRoute', '');
+        this.classList.register('pointing', 'secondary', 'position', 'selectByRoute', 'routeParameterName');
         this.router.events.pipe(takeUntil(this.destroy)).subscribe(event => {
             if (event instanceof NavigationEnd) {
                 this.refreshTab();

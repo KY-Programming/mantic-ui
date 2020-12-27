@@ -114,13 +114,8 @@ export class FormComponent extends BaseComponent {
     public constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
-        super(elementRef);
-        this.ui = false;
-        this.classList
-            .registerBoolean('loading', '')
-            .registerBoolean('success', '')
-            .registerBoolean('warning', '')
-            .registerBoolean('error', '');
+        super(elementRef, false);
+        this.classList.register('loading', 'success', 'warning', 'error');
     }
 
     private releaseFields(): void {

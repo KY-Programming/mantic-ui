@@ -1,75 +1,49 @@
-import { ClassListEntry, ClassListEntryAction } from './class-list-entry';
-
 export class ClassList {
-    private readonly entries: ClassListEntry[] = [];
+    private readonly entries = new Map<string, string>();
+    private readonly order: string[] = [];
 
-    public register(key: string, sort?: number, defaultClasses?: string): ClassList {
-        return this.registerInternal(key, sort, defaultClasses, true, (entry, value) => entry.classes = value === undefined ? undefined : value.toString());
+    public constructor(
+        private readonly tag?: string
+    ) {
     }
 
-    public registerBoolean(key: string | string[], classes?: string, sort?: number, isActive = false): ClassList {
-        if (Array.isArray(key)) {
-            key.forEach(k => this.registerBoolean(k, classes, sort, isActive));
+    public register(...keys: string[]): ClassList {
+        for (const key of keys) {
+            this.order.push(key.toLocaleLowerCase());
+            this.entries.set(key.toLocaleLowerCase(), undefined);
+        }
+        return this;
+    }
+
+    public set(key: string, value: unknown): ClassList {
+        if (this.order.indexOf(key.toLocaleLowerCase()) === -1) {
+            console.warn(`Set an unregistered value (${this.tag}.${key}) is not recommended. Call register(key) method once, before using set(...) method.`);
+        }
+        if (value === true) {
+            this.entries.set(key.toLocaleLowerCase(), key);
+        }
+        else if (value === false || value === undefined) {
+            this.entries.set(key.toLocaleLowerCase(), undefined);
         }
         else {
-            this.registerInternal(key, sort, classes === undefined ? key : classes, isActive, (entry, value) => entry.isActive = !!value);
+            this.entries.set(key.toLocaleLowerCase(), value?.toString());
         }
         return this;
     }
 
-    // TODO: Delete
-    public registerFixed(classes: string, sort?: number): ClassList {
-        return this.register('', sort, classes);
+    public get(key: string): string {
+        return this.entries.get(key.toLocaleLowerCase());
     }
 
-    // TODO: Delete
-    public registerAction(key: string, action: ClassListEntryAction, sort?: number, defaultClasses?: string): ClassList {
-        return this.registerInternal(key, sort, defaultClasses, true, action);
-    }
-
-    // TODO: Delete
-    private registerInternal(key: string, sort: number, classes: string, isActive: boolean, action: ClassListEntryAction): ClassList {
-        this.entries.push(new ClassListEntry(key, classes, isActive, sort === undefined ? this.entries.length : sort, action));
-        return this;
-    }
-
-    public ignore(key: string): ClassList {
-        this.entries.push(new ClassListEntry(key, undefined, undefined, undefined, undefined, true));
-        return this;
-    }
-
-    // TODO: Delete
-    public set(key: string, value: unknown): ClassList {
-        this.entries.filter(x => x.key === key && x.action).forEach(entry => {
-            entry.action(entry, value);
-        });
-        return this;
-    }
-
-    // TODO: Delete
-    public setActive(key: string, value = true): ClassList {
-        this.entries.filter(x => x.key === key).forEach(x => x.isActive = value);
-        return this;
-    }
-
-    public contains(key: string): boolean {
-        return this.entries.some(entry => entry.key === key);
-    }
-
-    public find(key: string): ClassListEntry {
-        return this.entries.find(entry => entry.key.toLowerCase() === key.toLowerCase());
-    }
-
-    public refresh(data: unknown): ClassList {
-        this.entries.filter(entry => entry.key).forEach(entry => this.set(entry.key, data[entry.key]));
-        return this;
+    public has(key: string): boolean {
+        return this.entries.has(key.toLocaleLowerCase());
     }
 
     public toString(): string {
-        return this.entries.filter(x => x.classes && x.isActive)
-            .filter(x => x.ignored !== true)
-            .sort((a, b) => a.sort > b.sort ? 1 : a.sort < b.sort ? -1 : 0)
-            .map(x => x.classes)
+        const notRegisteredValues = Array.from(this.entries.keys()).filter(key => this.order.indexOf(key) === -1);
+        return this.order.map(key => this.entries.get(key))
+            .concat(notRegisteredValues.map(key => this.entries.get(key)))
+            .filter(x => x)
             .join(' ');
     }
 }

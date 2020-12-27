@@ -47,9 +47,7 @@ export class DropdownItemComponent extends BaseComponent {
         public readonly elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList
-            .registerBoolean('filtered')
-            .registerBoolean('selected', 'active selected');
+        this.classList.register('filtered', 'selected');
     }
 
     @HostListener('click', ['$event'])

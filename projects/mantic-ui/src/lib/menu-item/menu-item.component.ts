@@ -26,7 +26,6 @@ export class MenuItemComponent extends BaseComponent {
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList
-            .registerBoolean('active');
+        this.classList.register('active');
     }
 }

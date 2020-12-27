@@ -1,8 +1,12 @@
 import { Component, ElementRef, HostBinding, Input, Optional, SkipSelf } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
-export declare type MenuPosition = 'top' | 'left' | 'bottom' | 'right' | undefined;
-export declare type MenuAttached = 'top' | 'bottom';
+export declare type MenuPosition =
+    'top'
+    | 'left'
+    | 'bottom'
+    | 'right'
+    | undefined;
 
 @Component({
     selector: 'm-menu',
@@ -14,7 +18,7 @@ export class MenuComponent extends BaseComponent {
     private positionValue: MenuPosition;
     private isSecondary: boolean;
     private isPointing: boolean;
-    private attachedValue: MenuAttached;
+    private attachedValue: MenuPosition;
     private isTabular: boolean;
     private isText: boolean;
 
@@ -59,13 +63,13 @@ export class MenuComponent extends BaseComponent {
         this.isPointing = this.toBoolean(value);
     }
 
-    public get attached(): MenuAttached {
+    public get attached(): MenuPosition {
         return this.attachedValue;
     }
 
     @Input()
     @HostBinding('class.attached')
-    public set attached(value: MenuAttached) {
+    public set attached(value: MenuPosition) {
         this.attachedValue = value;
         this.classList.set('attached', value);
         this.refreshClasses();
@@ -98,15 +102,7 @@ export class MenuComponent extends BaseComponent {
         elementRef: ElementRef<HTMLElement>,
         @Optional() @SkipSelf() parentMenu?: MenuComponent
     ) {
-        super(elementRef);
-        this.ui = !parentMenu;
-        this.classList
-            .register('position')
-            .registerBoolean('fixed')
-            .registerBoolean('pointing')
-            .registerBoolean('secondary')
-            // .registerAction('attached', (entry, value) => entry.classes = value ? value + ' attached' : '')
-            .registerBoolean('tabular')
-            .registerBoolean('text');
+        super(elementRef, !parentMenu);
+        this.classList.register('position', 'fixed', 'pointing', 'secondary', 'tabular', 'text', 'attached');
     }
 }

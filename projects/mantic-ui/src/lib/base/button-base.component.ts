@@ -151,17 +151,17 @@ export class ButtonBaseComponent extends BaseComponent {
         elementRef.nativeElement.setAttribute('tabindex', '0');
         this.classList
             .register('size')
-            .registerBoolean('inverted')
-            .registerBoolean('primary')
-            .registerBoolean('secondary')
-            .registerBoolean('positive')
-            .registerBoolean('negative')
-            .registerBoolean('circular')
+            .register('inverted')
+            .register('primary')
+            .register('secondary')
+            .register('positive')
+            .register('negative')
+            .register('circular')
             .register('color')
-            .registerBoolean('basic')
-            .registerBoolean('active')
-            .registerBoolean('disabled')
-            .registerBoolean('loading');
+            .register('basic')
+            .register('active')
+            .register('disabled')
+            .register('loading');
     }
 
     public ngOnInit(): void {

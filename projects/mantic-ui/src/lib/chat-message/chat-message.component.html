@@ -1,0 +1,12 @@
+<div class="wrapper">
+    <div *ngIf="!message.grouped" class="header">{{message.sender}}</div>
+    {{message.text}}
+    <!--        <div *ngIf="message.options" class="options">-->
+    <!--            <ng-container *ngFor="let option of message.options">-->
+    <!--                <a *ngIf="option.url && option.url.indexOf('http') === 0" [attr.href]="option.url" class="option">{{option.text}}</a>-->
+    <!--                <a *ngIf="option.url && option.url.indexOf('http') !== 0" [routerLink]="[option.url]" class="option">{{option.text}}</a>-->
+    <!--                <a *ngIf="option.clickUrl" (click)="open(option.clickUrl)" class="option">{{option.text}}</a>-->
+    <!--                <span *ngIf="!option.url && !option.clickUrl" class="option">{{option.text}}</span>-->
+    <!--            </ng-container>-->
+    <!--        </div>-->
+</div>

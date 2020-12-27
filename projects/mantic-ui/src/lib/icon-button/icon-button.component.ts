@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { ButtonBaseComponent } from '../base/button-base.component';
+import { IconSize } from '../icon/icon.component';
 
 @Component({
     selector: 'm-icon-button',
@@ -12,6 +13,9 @@ export class IconButtonComponent extends ButtonBaseComponent {
     public icon: string;
 
     @Input()
+    public iconSize: IconSize;
+
+    @Input()
     @HostBinding('class.social')
     public social: string;
 
@@ -22,8 +26,6 @@ export class IconButtonComponent extends ButtonBaseComponent {
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList
-            .register('icon')
-            .register('social');
+        this.classList.register('icon', 'social');
     }
 }

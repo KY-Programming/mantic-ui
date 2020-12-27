@@ -26,8 +26,7 @@ export class SegmentGroupComponent extends BaseComponent {
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList
-            .registerBoolean('horizontal');
+        this.classList.register('horizontal');
     }
 
 }

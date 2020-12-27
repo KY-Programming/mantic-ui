@@ -27,7 +27,6 @@ export class InfoComponent extends BaseComponent {
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList
-            .registerBoolean('ignored');
+        this.classList.register('ignored');
     }
 }

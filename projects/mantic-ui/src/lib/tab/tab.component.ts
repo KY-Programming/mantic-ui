@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
 
 @Component({
@@ -8,10 +8,6 @@ import { MenuItemComponent } from '../menu-item/menu-item.component';
 })
 export class TabComponent extends MenuItemComponent {
 
-    // TODO: Find alternative to remove all classes
-    @HostBinding('class')
-    public readonly empty = '';
-
     @Input()
     public name: string;
 
@@ -20,5 +16,13 @@ export class TabComponent extends MenuItemComponent {
 
     @Input()
     public icon: string;
+
+    constructor(
+        elementRef: ElementRef<HTMLElement>
+    ) {
+        super(elementRef);
+        this.noClasses = true;
+        this.classList.register('name', 'label', 'icon')
+    }
 
 }

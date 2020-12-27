@@ -71,10 +71,6 @@ export class LabelComponent extends BaseComponent {
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList
-            .register('pointing')
-            .registerBoolean('pointing')
-            .register('color')
-            .registerBoolean('basic');
+        this.classList.register('pointing', 'pointing', 'color', 'basic');
     }
 }

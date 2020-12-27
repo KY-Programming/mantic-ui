@@ -14,7 +14,7 @@ export class MenuItemDirective /*extends MenuItemComponent*/ {
     ) {
         // super(elementRef);
         // this.classList
-        //     .registerBoolean('active')
+        //     .register('active')
         //     .registerFixed('item', Number.MAX_VALUE - 1);
     }
 }
