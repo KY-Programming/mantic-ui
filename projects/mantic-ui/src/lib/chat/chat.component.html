@@ -2,6 +2,7 @@
     <m-chat-message *ngFor="let message of messages" [message]="message"></m-chat-message>
 </div>
 <div *ngIf="canSend" class="input-wrapper" [class.visible]="canSend">
-    <m-input autofocus [(value)]="message" (keydown)="onKeyDown($event)"></m-input>
-    <m-icon-button icon="caret right" iconSize="big" circular (click)="sendMessage()"></m-icon-button>
+    <m-input autofocus [(value)]="message" (keydown)="onKeyDown($event)">
+        <m-icon-button icon="caret right" iconSize="big" (click)="sendMessage()"></m-icon-button>
+    </m-input>
 </div>

@@ -3,7 +3,7 @@ $space-small: 10px !default;
 $space: 20px !default;
 $space-large: 30px !default;
 $input-size: $space-large !default;
-$chat-background: grey !default;
+$chat-background: none !default;
 $chat-foreground: white !default;
 
 :host {
@@ -11,12 +11,15 @@ $chat-foreground: white !default;
     position: relative;
     flex-direction: column;
     flex: 1;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .chat {
     display: flex;
     flex-direction: column;
     flex: 1;
+    margin-bottom: 1em;
 
     m-chat-message {
         min-width: 40%;
@@ -30,59 +33,14 @@ $chat-foreground: white !default;
 
 
 .input-wrapper {
-    //position: sticky;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
     display: flex;
+    position: sticky;
+    bottom: 0;
     flex: 0 0 auto;
     background-color: $chat-background;
-    padding: $space;
-    transition: transform .5s;
-    transform: translateY(0%);
-
-    //&:not(.visible) {
-    //    transform: translateY(100%);
-    //}
 
     m-input {
         flex: 1;
         margin-right: $space-small;
     }
-
-    //input {
-    //    flex: 1;
-    //    height: $input-size;
-    //    border-radius: $input-size;
-    //    padding: $input-size / 2;
-    //    border: none;
-    //    box-sizing: border-box;
-    //    margin-right: $space-small;
-    //    outline: none;
-    //}
-
-    m-button {
-        flex: 0 0 auto;
-    }
-
-    //button {
-    //    position: relative;
-    //    flex: 0 0 $input-size;
-    //    height: $input-size;
-    //    width: $input-size;
-    //    border-radius: 50%;
-    //    border: none;
-    //    background-color: transparent;
-    //    color: $chat-foreground;
-    //    outline: none;
-    //    cursor: pointer;
-    //
-    //    m-icon {
-    //        position: absolute;
-    //        left: 50%;
-    //        top: 50%;
-    //        transform: translate(-50%, -50%);
-    //    }
-    //}
 }

@@ -1,0 +1,29 @@
+{
+  "defaultSeverity": "warning",
+  "extends": "tslint.json",
+  "rules": {
+  
+    "typedef": [
+      true,
+      "call-signature",
+      "property-declaration"
+    ],
+    "no-null-keyword": true,
+    "no-any": true,
+	"no-unnecessary-callback-wrapper": true,
+	"arrow-return-shorthand": true,
+    "no-duplicate-variable": [
+      true,
+      "check-parameters"
+    ],
+    "no-implicit-dependencies": true,
+    "prefer-readonly": true,
+    "file-name-casing": [
+      true,
+      "kebab-case"
+    ],
+    "no-consecutive-blank-lines": true,
+    "no-irregular-whitespace": true,
+    "return-undefined": true
+  }
+}

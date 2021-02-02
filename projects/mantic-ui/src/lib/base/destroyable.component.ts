@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 @Component({
     template: ''
 })
-export abstract class DestroyableComponent implements OnDestroy {
+export class DestroyableComponent implements OnDestroy {
     private readonly destroySubject = new Subject<void>();
     protected readonly destroy = this.destroySubject.asObservable();
 

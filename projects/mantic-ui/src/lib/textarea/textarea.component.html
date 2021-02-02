@@ -1,2 +1,2 @@
 <ng-content></ng-content>
-<textarea *m-fallback-for="'input'" [placeholder]="placeholder || ''" [(ngModel)]="value" [attr.readOnly]="readonly" [attr.disabled]="disabled" (ngModelChange)="onChange()"></textarea>
+<textarea *m-fallback-for="'input'" [placeholder]="placeholder || ''" [(ngModel)]="value" [readOnly]="readonly ? true : undefined" [disabled]="disabled ? true : undefined" (ngModelChange)="onChange()"></textarea>

@@ -22,6 +22,7 @@ export class ButtonGroupComponent extends BaseComponent {
         this.toggleButtonsChangeSubscription?.unsubscribe();
         this.toggleButtonsChangeSubscription = query.changes.subscribe(() => this.subscribeToggleButtons());
         this.toggleButtonsValue = query;
+        this.subscribeToggleButtons();
     }
 
     @HostBinding('class.buttons')
@@ -35,10 +36,17 @@ export class ButtonGroupComponent extends BaseComponent {
 
     private subscribeToggleButtons(): void {
         this.toggleButtonSubscriptions?.forEach(subscription => subscription.unsubscribe());
-        this.toggleButtonSubscriptions = this.toggleButtonsValue.map(button => button.checkedChange.subscribe(value => value ? this.uncheckOthers(button) : undefined));
+        this.toggleButtonSubscriptions = this.toggleButtons.map(button => button.checkedChange.subscribe(value => value ? this.uncheckOthers(button) : this.keepOneChecked()));
     }
 
     private uncheckOthers(button: ToggleButtonComponent): void {
-        this.toggleButtons.filter(x => x !== button).forEach(x => x.checked = false);
+        this.toggleButtons.filter(x => x !== button).forEach(x => x.uncheck());
+    }
+
+    private keepOneChecked(): void {
+        const buttons = Array.from(this.toggleButtons);
+        if (buttons.length > 0 && buttons.every(button => !button.checked)) {
+            buttons[0].check();
+        }
     }
 }

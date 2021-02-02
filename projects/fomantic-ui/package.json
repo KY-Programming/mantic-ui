@@ -14,11 +14,12 @@
   "scripts": {
     "postbuild": ""
   },
-  "dependencies": {
-    "@mantic-ui/angular": "~0.2.0"
-  },
   "peerDependencies": {
-    "@angular/common": "8 - 9",
-    "@angular/core": "8 - 9"
+    "@angular/common": "8 - 11",
+    "@angular/core": "8 - 11",
+    "@mantic-ui/angular": "~0.6.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
   }
 }

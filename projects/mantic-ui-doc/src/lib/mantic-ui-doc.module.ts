@@ -11,7 +11,7 @@ import { NugetComponent } from './nuget/nuget.component';
 // tslint:disable-next-line: only-arrow-functions
 export function getHighlightLanguages(): unknown {
   return {
-    cs: () => import('highlight.js/lib/languages/cs'),
+    cs: () => import('highlight.js/lib/languages/csharp'),
     css: () => import('highlight.js/lib/languages/css'),
     html: () => import('highlight.js/lib/languages/xml'),
     js: () => import('highlight.js/lib/languages/javascript'),

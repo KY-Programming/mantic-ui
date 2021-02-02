@@ -1,12 +1,24 @@
-# mantic UI
+# ManticUi
 
-Angular components for Semantic UI and Fomantic UI
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.4.
 
-## Work-In-Progress
+## Code scaffolding
 
-Currently we are heavily working to get all components and features implemented.
+Run `ng generate component component-name --project mantic-ui` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project mantic-ui`.
+> Note: Don't forget to add `--project mantic-ui` or else it will be added to the default project in your `angular.json` file. 
 
-To support us, visit our https://github.com/KY-Programming/mantic-ui
+## Build
 
-## Documantation
-https://mantic-ui.ky-programming.de
+Run `ng build mantic-ui` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Publishing
+
+After building your library with `ng build mantic-ui`, go to the dist folder `cd dist/mantic-ui` and run `npm publish`.
+
+## Running unit tests
+
+Run `ng test mantic-ui` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

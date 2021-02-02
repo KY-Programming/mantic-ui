@@ -21,8 +21,6 @@ export class ToggleButtonComponent extends ButtonBaseComponent {
     @HostBinding('class.checked')
     public set checked(value: boolean | string) {
         this.active = value;
-        // this.checkedChange.emit(value);
-        // this.refreshClasses();
     }
 
     @Output()
@@ -40,14 +38,35 @@ export class ToggleButtonComponent extends ButtonBaseComponent {
 
     @HostListener('click')
     public toggle(): void {
-        this.checked = !this.checked;
+        if (this.checked) {
+            this.uncheck();
+        }
+        else {
+            this.check();
+        }
     }
 
     @HostListener('keydown', ['$event'])
     public onKeyDown(event: KeyboardEvent): void {
         if (event.code === Key.space || event.code === Key.enter) {
-            this.checked = true;
+            this.toggle();
             event.preventDefault();
         }
+    }
+
+    public check(): void {
+        if (this.checked) {
+            return;
+        }
+        this.checked = true;
+        this.checkedChange.emit(this.checked);
+    }
+
+    public uncheck(): void {
+        if (!this.checked) {
+            return;
+        }
+        this.checked = false;
+        this.checkedChange.emit(this.checked);
     }
 }

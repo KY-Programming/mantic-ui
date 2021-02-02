@@ -1,21 +1,27 @@
-# mantic UI
-[Documentation](https://mantic-ui.ky-programming.de)
+# Documentation
 
-## Semantic UI for Angular ![npm (scoped)](https://img.shields.io/npm/v/@mantic-ui/semantic-ui-angular)
-[Getting Started](https://mantic-ui.ky-programming.de/semantic/start)
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.4.
 
-## Fomantic UI for Angular ![npm (scoped)](https://img.shields.io/npm/v/@mantic-ui/fomantic-ui-angular)
-[Getting Started](https://mantic-ui.ky-programming.de/fomantic/start)
+## Development server
 
-## mantic UI for Angular ![npm (scoped)](https://img.shields.io/npm/v/@mantic-ui/angular)
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-Installation for already installed Semanatic UI or Fomantic UI 
+## Code scaffolding
 
-[Semantic - Getting Started](https://semantic-ui.com/introduction/getting-started.html)
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-[Fomantic - Getting Started](https://fomantic-ui.com/introduction/getting-started.html)
+## Build
 
-Install mantic UI package for Angular
-```
-npm i @mantic-ui/angular
-```
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

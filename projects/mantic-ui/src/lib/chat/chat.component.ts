@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { ChatMessage } from '../chat-message/chat-message';
+import { Component, Input, Output, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
+import { ChatMessage } from '../models/chat-message';
+import { InputComponent } from '../input/input.component';
 
 @Component({
     selector: 'm-chat',
@@ -9,6 +10,9 @@ import { Subject } from 'rxjs';
 })
 export class ChatComponent {
     private readonly sendSubject = new Subject<ChatMessage>();
+
+    @ViewChild(InputComponent)
+    public intput: InputComponent;
 
     @Input()
     public messages: ChatMessage[];
@@ -25,8 +29,11 @@ export class ChatComponent {
     public readonly send = this.sendSubject.asObservable();
 
     public sendMessage(): void {
-        this.sendSubject.next({direction: 'out', text: this.message, sender: this.sender, timestamp: Date.now()});
+        if (this.message) {
+            this.sendSubject.next({ direction: 'out', text: this.message, sender: this.sender, timestamp: Date.now() });
+        }
         this.message = undefined;
+        this.intput.focus();
     }
 
     public onKeyDown(event: KeyboardEvent): void {

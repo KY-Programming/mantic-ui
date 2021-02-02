@@ -1,5 +1,5 @@
-import { Component, HostBinding, Input } from '@angular/core';
-import { ChatMessage } from './chat-message';
+import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
+import { ChatMessage } from '../models/chat-message';
 
 @Component({
     selector: 'm-chat-message',
@@ -24,5 +24,16 @@ export class ChatMessageComponent {
     @HostBinding('class.grouped')
     public get grouped(): boolean {
         return this.message?.grouped;
+    }
+
+    @Output()
+    public readonly execute = new EventEmitter<string>();
+
+    public open(url: string): void {
+        window.open(url);
+    }
+
+    public onExecute(action: string): void {
+        this.execute.emit(action);
     }
 }

@@ -1,11 +1,11 @@
-﻿import { Component, ElementRef, HostBinding, Inject, OnInit, Optional } from '@angular/core';
+﻿import { AfterViewInit, Component, ElementRef, HostBinding, Inject, OnInit, Optional } from '@angular/core';
 import { DestroyableComponent } from './destroyable.component';
 import { ClassList } from '../models/class-list';
 
 @Component({
     template: ''
 })
-export abstract class BaseComponent extends DestroyableComponent implements OnInit {
+export class BaseComponent extends DestroyableComponent implements OnInit {
     protected tag: string;
     protected noClasses = false;
     protected readonly classList: ClassList;
@@ -14,7 +14,7 @@ export abstract class BaseComponent extends DestroyableComponent implements OnIn
     @HostBinding('class')
     public classes = '';
 
-    protected constructor(
+    public constructor(
         private readonly element: ElementRef<HTMLElement>,
         @Inject('none') useUiClass = true
     ) {

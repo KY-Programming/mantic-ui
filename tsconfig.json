@@ -3,50 +3,44 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    //"strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "module": "es2020",
     "lib": [
       "es2018",
       "dom"
     ],
     "paths": {
-      "semantic-ui": [
-        "dist/semantic-ui"
-      ],
-      "semantic-ui/*": [
-        "dist/semantic-ui/*"
-      ],
-      "fomantic-ui": [
-        "dist/fomantic-ui"
-      ],
-      "fomantic-ui/*": [
-        "dist/fomantic-ui/*"
-      ],
       "mantic-ui": [
+        "dist/mantic-ui/mantic-ui",
         "dist/mantic-ui"
       ],
-      "mantic-ui/*": [
-        "dist/mantic-ui/*"
+      "semantic-ui": [
+        "dist/semantic-ui/semantic-ui",
+        "dist/semantic-ui"
+      ],
+      "fomantic-ui": [
+        "dist/fomantic-ui/fomantic-ui",
+        "dist/fomantic-ui"
       ],
       "mantic-ui-doc": [
+        "dist/mantic-ui-doc/mantic-ui-doc",
         "dist/mantic-ui-doc"
-      ],
-      "mantic-ui-doc/*": [
-        "dist/mantic-ui-doc/*"
       ]
     }
   },
   "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
   }
 }

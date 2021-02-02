@@ -11,7 +11,7 @@ export declare type InputIconPosition =
     styleUrls: ['./input.component.scss']
 })
 export class InputComponent extends LabeledBaseComponent {
-    private inputElement: HTMLInputElement;
+    private inputElement: ElementRef<HTMLInputElement>;
     private readonlyValue: boolean;
     private disabledValue: boolean;
     private iconPositionValue: InputIconPosition;
@@ -19,18 +19,21 @@ export class InputComponent extends LabeledBaseComponent {
     private transparentValue: boolean;
     private fluidValue: boolean;
     private hasErrorValue: boolean;
+    private isAutoFocused: boolean;
 
     @ContentChild('input')
-    public set contentInputElement(input: HTMLInputElement) {
+    public set contentInputElement(input: ElementRef<HTMLInputElement>) {
         this.inputElement = input;
         this.refreshInput();
         this.bindEvents();
+        this.refreshFocus();
     }
 
     @ViewChild('input')
-    public set viewInputElement(input: HTMLInputElement) {
+    public set viewInputElement(input: ElementRef<HTMLInputElement>) {
         this.inputElement = input;
         this.bindEvents();
+        this.refreshFocus();
     }
 
     public get iconPosition(): InputIconPosition {
@@ -146,6 +149,12 @@ export class InputComponent extends LabeledBaseComponent {
     }
 
     @Input()
+    public set autofocus(value: boolean | string) {
+        this.isAutoFocused = this.toBoolean(value);
+        this.refreshFocus();
+    }
+
+    @Input()
     public min: number;
 
     @Input()
@@ -188,6 +197,12 @@ export class InputComponent extends LabeledBaseComponent {
         this.classList.register('icon', 'focused', 'loading', 'disabled', 'readonly', 'transparent', 'fluid', 'hasError');
     }
 
+    private refreshFocus(): void {
+        if (this.isAutoFocused && this.inputElement) {
+            setTimeout(() => this.focus());
+        }
+    }
+
     public onChange(): void {
         this.valueChange.emit(this.value);
         this.numericValueChange.emit(this.numericValue);
@@ -198,16 +213,20 @@ export class InputComponent extends LabeledBaseComponent {
         if (!this.inputElement) {
             return;
         }
-        this.inputElement.disabled = this.disabledValue;
-        this.inputElement.readOnly = this.readonlyValue;
+        this.inputElement.nativeElement.disabled = this.disabledValue;
+        this.inputElement.nativeElement.readOnly = this.readonlyValue;
     }
 
     private bindEvents(): void {
         if (!this.inputElement) {
             return;
         }
-        this.inputElement.addEventListener('keydown', event => this.keyDown.emit(event));
-        this.inputElement.addEventListener('keyup', event => this.keyUp.emit(event));
-        this.inputElement.addEventListener('keyPress', event => this.keyPress.emit(event));
+        this.inputElement.nativeElement.addEventListener('keydown', event => this.keyDown.emit(event));
+        this.inputElement.nativeElement.addEventListener('keyup', event => this.keyUp.emit(event));
+        this.inputElement.nativeElement.addEventListener('keyPress', event => this.keyPress.emit(event));
+    }
+
+    public focus(): void {
+        this.inputElement.nativeElement.focus();
     }
 }

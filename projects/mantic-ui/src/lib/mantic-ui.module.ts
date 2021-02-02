@@ -75,9 +75,14 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { LoaderComponent } from './loader/loader.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
+import { DestroyableComponent } from './base/destroyable.component';
+import { BaseComponent } from './base/base.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [
+        BaseComponent,
+        DestroyableComponent,
         ButtonBaseComponent,
         DimmableComponent,
         LabeledBaseComponent,
@@ -155,7 +160,8 @@ import { ChatMessageComponent } from './chat-message/chat-message.component';
     ],
     imports: [
         CommonModule,
-        FormsModule
+        FormsModule,
+        RouterModule
     ],
     exports: [
         ButtonComponent,
