@@ -56,7 +56,7 @@ export class DimmerComponent extends BaseComponent implements OnInit, OnDestroy 
         this.classList.register('page', 'visible');
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
         if (this.visible === undefined) {
             this.show();
@@ -71,7 +71,7 @@ export class DimmerComponent extends BaseComponent implements OnInit, OnDestroy 
         this.refreshClasses();
     }
 
-    public ngOnDestroy(): void {
+    public override ngOnDestroy(): void {
         super.ngOnDestroy();
         this.hide();
     }

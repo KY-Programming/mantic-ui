@@ -5,24 +5,38 @@
     </div>
 </h1>
 
-<h2 m-header dividing>Installing</h2>
-<m-example-code>
-    npm i @mantic-ui/angular @mantic-ui/semantic-ui-angular
-</m-example-code>
-<m-example-code label="app.module.ts" [code]="appModuleCode" [languages]="['ts']"></m-example-code>
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Installing">
+        <p>Instal base package for angular and Semantic UI theme</p>
+        <m-example-code>
+            npm i @mantic-ui/angular @mantic-ui/semantic-ui-angular
+        </m-example-code>
+        <h3>Import theme in AppModule</h3>
+        <m-example-code label="app.module.ts" [code]="appModuleCode" [languages]="['ts']"></m-example-code>
+        <h3>Apply style in AppComponent</h3>
+        <m-example-code label="app.component.html" [code]="appComponentHtml" [languages]="['html']"></m-example-code>
+        <p>As alternative for &lt;m-semantic-ui-theme&gt;, you can use a CDN</p>
+        <m-example-code>{{code}}</m-example-code>
+        <p>Or install via
+            <a href="https://semantic-ui.com/introduction/getting-started.html">Semantic Docs</a>
+        </p>
+        <h3>Configure package assets usage</h3>
+        <m-example-code label="angular.json" [code]="angularJson" [languages]="['json']"></m-example-code>
 
-<h3 m-header>Import styles in styles.scss</h3>
-<m-example-code [code]="styleScssCode" [languages]="['scss']"></m-example-code>
+        <h2 m-header dividing>Work-in-progress</h2>
+        <m-info>Currently we are not yet done. So please do not expect a perfekt framework.</m-info>
+        <p>If you have a issue, look in our
+            <a href="https://github.com/KY-Programming/mantic-ui/issues">issue tracker on github</a>
+        </p>
+        <p>To support us fork our
+            <a href="https://github.com/KY-Programming/mantic-ui">github repositiory</a>
+        </p>
+        <p>
+            <a href="https://support.ky-programming.de">Direkt contact</a> (German, English) via
+            <a href="https://mail.support.ky-programming.de">email</a>,
+            <a href="https://whatsapp.support.ky-programming.de">WhatsApp</a> or join our
+            <a href="https://discord.mantic-ui.ky-programming.de">Discord server</a>
+        </p>
 
-<h3 m-header>Import styles in angular.json</h3>
-<m-example-code [code]="angularJsonCode" [languages]="['js']"></m-example-code>
-
-<h3 m-header>Use a CDN</h3>
-<m-example-code>{{code}}</m-example-code>
-<p>Or install via <a href="https://semantic-ui.com/introduction/getting-started.html">Semantic Docs</a></p>
-
-<h2 m-header dividing>Work-in-progress</h2>
-<m-info>Currently we are not yet done. So please do not expect a perfekt framework.</m-info>
-<p>If you have a issue, look in our <a href="https://github.com/KY-Programming/mantic-ui/issues">issue tracker on github</a></p>
-<p>To support us fork our <a href="https://github.com/KY-Programming/mantic-ui">github repositiory</a></p>
-<p><a href="https://support.ky-programming.de">Direkt contact</a> (German, English) via <a href="https://mail.support.ky-programming.de">email</a>, <a href="https://whatsapp.support.ky-programming.de">WhatsApp</a> or join our <a href="https://discord.mantic-ui.ky-programming.de">Discord server</a></p>
+    </m-tab>
+</m-tab-group>

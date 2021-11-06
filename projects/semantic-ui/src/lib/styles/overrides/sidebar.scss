@@ -1,0 +1,17 @@
+﻿/*--------------
+     Width
+---------------*/
+
+.ui.fluid.sidebar {
+    position: unset;
+    top: unset;
+    left: unset;
+}
+
+.ui.fluid.sidebar:not(.visible) {
+    display: none;
+}
+
+.ui.sidebar.no-scrolling {
+    overflow-y: hidden !important;
+}

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { FomanticUiModule } from 'projects/fomantic-ui/src/public-api';
-import { ManticUiDocModule } from 'projects/mantic-ui-doc/src/public-api';
+import { FomanticUiModule } from '@mantic-ui/fomantic-ui-angular';
+import { ManticUiDocModule } from '@mantic-ui/angular-doc';
 import { FomanticButtonComponent } from './button/button.component';
 import { FomanticDividerComponent } from './divider/divider.component';
 import { FomanticInputComponent } from './input/input.component';

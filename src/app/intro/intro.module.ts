@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SemanticUiModule } from 'projects/semantic-ui/src/public-api';
+import { SemanticUiModule } from '@mantic-ui/semantic-ui-angular';
 import { IntroComponent } from './intro.component';
 
 @NgModule({

@@ -11,6 +11,7 @@ $chat-foreground: white !default;
     position: relative;
     flex-direction: column;
     flex: 1;
+    overflow: hidden;
     max-width: 900px;
     margin: 0 auto;
 }
@@ -19,7 +20,9 @@ $chat-foreground: white !default;
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin-bottom: 1em;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: $space-small;
 
     m-chat-message {
         min-width: 40%;
@@ -41,6 +44,5 @@ $chat-foreground: white !default;
 
     m-input {
         flex: 1;
-        margin-right: $space-small;
     }
 }

@@ -1,4 +1,4 @@
-<div class="chat">
+<div class="chat" #chat>
     <m-chat-message *ngFor="let message of messages" [message]="message"></m-chat-message>
 </div>
 <div *ngIf="canSend" class="input-wrapper" [class.visible]="canSend">

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { InputIconPosition, InputType } from '@mantic-ui/angular';
 
 // tslint:disable: member-ordering
 @Component({
@@ -12,9 +13,9 @@ export class SemanticInputComponent {
   private errorValue = false;
 
   public inputValue = 'Default Value';
-  public type = 'text';
+  public type: InputType = 'text';
   public icon = 'search';
-  public iconPosition = 'left';
+  public iconPosition: InputIconPosition = 'left';
   public selectedTabName: string;
 
   public get focus(): boolean {

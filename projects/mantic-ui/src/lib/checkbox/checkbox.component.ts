@@ -1,7 +1,6 @@
 import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { Key } from '../models/key';
 import { BaseComponent } from '../base/base.component';
-import { ColorName } from '../models/color';
 
 @Component({
     selector: 'm-checkbox',
@@ -9,7 +8,6 @@ import { ColorName } from '../models/color';
     styleUrls: ['./checkbox.component.scss']
 })
 export class CheckboxComponent extends BaseComponent {
-    private hasValue: boolean;
     private nameValue: string;
     private labelValue: string;
     private isChecked: boolean;
@@ -18,13 +16,12 @@ export class CheckboxComponent extends BaseComponent {
     private isDisabled: boolean;
 
     @Input()
-    @HostBinding('class.checked')
     public get value(): boolean | string {
-        return this.hasValue;
+        return this.isChecked;
     }
 
     public set value(value: string | boolean) {
-        this.hasValue = this.toBoolean(value);
+        this.isChecked = this.toBoolean(value);
     }
 
     @Output()
@@ -38,7 +35,6 @@ export class CheckboxComponent extends BaseComponent {
     public set name(value: string) {
         this.nameValue = value;
         this.classList.set('name', value);
-        this.refreshClasses();
     }
 
     @Input()
@@ -49,7 +45,6 @@ export class CheckboxComponent extends BaseComponent {
     public set label(value: string) {
         this.labelValue = value;
         this.classList.set('label', value);
-        this.refreshClasses();
     }
 
     @Input()
@@ -85,6 +80,9 @@ export class CheckboxComponent extends BaseComponent {
         this.isIndeterminate = this.toBoolean(value);
     }
 
+    @Output()
+    public readonly indeterminateChange = this.valueChange;
+
     @Input()
     @HostBinding('class.disabled')
     public get disabled(): boolean | string {
@@ -105,7 +103,7 @@ export class CheckboxComponent extends BaseComponent {
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList.register('readonly', 'indeterminate', 'disabled', 'fitted', 'checked', 'value', 'checked')
+        this.classList.register('readonly', 'indeterminate', 'disabled', 'fitted', 'checked', 'value', 'name', 'label');
     }
 
     @HostListener('click', ['$event'])
@@ -130,13 +128,15 @@ export class CheckboxComponent extends BaseComponent {
             return;
         }
         this.indeterminate = false;
-        this.value = value;
-        this.onChange();
+        if (this.value !== value) {
+            this.value = value;
+            this.onChange();
+        }
         this.refreshClasses();
     }
 
     public onChange(): void {
-        this.valueChange.emit(this.hasValue);
+        this.valueChange.emit(this.isChecked);
     }
 
     public onInputValueChange(event: Event): void {

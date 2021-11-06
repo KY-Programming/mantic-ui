@@ -1,6 +1,7 @@
 :host {
     display: flex;
     flex-direction: column;
+    overflow: visible;
 }
 
 .ui.secondary.menu + .ui.basic.segment {
@@ -10,4 +11,9 @@
 m-segment {
     display: flex;
     flex: 1;
+
+    &.scrollable {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
 }

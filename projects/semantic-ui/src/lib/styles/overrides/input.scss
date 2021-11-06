@@ -1,0 +1,14 @@
+﻿.ui.color.input .ui.label {
+    border: 1px solid rgba(34, 36, 38, 0.15);
+
+    input[type=color] {
+        visibility: hidden;
+        height: auto;
+        min-width: 3em;
+    }
+}
+
+.ui.input > input[type=range] {
+    padding-left: 0;
+    padding-right: 0;
+}

@@ -1,6 +1,5 @@
 import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
-import { ColorName } from '../models/color';
 
 export declare type HeaderSize = 'huge' | 'large' | 'medium' | 'small' | 'tiny';
 
@@ -20,7 +19,6 @@ export class HeaderComponent extends BaseComponent {
     public set size(value: HeaderSize) {
         this.sizeValue = value;
         this.classList.set('size', value);
-        this.refreshClasses();
     }
 
     @HostBinding('class.header')

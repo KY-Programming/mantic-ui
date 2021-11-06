@@ -17,30 +17,31 @@ export class SemanticStartComponent {
 })
 export class AppModule { }`;
 
-  public styleScssCode = `// Import site.css to support lato font (https://semantic-ui.com/globals/site.html)
-@import '@mantic-ui/semantic-ui-angular/assets/components/site.css';
-// Import reset.css to normalize values for CSS properties (https://semantic-ui.com/globals/reset.html)
-@import '@mantic-ui/semantic-ui-angular/assets/components/reset.css';
-// Styles of all components
-@import '@mantic-ui/semantic-ui-angular/assets/all.css';`;
+  public readonly appComponentHtml = `<m-semantic-ui-theme>
+    <!-- Import common styles for site -->
+    <m-semantic-ui-site></m-semantic-ui-site>
+    <!-- Import reset to normalize values for CSS properties -->
+    <m-semantic-ui-reset></m-semantic-ui-reset>
+    <!-- Import local hosted lato font -->
+    <m-semantic-ui-lato-local></m-semantic-ui-lato-local>
+</m-semantic-ui-theme>`;
 
-  public angularJsonCode = `{
-"projects": {
-  "angular8": {
-    "architect": {
-      "build": {
-        "options": {
-          ...
-          "styles": [
-            // Import site.css to support lato font (https://semantic-ui.com/globals/site.html)
-            "node_modules/@mantic-ui/semantic-ui-angular/assets/components/site.css",
-            // Import reset.css to normalize values for CSS properties (https://semantic-ui.com/globals/reset.html)
-            "node_modules/@mantic-ui/semantic-ui-angular/assets/components/reset.css",
-            // Styles of all components
-            "node_modules/@mantic-ui/semantic-ui-angular/assets/all.css",
-            "src/styles.scss"
-          ],
-          "scripts": []
+  public readonly angularJson = ` "projects": {
+    "generator": {
+      "architect": {
+        "build": {
+          "options": {
+            "assets": [
+              // Copy all package assets to app asset folder on build
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@mantic-ui/semantic-ui-angular/assets",
+                "output": "/assets/"
+              }
+            }
+          }
         }
-  ...`;
+      }
+    }
+  }`;
 }

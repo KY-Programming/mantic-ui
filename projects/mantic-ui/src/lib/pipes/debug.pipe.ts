@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class DebugPipe implements PipeTransform {
 
   public transform(value: unknown, ...args: unknown[]): unknown {
-    // tslint:disable-next-line: no-debugger
+    // eslint-disable-next-line no-debugger
     debugger;
     return value;
   }

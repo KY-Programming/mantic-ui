@@ -22,7 +22,7 @@
 
 <h2 m-header dividing>States</h2>
 <m-example header="Focus" description="An input field can show a user is currently interacting with it">
-    <m-input type="text" placeholder="Search..." focused></m-input>
+    <m-input type="text" placeholder="Search..." autofocus></m-input>
 </m-example>
 <m-example header="Loading" description="An icon input field can show that it is currently loading data">
     <m-input type="text" placeholder="Search..." icon="search" iconPosition="left" loading></m-input>
@@ -77,7 +77,7 @@
             Error
         </label>
     </div>
-    <m-input [type]="type" placeholder="Search..." [icon]="icon" [iconPosition]="iconPosition" [focused]="focus"
+    <m-input [type]="type" placeholder="Search..." [icon]="icon" [iconPosition]="iconPosition" [autofocus]="focus"
              [loading]="loading" [disabled]="disabled" [hasError]="error"></m-input>
 </m-example>
 

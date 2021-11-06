@@ -26,7 +26,6 @@ export class RowComponent extends BaseComponent {
             this.columnsValue = value;
         }
         this.classList.set('columns', this.columnsValue);
-        this.refreshClasses();
     }
 
     @Input()

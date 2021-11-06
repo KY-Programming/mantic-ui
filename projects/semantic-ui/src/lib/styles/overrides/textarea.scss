@@ -1,0 +1,17 @@
+﻿/*******************************
+            States
+*******************************/
+
+
+/*--------------------
+        Disabled
+---------------------*/
+
+.ui.disabled.textarea,
+.ui.textarea:not(.disabled) input[disabled] {
+    opacity: 0.45;
+}
+.ui.disabled.textarea > textarea,
+.ui.textarea:not(.disabled) textarea[disabled] {
+    pointer-events: none;
+}

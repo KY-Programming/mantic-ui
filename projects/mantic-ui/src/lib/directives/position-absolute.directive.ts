@@ -10,6 +10,15 @@ export class PositionAbsoluteDirective implements AfterViewInit, OnDestroy {
     @Input('m-position-absolute')
     public position: 'top-left' | 'top-center' | 'top-right' | 'middle-left' | 'middle-center' | 'middle-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
 
+    @Input()
+    public attach: 'left' | 'middle' | 'right' = 'left';
+
+    @Input()
+    public parentWidth: 'none' | 'exact' | 'min' | 'max' = 'none';
+
+    @Input()
+    public minLeft: number | 'parent-left' | 'parent-center' | 'parent-right';
+
     constructor(
         private readonly elementRef: ElementRef<HTMLElement>
     ) {
@@ -31,6 +40,17 @@ export class PositionAbsoluteDirective implements AfterViewInit, OnDestroy {
         }
 
         const rect = this.parent.getBoundingClientRect();
+        switch (this.parentWidth) {
+            case 'min':
+                this.setMinWidth(rect.width);
+                break;
+            case 'max':
+                this.setMaxWidth(rect.width);
+                break;
+            case 'exact':
+                this.setWidth(rect.width);
+                break;
+        }
         switch (this.position) {
             case 'top-left':
             case 'top-center':
@@ -74,14 +94,51 @@ export class PositionAbsoluteDirective implements AfterViewInit, OnDestroy {
     }
 
     private setLeft(left: number): void {
-        const width = this.elementRef.nativeElement.getBoundingClientRect().width;
+        const rect = this.elementRef.nativeElement.getBoundingClientRect();
+        const parentRect = this.parent.getBoundingClientRect();
         const style = this.elementRef.nativeElement.style;
-        if (left && width > 0 && left + width > window.innerWidth) {
+        style.right = '';
+        style.right = '';
+        if (this.attach === 'middle') {
+            left -= rect.width / 2;
+        }
+        if (this.attach === 'right') {
+            left -= rect.width;
+        }
+        left = Math.max(0, left);
+        if (this.minLeft === 'parent-left') {
+            left = Math.max(left, parentRect.left);
+        }
+        else if (this.minLeft === 'parent-center') {
+            left = Math.max(left, parentRect.left + parentRect.width / 2);
+        }
+        else if (this.minLeft === 'parent-right') {
+            left = Math.max(left, parentRect.right);
+        }
+        else if (typeof this.minLeft === 'number') {
+            left = Math.max(left, this.minLeft);
+        }
+        if (left && rect.width > 0 && left + rect.width > window.innerWidth) {
             style.right = '0px';
             style.left = '';
         }
         else {
             style.left = left === undefined ? undefined : left + 'px';
         }
+    }
+
+    private setWidth(width: number): void {
+        const style = this.elementRef.nativeElement.style;
+        style.width = width === undefined ? undefined : width + 'px';
+    }
+
+    private setMinWidth(width: number): void {
+        const style = this.elementRef.nativeElement.style;
+        style.minWidth = width === undefined ? undefined : width + 'px';
+    }
+
+    private setMaxWidth(width: number): void {
+        const style = this.elementRef.nativeElement.style;
+        style.maxWidth = width === undefined ? undefined : width + 'px';
     }
 }

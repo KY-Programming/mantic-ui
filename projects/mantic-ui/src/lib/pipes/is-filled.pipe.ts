@@ -3,17 +3,16 @@ import { FormValidation, isFormValidation } from '../models/form-validation';
 import { ValidationPipe } from './validation.pipe';
 
 @Pipe({
-  name: 'mIsFilled'
+    name: 'mIsFilled'
 })
 export class IsFilledPipe implements ValidationPipe, PipeTransform {
-  public transform(value: unknown | FormValidation, ...args: unknown[]): FormValidation {
-    if (isFormValidation(value) && !value.valid) {
-      return value;
+    public transform(value: unknown | FormValidation, message?: string): FormValidation {
+        const result = isFormValidation(value) ? value : { value, message: undefined, valid: true };
+        if (!result.valid) {
+            return result;
+        }
+        result.valid = !!result.value;
+        result.message = result.valid ? undefined : message || 'has to be filled';
+        return result;
     }
-    return {
-      valid: !!value,
-      message: value ? undefined : args[0] as string || 'has to be filled',
-      value
-    };
-  }
 }

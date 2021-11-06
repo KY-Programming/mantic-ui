@@ -19,6 +19,7 @@ export class ErrorComponent extends BaseComponent {
         this.isIgnored = this.toBoolean(value);
     }
 
+    @HostBinding('class.visible')
     @HostBinding('class.error')
     @HostBinding('class.message')
     public readonly message = true;

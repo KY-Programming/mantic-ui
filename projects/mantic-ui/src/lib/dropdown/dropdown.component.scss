@@ -1,3 +1,7 @@
 :host {
   user-select: none;
 }
+
+.dropdown.icon {
+  pointer-events: none;
+}

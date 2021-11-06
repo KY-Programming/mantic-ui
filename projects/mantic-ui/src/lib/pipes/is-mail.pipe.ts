@@ -1,21 +1,20 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { FormValidation, isFormValidation } from '../models/form-validation';
+import { ValidationPipe } from './validation.pipe';
 
 @Pipe({
   name: 'mIsMail'
 })
-export class IsMailPipe implements PipeTransform {
+export class IsMailPipe implements ValidationPipe, PipeTransform {
 
-  public transform(value: unknown | FormValidation, ...args: unknown[]): FormValidation {
-    if (isFormValidation(value) && !value.valid) {
-      return value;
+  public transform(value: unknown | FormValidation, message?: string): FormValidation {
+    const result = isFormValidation(value) ? value : { value, message: undefined, valid: true };
+    if (!result.valid) {
+      return result;
     }
-    const valid = isFormValidation(value) ? value.valid && this.isMail(value.value) : this.isMail(value);
-    return {
-      valid,
-      message: valid ? undefined : args[0] as string || 'no valid mail address',
-      value
-    };
+    result.valid = this.isMail(result.value);
+    result.message = result.valid ? undefined : message || 'no valid mail address';
+    return result;
   }
 
   private isMail(value: unknown): boolean {

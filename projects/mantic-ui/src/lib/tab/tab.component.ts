@@ -1,5 +1,6 @@
-import { Component, ElementRef, HostBinding, Input } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
+import { NgIfContext } from '@angular/common';
 
 @Component({
     selector: 'm-tab',
@@ -17,12 +18,20 @@ export class TabComponent extends MenuItemComponent {
     @Input()
     public icon: string;
 
+    @Input()
+    public template: TemplateRef<NgIfContext<boolean>>;
+
+    @Output()
+    public readonly activate = new EventEmitter<void>();
+
+    @Output()
+    public readonly deactivate = new EventEmitter<void>();
+
     constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
-        super(elementRef);
-        this.noClasses = true;
-        this.classList.register('name', 'label', 'icon')
+        super(elementRef, false);
+        this.classList.register('name', 'label', 'icon');
     }
 
 }

@@ -1,6 +1,6 @@
 <ng-container *ngIf="position === 'top'" [ngTemplateOutlet]="menuTemplate"></ng-container>
 
-<m-segment class="active tab" [attached]="position === 'top' ? 'bottom' : 'top'" [basic]="secondary" [noPadding]="noPadding">
+<m-segment class="active tab" [attached]="position === 'top' ? 'bottom' : 'top'" [basic]="secondary" [noPadding]="noPadding" [class.scrollable]="scrollable">
     <ng-content></ng-content>
 </m-segment>
 

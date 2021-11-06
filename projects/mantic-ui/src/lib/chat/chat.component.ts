@@ -1,4 +1,4 @@
-import { Component, Input, Output, ViewChild } from '@angular/core';
+import { Component, DoCheck, ElementRef, Input, IterableDiffer, IterableDiffers, Output, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ChatMessage } from '../models/chat-message';
 import { InputComponent } from '../input/input.component';
@@ -8,8 +8,12 @@ import { InputComponent } from '../input/input.component';
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent {
+export class ChatComponent implements DoCheck {
     private readonly sendSubject = new Subject<ChatMessage>();
+    private readonly messagesDiffer: IterableDiffer<unknown>;
+
+    @ViewChild('chat')
+    public chat: ElementRef<HTMLElement>;
 
     @ViewChild(InputComponent)
     public intput: InputComponent;
@@ -28,6 +32,18 @@ export class ChatComponent {
     @Output()
     public readonly send = this.sendSubject.asObservable();
 
+    public constructor(
+        iterableDiffers: IterableDiffers
+    ) {
+        this.messagesDiffer = iterableDiffers.find([]).create(undefined);
+    }
+
+    public ngDoCheck(): void {
+        if (this.messagesDiffer.diff(this.messages)) {
+            this.scrollDown();
+        }
+    }
+
     public sendMessage(): void {
         if (this.message) {
             this.sendSubject.next({ direction: 'out', text: this.message, sender: this.sender, timestamp: Date.now() });
@@ -37,8 +53,12 @@ export class ChatComponent {
     }
 
     public onKeyDown(event: KeyboardEvent): void {
-        if (event.code === 'Enter') {
+        if (event.code === 'Enter' || event.code === 'NumpadEnter') {
             this.sendMessage();
         }
+    }
+
+    private scrollDown(): void {
+        setTimeout(() => this.chat?.nativeElement.scrollTo(0, 999999));
     }
 }

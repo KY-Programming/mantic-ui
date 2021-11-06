@@ -1,24 +1,15 @@
-# FomanticUi
+# Fomantic UI Angular Theme for mantic UI
+Fomantic UI theme for Angular components
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.9.
+Requires [@mantic-ui/angular](https://www.npmjs.com/package/@mantic-ui/angular)
 
-## Code scaffolding
+## Work-In-Progress
+Currently we are heavily working to get all components and features implemented.
 
-Run `ng generate component component-name --project fomantic-ui` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project fomantic-ui`.
-> Note: Don't forget to add `--project fomantic-ui` or else it will be added to the default project in your `angular.json` file. 
+To support us, visit our https://github.com/KY-Programming/mantic-ui
 
-## Build
+## Documantation
+Check out the [documentation](https://mantic-ui.ky-programming.de/fomantic/start)
 
-Run `ng build fomantic-ui` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build fomantic-ui`, go to the dist folder `cd dist/fomantic-ui` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test fomantic-ui` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Credits
+Original css from [Fomantic UI](https://fomantic-ui.com/)

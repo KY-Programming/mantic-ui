@@ -7,7 +7,7 @@
             </m-modal-header>
             <i *ngIf="basic && showClose === true || !basic && (showClose || showClose === undefined)" class="close icon" (click)="onClose()"></i>
         </div>
-        <div [class.image]="imageContent" [class.scrolling]="scrolling" class="content" [style.max-height]="maxContentHeight">
+        <div [class.image]="imageContent" [class.scrolling]="scrolling" class="content" [style.min-height]="minContentHeight" [style.max-height]="maxContentHeight">
             <ng-content></ng-content>
         </div>
         <div *ngIf="showFooter" class="actions">

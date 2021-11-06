@@ -1,6 +1,6 @@
 {
   "name": "@mantic-ui/fomantic-ui-angular",
-  "version": "0.1.0-rc.0",
+  "version": "13.0.0-preview.0",
   "description": "Fomantic UI Angular theme for mantic UI",
   "author": "KY-Programming",
   "license": "MIT",
@@ -15,11 +15,11 @@
     "postbuild": ""
   },
   "peerDependencies": {
-    "@angular/common": "8 - 11",
-    "@angular/core": "8 - 11",
-    "@mantic-ui/angular": "~0.6.0"
+    "@angular/common": "8 - 13",
+    "@angular/core": "8 - 13",
+    "@mantic-ui/angular": "13.0.0"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.3.0"
   }
 }

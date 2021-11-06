@@ -15,6 +15,11 @@ export class WarningComponent extends BaseComponent {
     @HostBinding('class.closed')
     public closed = false;
 
+    @HostBinding('class.visible')
+    public get visible(): boolean {
+        return !this.closed;
+    }
+
     @Output()
     public readonly close = new EventEmitter<void>();
 

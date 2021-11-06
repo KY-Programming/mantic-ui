@@ -36,7 +36,7 @@ export class TextareaComponent extends BaseComponent {
     }
 
     @Input()
-    @HostBinding('class.readonly')
+    @HostBinding('class.disabled')
     public set readonly(value: boolean | string) {
         this.readonlyValue = this.toBoolean(value);
         this.refreshTextarea();
@@ -72,7 +72,7 @@ export class TextareaComponent extends BaseComponent {
 
     public forceChange(): void {
         const value = this.value;
-        // tslint:disable-next-line: no-null-keyword => Currently no other way available to force rebind.
+        // eslint-disable-next-line no-null/no-null => Currently no other way available to force rebind.
         const tempValue = value === undefined ? null : undefined;
         this.valueChange.emit(tempValue);
         this.applicationRef.tick();

@@ -1,0 +1,11 @@
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+    name: 'mPadEnd'
+})
+export class PadEndPipe implements PipeTransform {
+    public transform(value: unknown, maxLength: number, fillString?: string): string {
+        const text = value?.toString();
+        return text.padEnd(maxLength, fillString);
+    }
+}

@@ -75,9 +75,37 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { LoaderComponent } from './loader/loader.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
+import { PadStartPipe } from './pipes/pad-start.pipe';
+import { PadEndPipe } from './pipes/pad-end.pipe';
+import { FormRendererComponent } from './form-renderer/form-renderer.component';
+import { AsInputPipe } from './form-element-renderer/pipes/as-input.pipe';
+import { AsCheckboxPipe } from './form-element-renderer/pipes/as-checkbox.pipe';
+import { AsFieldsPipe } from './form-element-renderer/pipes/as-fields.pipe';
+import { FormElementRendererComponent } from './form-element-renderer/form-element-renderer.component';
+import { FlagComponent } from './flag/flag.component';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
+import { AsAreaPipe } from './form-element-renderer/pipes/as-area.pipe';
+import { AsDropDownPipe } from './form-element-renderer/pipes/as-drop-down.pipe';
+import { DataSourceComponent } from './data-source/data-source.component';
+import { AsButtonPipe } from './form-element-renderer/pipes/as-button.pipe';
+import { FormElementRenderer2Component } from './form-element-renderer/form-element-renderer2.component';
+import { AsGridPipe } from './form-element-renderer/pipes/as-grid.pipe';
+import { AsLabelPipe } from './form-element-renderer/pipes/as-label.pipe';
 import { DestroyableComponent } from './base/destroyable.component';
 import { BaseComponent } from './base/base.component';
 import { RouterModule } from '@angular/router';
+import { FlexComponent } from './flex/flex.component';
+import { FillComponent } from './flex/fill/fill.component';
+import { AutoComponent } from './flex/auto/auto.component';
+import { FillDirective } from './flex/fill/fill.directive';
+import { AutoDirective } from './flex/auto/auto.directive';
+import { FlexDirective } from './flex/flex.directive';
+import { ArrayPipe } from './pipes/array.pipe';
+import { RoundPipe } from './pipes/round.pipe';
+import { CeilPipe } from './pipes/ceil.pipe';
+import { FloorPipe } from './pipes/floor.pipe';
+import { AllowedCharsPipe } from './pipes/allowed-chars.pipe';
+import { DocumentTitleComponent } from './document-title/document-title.component';
 
 @NgModule({
     declarations: [
@@ -156,7 +184,35 @@ import { RouterModule } from '@angular/router';
         SidebarComponent,
         LoaderComponent,
         ChatComponent,
-        ChatMessageComponent
+        ChatMessageComponent,
+        PadStartPipe,
+        PadEndPipe,
+        FormRendererComponent,
+        AsInputPipe,
+        AsCheckboxPipe,
+        AsFieldsPipe,
+        FormElementRendererComponent,
+        FlagComponent,
+        ImageUploadComponent,
+        AsAreaPipe,
+        AsDropDownPipe,
+        DataSourceComponent,
+        AsButtonPipe,
+        FormElementRenderer2Component,
+        AsGridPipe,
+        AsLabelPipe,
+        FlexComponent,
+        FlexDirective,
+        FillComponent,
+        AutoComponent,
+        FillDirective,
+        AutoDirective,
+        ArrayPipe,
+        RoundPipe,
+        CeilPipe,
+        FloorPipe,
+        AllowedCharsPipe,
+        DocumentTitleComponent
     ],
     imports: [
         CommonModule,
@@ -232,7 +288,23 @@ import { RouterModule } from '@angular/router';
         SidebarComponent,
         LoaderComponent,
         ChatComponent,
-        ChatMessageComponent
+        ChatMessageComponent,
+        PadStartPipe,
+        FormRendererComponent,
+        FlagComponent,
+        ImageUploadComponent,
+        DataSourceComponent,
+        FormElementRenderer2Component,
+        FlexComponent,
+        FlexDirective,
+        FillComponent,
+        AutoComponent,
+        FillDirective,
+        AutoDirective,
+        ArrayPipe,
+        CeilPipe,
+        AllowedCharsPipe,
+        DocumentTitleComponent
     ]
 })
 export class ManticUiModule {

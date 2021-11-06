@@ -1,4 +1,5 @@
-<a href="https://www.nuget.org/packages/{{package}}" target="_blank">
+<a href="https://www.nuget.org/packages/{{package}}/{{version}}" target="_blank">
     {{package}}
-    <img src="https://img.shields.io/nuget/v/{{package}}.svg?style=flat">
+    <img *ngIf="!version" src="https://img.shields.io/nuget/v/{{package}}.svg?style=flat">
+    <img *ngIf="version" src="https://img.shields.io/badge/nuget-v{{version}}-blue">
 </a>

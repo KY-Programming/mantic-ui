@@ -1,0 +1,14 @@
+﻿.ui.modal {
+
+    .ui.loader {
+        color: rgba(0, 0, 0, 0.87);
+    }
+
+    .ui.loader:before {
+        border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .ui.loader:after {
+        border-color: #767676 transparent transparent;
+    }
+}

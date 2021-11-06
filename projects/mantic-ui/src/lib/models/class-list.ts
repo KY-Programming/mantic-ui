@@ -1,6 +1,12 @@
+import { Subject } from 'rxjs';
+
 export class ClassList {
+    private readonly refreshSubject = new Subject<void>();
     private readonly entries = new Map<string, string>();
+    private readonly last = new Map<string, string[]>();
     private readonly order: string[] = [];
+
+    public readonly refresh = this.refreshSubject.asObservable();
 
     public constructor(
         private readonly tag?: string
@@ -15,9 +21,17 @@ export class ClassList {
         return this;
     }
 
-    public set(key: string, value: unknown): ClassList {
+    public registerFixed(...keys: string[]): ClassList {
+        this.register(...keys);
+        for (const key of keys) {
+            this.set(key, true, false);
+        }
+        return this;
+    }
+
+    public set(key: string, value: unknown, refresh = true): ClassList {
         if (this.order.indexOf(key.toLocaleLowerCase()) === -1) {
-            console.warn(`Set an unregistered value (${this.tag}.${key}) is not recommended. Call register(key) method once, before using set(...) method.`);
+            console.warn(`Set an unregistered value '${key}' on <${this.tag}> is not recommended. Call register(key) method once, before using set(...) method.`);
         }
         if (value === true) {
             this.entries.set(key.toLocaleLowerCase(), key);
@@ -27,6 +41,9 @@ export class ClassList {
         }
         else {
             this.entries.set(key.toLocaleLowerCase(), value?.toString());
+        }
+        if (refresh) {
+            this.refreshSubject.next();
         }
         return this;
     }
@@ -45,5 +62,30 @@ export class ClassList {
             .concat(notRegisteredValues.map(key => this.entries.get(key)))
             .filter(x => x)
             .join(' ');
+    }
+
+    public update(classList: DOMTokenList): void {
+        for (const key of this.order) {
+            this.updateEntry(classList, key);
+        }
+        for (const key of Array.from(this.entries.keys()).filter(x => this.order.indexOf(x) === -1)) {
+            this.updateEntry(classList, key);
+        }
+    }
+
+    private updateEntry(classList: DOMTokenList, key: string): void {
+        const value = this.entries.get(key);
+        if (value) {
+            if (this.last.has(key)) {
+                this.last.get(key).forEach(x => classList.remove(x));
+            }
+            const values = value.split(' ');
+            classList.add(...values);
+            this.last.set(key, values);
+        }
+        else if (this.last.has(key)) {
+            this.last.get(key).forEach(x => classList.remove(x));
+            this.last.delete(key);
+        }
     }
 }

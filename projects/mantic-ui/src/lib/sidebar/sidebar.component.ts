@@ -10,7 +10,9 @@ export declare type SidebarWidth =
 
 export declare type SidebarPosition =
     'left'
-    | 'right';
+    | 'right'
+    | 'top'
+    | 'bottom';
 
 @Component({
     selector: 'm-sidebar',
@@ -22,6 +24,8 @@ export class SidebarComponent extends BaseComponent {
     private widthValue: SidebarWidth;
     private isVisible: boolean;
     private positionValue: SidebarPosition;
+    private isFluid: boolean;
+    private noScrollingValue: boolean;
 
     public get inverted(): boolean | string {
         return this.isInverted;
@@ -31,7 +35,6 @@ export class SidebarComponent extends BaseComponent {
     public set inverted(value: boolean | string) {
         this.isInverted = this.toBoolean(value);
         this.classList.set('inverted', this.isInverted);
-        this.refreshClasses();
     }
 
     public get visible(): boolean | string {
@@ -42,7 +45,16 @@ export class SidebarComponent extends BaseComponent {
     public set visible(value: boolean | string) {
         this.isVisible = this.toBoolean(value);
         this.classList.set('visible', this.isVisible);
-        this.refreshClasses();
+    }
+
+    public get fluid(): boolean | string {
+        return this.isFluid;
+    }
+
+    @Input()
+    public set fluid(value: boolean | string) {
+        this.isFluid = this.toBoolean(value);
+        this.classList.set('fluid', this.isFluid);
     }
 
     public get width(): SidebarWidth {
@@ -53,7 +65,6 @@ export class SidebarComponent extends BaseComponent {
     public set width(value: SidebarWidth) {
         this.widthValue = value;
         this.classList.set('width', value);
-        this.refreshClasses();
     }
 
     public get position(): SidebarPosition {
@@ -64,16 +75,24 @@ export class SidebarComponent extends BaseComponent {
     public set position(value: SidebarPosition) {
         this.positionValue = value;
         this.classList.set('position', value);
-        this.refreshClasses();
     }
 
-    @HostBinding('class.sidebar')
-    public readonly sidebar = true;
+    public get noScrolling(): boolean | string {
+        return this.noScrollingValue;
+    }
+
+    @Input()
+    @HostBinding('class.no-scrolling')
+    public set noScrolling(value: boolean | string) {
+        this.noScrollingValue = this.toBoolean(value);
+    }
 
     constructor(element: ElementRef<HTMLElement>) {
         super(element);
-        this.classList.register('inverted', 'width', 'position', 'visible');
+        this.classList.register('inverted', 'width', 'position', 'visible', 'fluid', 'noScrolling').registerFixed('sidebar');
         this.position = 'left';
+        this.visible = true;
+        this.refreshClasses();
     }
 
     public show(): void {

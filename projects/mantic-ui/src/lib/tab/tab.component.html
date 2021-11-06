@@ -1,1 +1,3 @@
-<ng-content *ngIf="active"></ng-content>
+<ng-container *ngIf="active">
+    <ng-content *ngIf="!template else template"></ng-content>
+</ng-container>

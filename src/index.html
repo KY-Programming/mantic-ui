@@ -3,14 +3,73 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Loading...</title>
+  <title>Loading... - KY-Programming</title>
   <base href="/">
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" sizes="64x64" id="favicon">
+
 </head>
 
 <body>
-  <app-root></app-root>
+  <app-root>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+
+      body {
+        background-color: #0099D3;
+        font-family: "Segoe UI", Arial, sans-serif;
+      }
+
+      .loader {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .loader .dot {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        margin: 4px;
+        background: white;
+        animation: wave 0.9s linear infinite;
+      }
+
+      .loader .dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .loader .dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes wave {
+
+        0%,
+        60%,
+        100% {
+          transform: initial;
+        }
+
+        30% {
+          transform: translateY(-20px);
+        }
+      }
+    </style>
+    <div class="loader">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+  </app-root>
 </body>
 
 </html>

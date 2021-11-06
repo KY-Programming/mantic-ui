@@ -12,8 +12,8 @@ export class DimmableComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.dimmable')
-    public set dimmable(value: boolean) {
-        this.dimmableService.dimmable = value;
+    public set dimmable(value: boolean | '') {
+        this.dimmableService.dimmable = value || value === '';
     }
 
     @HostBinding('class.dimmed')

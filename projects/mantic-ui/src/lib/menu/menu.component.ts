@@ -30,7 +30,6 @@ export class MenuComponent extends BaseComponent {
     public set position(value: MenuPosition) {
         this.positionValue = value;
         this.classList.set('position', value);
-        this.refreshClasses();
     }
 
     @Input()
@@ -72,7 +71,6 @@ export class MenuComponent extends BaseComponent {
     public set attached(value: MenuPosition) {
         this.attachedValue = value;
         this.classList.set('attached', value);
-        this.refreshClasses();
     }
 
     @Input()

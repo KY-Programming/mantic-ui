@@ -1,9 +1,10 @@
-import { AfterViewInit, Directive, TemplateRef, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Directive, EmbeddedViewRef, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
     selector: '[m-to-body]'
 })
-export class ToBodyDirective implements AfterViewInit {
+export class ToBodyDirective implements AfterViewInit, OnDestroy {
+    private embeddedViewRef: EmbeddedViewRef<unknown>;
 
     constructor(
         private readonly template: TemplateRef<unknown>,
@@ -12,10 +13,20 @@ export class ToBodyDirective implements AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
-        const embeddedViewRef = this.viewContainerRef.createEmbeddedView(this.template);
-        embeddedViewRef.detectChanges();
-        for (const node of embeddedViewRef.rootNodes) {
+        this.embeddedViewRef = this.viewContainerRef.createEmbeddedView(this.template);
+        this.embeddedViewRef.detectChanges();
+        for (const node of this.embeddedViewRef.rootNodes) {
             document.body.appendChild(node);
         }
+    }
+
+    public ngOnDestroy(): void {
+        for (const node of this.embeddedViewRef.rootNodes) {
+            if (document.body.contains(node)) {
+                document.body.removeChild(node);
+            }
+        }
+        this.embeddedViewRef.destroy();
+        this.embeddedViewRef = undefined;
     }
 }

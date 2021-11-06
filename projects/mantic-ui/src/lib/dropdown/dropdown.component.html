@@ -1,18 +1,14 @@
 <input type="hidden">
 <i *ngIf="icon" class="{{icon}} icon"></i>
-<i class="dropdown icon"></i>
+<i *ngIf="!allowFreeText || hasItems" class="dropdown icon"></i>
 <a *ngFor="let selectedItem of selectedItems" class="ui label transition visible">
     <i *ngIf="selectedItem.icon" class="{{selectedItem.icon}}"></i> {{selectedItem.text === undefined ? selectedItem.value : selectedItem.text}}
     <i class="delete icon" (click)="deleteClick(selectedItem, $event)"></i>
 </a>
-<input *ngIf="search" [(ngModel)]="filter" class="search" autocomplete="off" tabindex="0" (input)="onFilter($event)" (keydown)="onKeyDown($event)" (focus)="focus()" (blur)="blur()" (keydown)="keyDown($event)" #inputElement>
-<div [class.default]="isDefault" [class.filtered]="isFiltered" class="text" #textElement>
-    <ng-container *ngIf="selectedItem; else placeholderTemplate">
-        <i *ngIf="selectedItem.icon" class="{{selectedItem.icon}}"></i> {{selectedItem.text === undefined ? selectedItem.value : selectedItem.text}}
-    </ng-container>
-    <ng-template #placeholderTemplate>
-        {{placeholder}}
-    </ng-template>
+<input *ngIf="search" [(ngModel)]="filter" class="search" autocomplete="off" tabindex="0" (input)="onFilter()" (keydown)="onKeyDown($event)" (focus)="focus()" (blur)="blur()" #inputElement>
+<div [class.default]="isDefault" [class.filtered]="isFiltered" class="text">
+    <ng-container *ngIf="!selectedItem">{{value || placeholder}}</ng-container>
+    <span #htmlElement></span>
 </div>
 <div class="menu" #menuElement
      [class.visible]="isMenuVisible"
@@ -27,10 +23,12 @@
      [class.in]="isSlidingIn"
      [class.out]="isSlidingOut"
      [class.loading]="isLoading">
-    <ng-container *ngIf="items && !useItemComponents">
-        <m-dropdown-item *ngFor="let item of items; let index = index" [value]="item.value" [filtered]="item.filtered" [selected]="index === selectedIndex" (mousedown)="itemMouseDown(item)" (mouseup)="itemMouseUp(item)">
+    <ng-container *ngIf="items else contentTemplate">
+        <m-dropdown-item *ngFor="let item of items; let index = index" [value]="item.value" [filteredOut]="item.filtered" [selected]="index === selectedIndex" (mousedown)="itemMouseDown(item)" (mouseup)="itemMouseUp(item)">
             <i *ngIf="item.icon" class="{{item.icon}}"></i> {{item.text === undefined ? item.value : item.text}}
         </m-dropdown-item>
     </ng-container>
-    <ng-content></ng-content>
+    <ng-template #contentTemplate>
+        <ng-content></ng-content>
+    </ng-template>
 </div>

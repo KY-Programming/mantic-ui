@@ -1,6 +1,5 @@
 import { Component, ElementRef, HostBinding, HostListener, Input } from '@angular/core';
-import { DropwDownSelectionService } from '../dropdown/dropdown-selection.service';
-import { DropdownValue } from '../dropdown/dropdown-value';
+import { DropDownSelectionService } from '../dropdown/dropdown-selection.service';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
@@ -9,7 +8,7 @@ import { BaseComponent } from '../base/base.component';
     styleUrls: ['./dropdown-item.component.scss']
 })
 export class DropdownItemComponent extends BaseComponent {
-    private isFiltered: boolean;
+    private isFilteredOut: boolean;
     private isSelected: boolean;
 
     @Input()
@@ -17,12 +16,12 @@ export class DropdownItemComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.filtered')
-    public get filtered(): boolean | string {
-        return this.isFiltered;
+    public get filteredOut(): boolean | string {
+        return this.isFilteredOut;
     }
 
-    public set filtered(value: string | boolean) {
-        this.isFiltered = this.toBoolean(value);
+    public set filteredOut(value: string | boolean) {
+        this.isFilteredOut = this.toBoolean(value);
     }
 
     @Input()
@@ -42,8 +41,8 @@ export class DropdownItemComponent extends BaseComponent {
     @HostBinding('class.item')
     public readonly item = true;
 
-    constructor(
-        private readonly dropwDownSelectionService: DropwDownSelectionService,
+    public constructor(
+        private readonly dropDownSelectionService: DropDownSelectionService,
         public readonly elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
@@ -54,16 +53,10 @@ export class DropdownItemComponent extends BaseComponent {
     public click(event: MouseEvent): void {
         event.preventDefault();
         event.stopPropagation();
-        this.dropwDownSelectionService.select(this.value, this.elementRef);
+        this.dropDownSelectionService.select(this.value);
     }
 
     public select(value = true): void {
         this.selected = value;
-        // this.refreshClasses();
     }
-
-    public toValue(): DropdownValue {
-        return new DropdownValue(this.value, undefined, this.icon);
-    }
-
 }

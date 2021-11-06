@@ -1,6 +1,11 @@
 import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
+export declare type Align =
+    | 'top'
+    | 'bottom'
+    | 'middle';
+
 @Component({
     selector: 'm-table',
     templateUrl: './table.component.html',
@@ -9,6 +14,10 @@ import { BaseComponent } from '../base/base.component';
 export class TableComponent extends BaseComponent {
     private isCelled = true;
     private isUnstackable: boolean;
+    private isBasic: boolean;
+    private isVery: boolean;
+    private alignedValue: Align;
+    private isDefinition: boolean;
 
     @Input()
     @HostBinding('class.celled')
@@ -21,6 +30,26 @@ export class TableComponent extends BaseComponent {
     }
 
     @Input()
+    @HostBinding('class.very')
+    public get very(): boolean | string {
+        return this.isVery;
+    }
+
+    public set very(value: string | boolean) {
+        this.isVery = this.toBoolean(value);
+    }
+
+    @Input()
+    @HostBinding('class.basic')
+    public get basic(): boolean | string {
+        return this.isBasic;
+    }
+
+    public set basic(value: string | boolean) {
+        this.isBasic = this.toBoolean(value);
+    }
+
+    @Input()
     @HostBinding('class.unstackable')
     public get unstackable(): boolean | string {
         return this.isUnstackable;
@@ -30,14 +59,32 @@ export class TableComponent extends BaseComponent {
         this.isUnstackable = this.toBoolean(value);
     }
 
-    @HostBinding('class.table')
-    public readonly table = true;
+    @Input()
+    public get aligned(): Align {
+        return this.alignedValue;
+    }
+
+    public set aligned(value: Align) {
+        this.alignedValue = value;
+        this.classList.set('aligned', value ? value + ' aligned' : undefined);
+    }
+
+    @Input()
+    @HostBinding('class.definition')
+    public get definition(): boolean | string {
+        return this.isDefinition;
+    }
+
+    public set definition(value: string | boolean) {
+        this.isDefinition = this.toBoolean(value);
+    }
 
     constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList.register('celled', 'unstackable');
+        this.classList.register('celled', 'very', 'basic', 'unstackable', 'aligned', 'definition').registerFixed('table', 'test');
+        this.aligned ??= 'middle';
     }
 
 }

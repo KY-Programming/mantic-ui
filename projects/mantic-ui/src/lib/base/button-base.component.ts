@@ -1,11 +1,11 @@
-﻿import { Component, ElementRef, HostBinding, Input } from '@angular/core';
+﻿import { Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
 import { ColorName } from '../models/color';
 import { BaseComponent } from './base.component';
 
 @Component({
     template: ''
 })
-export class ButtonBaseComponent extends BaseComponent {
+export class ButtonBaseComponent extends BaseComponent implements OnInit {
     private sizeValue: string;
     private colorValue: ColorName;
     private isInverted: boolean;
@@ -18,6 +18,10 @@ export class ButtonBaseComponent extends BaseComponent {
     private isDisabled: boolean;
     private isLoading: boolean;
     private isCircular: boolean;
+    private isAttachedLeft: boolean;
+    private isAttachedTop: boolean;
+    private isAttachedRight: boolean;
+    private isAttachedBottom: boolean;
 
     @Input()
     @HostBinding('class.inverted')
@@ -77,7 +81,6 @@ export class ButtonBaseComponent extends BaseComponent {
     public set color(value: ColorName) {
         this.colorValue = value;
         this.classList.set('color', value);
-        this.refreshClasses();
     }
 
     @Input()
@@ -128,7 +131,6 @@ export class ButtonBaseComponent extends BaseComponent {
     public set size(value: string) {
         this.sizeValue = value;
         this.classList.set('size', value);
-        this.refreshClasses();
     }
 
     @Input()
@@ -141,6 +143,46 @@ export class ButtonBaseComponent extends BaseComponent {
         this.isCircular = this.toBoolean(value);
     }
 
+    @Input()
+    @HostBinding('class.attached-left')
+    public get attachedLeft(): boolean | string {
+        return this.isAttachedLeft;
+    }
+
+    public set attachedLeft(value: string | boolean) {
+        this.isAttachedLeft = this.toBoolean(value);
+    }
+
+    @Input()
+    @HostBinding('class.attached-top')
+    public get attachedTop(): boolean | string {
+        return this.isAttachedTop;
+    }
+
+    public set attachedTop(value: string | boolean) {
+        this.isAttachedTop = this.toBoolean(value);
+    }
+
+    @Input()
+    @HostBinding('class.attached-right')
+    public get attachedRight(): boolean | string {
+        return this.isAttachedRight;
+    }
+
+    public set attachedRight(value: string | boolean) {
+        this.isAttachedRight = this.toBoolean(value);
+    }
+
+    @Input()
+    @HostBinding('class.attached-bottom')
+    public get attachedBottom(): boolean | string {
+        return this.isAttachedBottom;
+    }
+
+    public set attachedBottom(value: string | boolean) {
+        this.isAttachedBottom = this.toBoolean(value);
+    }
+
     @HostBinding('class.button')
     public button = true;
 
@@ -149,22 +191,10 @@ export class ButtonBaseComponent extends BaseComponent {
     ) {
         super(elementRef);
         elementRef.nativeElement.setAttribute('tabindex', '0');
-        this.classList
-            .register('size')
-            .register('inverted')
-            .register('primary')
-            .register('secondary')
-            .register('positive')
-            .register('negative')
-            .register('circular')
-            .register('color')
-            .register('basic')
-            .register('active')
-            .register('disabled')
-            .register('loading');
+        this.classList.register('size', 'inverted', 'primary', 'secondary', 'positive', 'negative', 'circular', 'color', 'basic', 'active', 'disabled', 'loading', 'tabindex', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom');
     }
 
-    public ngOnInit(): void {
+    public override ngOnInit(): void {
         super.ngOnInit();
     }
 }

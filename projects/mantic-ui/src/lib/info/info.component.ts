@@ -19,6 +19,7 @@ export class InfoComponent extends BaseComponent {
         this.isIgnored = this.toBoolean(value);
     }
 
+    @HostBinding('class.visible')
     @HostBinding('class.info')
     @HostBinding('class.message')
     public readonly message = true;

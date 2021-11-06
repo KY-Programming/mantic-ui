@@ -1,2 +1,4 @@
 <div *ngIf="header" class="header">{{header}}</div>
+<i *ngIf="icon" class="{{icon}} icon"></i>
 <ng-content></ng-content>
+<i *ngIf="closable && showClose" class="close icon" (click)="close.next()"></i>

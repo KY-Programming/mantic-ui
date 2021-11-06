@@ -20,6 +20,7 @@ export class LabelComponent extends BaseComponent {
     private pointingValue: LabelPointing;
     private isBasic: boolean;
     private colorValue: ColorName;
+    private isHorizontal: boolean;
 
     public get position(): LabelPosition {
         return this.positionValue;
@@ -29,7 +30,6 @@ export class LabelComponent extends BaseComponent {
     public set position(value: LabelPosition) {
         this.positionValue = value;
         this.classList.set('position', value);
-        this.refreshClasses();
     }
 
     public get pointing(): LabelPointing {
@@ -40,7 +40,6 @@ export class LabelComponent extends BaseComponent {
     public set pointing(value: LabelPointing) {
         this.pointingValue = value;
         this.classList.set('color', value);
-        this.refreshClasses();
     }
 
     public get basic(): boolean | string {
@@ -61,7 +60,16 @@ export class LabelComponent extends BaseComponent {
     public set color(value: ColorName) {
         this.colorValue = value;
         this.classList.set('color', value);
-        this.refreshClasses();
+    }
+
+    public get horizontal(): boolean | string {
+        return this.isHorizontal;
+    }
+
+    @Input()
+    @HostBinding('class.horizontal')
+    public set horizontal(value: boolean | string) {
+        this.isHorizontal = this.toBoolean(value);
     }
 
     @HostBinding('class.label')
@@ -71,6 +79,6 @@ export class LabelComponent extends BaseComponent {
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList.register('pointing', 'pointing', 'color', 'basic');
+        this.classList.register('pointing', 'pointing', 'color', 'basic', 'horizontal');
     }
 }

@@ -6,6 +6,10 @@ export declare type CellFloat =
     'left'
     | 'right';
 
+export declare type CellAlign =
+    'left'
+    | 'right';
+
 @Component({
     selector: 'm-cell',
     templateUrl: './cell.component.html',
@@ -14,6 +18,7 @@ export declare type CellFloat =
 export class CellComponent extends BaseComponent {
     private sizeValue: FieldSize;
     private floatValue: CellFloat;
+    private alignValue: CellAlign;
 
     public get size(): FieldSize {
         return this.sizeValue;
@@ -30,19 +35,26 @@ export class CellComponent extends BaseComponent {
             this.sizeValue = value;
         }
         this.classList.set('size', this.sizeValue);
-        this.refreshClasses();
     }
 
     @Input()
-    @HostBinding('class.floated')
     public get float(): CellFloat {
         return this.floatValue;
     }
 
     public set float(value: CellFloat) {
         this.floatValue = value;
-        this.classList.set('float', value);
-        this.refreshClasses();
+        this.classList.set('float', value ? `${value} floated` : undefined);
+    }
+
+    @Input()
+    public get align(): CellAlign {
+        return this.alignValue;
+    }
+
+    public set align(value: CellAlign) {
+        this.alignValue = value;
+        this.classList.set('align', value ? `${value} aligned` : undefined);
     }
 
     @HostBinding('class.column')

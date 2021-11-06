@@ -41,7 +41,6 @@ export class ButtonComponent extends ButtonBaseComponent {
         return this.animated ? this.animated.direction : undefined;
     }
 
-    @HostBinding('class.labeled')
     @ContentChild(LabelComponent)
     public get label(): LabelComponent {
         return this.labelField;
@@ -49,7 +48,8 @@ export class ButtonComponent extends ButtonBaseComponent {
 
     public set label(value: LabelComponent) {
         this.labelField = value;
-        this.refreshClasses();
+        this.classList.set('labeled', !!value);
+        // this.refreshClasses();
     }
 
     public get labelPosition(): LabelPosition {
@@ -64,7 +64,6 @@ export class ButtonComponent extends ButtonBaseComponent {
     public set pointing(value: Pointing) {
         this.pointingValue = value;
         this.classList.set('pointing', value);
-        this.refreshClasses();
     }
 
     @Input()
@@ -74,8 +73,8 @@ export class ButtonComponent extends ButtonBaseComponent {
 
     public set icon(value: string) {
         this.iconValue = value;
-        this.classList.set('icon', value);
-        this.refreshClasses();
+        this.classList.set('icon', !!value);
+        this.classList.set('iconLabeled', value ? 'labeled' : undefined);
     }
 
     @Input()
@@ -86,7 +85,6 @@ export class ButtonComponent extends ButtonBaseComponent {
     public set iconPosition(value: LabelPosition) {
         this.iconPositionValue = value;
         this.classList.set('iconPosition', value);
-        this.refreshClasses();
     }
 
     @Input()
@@ -97,7 +95,6 @@ export class ButtonComponent extends ButtonBaseComponent {
     public set social(value: string) {
         this.socialValue = value;
         this.classList.set('social', value);
-        this.refreshClasses();
     }
 
     @Input()
@@ -116,6 +113,6 @@ export class ButtonComponent extends ButtonBaseComponent {
         element: ElementRef<HTMLElement>
     ) {
         super(element);
-        this.classList.register('animation', 'animated', 'labelPosition', 'iconPosition', 'label', 'fluid', 'social');
+        this.classList.register('animation', 'animated', 'labelPosition', 'iconPosition', 'label', 'labeled', 'iconLabeled', 'fluid', 'social', 'icon');
     }
 }

@@ -31,6 +31,7 @@ export class FieldComponent extends BaseComponent {
     private errorValue: boolean;
     private hideInitialErrorValue = true;
     private isInline: boolean;
+    private isFill: boolean;
 
     public wasAnytimeValid = false;
     public readonly errors: FormError[] = [];
@@ -199,7 +200,7 @@ export class FieldComponent extends BaseComponent {
     @Input()
     @HostBinding('class.wide')
     public set size(value: FieldSize) {
-        const sizeNumber = value ? parseInt(value.toString()) : undefined;
+        const sizeNumber = value ? parseInt(value.toString(), 10) : undefined;
         if (sizeNumber && !Number.isNaN(sizeNumber)) {
             this.sizeValue = fieldSizes[value];
         }
@@ -207,7 +208,6 @@ export class FieldComponent extends BaseComponent {
             this.sizeValue = value;
         }
         this.classList.set('size', value);
-        this.refreshClasses();
     }
 
     public get error(): boolean {
@@ -215,7 +215,8 @@ export class FieldComponent extends BaseComponent {
     }
 
     @Input()
-    public set error(value: boolean) {
+    public set error(value: boolean | string) {
+        value = this.toBoolean(value);
         if (this.errorValue === value) {
             return;
         }
@@ -324,6 +325,16 @@ export class FieldComponent extends BaseComponent {
         this.hideInitialErrorValue = value;
     }
 
+    @Input()
+    @HostBinding('class.fill')
+    public get fill(): boolean | string {
+        return this.isFill;
+    }
+
+    public set fill(value: boolean | string) {
+        this.isFill = this.toBoolean(value);
+    }
+
     @HostBinding('class.field')
     public readonly field = true;
 
@@ -334,7 +345,7 @@ export class FieldComponent extends BaseComponent {
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef, false);
-        this.classList.register('size', 'disabled', 'readonly', 'inline');
+        this.classList.register('size', 'disabled', 'readonly', 'inline', 'label', 'fill', 'name');
     }
 
     public forceValidation(): void {

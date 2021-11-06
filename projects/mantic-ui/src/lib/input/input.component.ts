@@ -5,13 +5,15 @@ export declare type InputIconPosition =
     'left'
     | 'right';
 
+export declare type InputType = 'button' | 'checkbox' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'urlweek';
+
 @Component({
     selector: 'm-input',
     templateUrl: './input.component.html',
     styleUrls: ['./input.component.scss']
 })
 export class InputComponent extends LabeledBaseComponent {
-    private inputElement: ElementRef<HTMLInputElement>;
+    public inputElement: ElementRef<HTMLInputElement>;
     private readonlyValue: boolean;
     private disabledValue: boolean;
     private iconPositionValue: InputIconPosition;
@@ -44,7 +46,6 @@ export class InputComponent extends LabeledBaseComponent {
     public set iconPosition(value: InputIconPosition) {
         this.iconPositionValue = value;
         this.classList.set('iconPosition', value);
-        this.refreshClasses();
     }
 
     @Input()
@@ -81,7 +82,7 @@ export class InputComponent extends LabeledBaseComponent {
     }
 
     @Input()
-    @HostBinding('class.readonly')
+    @HostBinding('class.disabled')
     public set readonly(value: boolean | string) {
         this.readonlyValue = this.toBoolean(value);
         this.refreshInput();
@@ -109,8 +110,15 @@ export class InputComponent extends LabeledBaseComponent {
         this.refreshInput();
     }
 
+    @HostBinding('class.right')
+    @HostBinding('class.labeled')
+    @HostBinding('class.color')
+    public get isColor(): boolean {
+        return this.type === 'color';
+    }
+
     @Input()
-    public type: string;
+    public type: InputType;
 
     @Input()
     public placeholder: string;
@@ -119,7 +127,7 @@ export class InputComponent extends LabeledBaseComponent {
     public value: string;
 
     public get numericValue(): number {
-        return parseInt(this.value);
+        return parseInt(this.value, 10);
     }
 
     @Input()
@@ -187,6 +195,12 @@ export class InputComponent extends LabeledBaseComponent {
     @Output()
     public readonly keyPress = new EventEmitter<Event>();
 
+    @Output()
+    public readonly blur = new EventEmitter<FocusEvent>();
+
+    // @Output()
+    // public readonly focus = new EventEmitter<FocusEvent>();
+
     @HostBinding('class.input')
     public readonly input = true;
 
@@ -194,7 +208,7 @@ export class InputComponent extends LabeledBaseComponent {
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList.register('icon', 'focused', 'loading', 'disabled', 'readonly', 'transparent', 'fluid', 'hasError');
+        this.classList.register('icon', 'focused', 'loading', 'disabled', 'readonly', 'transparent', 'fluid', 'hasError', 'autofocus', 'placeholder', 'type');
     }
 
     private refreshFocus(): void {
@@ -224,6 +238,8 @@ export class InputComponent extends LabeledBaseComponent {
         this.inputElement.nativeElement.addEventListener('keydown', event => this.keyDown.emit(event));
         this.inputElement.nativeElement.addEventListener('keyup', event => this.keyUp.emit(event));
         this.inputElement.nativeElement.addEventListener('keyPress', event => this.keyPress.emit(event));
+        this.inputElement.nativeElement.addEventListener('blur', event => this.blur.emit(event));
+        // this.inputElement.nativeElement.addEventListener('focus', event => this.focus.emit(event));
     }
 
     public focus(): void {

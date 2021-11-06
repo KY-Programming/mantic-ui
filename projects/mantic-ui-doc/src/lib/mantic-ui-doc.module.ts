@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ManticUiModule } from '@mantic-ui/angular';
-import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
 import { ExampleCodeComponent } from './example-code/example-code.component';
 import { ExampleFrameComponent } from './example-frame/example-frame.component';
 import { ExampleComponent } from './example/example.component';
@@ -44,6 +44,7 @@ export function getHighlightLanguages(): unknown {
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: {
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
         languages: getHighlightLanguages()
       }
     }

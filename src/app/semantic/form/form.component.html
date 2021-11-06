@@ -62,13 +62,13 @@
                     </m-dropdown>
                 </m-field>
                 <m-field-group>
-                    <m-field label="Card Number" name="card[number]" size="7">
-                        <m-input placeholder="Card #" maxlength="16"></m-input>
+                    <m-field label="Card Number" name="card[number]" [size]="7">
+                        <m-input placeholder="Card #" [maxlength]="16"></m-input>
                     </m-field>
-                    <m-field size="3" name="card[cvc]" label="CVC">
-                        <m-input placeholder="CVC" maxlength="3"></m-input>
+                    <m-field [size]="3" name="card[cvc]" label="CVC">
+                        <m-input placeholder="CVC" [maxlength]="3"></m-input>
                     </m-field>
-                    <m-field size="6" label="Expiration">
+                    <m-field [size]="6" label="Expiration">
                         <m-field-group>
                             <m-field>
                                 <m-dropdown fluid search placeholder="Month">
@@ -87,7 +87,7 @@
                                 </m-dropdown>
                             </m-field>
                             <m-field name="card[expire-year]">
-                                <m-input maxlength="4" placeholder="Year"></m-input>
+                                <m-input [maxlength]="4" placeholder="Year"></m-input>
                             </m-field>
                         </m-field-group>
                     </m-field>
@@ -137,13 +137,13 @@
         <m-example [code]="code5">
             <m-form>
                 <m-field-group inline>
-                    <m-field name="first-name" label="Name" size="8">
+                    <m-field name="first-name" label="Name" [size]="8">
                         <m-input placeholder="First Name"></m-input>
                     </m-field>
-                    <m-field name="middle-name" size="3">
+                    <m-field name="middle-name" [size]="3">
                         <m-input placeholder="Middle Name"></m-input>
                     </m-field>
-                    <m-field name="last-name" size="5">
+                    <m-field name="last-name" [size]="5">
                         <m-input placeholder="Last Name"></m-input>
                     </m-field>
                 </m-field-group>

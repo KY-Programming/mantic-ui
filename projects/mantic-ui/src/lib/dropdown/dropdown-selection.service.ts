@@ -3,11 +3,11 @@ import { Subject } from 'rxjs';
 
 // Use this to solve circular dependency problem
 @Injectable()
-export class DropwDownSelectionService {
-    private readonly selectedSubject = new Subject<{ value: unknown, component: ElementRef }>();
+export class DropDownSelectionService {
+    private readonly selectedSubject = new Subject<unknown>();
     public readonly selected = this.selectedSubject.asObservable();
 
-    public select(value: unknown, component: ElementRef): void {
-        this.selectedSubject.next({ value, component });
+    public select(value: unknown): void {
+        this.selectedSubject.next(value);
     }
 }

@@ -1,0 +1,44 @@
+<ng-container *ngIf="data">
+    <ng-container *ngFor="let element of elements" [ngSwitch]="element.elementType">
+        <ng-container *ngSwitchCase="'input'">
+            <m-field *ngIf="element | mAsInput as input" [label]="input.label" [readonly]="input.readonly">
+                <m-input *ngIf="input.type !== 'number'" [type]="input.type" [(value)]="data[input.field]"></m-input>
+                <m-input *ngIf="input.type === 'number'" [type]="input.type" [(numericValue)]="data[input.field]"></m-input>
+            </m-field>
+        </ng-container>
+        <ng-container *ngSwitchCase="'checkbox'">
+            <m-field *ngIf="element | mAsCheckbox as checkbox" [label]="checkbox.label" [readonly]="checkbox.readonly">
+                <m-checkbox [(value)]="data[checkbox.field]"></m-checkbox>
+            </m-field>
+        </ng-container>
+        <ng-container *ngSwitchCase="'area'">
+            <m-field *ngIf="element | mAsArea as area" [label]="area.label" [readonly]="area.readonly">
+                <m-textarea [(value)]="data[area.field]"></m-textarea>
+            </m-field>
+        </ng-container>
+        <ng-container *ngSwitchCase="'dropdown'">
+            <m-field *ngIf="element | mAsDropDown as dropdown" [label]="dropdown.label" [disabled]="dropdown.readonly">
+                <m-dropdown [(value)]="data[dropdown.field]" [items]="getItems(dropdown.dataSource, dropdown.valueField, dropdown.textField) | async" [allowFreeText]="dropdown.allowFreeText" search></m-dropdown>
+            </m-field>
+        </ng-container>
+        <ng-container *ngSwitchCase="'button'">
+            <m-button *ngIf="element | mAsButton as button" [color]="button.color" (click)="onExecute(button.action)">{{button.label}}</m-button>
+        </ng-container>
+        <ng-container *ngSwitchCase="'label'">
+            <label *ngIf="element | mAsLabel as label">{{label.label}}</label>
+        </ng-container>
+        <ng-container *ngSwitchCase="'fields'">
+            <m-form-element-renderer *ngIf="element | mAsFields as fields" [elements]="fields.elements" [data]="data" (execute)="onExecute($event)" fields></m-form-element-renderer>
+        </ng-container>
+        <ng-container *ngSwitchCase="'grid'">
+            <m-grid *ngIf="element | mAsGrid as grid" [width]="grid.width">
+                <m-cell *ngFor="let cell of grid.cells" [float]="cell.float" [align]="cell.align" [size]="cell.size">
+                    <m-form-element-renderer [elements]="cell.elements" [data]="data" (execute)="onExecute($event)"></m-form-element-renderer>
+                </m-cell>
+            </m-grid>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+            <m-form-renderer2 [element]="element" [data]="data"></m-form-renderer2>
+        </ng-container>
+    </ng-container>
+</ng-container>

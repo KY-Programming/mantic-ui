@@ -19,13 +19,10 @@ export class IconButtonComponent extends ButtonBaseComponent {
     @HostBinding('class.social')
     public social: string;
 
-    @HostBinding('class.icon')
-    public readonly iconHost = true;
-
     public constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList.register('icon', 'social');
+        this.classList.register('icon', 'iconSize', 'social').registerFixed('icon');
     }
 }

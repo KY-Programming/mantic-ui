@@ -23,5 +23,6 @@ export class ExampleCodeComponent extends SegmentComponent {
     dimmableService: DimmableService
   ) {
     super(elementRef, dimmableService);
+    this.classList.register('label', 'code', 'languages');
   }
 }

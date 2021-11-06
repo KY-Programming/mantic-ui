@@ -1,311 +1,309 @@
 {
-    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-    "version": 1,
-    "newProjectRoot": "projects",
-    "projects": {
-        "documentation": {
-            "projectType": "application",
-            "schematics": {
-                "@schematics/angular:component": {
-                    "style": "scss",
-                    "skipTests": true
-                }
-            },
-            "root": "",
-            "sourceRoot": "src",
-            "prefix": "app",
-            "architect": {
-                "build": {
-                    "builder": "@angular-devkit/build-angular:browser",
-                    "options": {
-                        "outputPath": "dist",
-                        "index": "src/index.html",
-                        "main": "src/main.ts",
-                        "polyfills": "src/polyfills.ts",
-                        "tsConfig": "tsconfig.app.json",
-                        "preserveSymlinks": true,
-                        "aot": true,
-                        "assets": [
-                            "src/assets"
-                        ],
-                        "styles": [
-                            "node_modules/highlight.js/styles/github.css",
-                            "src/styles.scss"
-                        ],
-                        "scripts": []
-                    },
-                    "configurations": {
-                        "production": {
-                            "fileReplacements": [
-                                {
-                                    "replace": "src/environments/environment.ts",
-                                    "with": "src/environments/environment.prod.ts"
-                                }
-                            ],
-                            "optimization": true,
-                            "outputHashing": "all",
-                            "sourceMap": false,
-                            "namedChunks": false,
-                            "extractLicenses": true,
-                            "vendorChunk": false,
-                            "buildOptimizer": true
-                        }
-                    }
-                },
-                "serve": {
-                    "builder": "@angular-devkit/build-angular:dev-server",
-                    "options": {
-                        "port": 4086,
-                        "browserTarget": "documentation:build"
-                    },
-                    "configurations": {
-                        "production": {
-                            "browserTarget": "documentation:build:production"
-                        }
-                    }
-                },
-                "extract-i18n": {
-                    "builder": "@angular-devkit/build-angular:extract-i18n",
-                    "options": {
-                        "browserTarget": "documentation:build"
-                    }
-                },
-                "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
-                    "options": {
-                        "main": "src/test.ts",
-                        "polyfills": "src/polyfills.ts",
-                        "tsConfig": "tsconfig.spec.json",
-                        "karmaConfig": "karma.conf.js",
-                        "assets": [
-                            "src/assets"
-                        ],
-                        "styles": [
-                            "src/styles.scss"
-                        ],
-                        "scripts": []
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "tsconfig.app.json",
-                            "tsconfig.spec.json",
-                            "e2e/tsconfig.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**"
-                        ]
-                    }
-                },
-                "e2e": {
-                    "builder": "@angular-devkit/build-angular:protractor",
-                    "options": {
-                        "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "documentation:serve"
-                    },
-                    "configurations": {
-                        "production": {
-                            "devServerTarget": "documentation:serve:production"
-                        }
-                    }
-                }
-            }
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "mantic-ui-test": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true
         },
-        "semantic-ui": {
-            "projectType": "library",
-            "schematics": {
-                "@schematics/angular:component": {
-                    "style": "scss",
-                    "skipTests": true,
-                    "prefix": "m"
-                },
-                "@schematics/angular:directive": {
-                    "skipTests": true,
-                    "prefix": "m"
-                }
-            },
-            "root": "projects/semantic-ui",
-            "sourceRoot": "projects/semantic-ui/src",
-            "prefix": "lib",
-            "architect": {
-                "build": {
-                    "builder": "@angular-devkit/build-angular:ng-packagr",
-                    "options": {
-                        "tsConfig": "projects/semantic-ui/tsconfig.lib.json",
-                        "project": "projects/semantic-ui/ng-package.json"
-                    },
-                    "configurations": {
-                        "production": {
-                            "tsConfig": "projects/semantic-ui/tsconfig.lib.prod.json"
-                        }
-                    }
-                },
-                "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
-                    "options": {
-                        "main": "projects/semantic-ui/src/test.ts",
-                        "tsConfig": "projects/semantic-ui/tsconfig.spec.json",
-                        "karmaConfig": "projects/semantic-ui/karma.conf.js"
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "projects/semantic-ui/tsconfig.lib.json",
-                            "projects/semantic-ui/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**"
-                        ]
-                    }
-                }
-            }
+        "@schematics/angular:class": {
+          "skipTests": true
         },
-        "fomantic-ui": {
-            "projectType": "library",
-            "schematics": {
-                "@schematics/angular:component": {
-                    "style": "scss",
-                    "skipTests": true,
-                    "prefix": "m"
-                },
-                "@schematics/angular:directive": {
-                    "skipTests": true,
-                    "prefix": "m"
-                }
-            },
-            "root": "projects/fomantic-ui",
-            "sourceRoot": "projects/fomantic-ui/src",
-            "prefix": "lib",
-            "architect": {
-                "build": {
-                    "builder": "@angular-devkit/build-angular:ng-packagr",
-                    "options": {
-                        "tsConfig": "projects/fomantic-ui/tsconfig.lib.json",
-                        "project": "projects/fomantic-ui/ng-package.json"
-                    },
-                    "configurations": {
-                        "production": {
-                            "tsConfig": "projects/fomantic-ui/tsconfig.lib.prod.json"
-                        }
-                    }
-                },
-                "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
-                    "options": {
-                        "main": "projects/fomantic-ui/src/test.ts",
-                        "tsConfig": "projects/fomantic-ui/tsconfig.spec.json",
-                        "karmaConfig": "projects/fomantic-ui/karma.conf.js"
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "projects/fomantic-ui/tsconfig.lib.json",
-                            "projects/fomantic-ui/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**"
-                        ]
-                    }
-                }
-            }
+        "@schematics/angular:directive": {
+          "skipTests": true
         },
-        "mantic-ui": {
-            "projectType": "library",
-            "schematics": {
-                "@schematics/angular:component": {
-                    "style": "scss",
-                    "skipTests": true,
-                    "prefix": "m"
-                },
-                "@schematics/angular:directive": {
-                    "skipTests": true,
-                    "prefix": "m"
-                }
-            },
-            "root": "projects/mantic-ui",
-            "sourceRoot": "projects/mantic-ui/src",
-            "prefix": "lib",
-            "architect": {
-                "build": {
-                    "builder": "@angular-devkit/build-angular:ng-packagr",
-                    "options": {
-                        "tsConfig": "projects/mantic-ui/tsconfig.lib.json",
-                        "project": "projects/mantic-ui/ng-package.json"
-                    },
-                    "configurations": {
-                        "production": {
-                            "tsConfig": "projects/mantic-ui/tsconfig.lib.prod.json"
-                        }
-                    }
-                },
-                "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
-                    "options": {
-                        "main": "projects/mantic-ui/src/test.ts",
-                        "tsConfig": "projects/mantic-ui/tsconfig.spec.json",
-                        "karmaConfig": "projects/mantic-ui/karma.conf.js"
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "projects/mantic-ui/tsconfig.lib.json",
-                            "projects/mantic-ui/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**"
-                        ]
-                    }
-                }
-            }
+        "@schematics/angular:guard": {
+          "skipTests": true
         },
-        "mantic-ui-doc": {
-            "projectType": "library",
-            "root": "projects/mantic-ui-doc",
-            "sourceRoot": "projects/mantic-ui-doc/src",
-            "prefix": "lib",
-            "architect": {
-                "build": {
-                    "builder": "@angular-devkit/build-angular:ng-packagr",
-                    "options": {
-                        "tsConfig": "projects/mantic-ui-doc/tsconfig.lib.json",
-                        "project": "projects/mantic-ui-doc/ng-package.json"
-                    },
-                    "configurations": {
-                        "production": {
-                            "tsConfig": "projects/mantic-ui-doc/tsconfig.lib.prod.json"
-                        }
-                    }
-                },
-                "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
-                    "options": {
-                        "main": "projects/mantic-ui-doc/src/test.ts",
-                        "tsConfig": "projects/mantic-ui-doc/tsconfig.spec.json",
-                        "karmaConfig": "projects/mantic-ui-doc/karma.conf.js"
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "projects/mantic-ui-doc/tsconfig.lib.json",
-                            "projects/mantic-ui-doc/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**"
-                        ]
-                    }
-                }
-            }
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        },
+        "@schematics/angular:application": {
+          "strict": true
         }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/mantic-ui-test",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "./projects/semantic-ui/assets",
+                "output": "/assets/"
+              },
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "tsConfig": "./tsconfig.dev.json",
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "mantic-ui-test:build:production"
+            },
+            "development": {
+              "port": 4086,
+              "browserTarget": "mantic-ui-test:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "mantic-ui-test:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
+        }
+      }
     },
-    "defaultProject": "documentation"
+    "fomantic-ui": {
+      "projectType": "library",
+      "root": "projects/fomantic-ui",
+      "sourceRoot": "projects/fomantic-ui/src",
+      "prefix": "m",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/fomantic-ui/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/fomantic-ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/fomantic-ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/fomantic-ui/src/test.ts",
+            "tsConfig": "projects/fomantic-ui/tsconfig.spec.json",
+            "karmaConfig": "projects/fomantic-ui/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/fomantic-ui/**/*.ts",
+              "projects/fomantic-ui/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "mantic-ui": {
+      "projectType": "library",
+      "root": "projects/mantic-ui",
+      "sourceRoot": "projects/mantic-ui/src",
+      "prefix": "m",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/mantic-ui/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/mantic-ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/mantic-ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/mantic-ui/src/test.ts",
+            "tsConfig": "projects/mantic-ui/tsconfig.spec.json",
+            "karmaConfig": "projects/mantic-ui/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/mantic-ui/**/*.ts",
+              "projects/mantic-ui/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "semantic-ui": {
+      "projectType": "library",
+      "root": "projects/semantic-ui",
+      "sourceRoot": "projects/semantic-ui/src",
+      "prefix": "m",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/semantic-ui/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/semantic-ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/semantic-ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/semantic-ui/src/test.ts",
+            "tsConfig": "projects/semantic-ui/tsconfig.spec.json",
+            "karmaConfig": "projects/semantic-ui/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/semantic-ui/**/*.ts",
+              "projects/semantic-ui/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "mantic-ui-doc": {
+      "projectType": "library",
+      "root": "projects/mantic-ui-doc",
+      "sourceRoot": "projects/mantic-ui-doc/src",
+      "prefix": "m",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/mantic-ui-doc/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/mantic-ui-doc/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/mantic-ui-doc/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/mantic-ui-doc/src/test.ts",
+            "tsConfig": "projects/mantic-ui-doc/tsconfig.spec.json",
+            "karmaConfig": "projects/mantic-ui-doc/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/mantic-ui-doc/**/*.ts",
+              "projects/mantic-ui-doc/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "mantic-ui-test",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
