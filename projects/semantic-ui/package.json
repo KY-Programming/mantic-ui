@@ -1,6 +1,6 @@
 {
   "name": "@mantic-ui/semantic-ui-angular",
-  "version": "13.0.0-preview.14",
+  "version": "13.0.0",
   "description": "Semantic UI Angular theme for mantic UI",
   "author": "KY-Programming",
   "license": "MIT",
@@ -11,15 +11,10 @@
     "Semantic-UI",
     "theme"
   ],
-  "scripts": {
-    "postbuild": "npm run copy-assets",
-    "copy-assets": "",
-    "copy-assets2": "mkdir ..\\..\\dist\\semantic-ui\\assets & xcopy /Y src\\assets ..\\..\\dist\\semantic-ui\\assets /S"
-  },
   "peerDependencies": {
     "@angular/common": "8 - 13",
     "@angular/core": "8 - 13",
-    "@mantic-ui/angular": "13.0.0"
+    "@mantic-ui/angular": "~13.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

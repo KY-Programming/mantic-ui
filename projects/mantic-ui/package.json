@@ -1,6 +1,6 @@
 {
   "name": "@mantic-ui/angular",
-  "version": "13.0.0-preview.0",
+  "version": "13.0.0",
   "description": "mantic UI for Angular",
   "author": "KY-Programming",
   "license": "MIT",
@@ -9,9 +9,6 @@
     "mantic UI",
     "Angular"
   ],
-  "scripts": {
-    "postbuild": ""
-  },
   "peerDependencies": {
     "@angular/common": "8 - 13",
     "@angular/core": "8 - 13",

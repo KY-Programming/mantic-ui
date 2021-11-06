@@ -6,20 +6,20 @@
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     //"strict": true,
-//    "paths": {
-//      "@mantic-ui/fomantic-ui": [
-//        "dist/fomantic-ui"
-//      ],
-//      "@mantic-ui/angular": [
-//        "dist/mantic-ui"
-//      ],
-//      "@mantic-ui/angular-doc": [
-//        "dist/mantic-ui-doc"
-//      ],
-//      "@mantic-ui/semantic-ui": [
-//        "dist/semantic-ui"
-//      ]
-//    },
+    "paths": {
+      "@mantic-ui/fomantic-ui": [
+        "dist/fomantic-ui"
+      ],
+      "@mantic-ui/angular": [
+        "dist/mantic-ui"
+      ],
+      "@mantic-ui/angular-doc": [
+        "dist/mantic-ui-doc"
+      ],
+      "@mantic-ui/semantic-ui": [
+        "dist/semantic-ui"
+      ]
+    },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,

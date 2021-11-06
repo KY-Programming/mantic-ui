@@ -1,24 +1,12 @@
-# ManticUiDoc
+# Documentation Components for mantic UI
+mantic UI Documentation components for Angular
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.0.
+Requires [@mantic-ui/angular](https://www.npmjs.com/package/@mantic-ui/angular)
 
-## Code scaffolding
+## Work-In-Progress
+Currently we are heavily working to get all components and features implemented.
 
-Run `ng generate component component-name --project mantic-ui-doc` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project mantic-ui-doc`.
-> Note: Don't forget to add `--project mantic-ui-doc` or else it will be added to the default project in your `angular.json` file. 
+To support us, fork us at [github](https://github.com/KY-Programming/mantic-ui)
 
-## Build
-
-Run `ng build mantic-ui-doc` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build mantic-ui-doc`, go to the dist folder `cd dist/mantic-ui-doc` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test mantic-ui-doc` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Documentation
+Check out the [documentation](https://mantic-ui.ky-programming.de)
