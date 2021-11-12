@@ -72,7 +72,8 @@ const routes: Routes = [
       { path: 'grid/:tab', component: SemanticGridComponent },
       { path: 'form', redirectTo: 'form/', pathMatch: 'full' },
       { path: 'form/:tab', component: SemanticFormComponent },
-      { path: 'test', component: SemanticTestComponent },
+      { path: 'test', redirectTo: 'test/', pathMatch: 'full' },
+      { path: 'test/:tab', component: SemanticTestComponent },
       { path: '**', redirectTo: 'start' }
     ]
   },

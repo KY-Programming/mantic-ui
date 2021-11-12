@@ -2,6 +2,7 @@ import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { LabelPosition } from './label-position';
 import { BaseComponent } from '../base/base.component';
 import { ColorName } from '../models/color';
+import { LabelOptions } from '../models/label-options';
 
 export declare type LabelPointing =
     'left'
@@ -15,7 +16,7 @@ export declare type LabelPointing =
     templateUrl: './label.component.html',
     styleUrls: ['./label.component.scss']
 })
-export class LabelComponent extends BaseComponent {
+export class LabelComponent extends BaseComponent implements LabelOptions {
     private positionValue: LabelPosition;
     private pointingValue: LabelPointing;
     private isBasic: boolean;

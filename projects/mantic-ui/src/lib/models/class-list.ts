@@ -79,7 +79,7 @@ export class ClassList {
             if (this.last.has(key)) {
                 this.last.get(key).forEach(x => classList.remove(x));
             }
-            const values = value.split(' ');
+            const values = value.split(' ').filter(x => !!x);
             classList.add(...values);
             this.last.set(key, values);
         }

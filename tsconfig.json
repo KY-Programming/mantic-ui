@@ -7,7 +7,7 @@
     "forceConsistentCasingInFileNames": true,
     //"strict": true,
     "paths": {
-      "@mantic-ui/fomantic-ui": [
+      "@mantic-ui/fomantic-ui-angular": [
         "dist/fomantic-ui"
       ],
       "@mantic-ui/angular": [
@@ -16,7 +16,7 @@
       "@mantic-ui/angular-doc": [
         "dist/mantic-ui-doc"
       ],
-      "@mantic-ui/semantic-ui": [
+      "@mantic-ui/semantic-ui-angular": [
         "dist/semantic-ui"
       ]
     },

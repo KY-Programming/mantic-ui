@@ -22,6 +22,7 @@ export class InputComponent extends LabeledBaseComponent {
     private fluidValue: boolean;
     private hasErrorValue: boolean;
     private isAutoFocused: boolean;
+    private typeValue: InputType;
 
     @ContentChild('input')
     public set contentInputElement(input: ElementRef<HTMLInputElement>) {
@@ -110,15 +111,21 @@ export class InputComponent extends LabeledBaseComponent {
         this.refreshInput();
     }
 
-    @HostBinding('class.right')
-    @HostBinding('class.labeled')
     @HostBinding('class.color')
-    public get isColor(): boolean {
-        return this.type === 'color';
-    }
+    public isColor: boolean;
 
     @Input()
-    public type: InputType;
+    public get type(): InputType {
+        return this.typeValue;
+    }
+
+    public set type(value: InputType) {
+        this.typeValue = value;
+        this.isColor = value === 'color';
+        if (this.isColor) {
+            this.label = { position: 'right' };
+        }
+    }
 
     @Input()
     public placeholder: string;

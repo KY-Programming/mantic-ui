@@ -50,6 +50,7 @@ export * from './lib/helpers/external-route-data';
 export * from './lib/helpers/external-route.component';
 export * from './lib/helpers/lower-case-url-serializer';
 export * from './lib/helpers/lower-case-url-serializer.module';
+export * from './lib/helpers/object-helper';
 export * from './lib/icon-button/icon-button.component';
 export * from './lib/icon/icon.component';
 export * from './lib/info/info.component';

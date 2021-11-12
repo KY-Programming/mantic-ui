@@ -220,6 +220,7 @@ import { DocumentTitleComponent } from './document-title/document-title.componen
         RouterModule
     ],
     exports: [
+        DestroyableComponent,
         ButtonComponent,
         ToggleButtonComponent,
         ButtonGroupComponent,

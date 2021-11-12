@@ -27,7 +27,7 @@ export class AppModule { }`;
 </m-semantic-ui-theme>`;
 
   public readonly angularJson = ` "projects": {
-    "generator": {
+    "<your-project-name>": {
       "architect": {
         "build": {
           "options": {
