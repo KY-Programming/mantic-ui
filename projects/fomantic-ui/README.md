@@ -9,7 +9,7 @@ Requires [@mantic-ui/angular](https://www.npmjs.com/package/@mantic-ui/angular)
 ## Example
 A common button with some styling
 
-![Example of a common button](https://github.com/KY-Programming/mantic-ui/blob/master/projects/mantic-ui/example.png?raw=true)
+![Example of a common button](https://raw.githubusercontent.com/KY-Programming/mantic-ui/master/projects/fomantic-ui/example.png)
 
 ````
 <m-button primary (click)="...">
