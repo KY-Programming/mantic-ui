@@ -1,27 +1,95 @@
-# ManticUi
+# mantic UI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.1.
+| [Documentation](https://mantic-ui.ky-programming.de/semantic) | [Github Repository](https://github.com/KY-Programming/mantic-ui) | [Support](https://support.ky-programming.de/) |
 
-## Development server
+Angular components for [Semantic UI](https://semantic-ui.com/) and [Fomantic UI](https://fomantic-ui.com/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Repository Info
 
-## Code scaffolding
+This is the code for the test and documentation Angular application.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The core Angular components are here: [/projects/mantic-ui](https://github.com/KY-Programming/mantic-ui/tree/master/projects/mantic-ui)
 
-## Build
+The Semantic UI Theme is here: [/projects/semantic-ui](https://github.com/KY-Programming/mantic-ui/tree/master/projects/semantic-ui)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+The Fomantic UI Theme is here: [/projects/fomantic-ui](https://github.com/KY-Programming/mantic-ui/tree/master/projects/fomantic-ui)
 
-## Running unit tests
+## Getting Started with Semantic UI Theme
+Install base package for angular and Semantic UI theme
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+npm i @mantic-ui/angular @mantic-ui/semantic-ui-angular 
+```
 
-## Running end-to-end tests
+### Import theme in AppModule
+app.module.ts
+```
+import { SemanticUiModule } from '@mantic-ui/semantic-ui-angular';
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+@NgModule({
+  imports: [
+    ...
+    SemanticUiModule
+  ]
+})
+export class AppModule { }
+```
 
-## Further help
+### Apply style in AppComponent
+app.component.html
+```
+<m-semantic-ui-theme>
+    <!-- Import common styles for site -->
+    <m-semantic-ui-site></m-semantic-ui-site>
+    <!-- Import reset to normalize values for CSS properties -->
+    <m-semantic-ui-reset></m-semantic-ui-reset>
+    <!-- Import local hosted lato font -->
+    <m-semantic-ui-lato-local></m-semantic-ui-lato-local>
+</m-semantic-ui-theme>
+```
+As alternative for <m-semantic-ui-theme>, you can use a CDN
+```
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+```
+Or install via [Semantic Docs](https://semantic-ui.com/introduction/getting-started.html)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Configure package assets usage
+angular.json
+```
+ "projects": {
+    "<your-project-name>": {
+      "architect": {
+        "build": {
+          "options": {
+            "assets": [
+              // Copy all package assets to app asset folder on build
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@mantic-ui/semantic-ui-angular/assets",
+                "output": "/assets/"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+```
+
+### Credits
+Original css from [Semantic UI](https://semantic-ui.com/)
+
+## Getting Started with Fomantic UI Theme
+The Fomantic UI theme is not yet ready. So it is not published. If you are interested, do not hesitate to write us and we try to get it ready soon! 
+
+### Credits
+Original css from [Fomantic UI](https://fomantic-ui.com/)
+
+## Work-in-progress
+Currently we are not yet done. So please do not expect a perfect framework
+
+If you have a issue, look in our [issue tracker on github](https://github.com/KY-Programming/mantic-ui/issues)
+
+To support us fork our [github repository](https://github.com/KY-Programming/mantic-ui)
+
+[Direct contact](https://support.ky-programming.de/) (German, English) via [email](https://mail.support.ky-programming.de/), [WhatsApp](https://whatsapp.support.ky-programming.de/) or join our [Discord server](https://discord.mantic-ui.ky-programming.de/)

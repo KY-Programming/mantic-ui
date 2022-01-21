@@ -1,9 +1,7 @@
 {
   "name": "@mantic-ui/fomantic-ui-angular",
   "version": "13.0.0",
-  "description": "Fomantic UI Angular theme for mantic UI",
-  "author": "KY-Programming",
-  "license": "MIT",
+  "description": "Fomantic UI Angular theme for mantic UI. Requires @mantic-ui/angular",
   "keywords": [
     "mantic-ui",
     "mantic UI",
@@ -11,6 +9,31 @@
     "Fomantic-UI",
     "theme"
   ],
+  "homepage": "https://mantic-ui.ky-programming.de/fomantic",
+  "bugs": {
+    "url": "https://github.com/KY-Programming/mantic-ui",
+    "email": "support@ky-programming.de"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "KY-Programming",
+    "email": "hi@ky-programming.de",
+    "url": "https://ky-programming.de"
+  },
+  "funding": [
+    {
+      "type": "patreon",
+      "url": "https://www.patreon.com/kylst"
+    },
+    {
+      "type": "paypal",
+      "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VFPAP4MKV654A&source=url"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KY-Programming/mantic-ui.git"
+  },
   "peerDependencies": {
     "@angular/common": "8 - 13",
     "@angular/core": "8 - 13",

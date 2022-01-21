@@ -7,6 +7,8 @@ import { ExampleFrameComponent } from './example-frame/example-frame.component';
 import { ExampleComponent } from './example/example.component';
 import { NugetInstallComponent } from './nuget-install/nuget-install.component';
 import { NugetComponent } from './nuget/nuget.component';
+import { NpmComponent } from './npm/npm.component';
+import { NpmInstallComponent } from './npm-install/npm-install.component';
 
 // tslint:disable-next-line: only-arrow-functions
 export function getHighlightLanguages(): unknown {
@@ -26,7 +28,9 @@ export function getHighlightLanguages(): unknown {
     ExampleCodeComponent,
     ExampleFrameComponent,
     NugetComponent,
-    NugetInstallComponent
+    NugetInstallComponent,
+    NpmComponent,
+    NpmInstallComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +42,9 @@ export function getHighlightLanguages(): unknown {
     ExampleCodeComponent,
     ExampleFrameComponent,
     NugetComponent,
-    NugetInstallComponent
+    NugetInstallComponent,
+    NpmComponent,
+    NpmInstallComponent
   ],
   providers: [
     {

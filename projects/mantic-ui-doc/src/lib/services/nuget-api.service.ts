@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, ReplaySubject } from 'rxjs';
-import { NugetPackageResponse, NugetPackageVersion, sortByPackageVersionDesc } from '../models/nuget-package-response';
+import { NugetPackageResponse, sortByPackageVersionDesc } from '../models/nuget-package-response';
 import { map } from 'rxjs/operators';
+import { NugetPackageVersion } from '../models/nuget-package.version';
 
 @Injectable({
     providedIn: 'root'

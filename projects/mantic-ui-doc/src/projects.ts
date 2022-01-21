@@ -4,4 +4,6 @@ export * from './lib/example/example.component';
 export * from './lib/mantic-ui-doc.module';
 export * from './lib/nuget-install/nuget-install.component';
 export * from './lib/nuget/nuget.component';
+export * from './lib/npm/npm.component';
+export * from './lib/npm-install/npm-install.component';
 

@@ -3,6 +3,10 @@
   height: 100%;
 }
 
+m-flex.ui.vertical.menu {
+  display: flex;
+}
+
 // m-menu {
 //     display: flex;
 //     flex: 0 0 auto;
@@ -13,6 +17,12 @@
   display: flex;
   flex: 0 0 auto;
   margin: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  &.vertical {
+    width: 16rem;
+  }
 }
 
 .ui.logo {
@@ -22,6 +32,9 @@
 
 // }
 
+.footer {
+  font-size: 0.75em;
+}
 
 .content {
   flex: 1;

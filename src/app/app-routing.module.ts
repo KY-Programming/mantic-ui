@@ -30,6 +30,9 @@ import { SemanticStartComponent } from './semantic/start/start.component';
 import { SemanticTabComponent } from './semantic/tab/tab.component';
 import { SemanticTestComponent } from './semantic/test/test.component';
 import { SemanticToggleComponent } from './semantic/toggle/toggle.component';
+import { SemanticLicenseComponent } from './semantic/license/license.component';
+import { SemanticCreditsComponent } from './semantic/credits/credits.component';
+import { SemanticExpanderComponent } from './semantic/expander/expander.component';
 
 const routes: Routes = [
   { path: '', component: IntroComponent },
@@ -72,6 +75,12 @@ const routes: Routes = [
       { path: 'grid/:tab', component: SemanticGridComponent },
       { path: 'form', redirectTo: 'form/', pathMatch: 'full' },
       { path: 'form/:tab', component: SemanticFormComponent },
+      { path: 'license', redirectTo: 'license/', pathMatch: 'full' },
+      { path: 'license/:tab', component: SemanticLicenseComponent },
+      { path: 'credits', redirectTo: 'credits/', pathMatch: 'full' },
+      { path: 'credits/:tab', component: SemanticCreditsComponent },
+      { path: 'expander', redirectTo: 'expander/', pathMatch: 'full' },
+      { path: 'expander/:tab', component: SemanticExpanderComponent },
       { path: 'test', redirectTo: 'test/', pathMatch: 'full' },
       { path: 'test/:tab', component: SemanticTestComponent },
       { path: '**', redirectTo: 'start' }

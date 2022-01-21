@@ -51,12 +51,12 @@ export class InputComponent extends LabeledBaseComponent {
 
     @Input()
     @HostBinding('class.icon')
-    public icon: string;
+    public icon: string | undefined;
 
     @HostBinding('class.focus')
     public focused: boolean;
 
-    public get loading(): boolean | string {
+    public get loading(): boolean {
         return this.loadingValue;
     }
 
@@ -67,7 +67,7 @@ export class InputComponent extends LabeledBaseComponent {
         this.refreshInput();
     }
 
-    public get disabled(): boolean | string {
+    public get disabled(): boolean {
         return this.disabledValue;
     }
 
@@ -78,7 +78,7 @@ export class InputComponent extends LabeledBaseComponent {
         this.refreshInput();
     }
 
-    public get readonly(): boolean | string {
+    public get readonly(): boolean {
         return this.readonlyValue;
     }
 
@@ -89,7 +89,7 @@ export class InputComponent extends LabeledBaseComponent {
         this.refreshInput();
     }
 
-    public get hasError(): boolean | string {
+    public get hasError(): boolean {
         return this.hasErrorValue;
     }
 
@@ -100,7 +100,7 @@ export class InputComponent extends LabeledBaseComponent {
         this.refreshInput();
     }
 
-    public get transparent(): boolean | string {
+    public get transparent(): boolean {
         return this.transparentValue;
     }
 
@@ -128,31 +128,31 @@ export class InputComponent extends LabeledBaseComponent {
     }
 
     @Input()
-    public placeholder: string;
+    public placeholder: string | undefined;
 
     @Input()
-    public value: string;
+    public value: string | undefined;
 
-    public get numericValue(): number {
+    public get numericValue(): number | undefined {
         return parseInt(this.value, 10);
     }
 
     @Input()
-    public set numericValue(value: number) {
+    public set numericValue(value: number | undefined) {
         this.value = value === undefined ? undefined : value.toString();
     }
 
-    public get dateValue(): Date {
-        return new Date(this.value);
+    public get dateValue(): Date | undefined {
+        return this.value ? new Date(this.value) : undefined;
     }
 
     @Input()
-    public set dateValue(value: Date) {
+    public set dateValue(value: Date | undefined) {
         // this.value = value === undefined ? undefined : value.toISOString().replace('T', ' ').replace('Z', '');
         this.value = value === undefined ? undefined : value.toISOString().split('T')[0];
     }
 
-    public get fluid(): boolean | string {
+    public get fluid(): boolean {
         return this.fluidValue;
     }
 
@@ -170,28 +170,28 @@ export class InputComponent extends LabeledBaseComponent {
     }
 
     @Input()
-    public min: number;
+    public min: number | undefined;
 
     @Input()
-    public max: number;
+    public max: number | undefined;
 
     @Input()
-    public name: string;
+    public name: string | undefined;
 
     @Input()
-    public for: string;
+    public for: string | undefined;
 
     @Input()
-    public maxlength: number;
+    public maxlength: number | undefined;
 
     @Output()
-    public readonly valueChange = new EventEmitter<string>();
+    public readonly valueChange = new EventEmitter<string | undefined>();
 
     @Output()
-    public readonly numericValueChange = new EventEmitter<number>();
+    public readonly numericValueChange = new EventEmitter<number | undefined>();
 
     @Output()
-    public readonly dateValueChange = new EventEmitter<Date>();
+    public readonly dateValueChange = new EventEmitter<Date | undefined>();
 
     @Output()
     public readonly keyDown = new EventEmitter<KeyboardEvent>();

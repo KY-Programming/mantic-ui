@@ -1,20 +1,30 @@
 import { Directive, ElementRef, Input } from '@angular/core';
+import { BaseDirective } from '../base/base.directive';
 
 @Directive({
     selector: '[m-menu-item]'
 })
 // TODO: Implement
-export class MenuItemDirective /*extends MenuItemComponent*/ {
+export class MenuItemDirective /*extends MenuItemComponent*/ extends BaseDirective {
+    private isActive: boolean;
 
     @Input()
-    public active = false;
+    public get active(): boolean {
+        return this.isActive;
+    }
+
+    public set active(value: string | boolean) {
+        this.isActive = this.toBoolean(value);
+        this.classList.set('active', this.isActive);
+    }
+
 
     constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
-        // super(elementRef);
-        // this.classList
-        //     .register('active')
-        //     .registerFixed('item', Number.MAX_VALUE - 1);
+        super(elementRef);
+        this.classList
+            .register('active')
+            .registerFixed('item');
     }
 }

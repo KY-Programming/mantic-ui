@@ -24,6 +24,8 @@ export class AppModule { }`;
     <m-semantic-ui-reset></m-semantic-ui-reset>
     <!-- Import local hosted lato font -->
     <m-semantic-ui-lato-local></m-semantic-ui-lato-local>
+    <!-- Import local hosted icons -->
+    <m-semantic-ui-icons-local></m-semantic-ui-icons-local>
 </m-semantic-ui-theme>`;
 
   public readonly angularJson = ` "projects": {

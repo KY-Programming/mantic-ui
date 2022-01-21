@@ -21,7 +21,7 @@
           {
             "type": "attribute",
             "prefix": "m",
-            "style": "camelCase"
+            "style": "kebab-case"
           }
         ],
         "@angular-eslint/component-selector": [

@@ -6,6 +6,7 @@ import { SemanticUiSiteComponent } from './semantic-ui-site/semantic-ui-site.com
 import { SemanticUiResetComponent } from './semantic-ui-reset/semantic-ui-reset.component';
 import { SemanticUiLatoLocalComponent } from './semantic-ui-lato-local/semantic-ui-lato-local.component';
 import { SemanticUiLatoGoogleapiComponent } from './semantic-ui-lato-googleapi/semantic-ui-lato-googleapi.component';
+import { SemanticUiIconsLocalComponent } from './semantic-ui-icons-local/semantic-ui-icons-local.component';
 
 @NgModule({
     declarations: [
@@ -13,7 +14,8 @@ import { SemanticUiLatoGoogleapiComponent } from './semantic-ui-lato-googleapi/s
         SemanticUiSiteComponent,
         SemanticUiResetComponent,
         SemanticUiLatoLocalComponent,
-        SemanticUiLatoGoogleapiComponent
+        SemanticUiLatoGoogleapiComponent,
+        SemanticUiIconsLocalComponent
     ],
     imports: [
         CommonModule,
@@ -25,7 +27,8 @@ import { SemanticUiLatoGoogleapiComponent } from './semantic-ui-lato-googleapi/s
         SemanticUiSiteComponent,
         SemanticUiResetComponent,
         SemanticUiLatoLocalComponent,
-        SemanticUiLatoGoogleapiComponent
+        SemanticUiLatoGoogleapiComponent,
+        SemanticUiIconsLocalComponent
     ]
 })
 export class SemanticUiModule {}

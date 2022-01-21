@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Inject, Input } from '@angular/core';
+import { Component, ElementRef, Inject, Input, Optional } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
@@ -10,7 +10,7 @@ export class MenuItemComponent extends BaseComponent {
     private isActive: boolean;
 
     @Input()
-    public get active(): boolean | string {
+    public get active(): boolean {
         return this.isActive;
     }
 
@@ -21,7 +21,7 @@ export class MenuItemComponent extends BaseComponent {
 
     constructor(
         elementRef: ElementRef<HTMLElement>,
-        @Inject('none') useUiClass = true
+        @Optional() @Inject('none') useUiClass = true
     ) {
         super(elementRef, useUiClass);
         this.classList.register('active').registerFixed('item');

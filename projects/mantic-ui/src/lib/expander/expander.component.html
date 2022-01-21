@@ -1,0 +1,10 @@
+<div class="title" [class.active]="expanded" (click)="toggle()">
+    <m-icon icon="dropdown icon"></m-icon>
+    <ng-container *ngIf="headerTemplate else defaultTitle" [ngTemplateOutlet]="headerTemplate.template"></ng-container>
+    <ng-template #defaultTitle>
+        {{header}}
+    </ng-template>
+</div>
+<div class="content" [class.active]="expanded">
+    <ng-content></ng-content>
+</div>

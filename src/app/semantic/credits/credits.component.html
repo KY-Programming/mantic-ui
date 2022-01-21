@@ -1,0 +1,20 @@
+<h1 m-header>
+    Credits
+    <div class="sub header">
+        We use these 3d party software
+    </div>
+</h1>
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab m-flex="column" label="3d party software">
+        <m-expander *ngFor="let entry of licenses">
+            <m-expander-header>
+                {{entry.name}}
+                <ng-container *ngIf="entry.licenses.length === 1"> - <span class="hint">{{entry.licenses[0].type}}</span></ng-container>
+            </m-expander-header>
+            <div *ngFor="let license of entry.licenses">
+                <pre>{{license.text}}</pre>
+            </div>
+        </m-expander>
+        <m-loader *ngIf="isLoading"></m-loader>
+    </m-tab>
+</m-tab-group>

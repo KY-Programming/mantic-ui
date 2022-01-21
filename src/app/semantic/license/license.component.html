@@ -1,0 +1,92 @@
+<h1 m-header>
+    License
+    <div class="sub header">
+        Generate license information from your project
+    </div>
+</h1>
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Use license-to-json">
+        <p><code>license-to-json</code> or <code>l2j</code> is a nodejs script to extract license information from all used packages into a single json file. As an alternative to <code>ng build --extract-licenses</code> not only the plain text is extracted an concated together, it collect missing license information like the license text automatically from the npm package, git repository or spdx (a list of common licenses) and put into a readable json file. Some helper classes prepare everything to use it as easy and beautiful as possible in your frontend</p>
+        <p>To use it, install <m-npm package="license-to-json"></m-npm> package</p>
+        <p><m-npm-install package="license-to-json" dev></m-npm-install></p>
+        <p>Run this command where your package.json lays:</p>
+        <m-example-code>license-to-json</m-example-code>
+        <p>When you use Angular, you can put it into a script, to run before build</p>
+        <m-example-code label="package.json" [code]="angular" [languages]="['json']"></m-example-code>
+        <p>This creates a <code>3d-party-licenses.json</code> file beside your <code>package.json</code></p>
+        <p>To move it to another output location, use the <code>-output=...</code> option.</p>
+        <m-example-code>ltj -output="src/assets/3d-party-licenses.json</m-example-code>
+        <m-info>You can use <code>ltj</code> instead of <code>license-to-json</code></m-info>
+        <p>The result looks like this:</p>
+        <m-example-code label="3d-party-licenses.json" [code]="output" [languages]="['json']"></m-example-code>
+        <p>Additional parameters:</p>
+        <m-table>
+            <tr>
+                <td>-path=...</td>
+                <td>Path to folder where the package.json and node_modules can be found. Path with blanks has to be enclosed with &quot; like <code>-path=&quot;test path/sub&quot;</code></td>
+                <td>Optional</td>
+            </tr>
+            <tr>
+                <td>-node-modules=...</td>
+                <td>Path to the node_modules folder</td>
+                <td>Optional</td>
+            </tr>
+            <tr>
+                <td>-package-lock=...</td>
+                <td>Path to the package-lock.json</td>
+                <td>Optional</td>
+            </tr>
+            <tr>
+                <td>-unlicense=...</td>
+                <td>License name for packages without licenses. Default: unlicense</td>
+                <td>Optional</td>
+            </tr>
+            <tr>
+                <td>-auth-token=...</td>
+                <td>The token to authenticate against github. This is required if you try to fetch a long list of packages. Then it can happens that github blocks unauthenticated request after a defined limit. The token requires no rights (you can leave all checkboxes blank).</td>
+                <td>Optional</td>
+            </tr>
+            <tr>
+                <td>-output=...</td>
+                <td>Path to the output file. Has to end with .json</td>
+                <td>Optional</td>
+            </tr>
+            <tr>
+                <td>-no-auto-detect</td>
+                <td>Disables the search in npm package folder. If this option is set the script will not search for license file in your local node_modules folder</td>
+                <td>Optional</td>
+            </tr>
+            <tr>
+                <td>-no-repository</td>
+                <td>Disables the search in git repository. If this option is set the script will not search for license file in the packages git repository</td>
+                <td>Optional</td>
+            </tr>
+            <tr>
+                <td>-no-spdx</td>
+                <td>Disables the search in spdx database. If this option is set the script will not search for license file in the spdx database</td>
+                <td>Optional</td>
+            </tr>
+            <tr>
+                <td>-no-cache</td>
+                <td>Disables the load of previous saved information. If this option is set the script will not load the previous saved 3d-party-licenses.json and will overwrite it completely</td>
+                <td>Optional</td>
+            </tr>
+            <tr>
+                <td>-no-cleanup</td>
+                <td>Disables the cleanup of licenses. If this option is set the script will not merge duplicated licenses and will not remove unnecessary licenses</td>
+                <td>Optional</td>
+            </tr>
+            <tr>
+                <td>-no-ignored-files</td>
+                <td>Disables the ignored files from the dev team. If this option is set the script will look up our repository for invalid/unnecessary license files. We try to maintain a list of files that are wrong, duplicated or useless</td>
+                <td>Optional</td>
+            </tr>
+        </m-table>
+    </m-tab>
+    <m-tab label="Angular Component">
+        <p>To use the generated <code>3d-party-license.json</code> you can create a component like this:</p>
+        <m-example-code [code]="angularComponent" [languages]="['ts']"></m-example-code>
+        <m-info>Feel free to copy this code</m-info>
+        <p>We use these component at our <a routerLink="/semantic/credits">Credits</a> page </p>
+    </m-tab>
+</m-tab-group>

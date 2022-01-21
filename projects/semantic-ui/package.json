@@ -1,9 +1,7 @@
 {
   "name": "@mantic-ui/semantic-ui-angular",
   "version": "13.0.1-preview.3",
-  "description": "Semantic UI Angular theme for mantic UI",
-  "author": "KY-Programming",
-  "license": "MIT",
+  "description": "Semantic UI theme for mantic UI Angular components. Requires @mantic-ui/angular",
   "keywords": [
     "mantic-ui",
     "mantic UI",
@@ -11,6 +9,31 @@
     "Semantic-UI",
     "theme"
   ],
+  "homepage": "https://mantic-ui.ky-programming.de/semantic",
+  "bugs": {
+    "url": "https://github.com/KY-Programming/mantic-ui",
+    "email": "support@ky-programming.de"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "KY-Programming",
+    "email": "hi@ky-programming.de",
+    "url": "https://ky-programming.de"
+  },
+  "funding": [
+    {
+      "type": "patreon",
+      "url": "https://www.patreon.com/kylst"
+    },
+    {
+      "type": "paypal",
+      "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VFPAP4MKV654A&source=url"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KY-Programming/mantic-ui.git"
+  },
   "peerDependencies": {
     "@angular/common": "8 - 13",
     "@angular/core": "8 - 13",

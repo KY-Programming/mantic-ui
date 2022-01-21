@@ -25,7 +25,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
 
     @Input()
     @HostBinding('class.inverted')
-    public get inverted(): boolean | string {
+    public get inverted(): boolean {
         return this.isInverted;
     }
 
@@ -35,7 +35,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
 
     @Input()
     @HostBinding('class.primary')
-    public get primary(): boolean | string {
+    public get primary(): boolean {
         return this.isPrimary;
     }
 
@@ -45,7 +45,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
 
     @Input()
     @HostBinding('class.secondary')
-    public get secondary(): boolean | string {
+    public get secondary(): boolean {
         return this.isSecondary;
     }
 
@@ -55,7 +55,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
 
     @Input()
     @HostBinding('class.positive')
-    public get positive(): boolean | string {
+    public get positive(): boolean {
         return this.isPositive;
     }
 
@@ -65,7 +65,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
 
     @Input()
     @HostBinding('class.negative')
-    public get negative(): boolean | string {
+    public get negative(): boolean {
         return this.isNegative;
     }
 
@@ -85,7 +85,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
 
     @Input()
     @HostBinding('class.basic')
-    public get basic(): boolean | string {
+    public get basic(): boolean {
         return this.isBasic;
     }
 
@@ -95,7 +95,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
 
     @Input()
     @HostBinding('class.active')
-    public get active(): boolean | string {
+    public get active(): boolean {
         return this.isActive;
     }
 
@@ -105,7 +105,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
 
     @Input()
     @HostBinding('class.disabled')
-    public get disabled(): boolean | string {
+    public get disabled(): boolean {
         return this.isDisabled;
     }
 
@@ -115,7 +115,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
 
     @Input()
     @HostBinding('class.loading')
-    public get loading(): boolean | string {
+    public get loading(): boolean {
         return this.isLoading;
     }
 
@@ -135,7 +135,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
 
     @Input()
     @HostBinding('class.circular')
-    public get circular(): boolean | string {
+    public get circular(): boolean {
         return this.isCircular;
     }
 
@@ -145,7 +145,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
 
     @Input()
     @HostBinding('class.attached-left')
-    public get attachedLeft(): boolean | string {
+    public get attachedLeft(): boolean {
         return this.isAttachedLeft;
     }
 
@@ -155,7 +155,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
 
     @Input()
     @HostBinding('class.attached-top')
-    public get attachedTop(): boolean | string {
+    public get attachedTop(): boolean {
         return this.isAttachedTop;
     }
 
@@ -165,7 +165,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
 
     @Input()
     @HostBinding('class.attached-right')
-    public get attachedRight(): boolean | string {
+    public get attachedRight(): boolean {
         return this.isAttachedRight;
     }
 
@@ -175,7 +175,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
 
     @Input()
     @HostBinding('class.attached-bottom')
-    public get attachedBottom(): boolean | string {
+    public get attachedBottom(): boolean {
         return this.isAttachedBottom;
     }
 

@@ -106,11 +106,17 @@ import { CeilPipe } from './pipes/ceil.pipe';
 import { FloorPipe } from './pipes/floor.pipe';
 import { AllowedCharsPipe } from './pipes/allowed-chars.pipe';
 import { DocumentTitleComponent } from './document-title/document-title.component';
+import { DestroyableDirective } from './base/destroyable.directive';
+import { BaseDirective } from './base/base.directive';
+import { ExpanderComponent } from './expander/expander.component';
+import { ExpanderHeaderComponent } from './expander/expander-header.component';
 
 @NgModule({
     declarations: [
         BaseComponent,
+        BaseDirective,
         DestroyableComponent,
+        DestroyableDirective,
         ButtonBaseComponent,
         DimmableComponent,
         LabeledBaseComponent,
@@ -212,7 +218,9 @@ import { DocumentTitleComponent } from './document-title/document-title.componen
         CeilPipe,
         FloorPipe,
         AllowedCharsPipe,
-        DocumentTitleComponent
+        DocumentTitleComponent,
+        ExpanderComponent,
+        ExpanderHeaderComponent
     ],
     imports: [
         CommonModule,
@@ -221,6 +229,7 @@ import { DocumentTitleComponent } from './document-title/document-title.componen
     ],
     exports: [
         DestroyableComponent,
+        DestroyableDirective,
         ButtonComponent,
         ToggleButtonComponent,
         ButtonGroupComponent,
@@ -305,7 +314,9 @@ import { DocumentTitleComponent } from './document-title/document-title.componen
         ArrayPipe,
         CeilPipe,
         AllowedCharsPipe,
-        DocumentTitleComponent
+        DocumentTitleComponent,
+        ExpanderComponent,
+        ExpanderHeaderComponent
     ]
 })
 export class ManticUiModule {

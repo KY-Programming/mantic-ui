@@ -1,9 +1,9 @@
 {
-  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/semantic-ui",
-  "lib": {
-    "entryFile": "src/projects.ts"
-  },
+    "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+    "dest": "../../dist/semantic-ui",
+    "lib": {
+        "entryFile": "src/projects.ts"
+    },
     "assets": [
         "./assets"
     ]

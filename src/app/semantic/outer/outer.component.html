@@ -1,5 +1,11 @@
+<m-semantic-ui-theme>
+    <m-semantic-ui-site></m-semantic-ui-site>
+    <m-semantic-ui-reset></m-semantic-ui-reset>
+    <m-semantic-ui-lato-local></m-semantic-ui-lato-local>
+    <m-semantic-ui-icons-local></m-semantic-ui-icons-local>
+</m-semantic-ui-theme>
 <!-- <m-menu position="left"> -->
-<div class="ui vertical inverted menu">
+<m-flex class="ui vertical inverted menu">
     <a class="item" [routerLink]="['/']">
         <span class="ui logo icon image">
             <img src="/assets/mantic.png">
@@ -53,6 +59,9 @@
             <a class="item" [routerLink]="['divider']" routerLinkActive="active">
                 Divider
             </a>
+            <a class="item" [routerLink]="['expander']" routerLinkActive="active">
+                Expander
+            </a>
             <a class="item" [routerLink]="['form']" routerLinkActive="active">
                 Form
             </a>
@@ -87,19 +96,32 @@
             </a>
         </div>
     </div>
+    <div class="item">
+        <div class="header">Utils</div>
+        <div class="menu">
+            <a class="item" [routerLink]="['license']" routerLinkActive="active">
+                License
+            </a>
+        </div>
+    </div>
     <a class="item" (click)="toFomantic()" title="Switch to Fomantic UI Angular">
         <span class="ui logo icon image">
             <img src="/assets/fomantic.png">
         </span>
         <span><b>Fomantic UI Angular</b></span>
     </a>
-</div>
+    <m-fill></m-fill>
+    <div class="menu footer">
+        <div class="item">
+            <a href="https://ky-programming.de/legal-notice">Imprint</a>
+            <span>&nbsp;/&nbsp;</span>
+            <a href="https://ky-programming.de/legal-notice">Data Protection</a>
+            <span>&nbsp;/&nbsp;</span>
+            <a [routerLink]="['credits']">Credits</a>
+        </div>
+    </div>
+</m-flex>
 <!-- </m-menu> -->
 <div class="content">
     <router-outlet></router-outlet>
 </div>
-<m-semantic-ui-theme>
-    <m-semantic-ui-site></m-semantic-ui-site>
-    <m-semantic-ui-reset></m-semantic-ui-reset>
-    <m-semantic-ui-lato-local></m-semantic-ui-lato-local>
-</m-semantic-ui-theme>
