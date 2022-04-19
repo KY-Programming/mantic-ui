@@ -50,7 +50,7 @@ export class DropdownComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.multiple')
-    public get multiple(): boolean | string {
+    public get multiple(): boolean {
         return this.isMultiple;
     }
 
@@ -59,8 +59,7 @@ export class DropdownComponent extends BaseComponent {
     }
 
     @Input()
-    @HostBinding('class.search')
-    public get search(): boolean | string {
+    public get search(): boolean {
         return this.isSearch;
     }
 
@@ -70,7 +69,7 @@ export class DropdownComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.fluid')
-    public get fluid(): boolean | string {
+    public get fluid(): boolean {
         return this.isFluid;
     }
 
@@ -80,7 +79,7 @@ export class DropdownComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.disabled')
-    public get disabled(): boolean | string {
+    public get disabled(): boolean {
         return this.isDisabled;
     }
 
@@ -90,7 +89,7 @@ export class DropdownComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.attached-left')
-    public get attachedLeft(): boolean | string {
+    public get attachedLeft(): boolean {
         return this.isAttachedLeft;
     }
 
@@ -100,7 +99,7 @@ export class DropdownComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.attached-top')
-    public get attachedTop(): boolean | string {
+    public get attachedTop(): boolean {
         return this.isAttachedTop;
     }
 
@@ -110,7 +109,7 @@ export class DropdownComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.attached-right')
-    public get attachedRight(): boolean | string {
+    public get attachedRight(): boolean {
         return this.isAttachedRight;
     }
 
@@ -120,7 +119,7 @@ export class DropdownComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.attached-bottom')
-    public get attachedBottom(): boolean | string {
+    public get attachedBottom(): boolean {
         return this.isAttachedBottom;
     }
 
@@ -177,20 +176,20 @@ export class DropdownComponent extends BaseComponent {
     @Input()
     public filterType: 'startsWith' | 'contains' = 'startsWith';
 
-    public get selectFirst(): string | boolean {
+    @Input()
+    public get selectFirst(): boolean {
         return this.isSelectFirst;
     }
 
-    @Input()
     public set selectFirst(value: string | boolean) {
         this.isSelectFirst = this.toBoolean(value);
     }
 
-    public get allowFreeText(): string | boolean {
+    @Input()
+    public get allowFreeText(): boolean {
         return this.isFreeTextAllowed;
     }
 
-    @Input()
     public set allowFreeText(value: string | boolean) {
         this.isFreeTextAllowed = this.toBoolean(value);
     }
@@ -198,6 +197,11 @@ export class DropdownComponent extends BaseComponent {
     @HostBinding('attr.tabindex')
     public get tabIndex(): number {
         return this.search ? undefined : 0;
+    }
+
+    @HostBinding('class.search')
+    public get searchClass(): boolean {
+        return this.isSearch || this.isFreeTextAllowed;
     }
 
     @HostBinding('class.active')
@@ -239,7 +243,7 @@ export class DropdownComponent extends BaseComponent {
         private readonly elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList.register('disabled', 'multiple', 'search', 'fluid', 'active', 'visible', 'upward', 'selectFirst', 'placeholder', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom');
+        this.classList.register('disabled', 'multiple', 'search', 'fluid', 'active', 'visible', 'upward', 'selectFirst', 'placeholder', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom', 'filterType', 'allowFreetext');
         this.dropDownSelectionService.selected.pipe(takeUntil(this.destroy)).subscribe(event => this.select(event));
     }
 

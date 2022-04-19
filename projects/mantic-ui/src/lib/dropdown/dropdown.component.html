@@ -1,11 +1,11 @@
 <input type="hidden">
 <i *ngIf="icon" class="{{icon}} icon"></i>
-<i *ngIf="!allowFreeText || hasItems" class="dropdown icon"></i>
+<i *ngIf="!allowFreeText && hasItems" class="dropdown icon"></i>
 <a *ngFor="let selectedItem of selectedItems" class="ui label transition visible">
     <i *ngIf="selectedItem.icon" class="{{selectedItem.icon}}"></i> {{selectedItem.text === undefined ? selectedItem.value : selectedItem.text}}
     <i class="delete icon" (click)="deleteClick(selectedItem, $event)"></i>
 </a>
-<input *ngIf="search" [(ngModel)]="filter" class="search" autocomplete="off" tabindex="0" (input)="onFilter()" (keydown)="onKeyDown($event)" (focus)="focus()" (blur)="blur()" #inputElement>
+<input *ngIf="search || allowFreeText" [(ngModel)]="filter" class="search" autocomplete="off" tabindex="0" (input)="onFilter()" (keydown)="onKeyDown($event)" (focus)="focus()" (blur)="blur()" #inputElement>
 <div [class.default]="isDefault" [class.filtered]="isFiltered" class="text">
     <ng-container *ngIf="!selectedItem">{{value || placeholder}}</ng-container>
     <span #htmlElement></span>

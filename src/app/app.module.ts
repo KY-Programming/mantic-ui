@@ -20,6 +20,7 @@ import { SemanticModule } from './semantic/semantic.module';
     FomanticModule
   ],
   providers: [],
+  exports: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,4 +1,4 @@
-<m-dimmer page [useContent]="false" [hideOnClick]="showClose" (click)="onDimmerClick($event)">
+<m-dimmer page [useContent]="false" [hideOnClick]="false" (mousedown)="onDimmerClick($event)">
     <div class="ui" [class.basic]="basic" [class.active]="visible" [class.fullscreen]="fullscreen" [class.modal]="true" [class.mini]="size === 'mini'" [class.tiny]="size === 'tiny'" [class.small]="size === 'small'" [class.large]="size === 'large'">
         <div *ngIf="showHeader" [class.ui]="basic" [class.icon]="basic" class="header">
             <ng-content select="m-modal-header"></ng-content>

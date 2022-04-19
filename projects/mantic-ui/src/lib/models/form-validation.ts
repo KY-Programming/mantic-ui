@@ -1,6 +1,6 @@
 export interface FormValidation {
     label?: string;
-    message: string;
+    message: string | undefined;
     valid: boolean;
     value: unknown;
 }

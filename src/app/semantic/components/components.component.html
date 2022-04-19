@@ -1,0 +1,47 @@
+<h1 m-header>
+    Components
+    <div class="sub header">
+        A overview of all available components
+    </div>
+</h1>
+
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Overview">
+        <p>
+            See the
+            <a routerLink="/semantic/start">Installation Guide</a>
+        </p>
+
+        <h2 m-header>
+            Elements
+            <div class="sub header">
+                Basic elements
+            </div>
+        </h2>
+        <app-element-list></app-element-list>
+
+        <h2 m-header>
+            Layout
+            <div class="sub header">
+                Components to define a site structure
+            </div>
+        </h2>
+        <app-layout-list></app-layout-list>
+
+        <h2 m-header>
+            Special
+            <div class="sub header">
+                Other stuff
+            </div>
+        </h2>
+        <app-special-list></app-special-list>
+
+        <h2 m-header>
+            Utils
+            <div class="sub header">
+                Other helpfull tools from us
+            </div>
+        </h2>
+        <app-util-list></app-util-list>
+    </m-tab>
+</m-tab-group>

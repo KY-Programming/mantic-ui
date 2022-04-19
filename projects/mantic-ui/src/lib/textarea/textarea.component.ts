@@ -47,15 +47,20 @@ export class TextareaComponent extends BaseComponent {
     public hasError: boolean;
 
     @Input()
-    public placeholder: string;
+    public placeholder: string | undefined;
 
     @Input()
-    public value: string;
+    public value: string | undefined;
+
+    @Input()
+    public defaultValue: string | undefined;
 
     @Output()
-    public readonly valueChange = new EventEmitter<string>();
+    public readonly valueChange = new EventEmitter<string | undefined>();
 
     @HostBinding('class.textarea')
+    // HACK: Currently I do not know a other way to style a textarea with semantic ui
+    @HostBinding('class.form')
     public readonly textarea = true;
 
     public constructor(
@@ -67,13 +72,15 @@ export class TextareaComponent extends BaseComponent {
     }
 
     public onChange(): void {
+        this.value ??= this.defaultValue;
         this.valueChange.emit(this.value);
     }
 
     public forceChange(): void {
         const value = this.value;
-        // eslint-disable-next-line no-null/no-null => Currently no other way available to force rebind.
-        const tempValue = value === undefined ? null : undefined;
+        // Currently no other way available to force rebind.
+        // eslint-disable-next-line no-null/no-null
+        const tempValue = value === undefined ? null : this.defaultValue;
         this.valueChange.emit(tempValue);
         this.applicationRef.tick();
         this.valueChange.emit(value);

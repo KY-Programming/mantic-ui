@@ -21,6 +21,7 @@ export class MenuComponent extends BaseComponent {
     private attachedValue: MenuPosition;
     private isTabular: boolean;
     private isText: boolean;
+    private isVertical: boolean;
 
     public get position(): MenuPosition {
         return this.positionValue;
@@ -34,7 +35,7 @@ export class MenuComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.fixed')
-    public get fixed(): boolean | string {
+    public get fixed(): boolean {
         return this.isFixed;
     }
 
@@ -44,7 +45,7 @@ export class MenuComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.secondary')
-    public get secondary(): boolean | string {
+    public get secondary(): boolean {
         return this.isSecondary;
     }
 
@@ -54,7 +55,7 @@ export class MenuComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.pointing')
-    public get pointing(): boolean | string {
+    public get pointing(): boolean {
         return this.isPointing;
     }
 
@@ -75,7 +76,7 @@ export class MenuComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.tabular')
-    public get tabular(): boolean | string {
+    public get tabular(): boolean {
         return this.isTabular;
     }
 
@@ -85,7 +86,7 @@ export class MenuComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.text')
-    public get text(): boolean | string {
+    public get text(): boolean {
         return this.isText;
     }
 
@@ -93,14 +94,24 @@ export class MenuComponent extends BaseComponent {
         this.isText = this.toBoolean(value);
     }
 
+    @Input()
+    @HostBinding('class.vertical')
+    public get vertical(): boolean {
+        return this.isVertical;
+    }
+
+    public set vertical(value: string | boolean) {
+        this.isVertical = this.toBoolean(value);
+    }
+
     @HostBinding('class.menu')
     public readonly menu = true;
 
     public constructor(
-        elementRef: ElementRef<HTMLElement>,
+        public readonly elementRef: ElementRef<HTMLElement>,
         @Optional() @SkipSelf() parentMenu?: MenuComponent
     ) {
         super(elementRef, !parentMenu);
-        this.classList.register('position', 'fixed', 'pointing', 'secondary', 'tabular', 'text', 'attached');
+        this.classList.register('position', 'fixed', 'pointing', 'secondary', 'tabular', 'text', 'attached', 'vertical');
     }
 }

@@ -28,17 +28,28 @@ import { SemanticSegmentComponent } from './semantic/segment/segment.component';
 import { SemanticSliderComponent } from './semantic/slider/slider.component';
 import { SemanticStartComponent } from './semantic/start/start.component';
 import { SemanticTabComponent } from './semantic/tab/tab.component';
-import { SemanticTestComponent } from './semantic/test/test.component';
 import { SemanticToggleComponent } from './semantic/toggle/toggle.component';
 import { SemanticLicenseComponent } from './semantic/license/license.component';
 import { SemanticCreditsComponent } from './semantic/credits/credits.component';
 import { SemanticExpanderComponent } from './semantic/expander/expander.component';
+import { SemanticContextMenuComponent } from './semantic/context-menu/context-menu.component';
+import { SemanticMessageComponent } from './semantic/message/message.component';
+import { SemanticElementsComponent } from './semantic/elements/elements.component';
+import { SemanticComponentsComponent } from './semantic/components/components.component';
+import { SemanticLayoutsComponent } from './semantic/layouts/layouts.component';
+import { SemanticSpecialsComponent } from './semantic/specials/specials.component';
+import { SemanticUtilsComponent } from './semantic/utils/utils.component';
 
 const routes: Routes = [
   { path: '', component: IntroComponent },
   {
     path: 'semantic', component: SemanticOuterComponent, children: [
       { path: 'start', component: SemanticStartComponent },
+      { path: 'components', component: SemanticComponentsComponent },
+      { path: 'elements', component: SemanticElementsComponent },
+      { path: 'layouts', component: SemanticLayoutsComponent },
+      { path: 'specials', component: SemanticSpecialsComponent },
+      { path: 'utils', component: SemanticUtilsComponent },
       { path: 'button', redirectTo: 'button/', pathMatch: 'full' },
       { path: 'button/:tab', component: SemanticButtonComponent },
       { path: 'divider', redirectTo: 'divider/', pathMatch: 'full' },
@@ -69,6 +80,8 @@ const routes: Routes = [
       { path: 'toggle/:tab', component: SemanticToggleComponent },
       { path: 'radio', redirectTo: 'radio/', pathMatch: 'full' },
       { path: 'radio/:tab', component: SemanticRadioComponent },
+      { path: 'message', redirectTo: 'message/', pathMatch: 'full' },
+      { path: 'message/:tab', component: SemanticMessageComponent },
       { path: 'slider', redirectTo: 'slider/', pathMatch: 'full' },
       { path: 'slider/:tab', component: SemanticSliderComponent },
       { path: 'grid', redirectTo: 'grid/', pathMatch: 'full' },
@@ -81,9 +94,9 @@ const routes: Routes = [
       { path: 'credits/:tab', component: SemanticCreditsComponent },
       { path: 'expander', redirectTo: 'expander/', pathMatch: 'full' },
       { path: 'expander/:tab', component: SemanticExpanderComponent },
-      { path: 'test', redirectTo: 'test/', pathMatch: 'full' },
-      { path: 'test/:tab', component: SemanticTestComponent },
-      { path: '**', redirectTo: 'start' }
+      { path: 'context-menu', redirectTo: 'context-menu/', pathMatch: 'full' },
+      { path: 'context-menu/:tab', component: SemanticContextMenuComponent },
+      { path: '**', redirectTo: 'components' }
     ]
   },
   {

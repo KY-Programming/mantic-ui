@@ -20,7 +20,7 @@ export class CheckboxComponent extends BaseComponent {
         return this.isChecked;
     }
 
-    public set value(value: string | boolean) {
+    public set value(value: string | boolean | undefined) {
         this.isChecked = this.toBoolean(value);
     }
 

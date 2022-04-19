@@ -13,7 +13,7 @@ export class FooterComponent extends SegmentComponent {
     @HostBinding('class.footer')
     public readonly footer = true;
 
-    constructor(
+    public constructor(
         elementRef: ElementRef<HTMLElement>,
         dimmableService: DimmableService
     ) {

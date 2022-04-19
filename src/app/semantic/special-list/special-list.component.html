@@ -1,0 +1,41 @@
+<a routerLink="/semantic/dimmer" m-flex class="element">
+    <m-segment attached="top">
+        <m-dimmer *ngIf="showDimmer" (click)="showDimmer = false; prevent($event)">
+            <m-button>Hide Dimmer</m-button>
+        </m-dimmer>
+        <m-button (click)="showDimmer = true; prevent($event)">Show Dimmer</m-button>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Dimmer</h3>
+        <p>Hides distractions to focus attention on particular content</p>
+    </m-segment>
+</a>
+<a routerLink="/semantic/modal" m-flex class="element">
+    <m-segment attached="top">
+        <m-modal *ngIf="showModal" (click)="showModal = false; prevent($event)" (close)="showModal = false">
+            Content
+            <m-modal-footer>
+                <m-button (click)="showModal = false; prevent($event)">Close</m-button>
+            </m-modal-footer>
+        </m-modal>
+        <m-button (click)="showModal = true; prevent($event)">Show Modal</m-button>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Modal</h3>
+        <p>Displays content that temporarily blocks interactions</p>
+    </m-segment>
+</a>
+<a routerLink="/semantic/context-menu" m-flex class="element">
+    <m-segment attached="top">
+        <m-button (click)="prevent($event)">
+            Click Me Right
+            <m-context-menu>
+                <m-context-menu-item icon="trash">Delete</m-context-menu-item>
+            </m-context-menu>
+        </m-button>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Context Menu</h3>
+        <p>A menu opened by right click</p>
+    </m-segment>
+</a>

@@ -26,12 +26,23 @@ import { SemanticSegmentComponent } from './segment/segment.component';
 import { SemanticSliderComponent } from './slider/slider.component';
 import { SemanticStartComponent } from './start/start.component';
 import { SemanticTabComponent } from './tab/tab.component';
-import { SemanticTestComponent } from './test/test.component';
 import { SemanticToggleComponent } from './toggle/toggle.component';
 import { MyValidationPipe } from './form/my-validation.pipe';
 import { SemanticLicenseComponent } from './license/license.component';
 import { SemanticCreditsComponent } from './credits/credits.component';
 import { SemanticExpanderComponent } from './expander/expander.component';
+import { HelpersModule } from '../helpers/helpers.module';
+import { SemanticContextMenuComponent } from './context-menu/context-menu.component';
+import { SemanticMessageComponent } from './message/message.component';
+import { SemanticElementsComponent } from './elements/elements.component';
+import { SemanticElementListComponent } from './element-list/element-list.component';
+import { SemanticComponentsComponent } from './components/components.component';
+import { SemanticLayoutsComponent } from './layouts/layouts.component';
+import { SemanticLayoutListComponent } from './layout-list/layout-list.component';
+import { SemanticSpecialsComponent } from './specials/specials.component';
+import { SemanticSpecialListComponent } from './special-list/special-list.component';
+import { SemanticUtilsComponent } from './utils/utils.component';
+import { SemanticUtilListComponent } from './util-list/util-list.component';
 
 @NgModule({
     declarations: [
@@ -56,20 +67,31 @@ import { SemanticExpanderComponent } from './expander/expander.component';
         SemanticToggleComponent,
         SemanticRadioComponent,
         SemanticSliderComponent,
-        SemanticTestComponent,
         SemanticGridComponent,
         SemanticFormComponent,
         MyValidationPipe,
         SemanticLicenseComponent,
         SemanticCreditsComponent,
-        SemanticExpanderComponent
+        SemanticExpanderComponent,
+        SemanticContextMenuComponent,
+        SemanticMessageComponent,
+        SemanticElementsComponent,
+        SemanticElementListComponent,
+        SemanticComponentsComponent,
+        SemanticLayoutsComponent,
+        SemanticLayoutListComponent,
+        SemanticSpecialsComponent,
+        SemanticSpecialListComponent,
+        SemanticUtilsComponent,
+        SemanticUtilListComponent
     ],
     imports: [
         CommonModule,
         FormsModule,
         RouterModule,
         SemanticUiModule,
-        ManticUiDocModule
+        ManticUiDocModule,
+        HelpersModule
     ],
     exports: [
     ]

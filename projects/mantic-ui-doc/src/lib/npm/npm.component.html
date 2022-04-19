@@ -1,4 +1,4 @@
-<a href="https://www.npmjs.com/package/{{package}}/v/{{version}}" target="_blank">
+<a [href]="npmLink" target="_blank">
     {{package}}
     <img *ngIf="!version" src="https://img.shields.io/npm/v/{{package}}.svg?style=flat">
     <img *ngIf="version" src="https://img.shields.io/badge/npm-v{{version}}-blue">

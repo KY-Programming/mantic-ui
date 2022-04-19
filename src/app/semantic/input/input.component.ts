@@ -17,6 +17,10 @@ export class SemanticInputComponent {
   public icon = 'search';
   public iconPosition: InputIconPosition = 'left';
   public selectedTabName: string;
+  public textValue: string;
+  public textareaValue: string;
+  public numericValue: number;
+  public dateValue: Date;
 
   public get focus(): boolean {
     return this.focusValue;
@@ -65,14 +69,21 @@ export class SemanticInputComponent {
     setTimeout(() => this.inputMessage = undefined, 2000);
   }
 
-  public code1 = `<m-input type="text" placeholder="Search..." [(value)]="value"></m-input>`;
+  public textCode = `<m-input type="text" placeholder="Search..." [(value)]="value"></m-input>`;
+  public textareaCode = `<m-textarea placeholder="Enter a text with line breaks..." [(value)]="value"></m-textarea>`;
   public code2 = `<m-input type="text" placeholder="Search..." [(value)]="inputValue"></m-input>`;
   public code3 = `<m-input [type]="type" placeholder="Search..." [icon]="icon" [iconPosition]="iconPosition" [focused]="focus" [loading]="loading" [disabled]="disabled" [hasError]="error" [fluid]="fluid"></m-input>`;
   public eventCode = `<m-input (valueChange)="valueChange($event)"></m-input>`;
-  public numberCode = `<m-input type="number" [(numericValue)]="value"></m-input>`;
+  public numberCode = `<m-numeric-input [(value)]="numericValue"></m-numeric-input>`;
+  public dateCode = `<m-date-input [(value)]="dateValue"></m-date-input>`;
   public standardCode = `<m-input>
   <input type="text" placeholder="Search..." maxlength="3">
 </m-input>`;
+
+  public readonly maxlengthCode = `<m-input type="text" maxlength="3"></m-input>`;
+  public readonly minCode = `<m-numeric-input [min]="1"></m-numeric-input>`;
+  public readonly maxCode = `<m-numeric-input [max]="9"></m-numeric-input>`;
+
   public readonly states1 = `<m-input type="text" placeholder="Search..." focused></m-input>`;
   public readonly states2 = `<m-input type="text" placeholder="Search..." icon="search" iconPosition="left" loading></m-input>`;
   public readonly states3 = `<m-input type="text" placeholder="Search..." icon="search" loading></m-input>`;
@@ -106,4 +117,8 @@ export class SemanticInputComponent {
       <m-icon icon="asterisk"></m-icon>
   </m-label>
 </m-input>`;
+
+  public getType(value: unknown): string {
+    return typeof value;
+  }
 }

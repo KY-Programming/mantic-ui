@@ -1,0 +1,93 @@
+<a routerLink="/semantic/button" m-flex class="element">
+    <m-segment attached="top">
+        <m-button (click)="prevent($event)">Hello World!</m-button>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Button</h3>
+        <p>A simple interactive element. Could be a <code>button</code> or an <code>a</code></p>
+    </m-segment>
+</a>
+<a routerLink="/semantic/checkbox" m-flex class="element">
+    <m-segment attached="top">
+        <m-checkbox checked (click)="prevent($event)">Check me</m-checkbox>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Checkbox</h3>
+        <p>Allows a user to select a value from a small set of options</p>
+    </m-segment>
+</a>
+<a routerLink="/semantic/dropdown" m-flex class="element">
+    <m-segment attached="top">
+        <m-dropdown placeholder="Dropdown" (click)="prevent($event)">
+            <m-dropdown-item [value]="1">A Item</m-dropdown-item>
+            <m-dropdown-item [value]="2">Another Item</m-dropdown-item>
+        </m-dropdown>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Dropdown</h3>
+        <p>Allows a user to select a value from a series of options</p>
+    </m-segment>
+</a>
+<a routerLink="/semantic/header" m-flex class="element">
+    <m-segment attached="top">
+        <div class="headers">
+            <span class="header-1">H1</span>
+            <span class="header-2">H2</span>
+            <span class="header-3">H3</span>
+        </div>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Header</h3>
+        <p>Provides a short summary of content</p>
+    </m-segment>
+</a>
+<a routerLink="/semantic/input" m-flex class="element">
+    <m-segment attached="top">
+        <m-input placeholder="Enter a text"></m-input>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Input</h3>
+        <p>A field used to elicit a response from a user</p>
+    </m-segment>
+</a>
+<a routerLink="/semantic/message" m-flex class="element">
+    <m-segment attached="top" class="no-overflow">
+        <div class="messages">
+            <m-info>Info</m-info>
+            <m-warning>Warning</m-warning>
+            <m-error>Error</m-error>
+            <m-message positive>Positive</m-message>
+        </div>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Message</h3>
+        <p>Displays a info, warning, error, positive or negative message</p>
+    </m-segment>
+</a>
+<a routerLink="/semantic/radio" m-flex class="element">
+    <m-segment attached="top">
+        <m-radio (click)="prevent($event)">Radio choice</m-radio>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Radio</h3>
+        <p>Allows a user to select between exclusive options</p>
+    </m-segment>
+</a>
+<a routerLink="/semantic/slider" m-flex class="element">
+    <m-segment attached="top">
+        <m-slider (click)="prevent($event)">Radio choice</m-slider>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Slider</h3>
+        <p>Allows a user to select between exclusive options</p>
+    </m-segment>
+</a>
+<a routerLink="/semantic/toggle" m-flex class="element">
+    <m-segment attached="top">
+        <m-toggle (click)="prevent($event)">Toggle me</m-toggle>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Toggle</h3>
+        <p>Allows a user to select between on or off</p>
+    </m-segment>
+</a>

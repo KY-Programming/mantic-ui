@@ -7,10 +7,12 @@
 
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Installing">
-        <p>Install base package for angular and Semantic UI theme</p>
-        <m-example-code>
-            npm i @mantic-ui/angular @mantic-ui/semantic-ui-angular
-        </m-example-code>
+        <p>Install base package for angular
+            <m-npm package="@mantic-ui/angular"></m-npm>
+            and Semantic UI theme
+            <m-npm package="@mantic-ui/semantic-ui-angular"></m-npm>
+        </p>
+        <m-npm-install package="@mantic-ui/angular @mantic-ui/semantic-ui-angular"></m-npm-install>
         <h3>Import theme in AppModule</h3>
         <m-example-code label="app.module.ts" [code]="appModuleCode" [languages]="['ts']"></m-example-code>
         <h3>Apply style in AppComponent</h3>

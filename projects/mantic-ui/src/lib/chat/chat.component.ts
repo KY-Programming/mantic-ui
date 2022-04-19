@@ -1,7 +1,7 @@
 import { Component, DoCheck, ElementRef, Input, IterableDiffer, IterableDiffers, Output, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ChatMessage } from '../models/chat-message';
-import { InputComponent } from '../input/input.component';
+import { InputComponent } from '../input/text/input.component';
 
 @Component({
     selector: 'm-chat',
@@ -16,7 +16,7 @@ export class ChatComponent implements DoCheck {
     public chat: ElementRef<HTMLElement>;
 
     @ViewChild(InputComponent)
-    public intput: InputComponent;
+    public input: InputComponent;
 
     @Input()
     public messages: ChatMessage[];
@@ -49,7 +49,7 @@ export class ChatComponent implements DoCheck {
             this.sendSubject.next({ direction: 'out', text: this.message, sender: this.sender, timestamp: Date.now() });
         }
         this.message = undefined;
-        this.intput.focus();
+        this.input.focus();
     }
 
     public onKeyDown(event: KeyboardEvent): void {

@@ -1,6 +1,6 @@
 ﻿
 import { ColorName } from '../models/color';
-import { InputType } from '../input/input.component';
+import { InputType } from '../input/text/input.component';
 
 export declare type FormElements = FormInputElement | FormCheckboxElement | FormFieldGroupElement | FormDropDownElement | FormButtonElement | FormGridElement | FormLabelElement;
 

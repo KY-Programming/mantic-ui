@@ -72,6 +72,11 @@
         <!-- <m-example header="Search Dropdown" description="A dropdown can be searchable" [code]="multiselectCode">
     <m-dropdown [items]="countries" placeholder="Select Country" icon="world" search></m-dropdown>
 </m-example> -->
+
+        <m-example header="Freetext" description="A dropdown can allow any text as value" [code]="freetextCode">
+            <m-dropdown [(value)]="freetextValue" [items]="countries" placeholder="Select Country or Enter New One" fluid allowFreeText></m-dropdown>
+            Current Value: {{freetextValue ?? 'undefined'}}
+        </m-example>
     </m-tab>
     <m-tab label="States">
         <!-- TODO -->

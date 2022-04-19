@@ -25,24 +25,28 @@ export class BaseComponent extends DestroyableComponent implements OnInit {
     // protected readonly eventQueue = new EventQueue();
 
     public constructor(
-        private readonly element: ElementRef<HTMLElement>,
+        @Optional() @Inject('none') private readonly element?: ElementRef<HTMLElement> | undefined,
         @Optional() @Inject('none') useUiClass = true
     ) {
         super();
-        this.tag = this.element.nativeElement.tagName.toLowerCase();
-        this.classList = new ClassList(this.tag);
-        this.classList.refresh.pipe(takeUntil(this.destroy)).subscribe(() => this.refreshClasses());
-        if (useUiClass) {
-            this.classList.register('ui');
-            this.classList.set('ui', true, false);
+        if (this.element) {
+            this.tag = this.element.nativeElement.tagName.toLowerCase();
+            this.classList = new ClassList(this.tag);
+            this.classList.refresh.pipe(takeUntil(this.destroy)).subscribe(() => this.refreshClasses());
+            if (useUiClass) {
+                this.classList.register('ui');
+                this.classList.set('ui', true, false);
+            }
+            this.classList.register('title', 'style');
         }
-        this.classList.register('title');
     }
 
     public ngOnInit(): void {
         this.initialized = true;
-        this.readPropertiesFromAttributes();
-        this.refreshClasses();
+        if (this.classList) {
+            this.readPropertiesFromAttributes();
+            this.refreshClasses();
+        }
     }
 
     private readPropertiesFromAttributes(): void {
@@ -59,13 +63,13 @@ export class BaseComponent extends DestroyableComponent implements OnInit {
 
     // TODO: Check usage
     protected refreshClasses(): void {
-        if (!this.initialized) {
+        if (!this.initialized || !this.classList) {
             return;
         }
         this.classList.update(this.element.nativeElement.classList);
     }
 
-    protected toBoolean(value: boolean | string): boolean {
+    protected toBoolean(value: boolean | string | undefined): boolean {
         return value === '' || value === true || value?.toString().toLowerCase() === 'true';
     }
 }

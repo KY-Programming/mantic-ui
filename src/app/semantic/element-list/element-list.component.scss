@@ -1,0 +1,47 @@
+.element {
+    .headers {
+        .header-1 {
+            font-size: 2.5em;
+        }
+
+        .header-2 {
+            font-size: 1.75em;
+        }
+
+        .header-3 {
+            font-size: 1.25em;
+        }
+    }
+
+    .messages {
+        position: relative;
+        height: calc(100% - 2em);
+        width: calc(100% - 2em);
+
+        > * {
+            position: absolute;
+            margin: 0;
+            width: 100%;
+        }
+
+        m-info {
+            left: 0;
+            top: 0;
+        }
+
+        m-warning {
+            left: 1em;
+            top: 1em;
+        }
+
+        m-error {
+            left: 2em;
+            top: 2em;
+        }
+
+        m-message {
+            left: 3em;
+            top: 3em;
+        }
+    }
+}

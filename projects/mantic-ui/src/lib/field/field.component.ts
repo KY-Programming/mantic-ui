@@ -1,6 +1,6 @@
 import { Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
-import { InputComponent } from '../input/input.component';
+import { InputComponent } from '../input/text/input.component';
 import { FieldSize, fieldSizes } from '../models/field-size';
 import { FormError } from '../models/form-error';
 import { FormValidation } from '../models/form-validation';
@@ -9,6 +9,8 @@ import { SliderComponent } from '../slider/slider.component';
 import { TextareaComponent } from '../textarea/textarea.component';
 import { ToggleComponent } from '../toggle/toggle.component';
 import { BaseComponent } from '../base/base.component';
+import { NumericInputComponent } from '../input/numeric/numeric-input.component';
+import { DateInputComponent } from '../input/date/date-input.component';
 
 @Component({
     selector: 'm-field',
@@ -18,6 +20,8 @@ import { BaseComponent } from '../base/base.component';
 export class FieldComponent extends BaseComponent {
     private labelElementValue: HTMLLabelElement;
     private inputComponentValue: InputComponent;
+    private numericInputComponentValue: NumericInputComponent;
+    private dateInputComponentValue: DateInputComponent;
     private checkboxComponentValue: CheckboxComponent;
     private sliderComponentValue: SliderComponent;
     private toggleComponentValue: ToggleComponent;
@@ -60,6 +64,36 @@ export class FieldComponent extends BaseComponent {
             this.inputComponentValue.name = this.name;
             this.inputComponentValue.readonly = this.readonly;
             this.inputComponentValue.disabled = this.disabled;
+        }
+    }
+
+    public get numericInputComponent(): NumericInputComponent {
+        return this.numericInputComponentValue;
+    }
+
+    @ContentChild(NumericInputComponent)
+    public set numericInputComponent(value: NumericInputComponent) {
+        this.numericInputComponentValue = value;
+        if (this.numericInputComponentValue) {
+            this.numericInputComponentValue.for = this.name;
+            this.numericInputComponentValue.name = this.name;
+            this.numericInputComponentValue.readonly = this.readonly;
+            this.numericInputComponentValue.disabled = this.disabled;
+        }
+    }
+
+    public get dateInputComponent(): DateInputComponent {
+        return this.dateInputComponentValue;
+    }
+
+    @ContentChild(DateInputComponent)
+    public set dateInputComponent(value: DateInputComponent) {
+        this.dateInputComponentValue = value;
+        if (this.dateInputComponentValue) {
+            this.dateInputComponentValue.for = this.name;
+            this.dateInputComponentValue.name = this.name;
+            this.dateInputComponentValue.readonly = this.readonly;
+            this.dateInputComponentValue.disabled = this.disabled;
         }
     }
 
@@ -151,6 +185,14 @@ export class FieldComponent extends BaseComponent {
         if (this.inputComponent) {
             this.inputComponent.for = value;
             this.inputComponent.name = value;
+        }
+        if (this.numericInputComponent) {
+            this.numericInputComponent.for = value;
+            this.numericInputComponent.name = value;
+        }
+        if (this.dateInputComponent) {
+            this.dateInputComponent.for = value;
+            this.dateInputComponent.name = value;
         }
         if (this.checkboxComponent) {
             this.checkboxComponent.name = value;
@@ -261,6 +303,12 @@ export class FieldComponent extends BaseComponent {
         if (this.inputComponent) {
             this.inputComponent.disabled = value;
         }
+        if (this.numericInputComponent) {
+            this.numericInputComponent.disabled = value;
+        }
+        if (this.dateInputComponent) {
+            this.dateInputComponent.disabled = value;
+        }
         if (this.checkboxComponent) {
             this.checkboxComponent.disabled = value;
         }
@@ -288,6 +336,12 @@ export class FieldComponent extends BaseComponent {
         this.readonlyValue = this.toBoolean(value);
         if (this.inputComponent) {
             this.inputComponent.readonly = value;
+        }
+        if (this.numericInputComponent) {
+            this.numericInputComponent.readonly = value;
+        }
+        if (this.dateInputComponent) {
+            this.dateInputComponent.readonly = value;
         }
         if (this.checkboxComponent) {
             this.checkboxComponent.readonly = value;

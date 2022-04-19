@@ -21,7 +21,7 @@ export class TableComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.celled')
-    public get celled(): boolean | string {
+    public get celled(): boolean {
         return this.isCelled;
     }
 
@@ -30,8 +30,17 @@ export class TableComponent extends BaseComponent {
     }
 
     @Input()
+    public get notCelled(): boolean {
+        return !this.celled;
+    }
+
+    public set notCelled(value: string | boolean) {
+        this.celled = !this.toBoolean(value);
+    }
+
+    @Input()
     @HostBinding('class.very')
-    public get very(): boolean | string {
+    public get very(): boolean {
         return this.isVery;
     }
 
@@ -41,7 +50,7 @@ export class TableComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.basic')
-    public get basic(): boolean | string {
+    public get basic(): boolean {
         return this.isBasic;
     }
 
@@ -51,7 +60,7 @@ export class TableComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.unstackable')
-    public get unstackable(): boolean | string {
+    public get unstackable(): boolean {
         return this.isUnstackable;
     }
 
@@ -71,7 +80,7 @@ export class TableComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.definition')
-    public get definition(): boolean | string {
+    public get definition(): boolean {
         return this.isDefinition;
     }
 
@@ -79,11 +88,11 @@ export class TableComponent extends BaseComponent {
         this.isDefinition = this.toBoolean(value);
     }
 
-    constructor(
+    public constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList.register('celled', 'very', 'basic', 'unstackable', 'aligned', 'definition').registerFixed('table', 'test');
+        this.classList.register('celled', 'notCelled', 'very', 'basic', 'unstackable', 'aligned', 'definition').registerFixed('table');
         this.aligned ??= 'middle';
     }
 

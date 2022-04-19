@@ -113,7 +113,7 @@ export class ModalComponent extends BaseComponent {
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef, false);
-        this.classList.register('basic', 'visible', 'fullscreen', 'size', 'scrolling', 'imageContent', 'header', 'footer', 'showHeader', 'showFooter', 'minContentHeight', 'maxContentHeight');
+        this.classList.register('basic', 'visible', 'fullscreen', 'size', 'scrolling', 'imageContent', 'header', 'footer', 'showHeader', 'showFooter', 'showClose', 'minContentHeight', 'maxContentHeight');
     }
 
     public onClose(): void {

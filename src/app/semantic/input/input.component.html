@@ -6,13 +6,31 @@
 </h1>
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Examples">
-        <m-example header="Input" description="A input">
-            <m-input type="text" placeholder="Search..."></m-input>
-            <m-example-code [code]="code1"></m-example-code>
+        <m-example header="Text" description="A text input">
+            <m-flex alignItems="center">
+                <m-input type="text" placeholder="Search..." [(value)]="textValue"></m-input>
+                <app-value *ngIf="textValue !== undefined" [value]="textValue"></app-value>
+            </m-flex>
+            <m-example-code [code]="textCode"></m-example-code>
+        </m-example>
+        <m-example description="A text area">
+            <m-textarea placeholder="Enter a text with line breaks..." [(value)]="textareaValue"></m-textarea>
+            <app-value *ngIf="textValue !== undefined" [value]="textareaValue"></app-value>
+            <m-example-code [code]="textareaCode"></m-example-code>
         </m-example>
         <m-example header="Numeric" description="A numeric input">
-            <m-input type="number"></m-input>
+            <m-flex alignItems="center">
+                <m-numeric-input [(value)]="numericValue" [min]="1" [max]="9" placeholder="Between 1 and 9" #x></m-numeric-input>
+                <app-value *ngIf="numericValue !== undefined" [value]="numericValue"></app-value>
+            </m-flex>
             <m-example-code [code]="numberCode"></m-example-code>
+        </m-example>
+        <m-example header="Date" description="A date input">
+            <m-flex alignItems="center">
+                <m-date-input [(value)]="dateValue"></m-date-input>
+                <app-value *ngIf="dateValue !== undefined" [value]="dateValue"></app-value>
+            </m-flex>
+            <m-example-code [code]="dateCode"></m-example-code>
         </m-example>
         <m-example header="Standard Input" description="Use a standard input for missing features">
             <m-input>
@@ -20,6 +38,27 @@
             </m-input>
             <m-example-code [code]="standardCode"></m-example-code>
         </m-example>
+    </m-tab>
+    <m-tab label="Text">
+        <m-example header="maxlength" description="The text input has an additional property maxlength to limit the number of characters" [code]="maxlengthCode">
+            <m-input type="text" maxlength="3"></m-input>
+        </m-example>
+    </m-tab>
+    <m-tab label="Numeric">
+        <m-example header="min" description="The numeric input has an additional property min to set the lowest possible number" [code]="minCode">
+            <m-numeric-input [min]="1"></m-numeric-input>
+        </m-example>
+        <m-example header="max" description="The numeric input has an additional property max to set the highest possible number" [code]="maxCode">
+            <m-numeric-input [max]="9"></m-numeric-input>
+        </m-example>
+    </m-tab>
+    <m-tab label="Date">
+        <!--        <m-example header="min" description="The date input has an additional property min to set the oldest possible date" [code]="minDateCode">-->
+        <!--            <m-date-input [min]="1"></m-date-input>-->
+        <!--        </m-example>-->
+        <!--        <m-example header="max" description="The date input has an additional property max to set the newest possible date" [code]="maxDateCode">-->
+        <!--            <m-date-input [max]="9"></m-date-input>-->
+        <!--        </m-example>-->
     </m-tab>
     <m-tab label="States">
         <m-example header="Focus" description="An input field can show a user is currently interacting with it" [code]="states1">

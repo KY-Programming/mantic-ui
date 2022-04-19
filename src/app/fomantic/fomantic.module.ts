@@ -8,20 +8,24 @@ import { FomanticDividerComponent } from './divider/divider.component';
 import { FomanticInputComponent } from './input/input.component';
 import { FomanticLayoutComponent } from './layout/layout.component';
 import { FomanticStartComponent } from './start/start.component';
+import { SemanticUiModule } from '@mantic-ui/semantic-ui-angular';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [
-        FomanticStartComponent,
-        FomanticInputComponent,
         FomanticButtonComponent,
         FomanticDividerComponent,
-        FomanticLayoutComponent
+        FomanticInputComponent,
+        FomanticLayoutComponent,
+        FomanticStartComponent
     ],
     imports: [
+        CommonModule,
         FormsModule,
         RouterModule,
         FomanticUiModule,
-        ManticUiDocModule
+        ManticUiDocModule,
+        SemanticUiModule
     ],
     exports: [
         FomanticStartComponent,
@@ -31,4 +35,5 @@ import { FomanticStartComponent } from './start/start.component';
         FomanticLayoutComponent
     ]
 })
-export class FomanticModule { }
+export class FomanticModule {
+}

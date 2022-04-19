@@ -2,29 +2,84 @@ $pageMargin: 2rem;
 
 html,
 body {
-  font-size: initial !important;
+    font-size: initial !important;
 }
 
 
 m-segment pre {
-  margin: 0;
+    margin: 0;
 }
 
 m-tab-group.page {
-  margin: 0 $pageMargin * -1;
+    margin: 0 $pageMargin * -1;
 
-  &>.ui.menu {
-    position: sticky;
-    top: -2rem;
-    z-index: 10;
-    padding-left: $pageMargin;
-    padding-right: $pageMargin;
-    background-color: #f2f2f2;
-    border-radius: 0;
-  }
+    & > .ui.menu {
+        position: sticky;
+        top: -2rem;
+        z-index: 10;
+        padding-left: $pageMargin;
+        padding-right: $pageMargin;
+        background-color: #f2f2f2;
+        border-radius: 0;
+    }
 
-  &>.ui.segment {
-    padding-left: $pageMargin;
-    padding-right: $pageMargin;
-  }
+    & > .ui.segment {
+        padding-left: $pageMargin;
+        padding-right: $pageMargin;
+    }
+}
+
+.component-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 280px);
+
+    .element {
+        flex-direction: column;
+        margin-right: 1em;
+        margin-top: 1em;
+        height: 260px;
+        cursor: pointer;
+        color: unset;
+
+        &:hover {
+            m-segment[attached=top] {
+                background-color: rgba(0, 0, 0, 0.025);
+            }
+
+            m-segment[attached=bottom] {
+                background-color: rgba(0, 0, 0, 0.05);
+            }
+        }
+
+        h3 {
+            margin-bottom: 0;
+        }
+
+        m-segment {
+            transition: background-color ease-in-out 250ms;
+        }
+
+        m-segment[attached=top] {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 160px;
+            background-color: rgba(0, 0, 0, 0.05);
+
+            &.no-overflow {
+                overflow: hidden;
+            }
+        }
+
+        m-segment[attached=bottom] {
+            line-height: 1em;
+            overflow: hidden;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 0 0.25em;
+            border-radius: 5px;
+        }
+    }
 }

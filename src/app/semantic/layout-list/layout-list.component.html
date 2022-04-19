@@ -1,0 +1,76 @@
+<a routerLink="/semantic/container" m-flex class="element">
+    <m-segment attached="top">
+        <m-segment class="demo"></m-segment>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Container</h3>
+        <p>Limits content to a maximum width</p>
+    </m-segment>
+</a>
+<a routerLink="/semantic/divider" m-flex class="element">
+    <m-segment attached="top">
+        <m-divider></m-divider>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Divider</h3>
+        <p>Visually segments content into groups</p>
+    </m-segment>
+</a>
+<a routerLink="/semantic/expander" m-flex class="element">
+    <m-segment attached="top">
+        <m-expander (click)="prevent($event)" header="Header" expanded>Expandable content</m-expander>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Expander</h3>
+        <p>Shows or hides content with a header</p>
+    </m-segment>
+</a>
+<a routerLink="/semantic/form" m-flex class="element">
+    <m-segment attached="top">
+        <m-form (click)="prevent($event)">
+                <m-field label="Name">
+                    <m-input placeholder="Enter your name"></m-input>
+                </m-field>
+            <m-submit>Submit</m-submit>
+        </m-form>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Form</h3>
+        <p>Displays a set of related user input fields in a structured way</p>
+    </m-segment>
+</a>
+<a routerLink="/semantic/menu" m-flex class="element">
+    <m-segment attached="top">
+        <m-menu (click)="prevent($event)">
+            <m-menu-item>
+                <m-icon icon="bars"></m-icon>
+            </m-menu-item>
+            <m-menu-item>First Item</m-menu-item>
+        </m-menu>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Menu</h3>
+        <p>Displays grouped navigation actions</p>
+    </m-segment>
+</a>
+<a routerLink="/semantic/segment" m-flex class="element">
+    <m-segment attached="top">
+        <m-segment class="demo"></m-segment>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Segment</h3>
+        <p>Used to create a grouping of related content</p>
+    </m-segment>
+</a>
+<a routerLink="/semantic/tab" m-flex class="element">
+    <m-segment attached="top">
+        <m-tab-group (click)="prevent($event)">
+            <m-tab label="Bio"></m-tab>
+            <m-tab label="Photos"></m-tab>
+        </m-tab-group>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Tab</h3>
+        <p>A hidden section of content activated by a menu</p>
+    </m-segment>
+</a>

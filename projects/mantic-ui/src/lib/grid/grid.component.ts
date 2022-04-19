@@ -16,9 +16,10 @@ export class GridComponent extends BaseComponent {
     private isCelled: boolean;
     private isInternally: boolean;
     private widthValue: GridWidth;
+    private noMarginValue: boolean;
 
     @Input()
-    public get vertically(): boolean | string {
+    public get vertically(): boolean {
         return this.isVertically;
     }
 
@@ -28,7 +29,7 @@ export class GridComponent extends BaseComponent {
     }
 
     @Input()
-    public get divided(): boolean | string {
+    public get divided(): boolean {
         return this.isDivided;
     }
 
@@ -53,7 +54,7 @@ export class GridComponent extends BaseComponent {
     }
 
     @Input()
-    public get internally(): boolean | string {
+    public get internally(): boolean {
         return this.isInternally;
     }
 
@@ -63,7 +64,7 @@ export class GridComponent extends BaseComponent {
     }
 
     @Input()
-    public get celled(): boolean | string {
+    public get celled(): boolean {
         return this.isCelled;
     }
 
@@ -82,11 +83,21 @@ export class GridComponent extends BaseComponent {
         this.classList.set('width', value ? `${value} width` : undefined);
     }
 
+    @Input()
+    public get noMargin(): boolean {
+        return this.noMarginValue;
+    }
+
+    public set noMargin(value: string | boolean) {
+        this.noMarginValue = this.toBoolean(value);
+        this.classList.set('no-margin', this.noMargin);
+    }
+
     public constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList.register('vertically', 'divided', 'columns', 'internally', 'celled', 'width').registerFixed('grid');
+        this.classList.register('vertically', 'divided', 'columns', 'internally', 'celled', 'width', 'noMargin').registerFixed('grid');
     }
 
 }

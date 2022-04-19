@@ -1,6 +1,6 @@
 {
   "name": "@mantic-ui/semantic-ui-angular",
-  "version": "13.0.1-preview.3",
+  "version": "13.1.0",
   "description": "Semantic UI theme for mantic UI Angular components. Requires @mantic-ui/angular",
   "keywords": [
     "mantic-ui",

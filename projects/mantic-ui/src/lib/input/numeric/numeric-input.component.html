@@ -1,0 +1,17 @@
+<ng-container *ngIf="!isRight" [ngTemplateOutlet]="labelTemplate"></ng-container>
+<ng-container *ngIf="buttonPosition === 'left'" [ngTemplateOutlet]="contentTemplate"></ng-container>
+<ng-content></ng-content>
+<input *m-fallback-for="'input'" type="number" [placeholder]="placeholder || ''" [ngModel]="internalValue" [min]="min || ''" [max]="max || ''" [attr.name]="name" [attr.for]="for" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onInternalChange($event)" #input>
+<i *ngIf="icon" class="{{icon}} link icon"></i>
+<ng-container *ngIf="isRight" [ngTemplateOutlet]="labelTemplate"></ng-container>
+<ng-container *ngIf="buttonPosition === 'right'" [ngTemplateOutlet]="contentTemplate"></ng-container>
+
+<ng-template #labelTemplate>
+    <ng-content select="m-label"></ng-content>
+    <ng-content select="m-label-dropdown"></ng-content>
+</ng-template>
+
+<ng-template #contentTemplate>
+    <ng-content select="m-button"></ng-content>
+    <ng-content select="m-icon-button"></ng-content>
+</ng-template>

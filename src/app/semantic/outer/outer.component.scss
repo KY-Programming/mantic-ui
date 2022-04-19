@@ -1,10 +1,10 @@
 :host {
-  display: flex;
-  height: 100%;
+    display: flex;
+    height: 100%;
 }
 
 m-flex.ui.vertical.menu {
-  display: flex;
+    display: flex;
 }
 
 // m-menu {
@@ -12,33 +12,37 @@ m-flex.ui.vertical.menu {
 //     flex: 0 0 auto;
 
 .ui.menu {
-  border-radius: 0;
+    border-radius: 0;
 
-  display: flex;
-  flex: 0 0 auto;
-  margin: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+    display: flex;
+    flex: 0 0 auto;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
 
-  &.vertical {
-    width: 16rem;
-  }
+    &.vertical {
+        width: 16rem;
+    }
+
+    .item .header:not(.ui) {
+        display: block;
+    }
 }
 
 .ui.logo {
-  width: 35px;
-  margin-right: 1em;
+    width: 35px;
+    margin-right: 1em;
 }
 
 // }
 
 .footer {
-  font-size: 0.75em;
+    font-size: 0.75em;
 }
 
 .content {
-  flex: 1;
-  padding: 2rem;
-  overflow-x: hidden;
-  overflow-y: auto;
+    flex: 1;
+    padding: 2rem;
+    overflow-x: hidden;
+    overflow-y: auto;
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, Input, Optional } from '@angular/core';
+import { Component, ElementRef, HostBinding, Inject, Input, Optional } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
@@ -8,6 +8,7 @@ import { BaseComponent } from '../base/base.component';
 })
 export class MenuItemComponent extends BaseComponent {
     private isActive: boolean;
+    private isLink: boolean;
 
     @Input()
     public get active(): boolean {
@@ -19,11 +20,22 @@ export class MenuItemComponent extends BaseComponent {
         this.classList.set('active', this.isActive);
     }
 
-    constructor(
+
+    @Input()
+    @HostBinding('class.link')
+    public get link(): boolean {
+        return this.isLink;
+    }
+
+    public set link(value: string | boolean) {
+        this.isLink = this.toBoolean(value);
+    }
+
+    public constructor(
         elementRef: ElementRef<HTMLElement>,
         @Optional() @Inject('none') useUiClass = true
     ) {
         super(elementRef, useUiClass);
-        this.classList.register('active').registerFixed('item');
+        this.classList.register('active', 'link').registerFixed('item');
     }
 }

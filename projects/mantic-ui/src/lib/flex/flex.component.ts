@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
 export declare type FlexDirection = 'row' | 'column';
@@ -13,7 +13,7 @@ export class FlexComponent extends BaseComponent {
     private isColumn: boolean;
 
     @Input()
-    public get column(): boolean | string {
+    public get column(): boolean {
         return this.isColumn;
     }
 
@@ -29,5 +29,12 @@ export class FlexComponent extends BaseComponent {
     @Input()
     @HostBinding('style.align-items')
     public alignItems: FlexAlignItems;
+
+    public constructor(
+      elementRef: ElementRef<HTMLElement>
+    ) {
+        super(elementRef);
+        this.classList.register('column', 'direction', 'alignItems');
+    }
 
 }

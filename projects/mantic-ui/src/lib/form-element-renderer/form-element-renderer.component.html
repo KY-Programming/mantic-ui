@@ -3,7 +3,7 @@
         <ng-container *ngSwitchCase="'input'">
             <m-field *ngIf="element | mAsInput as input" [label]="input.label" [readonly]="input.readonly">
                 <m-input *ngIf="input.type !== 'number'" [type]="input.type" [(value)]="data[input.field]"></m-input>
-                <m-input *ngIf="input.type === 'number'" [type]="input.type" [(numericValue)]="data[input.field]"></m-input>
+                <m-numeric-input *ngIf="input.type === 'number'" [(value)]="data[input.field]"></m-numeric-input>
             </m-field>
         </ng-container>
         <ng-container *ngSwitchCase="'checkbox'">

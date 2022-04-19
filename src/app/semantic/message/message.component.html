@@ -1,0 +1,42 @@
+<h1 m-header>
+    Message
+    <div class="sub header">
+        A message displays information that explains nearby content
+    </div>
+</h1>
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Examples">
+        <m-example header="Message" description="A basic message">
+            <m-message header="Changes in Service">
+                We just updated our privacy policy here to better service our customers.
+                We recommend reviewing the changes.
+            </m-message>
+            <m-example-code [code]="messageCode"></m-example-code>
+        </m-example>
+<!--    TODO: Add missing examples here    -->
+        <!--    TODO: Fix missing header    -->
+        <m-example header="Warning" description="A message may be formatted to display warning messages.">
+            <m-warning header="You must register before you can do that!">
+                Visit our registration page, then try again
+            </m-warning>
+            <m-example-code [code]="warningCode"></m-example-code>
+        </m-example>
+        <!--    TODO: Fix missing header    -->
+        <m-example header="Info" description="A message may be formatted to display information.">
+            <m-info header="Was this what you wanted?">
+                <ul class="list">
+                    <li>It's good to see you again.</li>
+                    <li>Did you know it's been a while?</li>
+                </ul>
+            </m-info>
+            <m-example-code [code]="infoCode"></m-example-code>
+        </m-example>
+        <!--    TODO: Fix missing header    -->
+        <m-example header="Negative / Error" description="A message may be formatted to display a negative message.">
+            <m-error header="We're sorry we can't apply that discount">
+                That offer has expired
+            </m-error>
+            <m-example-code [code]="errorCode"></m-example-code>
+        </m-example>
+    </m-tab>
+</m-tab-group>

@@ -33,7 +33,11 @@ export class NpmComponent {
         this.refreshVersion();
     }
 
-    constructor(
+    public get npmLink(): string {
+        return this.version ? `https://www.npmjs.com/package/${this.package}/v/${this.version}` : `https://www.npmjs.com/package/${this.package}`;
+    }
+
+    public constructor(
         private readonly npmApiService: NpmApiService
     ) {
     }

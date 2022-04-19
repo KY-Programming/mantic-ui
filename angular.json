@@ -39,7 +39,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/mantic-ui-test",
+            "outputPath": "dist/documentation",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -181,6 +181,9 @@
           "configurations": {
             "production": {
               "tsConfig": "projects/mantic-ui/tsconfig.lib.prod.json"
+            },
+            "ivy": {
+              "tsConfig": "projects/mantic-ui/tsconfig.lib.ivy.json"
             },
             "development": {
               "tsConfig": "projects/mantic-ui/tsconfig.lib.json"

@@ -63,17 +63,17 @@ export class DimmerComponent extends BaseComponent implements OnInit, OnDestroy 
         }
     }
 
+    public override ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this.hide();
+    }
+
     public show(): void {
         this.visibleValue = true;
         if (this.dimmableService) {
             this.dimmableService.dim();
         }
         this.refreshClasses();
-    }
-
-    public override ngOnDestroy(): void {
-        super.ngOnDestroy();
-        this.hide();
     }
 
     public hide(): void {

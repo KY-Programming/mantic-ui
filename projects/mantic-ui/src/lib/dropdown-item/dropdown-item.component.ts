@@ -16,7 +16,7 @@ export class DropdownItemComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.filtered')
-    public get filteredOut(): boolean | string {
+    public get filteredOut(): boolean {
         return this.isFilteredOut;
     }
 
@@ -27,7 +27,7 @@ export class DropdownItemComponent extends BaseComponent {
     @Input()
     @HostBinding('class.active')
     @HostBinding('class.selected')
-    public get selected(): boolean | string {
+    public get selected(): boolean {
         return this.isSelected;
     }
 
@@ -46,7 +46,7 @@ export class DropdownItemComponent extends BaseComponent {
         public readonly elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList.register('filtered', 'selected');
+        this.classList.register('filtered', 'selected', 'value');
     }
 
     @HostListener('click', ['$event'])
