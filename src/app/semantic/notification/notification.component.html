@@ -1,0 +1,22 @@
+<h1 m-header>
+    Notification
+    <div class="sub header">
+        A popup to inform the user
+    </div>
+</h1>
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Examples">
+        <m-example header="Error" description="Send a error">
+            <m-flex>
+                <m-button (click)="showError()" color="red">Error</m-button>
+                <m-button (click)="showWarning()" color="orange">Warning</m-button>
+                <m-button (click)="showSuccess()" color="green">Success</m-button>
+                <m-button (click)="showInfo()" color="blue">Info</m-button>
+            </m-flex>
+            <m-notification fromService></m-notification>
+            <m-example-code [code]="example1Html" [languages]="['html']"></m-example-code>
+            <m-example-code [code]="example1Ts" [languages]="['ts']"></m-example-code>
+        </m-example>
+    </m-tab>
+</m-tab-group>
+

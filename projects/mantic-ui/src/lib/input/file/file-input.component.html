@@ -1,0 +1,4 @@
+<label [for]="id" m-button>
+    <ng-content></ng-content>
+</label>
+<input [id]="id" type="file" [accept]="accept" (change)="change.emit($event)">

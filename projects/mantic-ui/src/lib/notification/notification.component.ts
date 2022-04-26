@@ -20,7 +20,7 @@ export class NotificationComponent extends BaseComponent {
     @Input()
     public mode: 'overlap' | 'stack' = 'stack';
 
-    constructor(
+    public constructor(
         elementRef: ElementRef<HTMLElement>,
         private readonly notificationService: NotificationService
     ) {

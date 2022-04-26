@@ -38,8 +38,7 @@ export class NotificationService {
         this.messages['all'].push(message);
         if (message.group) {
             this.get(message.group).push(message);
-        }
-        else {
+        } else {
             this.messages['empty'].push(message);
         }
         this.addedSubject.next(message);
@@ -58,8 +57,7 @@ export class NotificationService {
             if (groupIndex >= 0) {
                 this.messages[message.group].splice(groupIndex, 1);
             }
-        }
-        else {
+        } else {
             const groupIndex = this.messages['empty'].indexOf(message);
             if (groupIndex >= 0) {
                 this.messages['empty'].splice(groupIndex, 1);
@@ -68,31 +66,31 @@ export class NotificationService {
         this.removedSubject.next(message);
     }
 
-    public error(text: string, options?: {timeout: 0} | Partial<Notification>): void {
+    public error(text: string, options?: { timeout: 0 } | Partial<Notification>): void {
         const notification: Notification = { timeout: 0, ...options, type: 'error', text };
         this.add(notification);
         this.erroredSubject.next(notification);
     }
 
-    public warning(text: string, options?: {timeout: 2000} | Partial<Notification>): void {
+    public warning(text: string, options?: { timeout: 2000 } | Partial<Notification>): void {
         const notification: Notification = { timeout: 2000, ...options, type: 'warning', text };
         this.add(notification);
         this.warnedSubject.next(notification);
     }
 
-    public success(text: string, options?: {timeout: 2000} | Partial<Notification>): void {
+    public success(text: string, options?: { timeout: 2000 } | Partial<Notification>): void {
         const notification: Notification = { timeout: 2000, ...options, type: 'success', text };
         this.add(notification);
         this.succeededSubject.next(notification);
     }
 
-    public positive(text: string, options?: {timeout: 2000} | Partial<Notification>): void {
+    public positive(text: string, options?: { timeout: 2000 } | Partial<Notification>): void {
         const notification: Notification = { timeout: 2000, ...options, type: 'positive', text };
         this.add(notification);
         this.positivedSubject.next(notification);
     }
 
-    public info(text: string, options?: {timeout: 2000} | Partial<Notification>): void {
+    public info(text: string, options?: { timeout: 2000 } | Partial<Notification>): void {
         const notification: Notification = { timeout: 2000, ...options, type: 'info', text };
         this.add(notification);
         this.positivedSubject.next(notification);
