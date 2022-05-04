@@ -1,37 +1,58 @@
-import { Component, DoCheck, ElementRef, OnDestroy } from '@angular/core';
+import { Component, DoCheck, ElementRef, Input, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 @Component({
-  selector: 'm-document-title',
-  templateUrl: './document-title.component.html',
-  styleUrls: ['./document-title.component.scss']
+    selector: 'm-document-title',
+    templateUrl: './document-title.component.html',
+    styleUrls: ['./document-title.component.scss']
 })
 export class DocumentTitleComponent implements DoCheck, OnDestroy {
-  private previousTitle: string;
-  private value: string;
-  private title: string;
+    private previousTitle: string;
+    private value: string;
+    private title: string;
 
-  public constructor(
-      private readonly element: ElementRef<HTMLElement>,
-      private readonly titleService: Title
-  ) {
-  }
+    public static globalPostfix = '';
+    public static globalPrefix = '';
 
-  public ngDoCheck(): void {
-    const newValue = this.element.nativeElement.innerText;
-    if (newValue !== this.value) {
-      this.value = newValue;
-      if (this.previousTitle === undefined) {
-        this.previousTitle = this.titleService.getTitle();
-      }
-      this.title = this.value;
-      this.titleService.setTitle(this.title);
+    @Input()
+    public get postfix(): string {
+        return DocumentTitleComponent.globalPostfix;
     }
-  }
 
-  public ngOnDestroy(): void {
-    if (this.titleService.getTitle() === this.title) {
-      this.titleService.setTitle(this.previousTitle);
+    public set postfix(value: string) {
+        DocumentTitleComponent.globalPostfix = value;
     }
-  }
+
+    @Input()
+    public get prefix(): string {
+        return DocumentTitleComponent.globalPrefix;
+    }
+
+    public set prefix(value: string) {
+        DocumentTitleComponent.globalPrefix = value;
+    }
+
+    public constructor(
+        private readonly element: ElementRef<HTMLElement>,
+        private readonly titleService: Title
+    ) {
+    }
+
+    public ngDoCheck(): void {
+        const newValue = this.prefix + this.element.nativeElement.innerText + this.postfix;
+        if (newValue !== this.value) {
+            this.value = newValue;
+            if (this.previousTitle === undefined) {
+                this.previousTitle = this.titleService.getTitle();
+            }
+            this.title = this.value;
+            this.titleService.setTitle(this.title);
+        }
+    }
+
+    public ngOnDestroy(): void {
+        if (this.titleService.getTitle() === this.title) {
+            this.titleService.setTitle(this.previousTitle);
+        }
+    }
 }
