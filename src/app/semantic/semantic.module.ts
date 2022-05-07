@@ -43,6 +43,8 @@ import { SemanticSpecialsComponent } from './specials/specials.component';
 import { SemanticSpecialListComponent } from './special-list/special-list.component';
 import { SemanticUtilsComponent } from './utils/utils.component';
 import { SemanticUtilListComponent } from './util-list/util-list.component';
+import { SemanticNotificationComponent } from './notification/notification.component';
+import { SemanticChatComponent } from './chat/chat.component';
 
 @NgModule({
     declarations: [
@@ -83,7 +85,9 @@ import { SemanticUtilListComponent } from './util-list/util-list.component';
         SemanticSpecialsComponent,
         SemanticSpecialListComponent,
         SemanticUtilsComponent,
-        SemanticUtilListComponent
+        SemanticUtilListComponent,
+        SemanticNotificationComponent,
+        SemanticChatComponent
     ],
     imports: [
         CommonModule,

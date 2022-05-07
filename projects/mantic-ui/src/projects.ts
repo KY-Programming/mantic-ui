@@ -117,6 +117,7 @@ export * from './lib/services/dimmable.service';
 export * from './lib/services/environment.service';
 export * from './lib/services/favicon.service';
 export * from './lib/services/theme.service';
+export * from './lib/services/base-href.service';
 export * from './lib/sidebar/sidebar.component';
 export * from './lib/slider/slider.component';
 export * from './lib/submit/submit.component';

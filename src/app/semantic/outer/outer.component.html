@@ -91,14 +91,17 @@
     <div class="item">
         <a class="header" routerLink="specials">Special</a>
         <div class="menu">
+            <a class="item" [routerLink]="['context-menu']" routerLinkActive="active">
+                Context Menu
+            </a>
             <a class="item" [routerLink]="['dimmer']" routerLinkActive="active">
                 Dimmer
             </a>
             <a class="item" [routerLink]="['modal']" routerLinkActive="active">
                 Modal
             </a>
-            <a class="item" [routerLink]="['context-menu']" routerLinkActive="active">
-                Context Menu
+            <a class="item" [routerLink]="['notification']" routerLinkActive="active">
+                Notification
             </a>
         </div>
     </div>

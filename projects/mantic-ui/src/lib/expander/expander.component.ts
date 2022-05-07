@@ -11,10 +11,10 @@ export class ExpanderComponent extends BaseComponent {
     private isExpanded: boolean;
 
     @Input()
-    public header: string;
+    public header: string | undefined;
 
     @ContentChild(ExpanderHeaderComponent)
-    public headerTemplate: ExpanderHeaderComponent;
+    public headerTemplate: ExpanderHeaderComponent | undefined;
 
     @Input()
     public get expanded(): boolean {

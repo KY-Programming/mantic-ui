@@ -39,6 +39,8 @@ import { SemanticComponentsComponent } from './semantic/components/components.co
 import { SemanticLayoutsComponent } from './semantic/layouts/layouts.component';
 import { SemanticSpecialsComponent } from './semantic/specials/specials.component';
 import { SemanticUtilsComponent } from './semantic/utils/utils.component';
+import { SemanticNotificationComponent } from './semantic/notification/notification.component';
+import { SemanticChatComponent } from './semantic/chat/chat.component';
 
 const routes: Routes = [
   { path: '', component: IntroComponent },
@@ -96,6 +98,10 @@ const routes: Routes = [
       { path: 'expander/:tab', component: SemanticExpanderComponent },
       { path: 'context-menu', redirectTo: 'context-menu/', pathMatch: 'full' },
       { path: 'context-menu/:tab', component: SemanticContextMenuComponent },
+      { path: 'notification', redirectTo: 'notification/', pathMatch: 'full' },
+      { path: 'notification/:tab', component: SemanticNotificationComponent },
+      { path: 'chat', redirectTo: 'chat/', pathMatch: 'full' },
+      { path: 'chat/:tab', component: SemanticChatComponent },
       { path: '**', redirectTo: 'components' }
     ]
   },

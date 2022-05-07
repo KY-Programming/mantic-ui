@@ -1,4 +1,4 @@
-import { Component, DoCheck, ElementRef, Input, IterableDiffer, IterableDiffers, Output, ViewChild } from '@angular/core';
+import { Component, DoCheck, ElementRef, Input, IterableDiffer, IterableDiffers, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ChatMessage } from '../models/chat-message';
 import { InputComponent } from '../input/text/input.component';
@@ -28,6 +28,9 @@ export class ChatComponent implements DoCheck {
 
     @Input()
     public sender: string;
+    
+    @Input()
+    public iconTemplate: TemplateRef<any>;
 
     @Output()
     public readonly send = this.sendSubject.asObservable();

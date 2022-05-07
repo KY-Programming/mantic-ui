@@ -3,6 +3,8 @@
 </div>
 <div *ngIf="canSend" class="input-wrapper" [class.visible]="canSend">
     <m-input autofocus [(value)]="message" (keydown)="onKeyDown($event)">
-        <m-icon-button icon="caret right" iconSize="big" (click)="sendMessage()"></m-icon-button>
+        <m-button (click)="sendMessage()" class="icon">
+            <m-icon *ngIf="!iconTemplate else iconTemplate" icon="caret right" size="big"></m-icon>
+        </m-button>
     </m-input>
 </div>

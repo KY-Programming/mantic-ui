@@ -22,6 +22,8 @@ export class ButtonDirective extends BaseDirective implements OnInit {
     private isAttachedTop: boolean;
     private isAttachedRight: boolean;
     private isAttachedBottom: boolean;
+    private iconValue: string;
+    private isFluid: boolean;
 
     @Input()
     @HostBinding('class.inverted')
@@ -181,6 +183,27 @@ export class ButtonDirective extends BaseDirective implements OnInit {
 
     public set attachedBottom(value: string | boolean) {
         this.isAttachedBottom = this.toBoolean(value);
+    }
+
+    @Input()
+    public get icon(): string {
+        return this.iconValue;
+    }
+
+    public set icon(value: string) {
+        this.iconValue = value;
+        this.classList.set('icon', !!value);
+        this.classList.set('iconLabeled', value ? 'labeled' : undefined);
+    }
+
+    @Input()
+    @HostBinding('class.fluid')
+    public get fluid(): boolean | string {
+        return this.isFluid;
+    }
+
+    public set fluid(value: string | boolean) {
+        this.isFluid = this.toBoolean(value);
     }
 
     @HostBinding('class.button')

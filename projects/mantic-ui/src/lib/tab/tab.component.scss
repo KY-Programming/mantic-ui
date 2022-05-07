@@ -1,3 +1,11 @@
-:host.active {
-    flex: 1;
+:host {
+    width: 100%;
+    
+    &.active {
+        flex: 1;
+    }
+    
+    &:not(.active) {
+        display: none;
+    }
 }

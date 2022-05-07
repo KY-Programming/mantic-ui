@@ -45,4 +45,14 @@ $chat-foreground: white !default;
     m-input {
         flex: 1;
     }
+    
+    .ui.button {
+        margin: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    m-icon::ng-deep i.icon {
+        margin: 0;
+    }
 }
