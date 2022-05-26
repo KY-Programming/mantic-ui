@@ -41,6 +41,8 @@ import { SemanticSpecialsComponent } from './semantic/specials/specials.componen
 import { SemanticUtilsComponent } from './semantic/utils/utils.component';
 import { SemanticNotificationComponent } from './semantic/notification/notification.component';
 import { SemanticChatComponent } from './semantic/chat/chat.component';
+import { HelpComponent } from './semantic/help/help.component';
+import { FeatureComponent } from './semantic/help/feature/feature.component';
 
 const routes: Routes = [
   { path: '', component: IntroComponent },
@@ -102,6 +104,9 @@ const routes: Routes = [
       { path: 'notification/:tab', component: SemanticNotificationComponent },
       { path: 'chat', redirectTo: 'chat/', pathMatch: 'full' },
       { path: 'chat/:tab', component: SemanticChatComponent },
+      { path: 'help', redirectTo: 'help/', pathMatch: 'full' },
+      { path: 'help/feature', component: FeatureComponent },
+      { path: 'help/:tab', component: HelpComponent },
       { path: '**', redirectTo: 'components' }
     ]
   },

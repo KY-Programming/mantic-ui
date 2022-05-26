@@ -3,6 +3,7 @@ import { BaseComponent } from '../base/base.component';
 
 export declare type FlexDirection = 'row' | 'column';
 export declare type FlexAlignItems = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
+export declare type FlexJustifyContent = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
 
 @Component({
     selector: 'm-flex',
@@ -30,11 +31,15 @@ export class FlexComponent extends BaseComponent {
     @HostBinding('style.align-items')
     public alignItems: FlexAlignItems;
 
+    @Input()
+    @HostBinding('style.justify-content')
+    public justifyContent: FlexJustifyContent;
+
     public constructor(
       elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
-        this.classList.register('column', 'direction', 'alignItems');
+        this.classList.register('column', 'direction', 'alignItems', 'justifyContent');
     }
 
 }

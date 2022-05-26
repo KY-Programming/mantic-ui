@@ -45,6 +45,9 @@ import { SemanticUtilsComponent } from './utils/utils.component';
 import { SemanticUtilListComponent } from './util-list/util-list.component';
 import { SemanticNotificationComponent } from './notification/notification.component';
 import { SemanticChatComponent } from './chat/chat.component';
+import { HelpComponent } from './help/help.component';
+import { HeaderComponent } from '../helpers/header/header.component';
+import { FeatureComponent } from './help/feature/feature.component';
 
 @NgModule({
     declarations: [
@@ -87,7 +90,10 @@ import { SemanticChatComponent } from './chat/chat.component';
         SemanticUtilsComponent,
         SemanticUtilListComponent,
         SemanticNotificationComponent,
-        SemanticChatComponent
+        SemanticChatComponent,
+        HelpComponent,
+        HeaderComponent,
+        FeatureComponent
     ],
     imports: [
         CommonModule,

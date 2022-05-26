@@ -21,6 +21,24 @@
     <a class="item" [routerLink]="['start']" routerLinkActive="active">
         <b>Getting Started</b>
     </a>
+    <div class="item">
+        <div class="header">
+            <a routerLink="/semantic/help" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">How to get help?</a>
+        </div>
+        <div class="menu">
+            <a class="item" routerLink="/semantic/help/contact" routerLinkActive="active">Contact Us</a>
+<!--            <a class="item" routerLink="/semantic/help/overview/faq" routerLinkActive="active">FAQ</a>-->
+<!--            <a class="item" routerLink="/semantic/help/errors" routerLinkActive="active">Common Errors</a>-->
+            <a class="item" href="https://github.com/KY-Programming/mantic-ui">
+                Github
+                <m-icon icon="external alternate" title="External Link"></m-icon>
+            </a>
+            <a class="item" href="https://discord.mantic-ui.ky-programming.de">
+                Discord
+                <m-icon icon="external alternate" title="External Link"></m-icon>
+            </a>
+        </div>
+    </div>
     <a class="item" routerLink="components" routerLinkActive="active">
         <b>All Components</b>
     </a>
@@ -115,6 +133,12 @@
                 KY-Generator for Angular
                 <m-icon icon="external alternate" title="External Link"></m-icon>
             </a>
+        </div>
+    </div>
+    <div class="item">
+        <div class="header">Missing a Feature?</div>
+        <div class="menu">
+            <a class="item" routerLink="/semantic/help/feature" routerLinkActive="active">Contact us!</a>
         </div>
     </div>
     <a class="item" (click)="toFomantic()" title="Switch to Fomantic UI Angular">
