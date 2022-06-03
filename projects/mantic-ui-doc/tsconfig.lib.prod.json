@@ -3,7 +3,11 @@
   "extends": "./tsconfig.lib.json",
   "compilerOptions": {
     "declarationMap": false,
-    "paths": { }
+    "paths": {
+      "@mantic-ui/angular": [
+        "dist/mantic-ui/projects"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "compilationMode": "partial"
