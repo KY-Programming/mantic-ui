@@ -12,48 +12,48 @@ import { NpmInstallComponent } from './npm-install/npm-install.component';
 
 // tslint:disable-next-line: only-arrow-functions
 export function getHighlightLanguages(): unknown {
-  return {
-    cs: () => import('highlight.js/lib/languages/csharp'),
-    css: () => import('highlight.js/lib/languages/css'),
-    html: () => import('highlight.js/lib/languages/xml'),
-    js: () => import('highlight.js/lib/languages/javascript'),
-    scss: () => import('highlight.js/lib/languages/scss'),
-    ts: () => import('highlight.js/lib/languages/typescript')
-  };
+    return {
+        cs: () => import('highlight.js/lib/languages/csharp'),
+        css: () => import('highlight.js/lib/languages/css'),
+        html: () => import('highlight.js/lib/languages/xml'),
+        js: () => import('highlight.js/lib/languages/javascript'),
+        scss: () => import('highlight.js/lib/languages/scss'),
+        ts: () => import('highlight.js/lib/languages/typescript')
+    };
 }
 
 @NgModule({
-  declarations: [
-    ExampleComponent,
-    ExampleCodeComponent,
-    ExampleFrameComponent,
-    NugetComponent,
-    NugetInstallComponent,
-    NpmComponent,
-    NpmInstallComponent
-  ],
-  imports: [
-    CommonModule,
-    HighlightModule,
-    ManticUiModule
-  ],
-  exports: [
-    ExampleComponent,
-    ExampleCodeComponent,
-    ExampleFrameComponent,
-    NugetComponent,
-    NugetInstallComponent,
-    NpmComponent,
-    NpmInstallComponent
-  ],
-  providers: [
-    {
-      provide: HIGHLIGHT_OPTIONS,
-      useValue: {
-        coreLibraryLoader: () => import('highlight.js/lib/core'),
-        languages: getHighlightLanguages()
-      }
-    }
-  ],
+    declarations: [
+        ExampleComponent,
+        ExampleCodeComponent,
+        ExampleFrameComponent,
+        NugetComponent,
+        NugetInstallComponent,
+        NpmComponent,
+        NpmInstallComponent
+    ],
+    imports: [
+        CommonModule,
+        HighlightModule,
+        ManticUiModule
+    ],
+    exports: [
+        ExampleComponent,
+        ExampleCodeComponent,
+        ExampleFrameComponent,
+        NugetComponent,
+        NugetInstallComponent,
+        NpmComponent,
+        NpmInstallComponent
+    ],
+    providers: [
+        {
+            provide: HIGHLIGHT_OPTIONS,
+            useValue: {
+                coreLibraryLoader: () => import('highlight.js/lib/core'),
+                languages: getHighlightLanguages()
+            }
+        }
+    ]
 })
-export class ManticUiDocModule { }
+export class ManticUiDocModule {}

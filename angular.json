@@ -182,9 +182,6 @@
             "production": {
               "tsConfig": "projects/mantic-ui/tsconfig.lib.prod.json"
             },
-            "ivy": {
-              "tsConfig": "projects/mantic-ui/tsconfig.lib.ivy.json"
-            },
             "development": {
               "tsConfig": "projects/mantic-ui/tsconfig.lib.json"
             }

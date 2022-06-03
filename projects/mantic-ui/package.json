@@ -1,6 +1,6 @@
 {
   "name": "@mantic-ui/angular",
-  "version": "13.4.0-preview.3",
+  "version": "14.0.0-preview.0",
   "description": "mantic UI for Angular",
   "keywords": [
     "mantic-ui",
@@ -33,11 +33,11 @@
     "url": "https://github.com/KY-Programming/mantic-ui.git"
   },
   "peerDependencies": {
-    "@angular/common": "8 - 13",
-    "@angular/core": "8 - 13",
-    "@angular/forms": "8 - 13",
-    "@angular/platform-browser": "8 - 13",
-    "@angular/router": "8 - 13",
+    "@angular/common": "8 - 14",
+    "@angular/core": "8 - 14",
+    "@angular/forms": "8 - 14",
+    "@angular/platform-browser": "8 - 14",
+    "@angular/router": "8 - 14",
     "rxjs": "^6.0.0 || ^7.0.0"
   },
   "dependencies": {

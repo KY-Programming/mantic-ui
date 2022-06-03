@@ -6,7 +6,12 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": []
+    "types": [],
+    "paths": {
+      "@mantic-ui/angular": [
+        "projects/mantic-ui/src/projects"
+      ]
+    },
   },
   "exclude": [
     "src/test.ts",

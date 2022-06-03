@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input } from '@angular/core';
-import { BaseComponent } from '@mantic-ui/angular';
+import { BaseComponent, BooleanLike } from '@mantic-ui/angular';
 import { NpmApiService } from '../services/npm-api.service';
 
 @Component({
@@ -44,7 +44,7 @@ export class NpmInstallComponent extends BaseComponent {
         this.isDev = this.toBoolean(value);
     }
 
-    constructor(
+    public constructor(
         private readonly nugetApiService: NpmApiService,
         elementRef: ElementRef
     ) {
