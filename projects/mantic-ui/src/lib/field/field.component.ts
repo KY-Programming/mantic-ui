@@ -11,6 +11,7 @@ import { ToggleComponent } from '../toggle/toggle.component';
 import { BaseComponent } from '../base/base.component';
 import { NumericInputComponent } from '../input/numeric/numeric-input.component';
 import { DateInputComponent } from '../input/date/date-input.component';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     selector: 'm-field',
@@ -257,7 +258,7 @@ export class FieldComponent extends BaseComponent {
     }
 
     @Input()
-    public set error(value: boolean | string) {
+    public set error(value: BooleanLike) {
         value = this.toBoolean(value);
         if (this.errorValue === value) {
             return;
@@ -292,13 +293,13 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
-    public get disabled(): boolean | string {
+    public get disabled(): boolean {
         return this.disabledValue;
     }
 
     @Input()
     @HostBinding('class.disabled')
-    public set disabled(value: boolean | string) {
+    public set disabled(value: BooleanLike) {
         this.disabledValue = this.toBoolean(value);
         if (this.inputComponent) {
             this.inputComponent.disabled = value;
@@ -326,13 +327,13 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
-    public get readonly(): boolean | string {
+    public get readonly(): boolean {
         return this.readonlyValue;
     }
 
     @Input()
     @HostBinding('class.readonly')
-    public set readonly(value: boolean | string) {
+    public set readonly(value: BooleanLike) {
         this.readonlyValue = this.toBoolean(value);
         if (this.inputComponent) {
             this.inputComponent.readonly = value;
@@ -362,11 +363,11 @@ export class FieldComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.inline')
-    public get inline(): boolean | string {
+    public get inline(): boolean {
         return this.isInline;
     }
 
-    public set inline(value: string | boolean) {
+    public set inline(value: BooleanLike) {
         this.isInline = this.toBoolean(value);
     }
 
@@ -381,11 +382,11 @@ export class FieldComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.fill')
-    public get fill(): boolean | string {
+    public get fill(): boolean {
         return this.isFill;
     }
 
-    public set fill(value: boolean | string) {
+    public set fill(value: BooleanLike) {
         this.isFill = this.toBoolean(value);
     }
 

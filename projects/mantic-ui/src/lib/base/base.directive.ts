@@ -2,6 +2,7 @@ import { DestroyableDirective } from './destroyable.directive';
 import { Directive, ElementRef, Inject, OnInit, Optional } from '@angular/core';
 import { ClassList } from '../models/class-list';
 import { takeUntil } from 'rxjs/operators';
+import { BooleanLike } from '../models/boolean-like';
 
 @Directive({
     selector: '[m-base]'
@@ -62,7 +63,7 @@ export class BaseDirective extends DestroyableDirective implements OnInit {
         this.classList.update(this.element.nativeElement.classList);
     }
 
-    protected toBoolean(value: boolean | string): boolean {
+    protected toBoolean(value: BooleanLike): boolean {
         return value === '' || value === true || value?.toString().toLowerCase() === 'true';
     }
 

@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     selector: 'm-error',
@@ -11,11 +12,11 @@ export class ErrorComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.ignored')
-    public get ignored(): boolean | string {
+    public get ignored(): boolean {
         return this.isIgnored;
     }
 
-    public set ignored(value: string | boolean) {
+    public set ignored(value: BooleanLike) {
         this.isIgnored = this.toBoolean(value);
     }
 
@@ -24,7 +25,7 @@ export class ErrorComponent extends BaseComponent {
     @HostBinding('class.message')
     public readonly message = true;
 
-    constructor(
+    public constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);

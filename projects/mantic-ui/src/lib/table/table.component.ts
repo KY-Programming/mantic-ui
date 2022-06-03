@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 export declare type Align =
     | 'top'
@@ -25,7 +26,7 @@ export class TableComponent extends BaseComponent {
         return this.isCelled;
     }
 
-    public set celled(value: string | boolean) {
+    public set celled(value: BooleanLike) {
         this.isCelled = this.toBoolean(value);
     }
 
@@ -34,7 +35,7 @@ export class TableComponent extends BaseComponent {
         return !this.celled;
     }
 
-    public set notCelled(value: string | boolean) {
+    public set notCelled(value: BooleanLike) {
         this.celled = !this.toBoolean(value);
     }
 
@@ -44,7 +45,7 @@ export class TableComponent extends BaseComponent {
         return this.isVery;
     }
 
-    public set very(value: string | boolean) {
+    public set very(value: BooleanLike) {
         this.isVery = this.toBoolean(value);
     }
 
@@ -54,7 +55,7 @@ export class TableComponent extends BaseComponent {
         return this.isBasic;
     }
 
-    public set basic(value: string | boolean) {
+    public set basic(value: BooleanLike) {
         this.isBasic = this.toBoolean(value);
     }
 
@@ -64,7 +65,7 @@ export class TableComponent extends BaseComponent {
         return this.isUnstackable;
     }
 
-    public set unstackable(value: string | boolean) {
+    public set unstackable(value: BooleanLike) {
         this.isUnstackable = this.toBoolean(value);
     }
 
@@ -84,7 +85,7 @@ export class TableComponent extends BaseComponent {
         return this.isDefinition;
     }
 
-    public set definition(value: string | boolean) {
+    public set definition(value: BooleanLike) {
         this.isDefinition = this.toBoolean(value);
     }
 

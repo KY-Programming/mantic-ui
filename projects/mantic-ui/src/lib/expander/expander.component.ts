@@ -1,6 +1,7 @@
 import { Component, ContentChild, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
 import { ExpanderHeaderComponent } from './expander-header.component';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     selector: 'm-expander',
@@ -21,7 +22,7 @@ export class ExpanderComponent extends BaseComponent {
         return this.isExpanded;
     }
 
-    public set expanded(value: boolean | string) {
+    public set expanded(value: BooleanLike) {
         this.isExpanded = this.toBoolean(value);
     }
 

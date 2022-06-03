@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 export declare type SidebarWidth =
     'thin'
@@ -27,32 +28,32 @@ export class SidebarComponent extends BaseComponent {
     private isFluid: boolean;
     private noScrollingValue: boolean;
 
-    public get inverted(): boolean | string {
+    public get inverted(): boolean {
         return this.isInverted;
     }
 
     @Input()
-    public set inverted(value: boolean | string) {
+    public set inverted(value: BooleanLike) {
         this.isInverted = this.toBoolean(value);
         this.classList.set('inverted', this.isInverted);
     }
 
-    public get visible(): boolean | string {
+    public get visible(): boolean {
         return this.isVisible;
     }
 
     @Input()
-    public set visible(value: boolean | string) {
+    public set visible(value: BooleanLike) {
         this.isVisible = this.toBoolean(value);
         this.classList.set('visible', this.isVisible);
     }
 
-    public get fluid(): boolean | string {
+    public get fluid(): boolean {
         return this.isFluid;
     }
 
     @Input()
-    public set fluid(value: boolean | string) {
+    public set fluid(value: BooleanLike) {
         this.isFluid = this.toBoolean(value);
         this.classList.set('fluid', this.isFluid);
     }
@@ -77,17 +78,17 @@ export class SidebarComponent extends BaseComponent {
         this.classList.set('position', value);
     }
 
-    public get noScrolling(): boolean | string {
+    public get noScrolling(): boolean {
         return this.noScrollingValue;
     }
 
     @Input()
     @HostBinding('class.no-scrolling')
-    public set noScrolling(value: boolean | string) {
+    public set noScrolling(value: BooleanLike) {
         this.noScrollingValue = this.toBoolean(value);
     }
 
-    constructor(element: ElementRef<HTMLElement>) {
+    public constructor(element: ElementRef<HTMLElement>) {
         super(element);
         this.classList.register('inverted', 'width', 'position', 'visible', 'fluid', 'noScrolling').registerFixed('sidebar');
         this.position = 'left';

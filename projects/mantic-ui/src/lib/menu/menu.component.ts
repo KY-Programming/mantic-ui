@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostBinding, Input, Optional, SkipSelf } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 export declare type MenuPosition =
     'top'
@@ -39,7 +40,7 @@ export class MenuComponent extends BaseComponent {
         return this.isFixed;
     }
 
-    public set fixed(value: string | boolean) {
+    public set fixed(value: BooleanLike) {
         this.isFixed = this.toBoolean(value);
     }
 
@@ -49,7 +50,7 @@ export class MenuComponent extends BaseComponent {
         return this.isSecondary;
     }
 
-    public set secondary(value: string | boolean) {
+    public set secondary(value: BooleanLike) {
         this.isSecondary = this.toBoolean(value);
     }
 
@@ -59,7 +60,7 @@ export class MenuComponent extends BaseComponent {
         return this.isPointing;
     }
 
-    public set pointing(value: string | boolean) {
+    public set pointing(value: BooleanLike) {
         this.isPointing = this.toBoolean(value);
     }
 
@@ -80,7 +81,7 @@ export class MenuComponent extends BaseComponent {
         return this.isTabular;
     }
 
-    public set tabular(value: string | boolean) {
+    public set tabular(value: BooleanLike) {
         this.isTabular = this.toBoolean(value);
     }
 
@@ -90,7 +91,7 @@ export class MenuComponent extends BaseComponent {
         return this.isText;
     }
 
-    public set text(value: string | boolean) {
+    public set text(value: BooleanLike) {
         this.isText = this.toBoolean(value);
     }
 
@@ -100,7 +101,7 @@ export class MenuComponent extends BaseComponent {
         return this.isVertical;
     }
 
-    public set vertical(value: string | boolean) {
+    public set vertical(value: BooleanLike) {
         this.isVertical = this.toBoolean(value);
     }
 

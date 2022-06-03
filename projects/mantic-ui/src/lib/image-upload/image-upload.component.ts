@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, Output } from '@angular/core';
 import { ButtonBaseComponent } from '../base/button-base.component';
 import { Subject } from 'rxjs';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     selector: 'm-image-upload',
@@ -32,12 +33,12 @@ export class ImageUploadComponent extends ButtonBaseComponent {
     public height: number;
 
     @Input()
-    public set hidePreview(value: boolean | string) {
+    public set hidePreview(value: BooleanLike) {
         this.isPreviewVisible = !this.toBoolean(value);
     }
 
     @Input()
-    public set forcePreviewImageChange(value: boolean | string) {
+    public set forcePreviewImageChange(value: BooleanLike) {
         this.isPreviewImageChangeForced = this.toBoolean(value);
     }
 

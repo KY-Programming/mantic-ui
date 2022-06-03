@@ -1,5 +1,6 @@
 import { Directive, ElementRef, Input } from '@angular/core';
 import { BaseDirective } from '../base/base.directive';
+import { BooleanLike } from '../models/boolean-like';
 
 @Directive({
     selector: '[m-menu-item]'
@@ -13,13 +14,13 @@ export class MenuItemDirective /*extends MenuItemComponent*/ extends BaseDirecti
         return this.isActive;
     }
 
-    public set active(value: string | boolean) {
+    public set active(value: BooleanLike) {
         this.isActive = this.toBoolean(value);
         this.classList.set('active', this.isActive);
     }
 
 
-    constructor(
+    public constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);

@@ -4,6 +4,7 @@ import { DropdownItemComponent } from '../dropdown-item/dropdown-item.component'
 import { DropDownSelectionService } from './dropdown-selection.service';
 import { DropdownValue } from './dropdown-value';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     selector: 'm-dropdown',
@@ -54,7 +55,7 @@ export class DropdownComponent extends BaseComponent {
         return this.isMultiple;
     }
 
-    public set multiple(value: string | boolean) {
+    public set multiple(value: BooleanLike) {
         this.isMultiple = this.toBoolean(value);
     }
 
@@ -63,7 +64,7 @@ export class DropdownComponent extends BaseComponent {
         return this.isSearch;
     }
 
-    public set search(value: string | boolean) {
+    public set search(value: BooleanLike) {
         this.isSearch = this.toBoolean(value);
     }
 
@@ -73,7 +74,7 @@ export class DropdownComponent extends BaseComponent {
         return this.isFluid;
     }
 
-    public set fluid(value: string | boolean) {
+    public set fluid(value: BooleanLike) {
         this.isFluid = this.toBoolean(value);
     }
 
@@ -83,7 +84,7 @@ export class DropdownComponent extends BaseComponent {
         return this.isDisabled;
     }
 
-    public set disabled(value: string | boolean) {
+    public set disabled(value: BooleanLike) {
         this.isDisabled = this.toBoolean(value);
     }
 
@@ -93,7 +94,7 @@ export class DropdownComponent extends BaseComponent {
         return this.isAttachedLeft;
     }
 
-    public set attachedLeft(value: string | boolean) {
+    public set attachedLeft(value: BooleanLike) {
         this.isAttachedLeft = this.toBoolean(value);
     }
 
@@ -103,7 +104,7 @@ export class DropdownComponent extends BaseComponent {
         return this.isAttachedTop;
     }
 
-    public set attachedTop(value: string | boolean) {
+    public set attachedTop(value: BooleanLike) {
         this.isAttachedTop = this.toBoolean(value);
     }
 
@@ -113,7 +114,7 @@ export class DropdownComponent extends BaseComponent {
         return this.isAttachedRight;
     }
 
-    public set attachedRight(value: string | boolean) {
+    public set attachedRight(value: BooleanLike) {
         this.isAttachedRight = this.toBoolean(value);
     }
 
@@ -123,7 +124,7 @@ export class DropdownComponent extends BaseComponent {
         return this.isAttachedBottom;
     }
 
-    public set attachedBottom(value: string | boolean) {
+    public set attachedBottom(value: BooleanLike) {
         this.isAttachedBottom = this.toBoolean(value);
     }
 
@@ -181,7 +182,7 @@ export class DropdownComponent extends BaseComponent {
         return this.isSelectFirst;
     }
 
-    public set selectFirst(value: string | boolean) {
+    public set selectFirst(value: BooleanLike) {
         this.isSelectFirst = this.toBoolean(value);
     }
 
@@ -190,7 +191,7 @@ export class DropdownComponent extends BaseComponent {
         return this.isFreeTextAllowed;
     }
 
-    public set allowFreeText(value: string | boolean) {
+    public set allowFreeText(value: BooleanLike) {
         this.isFreeTextAllowed = this.toBoolean(value);
     }
 

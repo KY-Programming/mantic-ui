@@ -7,6 +7,7 @@ import { Math2 } from '../helpers/math2';
 import { takeUntil } from 'rxjs/operators';
 import { ContextMenuEvent } from './models/context-menu-event';
 import { ContextMenuMouseEvent } from './models/context-menu-mouse-event';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     selector: 'm-context-menu',
@@ -29,7 +30,7 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
         return this.isOpenOnLeftClick;
     }
 
-    public set openOnLeftClick(value: boolean | string) {
+    public set openOnLeftClick(value: BooleanLike) {
         this.isOpenOnLeftClick = this.toBoolean(value);
     }
 
@@ -38,7 +39,7 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
         return this.isOpenOnRightClick;
     }
 
-    public set openOnRightClick(value: boolean | string) {
+    public set openOnRightClick(value: BooleanLike) {
         this.isOpenOnRightClick = this.toBoolean(value);
     }
 
@@ -47,7 +48,7 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
         return this.isVertical;
     }
 
-    public set vertical(value: string | boolean) {
+    public set vertical(value: BooleanLike) {
         this.isVertical = this.toBoolean(value);
     }
 
@@ -56,7 +57,7 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
         return this.isShared;
     }
 
-    public set shared(value: string | boolean) {
+    public set shared(value: BooleanLike) {
         this.isShared = this.toBoolean(value);
     }
 

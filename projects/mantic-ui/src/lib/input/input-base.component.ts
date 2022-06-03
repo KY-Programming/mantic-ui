@@ -1,6 +1,7 @@
 ﻿import { Component, ElementRef, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { LabeledBaseComponent } from '../base/labeled-base.component';
 import { InputIconPosition } from './text/input.component';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
   template: ''
@@ -40,7 +41,7 @@ export class InputBaseComponent extends LabeledBaseComponent {
     return this.loadingValue;
   }
 
-  public set loading(value: boolean | string) {
+  public set loading(value: BooleanLike) {
     this.loadingValue = this.toBoolean(value);
     this.refreshInput();
   }
@@ -51,7 +52,7 @@ export class InputBaseComponent extends LabeledBaseComponent {
     return this.disabledValue;
   }
 
-  public set disabled(value: boolean | string) {
+  public set disabled(value: BooleanLike) {
     this.disabledValue = this.toBoolean(value);
     this.refreshInput();
   }
@@ -62,7 +63,7 @@ export class InputBaseComponent extends LabeledBaseComponent {
     return this.readonlyValue;
   }
 
-  public set readonly(value: boolean | string) {
+  public set readonly(value: BooleanLike) {
     this.readonlyValue = this.toBoolean(value);
     this.refreshInput();
   }
@@ -73,7 +74,7 @@ export class InputBaseComponent extends LabeledBaseComponent {
     return this.hasErrorValue;
   }
 
-  public set hasError(value: boolean | string) {
+  public set hasError(value: BooleanLike) {
     this.hasErrorValue = this.toBoolean(value);
     this.refreshInput();
   }
@@ -84,7 +85,7 @@ export class InputBaseComponent extends LabeledBaseComponent {
     return this.transparentValue;
   }
 
-  public set transparent(value: boolean | string) {
+  public set transparent(value: BooleanLike) {
     this.transparentValue = this.toBoolean(value);
     this.refreshInput();
   }
@@ -95,7 +96,7 @@ export class InputBaseComponent extends LabeledBaseComponent {
     return this.fluidValue;
   }
 
-  public set fluid(value: boolean | string) {
+  public set fluid(value: BooleanLike) {
     this.fluidValue = this.toBoolean(value);
     this.refreshInput();
   }
@@ -105,7 +106,7 @@ export class InputBaseComponent extends LabeledBaseComponent {
     return this.isAutoFocused;
   }
 
-  public set autofocus(value: boolean | string) {
+  public set autofocus(value: BooleanLike) {
     this.isAutoFocused = this.toBoolean(value);
     this.refreshFocus();
   }

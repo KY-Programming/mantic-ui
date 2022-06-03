@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 export type ModalSize =
     'mini'
@@ -30,7 +31,7 @@ export class ModalComponent extends BaseComponent {
         return this.isShowClose;
     }
 
-    public set showClose(value: boolean | string) {
+    public set showClose(value: BooleanLike) {
         this.isShowClose = this.toBoolean(value);
     }
 
@@ -39,7 +40,7 @@ export class ModalComponent extends BaseComponent {
         return this.isShowHeader;
     }
 
-    public set showHeader(value: boolean | string) {
+    public set showHeader(value: BooleanLike) {
         this.isShowHeader = this.toBoolean(value);
     }
 
@@ -48,7 +49,7 @@ export class ModalComponent extends BaseComponent {
         return this.isShowFooter;
     }
 
-    public set showFooter(value: boolean | string) {
+    public set showFooter(value: BooleanLike) {
         this.isShowFooter = this.toBoolean(value);
     }
 
@@ -57,7 +58,7 @@ export class ModalComponent extends BaseComponent {
         return this.isBasic;
     }
 
-    public set basic(value: boolean | string) {
+    public set basic(value: BooleanLike) {
         this.isBasic = this.toBoolean(value);
     }
 
@@ -66,7 +67,7 @@ export class ModalComponent extends BaseComponent {
         return this.isVisible;
     }
 
-    public set visible(value: boolean | string) {
+    public set visible(value: BooleanLike) {
         this.isVisible = this.toBoolean(value);
     }
 
@@ -75,7 +76,7 @@ export class ModalComponent extends BaseComponent {
         return this.isImageContent;
     }
 
-    public set imageContent(value: boolean | string) {
+    public set imageContent(value: BooleanLike) {
         this.isImageContent = this.toBoolean(value);
     }
 
@@ -84,7 +85,7 @@ export class ModalComponent extends BaseComponent {
         return this.isFullscreen;
     }
 
-    public set fullscreen(value: boolean | string) {
+    public set fullscreen(value: BooleanLike) {
         this.isFullscreen = this.toBoolean(value);
     }
 
@@ -96,7 +97,7 @@ export class ModalComponent extends BaseComponent {
         return this.isScrolling;
     }
 
-    public set scrolling(value: boolean | string) {
+    public set scrolling(value: BooleanLike) {
         this.isScrolling = this.toBoolean(value);
     }
 
@@ -109,7 +110,7 @@ export class ModalComponent extends BaseComponent {
     @Output()
     public readonly close = new EventEmitter<void>();
 
-    constructor(
+    public constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef, false);

@@ -40,7 +40,7 @@ export class NpmInstallComponent extends BaseComponent {
         return this.isDev;
     }
 
-    public set dev(value: boolean | string) {
+    public set dev(value: BooleanLike) {
         this.isDev = this.toBoolean(value);
     }
 

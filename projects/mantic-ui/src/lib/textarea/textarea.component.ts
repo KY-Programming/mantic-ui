@@ -1,5 +1,6 @@
 import { ApplicationRef, Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     selector: 'm-textarea',
@@ -20,24 +21,24 @@ export class TextareaComponent extends BaseComponent {
     @Input()
     public name: string;
 
-    public get disabled(): boolean | string {
+    public get disabled(): boolean {
         return this.disabledValue;
     }
 
     @Input()
     @HostBinding('class.disabled')
-    public set disabled(value: boolean | string) {
+    public set disabled(value: BooleanLike) {
         this.disabledValue = this.toBoolean(value);
         this.refreshTextarea();
     }
 
-    public get readonly(): boolean | string {
+    public get readonly(): boolean  {
         return this.readonlyValue;
     }
 
     @Input()
     @HostBinding('class.disabled')
-    public set readonly(value: boolean | string) {
+    public set readonly(value: BooleanLike) {
         this.readonlyValue = this.toBoolean(value);
         this.refreshTextarea();
     }

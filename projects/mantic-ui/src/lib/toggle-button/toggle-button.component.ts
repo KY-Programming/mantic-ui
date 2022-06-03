@@ -2,6 +2,7 @@ import { Component, ContentChild, ElementRef, EventEmitter, HostBinding, HostLis
 import { Key } from '../models/key';
 import { ButtonBaseComponent } from '../base/button-base.component';
 import { NgIfContext } from '@angular/common';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     selector: 'm-toggle-button',
@@ -13,13 +14,13 @@ export class ToggleButtonComponent extends ButtonBaseComponent {
     @ContentChild('active')
     public activeTemplate: TemplateRef<NgIfContext<boolean>>;
 
-    public get checked(): boolean | string {
+    public get checked(): boolean {
         return this.active;
     }
 
     @Input()
     @HostBinding('class.checked')
-    public set checked(value: boolean | string) {
+    public set checked(value: BooleanLike) {
         this.active = value;
     }
 

@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { Subject } from 'rxjs';
+import { BooleanLike } from '../models/boolean-like';
 
 export declare type MessageAttached = 'bottom' | 'top' | undefined;
 
@@ -23,79 +24,79 @@ export class MessageComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.ignored')
-    public get ignored(): boolean | string {
+    public get ignored(): boolean {
         return this.isIgnored;
     }
 
-    public set ignored(value: string | boolean) {
+    public set ignored(value: BooleanLike) {
         this.isIgnored = this.toBoolean(value);
     }
 
     @Input()
     @HostBinding('class.positive')
-    public get positive(): boolean | string {
+    public get positive(): boolean {
         return this.isPositive;
     }
 
-    public set positive(value: string | boolean) {
+    public set positive(value: BooleanLike) {
         this.isPositive = this.toBoolean(value);
     }
 
     @Input()
     @HostBinding('class.info')
-    public get info(): boolean | string {
+    public get info(): boolean {
         return this.isInfo;
     }
 
-    public set info(value: string | boolean) {
+    public set info(value: BooleanLike) {
         this.isInfo = this.toBoolean(value);
     }
 
     @Input()
     @HostBinding('class.success')
-    public get success(): boolean | string {
+    public get success(): boolean {
         return this.isSuccess;
     }
 
-    public set success(value: string | boolean) {
+    public set success(value: BooleanLike) {
         this.isSuccess = this.toBoolean(value);
     }
 
     @Input()
     @HostBinding('class.warning')
-    public get warning(): boolean | string {
+    public get warning(): boolean {
         return this.isWarning;
     }
 
-    public set warning(value: string | boolean) {
+    public set warning(value: BooleanLike) {
         this.isWarning = this.toBoolean(value);
     }
 
     @Input()
     @HostBinding('class.error')
-    public get error(): boolean | string {
+    public get error(): boolean {
         return this.isError;
     }
 
-    public set error(value: string | boolean) {
+    public set error(value: BooleanLike) {
         this.isError = this.toBoolean(value);
     }
 
-    public get closable(): boolean | string {
+    public get closable(): boolean {
         return this.isClosable;
     }
 
     @Input()
-    public set closable(value: boolean | string) {
+    public set closable(value: BooleanLike) {
         this.isClosable = this.toBoolean(value);
     }
 
-    public get showClose(): boolean | string {
+    public get showClose(): boolean {
         return this.isCloseVisible;
     }
 
     @Input()
-    public set showClose(value: boolean | string) {
+    public set showClose(value: BooleanLike) {
         this.isCloseVisible = this.toBoolean(value);
     }
 
@@ -129,7 +130,7 @@ export class MessageComponent extends BaseComponent {
     @Output()
     public readonly close = new Subject<void>();
 
-    constructor(
+    public constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);

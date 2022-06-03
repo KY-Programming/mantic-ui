@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostBinding, Inject, Input, Optional } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     selector: 'm-menu-item',
@@ -15,7 +16,7 @@ export class MenuItemComponent extends BaseComponent {
         return this.isActive;
     }
 
-    public set active(value: string | boolean) {
+    public set active(value: BooleanLike) {
         this.isActive = this.toBoolean(value);
         this.classList.set('active', this.isActive);
     }
@@ -27,7 +28,7 @@ export class MenuItemComponent extends BaseComponent {
         return this.isLink;
     }
 
-    public set link(value: string | boolean) {
+    public set link(value: BooleanLike) {
         this.isLink = this.toBoolean(value);
     }
 

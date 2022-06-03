@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     selector: 'm-segment-group',
@@ -11,18 +12,18 @@ export class SegmentGroupComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.horizontal')
-    public get horizontal(): boolean | string {
+    public get horizontal(): boolean {
         return this.isHorizontal;
     }
 
-    public set horizontal(value: string | boolean) {
+    public set horizontal(value: BooleanLike) {
         this.isHorizontal = this.toBoolean(value);
     }
 
     @HostBinding('class.segments')
     public readonly segments = true;
 
-    constructor(
+    public constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);

@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     selector: 'm-text-container',
@@ -11,11 +12,11 @@ export class TextContainerComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.fluid')
-    public get fluid(): boolean | string {
+    public get fluid(): boolean {
         return this.isFluid;
     }
 
-    public set fluid(value: string | boolean) {
+    public set fluid(value: BooleanLike) {
         this.isFluid = this.toBoolean(value);
     }
 

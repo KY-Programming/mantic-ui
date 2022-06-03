@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 export declare type FlexDirection = 'row' | 'column';
 export declare type FlexAlignItems = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
@@ -18,7 +19,7 @@ export class FlexComponent extends BaseComponent {
         return this.isColumn;
     }
 
-    public set column(value: string | boolean) {
+    public set column(value: BooleanLike) {
         this.isColumn = this.toBoolean(value);
         this.direction = this.isColumn ? 'column' : undefined;
     }

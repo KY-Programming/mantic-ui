@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input } from '@angular/core';
 import { FieldSize, fieldSizes } from '../models/field-size';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 export declare type GridWidth = 'equal';
 
@@ -23,7 +24,7 @@ export class GridComponent extends BaseComponent {
         return this.isVertically;
     }
 
-    public set vertically(value: string | boolean) {
+    public set vertically(value: BooleanLike) {
         this.isVertically = this.toBoolean(value);
         this.classList.set('vertically', this.isVertically);
     }
@@ -33,7 +34,7 @@ export class GridComponent extends BaseComponent {
         return this.isDivided;
     }
 
-    public set divided(value: string | boolean) {
+    public set divided(value: BooleanLike) {
         this.isDivided = this.toBoolean(value);
         this.classList.set('divided', this.isDivided);
     }
@@ -58,7 +59,7 @@ export class GridComponent extends BaseComponent {
         return this.isInternally;
     }
 
-    public set internally(value: string | boolean) {
+    public set internally(value: BooleanLike) {
         this.isInternally = this.toBoolean(value);
         this.classList.set('internally', this.isInternally);
     }
@@ -68,7 +69,7 @@ export class GridComponent extends BaseComponent {
         return this.isCelled;
     }
 
-    public set celled(value: string | boolean) {
+    public set celled(value: BooleanLike) {
         this.isCelled = this.toBoolean(value);
         this.classList.set('celled', this.isCelled);
     }
@@ -88,7 +89,7 @@ export class GridComponent extends BaseComponent {
         return this.noMarginValue;
     }
 
-    public set noMargin(value: string | boolean) {
+    public set noMargin(value: BooleanLike) {
         this.noMarginValue = this.toBoolean(value);
         this.classList.set('no-margin', this.noMargin);
     }

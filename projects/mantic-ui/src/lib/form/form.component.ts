@@ -2,6 +2,7 @@ import { Component, ContentChildren, ElementRef, EventEmitter, HostBinding, Inpu
 import { Subscription } from 'rxjs';
 import { FieldComponent } from '../field/field.component';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     selector: 'm-form',
@@ -55,41 +56,41 @@ export class FormComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.loading')
-    public get loading(): boolean | string {
+    public get loading(): boolean {
         return this.isLoading;
     }
 
-    public set loading(value: string | boolean) {
+    public set loading(value: BooleanLike) {
         this.isLoading = this.toBoolean(value);
     }
 
     @Input()
     @HostBinding('class.success')
-    public get success(): boolean | string {
+    public get success(): boolean {
         return this.isSuccess;
     }
 
-    public set success(value: string | boolean) {
+    public set success(value: BooleanLike) {
         this.isSuccess = this.toBoolean(value);
     }
 
     @Input()
     @HostBinding('class.error')
-    public get error(): boolean | string {
+    public get error(): boolean {
         return this.isError;
     }
 
-    public set error(value: string | boolean) {
+    public set error(value: BooleanLike) {
         this.isError = this.toBoolean(value);
     }
 
     @Input()
     @HostBinding('class.warning')
-    public get warning(): boolean | string {
+    public get warning(): boolean {
         return this.isWarning;
     }
 
-    public set warning(value: string | boolean) {
+    public set warning(value: BooleanLike) {
         this.isWarning = this.toBoolean(value);
     }
 

@@ -5,6 +5,7 @@ import { LabelPosition } from '../label/label-position';
 import { LabelComponent } from '../label/label.component';
 import { Color } from '../models/color';
 import { ButtonBaseComponent } from '../base/button-base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 export declare type Pointing =
     'left'
@@ -99,11 +100,11 @@ export class ButtonComponent extends ButtonBaseComponent {
 
     @Input()
     @HostBinding('class.fluid')
-    public get fluid(): boolean | string {
+    public get fluid(): boolean {
         return this.isFluid;
     }
 
-    public set fluid(value: string | boolean) {
+    public set fluid(value: BooleanLike) {
         this.isFluid = this.toBoolean(value);
     }
 

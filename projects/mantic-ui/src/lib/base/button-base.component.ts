@@ -1,6 +1,7 @@
 ﻿import { Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
 import { ColorName } from '../models/color';
 import { BaseComponent } from './base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     template: ''
@@ -29,7 +30,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
         return this.isInverted;
     }
 
-    public set inverted(value: string | boolean) {
+    public set inverted(value: BooleanLike) {
         this.isInverted = this.toBoolean(value);
     }
 
@@ -39,7 +40,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
         return this.isPrimary;
     }
 
-    public set primary(value: string | boolean) {
+    public set primary(value: BooleanLike) {
         this.isPrimary = this.toBoolean(value);
     }
 
@@ -49,7 +50,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
         return this.isSecondary;
     }
 
-    public set secondary(value: string | boolean) {
+    public set secondary(value: BooleanLike) {
         this.isSecondary = this.toBoolean(value);
     }
 
@@ -59,7 +60,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
         return this.isPositive;
     }
 
-    public set positive(value: string | boolean) {
+    public set positive(value: BooleanLike) {
         this.isPositive = this.toBoolean(value);
     }
 
@@ -69,7 +70,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
         return this.isNegative;
     }
 
-    public set negative(value: string | boolean) {
+    public set negative(value: BooleanLike) {
         this.isNegative = this.toBoolean(value);
     }
 
@@ -89,7 +90,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
         return this.isBasic;
     }
 
-    public set basic(value: string | boolean) {
+    public set basic(value: BooleanLike) {
         this.isBasic = this.toBoolean(value);
     }
 
@@ -99,7 +100,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
         return this.isActive;
     }
 
-    public set active(value: string | boolean) {
+    public set active(value: BooleanLike) {
         this.isActive = this.toBoolean(value);
     }
 
@@ -109,7 +110,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
         return this.isDisabled;
     }
 
-    public set disabled(value: string | boolean) {
+    public set disabled(value: BooleanLike) {
         this.isDisabled = this.toBoolean(value);
     }
 
@@ -119,7 +120,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
         return this.isLoading;
     }
 
-    public set loading(value: string | boolean) {
+    public set loading(value: BooleanLike) {
         this.isLoading = this.toBoolean(value);
     }
 
@@ -139,7 +140,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
         return this.isCircular;
     }
 
-    public set circular(value: string | boolean) {
+    public set circular(value: BooleanLike) {
         this.isCircular = this.toBoolean(value);
     }
 
@@ -149,7 +150,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
         return this.isAttachedLeft;
     }
 
-    public set attachedLeft(value: string | boolean) {
+    public set attachedLeft(value: BooleanLike) {
         this.isAttachedLeft = this.toBoolean(value);
     }
 
@@ -159,7 +160,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
         return this.isAttachedTop;
     }
 
-    public set attachedTop(value: string | boolean) {
+    public set attachedTop(value: BooleanLike) {
         this.isAttachedTop = this.toBoolean(value);
     }
 
@@ -169,7 +170,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
         return this.isAttachedRight;
     }
 
-    public set attachedRight(value: string | boolean) {
+    public set attachedRight(value: BooleanLike) {
         this.isAttachedRight = this.toBoolean(value);
     }
 
@@ -179,7 +180,7 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
         return this.isAttachedBottom;
     }
 
-    public set attachedBottom(value: string | boolean) {
+    public set attachedBottom(value: BooleanLike) {
         this.isAttachedBottom = this.toBoolean(value);
     }
 

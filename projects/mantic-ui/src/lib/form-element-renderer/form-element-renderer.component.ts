@@ -5,6 +5,7 @@ import { DataSourceComponent } from '../data-source/data-source.component';
 import { DropdownValue } from '../dropdown/dropdown-value';
 import { merge, Observable, ReplaySubject, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     selector: 'm-form-element-renderer',
@@ -24,13 +25,13 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
     @Output()
     public readonly execute = this.executeSubject.asObservable();
 
-    public get fields(): boolean | string {
+    public get fields(): boolean {
         return this.isFields;
     }
 
     @Input()
     @HostBinding('class.fields')
-    public set fields(value: boolean | string) {
+    public set fields(value: BooleanLike) {
         this.isFields = this.toBoolean(value);
     }
 
@@ -40,7 +41,7 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
     @Input()
     public dataSources: DataSourceComponent[];
 
-    constructor(
+    public constructor(
         element: ElementRef<HTMLElement>,
         iterableDiffers: IterableDiffers
     ) {

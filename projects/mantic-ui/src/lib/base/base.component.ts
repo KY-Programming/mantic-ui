@@ -2,6 +2,8 @@
 import { DestroyableComponent } from './destroyable.component';
 import { ClassList } from '../models/class-list';
 import { takeUntil } from 'rxjs/operators';
+import { BooleanLike } from '../models/boolean-like';
+import { toBoolean } from '../helpers/to-boolean';
 
 @Component({
     template: ''
@@ -69,7 +71,7 @@ export class BaseComponent extends DestroyableComponent implements OnInit {
         this.classList.update(this.element.nativeElement.classList);
     }
 
-    protected toBoolean(value: boolean | string | undefined): boolean {
-        return value === '' || value === true || value?.toString().toLowerCase() === 'true';
+    protected toBoolean(value: BooleanLike): boolean {
+        return toBoolean(value);
     }
 }

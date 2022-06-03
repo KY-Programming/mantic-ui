@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { MenuPosition } from '../menu/menu.component';
 import { TabComponent } from '../tab/tab.component';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     selector: 'm-tab-group',
@@ -18,6 +19,8 @@ export class TabGroupComponent extends BaseComponent implements OnInit, AfterVie
     private isNoPadding: boolean;
     private tabsValue: QueryList<TabComponent>;
     private isScrollable: boolean;
+    private isPointing: boolean;
+    private isSecondary: boolean;
 
     @ContentChildren(TabComponent)
     public get tabs(): QueryList<TabComponent> {
@@ -30,10 +33,22 @@ export class TabGroupComponent extends BaseComponent implements OnInit, AfterVie
     }
 
     @Input()
-    public pointing: boolean | string;
+    public get pointing(): boolean {
+        return this.isPointing;
+    }
+
+    public set pointing(value: BooleanLike) {
+        this.isPointing = this.toBoolean(value);
+    }
 
     @Input()
-    public secondary: boolean | string;
+    public get secondary(): boolean {
+        return this.isSecondary;
+    }
+
+    public set secondary(value: BooleanLike) {
+        this.isSecondary = this.toBoolean(value);
+    }
 
     @Input()
     public position: MenuPosition = 'top';
@@ -61,20 +76,20 @@ export class TabGroupComponent extends BaseComponent implements OnInit, AfterVie
     }
 
     @Input()
-    public get noPadding(): boolean | string {
+    public get noPadding(): boolean {
         return this.isNoPadding;
     }
 
-    public set noPadding(value: string | boolean) {
+    public set noPadding(value: BooleanLike) {
         this.isNoPadding = this.toBoolean(value);
     }
 
     @Input()
-    public get scrollable(): boolean | string {
+    public get scrollable(): boolean {
         return this.isScrollable;
     }
 
-    public set scrollable(value: string | boolean) {
+    public set scrollable(value: BooleanLike) {
         this.isScrollable = this.toBoolean(value);
     }
 

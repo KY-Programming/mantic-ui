@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostBinding, HostListener, Input, Optional } from '@angular/core';
 import { MenuItemComponent } from '../../menu-item/menu-item.component';
 import { ContextMenuComponent } from '../context-menu.component';
+import { BooleanLike } from '../../models/boolean-like';
 
 @Component({
     selector: 'm-context-menu-item',
@@ -18,7 +19,7 @@ export class ContextMenuItemComponent extends MenuItemComponent {
         return this.keepOpenValue;
     }
 
-    public set keepOpen(value: boolean | string) {
+    public set keepOpen(value: BooleanLike) {
         this.keepOpenValue = this.toBoolean(value);
     }
 

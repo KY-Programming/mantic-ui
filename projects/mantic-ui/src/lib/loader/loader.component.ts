@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 export declare type LoaderSize = 'mini' | 'tiny' | 'small' | 'large' | 'big' | 'huge' | 'massive';
 
@@ -15,33 +16,33 @@ export class LoaderComponent extends BaseComponent {
     private isInverted: boolean;
     private sizeValue: LoaderSize;
 
-    public get active(): boolean | string {
+    public get active(): boolean {
         return this.isActive;
     }
 
     @Input()
     @HostBinding('class.active')
-    public set active(value: boolean | string) {
+    public set active(value: BooleanLike) {
         this.isActive = this.toBoolean(value);
     }
 
-    public get inline(): boolean | string {
+    public get inline(): boolean {
         return this.isInline;
     }
 
     @Input()
     @HostBinding('class.inline')
-    public set inline(value: boolean | string) {
+    public set inline(value: BooleanLike) {
         this.isInline = this.toBoolean(value);
     }
 
-    public get inverted(): boolean | string {
+    public get inverted(): boolean {
         return this.isInverted;
     }
 
     @Input()
     @HostBinding('class.inverted')
-    public set inverted(value: boolean | string) {
+    public set inverted(value: BooleanLike) {
         this.isInverted = this.toBoolean(value);
     }
 
@@ -68,7 +69,7 @@ export class LoaderComponent extends BaseComponent {
     @HostBinding('class.loader')
     public readonly loader = true;
 
-    constructor(
+    public constructor(
         element: ElementRef<HTMLElement>
     ) {
         super(element);

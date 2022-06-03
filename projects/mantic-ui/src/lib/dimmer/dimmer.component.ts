@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostBinding, HostListener, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import { DimmableService } from '../services/dimmable.service';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 // TODO: Enable animation
 
@@ -15,11 +16,11 @@ export class DimmerComponent extends BaseComponent implements OnInit, OnDestroy 
 
     @Input()
     @HostBinding('class.page')
-    public get page(): boolean | string {
+    public get page(): boolean {
         return this.isPage;
     }
 
-    public set page(value: string | boolean) {
+    public set page(value: BooleanLike) {
         this.isPage = this.toBoolean(value);
     }
 
@@ -32,11 +33,11 @@ export class DimmerComponent extends BaseComponent implements OnInit, OnDestroy 
     @Input()
     @HostBinding('class.visible')
     @HostBinding('class.active')
-    public get visible(): boolean | string {
+    public get visible(): boolean {
         return this.visibleValue;
     }
 
-    public set visible(value: boolean | string) {
+    public set visible(value: BooleanLike) {
         if (this.toBoolean(value)) {
             this.show();
         }

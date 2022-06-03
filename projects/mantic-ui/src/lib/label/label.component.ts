@@ -3,6 +3,7 @@ import { LabelPosition } from './label-position';
 import { BaseComponent } from '../base/base.component';
 import { ColorName } from '../models/color';
 import { LabelOptions } from '../models/label-options';
+import { BooleanLike } from '../models/boolean-like';
 
 export declare type LabelPointing =
     'left'
@@ -43,13 +44,13 @@ export class LabelComponent extends BaseComponent implements LabelOptions {
         this.classList.set('color', value);
     }
 
-    public get basic(): boolean | string {
+    public get basic(): boolean {
         return this.isBasic;
     }
 
     @Input()
     @HostBinding('class.basic')
-    public set basic(value: boolean | string) {
+    public set basic(value: BooleanLike) {
         this.isBasic = this.toBoolean(value);
     }
 
@@ -63,13 +64,13 @@ export class LabelComponent extends BaseComponent implements LabelOptions {
         this.classList.set('color', value);
     }
 
-    public get horizontal(): boolean | string {
+    public get horizontal(): boolean {
         return this.isHorizontal;
     }
 
     @Input()
     @HostBinding('class.horizontal')
-    public set horizontal(value: boolean | string) {
+    public set horizontal(value: BooleanLike) {
         this.isHorizontal = this.toBoolean(value);
     }
 

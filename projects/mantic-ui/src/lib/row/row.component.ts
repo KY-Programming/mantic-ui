@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostBinding, Input } from '@angular/core';
 import { FieldSize, fieldSizes } from '../models/field-size';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     selector: 'm-row',
@@ -30,18 +31,18 @@ export class RowComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.stretched')
-    public get stretched(): boolean | string {
+    public get stretched(): boolean {
         return this.isStretched;
     }
 
-    public set stretched(value: string | boolean) {
+    public set stretched(value: BooleanLike) {
         this.isStretched = this.toBoolean(value);
     }
 
     @HostBinding('class.row')
     public readonly row = true;
 
-    constructor(
+    public constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef, false);

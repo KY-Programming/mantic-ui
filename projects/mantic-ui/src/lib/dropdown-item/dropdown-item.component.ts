@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostBinding, HostListener, Input } from '@angular/core';
 import { DropDownSelectionService } from '../dropdown/dropdown-selection.service';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     selector: 'm-dropdown-item',
@@ -20,7 +21,7 @@ export class DropdownItemComponent extends BaseComponent {
         return this.isFilteredOut;
     }
 
-    public set filteredOut(value: string | boolean) {
+    public set filteredOut(value: BooleanLike) {
         this.isFilteredOut = this.toBoolean(value);
     }
 
@@ -31,7 +32,7 @@ export class DropdownItemComponent extends BaseComponent {
         return this.isSelected;
     }
 
-    public set selected(value: string | boolean) {
+    public set selected(value: BooleanLike) {
         this.isSelected = this.toBoolean(value);
     }
 

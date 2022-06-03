@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { Key } from '../models/key';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 @Component({
     selector: 'm-checkbox',
@@ -16,11 +17,11 @@ export class CheckboxComponent extends BaseComponent {
     private isDisabled: boolean;
 
     @Input()
-    public get value(): boolean | string {
+    public get value(): boolean {
         return this.isChecked;
     }
 
-    public set value(value: string | boolean | undefined) {
+    public set value(value: BooleanLike) {
         this.isChecked = this.toBoolean(value);
     }
 
@@ -49,11 +50,11 @@ export class CheckboxComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.checked')
-    public get checked(): boolean | string {
+    public get checked(): boolean {
         return this.isChecked;
     }
 
-    public set checked(value: string | boolean) {
+    public set checked(value: BooleanLike) {
         this.isChecked = this.toBoolean(value);
     }
 
@@ -62,21 +63,21 @@ export class CheckboxComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.read-only')
-    public get readonly(): boolean | string {
+    public get readonly(): boolean {
         return this.isReadonly;
     }
 
-    public set readonly(value: string | boolean) {
+    public set readonly(value: BooleanLike) {
         this.isReadonly = this.toBoolean(value);
     }
 
     @Input()
     @HostBinding('class.indeterminate')
-    public get indeterminate(): boolean | string {
+    public get indeterminate(): boolean  {
         return this.isIndeterminate;
     }
 
-    public set indeterminate(value: string | boolean) {
+    public set indeterminate(value: BooleanLike) {
         this.isIndeterminate = this.toBoolean(value);
     }
 
@@ -85,11 +86,11 @@ export class CheckboxComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.disabled')
-    public get disabled(): boolean | string {
+    public get disabled(): boolean {
         return this.isDisabled;
     }
 
-    public set disabled(value: string | boolean) {
+    public set disabled(value: BooleanLike) {
         this.isDisabled = this.toBoolean(value);
     }
 

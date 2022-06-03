@@ -1,6 +1,7 @@
 import { Component, ContentChildren, ElementRef, HostBinding, Input, QueryList } from '@angular/core';
 import { FieldComponent } from '../field/field.component';
 import { BaseComponent } from '../base/base.component';
+import { BooleanLike } from '../models/boolean-like';
 
 export declare type FieldsType =
     ''
@@ -52,21 +53,21 @@ export class FieldGroupComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.inline')
-    public get inline(): boolean | string {
+    public get inline(): boolean {
         return this.isInline;
     }
 
-    public set inline(value: string | boolean) {
+    public set inline(value: BooleanLike) {
         this.isInline = this.toBoolean(value);
     }
 
     @Input()
     @HostBinding('class.grouped')
-    public get grouped(): boolean | string {
+    public get grouped(): boolean {
         return this.isGrouped;
     }
 
-    public set grouped(value: string | boolean) {
+    public set grouped(value: BooleanLike) {
         this.isGrouped = this.toBoolean(value);
     }
 

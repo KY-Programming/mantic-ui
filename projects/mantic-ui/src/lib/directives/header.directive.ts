@@ -1,5 +1,6 @@
 import { Directive, ElementRef, HostBinding, Input } from '@angular/core';
 import { BaseDirective } from '../base/base.directive';
+import { BooleanLike } from '../models/boolean-like';
 
 @Directive({
     selector: '[m-header]'
@@ -13,13 +14,13 @@ export class HeaderDirective extends BaseDirective {
     @HostBinding('class.ui')
     public readonly ui = true;
 
-    public get dividing(): boolean | string {
+    public get dividing(): boolean {
         return this.isDividing;
     }
 
     @Input()
     @HostBinding('class.dividing')
-    public set dividing(value: boolean | string) {
+    public set dividing(value: BooleanLike) {
         this.isDividing = this.toBoolean(value);
     }
 
@@ -29,7 +30,7 @@ export class HeaderDirective extends BaseDirective {
 
     @Input()
     @HostBinding('class.inverted')
-    public set inverted(value: boolean | string) {
+    public set inverted(value: BooleanLike) {
         this.isInverted = this.toBoolean(value);
     }
 
@@ -39,7 +40,7 @@ export class HeaderDirective extends BaseDirective {
 
     @Input()
     @HostBinding('class.icon')
-    public set icon(value: boolean | string) {
+    public set icon(value: BooleanLike) {
         this.isIcon = this.toBoolean(value);
     }
 
@@ -50,7 +51,7 @@ export class HeaderDirective extends BaseDirective {
     @HostBinding('class.header')
     public readonly header = true;
 
-    constructor(
+    public constructor(
         elementRef: ElementRef<HTMLElement>
     ) {
         super(elementRef);
