@@ -291,8 +291,9 @@
       }
     }
   },
-  "defaultProject": "mantic-ui-test",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
