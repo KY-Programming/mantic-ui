@@ -31,7 +31,7 @@
     "semantic:publish-local": "cd ./dist/semantic-ui && npm pack && copy *.tgz ..\\..\\ && cd ../..",
     "semantic:bpl": "npm run semantic:build && npm run semantic:publish-local",
     "update:ky": "npx npm-check-updates \"/^@ky//\" -u && npm i",
-    "update:eslint": "ng update @angular-eslint/schematics && npx npx npm-check-updates \"/^(@typescript-eslint/|eslint)/\" -u && npm i",
+    "update:eslint": "ng update @angular-eslint/schematics && npx npm-check-updates \"/^(@typescript-eslint/|eslint)/\" -u && npm i",
     "update:highlight": "npm i ngx-highlightjs@latest highlight.js@latest"
   },
   "private": true,

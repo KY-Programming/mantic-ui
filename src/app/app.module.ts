@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { FomanticModule } from './fomantic/fomantic.module';
 import { IntroModule } from './intro/intro.module';
 import { SemanticModule } from './semantic/semantic.module';
-import { HeaderComponent } from './helpers/header/header.component';
+import { ManticTitleStrategyModule, ManticTitleStrategy } from '@mantic-ui/angular';
 
 @NgModule({
     declarations: [
@@ -18,10 +18,21 @@ import { HeaderComponent } from './helpers/header/header.component';
         AppRoutingModule,
         IntroModule,
         SemanticModule,
-        FomanticModule
+        FomanticModule,
+        ManticTitleStrategyModule
     ],
     providers: [],
     exports: [],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+    public constructor(
+        titleStrategy: ManticTitleStrategy
+    ) {
+        titleStrategy.postfix = ' - mantic UI';
+        titleStrategy.fallback = 'mantic UI'
+        titleStrategy.addCondition({ condition: '/semantic', fallback: 'Semantic UI Angular - mantic UI', postfix: ' - Semantic UI Angular - mantic UI'});
+        titleStrategy.addCondition({ condition: '/fomantic', fallback: 'Fomantic UI Angular - mantic UI', postfix: ' - Fomantic UI Angular - mantic UI'});
+    }
+
+}

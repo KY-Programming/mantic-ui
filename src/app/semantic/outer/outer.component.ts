@@ -11,7 +11,6 @@ export class SemanticOuterComponent {
     ) {
         const favicon = <HTMLLinkElement>document.getElementById('favicon');
         favicon.href = window.location.origin + '/assets/semantic.png';
-        document.title = 'Semantic UI Angular';
     }
 
     public toFomantic(): void {

@@ -1,6 +1,9 @@
 import { Component, DoCheck, ElementRef, Input, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
+/**
+ * @deprecated Use Route.title instead
+ */
 @Component({
     selector: 'm-document-title',
     templateUrl: './document-title.component.html',

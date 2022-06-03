@@ -14,7 +14,6 @@ export class FomanticLayoutComponent {
     ) {
         const favicon = <HTMLLinkElement>document.getElementById('favicon');
         favicon.href = window.location.origin + '/assets/fomantic.png';
-        document.title = 'Fomantic UI Angular';
     }
 
     public toSemantic(): void {

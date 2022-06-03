@@ -1,75 +1,198 @@
-<!doctype html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>Loading... - KY-Programming</title>
-  <base href="/">
+    <meta charset="utf-8">
+    <title>mantic UI</title>
+    <base href="/">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" sizes="64x64" id="favicon">
+    <meta content="width=device-width, initial-scale=1, minimum-scale=1" name="viewport">
 
+    <link rel="icon" type="image/png" href="/assets/mantic.png" sizes="64x64" id="favicon">
 </head>
 
 <body>
-  <app-root>
+<app-root>
     <style>
-      body,
-      html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-      }
-
-      body {
-        background-color: #0099D3;
-        font-family: "Segoe UI", Arial, sans-serif;
-      }
-
-      .loader {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-
-      .loader .dot {
-        display: inline-block;
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        margin: 4px;
-        background: white;
-        animation: wave 0.9s linear infinite;
-      }
-
-      .loader .dot:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-
-      .loader .dot:nth-child(3) {
-        animation-delay: 0.4s;
-      }
-
-      @keyframes wave {
-
-        0%,
-        60%,
-        100% {
-          transform: initial;
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
         }
 
-        30% {
-          transform: translateY(-20px);
+        body {
+            background-color: #0099D3;
+            font-family: "Segoe UI", Arial, sans-serif;
         }
-      }
+
+        .loader, .loader svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .loader .dot {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin: 4px;
+            background: white;
+            animation: wave 0.9s linear infinite;
+        }
+
+        .loader .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loader .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .loader.error .dot {
+            display: none;
+        }
+
+        .loader svg {
+            top: calc(50% - 8px);
+        }
+
+        .loader.error svg * {
+            stroke: red;
+        }
+
+        .loader .text {
+            position: absolute;
+            top: 105px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            width: 240px;
+            text-align: center;
+        }
+
+        .loader .text:not(.visible) {
+            display: none;
+        }
+
+        button {
+            background-color: #254b7c;
+            color: white;
+            margin-top: 0.5em;
+            padding: 0.688em 1.5em;
+            border: 1px solid #254B7C;
+            cursor: pointer;
+        }
+
+        @keyframes wave {
+
+            0%,
+            60%,
+            100% {
+                transform: initial;
+            }
+
+            30% {
+                transform: translateY(-20px);
+            }
+        }
     </style>
-    <div class="loader">
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
+    <script>
+        function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+            var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
+
+            return {
+                x: centerX + (radius * Math.cos(angleInRadians)),
+                y: centerY + (radius * Math.sin(angleInRadians))
+            };
+        }
+
+        function describeArc(x, y, radius, startAngle, endAngle) {
+
+            var start = polarToCartesian(x, y, radius, endAngle);
+            var end = polarToCartesian(x, y, radius, startAngle);
+
+            var largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
+
+            var d = [
+                'M', start.x, start.y,
+                'A', radius, radius, 0, largeArcFlag, 0, end.x, end.y
+            ].join(' ');
+
+            return d;
+        }
+
+        let currentRadius = 0;
+        const animationTime = 1000;
+        const steps = 10;
+        const threshold = 360 * 0.75;
+        let interval;
+
+        function refresh(radius) {
+            let startTimestamp;
+            let stepDuration;
+            let stepRadius;
+            const animate = currentTimestamp => {
+                if (!startTimestamp) {
+                    startTimestamp = currentTimestamp;
+                    window.requestAnimationFrame(animate);
+                    return;
+                }
+                stepDuration ??= currentTimestamp - startTimestamp;
+                stepRadius ??= (radius - currentRadius) / animationTime * 2 * stepDuration;
+
+                currentRadius += stepRadius;
+                if (currentRadius < radius) {
+                    window.requestAnimationFrame(animate);
+                } else {
+                    currentRadius = radius;
+                }
+                document.getElementById('arc')?.setAttribute('d', describeArc(160, 160, 80, 0, Math.min(currentRadius, 359)));
+            };
+            window.requestAnimationFrame(animate);
+        }
+
+        window.onload = function() {
+            clearInterval(interval);
+        }
+
+        let step = 1;
+        refresh(360 / steps * step);
+        interval = setInterval(() => {
+            step++;
+            const maxRadius = 360 / steps * step;
+            const maxStep = currentRadius < threshold ? maxRadius - currentRadius : (360 - currentRadius) * 0.25;
+            const radius = maxStep / 2 + maxStep / 2 * Math.random();
+            refresh(currentRadius + radius);
+            if (step > 10) {
+                document.getElementById('wait').classList.add('visible');
+            }
+            if (step > 20) {
+                document.getElementById('wait').classList.remove('visible');
+                document.getElementById('error').classList.add('visible');
+                document.getElementById('loader').classList.add('error');
+            }
+            if (currentRadius > 360 || step > 20 || !document.getElementById('loader')) {
+                clearInterval(interval);
+            }
+        }, animationTime);
+        document.getElementById('reload')?.addEventListener('click', () => document.location.reload());
+    </script>
+    <div class="loader" id="loader">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <svg width="320" height="320" id="svg">
+            <path id="arc" fill="none" stroke="#ffffff" stroke-width="15" d=""/>
+        </svg>
+        <div class="text" id="wait">Something takes longer than usual...</div>
+        <div class="text" id="error">
+            Maybe the connection is very slow or something went wrong.
+            <button id="reload">Try to reload</button>
+        </div>
     </div>
-  </app-root>
+</app-root>
 </body>
 
 </html>

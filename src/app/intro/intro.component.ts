@@ -10,12 +10,11 @@ export class IntroComponent implements OnInit {
 
   public version = '?.?.?';
 
-  constructor(
+  public constructor(
     private readonly http: HttpClient
   ) {
     const favicon = <HTMLLinkElement>document.getElementById('favicon');
     favicon.href = window.location.origin + '/assets/mantic.png';
-    document.title = 'mantic UI';
   }
 
   public ngOnInit(): void {
