@@ -94,10 +94,8 @@ export class GridComponent extends BaseComponent {
         this.classList.set('no-margin', this.noMargin);
     }
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    public constructor() {
+        super();
         this.classList.register('vertically', 'divided', 'columns', 'internally', 'celled', 'width', 'noMargin').registerFixed('grid');
     }
 

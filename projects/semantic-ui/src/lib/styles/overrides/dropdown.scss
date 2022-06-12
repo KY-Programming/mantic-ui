@@ -1,9 +1,9 @@
-﻿
-/* Top / Bottom */
+﻿/* Top / Bottom */
 .ui.attached-top.dropdown {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
+
 .ui.attached-bottom.dropdown {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -14,7 +14,12 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
+
 .ui.attached-right.dropdown {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+}
+
+m-dropdown.ui.dropdown > .dropdown.icon:before {
+    content: unset;
 }

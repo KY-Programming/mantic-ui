@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { FieldSize, fieldSizes } from '../models/field-size';
 import { BaseComponent } from '../base/base.component';
 
@@ -30,8 +30,7 @@ export class CellComponent extends BaseComponent {
         const sizeNumber = value ? parseInt(value.toString()) : undefined;
         if (sizeNumber && !Number.isNaN(sizeNumber)) {
             this.sizeValue = fieldSizes[value];
-        }
-        else {
+        } else {
             this.sizeValue = value;
         }
         this.classList.set('size', this.sizeValue);
@@ -60,10 +59,8 @@ export class CellComponent extends BaseComponent {
     @HostBinding('class.column')
     public readonly column = true;
 
-    constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef, false);
+    public constructor() {
+        super(false);
         this.classList.register('size', 'float');
     }
 

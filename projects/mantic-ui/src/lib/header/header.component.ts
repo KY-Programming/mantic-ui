@@ -24,8 +24,8 @@ export class HeaderComponent extends BaseComponent {
     @HostBinding('class.header')
     public readonly header = true;
 
-    constructor(elementRef: ElementRef<HTMLElement>) {
-        super(elementRef);
+    public constructor() {
+        super();
         this.classList.register('size');
     }
 }

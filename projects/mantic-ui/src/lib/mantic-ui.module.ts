@@ -31,7 +31,6 @@ import { HeaderComponent } from './header/header.component';
 import { IconButtonComponent } from './icon-button/icon-button.component';
 import { IconComponent } from './icon/icon.component';
 import { InfoComponent } from './info/info.component';
-import { InputBaseComponent } from './input/input-base.component';
 import { InputComponent } from './input/text/input.component';
 import { NumericInputComponent } from './input/numeric/numeric-input.component';
 import { DateInputComponent } from './input/date/date-input.component';
@@ -71,9 +70,6 @@ import { WarningComponent } from './warning/warning.component';
 import { ExternalRouteComponent } from './helpers/external-route.component';
 import { TableComponent } from './table/table.component';
 import { NotificationComponent } from './notification/notification.component';
-import { ButtonBaseComponent } from './base/button-base.component';
-import { DimmableComponent } from './base/dimmable.component';
-import { LabeledBaseComponent } from './base/labeled-base.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { LoaderComponent } from './loader/loader.component';
 import { ChatComponent } from './chat/chat.component';
@@ -94,8 +90,6 @@ import { AsButtonPipe } from './form-element-renderer/pipes/as-button.pipe';
 import { FormElementRenderer2Component } from './form-element-renderer/form-element-renderer2.component';
 import { AsGridPipe } from './form-element-renderer/pipes/as-grid.pipe';
 import { AsLabelPipe } from './form-element-renderer/pipes/as-label.pipe';
-import { DestroyableComponent } from './base/destroyable.component';
-import { BaseComponent } from './base/base.component';
 import { RouterModule } from '@angular/router';
 import { FlexComponent } from './flex/flex.component';
 import { FillComponent } from './flex/fill/fill.component';
@@ -109,8 +103,6 @@ import { CeilPipe } from './pipes/ceil.pipe';
 import { FloorPipe } from './pipes/floor.pipe';
 import { AllowedCharsPipe } from './pipes/allowed-chars.pipe';
 import { DocumentTitleComponent } from './document-title/document-title.component';
-import { DestroyableDirective } from './base/destroyable.directive';
-import { BaseDirective } from './base/base.directive';
 import { ExpanderComponent } from './expander/expander.component';
 import { ExpanderHeaderComponent } from './expander/expander-header.component';
 import { GrowComponent } from './flex/grow/grow.component';
@@ -121,16 +113,17 @@ import { ContextMenuComponent } from './context-menu/context-menu.component';
 import { ContextMenuItemComponent } from './context-menu/item/context-menu-item.component';
 import { FileInputComponent } from './input/file/file-input.component';
 import { DocumentNoIndexComponent } from './document-no-index/document-no-index.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ModalDefaultsComponent } from './modal/modal-defaults.component';
+import { ChatDefaultsComponent } from './chat/chat-defaults.component';
+import { ExpanderDefaultsComponent } from './expander/expander-defaults.component';
+import { LabelDropdownDefaultsComponent } from './label-dropdown/label-dropdown-defaults.component';
+import { LayoutDefaultsComponent } from './layout/layout-defaults.component';
+import { DropdownDefaultsComponent } from './dropdown/dropdown-defaults.component';
+import { MessageDefaultsComponent } from './message/message-defaults.component';
 
 @NgModule({
     declarations: [
-        BaseComponent,
-        BaseDirective,
-        DestroyableComponent,
-        DestroyableDirective,
-        ButtonBaseComponent,
-        DimmableComponent,
-        LabeledBaseComponent,
         ButtonComponent,
         ToggleButtonComponent,
         ButtonGroupComponent,
@@ -141,14 +134,15 @@ import { DocumentNoIndexComponent } from './document-no-index/document-no-index.
         SegmentGroupComponent,
         DividerComponent,
         OrComponent,
-        InputBaseComponent,
         InputComponent,
         NumericInputComponent,
         DateInputComponent,
         LabelComponent,
         LabelDropdownComponent,
+        LabelDropdownDefaultsComponent,
         MenuComponent,
         LayoutComponent,
+        LayoutDefaultsComponent,
         BreadcrumbComponent,
         MenuItemComponent,
         TextContainerComponent,
@@ -159,6 +153,7 @@ import { DocumentNoIndexComponent } from './document-no-index/document-no-index.
         WarningComponent,
         ErrorComponent,
         DropdownComponent,
+        DropdownDefaultsComponent,
         DropdownItemComponent,
         MenuLinkComponent,
         FooterLinkComponent,
@@ -189,6 +184,7 @@ import { DocumentNoIndexComponent } from './document-no-index/document-no-index.
         FieldComponent,
         FieldGroupComponent,
         MessageComponent,
+        MessageDefaultsComponent,
         RowComponent,
         TextareaComponent,
         IsFilledPipe,
@@ -204,6 +200,7 @@ import { DocumentNoIndexComponent } from './document-no-index/document-no-index.
         SidebarComponent,
         LoaderComponent,
         ChatComponent,
+        ChatDefaultsComponent,
         ChatMessageComponent,
         PadStartPipe,
         PadEndPipe,
@@ -239,19 +236,20 @@ import { DocumentNoIndexComponent } from './document-no-index/document-no-index.
         DocumentTitleComponent,
         DocumentNoIndexComponent,
         ExpanderComponent,
+        ExpanderDefaultsComponent,
         ExpanderHeaderComponent,
         ContextMenuComponent,
         ContextMenuItemComponent,
-        FileInputComponent
+        FileInputComponent,
+        ModalDefaultsComponent
     ],
     imports: [
         CommonModule,
         FormsModule,
-        RouterModule
+        RouterModule,
+        FontAwesomeModule
     ],
     exports: [
-        DestroyableComponent,
-        DestroyableDirective,
         ButtonComponent,
         ToggleButtonComponent,
         ButtonGroupComponent,
@@ -267,8 +265,10 @@ import { DocumentNoIndexComponent } from './document-no-index/document-no-index.
         DateInputComponent,
         LabelComponent,
         LabelDropdownComponent,
+        LabelDropdownDefaultsComponent,
         MenuComponent,
         LayoutComponent,
+        LayoutDefaultsComponent,
         BreadcrumbComponent,
         MenuItemComponent,
         TextContainerComponent,
@@ -279,6 +279,7 @@ import { DocumentNoIndexComponent } from './document-no-index/document-no-index.
         WarningComponent,
         ErrorComponent,
         DropdownComponent,
+        DropdownDefaultsComponent,
         DropdownItemComponent,
         MenuLinkComponent,
         FooterLinkComponent,
@@ -307,6 +308,7 @@ import { DocumentNoIndexComponent } from './document-no-index/document-no-index.
         FieldComponent,
         FieldGroupComponent,
         MessageComponent,
+        MessageDefaultsComponent,
         RowComponent,
         TextareaComponent,
         IsFilledPipe,
@@ -322,6 +324,7 @@ import { DocumentNoIndexComponent } from './document-no-index/document-no-index.
         SidebarComponent,
         LoaderComponent,
         ChatComponent,
+        ChatDefaultsComponent,
         ChatMessageComponent,
         PadStartPipe,
         FormRendererComponent,
@@ -345,10 +348,12 @@ import { DocumentNoIndexComponent } from './document-no-index/document-no-index.
         DocumentTitleComponent,
         DocumentNoIndexComponent,
         ExpanderComponent,
+        ExpanderDefaultsComponent,
         ExpanderHeaderComponent,
         ContextMenuComponent,
         ContextMenuItemComponent,
-        FileInputComponent
+        FileInputComponent,
+        ModalDefaultsComponent
     ]
 })
 export class ManticUiModule {

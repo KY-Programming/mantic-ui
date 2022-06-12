@@ -1,12 +1,10 @@
-﻿import { Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
+﻿import { Directive, HostBinding, Input } from '@angular/core';
 import { ColorName } from '../models/color';
 import { BaseComponent } from './base.component';
 import { BooleanLike } from '../models/boolean-like';
 
-@Component({
-    template: ''
-})
-export class ButtonBaseComponent extends BaseComponent implements OnInit {
+@Directive()
+export abstract class ButtonBaseComponent extends BaseComponent {
     private sizeValue: string;
     private colorValue: ColorName;
     private isInverted: boolean;
@@ -187,15 +185,9 @@ export class ButtonBaseComponent extends BaseComponent implements OnInit {
     @HostBinding('class.button')
     public button = true;
 
-    public constructor(
-        public readonly elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
-        elementRef.nativeElement.setAttribute('tabindex', '0');
+    protected constructor() {
+        super();
+        this.elementRef.nativeElement.setAttribute('tabindex', '0');
         this.classList.register('size', 'inverted', 'primary', 'secondary', 'positive', 'negative', 'circular', 'color', 'basic', 'active', 'disabled', 'loading', 'tabindex', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom');
-    }
-
-    public override ngOnInit(): void {
-        super.ngOnInit();
     }
 }

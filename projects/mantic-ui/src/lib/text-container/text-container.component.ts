@@ -20,15 +20,12 @@ export class TextContainerComponent extends BaseComponent {
         this.isFluid = this.toBoolean(value);
     }
 
-
     @HostBinding('class.text')
     @HostBinding('class.container')
     public readonly menu = true;
-
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    
+    public constructor() {
+        super();
     }
 
 }

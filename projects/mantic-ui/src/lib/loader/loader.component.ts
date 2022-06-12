@@ -69,10 +69,8 @@ export class LoaderComponent extends BaseComponent {
     @HostBinding('class.loader')
     public readonly loader = true;
 
-    public constructor(
-        element: ElementRef<HTMLElement>
-    ) {
-        super(element);
+    public constructor() {
+        super();
         this.classList.register('active', 'inline', 'inverted', 'text', 'size');
     }
 

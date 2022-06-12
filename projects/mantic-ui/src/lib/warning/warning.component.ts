@@ -1,5 +1,6 @@
-import { Component, ElementRef, EventEmitter, HostBinding, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { MessageComponent } from '../message/message.component';
 
 @Component({
     selector: 'm-warning',
@@ -7,6 +8,7 @@ import { BaseComponent } from '../base/base.component';
     styleUrls: ['./warning.component.scss']
 })
 export class WarningComponent extends BaseComponent {
+    protected readonly defaults = MessageComponent.defaults;
 
     @Input()
     public showClose = true;
@@ -27,15 +29,12 @@ export class WarningComponent extends BaseComponent {
     @HostBinding('class.message')
     public readonly message = true;
 
-    constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    public constructor() {
+        super();
     }
 
     public onClose(): void {
         this.closed = true;
         this.close.emit();
     }
-
 }

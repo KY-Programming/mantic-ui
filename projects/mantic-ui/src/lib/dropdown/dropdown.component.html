@@ -1,9 +1,10 @@
 <input type="hidden">
-<i *ngIf="icon" class="{{icon}} icon"></i>
-<i *ngIf="!allowFreeText && hasItems" class="dropdown icon"></i>
+<m-icon *ngIf="icon" [icon]="icon" [size]="iconSize" class="icon"></m-icon>
+<m-icon *ngIf="!allowFreeText && hasItems" [icon]="dropdownIcon ?? defaults.dropdownIcon" [size]="dropdownIconSize ?? defaults.dropdownIconSize" class="dropdown icon"></m-icon>
 <a *ngFor="let selectedItem of selectedItems" class="ui label transition visible">
-    <i *ngIf="selectedItem.icon" class="{{selectedItem.icon}}"></i> {{selectedItem.text === undefined ? selectedItem.value : selectedItem.text}}
-    <i class="delete icon" (click)="deleteClick(selectedItem, $event)"></i>
+    <m-icon *ngIf="selectedItem.icon" [icon]="selectedItem.icon" [size]="selectedItem.iconSize"></m-icon>
+    {{selectedItem.text === undefined ? selectedItem.value : selectedItem.text}}
+    <m-icon [icon]="deleteIcon ?? defaults.deleteIcon" [size]="deleteIconSize ?? defaults.deleteIconSize" class="icon" (click)="deleteClick(selectedItem, $event)"></m-icon>
 </a>
 <input *ngIf="search || allowFreeText" [(ngModel)]="filter" class="search" autocomplete="off" tabindex="0" (input)="onFilter()" (keydown)="onKeyDown($event)" (focus)="focus()" (blur)="blur()" #inputElement>
 <div [class.default]="isDefault" [class.filtered]="isFiltered" class="text">
@@ -25,7 +26,8 @@
      [class.loading]="isLoading">
     <ng-container *ngIf="items else contentTemplate">
         <m-dropdown-item *ngFor="let item of items; let index = index" [value]="item.value" [filteredOut]="item.filtered" [selected]="index === selectedIndex" (mousedown)="itemMouseDown(item)" (mouseup)="itemMouseUp(item)">
-            <i *ngIf="item.icon" class="{{item.icon}}"></i> {{item.text === undefined ? item.value : item.text}}
+            <m-icon *ngIf="item.icon" [icon]="item.icon" [size]="item.iconSize"></m-icon>
+            {{item.text === undefined ? item.value : item.text}}
         </m-dropdown-item>
     </ng-container>
     <ng-template #contentTemplate>

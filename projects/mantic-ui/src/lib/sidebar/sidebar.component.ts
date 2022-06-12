@@ -88,8 +88,8 @@ export class SidebarComponent extends BaseComponent {
         this.noScrollingValue = this.toBoolean(value);
     }
 
-    public constructor(element: ElementRef<HTMLElement>) {
-        super(element);
+    public constructor() {
+        super();
         this.classList.register('inverted', 'width', 'position', 'visible', 'fluid', 'noScrolling').registerFixed('sidebar');
         this.position = 'left';
         this.visible = true;

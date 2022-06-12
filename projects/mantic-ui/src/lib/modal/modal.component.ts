@@ -1,6 +1,7 @@
-import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { BooleanLike } from '../models/boolean-like';
+import { IconType } from '../icon/icon-type';
 
 export type ModalSize =
     'mini'
@@ -14,6 +15,8 @@ export type ModalSize =
     styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent extends BaseComponent {
+    public static readonly defaults = { closeIcon: <IconType>'close' };
+
     private isShowClose: boolean;
     private isShowHeader = true;
     private isShowFooter = true;
@@ -22,6 +25,8 @@ export class ModalComponent extends BaseComponent {
     private isImageContent = false;
     private isFullscreen = false;
     private isScrolling = true;
+
+    protected readonly defaults = ModalComponent.defaults;
 
     @Input()
     public header: string;
@@ -107,13 +112,14 @@ export class ModalComponent extends BaseComponent {
     @Input()
     public maxContentHeight: string;
 
+    @Input()
+    public closeIcon: IconType;
+
     @Output()
     public readonly close = new EventEmitter<void>();
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef, false);
+    public constructor() {
+        super(false);
         this.classList.register('basic', 'visible', 'fullscreen', 'size', 'scrolling', 'imageContent', 'header', 'footer', 'showHeader', 'showFooter', 'showClose', 'minContentHeight', 'maxContentHeight');
     }
 

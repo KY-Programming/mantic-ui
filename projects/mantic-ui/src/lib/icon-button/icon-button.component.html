@@ -1,1 +1,1 @@
-<m-icon [icon]="icon || social" [size]="iconSize"></m-icon>
+<m-icon *ngIf="icon" [icon]="icon ?? social" [size]="iconSize"></m-icon>

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostBinding, HostListener, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, HostBinding, HostListener, Input, ViewChild } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { Mouse } from '../helpers/mouse';
 import { animationFrameScheduler, fromEvent } from 'rxjs';
@@ -67,10 +67,8 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
     @ViewChild(MenuComponent)
     public menu: MenuComponent;
 
-    public constructor(
-        private readonly elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    public constructor() {
+        super();
         this.classList.register('openOnLeftClick', 'openOnRightClick', 'vertical', 'margin', 'shared');
     }
 
@@ -108,7 +106,7 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
     }
 
     private refreshPosition(): void {
-        const menuRect = this.menu.elementRef.nativeElement.getBoundingClientRect();
+        const menuRect = this.menu.element.nativeElement.getBoundingClientRect();
         const clipRect = document.documentElement.getBoundingClientRect();
         this.left = Math2.keepInRange(clipRect.left + this.margin, this.left, clipRect.right - this.margin - menuRect.width);
         this.top = Math2.keepInRange(clipRect.top + this.margin, this.top, clipRect.bottom - this.margin - menuRect.height);

@@ -25,10 +25,8 @@ export class InfoComponent extends BaseComponent {
     @HostBinding('class.message')
     public readonly message = true;
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    public constructor() {
+        super();
         this.classList.register('ignored');
     }
 }

@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { RadioService } from '../services/radio.service';
@@ -13,11 +13,10 @@ export class RadioComponent extends CheckboxComponent {
     @HostBinding('class.radio')
     public readonly radio = true;
 
-    constructor(
-        elementRef: ElementRef<HTMLElement>,
+    public constructor(
         private readonly radioService: RadioService
     ) {
-        super(elementRef);
+        super();
         this.canUncheck = false;
         this.radioService.checked.pipe(
             filter(event => event.group && event.group === this.name && event.value !== this),

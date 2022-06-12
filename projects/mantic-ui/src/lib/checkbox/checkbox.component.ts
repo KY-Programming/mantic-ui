@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { Key } from '../models/key';
 import { BaseComponent } from '../base/base.component';
 import { BooleanLike } from '../models/boolean-like';
@@ -73,7 +73,7 @@ export class CheckboxComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.indeterminate')
-    public get indeterminate(): boolean  {
+    public get indeterminate(): boolean {
         return this.isIndeterminate;
     }
 
@@ -100,10 +100,8 @@ export class CheckboxComponent extends BaseComponent {
     @HostBinding('class.checkbox')
     public readonly checkbox = true;
 
-    constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    public constructor() {
+        super();
         this.classList.register('readonly', 'indeterminate', 'disabled', 'fitted', 'checked', 'value', 'name', 'label');
     }
 

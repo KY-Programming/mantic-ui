@@ -2,6 +2,8 @@ import { Component, DoCheck, ElementRef, Input, IterableDiffer, IterableDiffers,
 import { Subject } from 'rxjs';
 import { ChatMessage } from '../models/chat-message';
 import { InputComponent } from '../input/text/input.component';
+import { IconType } from '../icon/icon-type';
+import { IconSize } from '../icon/icon-size';
 
 @Component({
     selector: 'm-chat',
@@ -9,8 +11,10 @@ import { InputComponent } from '../input/text/input.component';
     styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements DoCheck {
+    public static readonly defaults = { sendIcon: <IconType>'caret right', sendIconSize: <IconSize>'big' };
     private readonly sendSubject = new Subject<ChatMessage>();
     private readonly messagesDiffer: IterableDiffer<unknown>;
+    protected readonly defaults = ChatComponent.defaults;
 
     @ViewChild('chat')
     public chat: ElementRef<HTMLElement>;
@@ -28,9 +32,15 @@ export class ChatComponent implements DoCheck {
 
     @Input()
     public sender: string;
-    
+
     @Input()
-    public iconTemplate: TemplateRef<any>;
+    public sendIconTemplate: TemplateRef<never>;
+
+    @Input()
+    public sendIcon: IconType;
+
+    @Input()
+    public sendIconSize: IconSize;
 
     @Output()
     public readonly send = this.sendSubject.asObservable();

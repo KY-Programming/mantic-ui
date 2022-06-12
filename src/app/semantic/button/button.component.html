@@ -52,6 +52,9 @@
             <m-button>Cancel</m-button>
         </m-example>
         <m-example header="Animated" description="A button can animate to show hidden content" [code]="buttonAnimatedCode">
+            <m-warning>Some features are broken with the latest Angular version. We try to fix them as soon as possible. <br>Do not hesitate to <a routerLink="/semantic/help/contact">contact us</a> and give us a hint!
+                <!-- TODO: Remove -->
+            </m-warning>
             <m-button>
                 Next
                 <m-animation>
@@ -73,13 +76,15 @@
         </m-example>
         <m-example header="Labeled" description="A button can appear alongside a label" [code]="buttonLabeledCode">
             <m-button>
-                <m-icon icon="heart"></m-icon> Like
+                <m-icon icon="heart"></m-icon>
+                Like
                 <m-label basic>
                     2,048
                 </m-label>
             </m-button>
             <m-button>
-                <m-icon icon="heart"></m-icon> Like
+                <m-icon icon="heart"></m-icon>
+                Like
                 <m-label basic position="left" pointing="right">
                     2,048
                 </m-label>
@@ -92,13 +97,15 @@
         </m-example>
         <m-example [code]="buttonLabeledColoredCode">
             <m-button color="red">
-                <m-icon icon="heart"></m-icon> Like
+                <m-icon icon="heart"></m-icon>
+                Like
                 <m-label basic color="red" pointing="left">
                     1,048
                 </m-label>
             </m-button>
             <m-button color="blue" basic>
-                <m-icon icon="fork"></m-icon> Forks
+                <m-icon icon="fork"></m-icon>
+                Forks
                 <m-label basic color="blue" pointing="left">
                     1,048
                 </m-label>
@@ -107,14 +114,14 @@
         <m-example header="Icon" description="A button can have only an icon" [code]="icons">
             <m-icon-button icon="cloud"></m-icon-button>
             <m-icon-button icon="cloud" color="red"></m-icon-button>
+            <m-icon-button [icon]="faCloud"></m-icon-button>
+            <m-icon-button [icon]="faCloud" color="red"></m-icon-button>
         </m-example>
         <m-example header="Labeled Icon" description="A button can use an icon as a label" [code]="labeledIcon">
-            <m-button icon="pause">
-                Pause
-            </m-button>
-            <m-button icon="right arrow" iconPosition="right">
-                Next
-            </m-button>
+            <m-button icon="pause">Pause</m-button>
+            <m-button icon="right arrow" iconPosition="right">Next</m-button>
+            <m-button [icon]="faPause">Pause</m-button>
+            <m-button [icon]="faArrowRight" iconPosition="right">Next</m-button>
         </m-example>
         <m-example header="Basic" description="A basic button is less pronounced" [code]="basic">
             <m-button basic>

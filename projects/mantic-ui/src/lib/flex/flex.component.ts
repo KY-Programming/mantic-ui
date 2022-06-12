@@ -36,10 +36,8 @@ export class FlexComponent extends BaseComponent {
     @HostBinding('style.justify-content')
     public justifyContent: FlexJustifyContent;
 
-    public constructor(
-      elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    public constructor() {
+        super();
         this.classList.register('column', 'direction', 'alignItems', 'justifyContent');
     }
 

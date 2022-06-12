@@ -20,10 +20,8 @@ export class MenuItemDirective /*extends MenuItemComponent*/ extends BaseDirecti
     }
 
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    public constructor() {
+        super();
         this.classList
             .register('active')
             .registerFixed('item');

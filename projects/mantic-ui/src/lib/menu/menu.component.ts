@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Input, Optional, SkipSelf } from '@angular/core';
+import { Component, HostBinding, Input, Optional, SkipSelf } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { BooleanLike } from '../models/boolean-like';
 
@@ -23,6 +23,8 @@ export class MenuComponent extends BaseComponent {
     private isTabular: boolean;
     private isText: boolean;
     private isVertical: boolean;
+
+    public readonly element = this.elementRef;
 
     public get position(): MenuPosition {
         return this.positionValue;
@@ -109,10 +111,9 @@ export class MenuComponent extends BaseComponent {
     public readonly menu = true;
 
     public constructor(
-        public readonly elementRef: ElementRef<HTMLElement>,
         @Optional() @SkipSelf() parentMenu?: MenuComponent
     ) {
-        super(elementRef, !parentMenu);
+        super(!parentMenu);
         this.classList.register('position', 'fixed', 'pointing', 'secondary', 'tabular', 'text', 'attached', 'vertical');
     }
 }

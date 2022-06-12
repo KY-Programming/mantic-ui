@@ -96,13 +96,11 @@ export class TabGroupComponent extends BaseComponent implements OnInit, AfterVie
     @Output()
     public readonly selectedIndexChange = new EventEmitter<number>();
 
-    constructor(
+    public constructor(
         private readonly route: ActivatedRoute,
-        private readonly router: Router,
-        private readonly location: Location,
-        elementRef: ElementRef<HTMLElement>
+        private readonly router: Router
     ) {
-        super(elementRef);
+        super();
         this.noClasses = true;
         this.classList.register('pointing', 'secondary', 'position', 'selectByRoute', 'routeParameterName', 'noPadding');
         this.router.events.pipe(takeUntil(this.destroy)).subscribe(event => {
@@ -192,7 +190,7 @@ export class TabGroupComponent extends BaseComponent implements OnInit, AfterVie
 }
 
 class NamedUrlSegment extends UrlSegment {
-    constructor(
+    public constructor(
         public readonly name: string,
         segment: UrlSegment
     ) {

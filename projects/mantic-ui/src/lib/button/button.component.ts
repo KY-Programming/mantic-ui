@@ -6,6 +6,9 @@ import { LabelComponent } from '../label/label.component';
 import { Color } from '../models/color';
 import { ButtonBaseComponent } from '../base/button-base.component';
 import { BooleanLike } from '../models/boolean-like';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { IconType } from '../icon/icon-type';
+import { IconSize } from '../icon/icon-size';
 
 export declare type Pointing =
     'left'
@@ -25,8 +28,8 @@ export class ButtonComponent extends ButtonBaseComponent {
     private isFluid: boolean;
     private socialValue: string;
     private pointingValue: Pointing;
-    private iconValue: string;
     private iconPositionValue: LabelPosition;
+    private icoValue: IconType;
 
     public get animated(): AnimationComponent {
         return this.animatedField;
@@ -68,15 +71,18 @@ export class ButtonComponent extends ButtonBaseComponent {
     }
 
     @Input()
-    public get icon(): string {
-        return this.iconValue;
+    public get icon(): IconType {
+        return this.icoValue;
     }
 
-    public set icon(value: string) {
-        this.iconValue = value;
+    public set icon(value: IconType) {
+        this.icoValue = value;
         this.classList.set('icon', !!value);
         this.classList.set('iconLabeled', value ? 'labeled' : undefined);
     }
+
+    @Input()
+    public iconSize: IconSize;
 
     @Input()
     public get iconPosition(): LabelPosition {
@@ -110,10 +116,8 @@ export class ButtonComponent extends ButtonBaseComponent {
 
     public readonly Color = Color;
 
-    public constructor(
-        element: ElementRef<HTMLElement>
-    ) {
-        super(element);
+    public constructor() {
+        super();
         this.classList.register('animation', 'animated', 'labelPosition', 'iconPosition', 'label', 'labeled', 'iconLabeled', 'fluid', 'social', 'icon');
     }
 }

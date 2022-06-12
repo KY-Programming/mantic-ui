@@ -1,11 +1,11 @@
-import { Component, ElementRef, HostBinding, Input } from '@angular/core';
+import { Component, Directive, ElementRef, HostBinding, inject, Input } from '@angular/core';
 import { DimmableService } from '../services/dimmable.service';
 import { BaseComponent } from './base.component';
 
-@Component({
-    template: ''
-})
-export class DimmableComponent extends BaseComponent {
+@Directive()
+export abstract class DimmableComponent extends BaseComponent {
+    private readonly dimmableService = inject(DimmableService);
+    
     public get dimmable(): boolean {
         return this.dimmableService.dimmable;
     }
@@ -19,11 +19,8 @@ export class DimmableComponent extends BaseComponent {
     @HostBinding('class.dimmed')
     public isDimmed = false;
 
-    constructor(
-        elementRef: ElementRef<HTMLElement>,
-        private readonly dimmableService: DimmableService
-    ) {
-        super(elementRef);
+    protected constructor() {
+        super();
         this.classList.register('dimmable', 'isDimmed');
         this.dimmableService.dimmed.subscribe(value => this.isDimmed = value);
     }

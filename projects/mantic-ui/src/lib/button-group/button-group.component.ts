@@ -1,4 +1,4 @@
-import { Component, ContentChildren, ElementRef, HostBinding, QueryList } from '@angular/core';
+import { Component, ContentChildren, HostBinding, QueryList } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ToggleButtonComponent } from '../toggle-button/toggle-button.component';
 import { BaseComponent } from '../base/base.component';
@@ -28,10 +28,8 @@ export class ButtonGroupComponent extends BaseComponent {
     @HostBinding('class.buttons')
     public readonly buttons = true;
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    public constructor() {
+        super();
     }
 
     private subscribeToggleButtons(): void {

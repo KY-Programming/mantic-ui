@@ -11,7 +11,8 @@
             <m-button (click)="showModal = true">Open Modal</m-button>
             <m-modal *ngIf="showModal" (close)="showModal = false" imageContent>
                 <m-modal-header>
-                    <m-icon icon="question"></m-icon> Profile Picture
+                    <m-icon icon="question"></m-icon>
+                    Profile Picture
                 </m-modal-header>
                 <div class="ui medium image">
                     <img src="/assets/images/avatar/large/rachel.png">
@@ -45,14 +46,17 @@
                 <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
                 <m-modal-footer>
                     <m-button color="red" basic inverted (click)="showBasic = false">
-                        <m-icon icon="remove"></m-icon> No
+                        <m-icon icon="remove"></m-icon>
+                        No
                     </m-button>
                     <m-button color="green" inverted (click)="showBasic = false">
-                        <m-icon icon="checkmark"></m-icon> Yes
+                        <m-icon icon="checkmark"></m-icon>
+                        Yes
                     </m-button>
                 </m-modal-footer>
             </m-modal>
 
+            <!-- TODO: Implement -->
             <div class="ui basic modal">
                 <div class="ui icon header">
                     <i class="archive icon"></i>
@@ -147,6 +151,16 @@
                 </m-modal-footer>
             </m-modal>
             <m-button (click)="showScrolling = true">Open Scrolling Modal</m-button>
+        </m-example>
+
+        <m-example header="Change Icons" description="The close icon can be globally changed" [code]="changeIconCode">
+            <ng-container *ngIf="showChangeIcon">
+                <m-modal-defaults [closeIcon]="faRocket"></m-modal-defaults>
+                <m-modal (close)="showChangeIcon = false">
+                    The close icon should be a rocket
+                </m-modal>
+            </ng-container>
+            <m-button (click)="showChangeIcon = true">Show with changed Item</m-button>
         </m-example>
     </m-tab>
     <m-tab label="Binding">

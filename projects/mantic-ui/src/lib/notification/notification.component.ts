@@ -21,10 +21,9 @@ export class NotificationComponent extends BaseComponent {
     public mode: 'overlap' | 'stack' = 'stack';
 
     public constructor(
-        elementRef: ElementRef<HTMLElement>,
         private readonly notificationService: NotificationService
     ) {
-        super(elementRef);
+        super();
         this.classList.register('fromService', 'mode');
     }
 

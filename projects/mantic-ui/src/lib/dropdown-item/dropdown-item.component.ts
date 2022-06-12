@@ -38,15 +38,16 @@ export class DropdownItemComponent extends BaseComponent {
 
     @Input()
     public icon: string;
+    
+    public readonly element = this.elementRef;
 
     @HostBinding('class.item')
     public readonly item = true;
 
     public constructor(
-        private readonly dropDownSelectionService: DropDownSelectionService,
-        public readonly elementRef: ElementRef<HTMLElement>
+        private readonly dropDownSelectionService: DropDownSelectionService
     ) {
-        super(elementRef);
+        super();
         this.classList.register('filtered', 'selected', 'value');
     }
 

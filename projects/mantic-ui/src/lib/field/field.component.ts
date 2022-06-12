@@ -396,10 +396,8 @@ export class FieldComponent extends BaseComponent {
     @Output()
     public readonly errorChange = new EventEmitter<boolean>();
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef, false);
+    public constructor() {
+        super(false);
         this.classList.register('size', 'disabled', 'readonly', 'inline', 'label', 'fill', 'name');
     }
 

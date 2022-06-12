@@ -55,10 +55,8 @@ export class InputComponent extends InputBaseComponent {
         this.refreshFocus();
     }
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    public constructor() {
+        super();
         this.classList.register('maxlength');
     }
 

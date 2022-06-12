@@ -42,10 +42,9 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
     public dataSources: DataSourceComponent[];
 
     public constructor(
-        element: ElementRef<HTMLElement>,
         iterableDiffers: IterableDiffers
     ) {
-        super(element, false);
+        super(false);
         this.classList.register('elements', 'fields');
         this.elementsDiffer = iterableDiffers.find([]).create(undefined);
     }

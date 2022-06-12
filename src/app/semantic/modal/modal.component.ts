@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { faRocket } from '@fortawesome/pro-solid-svg-icons';
 import { ModalSize } from '@mantic-ui/angular';
 
 @Component({
@@ -6,7 +7,6 @@ import { ModalSize } from '@mantic-ui/angular';
   styleUrls: ['./modal.component.scss']
 })
 export class SemanticModalComponent {
-
   public showModal = false;
   public showDefault = false;
   public showBasic = false;
@@ -15,6 +15,8 @@ export class SemanticModalComponent {
   public showSize = false;
   public size: ModalSize = 'mini';
   public showScrolling = false;
+  public showChangeIcon = false;
+  protected readonly faRocket = faRocket;
 
   public standardCode = `<m-button (click)="showModal = true">Open</m-button>
 <m-modal *ngIf="showModal" (close)="showModal = false" imageContent>
@@ -82,5 +84,8 @@ export class SemanticModalComponent {
 import { ModalSize } from '@mantic-ui/angular';
 
 public size: ModalSize = 'mini';`;
+    public readonly changeIconCode = `<!-- Place the next line anywhere global like on your app.component.html -->
+<m-modal-defaults [closeIcon]="faRocket"></m-modal-defaults>
+<m-modal>...</m-modal>`;
 
 }

@@ -11,10 +11,9 @@ import { ButtonBaseComponent } from '../base/button-base.component';
 export class SubmitComponent extends ButtonBaseComponent {
 
   public constructor(
-    elementRef: ElementRef<HTMLElement>,
     @Optional() private readonly form: FormComponent
   ) {
-    super(elementRef);
+    super();
   }
 
   @HostListener('click')

@@ -132,11 +132,8 @@ export class SegmentComponent extends DimmableComponent {
     @HostBinding('class.segment')
     public readonly segment = true;
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>,
-        dimmableService: DimmableService
-    ) {
-        super(elementRef, dimmableService);
+    public constructor() {
+        super();
         this.classList.register('inverted', 'raised', 'vertical', 'placeholder', 'basic', 'secondary', 'tertiary', 'color', 'attached', 'attachedValue', 'noPadding');
         this.raised = SegmentComponent.defaults.raised;
     }

@@ -1,1 +1,3 @@
-<i class="{{icon}} {{size}} icon"></i>
+<i *ngIf="mIcon" class="{{icon}} {{size}} icon"></i>
+<fa-icon *ngIf="faIcon" [icon]="faIcon" [size]="faSize" class="{{icon}} {{size}} icon"></fa-icon>
+

@@ -30,10 +30,8 @@ export class ToggleButtonComponent extends ButtonBaseComponent {
     @HostBinding('class.toggle')
     public readonly toggleButton = true;
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    public constructor() {
+        super();
         this.classList.register('checked');
     }
 

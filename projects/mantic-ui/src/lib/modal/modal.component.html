@@ -5,7 +5,9 @@
             <m-modal-header *m-fallback-for="'m-modal-header'">
                 {{header}}
             </m-modal-header>
-            <i *ngIf="basic && showClose === true || !basic && (showClose || showClose === undefined)" class="close icon" (click)="onClose()"></i>
+            <ng-container *ngIf="basic && showClose === true || !basic && (showClose || showClose === undefined)">
+                <m-icon *ngIf="closeIcon || defaults.closeIcon" [icon]="closeIcon ?? defaults.closeIcon" class="close" (click)="onClose()"></m-icon>
+            </ng-container>
         </div>
         <div [class.image]="imageContent" [class.scrolling]="scrolling" class="content" [style.min-height]="minContentHeight" [style.max-height]="maxContentHeight">
             <ng-content></ng-content>

@@ -1,4 +1,4 @@
-import { Component, ContentChild, ElementRef, HostBinding, Input } from '@angular/core';
+import { Component, ContentChild, Directive, ElementRef, HostBinding, Input } from '@angular/core';
 import { LabelDropdownComponent } from '../label-dropdown/label-dropdown.component';
 import { LabelComponent } from '../label/label.component';
 import { BaseComponent } from './base.component';
@@ -6,10 +6,8 @@ import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { ButtonComponent } from '../button/button.component';
 import { LabelOptions } from '../models/label-options';
 
-@Component({
-    template: ''
-})
-export class LabeledBaseComponent extends BaseComponent {
+@Directive()
+export abstract class LabeledBaseComponent extends BaseComponent {
     private labelValue: LabelOptions;
     private labelDropdownValue: LabelDropdownComponent;
 
@@ -55,10 +53,8 @@ export class LabeledBaseComponent extends BaseComponent {
         return !!this.button || !!this.iconButton;
     }
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    protected constructor() {
+        super();
         this.classList.register('labeled');
         //TODO: Implement actions
         // .registerAction('labelDropdown', (entry) => entry.classes = this.labelDropdown ? ((this.labelDropdown.position || '') + ' labeled').trim() : undefined);

@@ -11,9 +11,7 @@ export class DividerComponent extends BaseComponent {
     @HostBinding('class.divider')
     public readonly divider = true;
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    public constructor() {
+        super();
     }
 }

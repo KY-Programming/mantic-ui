@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BaseComponent, BooleanLike } from '@mantic-ui/angular';
 import { NpmApiService } from '../services/npm-api.service';
 
@@ -45,10 +45,9 @@ export class NpmInstallComponent extends BaseComponent {
     }
 
     public constructor(
-        private readonly nugetApiService: NpmApiService,
-        elementRef: ElementRef
+        private readonly nugetApiService: NpmApiService
     ) {
-        super(elementRef);
+        super();
     }
 
     private refreshVersion(): void {

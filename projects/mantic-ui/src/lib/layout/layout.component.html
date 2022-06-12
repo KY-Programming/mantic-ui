@@ -1,6 +1,6 @@
 <m-menu position="top" fixed>
     <m-menu-item *ngIf="showHamburger">
-        <m-icon icon="bars"></m-icon>
+        <m-icon [icon]="menuIcon ?? defaults.menuIcon" [size]="menuIconSize ?? defaults.menuIconSize"></m-icon>
     </m-menu-item>
     <ng-container *ngFor="let template of menuTemplates" [ngTemplateOutlet]="template"></ng-container>
 </m-menu>

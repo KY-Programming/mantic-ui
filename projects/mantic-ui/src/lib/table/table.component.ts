@@ -89,10 +89,8 @@ export class TableComponent extends BaseComponent {
         this.isDefinition = this.toBoolean(value);
     }
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    public constructor() {
+        super();
         this.classList.register('celled', 'notCelled', 'very', 'basic', 'unstackable', 'aligned', 'definition').registerFixed('table');
         this.aligned ??= 'middle';
     }

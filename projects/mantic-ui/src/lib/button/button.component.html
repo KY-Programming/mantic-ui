@@ -16,13 +16,13 @@
     </ng-template>
 </ng-container>
 <ng-container *ngIf="social">
-    <i class="{{social.toLowerCase()}} icon"></i>
+    <m-icon [icon]="social.toLowerCase()" class="icon"></m-icon>
     {{social}}
 </ng-container>
 <ng-container *ngIf="!animated && !label && !social">
     <ng-container [ngTemplateOutlet]="content"></ng-container>
 </ng-container>
 <ng-template #content>
-    <i *ngIf="icon" class="{{icon}} icon"></i>
+    <m-icon *ngIf="icon" [icon]="icon ?? social" [size]="iconSize"></m-icon>
     <ng-content></ng-content>
 </ng-template>

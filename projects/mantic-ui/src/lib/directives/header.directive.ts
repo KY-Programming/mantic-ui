@@ -51,10 +51,8 @@ export class HeaderDirective extends BaseDirective {
     @HostBinding('class.header')
     public readonly header = true;
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    public constructor() {
+        super();
     }
 
 }

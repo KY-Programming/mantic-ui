@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, HostListener, Input, OnDestroy, OnInit, Optional } from '@angular/core';
+import { Component, HostBinding, HostListener, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import { DimmableService } from '../services/dimmable.service';
 import { BaseComponent } from '../base/base.component';
 import { BooleanLike } from '../models/boolean-like';
@@ -40,8 +40,7 @@ export class DimmerComponent extends BaseComponent implements OnInit, OnDestroy 
     public set visible(value: BooleanLike) {
         if (this.toBoolean(value)) {
             this.show();
-        }
-        else {
+        } else {
             this.hide();
         }
     }
@@ -49,11 +48,10 @@ export class DimmerComponent extends BaseComponent implements OnInit, OnDestroy 
     @HostBinding('class.dimmer')
     public readonly dimmer = true;
 
-    constructor(
-        elementRef: ElementRef<HTMLElement>,
+    public constructor(
         @Optional() private readonly dimmableService: DimmableService
     ) {
-        super(elementRef);
+        super();
         this.classList.register('page', 'visible');
     }
 

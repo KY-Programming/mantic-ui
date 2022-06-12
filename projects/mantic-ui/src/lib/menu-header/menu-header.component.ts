@@ -12,10 +12,8 @@ export class MenuHeaderComponent extends BaseComponent {
     @HostBinding('class.item')
     public readonly menuHeader = true;
 
-    constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    public constructor() {
+        super();
     }
 
 }

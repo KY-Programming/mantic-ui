@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { RadioService } from '../services/radio.service';
@@ -12,11 +12,10 @@ export class SliderComponent extends CheckboxComponent {
     @HostBinding('class.slider')
     public readonly slider = true;
 
-    constructor(
-        elementRef: ElementRef<HTMLElement>,
+    public constructor(
         private readonly radioService: RadioService
     ) {
-        super(elementRef);
+        super();
         this.radioService.checked.pipe(
             filter(event => event.group && event.group === this.name && event.value !== this),
             takeUntil(this.destroy)

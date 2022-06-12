@@ -112,10 +112,8 @@ export class FormComponent extends BaseComponent {
     @Output()
     public readonly isValidChange = new EventEmitter<boolean>();
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef, false);
+    public constructor() {
+        super(false);
         this.classList.register('loading', 'success', 'warning', 'error');
     }
 

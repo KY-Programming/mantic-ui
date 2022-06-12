@@ -5,6 +5,8 @@ import { DropDownSelectionService } from './dropdown-selection.service';
 import { DropdownValue } from './dropdown-value';
 import { BaseComponent } from '../base/base.component';
 import { BooleanLike } from '../models/boolean-like';
+import { IconType } from '../icon/icon-type';
+import { IconSize } from '../icon/icon-size';
 
 @Component({
     selector: 'm-dropdown',
@@ -13,6 +15,12 @@ import { BooleanLike } from '../models/boolean-like';
     providers: [DropDownSelectionService]
 })
 export class DropdownComponent extends BaseComponent {
+    public static readonly defaults = {
+        dropdownIcon: <IconType>'dropdown',
+        dropdownIconSize: <IconSize>undefined,
+        deleteIcon: <IconType>'delete',
+        deleteIconSize: <IconSize>undefined
+    };
     private isMultiple: boolean;
     private isSearch: boolean;
     private isFluid: boolean;
@@ -23,6 +31,7 @@ export class DropdownComponent extends BaseComponent {
     private isAttachedRight: boolean;
     private isAttachedBottom: boolean;
     private isFreeTextAllowed: boolean;
+    protected readonly defaults = DropdownComponent.defaults;
 
     @ViewChild('htmlElement')
     public textElement: ElementRef<HTMLDivElement>;
@@ -172,7 +181,22 @@ export class DropdownComponent extends BaseComponent {
     public filterText = true;
 
     @Input()
-    public icon: string;
+    public icon: IconType;
+
+    @Input()
+    public iconSize: IconSize;
+
+    @Input()
+    public dropdownIcon: IconType;
+
+    @Input()
+    public dropdownIconSize: IconSize;
+
+    @Input()
+    public deleteIcon: IconType;
+
+    @Input()
+    public deleteIconSize: IconSize;
 
     @Input()
     public filterType: 'startsWith' | 'contains' = 'startsWith';
@@ -240,10 +264,9 @@ export class DropdownComponent extends BaseComponent {
     public readonly dropdown = true;
 
     public constructor(
-        private readonly dropDownSelectionService: DropDownSelectionService,
-        private readonly elementRef: ElementRef<HTMLElement>
+        private readonly dropDownSelectionService: DropDownSelectionService
     ) {
-        super(elementRef);
+        super();
         this.classList.register('disabled', 'multiple', 'search', 'fluid', 'active', 'visible', 'upward', 'selectFirst', 'placeholder', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom', 'filterType', 'allowFreetext');
         this.dropDownSelectionService.selected.pipe(takeUntil(this.destroy)).subscribe(event => this.select(event));
     }
@@ -424,7 +447,7 @@ export class DropdownComponent extends BaseComponent {
         }
         // HACK: This is a dirty hack, but currently i found no other solution. If you have a solution please create an issue
         setTimeout(() => {
-            this.textElement.nativeElement.innerHTML = component?.elementRef.nativeElement.innerHTML ?? '';
+            this.textElement.nativeElement.innerHTML = component?.element.nativeElement.innerHTML ?? '';
         });
         // HACK-END
     }
@@ -469,7 +492,7 @@ export class DropdownComponent extends BaseComponent {
         const filterAction: (value: string) => boolean = this.filterType === 'contains'
             ? value => value && value.toLowerCase().indexOf(caseInsensitiveFilter) === -1
             : value => value && value.toLowerCase().indexOf(caseInsensitiveFilter) !== 0;
-        const textContainsFilter = !this.filterText || filterAction(item.elementRef.nativeElement.innerText);
+        const textContainsFilter = !this.filterText || filterAction(item.element.nativeElement.innerText);
         const valueContainsFilter = !this.filterValue || filterAction(item.value && typeof item.value.toString === 'function' ? item.value.toString() : undefined);
         return textContainsFilter && valueContainsFilter;
     }

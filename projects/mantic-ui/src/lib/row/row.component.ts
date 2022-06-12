@@ -42,10 +42,8 @@ export class RowComponent extends BaseComponent {
     @HostBinding('class.row')
     public readonly row = true;
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef, false);
+    public constructor() {
+        super(false);
         this.classList.register('columns', 'stretched');
     }
 

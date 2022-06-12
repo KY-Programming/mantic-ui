@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IconSize } from '../icon/icon.component';
+import { IconSize } from '../icon/icon-size';
 
 @Component({
   selector: 'm-flag',

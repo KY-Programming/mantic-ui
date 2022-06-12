@@ -33,10 +33,9 @@ export class MenuItemComponent extends BaseComponent {
     }
 
     public constructor(
-        elementRef: ElementRef<HTMLElement>,
         @Optional() @Inject('none') useUiClass = true
     ) {
-        super(elementRef, useUiClass);
+        super(useUiClass);
         this.classList.register('active', 'link').registerFixed('item');
     }
 }

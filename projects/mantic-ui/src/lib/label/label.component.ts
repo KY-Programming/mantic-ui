@@ -77,10 +77,8 @@ export class LabelComponent extends BaseComponent implements LabelOptions {
     @HostBinding('class.label')
     public readonly label = true;
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    public constructor() {
+        super();
         this.classList.register('pointing', 'pointing', 'color', 'basic', 'horizontal');
     }
 }

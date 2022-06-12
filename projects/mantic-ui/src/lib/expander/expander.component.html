@@ -1,5 +1,5 @@
 <div class="title" [class.active]="expanded" (click)="toggle()">
-    <m-icon icon="dropdown icon"></m-icon>
+    <m-icon [icon]="dropdownIcon ?? defaults.dropdownIcon" [size]="dropdownIconSize ?? defaults.dropdownIconSize" class="icon"></m-icon>
     <ng-container *ngIf="headerTemplate else defaultTitle" [ngTemplateOutlet]="headerTemplate.template"></ng-container>
     <ng-template #defaultTitle>
         {{header}}

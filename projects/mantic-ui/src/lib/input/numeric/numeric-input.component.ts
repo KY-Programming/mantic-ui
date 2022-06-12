@@ -52,6 +52,10 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
         this.refreshFocus();
     }
 
+    public constructor() {
+        super();
+    }
+
     public override ngOnInit(): void {
         super.ngOnInit();
         // Set internal value on blur to ensure a invalid value is overwritten

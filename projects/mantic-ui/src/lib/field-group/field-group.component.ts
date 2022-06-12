@@ -74,10 +74,8 @@ export class FieldGroupComponent extends BaseComponent {
     @HostBinding('class.fields')
     public readonly fieldsHost = true;
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef, false);
+    public constructor() {
+        super(false);
         this.classList.register('inline', 'grouped', 'fields');
     }
 

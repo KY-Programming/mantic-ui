@@ -48,6 +48,8 @@ import { SemanticChatComponent } from './chat/chat.component';
 import { HelpComponent } from './help/help.component';
 import { HeaderComponent } from '../helpers/header/header.component';
 import { FeatureComponent } from './help/feature/feature.component';
+import { SemanticIconComponent } from './icon/icon.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
     declarations: [
@@ -93,7 +95,8 @@ import { FeatureComponent } from './help/feature/feature.component';
         SemanticChatComponent,
         HelpComponent,
         HeaderComponent,
-        FeatureComponent
+        FeatureComponent,
+        SemanticIconComponent
     ],
     imports: [
         CommonModule,
@@ -101,7 +104,8 @@ import { FeatureComponent } from './help/feature/feature.component';
         RouterModule,
         SemanticUiModule,
         ManticUiDocModule,
-        HelpersModule
+        HelpersModule,
+        FontAwesomeModule
     ],
     exports: [
     ]

@@ -23,10 +23,8 @@ export class SegmentGroupComponent extends BaseComponent {
     @HostBinding('class.segments')
     public readonly segments = true;
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    public constructor() {
+        super();
         this.classList.register('horizontal');
     }
 

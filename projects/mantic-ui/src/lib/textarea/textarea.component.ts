@@ -65,10 +65,9 @@ export class TextareaComponent extends BaseComponent {
     public readonly textarea = true;
 
     public constructor(
-        elementRef: ElementRef<HTMLElement>,
         private readonly applicationRef: ApplicationRef
     ) {
-        super(elementRef);
+        super();
         this.classList.register('disabled', 'readonly', 'hasError');
     }
 

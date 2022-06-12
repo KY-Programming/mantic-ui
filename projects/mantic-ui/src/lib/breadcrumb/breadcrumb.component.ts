@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 
 @Component({
@@ -11,9 +11,7 @@ export class BreadcrumbComponent extends BaseComponent {
     @HostBinding('class.breadcrumb')
     public readonly breadcrumb = true;
 
-    public constructor(
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        super(elementRef);
+    public constructor() {
+        super();
     }
 }
