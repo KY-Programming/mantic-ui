@@ -6,7 +6,7 @@
     {{selectedItem.text === undefined ? selectedItem.value : selectedItem.text}}
     <m-icon [icon]="deleteIcon ?? defaults.deleteIcon" [size]="deleteIconSize ?? defaults.deleteIconSize" class="icon" (click)="deleteClick(selectedItem, $event)"></m-icon>
 </a>
-<input *ngIf="search || allowFreeText" [(ngModel)]="filter" class="search" autocomplete="off" tabindex="0" (input)="onFilter()" (keydown)="onKeyDown($event)" (focus)="focus()" (blur)="blur()" #inputElement>
+<input *ngIf="search || allowFreeText" [(ngModel)]="filter" class="search" autocomplete="off" tabindex="0" (input)="onFilter()" (keydown)="onKeyDown($event)" #inputElement>
 <div [class.default]="isDefault" [class.filtered]="isFiltered" class="text">
     <ng-container *ngIf="!selectedItem">{{value || placeholder}}</ng-container>
     <span #htmlElement></span>
@@ -19,8 +19,8 @@
      [class.hidden]="isHidden"
      [class.animating]="isSlidingIn || isSlidingOut"
      [class.slide]="isSlidingIn || isSlidingOut"
-     [class.down]="(isSlidingIn || isSlidingOut) && !isUpward"
-     [class.up]="(isSlidingIn || isSlidingOut) && isUpward"
+     [class.down]="(isSlidingIn || isSlidingOut) && !isUpwardClass"
+     [class.up]="(isSlidingIn || isSlidingOut) && isUpwardClass"
      [class.in]="isSlidingIn"
      [class.out]="isSlidingOut"
      [class.loading]="isLoading">

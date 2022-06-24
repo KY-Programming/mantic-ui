@@ -1,5 +1,5 @@
-import { Component, ContentChildren, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { Component, ContentChildren, ElementRef, EventEmitter, HostBinding, HostListener, Input, NgZone, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { filter, takeUntil } from 'rxjs/operators';
 import { DropdownItemComponent } from '../dropdown-item/dropdown-item.component';
 import { DropDownSelectionService } from './dropdown-selection.service';
 import { DropdownValue } from './dropdown-value';
@@ -7,6 +7,7 @@ import { BaseComponent } from '../base/base.component';
 import { BooleanLike } from '../models/boolean-like';
 import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
+import { fromEvent } from 'rxjs';
 
 @Component({
     selector: 'm-dropdown',
@@ -14,7 +15,7 @@ import { IconSize } from '../icon/icon-size';
     styleUrls: ['./dropdown.component.scss'],
     providers: [DropDownSelectionService]
 })
-export class DropdownComponent extends BaseComponent {
+export class DropdownComponent extends BaseComponent implements OnInit {
     public static readonly defaults = {
         dropdownIcon: <IconType>'dropdown',
         dropdownIconSize: <IconSize>undefined,
@@ -31,6 +32,8 @@ export class DropdownComponent extends BaseComponent {
     private isAttachedRight: boolean;
     private isAttachedBottom: boolean;
     private isFreeTextAllowed: boolean;
+    private isUserUpward: boolean;
+    private isSystemUpward: boolean;
     protected readonly defaults = DropdownComponent.defaults;
 
     @ViewChild('htmlElement')
@@ -232,8 +235,19 @@ export class DropdownComponent extends BaseComponent {
     @HostBinding('class.active')
     public isActive = false;
 
+    @Input()
+    public get upwards(): boolean {
+        return this.isUserUpward;
+    }
+
+    public set upwards(value: BooleanLike) {
+        this.isUserUpward = this.toBoolean(value);
+    }
+
     @HostBinding('class.upward')
-    public isUpward = false;
+    public get isUpwardClass(): boolean {
+        return this.isUserUpward ?? this.isSystemUpward;
+    }
 
     public isDefault = true;
     public isMenuVisible = false;
@@ -264,11 +278,22 @@ export class DropdownComponent extends BaseComponent {
     public readonly dropdown = true;
 
     public constructor(
-        private readonly dropDownSelectionService: DropDownSelectionService
+        private readonly dropDownSelectionService: DropDownSelectionService,
+        private readonly zone: NgZone
     ) {
         super();
         this.classList.register('disabled', 'multiple', 'search', 'fluid', 'active', 'visible', 'upward', 'selectFirst', 'placeholder', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom', 'filterType', 'allowFreetext');
         this.dropDownSelectionService.selected.pipe(takeUntil(this.destroy)).subscribe(event => this.select(event));
+    }
+
+    public override ngOnInit(): void {
+        super.ngOnInit();
+        this.zone.runOutsideAngular(() => {
+            fromEvent(window, 'scroll', { capture: true }).pipe(
+                filter(() => this.isActive),
+                takeUntil(this.destroy)
+            ).subscribe(() => this.zone.run(() => this.close()));
+        });
     }
 
     @HostListener('focusin')
@@ -367,12 +392,12 @@ export class DropdownComponent extends BaseComponent {
         }
         this.isHidden = true;
         this.isLoading = true;
-        this.isUpward = false;
+        this.isSystemUpward = false;
         // this.refreshClasses();
         // Wait for rendering complete
         setTimeout(() => {
             const bounds = this.menuElement.nativeElement.getBoundingClientRect();
-            this.isUpward = bounds.bottom >= window.innerHeight;
+            this.isSystemUpward = bounds.bottom >= window.innerHeight;
 
             this.isLoading = false;
             this.isHidden = false;

@@ -2,6 +2,8 @@ import { Component, EventEmitter, HostBinding, HostListener, Input, Output } fro
 import { Key } from '../models/key';
 import { BaseComponent } from '../base/base.component';
 import { BooleanLike } from '../models/boolean-like';
+import { IconType } from '../icon/icon-type';
+import { IconSize } from '../icon/icon-size';
 
 @Component({
     selector: 'm-checkbox',
@@ -9,12 +11,19 @@ import { BooleanLike } from '../models/boolean-like';
     styleUrls: ['./checkbox.component.scss']
 })
 export class CheckboxComponent extends BaseComponent {
+    public static readonly defaults = {
+        checkIcon: <IconType>'check',
+        checkIconSize: <IconSize>'small',
+        indeterminateIcon: <IconType>'minus',
+        indeterminateIconSize: <IconSize>'small'
+    };
     private nameValue: string;
     private labelValue: string;
     private isChecked: boolean;
     private isReadonly: boolean;
     private isIndeterminate: boolean;
     private isDisabled: boolean;
+    protected readonly defaults = CheckboxComponent.defaults;
 
     @Input()
     public get value(): boolean {
@@ -96,6 +105,20 @@ export class CheckboxComponent extends BaseComponent {
 
     @Input()
     public canUncheck = true;
+
+
+    @Input()
+    public checkIcon?: IconType;
+
+    @Input()
+    public checkIconSize?: IconSize;
+
+    @Input()
+    public indeterminateIcon?: IconType;
+
+    @Input()
+    public indeterminateIconSize?: IconSize;
+
 
     @HostBinding('class.checkbox')
     public readonly checkbox = true;

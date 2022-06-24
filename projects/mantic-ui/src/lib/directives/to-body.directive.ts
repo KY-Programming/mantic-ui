@@ -6,7 +6,7 @@ import { AfterViewInit, Directive, EmbeddedViewRef, OnDestroy, TemplateRef, View
 export class ToBodyDirective implements AfterViewInit, OnDestroy {
     private embeddedViewRef: EmbeddedViewRef<unknown>;
 
-    constructor(
+    public constructor(
         private readonly template: TemplateRef<unknown>,
         private readonly viewContainerRef: ViewContainerRef
     ) {

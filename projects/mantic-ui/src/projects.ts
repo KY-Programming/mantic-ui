@@ -9,6 +9,7 @@ export * from './lib/button-group/button-group.component';
 export * from './lib/button/button.component';
 export * from './lib/cell/cell.component';
 export * from './lib/checkbox/checkbox.component';
+export * from './lib/checkbox/checkbox-defaults.component';
 export * from './lib/chat/chat.component';
 export * from './lib/chat/chat-defaults.component';
 export * from './lib/chat-message/chat-message.component';

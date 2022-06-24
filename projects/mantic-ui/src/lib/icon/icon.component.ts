@@ -83,4 +83,7 @@ export class IconComponent {
                 break;
         }
     }
+
+    @Input()
+    public iconClass?: string = 'icon';
 }

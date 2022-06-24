@@ -11,7 +11,10 @@ import { IconType } from '../icon/icon-type';
     styleUrls: ['./expander.component.scss']
 })
 export class ExpanderComponent extends BaseComponent {
-    public static readonly defaults = { dropdownIcon: <IconType>'dropdown', dropdownIconSize: <IconSize>undefined };
+    public static readonly defaults = {
+        dropdownIcon: <IconType>'caret right',
+        dropdownIconSize: <IconSize>undefined
+    };
     private isExpanded: boolean;
     protected readonly defaults = ExpanderComponent.defaults;
 

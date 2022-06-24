@@ -121,6 +121,7 @@ import { LabelDropdownDefaultsComponent } from './label-dropdown/label-dropdown-
 import { LayoutDefaultsComponent } from './layout/layout-defaults.component';
 import { DropdownDefaultsComponent } from './dropdown/dropdown-defaults.component';
 import { MessageDefaultsComponent } from './message/message-defaults.component';
+import { CheckboxDefaultsComponent } from './checkbox/checkbox-defaults.component';
 
 @NgModule({
     declarations: [
@@ -169,6 +170,7 @@ import { MessageDefaultsComponent } from './message/message-defaults.component';
         ModalHeaderComponent,
         DimmerComponent,
         CheckboxComponent,
+        CheckboxDefaultsComponent,
         ToggleComponent,
         RadioComponent,
         SliderComponent,
@@ -295,6 +297,7 @@ import { MessageDefaultsComponent } from './message/message-defaults.component';
         ModalHeaderComponent,
         DimmerComponent,
         CheckboxComponent,
+        CheckboxDefaultsComponent,
         ToggleComponent,
         RadioComponent,
         SliderComponent,
