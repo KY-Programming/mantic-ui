@@ -1,6 +1,7 @@
 import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { InputBaseComponent } from '../input-base.component';
 import { Math2 } from '../../helpers/math2';
+import { BooleanLike } from '../../models/boolean-like';
 
 @Component({
     selector: 'm-numeric-input',
@@ -9,8 +10,14 @@ import { Math2 } from '../../helpers/math2';
 })
 export class NumericInputComponent extends InputBaseComponent implements OnInit {
     private valueField: number | undefined;
+    private rangeValue = false;
 
-    public internalValue: number | null;
+    protected internalValue: number | null;
+    public type: 'number' | 'range' = 'number';
+
+    protected get placeholderInternal(): string {
+        return this.value === 0 && this.zeroText ? this.zeroText : this.placeholder;
+    }
 
     @Input()
     public get value(): number | undefined {
@@ -34,11 +41,24 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     @Input()
     public max: number | undefined;
 
+    @Input()
+    public get range(): boolean {
+        return this.rangeValue;
+    }
+
+    public set range(value: BooleanLike) {
+        this.rangeValue = this.toBoolean(value);
+        this.type = this.rangeValue ? 'range' : 'number';
+    }
+
+    @Input()
+    public zeroText: string | undefined;
+
     @Output()
     public readonly valueChange = new EventEmitter<number | undefined>();
 
     @ContentChild('input')
-    public set contentInputElement(input: ElementRef<HTMLInputElement>) {
+    protected set contentInputElement(input: ElementRef<HTMLInputElement>) {
         this.inputElement = input;
         this.refreshInput();
         this.bindEvents();
@@ -46,7 +66,7 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     }
 
     @ViewChild('input')
-    public set viewInputElement(input: ElementRef<HTMLInputElement>) {
+    protected set viewInputElement(input: ElementRef<HTMLInputElement>) {
         this.inputElement = input;
         this.bindEvents();
         this.refreshFocus();
@@ -62,8 +82,8 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
         this.blur.subscribe(() => this.setInternalValue(this.value));
     }
 
-    public onInternalChange(value: number | null | undefined): void {
-        value ??= this.defaultValue;
+    protected onInternalChange(rawValue: string | null | undefined): void {
+        let value = rawValue ? parseFloat(rawValue) : this.defaultValue;
         this.setInternalValue(value);
         value = value == undefined ? undefined : Math2.keepInRange(this.min, value, this.max);
         if (value !== this.value) {
@@ -73,6 +93,12 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     }
 
     private setInternalValue(value: number | null | undefined): void {
+        if (value === 0 && this.zeroText) {
+            // Use null to avoid strange input behaviour with undefined values (e.g. input of negative values requires two minus signs to work)
+            // eslint-disable-next-line no-null/no-null
+            this.internalValue = null;
+            return;
+        }
         // Use null to avoid strange input behaviour with undefined values (e.g. input of negative values requires two minus signs to work)
         // eslint-disable-next-line no-null/no-null
         this.internalValue = value ?? null;

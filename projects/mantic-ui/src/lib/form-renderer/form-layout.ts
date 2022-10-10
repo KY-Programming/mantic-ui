@@ -1,15 +1,16 @@
-﻿
-import { ColorName } from '../models/color';
+﻿import { ColorName } from '../models/color';
 import { InputType } from '../input/text/input.component';
+import { DropdownValue } from '../dropdown/dropdown-value';
 
-export declare type FormElements = FormInputElement | FormCheckboxElement | FormFieldGroupElement | FormDropDownElement | FormButtonElement | FormGridElement | FormLabelElement;
+export declare type FormElements = FormInputElement | FormCheckboxElement | FormFieldGroupElement | FormDropDownElement | FormButtonElement | FormGridElement | FormLabelElement | FormMessage | FormWarning | FormInfo | FormError | FormDivider | FormHeader;
 
 export interface FormLayout {
     elements: FormElements[];
 }
 
 export interface FormDataElement {
-    field: string;
+    field?: string;
+    defaultValue?: unknown;
 }
 
 export interface FormInputElement extends FormDataElement {
@@ -17,6 +18,9 @@ export interface FormInputElement extends FormDataElement {
     type?: InputType;
     label?: string;
     readonly?: boolean;
+    min?: number;
+    max?: number;
+    zeroText?: string;
 }
 
 export interface FormCheckboxElement extends FormDataElement {
@@ -41,9 +45,12 @@ export interface FormDropDownElement extends FormDataElement {
     label?: string;
     dataSource: string;
     valueField: string;
-    textField: string;
+    textField: string | string[];
+    textFieldFormatter?: string;
     readonly?: boolean;
     allowFreeText?: boolean;
+    prefixItems?: DropdownValue[];
+    postfixItems?: DropdownValue[];
 }
 
 export interface FormButtonElement extends FormDataElement {
@@ -69,4 +76,35 @@ export interface FormCellElement {
 export interface FormLabelElement extends FormDataElement {
     elementType: 'label';
     label: string;
+}
+
+export interface FormMessageBase extends FormDataElement {
+    header: string;
+    text: string;
+}
+
+export interface FormMessage extends FormMessageBase {
+    elementType: 'message';
+}
+
+export interface FormWarning extends FormMessageBase {
+    elementType: 'warning';
+}
+
+export interface FormInfo extends FormMessageBase {
+    elementType: 'info';
+}
+
+export interface FormError extends FormMessageBase {
+    elementType: 'error';
+}
+
+export interface FormDivider extends FormDataElement {
+    elementType: 'divider';
+}
+
+export interface FormHeader extends FormDataElement {
+    elementType: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+    text: string;
+    dividing?: boolean;
 }

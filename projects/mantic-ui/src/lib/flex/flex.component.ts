@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { BooleanLike } from '../models/boolean-like';
 
@@ -37,7 +37,7 @@ export class FlexComponent extends BaseComponent {
     public justifyContent: FlexJustifyContent;
 
     public constructor() {
-        super();
+        super(false);
         this.classList.register('column', 'direction', 'alignItems', 'justifyContent');
     }
 

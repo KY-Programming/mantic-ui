@@ -55,7 +55,7 @@ export class FormElementRenderer2Component implements OnDestroy {
         }
     }
 
-    constructor(
+    public constructor(
         private readonly resolver: ComponentFactoryResolver
     ) {
     }

@@ -1,6 +1,6 @@
 {
   "name": "@mantic-ui/semantic-ui-angular",
-  "version": "14.0.0",
+  "version": "14.0.1-preview.2",
   "description": "Semantic UI theme for mantic UI Angular components. Requires @mantic-ui/angular",
   "keywords": [
     "mantic-ui",
@@ -35,9 +35,9 @@
     "url": "https://github.com/KY-Programming/mantic-ui.git"
   },
   "peerDependencies": {
-    "@angular/common": "8 - 13",
-    "@angular/core": "8 - 13",
-    "@mantic-ui/angular": "~13.0.0"
+    "@angular/common": "8 - 14",
+    "@angular/core": "8 - 14",
+    "@mantic-ui/angular": "~14.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

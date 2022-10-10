@@ -122,6 +122,10 @@ import { LayoutDefaultsComponent } from './layout/layout-defaults.component';
 import { DropdownDefaultsComponent } from './dropdown/dropdown-defaults.component';
 import { MessageDefaultsComponent } from './message/message-defaults.component';
 import { CheckboxDefaultsComponent } from './checkbox/checkbox-defaults.component';
+import { AsMessagePipe } from './form-element-renderer/pipes/as-message.pipe';
+import { TableDefaultsComponent } from './table/table-defaults.component';
+import { FormDefaultsComponent } from './form/form-defaults.component';
+import { AsHeaderPipe } from './form-element-renderer/pipes/as-header.pipe';
 
 @NgModule({
     declarations: [
@@ -183,6 +187,7 @@ import { CheckboxDefaultsComponent } from './checkbox/checkbox-defaults.componen
         MenuLinkTemplateDirective,
         FooterLinkTemplateDirective,
         FormComponent,
+        FormDefaultsComponent,
         FieldComponent,
         FieldGroupComponent,
         MessageComponent,
@@ -198,6 +203,7 @@ import { CheckboxDefaultsComponent } from './checkbox/checkbox-defaults.componen
         SubmitComponent,
         ExternalRouteComponent,
         TableComponent,
+        TableDefaultsComponent,
         NotificationComponent,
         SidebarComponent,
         LoaderComponent,
@@ -220,6 +226,8 @@ import { CheckboxDefaultsComponent } from './checkbox/checkbox-defaults.componen
         FormElementRenderer2Component,
         AsGridPipe,
         AsLabelPipe,
+        AsMessagePipe,
+        AsHeaderPipe,
         FlexComponent,
         FlexDirective,
         FillComponent,
@@ -308,6 +316,7 @@ import { CheckboxDefaultsComponent } from './checkbox/checkbox-defaults.componen
         ToBodyDirective,
         PositionAbsoluteDirective,
         FormComponent,
+        FormDefaultsComponent,
         FieldComponent,
         FieldGroupComponent,
         MessageComponent,
@@ -323,6 +332,7 @@ import { CheckboxDefaultsComponent } from './checkbox/checkbox-defaults.componen
         SubmitComponent,
         ExternalRouteComponent,
         TableComponent,
+        TableDefaultsComponent,
         NotificationComponent,
         SidebarComponent,
         LoaderComponent,

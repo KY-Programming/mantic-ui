@@ -7,7 +7,14 @@ import { SegmentComponent } from './segment.component';
 })
 export class SegmentDefaultsComponent {
     @Input()
+    public set inverted(value: boolean) {
+        SegmentComponent.defaults.inverted = value;
+        SegmentComponent.defaults.invertedChange.next(value);
+    }
+
+    @Input()
     public set raised(value: boolean) {
         SegmentComponent.defaults.raised = value;
+        SegmentComponent.defaults.raisedChange.next(value);
     }
 }

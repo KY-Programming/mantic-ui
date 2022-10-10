@@ -1,9 +1,9 @@
-﻿
-/* Top / Bottom */
+﻿/* Top / Bottom */
 .ui.attached-top.button {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
+
 .ui.attached-bottom.button {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -14,6 +14,7 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
+
 .ui.attached-right.button {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
@@ -21,6 +22,13 @@
 
 /*--- Transparent ---*/
 
+.ui.transparent.buttons .button,
 .ui.transparent.button {
+    text-shadow: none;
+    background-image: none;
     box-shadow: none;
+
+    &:not(:hover) {
+        background-color: transparent;
+    }
 }

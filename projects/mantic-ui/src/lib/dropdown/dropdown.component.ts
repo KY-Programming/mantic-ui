@@ -290,7 +290,7 @@ export class DropdownComponent extends BaseComponent implements OnInit {
         super.ngOnInit();
         this.zone.runOutsideAngular(() => {
             fromEvent(window, 'scroll', { capture: true }).pipe(
-                filter(() => this.isActive),
+                filter(event => this.isActive && event.target instanceof HTMLElement && this.elementRef.nativeElement !== event.target && !this.elementRef.nativeElement.contains(event.target)),
                 takeUntil(this.destroy)
             ).subscribe(() => this.zone.run(() => this.close()));
         });
@@ -524,7 +524,7 @@ export class DropdownComponent extends BaseComponent implements OnInit {
 
     private refreshItems(query: QueryList<DropdownItemComponent>): void {
         this.itemComponents = query.toArray();
-        if (this.itemComponents?.[this.selectedIndex]?.value !== this.value) {
+        if (this.selectedIndex === undefined || this.itemComponents?.[this.selectedIndex]?.value !== this.value) {
             setTimeout(() => this.select(this.value));
         }
     }

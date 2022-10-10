@@ -1,15 +1,20 @@
-import { Component, ContentChildren, ElementRef, EventEmitter, HostBinding, Input, Output, QueryList } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, ContentChildren, EventEmitter, HostBinding, Input, OnInit, Output, QueryList } from '@angular/core';
+import { ReplaySubject, Subscription } from 'rxjs';
 import { FieldComponent } from '../field/field.component';
-import { BaseComponent } from '../base/base.component';
 import { BooleanLike } from '../models/boolean-like';
+import { InvertibleComponent } from '../base/invertible.component';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'm-form',
     templateUrl: './form.component.html',
     styleUrls: ['./form.component.scss']
 })
-export class FormComponent extends BaseComponent {
+export class FormComponent extends InvertibleComponent implements OnInit {
+    public static readonly defaults = {
+        inverted: false,
+        invertedChange: new ReplaySubject<boolean>(1)
+    };
     private fieldComponentsValue: QueryList<FieldComponent>;
     private subscriptions: Subscription[];
     private isValidValue = false;
@@ -117,6 +122,11 @@ export class FormComponent extends BaseComponent {
         this.classList.register('loading', 'success', 'warning', 'error');
     }
 
+    public override ngOnInit(): void {
+        super.ngOnInit();
+        FormComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
+    }
+
     private releaseFields(): void {
         if (this.subscriptions) {
             this.subscriptions.forEach(subscription => subscription.unsubscribe());
@@ -144,8 +154,7 @@ export class FormComponent extends BaseComponent {
     public validateAndSubmit(): void {
         if (this.error) {
             this.fieldComponents.forEach(field => field.forceValidation());
-        }
-        else {
+        } else {
             this.submit.emit();
         }
     }

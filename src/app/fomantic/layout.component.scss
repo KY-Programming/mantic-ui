@@ -1,0 +1,10 @@
+:host {
+    display: flex;
+    flex: 1;
+}
+
+.content {
+    &::ng-deep > *:not(router-outlet) {
+        flex: 1;
+    }
+}

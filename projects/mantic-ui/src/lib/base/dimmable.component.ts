@@ -1,11 +1,11 @@
-import { Component, Directive, ElementRef, HostBinding, inject, Input } from '@angular/core';
+import { Directive, HostBinding, inject, Input } from '@angular/core';
 import { DimmableService } from '../services/dimmable.service';
-import { BaseComponent } from './base.component';
+import { InvertibleComponent } from './invertible.component';
 
 @Directive()
-export abstract class DimmableComponent extends BaseComponent {
+export abstract class DimmableComponent extends InvertibleComponent {
     private readonly dimmableService = inject(DimmableService);
-    
+
     public get dimmable(): boolean {
         return this.dimmableService.dimmable;
     }

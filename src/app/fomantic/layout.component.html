@@ -1,0 +1,17 @@
+<!--<m-fomantic-ui-theme></m-fomantic-ui-theme>-->
+<m-fomantic-ui-theme>
+    <m-semantic-ui-site></m-semantic-ui-site>
+    <m-semantic-ui-reset></m-semantic-ui-reset>
+    <m-semantic-ui-lato-local></m-semantic-ui-lato-local>
+    <m-semantic-ui-icons-local></m-semantic-ui-icons-local>
+</m-fomantic-ui-theme>
+<m-flex m-fill class="content">
+    <router-outlet></router-outlet>
+</m-flex>
+<m-modal *ngIf="showThemeWarning" header="Fomantic UI Theme not yet ready" (close)="showThemeWarning = false">
+    The Fomantic UI theme is not yet implemented. Please use the Semantic UI Theme
+    <m-modal-footer>
+        <m-button (click)="showThemeWarning = false">Ignore</m-button>
+        <a m-button primary routerLink="/semantic">Go to Semantic UI Theme</a>
+    </m-modal-footer>
+</m-modal>

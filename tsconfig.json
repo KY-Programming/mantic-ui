@@ -8,16 +8,20 @@
     //"strict": true,
     "paths": {
       "@mantic-ui/fomantic-ui-angular": [
-        "dist/fomantic-ui"
+        "dist/fomantic-ui",
+        "projects/fomantic-ui"
       ],
       "@mantic-ui/angular": [
-        "dist/mantic-ui"
+        "dist/mantic-ui",
+        "projects/mantic-ui"
       ],
       "@mantic-ui/angular-doc": [
-        "dist/mantic-ui-doc"
+        "dist/mantic-ui-doc",
+        "projects/mantic-ui-doc"
       ],
       "@mantic-ui/semantic-ui-angular": [
-        "dist/semantic-ui"
+        "dist/semantic-ui",
+        "projects/semantic-ui"
       ]
     },
     "noImplicitOverride": true,

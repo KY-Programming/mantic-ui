@@ -1,8 +1,10 @@
-import { Component, ElementRef, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { DimmableComponent } from '../base/dimmable.component';
 import { DimmableService } from '../services/dimmable.service';
 import { ColorName } from '../models/color';
 import { BooleanLike } from '../models/boolean-like';
+import { ReplaySubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 export declare type SegmentAttached =
     'top'
@@ -14,12 +16,17 @@ export declare type SegmentAttached =
     styleUrls: ['./segment.component.scss'],
     providers: [DimmableService]
 })
-export class SegmentComponent extends DimmableComponent {
-    public static readonly defaults = { raised: false };
+export class SegmentComponent extends DimmableComponent implements OnInit {
+    public static readonly defaults = {
+        inverted: false,
+        invertedChange: new ReplaySubject<boolean>(1),
+        raised: false,
+        raisedChange: new ReplaySubject<boolean>(1)
+    };
 
     private isVertical: boolean;
-    private isInverted: boolean;
     private isRaised: boolean;
+    private isRaisedChanged = false;
     private isPlaceholder: boolean;
     private isBasic: boolean;
     private isSecondary: boolean;
@@ -29,21 +36,12 @@ export class SegmentComponent extends DimmableComponent {
     private isNoPadding: boolean;
 
     @Input()
-    public get inverted(): boolean {
-        return this.isInverted;
-    }
-
-    public set inverted(value: BooleanLike) {
-        this.isInverted = this.toBoolean(value);
-        this.classList.set('inverted', this.isInverted);
-    }
-
-    @Input()
     public get raised(): boolean {
         return this.isRaised;
     }
 
     public set raised(value: BooleanLike) {
+        this.isRaisedChanged = true;
         this.isRaised = this.toBoolean(value);
         this.classList.set('raised', this.isRaised);
     }
@@ -135,6 +133,19 @@ export class SegmentComponent extends DimmableComponent {
     public constructor() {
         super();
         this.classList.register('inverted', 'raised', 'vertical', 'placeholder', 'basic', 'secondary', 'tertiary', 'color', 'attached', 'attachedValue', 'noPadding');
-        this.raised = SegmentComponent.defaults.raised;
+    }
+
+    public override ngOnInit(): void {
+        super.ngOnInit();
+        SegmentComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
+        SegmentComponent.defaults.raisedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshRaised(value));
+    }
+
+    private refreshRaised(value: boolean): void {
+        if (this.isRaisedChanged) {
+            return;
+        }
+        this.raised = value;
+        this.isRaisedChanged = false;
     }
 }

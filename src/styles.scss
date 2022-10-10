@@ -85,3 +85,7 @@ m-tab-group.page {
         }
     }
 }
+
+body > m-menu {
+    z-index: 100;
+}
