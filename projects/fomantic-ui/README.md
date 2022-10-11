@@ -6,7 +6,10 @@
 
 Requires [@mantic-ui/angular](https://www.npmjs.com/package/@mantic-ui/angular)
 
+## !!! This theme is currently not yet fully implemented and tested, and probably contains some bugs. So please use the [Semantic UI Theme](https://www.npmjs.com/package/@mantic-ui/semantic-ui-angular) !!!
+
 ## Example
+
 A common button with some styling
 
 ![Example of a common button](https://raw.githubusercontent.com/KY-Programming/mantic-ui/master/projects/fomantic-ui/example.png)
@@ -21,6 +24,7 @@ A common button with some styling
 ````
 
 ## Getting Started with Fomantic UI Theme
+
 Install base package for angular and Fomantic UI theme
 
 ```
@@ -28,7 +32,9 @@ npm i @mantic-ui/angular @mantic-ui/fomantic-ui-angular
 ```
 
 ### Import theme in AppModule
+
 app.module.ts
+
 ```
 import { FomanticUiModule } from '@mantic-ui/fomantic-ui-angular';
 
@@ -42,7 +48,9 @@ export class AppModule { }
 ```
 
 ### Apply style in AppComponent
+
 app.component.html
+
 ```
 <m-fomantic-ui-theme>
     <!-- Import common styles for site -->
@@ -53,14 +61,19 @@ app.component.html
     <m-fomantic-ui-lato-local></m-fomantic-ui-lato-local>
 </m-fomantic-ui-theme>
 ```
+
 As alternative for <m-fomantic-ui-theme>, you can use a CDN
+
 ```
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.4.2/dist/fomantic.min.css">
 ```
+
 Or install via [Fomantic Docs](https://fomantic-ui.com/introduction/getting-started.html)
 
 ### Configure package assets usage
+
 angular.json
+
 ```
  "projects": {
     "<your-project-name>": {
@@ -83,9 +96,11 @@ angular.json
 ```
 
 ## Credits
+
 Original css from [Fomantic UI](https://fomantic-ui.com/)
 
 ## Work-in-progress
+
 Currently we are not yet done. So please do not expect a perfect framework
 
 If you have a issue, look in our [issue tracker on github](https://github.com/KY-Programming/mantic-ui/issues)
