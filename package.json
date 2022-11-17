@@ -30,20 +30,21 @@
     "semantic:publish-rc": "cd dist\\semantic-ui && npm publish --access public --tag rc && cd ..\\..",
     "semantic:publish-local": "cd ./dist/semantic-ui && npm pack && copy *.tgz ..\\..\\ && cd ../..",
     "semantic:bpl": "npm run semantic:build && npm run semantic:publish-local",
+    "update:angular": "ng update @angular/core@latest @angular/cli@latest --force --allow-dirty",
     "update:ky": "npx npm-check-updates \"/^@ky//\" -u && npm i",
     "update:eslint": "ng update @angular-eslint/schematics && npx npm-check-updates \"/^(@typescript-eslint/|eslint)/\" -u && npm i",
     "update:highlight": "npm i ngx-highlightjs@latest highlight.js@latest"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^14.0.0",
-    "@angular/common": "^14.0.0",
-    "@angular/compiler": "^14.0.0",
-    "@angular/core": "^14.0.0",
-    "@angular/forms": "^14.0.0",
-    "@angular/platform-browser": "^14.0.0",
-    "@angular/platform-browser-dynamic": "^14.0.0",
-    "@angular/router": "^14.0.0",
+    "@angular/animations": "^15.0.0",
+    "@angular/common": "^15.0.0",
+    "@angular/compiler": "^15.0.0",
+    "@angular/core": "^15.0.0",
+    "@angular/forms": "^15.0.0",
+    "@angular/platform-browser": "^15.0.0",
+    "@angular/platform-browser-dynamic": "^15.0.0",
+    "@angular/router": "^15.0.0",
     "@fortawesome/angular-fontawesome": "~0.11.0",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/pro-solid-svg-icons": "^6.1.1",
@@ -55,14 +56,14 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.0.0",
+    "@angular-devkit/build-angular": "^15.0.0",
     "@angular-eslint/builder": "14.0.0",
     "@angular-eslint/eslint-plugin": "^14.0.0",
     "@angular-eslint/eslint-plugin-template": "^14.0.0",
     "@angular-eslint/schematics": "14.0.0",
     "@angular-eslint/template-parser": "14.0.0",
-    "@angular/cli": "^14.0.0",
-    "@angular/compiler-cli": "^14.0.0",
+    "@angular/cli": "^15.0.0",
+    "@angular/compiler-cli": "^15.0.0",
     "@ky/eslint-config": "^14.0.0",
     "@types/jasmine": "~3.10.0",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
@@ -78,7 +79,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "ng-packagr": "^14.0.0",
-    "typescript": "~4.7.2"
+    "ng-packagr": "^15.0.0",
+    "typescript": "~4.8.4"
   }
 }
