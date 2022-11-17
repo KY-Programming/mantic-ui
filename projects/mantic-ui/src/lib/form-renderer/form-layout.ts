@@ -11,6 +11,12 @@ export interface FormLayout {
 export interface FormDataElement {
     field?: string;
     defaultValue?: unknown;
+    defaultAction?: string;
+    fill?: boolean;
+}
+
+export interface FormDataElementWithChildren extends FormDataElement {
+    elements: FormElements[];
 }
 
 export interface FormInputElement extends FormDataElement {
@@ -29,9 +35,8 @@ export interface FormCheckboxElement extends FormDataElement {
     readonly?: boolean;
 }
 
-export interface FormFieldGroupElement extends FormDataElement {
+export interface FormFieldGroupElement extends FormDataElementWithChildren {
     elementType: 'fields';
-    elements: FormElements[];
 }
 
 export interface FormAreaElement extends FormDataElement {
@@ -66,11 +71,10 @@ export interface FormGridElement extends FormDataElement {
     cells?: FormCellElement[];
 }
 
-export interface FormCellElement {
+export interface FormCellElement extends FormDataElementWithChildren {
     float?: 'left' | 'right' | undefined;
     align?: 'left' | 'right' | undefined;
     size?: number;
-    elements: FormElements[];
 }
 
 export interface FormLabelElement extends FormDataElement {

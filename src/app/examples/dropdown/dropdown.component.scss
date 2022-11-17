@@ -1,3 +1,8 @@
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
 .result {
-  margin-left: 1em;
+    margin-left: 1em;
 }

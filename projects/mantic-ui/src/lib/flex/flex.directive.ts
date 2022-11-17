@@ -7,11 +7,20 @@ import { FlexAlignItems, FlexDirection } from './flex.component';
 export class FlexDirective {
 
     @HostBinding('style.display')
-    public readonly display = 'flex';
+    protected display: string;
+
+    @HostBinding('style.flex-direction')
+    public direction: FlexDirection | '';
 
     @Input()
-    @HostBinding('style.flex-direction')
-    public 'm-flex': FlexDirection | '';
+    public get 'm-flex'(): FlexDirection | '' {
+        return this.direction;
+    }
+
+    public set 'm-flex'(value: FlexDirection | '' | undefined | null) {
+        this.direction = value ?? '';
+        this.display = value || value === '' ? 'flex' : '';
+    }
 
     @Input()
     @HostBinding('style.align-items')

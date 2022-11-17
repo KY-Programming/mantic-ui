@@ -1,5 +1,5 @@
 import { DestroyableDirective } from './destroyable.directive';
-import { Directive, ElementRef, inject, Inject, OnInit, Optional } from '@angular/core';
+import { Directive, ElementRef, inject, OnInit } from '@angular/core';
 import { ClassList } from '../models/class-list';
 import { takeUntil } from 'rxjs/operators';
 import { BooleanLike } from '../models/boolean-like';
@@ -12,6 +12,7 @@ export abstract class BaseDirective extends DestroyableDirective implements OnIn
 
     protected tag: string;
     protected readonly classList: ClassList;
+    protected validateAttributes = true;
 
     protected get noClasses(): boolean {
         return this.noClassesValue;
@@ -43,6 +44,9 @@ export abstract class BaseDirective extends DestroyableDirective implements OnIn
     }
 
     private readPropertiesFromAttributes(): void {
+        if (!this.validateAttributes) {
+            return;
+        }
         for (let index = 0; index < this.elementRef.nativeElement.attributes.length; index++) {
             const attribute = this.elementRef.nativeElement.attributes[index];
             if (attribute.name.indexOf('_ng') === 0 || attribute.name.indexOf('ng-') === 0 || attribute.name.indexOf('m-') === 0 || attribute.name === 'class') {

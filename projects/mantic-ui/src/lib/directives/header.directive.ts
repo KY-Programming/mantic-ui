@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding, Input } from '@angular/core';
+import { Directive, HostBinding, Input } from '@angular/core';
 import { BaseDirective } from '../base/base.directive';
 import { BooleanLike } from '../models/boolean-like';
 
@@ -53,6 +53,7 @@ export class HeaderDirective extends BaseDirective {
 
     public constructor() {
         super();
+        this.validateAttributes = false;
     }
 
 }

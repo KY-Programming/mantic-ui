@@ -1,9 +1,10 @@
-import { Component, ContentChildren, EventEmitter, HostBinding, Input, OnInit, Output, QueryList } from '@angular/core';
+import { Component, ContentChildren, EventEmitter, HostBinding, Input, OnInit, Optional, Output, QueryList, Self } from '@angular/core';
 import { ReplaySubject, Subscription } from 'rxjs';
 import { FieldComponent } from '../field/field.component';
 import { BooleanLike } from '../models/boolean-like';
 import { InvertibleComponent } from '../base/invertible.component';
 import { takeUntil } from 'rxjs/operators';
+import { FlexDirective } from '../flex/flex.directive';
 
 @Component({
     selector: 'm-form',
@@ -117,7 +118,9 @@ export class FormComponent extends InvertibleComponent implements OnInit {
     @Output()
     public readonly isValidChange = new EventEmitter<boolean>();
 
-    public constructor() {
+    public constructor(
+        @Optional() @Self() protected readonly flexDirective?: FlexDirective
+    ) {
         super(false);
         this.classList.register('loading', 'success', 'warning', 'error');
     }

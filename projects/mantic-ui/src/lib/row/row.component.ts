@@ -1,5 +1,5 @@
-import { Component, ElementRef, HostBinding, Input } from '@angular/core';
-import { FieldSize, fieldSizes } from '../models/field-size';
+import { Component, HostBinding, Input } from '@angular/core';
+import { FieldSize, ParsableFieldSize, parseFieldSize } from '../models/field-size';
 import { BaseComponent } from '../base/base.component';
 import { BooleanLike } from '../models/boolean-like';
 
@@ -18,14 +18,8 @@ export class RowComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.column')
-    public set columns(value: FieldSize) {
-        const sizeNumber = value ? parseInt(value.toString()) : undefined;
-        if (sizeNumber && !Number.isNaN(sizeNumber)) {
-            this.columnsValue = fieldSizes[value];
-        }
-        else {
-            this.columnsValue = value;
-        }
+    public set columns(value: ParsableFieldSize) {
+        this.columnsValue = parseFieldSize(value);
         this.classList.set('columns', this.columnsValue);
     }
 

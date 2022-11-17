@@ -107,7 +107,7 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
     }
 
     private applyDefaults(): void {
-        if (!this.data) {
+        if (!this.data || !this.elements) {
             return;
         }
         for (const element of this.elements as FormDataElement[]) {

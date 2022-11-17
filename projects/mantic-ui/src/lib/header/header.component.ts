@@ -1,5 +1,7 @@
-import { Component, ElementRef, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
+import { IconType } from '../icon/icon-type';
+import { IconSize } from '../icon/icon-size';
 
 export declare type HeaderSize = 'huge' | 'large' | 'medium' | 'small' | 'tiny';
 
@@ -11,11 +13,17 @@ export declare type HeaderSize = 'huge' | 'large' | 'medium' | 'small' | 'tiny';
 export class HeaderComponent extends BaseComponent {
     private sizeValue: HeaderSize;
 
+    @Input()
+    public icon: IconType;
+
+    @Input()
+    public iconSize: IconSize;
+
+    @Input()
     public get size(): HeaderSize {
         return this.sizeValue;
     }
 
-    @Input()
     public set size(value: HeaderSize) {
         this.sizeValue = value;
         this.classList.set('size', value);

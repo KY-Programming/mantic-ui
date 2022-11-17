@@ -5,8 +5,10 @@ import { Component } from '@angular/core';
     styleUrls: ['./segment.component.scss']
 })
 export class SegmentExampleComponent {
-    public code1 = `<m-segment>...</m-segment>`;
-    public code3 = `<m-segment raised>...</m-segment>`;
+    public code1 = `<m-segment></m-segment>`;
+    public raisedCode = `<m-segment raised></m-segment>`;
+    public invertedCode = `<m-segment inverted></m-segment>`;
+    public loadingCode = `<m-segment loading></m-segment>`;
 
     public groupCode = `<m-segment-group>
   <m-segment>

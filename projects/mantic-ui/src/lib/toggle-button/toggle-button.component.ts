@@ -1,4 +1,4 @@
-import { Component, ContentChild, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, TemplateRef } from '@angular/core';
+import { Component, ContentChild, EventEmitter, HostBinding, HostListener, Input, Output, TemplateRef } from '@angular/core';
 import { Key } from '../models/key';
 import { ButtonBaseComponent } from '../base/button-base.component';
 import { NgIfContext } from '@angular/common';
@@ -39,15 +39,14 @@ export class ToggleButtonComponent extends ButtonBaseComponent {
     public toggle(): void {
         if (this.checked) {
             this.uncheck();
-        }
-        else {
+        } else {
             this.check();
         }
     }
 
     @HostListener('keydown', ['$event'])
     public onKeyDown(event: KeyboardEvent): void {
-        if (event.code === Key.space || event.code === Key.enter) {
+        if (Key.is(event, Key.space, Key.enter)) {
             this.toggle();
             event.preventDefault();
         }

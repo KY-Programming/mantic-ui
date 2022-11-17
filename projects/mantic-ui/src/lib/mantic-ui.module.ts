@@ -126,6 +126,13 @@ import { AsMessagePipe } from './form-element-renderer/pipes/as-message.pipe';
 import { TableDefaultsComponent } from './table/table-defaults.component';
 import { FormDefaultsComponent } from './form/form-defaults.component';
 import { AsHeaderPipe } from './form-element-renderer/pipes/as-header.pipe';
+import { DropdownGroupComponent } from './dropdown-group/dropdown-group.component';
+import { ExpanderIconComponent } from './expander-icon/expander-icon.component';
+import { ExpanderPartComponent } from './expander-part/expander-part.component';
+import { InputDefaultsComponent } from './input/input-defaults.component';
+import { TextareaDefaultsComponent } from './textarea/textarea-defaults.component';
+import { TabGroupDefaultsComponent } from './tab-group/tab-group-defaults.component';
+import { DimmerDefaultsComponent } from './dimmer/dimmer-defaults.component';
 
 @NgModule({
     declarations: [
@@ -251,7 +258,14 @@ import { AsHeaderPipe } from './form-element-renderer/pipes/as-header.pipe';
         ContextMenuComponent,
         ContextMenuItemComponent,
         FileInputComponent,
-        ModalDefaultsComponent
+        ModalDefaultsComponent,
+        DropdownGroupComponent,
+        ExpanderIconComponent,
+        ExpanderPartComponent,
+        InputDefaultsComponent,
+        TextareaDefaultsComponent,
+        TabGroupDefaultsComponent,
+        DimmerDefaultsComponent
     ],
     imports: [
         CommonModule,
@@ -366,7 +380,14 @@ import { AsHeaderPipe } from './form-element-renderer/pipes/as-header.pipe';
         ContextMenuComponent,
         ContextMenuItemComponent,
         FileInputComponent,
-        ModalDefaultsComponent
+        ModalDefaultsComponent,
+        DropdownGroupComponent,
+        ExpanderIconComponent,
+        ExpanderPartComponent,
+        InputDefaultsComponent,
+        TextareaDefaultsComponent,
+        TabGroupDefaultsComponent,
+        DimmerDefaultsComponent
     ]
 })
 export class ManticUiModule {

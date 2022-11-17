@@ -1,0 +1,9 @@
+:host.expanded m-icon {
+    transform: rotate(90deg);
+}
+
+m-icon {
+    display: inline-block;
+    transition: transform 0.1s ease, opacity 0.1s ease;
+    line-height: 1;
+}

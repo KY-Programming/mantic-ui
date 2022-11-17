@@ -1,0 +1,7 @@
+.scrollable-max-height {
+    max-height: 20rem;
+
+    img:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+}

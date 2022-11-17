@@ -55,6 +55,8 @@ import { CommonModule } from './common/common.module';
 import { IntroComponent } from './common/intro/intro.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { TextareaExampleComponent } from './examples/textarea/textarea.component';
+import { TableExampleComponent } from './examples/table/table.component';
 
 @NgModule({
     declarations: [
@@ -103,7 +105,9 @@ import { NavigationComponent } from './components/navigation/navigation.componen
         ChatExampleComponent,
         IconExampleComponent,
         IntroComponent,
-        NavigationComponent
+        NavigationComponent,
+        TextareaExampleComponent,
+        TableExampleComponent
     ],
     imports: [
         BrowserModule,

@@ -1,4 +1,6 @@
-﻿/* Top / Bottom */
+﻿@import "../colors";
+
+/* Top / Bottom */
 .ui.attached-top.dropdown {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -22,4 +24,17 @@
 
 m-dropdown.ui.dropdown > .dropdown.icon:before {
     content: unset;
+}
+
+/*--------------------
+        Inverted
+---------------------*/
+.ui.inverted.selection.dropdown {
+    color: white;
+    background-color: $tenthLighter;
+}
+
+.ui.inverted.dropdown .menu {
+    //color: white;
+    //background-color: $tenthLighter;
 }

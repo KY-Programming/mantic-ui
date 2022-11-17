@@ -1,0 +1,50 @@
+﻿m-tab-group.horizontal .ui.attached.tabular.menu {
+    width: auto;
+}
+
+m-tab-group {
+    border-radius: 0.28571429rem;
+
+    & > .active.tab {
+        margin: 0;
+        box-shadow: none;
+    }
+
+    &.menu-left > .active.tab {
+        border-left: none;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    &.menu-right > .active.tab {
+        border-right: none;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    &.menu-top > .active.tab {
+        border-top: none;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    &.menu-bottom > .active.tab {
+        border-bottom: none;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    &.inverted {
+        background: #1B1C1D;
+    }
+}
+
+.ui.inverted.vertical.tabular.menu .active.item {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+m-tab-group.inverted .ui.segment {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #D4D4D5;
+}

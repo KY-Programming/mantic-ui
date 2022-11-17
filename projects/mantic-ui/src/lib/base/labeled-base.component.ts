@@ -1,13 +1,13 @@
-import { Component, ContentChild, Directive, ElementRef, HostBinding, Input } from '@angular/core';
+import { ContentChild, Directive, HostBinding, Input } from '@angular/core';
 import { LabelDropdownComponent } from '../label-dropdown/label-dropdown.component';
 import { LabelComponent } from '../label/label.component';
-import { BaseComponent } from './base.component';
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { ButtonComponent } from '../button/button.component';
 import { LabelOptions } from '../models/label-options';
+import { InvertibleComponent } from './invertible.component';
 
 @Directive()
-export abstract class LabeledBaseComponent extends BaseComponent {
+export abstract class LabeledBaseComponent extends InvertibleComponent {
     private labelValue: LabelOptions;
     private labelDropdownValue: LabelDropdownComponent;
 

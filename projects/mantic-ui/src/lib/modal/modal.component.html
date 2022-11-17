@@ -1,5 +1,5 @@
 <m-dimmer page [useContent]="false" [hideOnClick]="false" (mousedown)="onDimmerClick($event)">
-    <div class="ui" [class.basic]="basic" [class.active]="visible" [class.fullscreen]="fullscreen" [class.modal]="true" [class.mini]="size === 'mini'" [class.tiny]="size === 'tiny'" [class.small]="size === 'small'" [class.large]="size === 'large'">
+    <div class="ui" [class.basic]="basic" [class.active]="visible" [class.fullscreen]="fullscreen" [class.modal]="true" [class.mini]="size === 'mini'" [class.tiny]="size === 'tiny'" [class.small]="size === 'small'" [class.large]="size === 'large'" [class.inverted]="inverted">
         <div *ngIf="showHeader" [class.ui]="basic" [class.icon]="basic" class="header">
             <ng-content select="m-modal-header"></ng-content>
             <m-modal-header *m-fallback-for="'m-modal-header'">
@@ -9,7 +9,7 @@
                 <m-icon *ngIf="closeIcon || defaults.closeIcon" [icon]="closeIcon ?? defaults.closeIcon" class="close" (click)="onClose()"></m-icon>
             </ng-container>
         </div>
-        <div [class.image]="imageContent" [class.scrolling]="scrolling" class="content" [style.min-height]="minContentHeight" [style.max-height]="maxContentHeight">
+        <div [class.image]="imageContent" [class.scrolling]="scrolling" class="content" [class.no-padding]="noPadding" [style.min-height]="minContentHeight" [style.max-height]="maxContentHeight">
             <ng-content></ng-content>
         </div>
         <div *ngIf="showFooter" class="actions">

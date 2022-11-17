@@ -338,6 +338,20 @@
             <m-example-code [code]="mandatory2"></m-example-code>
         </m-example> -->
     </m-tab>
+    <m-tab label="Variations">
+        <m-example header="Inverted" description="A form can be displayed with inverted colors" [code]="inverted">
+            <m-segment inverted>
+                <m-form inverted>
+                    <m-field label="Also inverted input">
+                        <m-input></m-input>
+                    </m-field>
+                    <m-field label="Also inverted checkbox">
+                        <m-checkbox></m-checkbox>
+                    </m-field>
+                </m-form>
+            </m-segment>
+        </m-example>
+    </m-tab>
     <m-tab *ngIf="!isProd" label="Renderer">
         <m-segment>
             <h3 m-header>Layout (JSON)</h3>
@@ -349,8 +363,8 @@
             <m-textarea [value]="rendererData | json" (valueChange)="parseData($event)"></m-textarea>
             <m-error *ngIf="rendererDataError">{{rendererDataError}}</m-error>
         </m-segment>
-        <m-segment>
-            <m-form-renderer [layout]="rendererLayout" [data]="rendererData">
+        <m-segment style="min-height: 500px" m-flex="column">
+            <m-form-renderer [layout]="rendererLayout" [data]="rendererData" m-fill>
                 <m-data-source (request)="requestData($event)"></m-data-source>
             </m-form-renderer>
         </m-segment>

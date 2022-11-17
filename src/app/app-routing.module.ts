@@ -43,6 +43,8 @@ import { SemanticMenuIframeFixed1Component } from './examples/menu/iframe/fixed1
 import { SemanticLayoutIframeComponent } from './examples/layout/iframe/layout/layout.component';
 import { CommonLayoutComponent } from './common/layout.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { TextareaExampleComponent } from './examples/textarea/textarea.component';
+import { TableExampleComponent } from './examples/table/table.component';
 
 const sharedRoutes: Route[] = [
     { path: 'help', redirectTo: 'help/', pathMatch: 'full' },
@@ -106,6 +108,10 @@ const sharedRoutes: Route[] = [
     { path: 'chat/:tab', title: 'Chat', component: ChatExampleComponent },
     { path: 'icon', redirectTo: 'icon/', pathMatch: 'full' },
     { path: 'icon/:tab', title: 'Icon', component: IconExampleComponent },
+    { path: 'textarea', redirectTo: 'textarea/', pathMatch: 'full' },
+    { path: 'textarea/:tab', title: 'Icon', component: TextareaExampleComponent },
+    { path: 'table', redirectTo: 'table/', pathMatch: 'full' },
+    { path: 'table/:tab', title: 'Icon', component: TableExampleComponent },
     { path: '**', redirectTo: 'components' }
 ];
 

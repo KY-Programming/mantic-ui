@@ -1,14 +1,18 @@
+.ui.modal > .content.no-padding {
+    padding: 0;
+}
+
 .header {
-  display: flex !important;
+    display: flex !important;
 
-  &::ng-deep {
-    m-modal-header {
-      flex: 1;
+    &::ng-deep {
+        m-modal-header {
+            flex: 1;
+        }
     }
-  }
 
-  .close {
-    flex: 0 0 auto;
-    cursor: pointer;
-  }
+    .close {
+        flex: 0 0 auto;
+        cursor: pointer;
+    }
 }

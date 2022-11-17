@@ -1,8 +1,36 @@
-﻿.ui.checkbox label > .icon {
+﻿@import "../colors";
+
+.ui.checkbox label > .icon {
     i:before {
         position: absolute;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
     }
+}
+
+/*--------------------
+        Inverted
+---------------------*/
+.ui.inverted.checkbox label,
+.ui.inverted.checkbox input:checked ~ .box:after,
+.ui.inverted.checkbox input:checked ~ label:after,
+.ui.inverted.checkbox input:checked ~ label > .icon,
+.ui.inverted.radio.checkbox input:checked ~ .box:before,
+.ui.inverted.radio.checkbox input:checked ~ label:before {
+    color: white;
+}
+
+.ui.inverted.checkbox input:checked ~ .box:before,
+.ui.inverted.checkbox input:checked ~ label:before,
+.ui.inverted.checkbox label:before,
+.ui.inverted.radio.checkbox input:checked ~ .box:before,
+.ui.inverted.radio.checkbox input:checked ~ label:before, {
+    background-color: $tenthLighter;
+}
+
+.ui.inverted.radio.checkbox input:checked ~ .box:after,
+.ui.inverted.radio.checkbox input:checked ~ label:after,
+.ui.inverted.radio.checkbox input:checked ~ label > .icon {
+    background-color: white;
 }

@@ -1,7 +1,4 @@
-import { Directive, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
-import { ColorName } from '../models/color';
-import { BaseDirective } from '../base/base.directive';
-import { BooleanLike } from '../models/boolean-like';
+import { Directive } from '@angular/core';
 import { ButtonBaseComponent } from '../base/button-base.component';
 
 @Directive({
@@ -10,5 +7,6 @@ import { ButtonBaseComponent } from '../base/button-base.component';
 export class ButtonDirective extends ButtonBaseComponent {
     public constructor() {
         super();
+        this.validateAttributes = false;
     }
 }

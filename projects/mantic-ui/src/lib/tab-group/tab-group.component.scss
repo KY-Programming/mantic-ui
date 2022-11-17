@@ -1,7 +1,10 @@
 :host {
     display: flex;
-    flex-direction: column;
     overflow: visible;
+
+    &:not(.horizontal) {
+        flex-direction: column;
+    }
 }
 
 .ui.secondary.menu + .ui.basic.segment {
@@ -11,9 +14,15 @@
 .active.tab {
     display: flex;
     flex: 1;
+    overflow: hidden;
 
     &.scrollable {
-        overflow-x: hidden;
-        overflow-y: auto;
+        padding: 0;
+
+        &::ng-deep > .active.item {
+            padding: 1em;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
     }
 }

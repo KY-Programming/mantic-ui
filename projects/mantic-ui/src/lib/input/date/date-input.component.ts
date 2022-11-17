@@ -40,7 +40,8 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
     public readonly valueChange = new EventEmitter<Date | undefined>();
 
     @ContentChild('input')
-    public set contentInputElement(input: ElementRef<HTMLInputElement>) {
+    protected set contentInputElement(input: ElementRef<HTMLInputElement>) {
+        this.unbindEvents();
         this.inputElement = input;
         this.refreshInput();
         this.bindEvents();
@@ -48,7 +49,8 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
     }
 
     @ViewChild('input')
-    public set viewInputElement(input: ElementRef<HTMLInputElement>) {
+    protected set viewInputElement(input: ElementRef<HTMLInputElement>) {
+        this.unbindEvents();
         this.inputElement = input;
         this.bindEvents();
         this.refreshFocus();

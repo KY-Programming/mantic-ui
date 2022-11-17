@@ -126,6 +126,8 @@ export class InputExampleComponent {
 </m-input>`;
     public readonly file = `<m-file-input (change)="upload($event)">Upload</m-file-input>`;
 
+    public readonly inverted = `<m-input inverted></m-input>`;
+
     public getType(value: unknown): string {
         return typeof value;
     }

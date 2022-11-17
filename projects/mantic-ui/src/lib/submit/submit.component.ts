@@ -1,38 +1,38 @@
-import { Component, ElementRef, HostListener, Optional } from '@angular/core';
+import { Component, HostListener, Optional } from '@angular/core';
 import { FormComponent } from '../form/form.component';
 import { Key } from '../models/key';
 import { ButtonBaseComponent } from '../base/button-base.component';
 
 @Component({
-  selector: 'm-submit',
-  templateUrl: './submit.component.html',
-  styleUrls: ['./submit.component.scss']
+    selector: 'm-submit',
+    templateUrl: './submit.component.html',
+    styleUrls: ['./submit.component.scss']
 })
 export class SubmitComponent extends ButtonBaseComponent {
 
-  public constructor(
-    @Optional() private readonly form: FormComponent
-  ) {
-    super();
-  }
-
-  @HostListener('click')
-  public onClick(): void {
-    this.submit();
-  }
-
-  @HostListener('keydown', ['$event'])
-  public onKeyDown(event: KeyboardEvent): void {
-    if (event.code === Key.space || event.code === Key.enter) {
-      this.submit();
-      event.preventDefault();
+    public constructor(
+        @Optional() private readonly form: FormComponent
+    ) {
+        super();
     }
-  }
 
-  public submit(): void {
-    if (!this.form) {
-      return;
+    @HostListener('click')
+    public onClick(): void {
+        this.submit();
     }
-    this.form.validateAndSubmit();
-  }
+
+    @HostListener('keydown', ['$event'])
+    public onKeyDown(event: KeyboardEvent): void {
+        if (Key.is(event, Key.space, Key.enter)) {
+            this.submit();
+            event.preventDefault();
+        }
+    }
+
+    public submit(): void {
+        if (!this.form) {
+            return;
+        }
+        this.form.validateAndSubmit();
+    }
 }

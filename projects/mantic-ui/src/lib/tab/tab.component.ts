@@ -37,4 +37,16 @@ export class TabComponent extends MenuItemComponent {
         this.classList.register('name', 'label', 'icon');
     }
 
+    public changeState(value: boolean | undefined): void {
+        if (value === undefined || value === this.active) {
+            return;
+        }
+        this.active = value;
+        this.activeChange.emit(value);
+        if (value) {
+            this.activate.emit();
+        } else {
+            this.deactivate.emit();
+        }
+    }
 }

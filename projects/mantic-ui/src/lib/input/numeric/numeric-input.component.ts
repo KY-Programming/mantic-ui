@@ -59,6 +59,7 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
 
     @ContentChild('input')
     protected set contentInputElement(input: ElementRef<HTMLInputElement>) {
+        this.unbindEvents();
         this.inputElement = input;
         this.refreshInput();
         this.bindEvents();
@@ -67,6 +68,7 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
 
     @ViewChild('input')
     protected set viewInputElement(input: ElementRef<HTMLInputElement>) {
+        this.unbindEvents();
         this.inputElement = input;
         this.bindEvents();
         this.refreshFocus();

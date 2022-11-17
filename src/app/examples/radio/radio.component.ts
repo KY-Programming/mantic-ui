@@ -80,4 +80,6 @@ export class RadioExampleComponent {
     </m-field>
   </m-field-group>
 </m-form>`;
+
+    public readonly inverted = `<m-radio inverted></m-radio>`;
 }

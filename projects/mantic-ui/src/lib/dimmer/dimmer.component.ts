@@ -1,7 +1,9 @@
 import { Component, HostBinding, HostListener, Input, OnDestroy, OnInit, Optional } from '@angular/core';
 import { DimmableService } from '../services/dimmable.service';
-import { BaseComponent } from '../base/base.component';
 import { BooleanLike } from '../models/boolean-like';
+import { InvertibleComponent } from '../base/invertible.component';
+import { ReplaySubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 // TODO: Enable animation
 
@@ -10,7 +12,11 @@ import { BooleanLike } from '../models/boolean-like';
     templateUrl: './dimmer.component.html',
     styleUrls: ['./dimmer.component.scss']
 })
-export class DimmerComponent extends BaseComponent implements OnInit, OnDestroy {
+export class DimmerComponent extends InvertibleComponent implements OnInit, OnDestroy {
+    public static readonly defaults = {
+        inverted: false,
+        invertedChange: new ReplaySubject<boolean>(1)
+    };
     private visibleValue: boolean;
     private isPage: boolean;
 
@@ -53,6 +59,7 @@ export class DimmerComponent extends BaseComponent implements OnInit, OnDestroy 
     ) {
         super();
         this.classList.register('page', 'visible');
+        DimmerComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
 
     public override ngOnInit(): void {

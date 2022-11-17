@@ -3,6 +3,7 @@ import { faRocket } from '@fortawesome/pro-solid-svg-icons';
 import { ModalSize } from '@mantic-ui/angular';
 
 @Component({
+    selector: 'app-modal-example',
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss']
 })
@@ -12,10 +13,13 @@ export class ModalExampleComponent {
     public showBasic = false;
     public showHiddenClose = false;
     public showFullscreen = false;
+    public showBody = false;
+    public showNoPadding = false;
     public showSize = false;
     public size: ModalSize = 'mini';
     public showScrolling = false;
     public showChangeIcon = false;
+    public showInverted = false;
     protected readonly faRocket = faRocket;
 
     public standardCode = `<m-button (click)="showModal = true">Open</m-button>
@@ -68,6 +72,8 @@ export class ModalExampleComponent {
 </m-modal>`;
 
     public fullscreenCode = `<m-modal fullscreen></m-modal>`;
+    public bodyCode = `<m-modal *m-to-body></m-modal>`;
+    public noPaddingCode = `<m-modal noPadding></m-modal>`;
 
     public sizeCode = `// test.component.html
 <m-modal [size]="size">

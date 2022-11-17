@@ -41,6 +41,12 @@ export class DropdownDefaultsComponent implements OnDestroy {
         DropdownComponent.defaults.deleteIconSize = value;
     }
 
+    @Input()
+    public set inverted(value: boolean) {
+        DropdownComponent.defaults.inverted = value;
+        DropdownComponent.defaults.invertedChange.next(value);
+    }
+
     public ngOnDestroy(): void {
         if (this.currentDropdownIcon === DropdownComponent.defaults.dropdownIcon) {
             DropdownComponent.defaults.dropdownIcon = this.previousDropdownIcon;

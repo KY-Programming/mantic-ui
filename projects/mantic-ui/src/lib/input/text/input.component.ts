@@ -41,7 +41,8 @@ export class InputComponent extends InputBaseComponent {
     public readonly valueChange = new EventEmitter<string | undefined>();
 
     @ContentChild('input')
-    public set contentInputElement(input: ElementRef<HTMLInputElement>) {
+    protected set contentInputElement(input: ElementRef<HTMLInputElement>) {
+        this.unbindEvents();
         this.inputElement = input;
         this.refreshInput();
         this.bindEvents();
@@ -49,7 +50,8 @@ export class InputComponent extends InputBaseComponent {
     }
 
     @ViewChild('input')
-    public set viewInputElement(input: ElementRef<HTMLInputElement>) {
+    protected set viewInputElement(input: ElementRef<HTMLInputElement>) {
+        this.unbindEvents();
         this.inputElement = input;
         this.bindEvents();
         this.refreshFocus();

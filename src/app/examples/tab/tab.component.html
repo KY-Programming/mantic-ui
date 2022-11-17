@@ -7,106 +7,107 @@
 
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Examples">
-        <m-example header="Tab" description="A basic tab" [code]="code1">
+        <m-example header="Tab" description="A basic tab">
             <m-tab-group>
-                <m-tab label="Tab"></m-tab>
+                <m-tab label="Tab">
+                    <img src="/assets/images/paragraph.png">
+                </m-tab>
             </m-tab-group>
+            <m-example-code [code]="code1"></m-example-code>
         </m-example>
 
-        <m-example [code]="code2">
+
+    </m-tab>
+    <m-tab label="Variations">
+        <m-example header="Set active tab" description="You can hardcode the active tab or bind it">
             <m-tab-group>
                 <m-tab label="Bio"></m-tab>
                 <m-tab label="Photos" active></m-tab>
             </m-tab-group>
+            <m-example-code [code]="code2"></m-example-code>
         </m-example>
 
-        <m-example>
-            <m-tab-group>
-                <m-tab label="Bio">
+        <!--        <m-example>-->
+        <!--            <m-tab-group>-->
+        <!--                <m-tab label="Bio">-->
+        <!--                    <img src="/assets/images/paragraph.png">-->
+        <!--                </m-tab>-->
+        <!--                <m-tab label="Photos">-->
+        <!--                    <img src="/assets/images/media-paragraph.png">-->
+        <!--                </m-tab>-->
+        <!--                &lt;!&ndash; <m-menu position="right">-->
+        <!--                    <m-menu-item>-->
+        <!--                        <m-input transparent placeholder="Search..." icon="search link"></m-input>-->
+        <!--                    </m-menu-item>-->
+        <!--                </m-menu> &ndash;&gt;-->
+        <!--            </m-tab-group>-->
+        <!--        </m-example>-->
+
+        <m-example header="Menu position" description="The menu position can set to top (default), bottom, left or right">
+            <m-tab-group menu="bottom">
+                <m-tab label="Active Project"></m-tab>
+                <m-tab label="Project #2"></m-tab>
+                <m-tab label="Project #3"></m-tab>
+                <m-tab label="New Tab" icon="add" active>
                     <img src="/assets/images/paragraph.png">
                 </m-tab>
-                <m-tab label="Photos">
-                    <img src="/assets/images/media-paragraph.png">
-                </m-tab>
-                <!-- <m-menu position="right">
-                    <m-menu-item>
-                        <m-input transparent placeholder="Search..." icon="search link"></m-input>
-                    </m-menu-item>
-                </m-menu> -->
             </m-tab-group>
+            <m-example-code [code]="menuBottom"></m-example-code>
         </m-example>
 
         <m-example>
-            <m-tab-group position="bottom">
-                <m-tab label="Active Project">
+            <m-tab-group menu="left">
+                <m-tab label="Bio">
+                    This is an stretched grid column. This segment will always match the tab height
                 </m-tab>
-                <m-tab label="Project #2">
-                </m-tab>
-                <m-tab label="Project #3">
-                </m-tab>
-                <!-- <m-menu position="right"> -->
-                <m-tab label="New Tab" icon="add" active>
-                    <img src="/assets/images/paragraph.png"></m-tab>
-                <!-- </m-menu> -->
+                <m-tab label="Pics"></m-tab>
+                <m-tab label="Companies"></m-tab>
+                <m-tab label="Links"></m-tab>
             </m-tab-group>
+            <m-example-code [code]="menuLeft"></m-example-code>
         </m-example>
 
         <m-example>
-            <!-- TODO: Implement -->
-            <div class="ui grid">
-                <div class="four wide column">
-                    <div class="ui vertical fluid tabular menu">
-                        <a class="active item">
-                            Bio
-                        </a>
-                        <a class="item">
-                            Pics
-                        </a>
-                        <a class="item">
-                            Companies
-                        </a>
-                        <a class="item">
-                            Links
-                        </a>
-                    </div>
-                </div>
-                <div class="twelve wide stretched column">
-                    <div class="ui segment">
-                        This is an stretched grid column. This segment will always match the tab height
-                    </div>
-                </div>
-            </div>
+            <m-tab-group menu="right">
+                <m-tab label="Bio">
+                    This is an stretched grid column. This segment will always match the tab height
+                </m-tab>
+                <m-tab label="Pics"></m-tab>
+                <m-tab label="Companies"></m-tab>
+                <m-tab label="Links"></m-tab>
+            </m-tab-group>
+            <m-example-code [code]="menuRight"></m-example-code>
+        </m-example>
+        <m-example header="Scrollable" description="A scrollable tab">
+            <m-tab-group class="scrollable-max-height" scrollable>
+                <m-tab label="Scrollable">
+                    <img src="/assets/images/paragraph.png">
+                    <img src="/assets/images/paragraph.png">
+                    <img src="/assets/images/paragraph.png">
+                </m-tab>
+            </m-tab-group>
+            <m-example-code [code]="scrollableCode"></m-example-code>
         </m-example>
 
-        <m-example>
-            <!-- TODO: Implement -->
-            <div class="ui grid">
-                <div class="twelve wide stretched column">
-                    <div class="ui segment">
-                        This is an stretched grid column. This segment will always match the tab height
-                    </div>
-                </div>
-                <div class="four wide column">
-                    <div class="ui vertical fluid right tabular menu">
-                        <a class="active item">
-                            Bio
-                        </a>
-                        <a class="item">
-                            Pics
-                        </a>
-                        <a class="item">
-                            Companies
-                        </a>
-                        <a class="item">
-                            Links
-                        </a>
-                    </div>
-                </div>
-            </div>
+        <m-example header="Inverted" description="A tab can be displayed with inverted colors">
+            <m-tab-group inverted>
+                <m-tab label="One">
+                    <img src="/assets/images/paragraph.png">
+                    <img src="/assets/images/paragraph.png">
+                    <img src="/assets/images/paragraph.png">
+                </m-tab>
+                <m-tab label="Two"></m-tab>
+            </m-tab-group>
+            <m-example-code [code]="invertedCode"></m-example-code>
         </m-example>
     </m-tab>
     <m-tab label="States">
-        <!-- TODO -->
+        <m-example header="Loading" description="A tab can display a loading indicator">
+            <m-tab-group loading style="min-height: 10rem">
+                <m-tab label="tab"></m-tab>
+            </m-tab-group>
+            <m-example-code [code]="loadingCode"></m-example-code>
+        </m-example>
     </m-tab>
     <m-tab label="Binding">
         <m-example header="Selected Tab" description="Two-Way-Binding of the selected tabs index" [code]="selectedIndexCode">

@@ -1,7 +1,7 @@
-import { Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, Output } from '@angular/core';
+import { Component, ContentChild, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { InputComponent } from '../input/text/input.component';
-import { FieldSize, fieldSizes } from '../models/field-size';
+import { FieldSize, ParsableFieldSize, parseFieldSize } from '../models/field-size';
 import { FormError } from '../models/form-error';
 import { FormValidation } from '../models/form-validation';
 import { RadioComponent } from '../radio/radio.component';
@@ -242,15 +242,9 @@ export class FieldComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.wide')
-    public set size(value: FieldSize) {
-        const sizeNumber = value ? parseInt(value.toString(), 10) : undefined;
-        if (sizeNumber && !Number.isNaN(sizeNumber)) {
-            this.sizeValue = fieldSizes[value];
-        }
-        else {
-            this.sizeValue = value;
-        }
-        this.classList.set('size', value);
+    public set size(value: ParsableFieldSize) {
+        this.sizeValue = parseFieldSize(value);
+        this.classList.set('size', this.sizeValue);
     }
 
     public get error(): boolean {
@@ -287,8 +281,7 @@ export class FieldComponent extends BaseComponent {
         }
         if (!this.error) {
             this.wasAnytimeValid = true;
-        }
-        else if (this.hideInitialError && !this.wasAnytimeValid) {
+        } else if (this.hideInitialError && !this.wasAnytimeValid) {
             this.visibleError = false;
         }
     }

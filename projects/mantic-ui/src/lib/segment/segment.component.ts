@@ -34,6 +34,7 @@ export class SegmentComponent extends DimmableComponent implements OnInit {
     private attachedValue: SegmentAttached;
     private colorValue: ColorName;
     private isNoPadding: boolean;
+    private isLoading: boolean;
 
     @Input()
     public get raised(): boolean {
@@ -127,12 +128,22 @@ export class SegmentComponent extends DimmableComponent implements OnInit {
         this.classList.set('noPadding', this.isNoPadding ? 'no-padding' : undefined);
     }
 
+    @Input()
+    @HostBinding('class.loading')
+    public get loading(): boolean {
+        return this.isLoading;
+    }
+
+    public set loading(value: BooleanLike) {
+        this.isLoading = this.toBoolean(value);
+    }
+
     @HostBinding('class.segment')
     public readonly segment = true;
 
     public constructor() {
         super();
-        this.classList.register('inverted', 'raised', 'vertical', 'placeholder', 'basic', 'secondary', 'tertiary', 'color', 'attached', 'attachedValue', 'noPadding');
+        this.classList.register('raised', 'vertical', 'placeholder', 'basic', 'secondary', 'tertiary', 'color', 'attached', 'attachedValue', 'noPadding', 'loading');
     }
 
     public override ngOnInit(): void {

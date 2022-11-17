@@ -26,6 +26,7 @@ export class TableComponent extends InvertibleComponent implements OnInit {
     private isVery: boolean;
     private alignedValue: Align;
     private isDefinition: boolean;
+    private isCollapsing: boolean;
 
     @Input()
     @HostBinding('class.celled')
@@ -96,9 +97,19 @@ export class TableComponent extends InvertibleComponent implements OnInit {
         this.isDefinition = this.toBoolean(value);
     }
 
+    @Input()
+    @HostBinding('class.collapsing')
+    public get collapsing(): boolean {
+        return this.isCollapsing;
+    }
+
+    public set collapsing(value: BooleanLike) {
+        this.isCollapsing = this.toBoolean(value);
+    }
+
     public constructor() {
         super();
-        this.classList.register('celled', 'notCelled', 'very', 'basic', 'unstackable', 'aligned', 'definition').registerFixed('table');
+        this.classList.register('celled', 'notCelled', 'very', 'basic', 'unstackable', 'aligned', 'definition', 'collapsing').registerFixed('table');
         this.aligned ??= 'middle';
     }
 

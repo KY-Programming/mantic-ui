@@ -12,3 +12,18 @@
         border-color: #767676 transparent transparent;
     }
 }
+
+.ui.inverted.modal {
+    background-color: #1B1C1D;
+    color: white;
+
+    & > .header,
+    & > .content {
+        background-color: transparent;
+        color: white;
+    }
+
+    & > .actions {
+        background: rgba(255, 255, 255, 0.15);
+    }
+} 

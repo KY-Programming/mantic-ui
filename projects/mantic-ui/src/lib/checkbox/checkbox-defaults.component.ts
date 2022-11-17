@@ -41,6 +41,12 @@ export class CheckboxDefaultsComponent implements OnDestroy {
         CheckboxComponent.defaults.indeterminateIconSize = value;
     }
 
+    @Input()
+    public set inverted(value: boolean) {
+        CheckboxComponent.defaults.inverted = value;
+        CheckboxComponent.defaults.invertedChange.next(value);
+    }
+
     public ngOnDestroy(): void {
         if (this.currentCheckIcon === CheckboxComponent.defaults.checkIcon) {
             CheckboxComponent.defaults.checkIcon = this.previousDropdownIcon;

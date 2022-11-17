@@ -1,4 +1,6 @@
-﻿/*******************************
+﻿@import "../colors";
+
+/*******************************
             States
 *******************************/
 
@@ -11,7 +13,16 @@
 .ui.textarea:not(.disabled) input[disabled] {
     opacity: 0.45;
 }
+
 .ui.disabled.textarea > textarea,
 .ui.textarea:not(.disabled) textarea[disabled] {
     pointer-events: none;
+}
+
+/*--------------------
+        Inverted
+---------------------*/
+.ui.inverted.textarea > textarea {
+    background-color: $tenthLighter;
+    color: white;
 }

@@ -1,18 +1,9 @@
-:host {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-
-    &.scrolling {
-        height: 150vh;
-    }
-}
-
 m-flex {
     * m-fill {
         display: flex;
         justify-content: center;
     }
+
     > m-fill {
         align-items: center;
     }

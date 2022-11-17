@@ -74,6 +74,9 @@
             <a class="item" [routerLink]="[prefix, 'slider']" routerLinkActive="active">
                 Slider
             </a>
+            <a class="item" [routerLink]="[prefix, 'textarea']" routerLinkActive="active">
+                Textarea
+            </a>
             <a class="item" [routerLink]="[prefix, 'toggle']" routerLinkActive="active">
                 Toggle
             </a>
@@ -108,6 +111,9 @@
             </a>
             <a class="item" [routerLink]="[prefix, 'tab']" routerLinkActive="active">
                 Tab
+            </a>
+            <a class="item" [routerLink]="[prefix, 'table']" routerLinkActive="active">
+                Table
             </a>
         </div>
     </div>
@@ -158,7 +164,7 @@
     </div>
 </m-flex>
 <!-- </m-menu> -->
-<div class="content">
+<m-fill m-flex class="content">
     <router-outlet></router-outlet>
     <m-flex direction="column" class="actions">
         <m-button icon="refresh">
@@ -175,4 +181,4 @@
             </m-context-menu>
         </m-button>
     </m-flex>
-</div>
+</m-fill>

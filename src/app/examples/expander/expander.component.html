@@ -19,4 +19,12 @@
 
 
     </m-tab>
+    <m-tab label="Icon only">
+
+        <m-example header="Only the expander icon" description="Use this component as part for other components">
+            <m-button (click)="isExpanded = !isExpanded">Toggle</m-button>
+            <m-expander-icon [expanded]="isExpanded"></m-expander-icon>
+            <m-example-code [code]="expanderCode"></m-example-code>
+        </m-example>
+    </m-tab>
 </m-tab-group>

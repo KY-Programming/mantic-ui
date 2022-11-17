@@ -362,4 +362,6 @@ export class MyValidationPipe implements ValidationPipe, PipeTransform {
             this.rendererDataError = error.message;
         }
     }
+
+    public readonly inverted = `<m-form inverted></m-form>`;
 }

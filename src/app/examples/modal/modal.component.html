@@ -115,6 +115,24 @@
             <m-button (click)="showFullscreen = true">Open Fullscreen</m-button>
         </m-example>
 
+        <m-example header="On Body" description="Moves the modal element to body">
+            <m-example-code [code]="bodyCode"></m-example-code>
+            <ng-container *ngIf="showBody">
+                <m-modal *m-to-body (close)="showBody = false">
+                    This modal is placed on the body
+                </m-modal>
+            </ng-container>
+            <m-button (click)="showBody = true">Open on Body</m-button>
+        </m-example>
+
+        <m-example header="Without content padding" description="Removes the padding of the modal content">
+            <m-example-code [code]="noPaddingCode"></m-example-code>
+            <m-modal *ngIf="showNoPadding" noPadding (close)="showNoPadding = false">
+                This modal has no content padding
+            </m-modal>
+            <m-button (click)="showNoPadding = true">Open without padding</m-button>
+        </m-example>
+
         <m-example header="Size" description="A modal can vary in size" [code]="sizeCode">
             <m-modal *ngIf="showSize" header="You can change my size!" [size]="size" (close)="showSize = false">
                 <m-dropdown [(value)]="size">
@@ -161,6 +179,15 @@
                 </m-modal>
             </ng-container>
             <m-button (click)="showChangeIcon = true">Show with changed Item</m-button>
+        </m-example>
+
+        <m-example header="Inverted" description="A modal can be displayed with inverted colors" [code]="changeIconCode">
+            <ng-container>
+                <m-modal *ngIf="showInverted" header="Inverted" inverted (close)="showInverted = false">
+                    The colors are inverted
+                </m-modal>
+            </ng-container>
+            <m-button (click)="showInverted = true">Show with inverted colors</m-button>
         </m-example>
     </m-tab>
     <m-tab label="Binding">

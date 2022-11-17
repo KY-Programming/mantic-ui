@@ -1,0 +1,74 @@
+<h1 m-header>
+    Table
+    <div class="sub header">
+        A table displays a collections of data grouped into rows
+    </div>
+</h1>
+
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Examples">
+        <m-warning>The <code>m-table</code> is not yet finished. You have to use classic Semantic UI code to use some features</m-warning>
+        <m-example header="Table" description="A standard table">
+            <m-table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Job</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td>James</td>
+                    <td>24</td>
+                    <td>Engineer</td>
+                </tr>
+                <tr>
+                    <td>Jill</td>
+                    <td>26</td>
+                    <td>Engineer</td>
+                </tr>
+                <tr>
+                    <td>Elyse</td>
+                    <td>24</td>
+                    <td>Designer</td>
+                </tr>
+            </m-table>
+            <m-example-code [code]="exampleCode" [languages]="['html']"></m-example-code>
+        </m-example>
+    </m-tab>
+    <m-tab label="Variations">
+        <m-example header="Collapsing" description="A table can be collapsing, taking up only as much space as its rows.">
+            <m-table collapsing>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td>John</td>
+                    <td>Approved</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>Jamie</td>
+                    <td>Approved</td>
+                    <td>Requires call</td>
+                </tr>
+                <tr>
+                    <td>Jill</td>
+                    <td>Denied</td>
+                    <td>None</td>
+                </tr>
+                <tfoot>
+                <tr>
+                    <th>3 People</th>
+                    <th>2 Approved</th>
+                    <th></th>
+                </tr>
+                </tfoot>
+            </m-table>
+        </m-example>
+    </m-tab>
+</m-tab-group>

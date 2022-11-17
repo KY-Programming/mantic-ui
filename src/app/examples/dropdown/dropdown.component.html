@@ -5,7 +5,7 @@
     </div>
 </h1>
 
-<m-tab-group secondary pointing class="page" selectByRoute>
+<m-tab-group secondary pointing class="page" selectByRoute m-fill>
     <m-tab label="Examples">
 
         <m-example header="Dropdown" description="A dropdown">
@@ -76,6 +76,52 @@
         <m-example header="Freetext" description="A dropdown can allow any text as value" [code]="freetextCode">
             <m-dropdown [(value)]="freetextValue" [items]="countries" placeholder="Select Country or Enter New One" fluid allowFreeText></m-dropdown>
             Current Value: {{freetextValue ?? 'undefined'}}
+        </m-example>
+    </m-tab>
+    <m-tab label="Variations">
+        <m-example header="Divider" description="Add a divider between elements" [code]="dividerCode">
+            <m-dropdown selectFirst>
+                <m-dropdown-item value="1">One</m-dropdown-item>
+                <m-dropdown-item value="2">Two</m-dropdown-item>
+                <m-divider></m-divider>
+                <m-dropdown-item value="3">Three</m-dropdown-item>
+                <m-dropdown-item value="4">Four</m-dropdown-item>
+                <m-dropdown-item value="5">Five</m-dropdown-item>
+            </m-dropdown>
+        </m-example>
+
+        <m-example header="Header" description="Add a header above elements" [code]="headerCode">
+            <m-dropdown selectFirst>
+                <m-header icon="tags">Filter by tags</m-header>
+                <m-dropdown-item value="1">One</m-dropdown-item>
+                <m-dropdown-item value="2">Two</m-dropdown-item>
+                <m-dropdown-item value="3">Three</m-dropdown-item>
+                <m-dropdown-item value="4">Four</m-dropdown-item>
+                <m-dropdown-item value="5">Five</m-dropdown-item>
+            </m-dropdown>
+        </m-example>
+
+        <m-example header="Group" description="Group elements with a header" [code]="groupCode">
+            <m-dropdown selectFirst>
+                <m-dropdown-group icon="check" label="Checked">
+                    <m-dropdown-item value="1">One</m-dropdown-item>
+                    <m-dropdown-item value="2">Two</m-dropdown-item>
+                </m-dropdown-group>
+                <m-dropdown-group icon="tags" label="Tags">
+                    <m-dropdown-item value="3">Three</m-dropdown-item>
+                    <m-dropdown-item value="4">Four</m-dropdown-item>
+                    <m-dropdown-item value="5">Five</m-dropdown-item>
+                </m-dropdown-group>
+            </m-dropdown>
+        </m-example>
+
+        <m-example header="Inverted" description="A dropdown can be displayed with inverted colors" [code]="inverted">
+            <m-segment inverted>
+                <m-dropdown inverted placeholder="Inverted">
+                    <m-dropdown-item value="1">One</m-dropdown-item>
+                    <m-dropdown-item value="2">Two</m-dropdown-item>
+                </m-dropdown>
+            </m-segment>
         </m-example>
     </m-tab>
     <m-tab label="States">

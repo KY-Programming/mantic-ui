@@ -1,18 +1,23 @@
-import { Location } from '@angular/common';
-import { AfterViewInit, Component, ContentChildren, ElementRef, EventEmitter, Input, OnInit, Output, QueryList } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, EventEmitter, HostBinding, Input, OnInit, Output, QueryList } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, UrlSegment } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { MenuPosition } from '../menu/menu.component';
 import { TabComponent } from '../tab/tab.component';
-import { BaseComponent } from '../base/base.component';
 import { BooleanLike } from '../models/boolean-like';
+import { InvertibleComponent } from '../base/invertible.component';
+import { ReplaySubject } from 'rxjs';
 
 @Component({
     selector: 'm-tab-group',
     templateUrl: './tab-group.component.html',
     styleUrls: ['./tab-group.component.scss']
 })
-export class TabGroupComponent extends BaseComponent implements OnInit, AfterViewInit {
+export class TabGroupComponent extends InvertibleComponent implements OnInit, AfterViewInit {
+    public static readonly defaults = {
+        inverted: false,
+        invertedChange: new ReplaySubject<boolean>(1)
+    };
+
     private selectedIndexField: number;
     private isSelectByRoute: boolean;
     private routeParameterName: string;
@@ -21,6 +26,7 @@ export class TabGroupComponent extends BaseComponent implements OnInit, AfterVie
     private isScrollable: boolean;
     private isPointing: boolean;
     private isSecondary: boolean;
+    private isLoading = false;
 
     @ContentChildren(TabComponent)
     public get tabs(): QueryList<TabComponent> {
@@ -51,7 +57,26 @@ export class TabGroupComponent extends BaseComponent implements OnInit, AfterVie
     }
 
     @Input()
-    public position: MenuPosition = 'top';
+    public get loading(): boolean {
+        return this.isLoading;
+    }
+
+    public set loading(value: BooleanLike) {
+        this.isLoading = this.toBoolean(value);
+    }
+
+    @Input()
+    public menu: MenuPosition = 'top';
+
+    @HostBinding('class')
+    protected get menuPosition(): string {
+        return 'menu-' + this.menu;
+    }
+
+    @HostBinding('class.horizontal')
+    protected get horizontal(): boolean {
+        return this.menu === 'left' || this.menu === 'right';
+    }
 
     @Input()
     public get selectByRoute(): '' | string {
@@ -71,7 +96,7 @@ export class TabGroupComponent extends BaseComponent implements OnInit, AfterVie
     public set selectedIndex(value: number) {
         this.selectedIndexField = value;
         if (this.tabs) {
-            this.tabs.forEach((tab, index) => tab.active = index === value);
+            this.tabs.forEach((tab, index) => tab.changeState(index === value));
         }
     }
 
@@ -100,27 +125,22 @@ export class TabGroupComponent extends BaseComponent implements OnInit, AfterVie
         private readonly route: ActivatedRoute,
         private readonly router: Router
     ) {
-        super();
+        super(false);
         this.noClasses = true;
-        this.classList.register('pointing', 'secondary', 'position', 'selectByRoute', 'routeParameterName', 'noPadding');
+        this.classList.register('pointing', 'secondary', 'position', 'selectByRoute', 'routeParameterName', 'noPadding', 'menu');
         this.router.events.pipe(takeUntil(this.destroy)).subscribe(event => {
             if (event instanceof NavigationEnd) {
                 this.refreshTab();
             }
         });
+        TabGroupComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
 
     public ngAfterViewInit(): void {
         if (this.tabs && this.tabs.length > 0 && this.tabs.toArray().every(tab => !tab.active)) {
             setTimeout(() => {
                 this.tabs.forEach((tab, index) => {
-                    const shouldActivate = index === (this.selectedIndex || 0);
-                    if (tab.active && !shouldActivate) {
-                        tab.deactivate.emit();
-                    } else if (!tab.activate && shouldActivate) {
-                        tab.activate.emit();
-                    }
-                    tab.active = shouldActivate;
+                    tab.changeState(index === (this.selectedIndex || 0));
                 });
             });
         }
@@ -147,12 +167,10 @@ export class TabGroupComponent extends BaseComponent implements OnInit, AfterVie
     }
 
     public activate(tab: TabComponent): void {
-        for (const activeTab of this.tabs.filter(t => !!t.active)) {
-            activeTab.active = false;
-            activeTab.deactivate.emit();
+        for (const activeTab of this.tabs.filter(t => t.active)) {
+            activeTab.changeState(false);
         }
-        tab.active = true;
-        tab.activate.emit();
+        tab.changeState(true);
         this.selectedIndex = this.tabs.toArray().indexOf(tab);
         this.selectedIndexChange.emit(this.selectedIndex);
         if (this.isSelectByRoute) {

@@ -62,7 +62,7 @@ export class ChatComponent implements DoCheck {
             this.sendSubject.next({ direction: 'out', text: this.message, sender: this.sender, timestamp: Date.now() });
         }
         this.message = undefined;
-        this.input.focus();
+        this.input.setFocus();
     }
 
     public onKeyDown(event: KeyboardEvent): void {

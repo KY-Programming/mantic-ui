@@ -1,13 +1,13 @@
-<ng-container *ngIf="position === 'top'" [ngTemplateOutlet]="menuTemplate"></ng-container>
+<ng-container *ngIf="menu === 'top' || menu === 'left'" [ngTemplateOutlet]="menuTemplate"></ng-container>
 
-<m-segment class="active tab" [attached]="position === 'top' ? 'bottom' : 'top'" [basic]="secondary" [noPadding]="noPadding" [class.scrollable]="scrollable">
+<m-segment class="active tab" [basic]="secondary" [noPadding]="noPadding" [loading]="loading" [class.scrollable]="scrollable">
     <ng-content></ng-content>
 </m-segment>
 
-<ng-container *ngIf="position === 'bottom'" [ngTemplateOutlet]="menuTemplate"></ng-container>
+<ng-container *ngIf="menu === 'bottom' || menu === 'right'" [ngTemplateOutlet]="menuTemplate"></ng-container>
 
 <ng-template #menuTemplate>
-    <m-menu [pointing]="pointing" [secondary]="secondary" [attached]="position" [tabular]="true">
+    <m-menu [pointing]="pointing" [secondary]="secondary" [attached]="menu" tabular [vertical]="horizontal" [inverted]="inverted">
         <a *ngFor="let tab of tabs" class="item" [class.active]="tab.active" (click)="activate(tab)">
             <m-icon *ngIf="tab.icon" [icon]="tab.icon" [size]="tab.iconSize"></m-icon>
             {{tab.label}}

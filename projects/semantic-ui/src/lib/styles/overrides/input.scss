@@ -1,4 +1,6 @@
-﻿.ui.color.input .ui.label {
+﻿@import "../colors";
+
+.ui.color.input .ui.label {
     border: 1px solid rgba(34, 36, 38, 0.15);
 
     input[type=color] {
@@ -11,4 +13,12 @@
 .ui.input > input[type=range] {
     padding-left: 0;
     padding-right: 0;
+}
+
+/*--------------------
+        Inverted
+---------------------*/
+.ui.inverted.input > input {
+    background-color: $tenthLighter;
+    color: white;
 }

@@ -16,6 +16,12 @@ export class ModalDefaultsComponent implements OnDestroy {
         ModalComponent.defaults.closeIcon = value;
     }
 
+    @Input()
+    public set inverted(value: boolean) {
+        ModalComponent.defaults.inverted = value;
+        ModalComponent.defaults.invertedChange.next(value);
+    }
+
     public ngOnDestroy(): void {
         if (this.currentCloseIcon === ModalComponent.defaults.closeIcon) {
             ModalComponent.defaults.closeIcon = this.previousCloseIcon;

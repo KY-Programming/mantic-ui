@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input, Optional, SkipSelf } from '@angular/core';
-import { BaseComponent } from '../base/base.component';
 import { BooleanLike } from '../models/boolean-like';
+import { InvertibleComponent } from '../base/invertible.component';
 
 export declare type MenuPosition =
     'top'
@@ -14,7 +14,7 @@ export declare type MenuPosition =
     templateUrl: './menu.component.html',
     styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent extends BaseComponent {
+export class MenuComponent extends InvertibleComponent {
     private isFixed: boolean;
     private positionValue: MenuPosition;
     private isSecondary: boolean;

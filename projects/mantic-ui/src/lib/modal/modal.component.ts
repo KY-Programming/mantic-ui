@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { BaseComponent } from '../base/base.component';
 import { BooleanLike } from '../models/boolean-like';
 import { IconType } from '../icon/icon-type';
+import { ReplaySubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { InvertibleComponent } from '../base/invertible.component';
 
 export type ModalSize =
     'mini'
@@ -14,8 +16,12 @@ export type ModalSize =
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent extends BaseComponent {
-    public static readonly defaults = { closeIcon: <IconType>'close' };
+export class ModalComponent extends InvertibleComponent {
+    public static readonly defaults = {
+        closeIcon: <IconType>'close',
+        inverted: false,
+        invertedChange: new ReplaySubject<boolean>(1)
+    };
 
     private isShowClose: boolean;
     private isShowHeader = true;
@@ -25,6 +31,7 @@ export class ModalComponent extends BaseComponent {
     private isImageContent = false;
     private isFullscreen = false;
     private isScrolling = true;
+    private isNoPadding = false;
 
     protected readonly defaults = ModalComponent.defaults;
 
@@ -107,6 +114,15 @@ export class ModalComponent extends BaseComponent {
     }
 
     @Input()
+    public get noPadding(): boolean {
+        return this.isNoPadding;
+    }
+
+    public set noPadding(value: BooleanLike) {
+        this.isNoPadding = this.toBoolean(value);
+    }
+
+    @Input()
     public minContentHeight: string;
 
     @Input()
@@ -121,6 +137,7 @@ export class ModalComponent extends BaseComponent {
     public constructor() {
         super(false);
         this.classList.register('basic', 'visible', 'fullscreen', 'size', 'scrolling', 'imageContent', 'header', 'footer', 'showHeader', 'showFooter', 'showClose', 'minContentHeight', 'maxContentHeight');
+        ModalComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
 
     public onClose(): void {

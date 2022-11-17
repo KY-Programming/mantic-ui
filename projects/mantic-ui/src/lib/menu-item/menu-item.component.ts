@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, Inject, Input, Optional } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Inject, Input, Optional, Output } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { BooleanLike } from '../models/boolean-like';
 
@@ -21,7 +21,6 @@ export class MenuItemComponent extends BaseComponent {
         this.classList.set('active', this.isActive);
     }
 
-
     @Input()
     @HostBinding('class.link')
     public get link(): boolean {
@@ -31,6 +30,9 @@ export class MenuItemComponent extends BaseComponent {
     public set link(value: BooleanLike) {
         this.isLink = this.toBoolean(value);
     }
+
+    @Output()
+    public readonly activeChange = new EventEmitter<boolean>();
 
     public constructor(
         @Optional() @Inject('none') useUiClass = true

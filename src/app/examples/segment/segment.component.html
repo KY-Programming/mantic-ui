@@ -25,12 +25,28 @@
             </m-segment>
         </m-example>
 
-        <m-example header="Raised" description="A segment may be formatted to raise above the page" [code]="code3">
+        <m-example header="Raised" description="A segment may be formatted to raise above the page">
             <m-segment raised>
                 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
                 quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
                 ultricies mi vitae est. Mauris placerat eleifend leo.
             </m-segment>
+            <m-example-code [code]="raisedCode"></m-example-code>
+        </m-example>
+
+        <m-example header="Inverted" description="A segment can be displayed with inverted colors">
+            <m-segment inverted>
+                Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor
+                quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean
+                ultricies mi vitae est. Mauris placerat eleifend leo.
+            </m-segment>
+            <m-example-code [code]="invertedCode"></m-example-code>
+        </m-example>
+    </m-tab>
+    <m-tab label="States">
+        <m-example header="Loading" description="A segment can display a loading indicator">
+            <m-segment loading style="min-height: 10rem"></m-segment>
+            <m-example-code [code]="loadingCode"></m-example-code>
         </m-example>
     </m-tab>
     <m-tab label="Groups">
@@ -85,7 +101,7 @@
             </m-segment-group>
         </m-example>
 
-        <m-example header="Nested Segments" description="A group of segments can be nested in another group of segments" [code]="code3">
+        <m-example header="Nested Segments" description="A group of segments can be nested in another group of segments" [code]="raisedCode">
             <m-segment-group>
                 <m-segment>
                     Top

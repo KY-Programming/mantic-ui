@@ -1,32 +1,21 @@
-﻿import { Component, ComponentFactory, ComponentFactoryResolver, ComponentRef, Input, OnDestroy, Type, ViewChild, ViewContainerRef } from '@angular/core';
+﻿import { Component, ComponentRef, HostBinding, Input, OnDestroy, Type, ViewContainerRef } from '@angular/core';
 import { formElements } from './form-element.decorator';
 import { FormElements } from '../form-renderer/form-layout';
 import { FormElementBase } from './form-element-base';
 
 @Component({
     selector: 'm-form-renderer2',
-    template: `
-        <template #container></template>
-        <div *ngIf="invalidType">{{invalidType}} is not a known component type</div>
-    `
+    templateUrl: './form-element-renderer2.component.html',
+    styleUrls: ['./form-element-renderer2.component.scss']
 })
 export class FormElementRenderer2Component implements OnDestroy {
     private elementType: Type<unknown>;
-    private containerValue: ViewContainerRef;
     private elementValue: FormElements;
     private dataValue: unknown;
 
-    public get container(): ViewContainerRef {
-        return this.containerValue;
-    }
-
-    @ViewChild('container', { read: ViewContainerRef })
-    public set container(value: ViewContainerRef) {
-        this.containerValue = value;
-        this.createComponent();
-    }
-
     public componentRef: ComponentRef<FormElementBase>;
+
+    @HostBinding('class.visible')
     public invalidType: string;
 
     public get element(): FormElements {
@@ -56,17 +45,16 @@ export class FormElementRenderer2Component implements OnDestroy {
     }
 
     public constructor(
-        private readonly resolver: ComponentFactoryResolver
+        private readonly viewContainerRef: ViewContainerRef
     ) {
     }
 
     public createComponent(): void {
-        if (!this.container || !this.elementType) {
+        this.viewContainerRef.clear();
+        if (!this.elementType) {
             return;
         }
-        this.container.clear();
-        const factory: ComponentFactory<unknown> = this.resolver.resolveComponentFactory(this.elementType);
-        this.componentRef = this.container.createComponent(factory) as ComponentRef<FormElementBase>;
+        this.componentRef = this.viewContainerRef.createComponent(this.elementType) as ComponentRef<FormElementBase>;
         this.componentRef.instance.element = this.element;
         this.componentRef.instance.data = this.data;
     }

@@ -1,21 +1,25 @@
 import { Component, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { Key } from '../models/key';
-import { BaseComponent } from '../base/base.component';
 import { BooleanLike } from '../models/boolean-like';
 import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
+import { InvertibleComponent } from '../base/invertible.component';
+import { ReplaySubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'm-checkbox',
     templateUrl: './checkbox.component.html',
     styleUrls: ['./checkbox.component.scss']
 })
-export class CheckboxComponent extends BaseComponent {
+export class CheckboxComponent extends InvertibleComponent {
     public static readonly defaults = {
         checkIcon: <IconType>'check',
         checkIconSize: <IconSize>'small',
         indeterminateIcon: <IconType>'minus',
-        indeterminateIconSize: <IconSize>'small'
+        indeterminateIconSize: <IconSize>'small',
+        inverted: false,
+        invertedChange: new ReplaySubject<boolean>(1)
     };
     private nameValue: string;
     private labelValue: string;
@@ -126,6 +130,7 @@ export class CheckboxComponent extends BaseComponent {
     public constructor() {
         super();
         this.classList.register('readonly', 'indeterminate', 'disabled', 'fitted', 'checked', 'value', 'name', 'label');
+        CheckboxComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
 
     @HostListener('click', ['$event'])
@@ -138,7 +143,7 @@ export class CheckboxComponent extends BaseComponent {
 
     @HostListener('keydown', ['$event'])
     public onKeyDown(event: KeyboardEvent): void {
-        if (this.readonly || this.disabled || event.code !== Key.space) {
+        if (this.readonly || this.disabled || !Key.space.is(event)) {
             return;
         }
         event.preventDefault();

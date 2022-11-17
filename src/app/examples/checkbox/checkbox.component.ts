@@ -55,4 +55,6 @@ export class CheckboxExampleComponent {
     public get disabled(): boolean {
         return this.disabledField;
     }
+
+    public readonly inverted = `<m-checkbox inverted></m-checkbox>`;
 }

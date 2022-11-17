@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { FieldSize, fieldSizes } from '../models/field-size';
+import { FieldSize, ParsableFieldSize, parseFieldSize } from '../models/field-size';
 import { BaseComponent } from '../base/base.component';
 
 export declare type CellFloat =
@@ -26,13 +26,8 @@ export class CellComponent extends BaseComponent {
 
     @Input()
     @HostBinding('class.wide')
-    public set size(value: FieldSize) {
-        const sizeNumber = value ? parseInt(value.toString()) : undefined;
-        if (sizeNumber && !Number.isNaN(sizeNumber)) {
-            this.sizeValue = fieldSizes[value];
-        } else {
-            this.sizeValue = value;
-        }
+    public set size(value: ParsableFieldSize) {
+        this.sizeValue = parseFieldSize(value);
         this.classList.set('size', this.sizeValue);
     }
 
@@ -61,7 +56,7 @@ export class CellComponent extends BaseComponent {
 
     public constructor() {
         super(false);
-        this.classList.register('size', 'float');
+        this.classList.register('size', 'float', 'align');
     }
 
 }
