@@ -1,5 +1,5 @@
 /*!
- * # Semantic UI 2.4.2 - Dimmer
+ * # Semantic UI 2.5.0 - Dimmer
  * http://github.com/semantic-org/semantic-ui/
  *
  *
@@ -16,7 +16,6 @@
 .dimmable:not(body) {
   position: relative;
 }
-
 .ui.dimmer {
   display: none;
   position: absolute;
@@ -31,40 +30,32 @@
   opacity: 0;
   line-height: 1;
   -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
+          animation-fill-mode: both;
   -webkit-animation-duration: 0.5s;
-  animation-duration: 0.5s;
-  -webkit-transition: background-color 0.5s linear;
+          animation-duration: 0.5s;
   transition: background-color 0.5s linear;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
   -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   will-change: opacity;
   z-index: 1000;
 }
 
 /* Dimmer Content */
-.ui.dimmer>.content {
+.ui.dimmer > .content {
   -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
+     -moz-user-select: text;
+      -ms-user-select: text;
+          user-select: text;
   color: #FFFFFF;
 }
 
 /* Loose Coupling */
-.ui.segment>.ui.dimmer {
+.ui.segment > .ui.dimmer {
   border-radius: inherit !important;
 }
 
@@ -72,23 +63,20 @@
 .ui.dimmer:not(.inverted)::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.1);
 }
-
 .ui.dimmer:not(.inverted)::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.25);
 }
-
 .ui.dimmer:not(.inverted)::-webkit-scrollbar-thumb:window-inactive {
   background: rgba(255, 255, 255, 0.15);
 }
-
 .ui.dimmer:not(.inverted)::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.35);
 }
 
 
 /*******************************
-              States
-  *******************************/
+            States
+*******************************/
 
 
 /* Animating */
@@ -98,11 +86,9 @@
 }
 
 /* Animating / Active / Visible */
-.dimmed.dimmable>.ui.animating.dimmer,
-.dimmed.dimmable>.ui.visible.dimmer,
+.dimmed.dimmable > .ui.animating.dimmer,
+.dimmed.dimmable > .ui.visible.dimmer,
 .ui.active.dimmer {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   opacity: 1;
 }
@@ -115,115 +101,100 @@
 
 
 /*******************************
-             Variations
-  *******************************/
+           Variations
+*******************************/
 
 
 /*--------------
-      Legacy
-  ---------------*/
+    Legacy
+---------------*/
 
 
 /* Animating / Active / Visible */
-.dimmed.dimmable>.ui.animating.legacy.dimmer,
-.dimmed.dimmable>.ui.visible.legacy.dimmer,
+.dimmed.dimmable > .ui.animating.legacy.dimmer,
+.dimmed.dimmable > .ui.visible.legacy.dimmer,
 .ui.active.legacy.dimmer {
   display: block;
 }
 
 /*--------------
-      Alignment
-  ---------------*/
+    Alignment
+---------------*/
 
 .ui[class*="top aligned"].dimmer {
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
   justify-content: flex-start;
 }
-
 .ui[class*="bottom aligned"].dimmer {
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
   justify-content: flex-end;
 }
 
 /*--------------
-        Page
-  ---------------*/
+      Page
+---------------*/
 
 .ui.page.dimmer {
   position: fixed;
-  -webkit-transform-style: '';
   transform-style: '';
-  -webkit-perspective: 2000px;
   perspective: 2000px;
-  -webkit-transform-origin: center center;
   transform-origin: center center;
 }
-
 body.animating.in.dimmable,
 body.dimmed.dimmable {
   overflow: hidden;
 }
-
-body.dimmable>.dimmer {
+body.dimmable > .dimmer {
   position: fixed;
 }
 
 /*--------------
-      Blurring
-  ---------------*/
+    Blurring
+---------------*/
 
-.blurring.dimmable> :not(.dimmer) {
+.blurring.dimmable > :not(.dimmer) {
   -webkit-filter: blur(0px) grayscale(0);
-  filter: blur(0px) grayscale(0);
-  -webkit-transition: 800ms -webkit-filter ease;
+          filter: blur(0px) grayscale(0);
   transition: 800ms -webkit-filter ease;
   transition: 800ms filter ease;
   transition: 800ms filter ease, 800ms -webkit-filter ease;
 }
-
-.blurring.dimmed.dimmable> :not(.dimmer) {
+.blurring.dimmed.dimmable > :not(.dimmer) {
   -webkit-filter: blur(5px) grayscale(0.7);
-  filter: blur(5px) grayscale(0.7);
+          filter: blur(5px) grayscale(0.7);
 }
 
 /* Dimmer Color */
-.blurring.dimmable>.dimmer {
+.blurring.dimmable > .dimmer {
   background-color: rgba(0, 0, 0, 0.6);
 }
-
-.blurring.dimmable>.inverted.dimmer {
+.blurring.dimmable > .inverted.dimmer {
   background-color: rgba(255, 255, 255, 0.6);
 }
 
 /*--------------
-      Aligned
-  ---------------*/
+    Aligned
+---------------*/
 
-.ui.dimmer>.top.aligned.content>* {
+.ui.dimmer > .top.aligned.content > * {
   vertical-align: top;
 }
-
-.ui.dimmer>.bottom.aligned.content>* {
+.ui.dimmer > .bottom.aligned.content > * {
   vertical-align: bottom;
 }
 
 /*--------------
-      Inverted
-  ---------------*/
+    Inverted
+---------------*/
 
 .ui.inverted.dimmer {
   background-color: rgba(255, 255, 255, 0.85);
 }
-
-.ui.inverted.dimmer>.content>* {
+.ui.inverted.dimmer > .content > * {
   color: #FFFFFF;
 }
 
 /*--------------
-       Simple
-  ---------------*/
+     Simple
+---------------*/
 
 
 /* Displays without javascript */
@@ -236,8 +207,7 @@ body.dimmable>.dimmer {
   z-index: -100;
   background-color: rgba(0, 0, 0, 0);
 }
-
-.dimmed.dimmable>.ui.simple.dimmer {
+.dimmed.dimmable > .ui.simple.dimmer {
   overflow: visible;
   opacity: 1;
   width: 100%;
@@ -245,22 +215,21 @@ body.dimmable>.dimmer {
   background-color: rgba(0, 0, 0, 0.85);
   z-index: 1;
 }
-
 .ui.simple.inverted.dimmer {
   background-color: rgba(255, 255, 255, 0);
 }
-
-.dimmed.dimmable>.ui.simple.inverted.dimmer {
+.dimmed.dimmable > .ui.simple.inverted.dimmer {
   background-color: rgba(255, 255, 255, 0.85);
 }
 
 
 /*******************************
-           Theme Overrides
-  *******************************/
+         Theme Overrides
+*******************************/
 
 
 
 /*******************************
-          User Overrides
-  *******************************/
+        User Overrides
+*******************************/
+
