@@ -20,6 +20,7 @@
     "doc:publish": "cd dist\\mantic-ui-doc && npm publish --access public && cd ..\\..",
     "doc:publish-rc": "cd dist\\mantic-ui-doc&& npm publish --access public --tag rc && cd ..\\..",
     "doc:publish-local": "cd ./dist/mantic-ui-doc && npm pack && copy *.tgz ..\\..\\ && cd ../..",
+    "doc:bpl": "npm run doc:build && npm run doc:publish-local",
     "fomantic:build": "ng build fomantic-ui",
     "fomantic:watch": "ng build fomantic-ui --watch",
     "fomantic:publish": "cd dist\\fomantic-ui && npm publish --access public && cd ..\\..",

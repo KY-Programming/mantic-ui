@@ -1,22 +1,42 @@
+$live-color: #DB2828;
+$live-icon-size: 14px;
+
 :host {
-  display: block;
+    position: relative;
+    display: block;
+}
+
+.live {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+
+    .circle {
+        border-radius: 50%;
+        width: $live-icon-size;
+        height: $live-icon-size;
+        background-color: $live-color;
+        margin-right: 0.5rem;
+    }
 }
 
 .label {
-  transform: translateY(-1em);
-  font-size: 0.75em;
-  font-weight: bold;
+    transform: translateY(-1em);
+    font-size: 0.75em;
+    font-weight: bold;
 }
 
 pre {
-  margin: 0;
+    margin: 0;
+    word-break: break-word;
 }
 
 code {
-  white-space: pre-wrap;
+    white-space: pre-wrap;
 
-  &.hljs {
-    background-color: initial;
-    padding: initial;
-  }
+    &.hljs {
+        background-color: initial;
+        padding: initial;
+    }
 }

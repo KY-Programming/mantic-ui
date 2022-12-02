@@ -93,7 +93,7 @@
               "browserTarget": "mantic-ui-test:build:production"
             },
             "development": {
-              "port": 4086,
+              "port": 4005,
               "browserTarget": "mantic-ui-test:build:development"
             }
           },

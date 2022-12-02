@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { DimmableService, SegmentComponent } from '@mantic-ui/angular';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { BooleanLike, DimmableService, SegmentComponent } from '@mantic-ui/angular';
 
 @Component({
     selector: 'm-example-code',
@@ -8,6 +8,7 @@ import { DimmableService, SegmentComponent } from '@mantic-ui/angular';
     providers: [DimmableService]
 })
 export class ExampleCodeComponent extends SegmentComponent {
+    private isLive = false;
 
     @Input()
     public label: string;
@@ -17,6 +18,18 @@ export class ExampleCodeComponent extends SegmentComponent {
 
     @Input()
     public languages: string[] = ['html'];
+
+    @Input()
+    public get live(): boolean {
+        return this.isLive;
+    }
+
+    public set live(value: BooleanLike) {
+        this.isLive = this.toBoolean(value);
+    }
+
+    @Output()
+    public readonly liveClick = new EventEmitter<MouseEvent>();
 
     public constructor() {
         super();
