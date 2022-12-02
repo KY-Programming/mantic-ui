@@ -5,7 +5,7 @@ import { LayoutService } from '../services/layout.service';
     selector: '[m-menu-link-template]'
 })
 export class MenuLinkTemplateDirective {
-    constructor(
+    public constructor(
         private readonly menuService: LayoutService,
         private readonly template: TemplateRef<unknown>
     ) {

@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ManticUiModule } from '@mantic-ui/angular';
 import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
-import { ExampleCodeComponent } from './example-code/example-code.component';
-import { ExampleFrameComponent } from './example-frame/example-frame.component';
-import { ExampleComponent } from './example/example.component';
-import { NugetInstallComponent } from './nuget-install/nuget-install.component';
-import { NugetComponent } from './nuget/nuget.component';
-import { NpmComponent } from './npm/npm.component';
-import { NpmInstallComponent } from './npm-install/npm-install.component';
+import { ExampleCodeComponent } from './components/example-code/example-code.component';
+import { ExampleFrameComponent } from './components/example-frame/example-frame.component';
+import { ExampleComponent } from './components/example/example.component';
+import { NugetInstallComponent } from './components/nuget-install/nuget-install.component';
+import { NugetComponent } from './components/nuget/nuget.component';
+import { NpmComponent } from './components/npm/npm.component';
+import { NpmInstallComponent } from './components/npm-install/npm-install.component';
 
 // tslint:disable-next-line: only-arrow-functions
 export function getHighlightLanguages(): unknown {

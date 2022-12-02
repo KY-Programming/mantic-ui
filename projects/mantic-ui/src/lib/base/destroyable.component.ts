@@ -1,4 +1,4 @@
-import { Component, Directive, OnDestroy } from '@angular/core';
+import { Directive, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Directive()

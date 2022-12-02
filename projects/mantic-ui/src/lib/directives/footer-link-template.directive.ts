@@ -5,7 +5,7 @@ import { LayoutService } from '../services/layout.service';
     selector: '[m-footer-link-template]'
 })
 export class FooterLinkTemplateDirective {
-    constructor(
+    public constructor(
         private readonly menuService: LayoutService,
         private readonly template: TemplateRef<unknown>
     ) {

@@ -11,7 +11,7 @@ import { NugetPackageVersion } from '../models/nuget-package.version';
 export class NugetApiService {
     private readonly cache: Record<string, ReplaySubject<NugetPackageVersion[]>> = {};
 
-    constructor(
+    public constructor(
         private readonly http: HttpClient
     ) {}
 

@@ -1,8 +1,8 @@
 import { ContentChild, Directive, HostBinding, Input } from '@angular/core';
-import { LabelDropdownComponent } from '../label-dropdown/label-dropdown.component';
-import { LabelComponent } from '../label/label.component';
-import { IconButtonComponent } from '../icon-button/icon-button.component';
-import { ButtonComponent } from '../button/button.component';
+import { LabelDropdownComponent } from '../components/label-dropdown/label-dropdown.component';
+import { LabelComponent } from '../components/label/label.component';
+import { IconButtonComponent } from '../components/icon-button/icon-button.component';
+import { ButtonComponent } from '../components/button/button.component';
 import { LabelOptions } from '../models/label-options';
 import { InvertibleComponent } from './invertible.component';
 

@@ -10,7 +10,7 @@ import { NpmPackageResponse } from '../models/npm-package-response';
 export class NpmApiService {
     private readonly cache: Record<string, ReplaySubject<string[]>> = {};
 
-    constructor(
+    public constructor(
         private readonly http: HttpClient
     ) {}
 

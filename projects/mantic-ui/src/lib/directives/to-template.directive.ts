@@ -10,7 +10,7 @@ export class ToTemplateDirective {
         target.template = this.template;
     }
 
-    constructor(
+    public constructor(
         private readonly template: TemplateRef<unknown>
     ) { }
 }

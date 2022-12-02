@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 import { BaseDirective } from '../base/base.directive';
 import { BooleanLike } from '../models/boolean-like';
 
@@ -18,7 +18,6 @@ export class MenuItemDirective /*extends MenuItemComponent*/ extends BaseDirecti
         this.isActive = this.toBoolean(value);
         this.classList.set('active', this.isActive);
     }
-
 
     public constructor() {
         super();
