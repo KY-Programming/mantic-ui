@@ -3,7 +3,8 @@ import { BaseDirective } from '../base/base.directive';
 import { BooleanLike } from '../models/boolean-like';
 
 @Directive({
-    selector: '[m-header]'
+    selector: '[m-header]',
+    standalone: true,
 })
 // TODO: Implement
 export class HeaderDirective extends BaseDirective {

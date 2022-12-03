@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-table-example',
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.scss']
 })
-export class TableExampleComponent implements OnInit {
+export class TableExampleComponent {
     public exampleCode = `<m-table>
     <thead>
         <tr>
@@ -31,9 +31,7 @@ export class TableExampleComponent implements OnInit {
     </tr>
 </m-table>`;
 
-    constructor() { }
-
-    ngOnInit(): void {
-    }
+    public basicCode = `<m-table basic></m-table>`;
+    public collapsingCode = `<m-table collapsing></m-table>`;
 
 }

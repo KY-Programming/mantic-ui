@@ -69,6 +69,41 @@
                 </tr>
                 </tfoot>
             </m-table>
+            <m-example-code [code]="collapsingCode"></m-example-code>
+        </m-example>
+        <m-example header="Basic" description="A basic table is less pronounced">
+            <m-table basic>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td>John</td>
+                    <td>Approved</td>
+                    <td>None</td>
+                </tr>
+                <tr>
+                    <td>Jamie</td>
+                    <td>Approved</td>
+                    <td>Requires call</td>
+                </tr>
+                <tr>
+                    <td>Jill</td>
+                    <td>Denied</td>
+                    <td>None</td>
+                </tr>
+                <tfoot>
+                <tr>
+                    <th>3 People</th>
+                    <th>2 Approved</th>
+                    <th></th>
+                </tr>
+                </tfoot>
+            </m-table>
+            <m-example-code [code]="basicCode"></m-example-code>
         </m-example>
     </m-tab>
 </m-tab-group>

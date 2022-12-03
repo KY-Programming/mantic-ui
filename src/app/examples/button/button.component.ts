@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { faArrowRight, faCloud, faPause } from '@fortawesome/pro-solid-svg-icons';
 
 @Component({
+    selector: 'app-button-example',
     templateUrl: './button.component.html',
     styleUrls: ['./button.component.scss']
 })
@@ -84,17 +85,19 @@ export class ButtonExampleComponent {
   </m-label>
 </m-icon-button>`;
 
-    public buttonLabeledColoredCode = `<m-button color="red" pointing="left">
-  <m-icon icon="heart"></m-icon> Like
-  <ng-template #label>
-    1,048
-  </ng-template>
+    public buttonLabeledColoredCode = `<m-button color="red">
+    <m-icon icon="heart"></m-icon>
+    Like
+    <m-label basic color="red" pointing="left">
+        1,048
+    </m-label>
 </m-button>
-<m-button color="blue" pointing="left" basic>
-  <m-icon icon="fork"></m-icon> Forks
-  <ng-template #label>
-    1,048
-  </ng-template>
+<m-button color="blue" basic>
+    <m-icon icon="fork"></m-icon>
+    Forks
+    <m-label basic color="blue" pointing="left">
+        1,048
+    </m-label>
 </m-button>`;
 
     public bindCode = `<m-button [loading]="loading" [disabled]="disabled" [fluid]="fluid">{{text}}</m-button>`;

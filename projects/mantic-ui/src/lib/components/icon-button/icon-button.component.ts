@@ -2,11 +2,18 @@ import { Component, HostBinding, Input } from '@angular/core';
 import { ButtonBaseComponent } from '../../base/button-base.component';
 import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
+import { CommonModule } from '@angular/common';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
     selector: 'm-icon-button',
     templateUrl: './icon-button.component.html',
-    styleUrls: ['./icon-button.component.scss']
+    styleUrls: ['./icon-button.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        IconComponent
+    ],
 })
 export class IconButtonComponent extends ButtonBaseComponent {
 

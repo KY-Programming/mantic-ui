@@ -1,11 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { BooleanLike, DimmableService, SegmentComponent } from '@mantic-ui/angular';
+import { BooleanLike, SegmentComponent } from '@mantic-ui/angular';
 
 @Component({
     selector: 'm-example-code',
     templateUrl: './example-code.component.html',
-    styleUrls: ['./example-code.component.scss'],
-    providers: [DimmableService]
+    styleUrls: ['./example-code.component.scss']
 })
 export class ExampleCodeComponent extends SegmentComponent {
     private isLive = false;

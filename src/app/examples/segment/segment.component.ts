@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
+    selector: 'app-segment-example',
     templateUrl: './segment.component.html',
     styleUrls: ['./segment.component.scss']
 })
@@ -8,7 +9,9 @@ export class SegmentExampleComponent {
     public code1 = `<m-segment></m-segment>`;
     public raisedCode = `<m-segment raised></m-segment>`;
     public invertedCode = `<m-segment inverted></m-segment>`;
+    public coloredCode = `<m-segment color="red"></m-segment>`;
     public loadingCode = `<m-segment loading></m-segment>`;
+    public basicCode = `<m-segment basic></m-segment>`;
 
     public groupCode = `<m-segment-group>
   <m-segment>

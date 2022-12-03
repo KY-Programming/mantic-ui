@@ -1,12 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { DimmableService } from '@mantic-ui/angular';
 import { NugetApiService } from '../../services/nuget-api.service';
 
 @Component({
     selector: 'm-nuget-install',
     templateUrl: './nuget-install.component.html',
-    styleUrls: ['./nuget-install.component.scss'],
-    providers: [DimmableService]
+    styleUrls: ['./nuget-install.component.scss']
 })
 export class NugetInstallComponent {
     private packageValue: string;

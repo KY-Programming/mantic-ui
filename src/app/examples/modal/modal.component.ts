@@ -20,6 +20,7 @@ export class ModalExampleComponent {
     public showScrolling = false;
     public showChangeIcon = false;
     public showInverted = false;
+    public showLoading = false;
     protected readonly faRocket = faRocket;
 
     public standardCode = `<m-button (click)="showModal = true">Open</m-button>

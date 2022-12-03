@@ -133,15 +133,11 @@ import { InputDefaultsComponent } from './components/input/input-defaults.compon
 import { TextareaDefaultsComponent } from './components/textarea/textarea-defaults.component';
 import { TabGroupDefaultsComponent } from './components/tab-group/tab-group-defaults.component';
 import { DimmerDefaultsComponent } from './components/dimmer/dimmer-defaults.component';
+import { TimeInputComponent } from './components/input/time/time-input.component';
 
 @NgModule({
     declarations: [
-        ButtonComponent,
-        ToggleButtonComponent,
         ButtonGroupComponent,
-        IconButtonComponent,
-        IconComponent,
-        SegmentComponent,
         SegmentDefaultsComponent,
         SegmentGroupComponent,
         DividerComponent,
@@ -149,7 +145,6 @@ import { DimmerDefaultsComponent } from './components/dimmer/dimmer-defaults.com
         InputComponent,
         NumericInputComponent,
         DateInputComponent,
-        LabelComponent,
         LabelDropdownComponent,
         LabelDropdownDefaultsComponent,
         MenuComponent,
@@ -170,16 +165,9 @@ import { DimmerDefaultsComponent } from './components/dimmer/dimmer-defaults.com
         MenuLinkComponent,
         FooterLinkComponent,
         MenuHeaderComponent,
-        ButtonDirective,
-        HeaderDirective,
         HeaderComponent,
         MenuItemDirective,
         SafePipe,
-        ModalComponent,
-        ModalFooterComponent,
-        FallbackForDirective,
-        ModalHeaderComponent,
-        DimmerComponent,
         CheckboxComponent,
         CheckboxDefaultsComponent,
         ToggleComponent,
@@ -207,13 +195,9 @@ import { DimmerDefaultsComponent } from './components/dimmer/dimmer-defaults.com
         DebuggerPipe,
         DebugPipe,
         TitlePipe,
-        SubmitComponent,
         ExternalRouteComponent,
-        TableComponent,
         TableDefaultsComponent,
         NotificationComponent,
-        SidebarComponent,
-        LoaderComponent,
         ChatComponent,
         ChatDefaultsComponent,
         ChatMessageComponent,
@@ -225,7 +209,6 @@ import { DimmerDefaultsComponent } from './components/dimmer/dimmer-defaults.com
         AsFieldsPipe,
         FormElementRendererComponent,
         FlagComponent,
-        ImageUploadComponent,
         AsAreaPipe,
         AsDropDownPipe,
         DataSourceComponent,
@@ -258,7 +241,6 @@ import { DimmerDefaultsComponent } from './components/dimmer/dimmer-defaults.com
         ContextMenuComponent,
         ContextMenuItemComponent,
         FileInputComponent,
-        ModalDefaultsComponent,
         DropdownGroupComponent,
         ExpanderIconComponent,
         ExpanderPartComponent,
@@ -271,7 +253,28 @@ import { DimmerDefaultsComponent } from './components/dimmer/dimmer-defaults.com
         CommonModule,
         FormsModule,
         RouterModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        // Standalone Components
+        ButtonComponent,
+        ButtonDirective,
+        DimmerComponent,
+        FallbackForDirective,
+        HeaderDirective,
+        IconButtonComponent,
+        IconComponent,
+        ImageUploadComponent,
+        LabelComponent,
+        LoaderComponent,
+        ModalComponent,
+        ModalDefaultsComponent,
+        ModalFooterComponent,
+        ModalHeaderComponent,
+        SegmentComponent,
+        SidebarComponent,
+        SubmitComponent,
+        TableComponent,
+        TimeInputComponent,
+        ToggleButtonComponent
     ],
     exports: [
         ButtonComponent,
@@ -387,7 +390,8 @@ import { DimmerDefaultsComponent } from './components/dimmer/dimmer-defaults.com
         InputDefaultsComponent,
         TextareaDefaultsComponent,
         TabGroupDefaultsComponent,
-        DimmerDefaultsComponent
+        DimmerDefaultsComponent,
+        TimeInputComponent
     ]
 })
 export class ManticUiModule {

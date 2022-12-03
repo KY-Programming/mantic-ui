@@ -4,7 +4,8 @@ import { IconType } from '../icon/icon-type';
 
 @Component({
     selector: 'm-modal-defaults',
-    template: ''
+    template: '',
+    standalone: true
 })
 export class ModalDefaultsComponent implements OnDestroy {
     private readonly previousCloseIcon = ModalComponent.defaults.closeIcon;

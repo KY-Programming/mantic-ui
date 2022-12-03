@@ -1,5 +1,4 @@
-import { Component, HostBinding, HostListener, Input, OnDestroy, OnInit, Optional } from '@angular/core';
-import { DimmableService } from '../../services/dimmable.service';
+import { Component, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { BooleanLike } from '../../models/boolean-like';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { ReplaySubject } from 'rxjs';
@@ -10,7 +9,8 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
     selector: 'm-dimmer',
     templateUrl: './dimmer.component.html',
-    styleUrls: ['./dimmer.component.scss']
+    styleUrls: ['./dimmer.component.scss'],
+    standalone: true
 })
 export class DimmerComponent extends InvertibleComponent implements OnInit, OnDestroy {
     public static readonly defaults = {
@@ -54,9 +54,7 @@ export class DimmerComponent extends InvertibleComponent implements OnInit, OnDe
     @HostBinding('class.dimmer')
     public readonly dimmer = true;
 
-    public constructor(
-        @Optional() private readonly dimmableService: DimmableService
-    ) {
+    public constructor() {
         super();
         this.classList.register('page', 'visible');
         DimmerComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
@@ -76,17 +74,11 @@ export class DimmerComponent extends InvertibleComponent implements OnInit, OnDe
 
     public show(): void {
         this.visibleValue = true;
-        if (this.dimmableService) {
-            this.dimmableService.dim();
-        }
         this.refreshClasses();
     }
 
     public hide(): void {
         this.visibleValue = false;
-        if (this.dimmableService) {
-            this.dimmableService.dim(false);
-        }
         this.refreshClasses();
     }
 

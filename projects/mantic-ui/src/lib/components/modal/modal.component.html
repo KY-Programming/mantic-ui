@@ -11,6 +11,9 @@
         </div>
         <div [class.image]="imageContent" [class.scrolling]="scrolling" class="content" [class.no-padding]="noPadding" [style.min-height]="minContentHeight" [style.max-height]="maxContentHeight">
             <ng-content></ng-content>
+            <m-dimmer *ngIf="loading" inverted>
+                <m-loader></m-loader>
+            </m-dimmer>
         </div>
         <div *ngIf="showFooter" class="actions">
             <ng-content select="m-modal-footer"></ng-content>

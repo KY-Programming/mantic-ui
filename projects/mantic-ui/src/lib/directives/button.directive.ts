@@ -2,7 +2,8 @@ import { Directive } from '@angular/core';
 import { ButtonBaseComponent } from '../base/button-base.component';
 
 @Directive({
-    selector: '[m-button]'
+    selector: '[m-button]',
+    standalone: true,
 })
 export class ButtonDirective extends ButtonBaseComponent {
     public constructor() {

@@ -1,4 +1,4 @@
-import { Component, ContentChild, HostBinding, Input } from '@angular/core';
+import { Component, ContentChild, HostBinding, inject, Input } from '@angular/core';
 import { AnimationDirection } from '../animation/animation-direction';
 import { AnimationComponent } from '../animation/animation.component';
 import { LabelComponent } from '../label/label.component';
@@ -8,6 +8,8 @@ import { BooleanLike } from '../../models/boolean-like';
 import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
 import { LabelPosition } from '../../models/label-position';
+import { CommonModule } from '@angular/common';
+import { IconComponent } from '../icon/icon.component';
 
 export declare type Pointing =
     'left'
@@ -19,7 +21,12 @@ export declare type Pointing =
 @Component({
     selector: 'm-button',
     templateUrl: './button.component.html',
-    styleUrls: ['./button.component.scss']
+    styleUrls: ['./button.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        IconComponent
+    ],
 })
 export class ButtonComponent extends ButtonBaseComponent {
     private animatedField: AnimationComponent;

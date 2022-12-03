@@ -12,7 +12,8 @@ export declare type Align =
 @Component({
     selector: 'm-table',
     templateUrl: './table.component.html',
-    styleUrls: ['./table.component.scss']
+    styleUrls: ['./table.component.scss'],
+    standalone: true,
 })
 export class TableComponent extends InvertibleComponent implements OnInit {
     public static readonly defaults = {

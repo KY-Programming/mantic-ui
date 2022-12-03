@@ -32,6 +32,13 @@
             </m-flex>
             <m-example-code [code]="dateCode"></m-example-code>
         </m-example>
+        <m-example header="Time" description="A time input">
+            <m-flex alignItems="center">
+                <m-time-input [(value)]="dateValue"></m-time-input>
+                <app-value *ngIf="dateValue !== undefined" [value]="dateValue"></app-value>
+            </m-flex>
+            <m-example-code [code]="dateCode"></m-example-code>
+        </m-example>
         <m-example header="Standard Input" description="Use a standard input for missing features">
             <m-input>
                 <input type="text" placeholder="Search..." maxlength="3">

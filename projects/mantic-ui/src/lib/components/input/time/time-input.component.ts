@@ -1,13 +1,24 @@
 import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { DateHelper } from '../../../helpers/date-helper';
+import { CommonModule } from '@angular/common';
 import { InputBaseComponent } from '../input-base.component';
+import { DateHelper } from '../../../helpers/date-helper';
+import { FormsModule } from '@angular/forms';
+import { IconComponent } from '../../icon/icon.component';
+import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 
 @Component({
-    selector: 'm-date-input',
-    templateUrl: './date-input.component.html',
-    styleUrls: ['./date-input.component.scss']
+    selector: 'm-time-input',
+    templateUrl: './time-input.component.html',
+    styleUrls: ['./time-input.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        IconComponent,
+        FallbackForDirective
+    ]
 })
-export class DateInputComponent extends InputBaseComponent implements OnInit {
+export class TimeInputComponent extends InputBaseComponent implements OnInit {
     private valueField: Date | undefined;
 
     protected internalValue: string | null;
@@ -67,21 +78,21 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
     }
 
     protected onInternalChange(rawValue: string): void {
-        let value = rawValue ? new Date(rawValue) : undefined;
-        value ??= this.defaultValue;
-        if (value) {
-            this.setInternalValue(value);
-        }
+        const oldValue = this.valueField ? new Date(this.valueField) : this.valueField;
+        let value = this.valueField ?? new Date();
+        const chunks = rawValue.split(':');
+        value.setHours(parseInt(chunks[0]) || 0, parseInt(chunks[1]) || 0, 0, 0);
         value = DateHelper.keepInRange(this.min, value, this.max);
-        if (value !== this.value) {
+        if (value !== this.valueField || oldValue !== value) {
             this.valueField = value;
-            this.valueChange.emit(this.value);
+            this.valueChange.emit(this.valueField);
         }
     }
 
     private setInternalValue(value: Date | null | undefined): void {
         // Use null to avoid strange input behaviour with undefined values (e.g. input of negative values requires two minus signs to work)
         // eslint-disable-next-line no-null/no-null
-        this.internalValue = value?.toISOString().split('T')[0] ?? null;
+        this.internalValue = value?.toISOString().split('T')[1].replace('Z', '') ?? null;
     }
+
 }

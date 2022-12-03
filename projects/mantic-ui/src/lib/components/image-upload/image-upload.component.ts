@@ -2,11 +2,16 @@ import { Component, Input, Output } from '@angular/core';
 import { ButtonBaseComponent } from '../../base/button-base.component';
 import { Subject } from 'rxjs';
 import { BooleanLike } from '../../models/boolean-like';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'm-image-upload',
     templateUrl: './image-upload.component.html',
-    styleUrls: ['./image-upload.component.scss']
+    styleUrls: ['./image-upload.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule
+    ],
 })
 export class ImageUploadComponent extends ButtonBaseComponent {
     private readonly previewImageChangeSubject = new Subject<string>();

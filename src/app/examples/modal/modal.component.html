@@ -9,7 +9,7 @@
     <m-tab label="Examples">
         <m-example header="Modal" description="A standard modal" [code]="standardCode">
             <m-button (click)="showModal = true">Open Modal</m-button>
-            <m-modal *ngIf="showModal" (close)="showModal = false" imageContent>
+            <m-modal *ngIf="showModal" imageContent (close)="showModal = false">
                 <m-modal-header>
                     <m-icon icon="question"></m-icon>
                     Profile Picture
@@ -188,6 +188,15 @@
                 </m-modal>
             </ng-container>
             <m-button (click)="showInverted = true">Show with inverted colors</m-button>
+        </m-example>
+
+        <m-example header="Loading" description="A modal can have a spinner" [code]="changeIconCode">
+            <ng-container>
+                <m-modal *ngIf="showLoading" header="Loading..." loading (close)="showLoading = false">
+                    Some content
+                </m-modal>
+            </ng-container>
+            <m-button (click)="showLoading = true">Show loading</m-button>
         </m-example>
     </m-tab>
     <m-tab label="Binding">

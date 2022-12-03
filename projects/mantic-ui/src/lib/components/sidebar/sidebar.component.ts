@@ -18,7 +18,8 @@ export declare type SidebarPosition =
 @Component({
     selector: 'm-sidebar',
     templateUrl: './sidebar.component.html',
-    styleUrls: ['./sidebar.component.scss']
+    styleUrls: ['./sidebar.component.scss'],
+    standalone: true,
 })
 export class SidebarComponent extends BaseComponent {
     private isInverted: boolean;

@@ -1,4 +1,4 @@
-﻿import { Directive, ElementRef, inject, Inject, OnInit, Optional } from '@angular/core';
+﻿import { Directive, ElementRef, inject, Inject, OnInit, Optional, TypeProvider } from '@angular/core';
 import { DestroyableComponent } from './destroyable.component';
 import { ClassList } from '../models/class-list';
 import { takeUntil } from 'rxjs/operators';
@@ -23,8 +23,6 @@ export abstract class BaseComponent extends DestroyableComponent implements OnIn
         this.noClassesValue = value;
         this.refreshClasses();
     }
-
-    // protected readonly eventQueue = new EventQueue();
 
     protected constructor(
         @Optional() @Inject('none') useUiClass = true

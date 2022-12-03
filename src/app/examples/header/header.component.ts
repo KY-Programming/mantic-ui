@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
+    selector: 'app-header-example',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
@@ -17,6 +18,10 @@ export class HeaderExampleComponent {
 <m-header size="medium">Medium Header</m-header>
 <m-header size="small">Small Header</m-header>
 <m-header size="tiny">Tiny Header</m-header>`;
+    
+    public invertedCode = `<h1 m-header inverted>Inverted H1</h1>
+<h2 m-header inverted>Inverted H2</h2>
+<h3 m-header inverted>Inverted H3</h3>`;
 
     public fontSize = 16;
 

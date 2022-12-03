@@ -15,7 +15,8 @@ export declare type LabelPointing =
 @Component({
     selector: 'm-label',
     templateUrl: './label.component.html',
-    styleUrls: ['./label.component.scss']
+    styleUrls: ['./label.component.scss'],
+    standalone: true,
 })
 export class LabelComponent extends BaseComponent implements LabelOptions {
     private positionValue: LabelPosition;

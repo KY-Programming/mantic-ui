@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'm-modal-footer',
-  template: '<ng-content></ng-content>'
+    selector: 'm-modal-footer',
+    template: '<ng-content></ng-content>',
+    standalone: true
 })
 export class ModalFooterComponent {
-  // TODO: Fix margins around buttons
+    // TODO: Fix margins around buttons
 }

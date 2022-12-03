@@ -2,11 +2,18 @@ import { Component, Input } from '@angular/core';
 import { IconType } from './icon-type';
 import { IconSize } from './icon-size';
 import { IconProp, SizeProp } from '@fortawesome/fontawesome-svg-core';
+import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
     selector: 'm-icon',
     templateUrl: './icon.component.html',
-    styleUrls: ['./icon.component.scss']
+    styleUrls: ['./icon.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        FontAwesomeModule
+    ]
 })
 export class IconComponent {
     protected mIcon?: string;

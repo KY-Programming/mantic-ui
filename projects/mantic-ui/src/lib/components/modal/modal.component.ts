@@ -4,6 +4,14 @@ import { IconType } from '../icon/icon-type';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
+import { DimmerComponent } from '../dimmer/dimmer.component';
+import { ModalHeaderComponent } from './modal-header.component';
+import { ModalFooterComponent } from './modal-footer.component';
+import { IconComponent } from '../icon/icon.component';
+import { ButtonComponent } from '../button/button.component';
+import { CommonModule } from '@angular/common';
+import { LoaderComponent } from '../loader/loader.component';
+import { FallbackForDirective } from '../../directives/fallback-for.directive';
 
 export type ModalSize =
     'mini'
@@ -14,7 +22,18 @@ export type ModalSize =
 @Component({
     selector: 'm-modal',
     templateUrl: './modal.component.html',
-    styleUrls: ['./modal.component.scss']
+    styleUrls: ['./modal.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        DimmerComponent,
+        ModalHeaderComponent,
+        ModalFooterComponent,
+        IconComponent,
+        ButtonComponent,
+        LoaderComponent,
+        FallbackForDirective
+    ]
 })
 export class ModalComponent extends InvertibleComponent {
     public static readonly defaults = {
@@ -32,6 +51,7 @@ export class ModalComponent extends InvertibleComponent {
     private isFullscreen = false;
     private isScrolling = true;
     private isNoPadding = false;
+    private isLoading = false;
 
     protected readonly defaults = ModalComponent.defaults;
 
@@ -120,6 +140,15 @@ export class ModalComponent extends InvertibleComponent {
 
     public set noPadding(value: BooleanLike) {
         this.isNoPadding = this.toBoolean(value);
+    }
+
+    @Input()
+    public get loading(): boolean {
+        return this.isLoading;
+    }
+
+    public set loading(value: BooleanLike) {
+        this.isLoading = this.toBoolean(value);
     }
 
     @Input()

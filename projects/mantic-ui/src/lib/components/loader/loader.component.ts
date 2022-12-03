@@ -1,13 +1,18 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
+import { CommonModule } from '@angular/common';
 
 export declare type LoaderSize = 'mini' | 'tiny' | 'small' | 'large' | 'big' | 'huge' | 'massive';
 
 @Component({
     selector: 'm-loader',
     templateUrl: './loader.component.html',
-    styleUrls: ['./loader.component.scss']
+    styleUrls: ['./loader.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule
+    ],
 })
 export class LoaderComponent extends BaseComponent {
     private isActive = true;

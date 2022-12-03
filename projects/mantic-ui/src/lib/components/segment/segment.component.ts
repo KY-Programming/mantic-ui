@@ -1,10 +1,10 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { DimmableComponent } from '../../base/dimmable.component';
-import { DimmableService } from '../../services/dimmable.service';
 import { ColorName } from '../../models/color';
 import { BooleanLike } from '../../models/boolean-like';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { BaseComponent } from '../../base/base.component';
+import { InvertibleComponent } from '../../base/invertible.component';
 
 export declare type SegmentAttached =
     'top'
@@ -14,9 +14,9 @@ export declare type SegmentAttached =
     selector: 'm-segment',
     templateUrl: './segment.component.html',
     styleUrls: ['./segment.component.scss'],
-    providers: [DimmableService]
+    standalone: true,
 })
-export class SegmentComponent extends DimmableComponent implements OnInit {
+export class SegmentComponent extends InvertibleComponent implements OnInit {
     public static readonly defaults = {
         inverted: false,
         invertedChange: new ReplaySubject<boolean>(1),

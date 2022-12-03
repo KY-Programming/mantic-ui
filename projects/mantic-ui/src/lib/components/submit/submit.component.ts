@@ -2,11 +2,18 @@ import { Component, HostListener, Optional } from '@angular/core';
 import { FormComponent } from '../form/form.component';
 import { Key } from '../../models/key';
 import { ButtonBaseComponent } from '../../base/button-base.component';
+import { CommonModule } from '@angular/common';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
     selector: 'm-submit',
     templateUrl: './submit.component.html',
-    styleUrls: ['./submit.component.scss']
+    styleUrls: ['./submit.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        IconComponent
+    ],
 })
 export class SubmitComponent extends ButtonBaseComponent {
 

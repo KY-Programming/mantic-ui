@@ -1,13 +1,19 @@
 import { Component, ContentChild, EventEmitter, HostBinding, HostListener, Input, Output, TemplateRef } from '@angular/core';
 import { Key } from '../../models/key';
 import { ButtonBaseComponent } from '../../base/button-base.component';
-import { NgIfContext } from '@angular/common';
+import { CommonModule, NgIfContext } from '@angular/common';
 import { BooleanLike } from '../../models/boolean-like';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
     selector: 'm-toggle-button',
     templateUrl: './toggle-button.component.html',
-    styleUrls: ['./toggle-button.component.scss']
+    styleUrls: ['./toggle-button.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        IconComponent
+    ],
 })
 export class ToggleButtonComponent extends ButtonBaseComponent {
 
