@@ -1,15 +1,19 @@
 import { Directive, HostBinding, Input } from '@angular/core';
 import { BaseDirective } from '../base/base.directive';
 import { BooleanLike } from '../models/boolean-like';
+import { InvertedDirective } from './inverted.directive';
 
 @Directive({
     selector: '[m-header]',
     standalone: true,
+    hostDirectives: [
+        InvertedDirective.default
+    ],
+    providers: [...BaseDirective.providers]
 })
 // TODO: Implement
 export class HeaderDirective extends BaseDirective {
     private isDividing: boolean;
-    private isInverted: boolean;
     private isIcon: boolean;
 
     @HostBinding('class.ui')
@@ -23,16 +27,6 @@ export class HeaderDirective extends BaseDirective {
     @HostBinding('class.dividing')
     public set dividing(value: BooleanLike) {
         this.isDividing = this.toBoolean(value);
-    }
-
-    public get inverted(): boolean {
-        return this.isInverted;
-    }
-
-    @Input()
-    @HostBinding('class.inverted')
-    public set inverted(value: BooleanLike) {
-        this.isInverted = this.toBoolean(value);
     }
 
     public get icon(): boolean {

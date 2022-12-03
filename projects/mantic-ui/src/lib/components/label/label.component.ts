@@ -1,9 +1,10 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { LabelPosition } from '../../models/label-position';
 import { BaseComponent } from '../../base/base.component';
-import { ColorName } from '../../models/color';
 import { LabelOptions } from '../../models/label-options';
 import { BooleanLike } from '../../models/boolean-like';
+import { ColorDirective } from '../../directives/color.directive';
+import { BasicDirective } from '../../directives/basic.directive';
 
 export declare type LabelPointing =
     'left'
@@ -17,12 +18,15 @@ export declare type LabelPointing =
     templateUrl: './label.component.html',
     styleUrls: ['./label.component.scss'],
     standalone: true,
+    hostDirectives: [
+        BasicDirective.default,
+        ColorDirective.default
+    ],
+    providers: [...BaseComponent.providers]
 })
 export class LabelComponent extends BaseComponent implements LabelOptions {
     private positionValue: LabelPosition;
     private pointingValue: LabelPointing;
-    private isBasic: boolean;
-    private colorValue: ColorName;
     private isHorizontal: boolean;
 
     public get position(): LabelPosition {
@@ -42,26 +46,6 @@ export class LabelComponent extends BaseComponent implements LabelOptions {
     @Input()
     public set pointing(value: LabelPointing) {
         this.pointingValue = value;
-        this.classList.set('color', value);
-    }
-
-    public get basic(): boolean {
-        return this.isBasic;
-    }
-
-    @Input()
-    @HostBinding('class.basic')
-    public set basic(value: BooleanLike) {
-        this.isBasic = this.toBoolean(value);
-    }
-
-    public get color(): ColorName {
-        return this.colorValue;
-    }
-
-    @Input()
-    public set color(value: ColorName) {
-        this.colorValue = value;
         this.classList.set('color', value);
     }
 

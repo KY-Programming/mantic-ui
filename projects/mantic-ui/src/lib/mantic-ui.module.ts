@@ -134,6 +134,9 @@ import { TextareaDefaultsComponent } from './components/textarea/textarea-defaul
 import { TabGroupDefaultsComponent } from './components/tab-group/tab-group-defaults.component';
 import { DimmerDefaultsComponent } from './components/dimmer/dimmer-defaults.component';
 import { TimeInputComponent } from './components/input/time/time-input.component';
+import { ColorDirective } from './directives/color.directive';
+import { BasicDirective } from './directives/basic.directive';
+import { InvertedDirective } from './directives/inverted.directive';
 
 @NgModule({
     declarations: [
@@ -254,14 +257,17 @@ import { TimeInputComponent } from './components/input/time/time-input.component
         FormsModule,
         RouterModule,
         FontAwesomeModule,
-        // Standalone Components
+        // Standalone
+        BasicDirective,
         ButtonComponent,
         ButtonDirective,
+        ColorDirective,
         DimmerComponent,
         FallbackForDirective,
         HeaderDirective,
         IconButtonComponent,
         IconComponent,
+        InvertedDirective,
         ImageUploadComponent,
         LabelComponent,
         LoaderComponent,
@@ -277,6 +283,7 @@ import { TimeInputComponent } from './components/input/time/time-input.component
         ToggleButtonComponent
     ],
     exports: [
+        ColorDirective,
         ButtonComponent,
         ToggleButtonComponent,
         ButtonGroupComponent,

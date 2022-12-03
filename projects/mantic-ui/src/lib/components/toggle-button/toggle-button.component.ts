@@ -14,6 +14,8 @@ import { IconComponent } from '../icon/icon.component';
         CommonModule,
         IconComponent
     ],
+    hostDirectives: [...ButtonBaseComponent.directives],
+    providers: [...ButtonBaseComponent.providers]
 })
 export class ToggleButtonComponent extends ButtonBaseComponent {
 

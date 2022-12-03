@@ -1,9 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { BooleanLike } from '../../models/boolean-like';
 import { IconType } from '../icon/icon-type';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
+import { BasicDirective } from '../../directives/basic.directive';
+import { BaseComponent } from '../../base/base.component';
 import { DimmerComponent } from '../dimmer/dimmer.component';
 import { ModalHeaderComponent } from './modal-header.component';
 import { ModalFooterComponent } from './modal-footer.component';
@@ -33,7 +35,11 @@ export type ModalSize =
         ButtonComponent,
         LoaderComponent,
         FallbackForDirective
-    ]
+    ],
+    hostDirectives: [
+        BasicDirective.default
+    ],
+    providers: [...BaseComponent.providers]
 })
 export class ModalComponent extends InvertibleComponent {
     public static readonly defaults = {
@@ -45,7 +51,6 @@ export class ModalComponent extends InvertibleComponent {
     private isShowClose: boolean;
     private isShowHeader = true;
     private isShowFooter = true;
-    private isBasic = false;
     private isVisible = true;
     private isImageContent = false;
     private isFullscreen = false;
@@ -54,6 +59,7 @@ export class ModalComponent extends InvertibleComponent {
     private isLoading = false;
 
     protected readonly defaults = ModalComponent.defaults;
+    protected readonly basicDirective = inject(BasicDirective, { self: true });
 
     @Input()
     public header: string;
@@ -83,15 +89,6 @@ export class ModalComponent extends InvertibleComponent {
 
     public set showFooter(value: BooleanLike) {
         this.isShowFooter = this.toBoolean(value);
-    }
-
-    @Input()
-    public get basic(): boolean {
-        return this.isBasic;
-    }
-
-    public set basic(value: BooleanLike) {
-        this.isBasic = this.toBoolean(value);
     }
 
     @Input()

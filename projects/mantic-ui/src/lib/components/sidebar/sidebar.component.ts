@@ -1,6 +1,7 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
+import { InvertedDirective } from '../../directives/inverted.directive';
 
 export declare type SidebarWidth =
     'thin'
@@ -20,24 +21,17 @@ export declare type SidebarPosition =
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.scss'],
     standalone: true,
+    hostDirectives: [
+        InvertedDirective.default
+    ],
+    providers: [...BaseComponent.providers]
 })
 export class SidebarComponent extends BaseComponent {
-    private isInverted: boolean;
     private widthValue: SidebarWidth;
     private isVisible: boolean;
     private positionValue: SidebarPosition;
     private isFluid: boolean;
     private noScrollingValue: boolean;
-
-    public get inverted(): boolean {
-        return this.isInverted;
-    }
-
-    @Input()
-    public set inverted(value: BooleanLike) {
-        this.isInverted = this.toBoolean(value);
-        this.classList.set('inverted', this.isInverted);
-    }
 
     public get visible(): boolean {
         return this.isVisible;

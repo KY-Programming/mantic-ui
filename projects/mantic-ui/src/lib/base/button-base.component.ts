@@ -1,18 +1,19 @@
 ﻿import { Directive, HostBinding, Input } from '@angular/core';
-import { ColorName } from '../models/color';
 import { BaseComponent } from './base.component';
 import { BooleanLike } from '../models/boolean-like';
+import { ColorDirective } from '../directives/color.directive';
+import { BasicDirective } from '../directives/basic.directive';
+import { InvertedDirective } from '../directives/inverted.directive';
 
 @Directive()
 export abstract class ButtonBaseComponent extends BaseComponent {
+    public static override readonly providers = [...BaseComponent.providers];
+    public static readonly directives = [ColorDirective.default, BasicDirective.default, InvertedDirective.default];
     private sizeValue: string;
-    private colorValue: ColorName;
-    private isInverted: boolean;
     private isPrimary: boolean;
     private isSecondary: boolean;
     private isPositive: boolean;
     private isNegative: boolean;
-    private isBasic: boolean;
     private isActive: boolean;
     private isDisabled: boolean;
     private isLoading: boolean;
@@ -21,16 +22,6 @@ export abstract class ButtonBaseComponent extends BaseComponent {
     private isAttachedTop: boolean;
     private isAttachedRight: boolean;
     private isAttachedBottom: boolean;
-
-    @Input()
-    @HostBinding('class.inverted')
-    public get inverted(): boolean {
-        return this.isInverted;
-    }
-
-    public set inverted(value: BooleanLike) {
-        this.isInverted = this.toBoolean(value);
-    }
 
     @Input()
     @HostBinding('class.primary')
@@ -70,26 +61,6 @@ export abstract class ButtonBaseComponent extends BaseComponent {
 
     public set negative(value: BooleanLike) {
         this.isNegative = this.toBoolean(value);
-    }
-
-    public get color(): ColorName {
-        return this.colorValue;
-    }
-
-    @Input()
-    public set color(value: ColorName) {
-        this.colorValue = value;
-        this.classList.set('color', value);
-    }
-
-    @Input()
-    @HostBinding('class.basic')
-    public get basic(): boolean {
-        return this.isBasic;
-    }
-
-    public set basic(value: BooleanLike) {
-        this.isBasic = this.toBoolean(value);
     }
 
     @Input()

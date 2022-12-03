@@ -3,6 +3,8 @@ import { BooleanLike } from '../../models/boolean-like';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
+import { BasicDirective } from '../../directives/basic.directive';
+import { BaseComponent } from '../../base/base.component';
 
 export declare type Align =
     | 'top'
@@ -14,6 +16,10 @@ export declare type Align =
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.scss'],
     standalone: true,
+    hostDirectives: [
+        BasicDirective.default
+    ],
+    providers: [...BaseComponent.providers]
 })
 export class TableComponent extends InvertibleComponent implements OnInit {
     public static readonly defaults = {
@@ -23,7 +29,6 @@ export class TableComponent extends InvertibleComponent implements OnInit {
 
     private isCelled = true;
     private isUnstackable: boolean;
-    private isBasic: boolean;
     private isVery: boolean;
     private alignedValue: Align;
     private isDefinition: boolean;
@@ -56,16 +61,6 @@ export class TableComponent extends InvertibleComponent implements OnInit {
 
     public set very(value: BooleanLike) {
         this.isVery = this.toBoolean(value);
-    }
-
-    @Input()
-    @HostBinding('class.basic')
-    public get basic(): boolean {
-        return this.isBasic;
-    }
-
-    public set basic(value: BooleanLike) {
-        this.isBasic = this.toBoolean(value);
     }
 
     @Input()

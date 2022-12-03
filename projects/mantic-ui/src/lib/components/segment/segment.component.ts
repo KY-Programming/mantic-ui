@@ -1,9 +1,10 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { ColorName } from '../../models/color';
 import { BooleanLike } from '../../models/boolean-like';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ColorDirective } from '../../directives/color.directive';
 import { BaseComponent } from '../../base/base.component';
+import { BasicDirective } from '../../directives/basic.directive';
 import { InvertibleComponent } from '../../base/invertible.component';
 
 export declare type SegmentAttached =
@@ -15,6 +16,11 @@ export declare type SegmentAttached =
     templateUrl: './segment.component.html',
     styleUrls: ['./segment.component.scss'],
     standalone: true,
+    hostDirectives: [
+        BasicDirective.default,
+        ColorDirective.default
+    ],
+    providers: [...BaseComponent.providers]
 })
 export class SegmentComponent extends InvertibleComponent implements OnInit {
     public static readonly defaults = {
@@ -28,11 +34,9 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
     private isRaised: boolean;
     private isRaisedChanged = false;
     private isPlaceholder: boolean;
-    private isBasic: boolean;
     private isSecondary: boolean;
     private isTertiary: boolean;
     private attachedValue: SegmentAttached;
-    private colorValue: ColorName;
     private isNoPadding: boolean;
     private isLoading: boolean;
 
@@ -68,16 +72,6 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
     }
 
     @Input()
-    public get basic(): boolean {
-        return this.isBasic;
-    }
-
-    public set basic(value: BooleanLike) {
-        this.isBasic = this.toBoolean(value);
-        this.classList.set('basic', this.isBasic);
-    }
-
-    @Input()
     public get secondary(): boolean {
         return this.isSecondary;
     }
@@ -95,16 +89,6 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
     public set tertiary(value: BooleanLike) {
         this.isTertiary = this.toBoolean(value);
         this.classList.set('tertiary', this.isTertiary);
-    }
-
-    public get color(): ColorName {
-        return this.colorValue;
-    }
-
-    @Input()
-    public set color(value: ColorName) {
-        this.colorValue = value;
-        this.classList.set('color', value);
     }
 
     public get attached(): SegmentAttached {

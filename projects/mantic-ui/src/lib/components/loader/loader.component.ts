@@ -1,6 +1,7 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
+import { InvertedDirective } from '../../directives/inverted.directive';
 import { CommonModule } from '@angular/common';
 
 export declare type LoaderSize = 'mini' | 'tiny' | 'small' | 'large' | 'big' | 'huge' | 'massive';
@@ -13,12 +14,15 @@ export declare type LoaderSize = 'mini' | 'tiny' | 'small' | 'large' | 'big' | '
     imports: [
         CommonModule
     ],
+    hostDirectives: [
+        InvertedDirective.default
+    ],
+    providers: [...BaseComponent.providers]
 })
 export class LoaderComponent extends BaseComponent {
     private isActive = true;
     private textValue: string;
     private isInline: boolean;
-    private isInverted: boolean;
     private sizeValue: LoaderSize;
 
     public get active(): boolean {
@@ -39,16 +43,6 @@ export class LoaderComponent extends BaseComponent {
     @HostBinding('class.inline')
     public set inline(value: BooleanLike) {
         this.isInline = this.toBoolean(value);
-    }
-
-    public get inverted(): boolean {
-        return this.isInverted;
-    }
-
-    @Input()
-    @HostBinding('class.inverted')
-    public set inverted(value: BooleanLike) {
-        this.isInverted = this.toBoolean(value);
     }
 
     public get text(): string {

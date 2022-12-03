@@ -2,14 +2,15 @@ import { Component, ContentChild, HostBinding, inject, Input } from '@angular/co
 import { AnimationDirection } from '../animation/animation-direction';
 import { AnimationComponent } from '../animation/animation.component';
 import { LabelComponent } from '../label/label.component';
-import { Color } from '../../models/color';
 import { ButtonBaseComponent } from '../../base/button-base.component';
 import { BooleanLike } from '../../models/boolean-like';
 import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
 import { LabelPosition } from '../../models/label-position';
+import { ColorDirective } from '../../directives/color.directive';
 import { CommonModule } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
+import { BasicDirective } from '../../directives/basic.directive';
 
 export declare type Pointing =
     'left'
@@ -27,6 +28,8 @@ export declare type Pointing =
         CommonModule,
         IconComponent
     ],
+    hostDirectives: [...ButtonBaseComponent.directives],
+    providers: [...ButtonBaseComponent.providers]
 })
 export class ButtonComponent extends ButtonBaseComponent {
     private animatedField: AnimationComponent;
@@ -36,6 +39,8 @@ export class ButtonComponent extends ButtonBaseComponent {
     private pointingValue: Pointing;
     private iconPositionValue: LabelPosition;
     private icoValue: IconType;
+    protected readonly basicDirective = inject(BasicDirective, { self: true });
+    protected readonly colorDirective = inject(ColorDirective, { self: true });
 
     public get animated(): AnimationComponent {
         return this.animatedField;
@@ -119,8 +124,6 @@ export class ButtonComponent extends ButtonBaseComponent {
     public set fluid(value: BooleanLike) {
         this.isFluid = this.toBoolean(value);
     }
-
-    public readonly Color = Color;
 
     public constructor() {
         super();

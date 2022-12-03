@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
     imports: [
         CommonModule
     ],
+    hostDirectives: [...ButtonBaseComponent.directives],
+    providers: [...ButtonBaseComponent.providers]
 })
 export class ImageUploadComponent extends ButtonBaseComponent {
     private readonly previewImageChangeSubject = new Subject<string>();

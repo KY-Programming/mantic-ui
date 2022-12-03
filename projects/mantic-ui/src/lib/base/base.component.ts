@@ -4,9 +4,14 @@ import { ClassList } from '../models/class-list';
 import { takeUntil } from 'rxjs/operators';
 import { BooleanLike } from '../models/boolean-like';
 import { toBoolean } from '../helpers/to-boolean';
+import { SortedClassesService } from '../services/sorted-classes.service';
 
 @Directive()
 export abstract class BaseComponent extends DestroyableComponent implements OnInit {
+    protected static readonly providers: TypeProvider[] = [SortedClassesService];
+
+    // TODO: Remove optional flag
+    private readonly classes = inject(SortedClassesService, { optional: true, self: true });
     private noClassesValue = false;
     private initialized = false;
     protected readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
@@ -34,6 +39,7 @@ export abstract class BaseComponent extends DestroyableComponent implements OnIn
         if (useUiClass) {
             this.classList.register('ui');
             this.classList.set('ui', true, false);
+            this.classes?.registerFixed('ui');
         }
         this.classList.register('title', 'style');
     }
@@ -67,6 +73,7 @@ export abstract class BaseComponent extends DestroyableComponent implements OnIn
             return;
         }
         this.classList.update(this.elementRef.nativeElement.classList);
+        this.classes?.update();
     }
 
     protected toBoolean(value: BooleanLike): boolean {
