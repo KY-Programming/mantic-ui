@@ -8,7 +8,10 @@ export declare type GridWidth = 'equal';
 @Component({
     selector: 'm-grid',
     templateUrl: './grid.component.html',
-    styleUrls: ['./grid.component.scss']
+    styleUrls: ['./grid.component.scss'],
+    standalone: true,
+    hostDirectives: [...BaseComponent.directives],
+    providers: [...BaseComponent.providers]
 })
 export class GridComponent extends BaseComponent {
     private columnsValue: FieldSize;
@@ -26,7 +29,7 @@ export class GridComponent extends BaseComponent {
 
     public set vertically(value: BooleanLike) {
         this.isVertically = this.toBoolean(value);
-        this.classList.set('vertically', this.isVertically);
+        this.classes.set('vertically', this.isVertically);
     }
 
     @Input()
@@ -36,17 +39,17 @@ export class GridComponent extends BaseComponent {
 
     public set divided(value: BooleanLike) {
         this.isDivided = this.toBoolean(value);
-        this.classList.set('divided', this.isDivided);
+        this.classes.set('divided', this.isDivided);
     }
 
+    @Input()
     public get columns(): FieldSize {
         return this.columnsValue;
     }
 
-    @Input()
     public set columns(value: ParsableFieldSize) {
         this.columnsValue = parseFieldSize(value);
-        this.classList.set('columns', this.columnsValue ? `${this.columnsValue} column` : undefined);
+        this.classes.set('columns', this.columnsValue ? `${this.columnsValue} column` : undefined);
     }
 
     @Input()
@@ -56,7 +59,7 @@ export class GridComponent extends BaseComponent {
 
     public set internally(value: BooleanLike) {
         this.isInternally = this.toBoolean(value);
-        this.classList.set('internally', this.isInternally);
+        this.classes.set('internally', this.isInternally);
     }
 
     @Input()
@@ -66,17 +69,17 @@ export class GridComponent extends BaseComponent {
 
     public set celled(value: BooleanLike) {
         this.isCelled = this.toBoolean(value);
-        this.classList.set('celled', this.isCelled);
+        this.classes.set('celled', this.isCelled);
     }
 
+    @Input()
     public get width(): GridWidth {
         return this.widthValue;
     }
 
-    @Input()
     public set width(value: GridWidth) {
         this.widthValue = value;
-        this.classList.set('width', value ? `${value} width` : undefined);
+        this.classes.set('width', value ? `${value} width` : undefined);
     }
 
     @Input()
@@ -86,12 +89,13 @@ export class GridComponent extends BaseComponent {
 
     public set noMargin(value: BooleanLike) {
         this.noMarginValue = this.toBoolean(value);
-        this.classList.set('no-margin', this.noMargin);
+        this.classes.set('no-margin', this.noMargin);
     }
 
     public constructor() {
         super();
-        this.classList.register('vertically', 'divided', 'columns', 'internally', 'celled', 'width', 'noMargin').registerFixed('grid');
+        this.classes.register('vertically', 'divided', 'columns', 'internally', 'celled', 'width', 'noMargin')
+            .registerFixed('grid');
     }
 
 }

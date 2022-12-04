@@ -1,35 +1,56 @@
-import { Component, ContentChildren, EventEmitter, HostBinding, Input, OnInit, Optional, Output, QueryList, Self } from '@angular/core';
+import { Component, ContentChildren, EventEmitter, HostBinding, inject, Input, OnInit, Output, QueryList } from '@angular/core';
 import { ReplaySubject, Subscription } from 'rxjs';
 import { FieldComponent } from '../field/field.component';
 import { BooleanLike } from '../../models/boolean-like';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { takeUntil } from 'rxjs/operators';
 import { FlexDirective } from '../flex/flex.directive';
+import { LoadingDirective } from '../../directives/loading.directive';
+import { CommonModule } from '@angular/common';
+import { FillDirective } from '../flex/fill/fill.directive';
+import { FlexDirection } from '../flex/flex.types';
 
 @Component({
     selector: 'm-form',
     templateUrl: './form.component.html',
-    styleUrls: ['./form.component.scss']
+    styleUrls: ['./form.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        FlexDirective,
+        FillDirective
+    ],
+    hostDirectives: [...InvertibleComponent.directives, LoadingDirective.default],
+    providers: [...InvertibleComponent.providers]
 })
 export class FormComponent extends InvertibleComponent implements OnInit {
     public static readonly defaults = {
         inverted: false,
         invertedChange: new ReplaySubject<boolean>(1)
     };
+    private readonly loadingDirective = inject(LoadingDirective, { self: true });
+    private readonly flexDirective = inject(FlexDirective, { self: true, optional: true });
     private fieldComponentsValue: QueryList<FieldComponent>;
     private subscriptions: Subscription[];
     private isValidValue = false;
-    private isLoading: boolean;
     private isSuccess: boolean;
     private isWarning: boolean;
     private isError: boolean;
 
+    protected get loading(): boolean {
+        return this.loadingDirective.loading;
+    }
+
+    protected get flexDirection(): FlexDirection | '' | undefined {
+        return this.flexDirective?.direction;
+    }
+
+    @ContentChildren(FieldComponent)
     public get fieldComponents(): QueryList<FieldComponent> {
         return this.fieldComponentsValue;
     }
 
-    @ContentChildren(FieldComponent)
-    public set fieldComponents(value: QueryList<FieldComponent>) {
+    protected set fieldComponents(value: QueryList<FieldComponent>) {
         this.releaseFields();
         this.fieldComponentsValue = value;
         this.subscribeFields();
@@ -59,16 +80,6 @@ export class FormComponent extends InvertibleComponent implements OnInit {
 
     @Input()
     public novalidate: boolean;
-
-    @Input()
-    @HostBinding('class.loading')
-    public get loading(): boolean {
-        return this.isLoading;
-    }
-
-    public set loading(value: BooleanLike) {
-        this.isLoading = this.toBoolean(value);
-    }
 
     @Input()
     @HostBinding('class.success')
@@ -118,11 +129,9 @@ export class FormComponent extends InvertibleComponent implements OnInit {
     @Output()
     public readonly isValidChange = new EventEmitter<boolean>();
 
-    public constructor(
-        @Optional() @Self() protected readonly flexDirective?: FlexDirective
-    ) {
+    public constructor() {
         super(false);
-        this.classList.register('loading', 'success', 'warning', 'error');
+        this.classes.register('success', 'warning', 'error');
     }
 
     public override ngOnInit(): void {

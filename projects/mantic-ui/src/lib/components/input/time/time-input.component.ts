@@ -16,7 +16,9 @@ import { FallbackForDirective } from '../../../directives/fallback-for.directive
         FormsModule,
         IconComponent,
         FallbackForDirective
-    ]
+    ],
+    hostDirectives: [...InputBaseComponent.directives],
+    providers: [...InputBaseComponent.providers]
 })
 export class TimeInputComponent extends InputBaseComponent implements OnInit {
     private valueField: Date | undefined;
@@ -69,6 +71,7 @@ export class TimeInputComponent extends InputBaseComponent implements OnInit {
 
     public constructor() {
         super();
+        this.classes.register('min', 'max', 'defaultValue', 'value');
     }
 
     public override ngOnInit(): void {

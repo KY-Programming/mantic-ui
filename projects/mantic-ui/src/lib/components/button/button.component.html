@@ -6,7 +6,7 @@
 </ng-container>
 <ng-container *ngIf="label">
     <ng-container *ngIf="labelPosition === 'left'" [ngTemplateOutlet]="labelTemplate"></ng-container>
-    <div class="ui" [class.basic]="basicDirective.basic" [class.icon]="icon" [ngClass]="colorDirective.color" [class.button]="true">
+    <div class="ui" [class.basic]="basic" [class.icon]="icon" [ngClass]="color" [class.button]="true">
         <ng-container [ngTemplateOutlet]="content"></ng-container>
     </div>
     <ng-container *ngIf="labelPosition !== 'left'" [ngTemplateOutlet]="labelTemplate"></ng-container>

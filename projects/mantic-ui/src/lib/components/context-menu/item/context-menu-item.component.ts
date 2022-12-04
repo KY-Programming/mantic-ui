@@ -3,11 +3,18 @@ import { MenuItemComponent } from '../../menu-item/menu-item.component';
 import { ContextMenuComponent } from '../context-menu.component';
 import { BooleanLike } from '../../../models/boolean-like';
 import { IconType } from '../../icon/icon-type';
+import { IconComponent } from '../../icon/icon.component';
 
 @Component({
     selector: 'm-context-menu-item',
     templateUrl: './context-menu-item.component.html',
-    styleUrls: ['./context-menu-item.component.scss']
+    styleUrls: ['./context-menu-item.component.scss'],
+    standalone: true,
+    imports: [
+        IconComponent
+    ],
+    hostDirectives: [...MenuItemComponent.directives],
+    providers: [...MenuItemComponent.providers]
 })
 export class ContextMenuItemComponent extends MenuItemComponent {
     private keepOpenValue: boolean;
@@ -28,12 +35,12 @@ export class ContextMenuItemComponent extends MenuItemComponent {
         @Optional() private readonly contextMenu: ContextMenuComponent
     ) {
         super();
-        this.classList.register('keepOpen', 'icon');
+        this.classes.register('keepOpen', 'icon');
         this.link = true;
     }
 
     @HostListener('click')
-    public onClick(): void {
+    private onClick(): void {
         if (this.keepOpen) {
             return;
         }

@@ -1,5 +1,5 @@
 <div *ngIf="isPreviewVisible" class="preview" [style.width.px]="previewWidth || width" [style.height.px]="previewHeight || height" [style.border-radius.px]="radius">
-    <img [src]="previewImage">
+    <img [src]="previewImage" alt="">
 </div>
 <div class="content">
     <ng-content></ng-content>

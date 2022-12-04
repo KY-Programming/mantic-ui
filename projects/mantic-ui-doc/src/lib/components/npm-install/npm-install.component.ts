@@ -1,13 +1,19 @@
 import { Component, Input } from '@angular/core';
-import { BaseComponent, BooleanLike } from '@mantic-ui/angular';
+import { BooleanLike, SegmentComponent, toBoolean } from '@mantic-ui/angular';
 import { NpmApiService } from '../../services/npm-api.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'm-npm-install',
     templateUrl: './npm-install.component.html',
-    styleUrls: ['./npm-install.component.scss']
+    styleUrls: ['./npm-install.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        SegmentComponent
+    ]
 })
-export class NpmInstallComponent extends BaseComponent {
+export class NpmInstallComponent {
     private packageValue: string;
     private searchVersionValue: string;
     private isDev: boolean;
@@ -41,13 +47,12 @@ export class NpmInstallComponent extends BaseComponent {
     }
 
     public set dev(value: BooleanLike) {
-        this.isDev = this.toBoolean(value);
+        this.isDev = toBoolean(value);
     }
 
     public constructor(
         private readonly nugetApiService: NpmApiService
     ) {
-        super();
     }
 
     private refreshVersion(): void {

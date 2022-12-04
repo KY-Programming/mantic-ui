@@ -3,7 +3,8 @@ import { TableComponent } from './table.component';
 
 @Component({
     selector: 'm-table-defaults',
-    template: ''
+    template: '',
+    standalone: true
 })
 export class TableDefaultsComponent {
     @Input()

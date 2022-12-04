@@ -6,7 +6,10 @@ import { BooleanLike } from '../../models/boolean-like';
 @Component({
     selector: 'm-dropdown-item',
     templateUrl: './dropdown-item.component.html',
-    styleUrls: ['./dropdown-item.component.scss']
+    styleUrls: ['./dropdown-item.component.scss'],
+    standalone: true,
+    hostDirectives: [...BaseComponent.directives],
+    providers: [...BaseComponent.providers]
 })
 export class DropdownItemComponent extends BaseComponent {
     private isFilteredOut: boolean;
@@ -41,18 +44,16 @@ export class DropdownItemComponent extends BaseComponent {
 
     public readonly element = this.elementRef;
 
-    @HostBinding('class.item')
-    public readonly item = true;
-
     public constructor(
         private readonly dropDownSelectionService: DropDownSelectionService
     ) {
         super();
-        this.classList.register('filtered', 'selected', 'value');
+        this.classes.register('filtered', 'selected', 'value')
+            .registerFixed('item');
     }
 
     @HostListener('click', ['$event'])
-    public click(event: MouseEvent): void {
+    private click(event: MouseEvent): void {
         event.preventDefault();
         event.stopPropagation();
         this.dropDownSelectionService.select(this.value);

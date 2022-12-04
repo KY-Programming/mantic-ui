@@ -13,7 +13,10 @@ export declare type CellAlign =
 @Component({
     selector: 'm-cell',
     templateUrl: './cell.component.html',
-    styleUrls: ['./cell.component.scss']
+    styleUrls: ['./cell.component.scss'],
+    standalone: true,
+    hostDirectives: [...BaseComponent.directives],
+    providers: [...BaseComponent.providers]
 })
 export class CellComponent extends BaseComponent {
     private sizeValue: FieldSize;
@@ -28,7 +31,7 @@ export class CellComponent extends BaseComponent {
     @HostBinding('class.wide')
     public set size(value: ParsableFieldSize) {
         this.sizeValue = parseFieldSize(value);
-        this.classList.set('size', this.sizeValue);
+        this.classes.set('size', this.sizeValue);
     }
 
     @Input()
@@ -38,7 +41,7 @@ export class CellComponent extends BaseComponent {
 
     public set float(value: CellFloat) {
         this.floatValue = value;
-        this.classList.set('float', value ? `${value} floated` : undefined);
+        this.classes.set('float', value ? `${value} floated` : undefined);
     }
 
     @Input()
@@ -48,15 +51,13 @@ export class CellComponent extends BaseComponent {
 
     public set align(value: CellAlign) {
         this.alignValue = value;
-        this.classList.set('align', value ? `${value} aligned` : undefined);
+        this.classes.set('align', value ? `${value} aligned` : undefined);
     }
-
-    @HostBinding('class.column')
-    public readonly column = true;
 
     public constructor() {
         super(false);
-        this.classList.register('size', 'float', 'align');
+        this.classes.register('size', 'float', 'align')
+            .registerFixed('column');
     }
 
 }

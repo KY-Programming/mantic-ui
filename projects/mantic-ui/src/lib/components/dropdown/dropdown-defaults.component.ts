@@ -5,7 +5,8 @@ import { DropdownComponent } from './dropdown.component';
 
 @Component({
     selector: 'm-dropdown-defaults',
-    template: ''
+    template: '',
+    standalone: true
 })
 export class DropdownDefaultsComponent implements OnDestroy {
     private readonly previousDropdownIcon = DropdownComponent.defaults.dropdownIcon;

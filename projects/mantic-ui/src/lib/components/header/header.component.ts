@@ -1,14 +1,23 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
+import { CommonModule } from '@angular/common';
+import { IconComponent } from '../icon/icon.component';
 
 export declare type HeaderSize = 'huge' | 'large' | 'medium' | 'small' | 'tiny';
 
 @Component({
     selector: 'm-header',
     templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss']
+    styleUrls: ['./header.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        IconComponent
+    ],
+    hostDirectives: [...BaseComponent.directives],
+    providers: [...BaseComponent.providers]
 })
 export class HeaderComponent extends BaseComponent {
     private sizeValue: HeaderSize;
@@ -26,14 +35,12 @@ export class HeaderComponent extends BaseComponent {
 
     public set size(value: HeaderSize) {
         this.sizeValue = value;
-        this.classList.set('size', value);
+        this.classes.set('size', value);
     }
-
-    @HostBinding('class.header')
-    public readonly header = true;
 
     public constructor() {
         super();
-        this.classList.register('size');
+        this.classes.register('size', 'iconSize')
+            .registerFixed('header');
     }
 }

@@ -3,11 +3,20 @@ import { BooleanLike } from '../../models/boolean-like';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { takeUntil } from 'rxjs/operators';
 import { ReplaySubject } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { FallbackForDirective } from '../../directives/fallback-for.directive';
 
 @Component({
     selector: 'm-textarea',
     templateUrl: './textarea.component.html',
-    styleUrls: ['./textarea.component.scss']
+    styleUrls: ['./textarea.component.scss'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        FallbackForDirective
+    ],
+    hostDirectives: [...InvertibleComponent.directives],
+    providers: [...InvertibleComponent.providers]
 })
 export class TextareaComponent extends InvertibleComponent {
     public static readonly defaults = {
@@ -82,11 +91,6 @@ export class TextareaComponent extends InvertibleComponent {
     @Output()
     public readonly focusout = new EventEmitter<FocusEvent>();
 
-    @HostBinding('class.textarea')
-    // HACK: Currently I do not know a other way to style a textarea with semantic ui
-    @HostBinding('class.form')
-    public readonly textarea = true;
-
     @ContentChild('textarea')
     protected set contentTextareaElement(textarea: ElementRef<HTMLTextAreaElement>) {
         this.unbindEvents();
@@ -106,7 +110,9 @@ export class TextareaComponent extends InvertibleComponent {
         private readonly applicationRef: ApplicationRef
     ) {
         super();
-        this.classList.register('disabled', 'readonly', 'hasError', 'fluid');
+        this.classes.register('disabled', 'readonly', 'hasError', 'fluid')
+            // HACK: Currently I do not know a other way to style a textarea with semantic ui, so I have to use form class here
+            .registerFixed('form', 'textarea');
         TextareaComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
 

@@ -1,15 +1,54 @@
 import { Component, DoCheck, HostBinding, Input, IterableDiffer, IterableDiffers, Output } from '@angular/core';
-import { FormDataElement, FormDropDownElement, FormElements } from '../form-renderer/form-layout';
+import { FormAreaElement, FormButtonElement, FormCheckboxElement, FormDataElement, FormDropDownElement, FormElements, FormFieldGroupElement, FormGridElement, FormHeader, FormInputElement, FormLabelElement, FormMessage } from '../form-renderer/form-layout';
 import { BaseComponent } from '../../base/base.component';
 import { DataSourceComponent } from '../data-source/data-source.component';
 import { DropdownValue } from '../dropdown/dropdown-value';
 import { merge, Observable, ReplaySubject, Subject } from 'rxjs';
 import { BooleanLike } from '../../models/boolean-like';
+import { CommonModule } from '@angular/common';
+import { FieldComponent } from '../field/field.component';
+import { InputComponent } from '../input/text/input.component';
+import { NumericInputComponent } from '../input/numeric/numeric-input.component';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { TextareaComponent } from '../textarea/textarea.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
+import { ButtonComponent } from '../button/button.component';
+import { GridComponent } from '../grid/grid.component';
+import { CellComponent } from '../cell/cell.component';
+import { FormElementRenderer2Component } from './form-element-renderer2.component';
+import { DividerComponent } from '../divider/divider.component';
+import { ErrorComponent } from '../error/error.component';
+import { InfoComponent } from '../info/info.component';
+import { WarningComponent } from '../warning/warning.component';
+import { MessageComponent } from '../message/message.component';
+import { HeaderDirective } from '../../directives/header.directive';
 
 @Component({
     selector: 'm-form-element-renderer',
     templateUrl: './form-element-renderer.component.html',
-    styleUrls: ['./form-element-renderer.component.scss']
+    styleUrls: ['./form-element-renderer.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        FieldComponent,
+        InputComponent,
+        NumericInputComponent,
+        CheckboxComponent,
+        TextareaComponent,
+        DropdownComponent,
+        ButtonComponent,
+        GridComponent,
+        CellComponent,
+        MessageComponent,
+        WarningComponent,
+        InfoComponent,
+        ErrorComponent,
+        DividerComponent,
+        FormElementRenderer2Component,
+        HeaderDirective
+    ],
+    hostDirectives: [...BaseComponent.directives],
+    providers: [...BaseComponent.providers]
 })
 export class FormElementRendererComponent extends BaseComponent implements DoCheck {
     private isFields: boolean;
@@ -61,17 +100,17 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
         iterableDiffers: IterableDiffers
     ) {
         super(false);
-        this.classList.register('elements', 'fields');
+        this.classes.register('elements', 'fields');
         this.elementsDiffer = iterableDiffers.find([]).create(undefined);
     }
 
     public ngDoCheck(): void {
         if (this.isFields && this.elementsDiffer.diff(this.elements)) {
-            this.classList.set('elements', this.fieldClasses[this.elements.length]);
+            this.classes.set('elements', this.fieldClasses[this.elements.length]);
         }
     }
 
-    public getData(dataSource: string): Observable<unknown[]> {
+    protected getData(dataSource: string): Observable<unknown[]> {
         if (!this.dataCache[dataSource]) {
             const subject = new ReplaySubject<unknown[]>(1);
             this.dataCache[dataSource] = subject.asObservable();
@@ -83,7 +122,7 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
         return this.dataCache[dataSource];
     }
 
-    public getItems(dropdown: FormDropDownElement): Observable<DropdownValue[]> {
+    protected getItems(dropdown: FormDropDownElement): Observable<DropdownValue[]> {
         if (!this.dropDownCache[dropdown.dataSource]) {
             const subject = new ReplaySubject<DropdownValue[]>(1);
             this.dropDownCache[dropdown.dataSource] = subject.asObservable();
@@ -102,7 +141,7 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
         return this.dropDownCache[dropdown.dataSource];
     }
 
-    public onExecute(action: string): void {
+    protected onExecute(action: string): void {
         this.executeSubject.next(action);
     }
 
@@ -144,5 +183,75 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
             value.value ??= undefined;
         }
         return values;
+    }
+
+    protected $input(element: FormElements): FormInputElement {
+        if (element.elementType === 'input') {
+            return element;
+        }
+        throw new Error(`${element.elementType} can not be casted to 'input'`);
+    }
+
+    protected $checkbox(element: FormElements): FormCheckboxElement {
+        if (element.elementType === 'checkbox') {
+            return element;
+        }
+        throw new Error(`${element.elementType} can not be casted to 'checkbox'`);
+    }
+
+    protected $area(element: FormElements): FormAreaElement {
+        if (element.elementType === 'area') {
+            return element;
+        }
+        throw new Error(`${element.elementType} can not be casted to 'area'`);
+    }
+
+    protected $dropdown(element: FormElements): FormDropDownElement {
+        if (element.elementType === 'dropdown') {
+            return element;
+        }
+        throw new Error(`${element.elementType} can not be casted to 'dropdown'`);
+    }
+
+    protected $button(element: FormElements): FormButtonElement {
+        if (element.elementType === 'button') {
+            return element;
+        }
+        throw new Error(`${element.elementType} can not be casted to 'button'`);
+    }
+
+    protected $label(element: FormElements): FormLabelElement {
+        if (element.elementType === 'label') {
+            return element;
+        }
+        throw new Error(`${element.elementType} can not be casted to 'label'`);
+    }
+
+    protected $fields(element: FormElements): FormFieldGroupElement {
+        if (element.elementType === 'fields') {
+            return element;
+        }
+        throw new Error(`${element.elementType} can not be casted to 'fields'`);
+    }
+
+    protected $grid(element: FormElements): FormGridElement {
+        if (element.elementType === 'grid') {
+            return element;
+        }
+        throw new Error(`${element.elementType} can not be casted to 'grid'`);
+    }
+
+    protected $message(element: FormElements): FormMessage {
+        if (element.elementType === 'message') {
+            return element;
+        }
+        throw new Error(`${element.elementType} can not be casted to 'message'`);
+    }
+
+    protected $header(element: FormElements): FormHeader {
+        if (element.elementType === 'h1' || element.elementType === 'h2' || element.elementType === 'h3' || element.elementType === 'h4' || element.elementType === 'h5' || element.elementType === 'h6') {
+            return element;
+        }
+        throw new Error(`${element.elementType} can not be casted to 'h1-6'`);
     }
 }

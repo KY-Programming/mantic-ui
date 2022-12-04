@@ -1,6 +1,7 @@
 import { Component, HostBinding, Input, Optional, SkipSelf } from '@angular/core';
 import { BooleanLike } from '../../models/boolean-like';
 import { InvertibleComponent } from '../../base/invertible.component';
+import { PointingDirective } from '../../directives/pointing.directive';
 
 export declare type MenuPosition =
     'top'
@@ -12,13 +13,15 @@ export declare type MenuPosition =
 @Component({
     selector: 'm-menu',
     templateUrl: './menu.component.html',
-    styleUrls: ['./menu.component.scss']
+    styleUrls: ['./menu.component.scss'],
+    standalone: true,
+    hostDirectives: [...InvertibleComponent.directives, PointingDirective.default],
+    providers: [...InvertibleComponent.providers]
 })
 export class MenuComponent extends InvertibleComponent {
     private isFixed: boolean;
     private positionValue: MenuPosition;
     private isSecondary: boolean;
-    private isPointing: boolean;
     private attachedValue: MenuPosition;
     private isTabular: boolean;
     private isText: boolean;
@@ -33,7 +36,7 @@ export class MenuComponent extends InvertibleComponent {
     @Input()
     public set position(value: MenuPosition) {
         this.positionValue = value;
-        this.classList.set('position', value);
+        this.classes.set('position', value);
     }
 
     @Input()
@@ -56,16 +59,6 @@ export class MenuComponent extends InvertibleComponent {
         this.isSecondary = this.toBoolean(value);
     }
 
-    @Input()
-    @HostBinding('class.pointing')
-    public get pointing(): boolean {
-        return this.isPointing;
-    }
-
-    public set pointing(value: BooleanLike) {
-        this.isPointing = this.toBoolean(value);
-    }
-
     public get attached(): MenuPosition {
         return this.attachedValue;
     }
@@ -74,7 +67,7 @@ export class MenuComponent extends InvertibleComponent {
     @HostBinding('class.attached')
     public set attached(value: MenuPosition) {
         this.attachedValue = value;
-        this.classList.set('attached', value);
+        this.classes.set('attached', value);
     }
 
     @Input()
@@ -107,13 +100,11 @@ export class MenuComponent extends InvertibleComponent {
         this.isVertical = this.toBoolean(value);
     }
 
-    @HostBinding('class.menu')
-    public readonly menu = true;
-
     public constructor(
         @Optional() @SkipSelf() parentMenu?: MenuComponent
     ) {
         super(!parentMenu);
-        this.classList.register('position', 'fixed', 'pointing', 'secondary', 'tabular', 'text', 'attached', 'vertical');
+        this.classes.registerFixed('menu');
+        this.classes.register('position', 'fixed', 'secondary', 'tabular', 'text', 'attached', 'vertical');
     }
 }

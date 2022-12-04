@@ -4,11 +4,21 @@ import { BaseComponent } from '../../base/base.component';
 import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
 import { ExpanderIconComponent } from '../expander-icon/expander-icon.component';
+import { FillComponent } from '../flex/fill/fill.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'm-expander-part',
     templateUrl: './expander-part.component.html',
-    styleUrls: ['./expander-part.component.scss']
+    styleUrls: ['./expander-part.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        FillComponent,
+        ExpanderIconComponent
+    ],
+    hostDirectives: [...BaseComponent.directives],
+    providers: [...BaseComponent.providers]
 })
 export class ExpanderPartComponent extends BaseComponent {
     private isExpanded: boolean;
@@ -41,11 +51,11 @@ export class ExpanderPartComponent extends BaseComponent {
 
     public constructor() {
         super(false);
-        this.classList.register('expanded', 'expandable');
+        this.classes.register('expanded', 'expandable');
     }
 
     @HostListener('click')
-    protected onClick(): void {
+    private onClick(): void {
         if (this.expandable === false) {
             return;
         }

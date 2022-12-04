@@ -1,11 +1,11 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BooleanLike } from '../../models/boolean-like';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ColorDirective } from '../../directives/color.directive';
-import { BaseComponent } from '../../base/base.component';
 import { BasicDirective } from '../../directives/basic.directive';
 import { InvertibleComponent } from '../../base/invertible.component';
+import { LoadingDirective } from '../../directives/loading.directive';
 
 export declare type SegmentAttached =
     'top'
@@ -16,11 +16,8 @@ export declare type SegmentAttached =
     templateUrl: './segment.component.html',
     styleUrls: ['./segment.component.scss'],
     standalone: true,
-    hostDirectives: [
-        BasicDirective.default,
-        ColorDirective.default
-    ],
-    providers: [...BaseComponent.providers]
+    hostDirectives: SegmentComponent.directives,
+    providers: SegmentComponent.providers
 })
 export class SegmentComponent extends InvertibleComponent implements OnInit {
     public static readonly defaults = {
@@ -29,6 +26,8 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
         raised: false,
         raisedChange: new ReplaySubject<boolean>(1)
     };
+    protected static override readonly providers = [...InvertibleComponent.providers];
+    protected static override readonly directives = [...InvertibleComponent.directives, BasicDirective.default, ColorDirective.default, LoadingDirective.default];
 
     private isVertical: boolean;
     private isRaised: boolean;
@@ -38,7 +37,6 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
     private isTertiary: boolean;
     private attachedValue: SegmentAttached;
     private isNoPadding: boolean;
-    private isLoading: boolean;
 
     @Input()
     public get raised(): boolean {
@@ -48,7 +46,7 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
     public set raised(value: BooleanLike) {
         this.isRaisedChanged = true;
         this.isRaised = this.toBoolean(value);
-        this.classList.set('raised', this.isRaised);
+        this.classes.set('raised', this.isRaised);
     }
 
     @Input()
@@ -58,7 +56,7 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
 
     public set vertical(value: BooleanLike) {
         this.isVertical = this.toBoolean(value);
-        this.classList.set('vertical', this.isVertical);
+        this.classes.set('vertical', this.isVertical);
     }
 
     @Input()
@@ -68,7 +66,7 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
 
     public set placeholder(value: BooleanLike) {
         this.isPlaceholder = this.toBoolean(value);
-        this.classList.set('placeholder', this.isPlaceholder);
+        this.classes.set('placeholder', this.isPlaceholder);
     }
 
     @Input()
@@ -78,7 +76,7 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
 
     public set secondary(value: BooleanLike) {
         this.isSecondary = this.toBoolean(value);
-        this.classList.set('secondary', this.isSecondary);
+        this.classes.set('secondary', this.isSecondary);
     }
 
     @Input()
@@ -88,7 +86,7 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
 
     public set tertiary(value: BooleanLike) {
         this.isTertiary = this.toBoolean(value);
-        this.classList.set('tertiary', this.isTertiary);
+        this.classes.set('tertiary', this.isTertiary);
     }
 
     public get attached(): SegmentAttached {
@@ -98,8 +96,8 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
     @Input()
     public set attached(value: SegmentAttached) {
         this.attachedValue = value;
-        this.classList.set('attachedValue', value, false);
-        this.classList.set('attached', !!value);
+        this.classes.set('attachedValue', value, false);
+        this.classes.set('attached', !!value);
     }
 
     @Input()
@@ -109,25 +107,13 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
 
     public set noPadding(value: BooleanLike) {
         this.isNoPadding = this.toBoolean(value);
-        this.classList.set('noPadding', this.isNoPadding ? 'no-padding' : undefined);
+        this.classes.set('noPadding', this.isNoPadding ? 'no-padding' : undefined);
     }
-
-    @Input()
-    @HostBinding('class.loading')
-    public get loading(): boolean {
-        return this.isLoading;
-    }
-
-    public set loading(value: BooleanLike) {
-        this.isLoading = this.toBoolean(value);
-    }
-
-    @HostBinding('class.segment')
-    public readonly segment = true;
 
     public constructor() {
         super();
-        this.classList.register('raised', 'vertical', 'placeholder', 'basic', 'secondary', 'tertiary', 'color', 'attached', 'attachedValue', 'noPadding', 'loading');
+        this.classes.register('raised', 'vertical', 'placeholder', 'basic', 'secondary', 'tertiary', 'color', 'attached', 'attachedValue', 'noPadding', 'loading')
+            .registerFixed('segment');
     }
 
     public override ngOnInit(): void {

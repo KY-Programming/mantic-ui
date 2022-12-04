@@ -2,6 +2,7 @@ import { Component, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
 import { InvertedDirective } from '../../directives/inverted.directive';
+import { FluidDirective } from '../../directives/fluid.directive';
 
 export declare type SidebarWidth =
     'thin'
@@ -21,71 +22,59 @@ export declare type SidebarPosition =
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.scss'],
     standalone: true,
-    hostDirectives: [
-        InvertedDirective.default
-    ],
+    hostDirectives: [...BaseComponent.directives, InvertedDirective.default, FluidDirective.default],
     providers: [...BaseComponent.providers]
 })
 export class SidebarComponent extends BaseComponent {
     private widthValue: SidebarWidth;
     private isVisible: boolean;
     private positionValue: SidebarPosition;
-    private isFluid: boolean;
     private noScrollingValue: boolean;
 
+    @Input()
     public get visible(): boolean {
         return this.isVisible;
     }
 
-    @Input()
     public set visible(value: BooleanLike) {
         this.isVisible = this.toBoolean(value);
-        this.classList.set('visible', this.isVisible);
-    }
-
-    public get fluid(): boolean {
-        return this.isFluid;
+        this.classes.set('visible', this.isVisible);
     }
 
     @Input()
-    public set fluid(value: BooleanLike) {
-        this.isFluid = this.toBoolean(value);
-        this.classList.set('fluid', this.isFluid);
-    }
-
     public get width(): SidebarWidth {
         return this.widthValue;
     }
 
-    @Input()
     public set width(value: SidebarWidth) {
         this.widthValue = value;
-        this.classList.set('width', value);
+        this.classes.set('width', value);
     }
 
+    @Input()
     public get position(): SidebarPosition {
         return this.positionValue;
     }
 
-    @Input()
     public set position(value: SidebarPosition) {
         this.positionValue = value;
-        this.classList.set('position', value);
-    }
-
-    public get noScrolling(): boolean {
-        return this.noScrollingValue;
+        this.classes.set('position', value);
     }
 
     @Input()
     @HostBinding('class.no-scrolling')
+    public get noScrolling(): boolean {
+        return this.noScrollingValue;
+    }
+
     public set noScrolling(value: BooleanLike) {
         this.noScrollingValue = this.toBoolean(value);
     }
 
     public constructor() {
         super();
-        this.classList.register('inverted', 'width', 'position', 'visible', 'fluid', 'noScrolling').registerFixed('sidebar');
+        this.classes.register('inverted', 'width', 'position', 'visible', 'fluid', 'noScrolling')
+            .registerFixed('sidebar');
         this.position = 'left';
         this.visible = true;
         this.refreshClasses();

@@ -5,7 +5,8 @@ import { IconSize } from '../icon/icon-size';
 
 @Component({
     selector: 'm-message-defaults',
-    template: ''
+    template: '',
+    standalone: true
 })
 export class MessageDefaultsComponent implements OnDestroy {
     private readonly previousCloseIcon = MessageComponent.defaults.closeIcon;

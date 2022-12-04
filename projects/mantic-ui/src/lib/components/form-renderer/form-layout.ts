@@ -2,7 +2,7 @@
 import { InputType } from '../input/text/input.component';
 import { DropdownValue } from '../dropdown/dropdown-value';
 
-export declare type FormElements = FormInputElement | FormCheckboxElement | FormFieldGroupElement | FormDropDownElement | FormButtonElement | FormGridElement | FormLabelElement | FormMessage | FormWarning | FormInfo | FormError | FormDivider | FormHeader;
+export declare type FormElements = FormInputElement | FormCheckboxElement | FormFieldGroupElement | FormDropDownElement | FormButtonElement | FormGridElement | FormLabelElement | FormMessage | FormWarning | FormInfo | FormError | FormDivider | FormHeader | FormAreaElement;
 
 export interface FormLayout {
     elements: FormElements[];

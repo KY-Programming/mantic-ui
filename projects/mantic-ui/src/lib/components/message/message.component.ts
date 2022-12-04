@@ -3,18 +3,27 @@ import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
 import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
+import { IgnoredDirective } from '../../directives/ignored.directive';
+import { CommonModule } from '@angular/common';
+import { IconComponent } from '../icon/icon.component';
 
 export declare type MessageAttached = 'bottom' | 'top' | undefined;
 
 @Component({
     selector: 'm-message',
     templateUrl: './message.component.html',
-    styleUrls: ['./message.component.scss']
+    styleUrls: ['./message.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        IconComponent
+    ],
+    hostDirectives: [...BaseComponent.directives, IgnoredDirective.default],
+    providers: [...BaseComponent.providers]
 })
 export class MessageComponent extends BaseComponent {
     public static readonly defaults = { closeIcon: <IconType>'close', closeIconSize: <IconSize>undefined };
 
-    private isIgnored: boolean;
     private isPositive: boolean;
     private isSuccess: boolean;
     private isWarning: boolean;
@@ -26,16 +35,6 @@ export class MessageComponent extends BaseComponent {
     private iconValue: IconType;
 
     protected readonly defaults = MessageComponent.defaults;
-
-    @Input()
-    @HostBinding('class.ignored')
-    public get ignored(): boolean {
-        return this.isIgnored;
-    }
-
-    public set ignored(value: BooleanLike) {
-        this.isIgnored = this.toBoolean(value);
-    }
 
     @Input()
     @HostBinding('class.positive')
@@ -112,7 +111,7 @@ export class MessageComponent extends BaseComponent {
     @Input()
     public set attached(value: MessageAttached) {
         this.attachedValue = value;
-        this.classList.set('attached', value ? value + ' attached' : undefined);
+        this.classes.set('attached', value ? value + ' attached' : undefined);
     }
 
     @Input()
@@ -125,7 +124,7 @@ export class MessageComponent extends BaseComponent {
 
     public set icon(value: IconType) {
         this.iconValue = value;
-        this.classList.set('icon', !!value);
+        this.classes.set('icon', !!value);
     }
 
     @Input()
@@ -137,20 +136,17 @@ export class MessageComponent extends BaseComponent {
     @Input()
     public closeIconSize: IconSize;
 
-    @HostBinding('class.visible')
-    @HostBinding('class.message')
-    public readonly message = true;
-
     @Output()
     public readonly close = new EventEmitter<void>();
 
     public constructor() {
         super();
-        this.classList.register('ignored', 'positive', 'success', 'warning', 'error', 'attached', 'icon', 'closable');
+        this.classes.register('positive', 'success', 'warning', 'error', 'attached', 'icon', 'closable')
+            .registerFixed('visible', 'message');
     }
 
     @HostListener('click')
-    public onClick(): void {
+    private onClick(): void {
         if (this.closable) {
             this.close.next();
         }

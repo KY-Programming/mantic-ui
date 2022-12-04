@@ -12,11 +12,18 @@ import { BaseComponent } from '../../base/base.component';
 import { NumericInputComponent } from '../input/numeric/numeric-input.component';
 import { DateInputComponent } from '../input/date/date-input.component';
 import { BooleanLike } from '../../models/boolean-like';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'm-field',
     templateUrl: './field.component.html',
-    styleUrls: ['./field.component.scss']
+    styleUrls: ['./field.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule
+    ],
+    hostDirectives: [...BaseComponent.directives],
+    providers: [...BaseComponent.providers]
 })
 export class FieldComponent extends BaseComponent {
     private labelElementValue: HTMLLabelElement;
@@ -41,24 +48,24 @@ export class FieldComponent extends BaseComponent {
     public wasAnytimeValid = false;
     public readonly errors: FormError[] = [];
 
-    public get labelElement(): HTMLLabelElement {
+    @ContentChild('labelElement')
+    protected get labelElement(): HTMLLabelElement {
         return this.labelElementValue;
     }
 
-    @ContentChild('labelElement')
-    public set labelElement(value: HTMLLabelElement) {
+    protected set labelElement(value: HTMLLabelElement) {
         this.labelElementValue = value;
         if (this.labelElementValue) {
             this.labelElementValue.setAttribute('for', this.name);
         }
     }
 
-    public get inputComponent(): InputComponent {
+    @ContentChild(InputComponent)
+    protected get inputComponent(): InputComponent {
         return this.inputComponentValue;
     }
 
-    @ContentChild(InputComponent)
-    public set inputComponent(value: InputComponent) {
+    protected set inputComponent(value: InputComponent) {
         this.inputComponentValue = value;
         if (this.inputComponentValue) {
             this.inputComponentValue.for = this.name;
@@ -68,12 +75,12 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
-    public get numericInputComponent(): NumericInputComponent {
+    @ContentChild(NumericInputComponent)
+    protected get numericInputComponent(): NumericInputComponent {
         return this.numericInputComponentValue;
     }
 
-    @ContentChild(NumericInputComponent)
-    public set numericInputComponent(value: NumericInputComponent) {
+    protected set numericInputComponent(value: NumericInputComponent) {
         this.numericInputComponentValue = value;
         if (this.numericInputComponentValue) {
             this.numericInputComponentValue.for = this.name;
@@ -83,12 +90,12 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
-    public get dateInputComponent(): DateInputComponent {
+    @ContentChild(DateInputComponent)
+    protected get dateInputComponent(): DateInputComponent {
         return this.dateInputComponentValue;
     }
 
-    @ContentChild(DateInputComponent)
-    public set dateInputComponent(value: DateInputComponent) {
+    protected set dateInputComponent(value: DateInputComponent) {
         this.dateInputComponentValue = value;
         if (this.dateInputComponentValue) {
             this.dateInputComponentValue.for = this.name;
@@ -98,12 +105,12 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
-    public get checkboxComponent(): CheckboxComponent {
+    @ContentChild(CheckboxComponent)
+    protected get checkboxComponent(): CheckboxComponent {
         return this.checkboxComponentValue;
     }
 
-    @ContentChild(CheckboxComponent)
-    public set checkboxComponent(value: CheckboxComponent) {
+    protected set checkboxComponent(value: CheckboxComponent) {
         this.checkboxComponentValue = value;
         if (this.checkboxComponentValue) {
             this.checkboxComponentValue.name = this.name;
@@ -113,12 +120,12 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
-    public get sliderComponent(): SliderComponent {
+    @ContentChild(SliderComponent)
+    protected get sliderComponent(): SliderComponent {
         return this.sliderComponentValue;
     }
 
-    @ContentChild(SliderComponent)
-    public set sliderComponent(value: SliderComponent) {
+    protected set sliderComponent(value: SliderComponent) {
         this.sliderComponentValue = value;
         if (this.sliderComponentValue) {
             this.sliderComponentValue.name = this.name;
@@ -128,12 +135,12 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
-    public get toggleComponent(): ToggleComponent {
+    @ContentChild(ToggleComponent)
+    protected get toggleComponent(): ToggleComponent {
         return this.toggleComponentValue;
     }
 
-    @ContentChild(ToggleComponent)
-    public set toggleComponent(value: ToggleComponent) {
+    protected set toggleComponent(value: ToggleComponent) {
         this.toggleComponentValue = value;
         if (this.toggleComponentValue) {
             this.toggleComponentValue.name = this.name;
@@ -143,12 +150,12 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
-    public get radioComponent(): RadioComponent {
+    @ContentChild(RadioComponent)
+    protected get radioComponent(): RadioComponent {
         return this.radioComponentValue;
     }
 
-    @ContentChild(RadioComponent)
-    public set radioComponent(value: RadioComponent) {
+    protected set radioComponent(value: RadioComponent) {
         this.radioComponentValue = value;
         if (this.radioComponentValue) {
             this.radioComponentValue.name = this.name;
@@ -158,12 +165,12 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
-    public get textareaComponent(): TextareaComponent {
+    @ContentChild(TextareaComponent)
+    protected get textareaComponent(): TextareaComponent {
         return this.textareaComponentValue;
     }
 
-    @ContentChild(TextareaComponent)
-    public set textareaComponent(value: TextareaComponent) {
+    protected set textareaComponent(value: TextareaComponent) {
         this.textareaComponentValue = value;
         if (this.textareaComponentValue) {
             this.textareaComponentValue.name = this.name;
@@ -173,11 +180,11 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
+    @Input()
     public get name(): string {
         return this.nameValue;
     }
 
-    @Input()
     public set name(value: string) {
         this.nameValue = value;
         if (this.labelElement) {
@@ -212,11 +219,11 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
+    @Input()
     public get label(): string {
         return this.labelValue;
     }
 
-    @Input()
     public set label(value: string) {
         this.labelValue = value;
         if (this.checkboxComponent) {
@@ -236,22 +243,22 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
+    @Input()
+    @HostBinding('class.wide')
     public get size(): FieldSize {
         return this.sizeValue;
     }
 
-    @Input()
-    @HostBinding('class.wide')
     public set size(value: ParsableFieldSize) {
         this.sizeValue = parseFieldSize(value);
-        this.classList.set('size', this.sizeValue);
+        this.classes.set('size', this.sizeValue);
     }
 
+    @Input()
     public get error(): boolean {
         return this.errorValue;
     }
 
-    @Input()
     public set error(value: BooleanLike) {
         value = this.toBoolean(value);
         if (this.errorValue === value) {
@@ -263,7 +270,7 @@ export class FieldComponent extends BaseComponent {
     }
 
     @HostBinding('class.error')
-    public visibleError: boolean;
+    protected visibleError: boolean;
 
     @Input()
     public set valid(value: boolean | FormValidation) {
@@ -286,12 +293,12 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
+    @Input()
+    @HostBinding('class.disabled')
     public get disabled(): boolean {
         return this.disabledValue;
     }
 
-    @Input()
-    @HostBinding('class.disabled')
     public set disabled(value: BooleanLike) {
         this.disabledValue = this.toBoolean(value);
         if (this.inputComponent) {
@@ -320,12 +327,12 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
+    @Input()
+    @HostBinding('class.readonly')
     public get readonly(): boolean {
         return this.readonlyValue;
     }
 
-    @Input()
-    @HostBinding('class.readonly')
     public set readonly(value: BooleanLike) {
         this.readonlyValue = this.toBoolean(value);
         if (this.inputComponent) {
@@ -364,11 +371,11 @@ export class FieldComponent extends BaseComponent {
         this.isInline = this.toBoolean(value);
     }
 
+    @Input()
     public get hideInitialError(): boolean {
         return this.hideInitialErrorValue;
     }
 
-    @Input()
     public set hideInitialError(value: boolean) {
         this.hideInitialErrorValue = value;
     }
@@ -383,20 +390,17 @@ export class FieldComponent extends BaseComponent {
         this.isFill = this.toBoolean(value);
     }
 
-    @HostBinding('class.field')
-    public readonly field = true;
-
     @Output()
     public readonly errorChange = new EventEmitter<boolean>();
 
     public constructor() {
         super(false);
-        this.classList.register('size', 'disabled', 'readonly', 'inline', 'label', 'fill', 'name');
+        this.classes.registerFixed('field');
+        this.classes.register('size', 'disabled', 'readonly', 'inline', 'label', 'fill', 'name');
     }
 
     public forceValidation(): void {
         this.wasAnytimeValid = true;
         this.visibleError = this.error;
-        // this.refreshClasses();
     }
 }

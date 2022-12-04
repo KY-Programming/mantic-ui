@@ -3,7 +3,8 @@ import { FormValidation, isFormValidation } from '../models/form-validation';
 import { ValidationPipe } from './validation.pipe';
 
 @Pipe({
-    name: 'mIsFilled'
+    name: 'mIsFilled',
+    standalone: true
 })
 export class IsFilledPipe implements ValidationPipe, PipeTransform {
     public transform(value: unknown | FormValidation, message?: string): FormValidation {

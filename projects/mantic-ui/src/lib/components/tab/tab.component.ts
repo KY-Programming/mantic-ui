@@ -1,13 +1,19 @@
 import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
-import { NgIfContext } from '@angular/common';
+import { CommonModule, NgIfContext } from '@angular/common';
 import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
 
 @Component({
     selector: 'm-tab',
     templateUrl: './tab.component.html',
-    styleUrls: ['./tab.component.scss']
+    styleUrls: ['./tab.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule
+    ],
+    hostDirectives: [...MenuItemComponent.directives],
+    providers: [...MenuItemComponent.providers]
 })
 export class TabComponent extends MenuItemComponent {
 
@@ -34,7 +40,7 @@ export class TabComponent extends MenuItemComponent {
 
     public constructor() {
         super(false);
-        this.classList.register('name', 'label', 'icon');
+        this.classes.register('name', 'label', 'icon');
     }
 
     public changeState(value: boolean | undefined): void {

@@ -1,17 +1,18 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 
 @Component({
     selector: 'm-divider',
     templateUrl: './divider.component.html',
-    styleUrls: ['./divider.component.scss']
+    styleUrls: ['./divider.component.scss'],
+    standalone: true,
+    hostDirectives: [...BaseComponent.directives],
+    providers: [...BaseComponent.providers]
 })
 export class DividerComponent extends BaseComponent {
 
-    @HostBinding('class.divider')
-    public readonly divider = true;
-
     public constructor() {
         super();
+        this.classes.registerFixed('divider');
     }
 }

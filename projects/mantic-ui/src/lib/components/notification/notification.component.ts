@@ -2,11 +2,20 @@ import { Component, Input } from '@angular/core';
 import { NotificationService } from './notification.service';
 import { Notification } from './notification';
 import { BaseComponent } from '../../base/base.component';
+import { MessageComponent } from '../message/message.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'm-notification',
     templateUrl: './notification.component.html',
-    styleUrls: ['./notification.component.scss']
+    styleUrls: ['./notification.component.scss'],
+    standalone: true,
+    hostDirectives: [...BaseComponent.directives],
+    imports: [
+        CommonModule,
+        MessageComponent
+    ],
+    providers: [...BaseComponent.providers]
 })
 export class NotificationComponent extends BaseComponent {
     @Input()
@@ -24,7 +33,7 @@ export class NotificationComponent extends BaseComponent {
         private readonly notificationService: NotificationService
     ) {
         super();
-        this.classList.register('fromService', 'mode');
+        this.classes.register('fromService', 'mode');
     }
 
     public close(message: Notification): void {

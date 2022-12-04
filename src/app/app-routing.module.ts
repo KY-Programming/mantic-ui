@@ -55,11 +55,16 @@ const sharedRoutes: Route[] = [
     { path: 'credits', redirectTo: 'credits/', pathMatch: 'full' },
     { path: 'credits/:tab', title: 'Credits', component: CreditsComponent },
 
-    { path: 'components', title: 'Components', component: ComponentExamplesComponent },
-    { path: 'elements', title: 'Elements', component: ElementExamplesComponent },
-    { path: 'layouts', title: 'Layout', component: LayoutExamplesComponent },
-    { path: 'specials', title: 'Special', component: SpecialExamplesComponent },
-    { path: 'utils', title: 'Utils', component: UtilExamplesComponent },
+    { path: 'components', redirectTo: 'components/', pathMatch: 'full' },
+    { path: 'components/:tab', title: 'Components', component: ComponentExamplesComponent },
+    { path: 'elements', redirectTo: 'elements/', pathMatch: 'full' },
+    { path: 'elements/:tab', title: 'Elements', component: ElementExamplesComponent },
+    { path: 'layouts', redirectTo: 'layouts/', pathMatch: 'full' },
+    { path: 'layouts/:tab', title: 'Layout', component: LayoutExamplesComponent },
+    { path: 'specials', redirectTo: 'specials/', pathMatch: 'full' },
+    { path: 'specials/:tab', title: 'Special', component: SpecialExamplesComponent },
+    { path: 'utils', redirectTo: 'utils/', pathMatch: 'full' },
+    { path: 'utils/:tab', title: 'Utils', component: UtilExamplesComponent },
     { path: 'button', redirectTo: 'button/', pathMatch: 'full' },
     { path: 'button/:tab', title: 'Button', component: ButtonExampleComponent },
     { path: 'divider', redirectTo: 'divider/', pathMatch: 'full' },
@@ -112,7 +117,7 @@ const sharedRoutes: Route[] = [
     { path: 'textarea/:tab', title: 'Icon', component: TextareaExampleComponent },
     { path: 'table', redirectTo: 'table/', pathMatch: 'full' },
     { path: 'table/:tab', title: 'Icon', component: TableExampleComponent },
-    { path: '**', redirectTo: 'components' }
+    { path: '**', redirectTo: 'components/' }
 ];
 
 const routes: Routes = [

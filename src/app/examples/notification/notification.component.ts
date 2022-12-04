@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NotificationService } from '@mantic-ui/angular';
 
 @Component({
-    selector: 'app-notification',
+    selector: 'app-notification-example',
     templateUrl: './notification.component.html',
     styleUrls: ['./notification.component.scss']
 })
@@ -10,7 +10,7 @@ export class NotificationExampleComponent {
 
     public readonly example1Html = `<m-flex>
     <m-button (click)="showError()" color="red">Error</m-button>
-    <m-button (click)="showWarning()" color="orange">Warning</m-button>
+    <m-button (click)="showWarning()" color="brown">Warning</m-button>
     <m-button (click)="showSuccess()" color="green">Success</m-button>
     <m-button (click)="showInfo()" color="blue">Info</m-button>
 </m-flex>

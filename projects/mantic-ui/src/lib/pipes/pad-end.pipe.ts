@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'mPadEnd'
+    name: 'mPadEnd',
+    standalone: true
 })
 export class PadEndPipe implements PipeTransform {
     public transform(value: unknown, maxLength: number, fillString?: string): string {

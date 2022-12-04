@@ -5,7 +5,8 @@ import { IconSize } from '../icon/icon-size';
 
 @Component({
     selector: 'm-chat-defaults',
-    template: ''
+    template: '',
+    standalone: true
 })
 export class ChatDefaultsComponent implements OnDestroy {
     private readonly previousSendIcon = ChatComponent.defaults.sendIcon;

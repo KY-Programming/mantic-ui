@@ -3,7 +3,8 @@ import { TextareaComponent } from './textarea.component';
 
 @Component({
     selector: 'm-textarea-defaults',
-    template: ''
+    template: '',
+    standalone: true
 })
 export class TextareaDefaultsComponent {
     @Input()

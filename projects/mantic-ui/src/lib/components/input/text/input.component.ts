@@ -1,5 +1,9 @@
 import { Component, ContentChild, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { InputBaseComponent } from '../input-base.component';
+import { CommonModule } from '@angular/common';
+import { IconComponent } from '../../icon/icon.component';
+import { FallbackForDirective } from '../../../directives/fallback-for.directive';
+import { FormsModule } from '@angular/forms';
 
 export declare type InputIconPosition =
     'left'
@@ -10,7 +14,16 @@ export declare type InputType = 'button' | 'checkbox' | 'color' | 'date' | 'date
 @Component({
     selector: 'm-input',
     templateUrl: './input.component.html',
-    styleUrls: ['./input.component.scss']
+    styleUrls: ['./input.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        IconComponent,
+        FallbackForDirective,
+        FormsModule
+    ],
+    hostDirectives: [...InputBaseComponent.directives],
+    providers: [...InputBaseComponent.providers]
 })
 export class InputComponent extends InputBaseComponent {
     private typeValue: InputType;
@@ -59,10 +72,10 @@ export class InputComponent extends InputBaseComponent {
 
     public constructor() {
         super();
-        this.classList.register('maxlength');
+        this.classes.register('maxlength', 'type', 'defaultValue', 'value');
     }
 
-    public onChange(): void {
+    protected onChange(): void {
         this.value ??= this.defaultValue;
         this.valueChange.emit(this.value);
     }

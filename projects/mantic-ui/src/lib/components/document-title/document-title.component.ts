@@ -7,7 +7,8 @@ import { Title } from '@angular/platform-browser';
 @Component({
     selector: 'm-document-title',
     templateUrl: './document-title.component.html',
-    styleUrls: ['./document-title.component.scss']
+    styleUrls: ['./document-title.component.scss'],
+    standalone: true
 })
 export class DocumentTitleComponent implements DoCheck, OnDestroy {
     private previousTitle: string;

@@ -1,21 +1,26 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { RadioService } from '../../services/radio.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'm-slider',
     templateUrl: './slider.component.html',
-    styleUrls: ['./slider.component.scss']
+    styleUrls: ['./slider.component.scss'],
+    standalone: true,
+    hostDirectives: [...CheckboxComponent.directives],
+    imports: [
+        FormsModule
+    ],
+    providers: [...CheckboxComponent.providers]
 })
 export class SliderComponent extends CheckboxComponent {
-    @HostBinding('class.slider')
-    public readonly slider = true;
-
     public constructor(
         private readonly radioService: RadioService
     ) {
         super();
+        this.classes.registerFixed('slider');
         this.radioService.checked.pipe(
             filter(event => event.group && event.group === this.name && event.value !== this),
             takeUntil(this.destroy)

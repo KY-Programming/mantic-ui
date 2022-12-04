@@ -5,7 +5,10 @@ import { BooleanLike } from '../../models/boolean-like';
 @Component({
     selector: 'm-segment-group',
     templateUrl: './segment-group.component.html',
-    styleUrls: ['./segment-group.component.scss']
+    styleUrls: ['./segment-group.component.scss'],
+    standalone: true,
+    hostDirectives: [...BaseComponent.directives],
+    providers: [...BaseComponent.providers]
 })
 export class SegmentGroupComponent extends BaseComponent {
     private isHorizontal: boolean;
@@ -20,12 +23,10 @@ export class SegmentGroupComponent extends BaseComponent {
         this.isHorizontal = this.toBoolean(value);
     }
 
-    @HostBinding('class.segments')
-    public readonly segments = true;
-
     public constructor() {
         super();
-        this.classList.register('horizontal');
+        this.classes.register('horizontal')
+            .registerFixed('segments');
     }
 
 }

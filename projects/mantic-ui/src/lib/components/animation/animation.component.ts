@@ -5,7 +5,10 @@ import { BaseComponent } from '../../base/base.component';
 @Component({
     selector: 'm-animation',
     templateUrl: './animation.component.html',
-    styleUrls: ['./animation.component.scss']
+    styleUrls: ['./animation.component.scss'],
+    standalone: true,
+    hostDirectives: [...BaseComponent.directives],
+    providers: [...BaseComponent.providers]
 })
 export class AnimationComponent extends BaseComponent {
 
@@ -16,11 +19,9 @@ export class AnimationComponent extends BaseComponent {
     @Input()
     public direction: AnimationDirection;
 
-    @HostBinding('class.content')
-    public readonly content = true;
-
     public constructor() {
         super(false);
-        this.classList.register('hidden');
+        this.classes.registerFixed('content');
+        this.classes.register('hidden', 'direction');
     }
 }

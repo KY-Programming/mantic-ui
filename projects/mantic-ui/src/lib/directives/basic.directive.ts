@@ -1,10 +1,10 @@
 ﻿import { Directive, inject, Input } from '@angular/core';
-import { SortedClassesService } from '../services/sorted-classes.service';
 import { BooleanLike } from '../models/boolean-like';
 import { toBoolean } from '../helpers/to-boolean';
+import { SortedClassesService } from '../services/sorted-classes.service';
 
 @Directive({
-    selector: '[m-basic]',
+    selector: '[-m-basic]',
     standalone: true
 })
 export class BasicDirective {
@@ -27,3 +27,4 @@ export class BasicDirective {
         this.classes.set(BasicDirective.basic, this.isBasic);
     }
 }
+

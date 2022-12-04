@@ -6,18 +6,13 @@ import { InvertedDirective } from './inverted.directive';
 @Directive({
     selector: '[m-header]',
     standalone: true,
-    hostDirectives: [
-        InvertedDirective.default
-    ],
+    hostDirectives: [...BaseDirective.directives, InvertedDirective.default],
     providers: [...BaseDirective.providers]
 })
 // TODO: Implement
 export class HeaderDirective extends BaseDirective {
     private isDividing: boolean;
     private isIcon: boolean;
-
-    @HostBinding('class.ui')
-    public readonly ui = true;
 
     public get dividing(): boolean {
         return this.isDividing;
@@ -43,11 +38,9 @@ export class HeaderDirective extends BaseDirective {
     @HostBinding('class.sub')
     public sub: boolean;
 
-    @HostBinding('class.header')
-    public readonly header = true;
-
     public constructor() {
         super();
+        this.classes.registerFixed('header');
         this.validateAttributes = false;
     }
 

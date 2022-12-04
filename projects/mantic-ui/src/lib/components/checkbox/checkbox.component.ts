@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, HostListener, inject, Input, Output } from '@angular/core';
 import { Key } from '../../models/key';
 import { BooleanLike } from '../../models/boolean-like';
 import { IconType } from '../icon/icon-type';
@@ -6,11 +6,24 @@ import { IconSize } from '../icon/icon-size';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
+import { IconComponent } from '../icon/icon.component';
+import { FormsModule } from '@angular/forms';
+import { DisabledDirective } from '../../directives/disabled.directive';
+import { ReadOnlyDirective } from '../../directives/read-only.directive';
 
 @Component({
     selector: 'm-checkbox',
     templateUrl: './checkbox.component.html',
-    styleUrls: ['./checkbox.component.scss']
+    styleUrls: ['./checkbox.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        IconComponent,
+        FormsModule
+    ],
+    hostDirectives: CheckboxComponent.directives,
+    providers: CheckboxComponent.providers
 })
 export class CheckboxComponent extends InvertibleComponent {
     public static readonly defaults = {
@@ -21,13 +34,32 @@ export class CheckboxComponent extends InvertibleComponent {
         inverted: false,
         invertedChange: new ReplaySubject<boolean>(1)
     };
+    protected static override readonly providers = [...InvertibleComponent.providers];
+    protected static override readonly directives = [...InvertibleComponent.directives, DisabledDirective.default, ReadOnlyDirective.default];
+
+    private readonly readOnlyDirective = inject(ReadOnlyDirective, { self: true });
+    private readonly disabledDirective = inject(DisabledDirective, { self: true });
     private nameValue: string;
     private labelValue: string;
     private isChecked: boolean;
-    private isReadonly: boolean;
     private isIndeterminate: boolean;
-    private isDisabled: boolean;
     protected readonly defaults = CheckboxComponent.defaults;
+
+    public get readonly(): boolean {
+        return this.readOnlyDirective.readonly;
+    }
+
+    public set readonly(value: BooleanLike) {
+        this.readOnlyDirective.readonly = value;
+    }
+
+    public get disabled(): boolean {
+        return this.disabledDirective.disabled;
+    }
+
+    public set disabled(value: BooleanLike) {
+        this.disabledDirective.disabled = value;
+    }
 
     @Input()
     public get value(): boolean {
@@ -48,7 +80,7 @@ export class CheckboxComponent extends InvertibleComponent {
 
     public set name(value: string) {
         this.nameValue = value;
-        this.classList.set('name', value);
+        this.classes.set('name', value);
     }
 
     @Input()
@@ -58,7 +90,7 @@ export class CheckboxComponent extends InvertibleComponent {
 
     public set label(value: string) {
         this.labelValue = value;
-        this.classList.set('label', value);
+        this.classes.set('label', value);
     }
 
     @Input()
@@ -75,16 +107,6 @@ export class CheckboxComponent extends InvertibleComponent {
     public readonly checkedChange = this.valueChange;
 
     @Input()
-    @HostBinding('class.read-only')
-    public get readonly(): boolean {
-        return this.isReadonly;
-    }
-
-    public set readonly(value: BooleanLike) {
-        this.isReadonly = this.toBoolean(value);
-    }
-
-    @Input()
     @HostBinding('class.indeterminate')
     public get indeterminate(): boolean {
         return this.isIndeterminate;
@@ -96,16 +118,6 @@ export class CheckboxComponent extends InvertibleComponent {
 
     @Output()
     public readonly indeterminateChange = this.valueChange;
-
-    @Input()
-    @HostBinding('class.disabled')
-    public get disabled(): boolean {
-        return this.isDisabled;
-    }
-
-    public set disabled(value: BooleanLike) {
-        this.isDisabled = this.toBoolean(value);
-    }
 
     @Input()
     public canUncheck = true;
@@ -127,28 +139,28 @@ export class CheckboxComponent extends InvertibleComponent {
 
     public constructor() {
         super();
-        this.classList.register('readonly', 'indeterminate', 'disabled', 'fitted', 'checked', 'value', 'name', 'label');
+        this.classes.register('indeterminate', 'fitted', 'checked', 'value', 'name', 'label');
         CheckboxComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
 
     @HostListener('click', ['$event'])
-    public onClick(event: MouseEvent): void {
-        if (event.target instanceof HTMLInputElement || this.readonly || this.disabled) {
+    protected onClick(event: MouseEvent): void {
+        if (event.target instanceof HTMLInputElement || this.readOnlyDirective.readonly || this.disabledDirective.disabled) {
             return;
         }
         this.set(!this.value);
     }
 
     @HostListener('keydown', ['$event'])
-    public onKeyDown(event: KeyboardEvent): void {
-        if (this.readonly || this.disabled || !Key.space.is(event)) {
+    protected onKeyDown(event: KeyboardEvent): void {
+        if (this.readOnlyDirective.readonly || this.disabledDirective.disabled || !Key.space.is(event)) {
             return;
         }
         event.preventDefault();
         this.set(!this.value);
     }
 
-    public set(value: boolean): void {
+    protected set(value: boolean): void {
         if (!value && !this.canUncheck) {
             return;
         }
@@ -160,12 +172,8 @@ export class CheckboxComponent extends InvertibleComponent {
         this.refreshClasses();
     }
 
-    public onChange(): void {
+    protected onChange(): void {
         this.valueChange.emit(this.isChecked);
-    }
-
-    public onInputValueChange(event: Event): void {
-        this.set((event.target as HTMLInputElement).checked);
     }
 
 }

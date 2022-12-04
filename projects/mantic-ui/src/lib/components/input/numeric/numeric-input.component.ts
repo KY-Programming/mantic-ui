@@ -2,11 +2,24 @@ import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Outpu
 import { InputBaseComponent } from '../input-base.component';
 import { Math2 } from '../../../helpers/math2';
 import { BooleanLike } from '../../../models/boolean-like';
+import { CommonModule } from '@angular/common';
+import { IconComponent } from '../../icon/icon.component';
+import { FallbackForDirective } from '../../../directives/fallback-for.directive';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'm-numeric-input',
     templateUrl: './numeric-input.component.html',
-    styleUrls: ['./numeric-input.component.scss']
+    styleUrls: ['./numeric-input.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        IconComponent,
+        FallbackForDirective,
+        FormsModule
+    ],
+    hostDirectives: [...InputBaseComponent.directives],
+    providers: [...InputBaseComponent.providers]
 })
 export class NumericInputComponent extends InputBaseComponent implements OnInit {
     private valueField: number | undefined;
@@ -76,6 +89,7 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
 
     public constructor() {
         super();
+        this.classes.register('min', 'max', 'defaultValue', 'value', 'range', 'zeroText');
     }
 
     public override ngOnInit(): void {

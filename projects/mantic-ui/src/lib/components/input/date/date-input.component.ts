@@ -1,11 +1,24 @@
 import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DateHelper } from '../../../helpers/date-helper';
 import { InputBaseComponent } from '../input-base.component';
+import { CommonModule } from '@angular/common';
+import { IconComponent } from '../../icon/icon.component';
+import { FallbackForDirective } from '../../../directives/fallback-for.directive';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'm-date-input',
     templateUrl: './date-input.component.html',
-    styleUrls: ['./date-input.component.scss']
+    styleUrls: ['./date-input.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        IconComponent,
+        FallbackForDirective,
+        FormsModule
+    ],
+    hostDirectives: [...InputBaseComponent.directives],
+    providers: [...InputBaseComponent.providers]
 })
 export class DateInputComponent extends InputBaseComponent implements OnInit {
     private valueField: Date | undefined;
@@ -58,6 +71,7 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
 
     public constructor() {
         super();
+        this.classes.register('min', 'max', 'defaultValue', 'value');
     }
 
     public override ngOnInit(): void {

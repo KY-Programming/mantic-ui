@@ -1,16 +1,28 @@
 import { AfterViewInit, Component, ContentChildren, EventEmitter, HostBinding, Input, OnInit, Output, QueryList } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, UrlSegment } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
-import { MenuPosition } from '../menu/menu.component';
+import { MenuComponent, MenuPosition } from '../menu/menu.component';
 import { TabComponent } from '../tab/tab.component';
 import { BooleanLike } from '../../models/boolean-like';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { ReplaySubject } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { SegmentComponent } from '../segment/segment.component';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
     selector: 'm-tab-group',
     templateUrl: './tab-group.component.html',
-    styleUrls: ['./tab-group.component.scss']
+    styleUrls: ['./tab-group.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        SegmentComponent,
+        MenuComponent,
+        IconComponent
+    ],
+    hostDirectives: [...InvertibleComponent.directives],
+    providers: [...InvertibleComponent.providers]
 })
 export class TabGroupComponent extends InvertibleComponent implements OnInit, AfterViewInit {
     public static readonly defaults = {
@@ -27,16 +39,6 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
     private isPointing: boolean;
     private isSecondary: boolean;
     private isLoading = false;
-
-    @ContentChildren(TabComponent)
-    public get tabs(): QueryList<TabComponent> {
-        return this.tabsValue;
-    }
-
-    public set tabs(value: QueryList<TabComponent>) {
-        this.tabsValue = value;
-        value?.changes.pipe(takeUntil(this.destroy)).subscribe(() => this.refreshTab());
-    }
 
     @Input()
     public get pointing(): boolean {
@@ -121,13 +123,23 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
     @Output()
     public readonly selectedIndexChange = new EventEmitter<number>();
 
+    @ContentChildren(TabComponent)
+    protected get tabs(): QueryList<TabComponent> {
+        return this.tabsValue;
+    }
+
+    protected set tabs(value: QueryList<TabComponent>) {
+        this.tabsValue = value;
+        value?.changes.pipe(takeUntil(this.destroy)).subscribe(() => this.refreshTab());
+    }
+
     public constructor(
         private readonly route: ActivatedRoute,
         private readonly router: Router
     ) {
         super(false);
         this.noClasses = true;
-        this.classList.register('pointing', 'secondary', 'position', 'selectByRoute', 'routeParameterName', 'noPadding', 'menu');
+        this.classes.register('pointing', 'secondary', 'position', 'selectByRoute', 'routeParameterName', 'noPadding', 'menu');
         this.router.events.pipe(takeUntil(this.destroy)).subscribe(event => {
             if (event instanceof NavigationEnd) {
                 this.refreshTab();
@@ -166,7 +178,7 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
         }
     }
 
-    public activate(tab: TabComponent): void {
+    protected activate(tab: TabComponent): void {
         for (const activeTab of this.tabs.filter(t => t.active)) {
             activeTab.changeState(false);
         }
@@ -196,7 +208,7 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
         do {
             if (current.snapshot?.routeConfig) {
                 const names = current.routeConfig.path.split('/').reverse();
-                for (let segment of current.snapshot.url.slice().reverse()) {
+                for (const segment of current.snapshot.url.slice().reverse()) {
                     segments.unshift(new NamedUrlSegment(names.shift(), segment));
                 }
             }

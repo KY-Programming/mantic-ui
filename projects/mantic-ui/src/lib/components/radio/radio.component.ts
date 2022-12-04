@@ -1,22 +1,27 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component } from '@angular/core';
 import { filter, takeUntil } from 'rxjs/operators';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
 import { RadioService } from '../../services/radio.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'm-radio',
     templateUrl: './radio.component.html',
-    styleUrls: ['./radio.component.scss']
+    styleUrls: ['./radio.component.scss'],
+    standalone: true,
+    hostDirectives: [...CheckboxComponent.directives],
+    imports: [
+        FormsModule
+    ],
+    providers: [...CheckboxComponent.providers]
 })
 export class RadioComponent extends CheckboxComponent {
-
-    @HostBinding('class.radio')
-    public readonly radio = true;
 
     public constructor(
         private readonly radioService: RadioService
     ) {
         super();
+        this.classes.registerFixed('radio');
         this.canUncheck = false;
         this.radioService.checked.pipe(
             filter(event => event.group && event.group === this.name && event.value !== this),

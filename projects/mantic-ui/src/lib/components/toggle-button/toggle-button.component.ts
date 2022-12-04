@@ -1,9 +1,10 @@
-import { Component, ContentChild, EventEmitter, HostBinding, HostListener, Input, Output, TemplateRef } from '@angular/core';
+import { Component, ContentChild, EventEmitter, HostBinding, HostListener, inject, Input, Output, TemplateRef } from '@angular/core';
 import { Key } from '../../models/key';
 import { ButtonBaseComponent } from '../../base/button-base.component';
 import { CommonModule, NgIfContext } from '@angular/common';
 import { BooleanLike } from '../../models/boolean-like';
 import { IconComponent } from '../icon/icon.component';
+import { ActiveDirective } from '../../directives/active.directive';
 
 @Component({
     selector: 'm-toggle-button',
@@ -14,13 +15,22 @@ import { IconComponent } from '../icon/icon.component';
         CommonModule,
         IconComponent
     ],
-    hostDirectives: [...ButtonBaseComponent.directives],
+    hostDirectives: [...ButtonBaseComponent.directives, ActiveDirective.default],
     providers: [...ButtonBaseComponent.providers]
 })
 export class ToggleButtonComponent extends ButtonBaseComponent {
+    private readonly activeDirective = inject(ActiveDirective, { self: true });
 
     @ContentChild('active')
     public activeTemplate: TemplateRef<NgIfContext<boolean>>;
+
+    protected get active(): boolean {
+        return this.activeDirective.active;
+    }
+
+    protected set active(value: BooleanLike) {
+        this.activeDirective.active = value;
+    }
 
     public get checked(): boolean {
         return this.active;
@@ -35,16 +45,14 @@ export class ToggleButtonComponent extends ButtonBaseComponent {
     @Output()
     public readonly checkedChange = new EventEmitter<boolean>();
 
-    @HostBinding('class.toggle')
-    public readonly toggleButton = true;
-
     public constructor() {
         super();
-        this.classList.register('checked');
+        this.classes.register('checked')
+            .registerFixed('toggle');
     }
 
     @HostListener('click')
-    public toggle(): void {
+    private toggle(): void {
         if (this.checked) {
             this.uncheck();
         } else {
@@ -53,7 +61,7 @@ export class ToggleButtonComponent extends ButtonBaseComponent {
     }
 
     @HostListener('keydown', ['$event'])
-    public onKeyDown(event: KeyboardEvent): void {
+    private onKeyDown(event: KeyboardEvent): void {
         if (Key.is(event, Key.space, Key.enter)) {
             this.toggle();
             event.preventDefault();

@@ -1,24 +1,30 @@
-import { Component, EventEmitter, HostBinding, Inject, Input, Optional, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, inject, Inject, Input, Optional, Output } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
+import { ActiveDirective } from '../../directives/active.directive';
 
 @Component({
     selector: 'm-menu-item',
     templateUrl: './menu-item.component.html',
-    styleUrls: ['./menu-item.component.scss']
+    styleUrls: ['./menu-item.component.scss'],
+    standalone: true,
+    hostDirectives: MenuItemComponent.directives,
+    providers: MenuItemComponent.providers
 })
 export class MenuItemComponent extends BaseComponent {
-    private isActive: boolean;
+    protected static override readonly providers = [...BaseComponent.providers];
+    protected static override readonly directives = [...BaseComponent.directives, ActiveDirective.default];
+    protected readonly activeDirective = inject(ActiveDirective, { self: true });
     private isLink: boolean;
 
-    @Input()
+    // TODO: Remove HostBinding
+    @HostBinding('class.active')
     public get active(): boolean {
-        return this.isActive;
+        return this.activeDirective.active;
     }
 
-    public set active(value: BooleanLike) {
-        this.isActive = this.toBoolean(value);
-        this.classList.set('active', this.isActive);
+    protected set active(value: BooleanLike) {
+        this.activeDirective.active = value;
     }
 
     @Input()
@@ -38,6 +44,7 @@ export class MenuItemComponent extends BaseComponent {
         @Optional() @Inject('none') useUiClass = true
     ) {
         super(useUiClass);
-        this.classList.register('active', 'link').registerFixed('item');
+        this.classes.register('link')
+            .registerFixed('item');
     }
 }

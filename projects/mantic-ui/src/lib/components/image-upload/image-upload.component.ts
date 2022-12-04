@@ -55,11 +55,7 @@ export class ImageUploadComponent extends ButtonBaseComponent {
     @Output()
     public readonly upload = this.uploadSubject.asObservable();
 
-    public constructor() {
-        super();
-    }
-
-    public onUpload(fileList: FileList): void {
+    protected onUpload(fileList: FileList): void {
         if (fileList.length === 0) {
             return;
         }

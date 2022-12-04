@@ -4,11 +4,18 @@ import { IconSize } from '../icon/icon-size';
 import { ExpanderComponent } from '../expander/expander.component';
 import { BooleanLike } from '../../models/boolean-like';
 import { BaseComponent } from '../../base/base.component';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
     selector: 'm-expander-icon',
     templateUrl: './expander-icon.component.html',
-    styleUrls: ['./expander-icon.component.scss']
+    styleUrls: ['./expander-icon.component.scss'],
+    standalone: true,
+    imports: [
+        IconComponent
+    ],
+    hostDirectives: [...BaseComponent.directives],
+    providers: [...BaseComponent.providers]
 })
 export class ExpanderIconComponent extends BaseComponent {
     private isExpanded: boolean;

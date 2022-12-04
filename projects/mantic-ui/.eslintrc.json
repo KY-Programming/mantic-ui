@@ -20,7 +20,10 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "m",
+            "prefix": [
+              "m",
+              "-m"
+            ],
             "style": "kebab-case"
           }
         ],

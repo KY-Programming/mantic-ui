@@ -26,19 +26,19 @@ export class SubmitComponent extends ButtonBaseComponent {
     }
 
     @HostListener('click')
-    public onClick(): void {
+    private onClick(): void {
         this.submit();
     }
 
     @HostListener('keydown', ['$event'])
-    public onKeyDown(event: KeyboardEvent): void {
+    private onKeyDown(event: KeyboardEvent): void {
         if (Key.is(event, Key.space, Key.enter)) {
             this.submit();
             event.preventDefault();
         }
     }
 
-    public submit(): void {
+    protected submit(): void {
         if (!this.form) {
             return;
         }

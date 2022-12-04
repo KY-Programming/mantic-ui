@@ -3,7 +3,8 @@ import { ValidationPipe } from './validation.pipe';
 import { FormValidation, isFormValidation } from '../models/form-validation';
 
 @Pipe({
-    name: 'mAllowedChars'
+    name: 'mAllowedChars',
+    standalone: true
 })
 export class AllowedCharsPipe implements ValidationPipe, PipeTransform {
 

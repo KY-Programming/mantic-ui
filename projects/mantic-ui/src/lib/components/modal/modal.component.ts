@@ -5,7 +5,6 @@ import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { BasicDirective } from '../../directives/basic.directive';
-import { BaseComponent } from '../../base/base.component';
 import { DimmerComponent } from '../dimmer/dimmer.component';
 import { ModalHeaderComponent } from './modal-header.component';
 import { ModalFooterComponent } from './modal-footer.component';
@@ -36,10 +35,8 @@ export type ModalSize =
         LoaderComponent,
         FallbackForDirective
     ],
-    hostDirectives: [
-        BasicDirective.default
-    ],
-    providers: [...BaseComponent.providers]
+    hostDirectives: [...InvertibleComponent.directives, BasicDirective.default],
+    providers: [...InvertibleComponent.providers]
 })
 export class ModalComponent extends InvertibleComponent {
     public static readonly defaults = {
@@ -58,8 +55,12 @@ export class ModalComponent extends InvertibleComponent {
     private isNoPadding = false;
     private isLoading = false;
 
+    private readonly basicDirective = inject(BasicDirective, { self: true });
     protected readonly defaults = ModalComponent.defaults;
-    protected readonly basicDirective = inject(BasicDirective, { self: true });
+
+    protected get basic(): boolean {
+        return this.basicDirective.basic;
+    }
 
     @Input()
     public header: string;
@@ -162,15 +163,15 @@ export class ModalComponent extends InvertibleComponent {
 
     public constructor() {
         super(false);
-        this.classList.register('basic', 'visible', 'fullscreen', 'size', 'scrolling', 'imageContent', 'header', 'footer', 'showHeader', 'showFooter', 'showClose', 'minContentHeight', 'maxContentHeight');
+        this.classes.register('basic', 'visible', 'fullscreen', 'size', 'scrolling', 'imageContent', 'header', 'footer', 'showHeader', 'showFooter', 'showClose', 'minContentHeight', 'maxContentHeight');
         ModalComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
 
-    public onClose(): void {
+    protected onClose(): void {
         this.close.emit();
     }
 
-    public onDimmerClick(event: MouseEvent): void {
+    protected onDimmerClick(event: MouseEvent): void {
         // Only close modal if dimmer was clicked
         if ((event.target as HTMLElement).closest('.modal')) {
             return;

@@ -1,71 +1,71 @@
 <ng-container *ngFor="let element of elements" [ngSwitch]="element.elementType">
     <ng-container *ngSwitchCase="'input'">
-        <m-field *ngIf="element | mAsInput as input" [label]="input.label" [readonly]="input.readonly" [class.fill]="element.fill">
+        <m-field *ngIf="$input(element) as input" [label]="input.label" [readonly]="input.readonly" [class.fill]="element.fill">
             <m-input *ngIf="input.type !== 'number' && input.type !== 'range'" [type]="input.type" [(value)]="data[input.field]"></m-input>
             <m-numeric-input *ngIf="input.type === 'number' || input.type === 'range'" [range]="input.type === 'range'" [(value)]="data[input.field]" [min]="input.min" [max]="input.max" [zeroText]="input.zeroText"></m-numeric-input>
         </m-field>
     </ng-container>
     <ng-container *ngSwitchCase="'checkbox'">
-        <m-field *ngIf="element | mAsCheckbox as checkbox" [label]="checkbox.label" [readonly]="checkbox.readonly" [class.fill]="element.fill">
+        <m-field *ngIf="$checkbox(element) as checkbox" [label]="checkbox.label" [readonly]="checkbox.readonly" [class.fill]="element.fill">
             <m-checkbox [(value)]="data[checkbox.field]"></m-checkbox>
         </m-field>
     </ng-container>
     <ng-container *ngSwitchCase="'area'">
-        <m-field *ngIf="element | mAsArea as area" [label]="area.label" [readonly]="area.readonly" [class.fill]="element.fill">
+        <m-field *ngIf="$area(element) as area" [label]="area.label" [readonly]="area.readonly" [class.fill]="element.fill">
             <m-textarea [(value)]="data[area.field]"></m-textarea>
         </m-field>
     </ng-container>
     <ng-container *ngSwitchCase="'dropdown'">
-        <m-field *ngIf="element | mAsDropDown as dropdown" [label]="dropdown.label" [disabled]="dropdown.readonly" [class.fill]="element.fill">
+        <m-field *ngIf="$dropdown(element) as dropdown" [label]="dropdown.label" [disabled]="dropdown.readonly" [class.fill]="element.fill">
             <m-dropdown [(value)]="data[dropdown.field]" [items]="getItems(dropdown) | async" [allowFreeText]="dropdown.allowFreeText" search></m-dropdown>
         </m-field>
     </ng-container>
     <ng-container *ngSwitchCase="'button'">
-        <m-button *ngIf="element | mAsButton as button" [color]="button.color" [class.fill]="element.fill" (click)="onExecute(button.action)">{{button.label}}</m-button>
+        <m-button *ngIf="$button(element) as button" [color]="button.color" [class.fill]="element.fill" (click)="onExecute(button.action)">{{button.label}}</m-button>
     </ng-container>
     <ng-container *ngSwitchCase="'label'">
-        <label *ngIf="element | mAsLabel as label" [class.fill]="element.fill">{{label.label}}</label>
+        <label *ngIf="$label(element) as label" [class.fill]="element.fill">{{label.label}}</label>
     </ng-container>
     <ng-container *ngSwitchCase="'fields'">
-        <m-form-element-renderer *ngIf="element | mAsFields as fields" [elements]="fields.elements" [data]="data" [class.fill]="element.fill" (execute)="onExecute($event)" fields></m-form-element-renderer>
+        <m-form-element-renderer *ngIf="$fields(element) as fields" [elements]="fields.elements" [data]="data" [class.fill]="element.fill" fields (execute)="onExecute($event)"></m-form-element-renderer>
     </ng-container>
     <ng-container *ngSwitchCase="'grid'">
-        <m-grid *ngIf="element | mAsGrid as grid" [width]="grid.width" [class.fill]="element.fill">
+        <m-grid *ngIf="$grid(element) as  grid" [width]="grid.width" [class.fill]="element.fill">
             <m-cell *ngFor="let cell of grid.cells" [float]="cell.float" [align]="cell.align" [size]="cell.size">
                 <m-form-element-renderer [elements]="cell.elements" [data]="data" (execute)="onExecute($event)"></m-form-element-renderer>
             </m-cell>
         </m-grid>
     </ng-container>
     <ng-container *ngSwitchCase="'message'">
-        <m-message *ngIf="element | mAsMessage as message" [header]="message.header" [class.fill]="element.fill">{{message.text}}</m-message>
+        <m-message *ngIf="$message(element) as message" [header]="message.header" [class.fill]="element.fill">{{message.text}}</m-message>
     </ng-container>
     <ng-container *ngSwitchCase="'warning'">
-        <m-warning *ngIf="element | mAsMessage as message" [class.fill]="element.fill">{{message.text}}</m-warning>
+        <m-warning *ngIf="$message(element) as message" [class.fill]="element.fill">{{message.text}}</m-warning>
     </ng-container>
     <ng-container *ngSwitchCase="'info'">
-        <m-info *ngIf="element | mAsMessage as message" [class.fill]="element.fill">{{message.text}}</m-info>
+        <m-info *ngIf="$message(element) as message" [class.fill]="element.fill">{{message.text}}</m-info>
     </ng-container>
     <ng-container *ngSwitchCase="'error'">
-        <m-error *ngIf="element | mAsMessage as message" [class.fill]="element.fill">{{message.text}}</m-error>
+        <m-error *ngIf="$message(element) as message" [class.fill]="element.fill">{{message.text}}</m-error>
     </ng-container>
     <m-divider *ngSwitchCase="'divider'" [class.fill]="element.fill"></m-divider>
     <ng-container *ngSwitchCase="'h1'">
-        <h1 *ngIf="element | mAsHeader as header" m-header [dividing]="header.dividing" [class.fill]="element.fill">{{header.text}}</h1>
+        <h1 *ngIf="$header(element) as header" m-header [dividing]="header.dividing" [class.fill]="element.fill">{{header.text}}</h1>
     </ng-container>
     <ng-container *ngSwitchCase="'h2'">
-        <h2 *ngIf="element | mAsHeader as header" m-header [dividing]="header.dividing" [class.fill]="element.fill">{{header.text}}</h2>
+        <h2 *ngIf="$header(element) as header" m-header [dividing]="header.dividing" [class.fill]="element.fill">{{header.text}}</h2>
     </ng-container>
     <ng-container *ngSwitchCase="'h3'">
-        <h3 *ngIf="element | mAsHeader as header" m-header [dividing]="header.dividing" [class.fill]="element.fill">{{header.text}}</h3>
+        <h3 *ngIf="$header(element) as header" m-header [dividing]="header.dividing" [class.fill]="element.fill">{{header.text}}</h3>
     </ng-container>
     <ng-container *ngSwitchCase="'h4'">
-        <h4 *ngIf="element | mAsHeader as header" m-header [dividing]="header.dividing" [class.fill]="element.fill">{{header.text}}</h4>
+        <h4 *ngIf="$header(element) as header" m-header [dividing]="header.dividing" [class.fill]="element.fill">{{header.text}}</h4>
     </ng-container>
     <ng-container *ngSwitchCase="'h5'">
-        <h5 *ngIf="element | mAsHeader as header" m-header [dividing]="header.dividing" [class.fill]="element.fill">{{header.text}}</h5>
+        <h5 *ngIf="$header(element) as header" m-header [dividing]="header.dividing" [class.fill]="element.fill">{{header.text}}</h5>
     </ng-container>
     <ng-container *ngSwitchCase="'h6'">
-        <h6 *ngIf="element | mAsHeader as header" m-header [dividing]="header.dividing" [class.fill]="element.fill">{{header.text}}</h6>
+        <h6 *ngIf="$header(element) as header" m-header [dividing]="header.dividing" [class.fill]="element.fill">{{header.text}}</h6>
     </ng-container>
     <m-form-renderer2 *ngSwitchDefault [element]="element" [data]="data"></m-form-renderer2>
 </ng-container>

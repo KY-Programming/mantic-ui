@@ -10,7 +10,9 @@ import { takeUntil } from 'rxjs/operators';
     selector: 'm-dimmer',
     templateUrl: './dimmer.component.html',
     styleUrls: ['./dimmer.component.scss'],
-    standalone: true
+    standalone: true,
+    hostDirectives: [...InvertibleComponent.directives],
+    providers: [...InvertibleComponent.providers]
 })
 export class DimmerComponent extends InvertibleComponent implements OnInit, OnDestroy {
     public static readonly defaults = {
@@ -51,12 +53,10 @@ export class DimmerComponent extends InvertibleComponent implements OnInit, OnDe
         }
     }
 
-    @HostBinding('class.dimmer')
-    public readonly dimmer = true;
-
     public constructor() {
         super();
-        this.classList.register('page', 'visible');
+        this.classes.register('page', 'visible')
+            .registerFixed('dimmer');
         DimmerComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
 
@@ -83,7 +83,7 @@ export class DimmerComponent extends InvertibleComponent implements OnInit, OnDe
     }
 
     @HostListener('click')
-    public onClick(): void {
+    private onClick(): void {
         if (this.hideOnClick) {
             this.hide();
         }

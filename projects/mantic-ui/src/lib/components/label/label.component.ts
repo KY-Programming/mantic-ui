@@ -18,10 +18,7 @@ export declare type LabelPointing =
     templateUrl: './label.component.html',
     styleUrls: ['./label.component.scss'],
     standalone: true,
-    hostDirectives: [
-        BasicDirective.default,
-        ColorDirective.default
-    ],
+    hostDirectives: [...BaseComponent.directives, BasicDirective.default, ColorDirective.default],
     providers: [...BaseComponent.providers]
 })
 export class LabelComponent extends BaseComponent implements LabelOptions {
@@ -36,7 +33,7 @@ export class LabelComponent extends BaseComponent implements LabelOptions {
     @Input()
     public set position(value: LabelPosition) {
         this.positionValue = value;
-        this.classList.set('position', value);
+        this.classes.set('position', value);
     }
 
     public get pointing(): LabelPointing {
@@ -46,7 +43,7 @@ export class LabelComponent extends BaseComponent implements LabelOptions {
     @Input()
     public set pointing(value: LabelPointing) {
         this.pointingValue = value;
-        this.classList.set('color', value);
+        this.classes.set('color', value);
     }
 
     public get horizontal(): boolean {
@@ -59,11 +56,9 @@ export class LabelComponent extends BaseComponent implements LabelOptions {
         this.isHorizontal = this.toBoolean(value);
     }
 
-    @HostBinding('class.label')
-    public readonly label = true;
-
     public constructor() {
         super();
-        this.classList.register('pointing', 'pointing', 'color', 'basic', 'horizontal');
+        this.classes.register('pointing', 'horizontal')
+            .registerFixed('label');
     }
 }

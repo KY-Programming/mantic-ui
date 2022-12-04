@@ -3,10 +3,9 @@
     <ng-container *ngFor="let message of messages" [ngTemplateOutlet]="messageTemplate" [ngTemplateOutletContext]="{ $implicit: message }"></ng-container>
 </ng-container>
 
-
-<ng-template #messageTemplate let-message>
+<ng-template let-message #messageTemplate>
     <m-message [error]="message.type === 'error'" [warning]="message.type === 'warning'" [success]="message.type === 'success'" [positive]="message.type === 'positive'" [info]="message.type === 'info'"
-               [header]="message.title" [icon]="message.icon" closable [showClose]="message.type === 'error'" (close)="close(message)" attached="bottom">
+               [header]="message.title" [icon]="message.icon" closable [showClose]="message.type === 'error'" attached="bottom" (close)="close(message)">
         {{message.text}}
     </m-message>
 </ng-template>

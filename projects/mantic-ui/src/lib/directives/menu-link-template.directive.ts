@@ -2,7 +2,8 @@ import { Directive, TemplateRef } from '@angular/core';
 import { LayoutService } from '../services/layout.service';
 
 @Directive({
-    selector: '[m-menu-link-template]'
+    selector: '[m-menu-link-template]',
+    standalone: true
 })
 export class MenuLinkTemplateDirective {
     public constructor(

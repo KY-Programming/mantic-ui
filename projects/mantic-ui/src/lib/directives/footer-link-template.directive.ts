@@ -2,7 +2,8 @@ import { Directive, TemplateRef } from '@angular/core';
 import { LayoutService } from '../services/layout.service';
 
 @Directive({
-    selector: '[m-footer-link-template]'
+    selector: '[m-footer-link-template]',
+    standalone: true
 })
 export class FooterLinkTemplateDirective {
     public constructor(

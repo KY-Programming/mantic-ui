@@ -1,22 +1,20 @@
-import { DestroyableDirective } from './destroyable.directive';
-import { Directive, ElementRef, inject, OnInit, TypeProvider } from '@angular/core';
-import { ClassList } from '../models/class-list';
-import { takeUntil } from 'rxjs/operators';
+import { Directive, ElementRef, Inject, inject, OnInit, Optional, TypeProvider } from '@angular/core';
 import { BooleanLike } from '../models/boolean-like';
-import { SortedClassesService } from '../services/sorted-classes.service';
 import { toBoolean } from '../helpers/to-boolean';
+import { Destroyable } from './destroyable';
+import { SortedClassesService } from '../services/sorted-classes.service';
 
 @Directive()
-export abstract class BaseDirective extends DestroyableDirective implements OnInit {
+export abstract class BaseDirective extends Destroyable implements OnInit {
     protected static readonly providers: TypeProvider[] = [SortedClassesService];
-    // TODO: Remove optional flag
-    private readonly classes = inject(SortedClassesService, { optional: true, self: true });
+    protected static readonly directives = [];
+
+    protected readonly classes = inject(SortedClassesService, { self: true });
     private noClassesValue = false;
     private initialized = false;
-    protected readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
+    protected readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef, { self: true });
 
     protected tag: string;
-    protected readonly classList: ClassList;
     protected validateAttributes = true;
 
     protected get noClasses(): boolean {
@@ -29,18 +27,13 @@ export abstract class BaseDirective extends DestroyableDirective implements OnIn
     }
 
     protected constructor(
-        useUiClass = true
+        @Optional() @Inject('none') useUiClass = true
     ) {
         super();
         this.tag = this.elementRef.nativeElement.tagName.toLowerCase();
-        this.classList = new ClassList(this.tag);
-        this.classList.refresh.pipe(takeUntil(this.destroy)).subscribe(() => this.refreshClasses());
         if (useUiClass) {
-            this.classList.register('ui');
-            this.classList.set('ui', true, false);
             this.classes?.registerFixed('ui');
         }
-        this.classList.register('title');
     }
 
     public ngOnInit(): void {
@@ -58,7 +51,7 @@ export abstract class BaseDirective extends DestroyableDirective implements OnIn
             if (attribute.name.indexOf('_ng') === 0 || attribute.name.indexOf('ng-') === 0 || attribute.name.indexOf('m-') === 0 || attribute.name === 'class') {
                 continue;
             }
-            if (!this.classList.has(attribute.name)) {
+            if (!this.classes.has(attribute.name)) {
                 console.warn(`Unknown attribute '${attribute.name}' on <${this.tag}> found.`, this.elementRef.nativeElement);
             }
         }
@@ -68,7 +61,6 @@ export abstract class BaseDirective extends DestroyableDirective implements OnIn
         if (!this.initialized) {
             return;
         }
-        this.classList.update(this.elementRef.nativeElement.classList);
         this.classes?.update();
     }
 

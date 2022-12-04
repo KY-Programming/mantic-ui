@@ -3,7 +3,8 @@ import { TabGroupComponent } from './tab-group.component';
 
 @Component({
     selector: 'm-tab-group-defaults',
-    template: ''
+    template: '',
+    standalone: true
 })
 export class TabGroupDefaultsComponent {
     @Input()

@@ -1,7 +1,8 @@
 import { Directive, HostBinding } from '@angular/core';
 
 @Directive({
-    selector: '[m-fill]'
+    selector: '[m-fill]',
+    standalone: true
 })
 export class FillDirective {
 

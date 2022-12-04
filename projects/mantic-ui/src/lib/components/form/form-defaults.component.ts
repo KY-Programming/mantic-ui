@@ -3,7 +3,8 @@ import { FormComponent } from './form.component';
 
 @Component({
     selector: 'm-form-defaults',
-    template: ''
+    template: '',
+    standalone: true
 })
 export class FormDefaultsComponent {
     @Input()

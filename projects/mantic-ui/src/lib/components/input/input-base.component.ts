@@ -6,6 +6,8 @@ import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { LoadingDirective } from '../../directives/loading.directive';
+import { FluidDirective } from '../../directives/fluid.directive';
 
 @Directive()
 export abstract class InputBaseComponent extends LabeledBaseComponent implements OnDestroy {
@@ -13,17 +15,17 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
         inverted: false,
         invertedChange: new ReplaySubject<boolean>(1)
     };
+    protected static override readonly providers = [...LabeledBaseComponent.providers];
+    protected static override readonly directives = [...LabeledBaseComponent.directives, LoadingDirective.default, FluidDirective.default];
 
     private iconPositionValue: InputIconPosition;
-    private loadingValue: boolean;
     private transparentValue: boolean;
     private hasErrorValue: boolean;
-    private fluidValue: boolean;
     private readonlyValue: boolean;
     private disabledValue: boolean;
     private isAutoFocused: boolean;
 
-    public inputElement: ElementRef<HTMLInputElement>;
+    protected inputElement: ElementRef<HTMLInputElement>;
 
     public get iconPosition(): InputIconPosition {
         return this.iconPositionValue;
@@ -32,7 +34,7 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
     @Input()
     public set iconPosition(value: InputIconPosition) {
         this.iconPositionValue = value;
-        this.classList.set('iconPosition', value);
+        this.classes.set('iconPosition', value);
     }
 
     @Input()
@@ -44,17 +46,6 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
 
     @HostBinding('class.focus')
     public focused: boolean;
-
-    @Input()
-    @HostBinding('class.loading')
-    public get loading(): boolean {
-        return this.loadingValue;
-    }
-
-    public set loading(value: BooleanLike) {
-        this.loadingValue = this.toBoolean(value);
-        this.refreshInput();
-    }
 
     @Input()
     @HostBinding('class.disabled')
@@ -86,7 +77,6 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
 
     public set hasError(value: BooleanLike) {
         this.hasErrorValue = this.toBoolean(value);
-        this.refreshInput();
     }
 
     @Input()
@@ -97,18 +87,6 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
 
     public set transparent(value: BooleanLike) {
         this.transparentValue = this.toBoolean(value);
-        this.refreshInput();
-    }
-
-    @Input()
-    @HostBinding('class.fluid')
-    public get fluid(): boolean {
-        return this.fluidValue;
-    }
-
-    public set fluid(value: BooleanLike) {
-        this.fluidValue = this.toBoolean(value);
-        this.refreshInput();
     }
 
     @Input()
@@ -120,12 +98,6 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
         this.isAutoFocused = this.toBoolean(value);
         this.refreshFocus();
     }
-
-    @HostBinding('class.color')
-    public isColor: boolean;
-
-    @HostBinding('class.input')
-    public readonly input = true;
 
     @Input()
     public placeholder: string | undefined;
@@ -157,10 +129,14 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
     @Output()
     public readonly focusout = new EventEmitter<FocusEvent>();
 
+    @HostBinding('class.color')
+    protected isColor: boolean;
+
     protected constructor() {
         super();
         InputBaseComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
-        this.classList.register('icon', 'focused', 'loading', 'disabled', 'readonly', 'transparent', 'fluid', 'hasError', 'autofocus', 'placeholder', 'type', 'iconPosition');
+        this.classes.registerFixed('input');
+        this.classes.register('icon', 'focused', 'loading', 'disabled', 'readonly', 'transparent', 'fluid', 'hasError', 'autofocus', 'placeholder', 'type', 'iconPosition');
     }
 
     public override ngOnDestroy(): void {

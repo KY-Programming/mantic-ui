@@ -1,32 +1,19 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
-import { BooleanLike } from '../../models/boolean-like';
+import { IgnoredDirective } from '../../directives/ignored.directive';
 
 @Component({
     selector: 'm-error',
     templateUrl: './error.component.html',
-    styleUrls: ['./error.component.scss']
+    styleUrls: ['./error.component.scss'],
+    standalone: true,
+    hostDirectives: [...BaseComponent.directives, IgnoredDirective.default],
+    providers: [...BaseComponent.providers]
 })
 export class ErrorComponent extends BaseComponent {
-    private isIgnored: boolean;
-
-    @Input()
-    @HostBinding('class.ignored')
-    public get ignored(): boolean {
-        return this.isIgnored;
-    }
-
-    public set ignored(value: BooleanLike) {
-        this.isIgnored = this.toBoolean(value);
-    }
-
-    @HostBinding('class.visible')
-    @HostBinding('class.error')
-    @HostBinding('class.message')
-    public readonly message = true;
-
     public constructor() {
         super();
-        this.classList.register('ignored');
+        this.classes.registerFixed('visible', 'error', 'message');
+        this.classes.register('ignored');
     }
 }

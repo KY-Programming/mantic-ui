@@ -3,7 +3,8 @@ import { SegmentComponent } from './segment.component';
 
 @Component({
     selector: 'm-segment-defaults',
-    template: ''
+    template: '',
+    standalone: true
 })
 export class SegmentDefaultsComponent {
     @Input()

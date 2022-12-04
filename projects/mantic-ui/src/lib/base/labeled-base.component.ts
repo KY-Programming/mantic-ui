@@ -8,6 +8,9 @@ import { InvertibleComponent } from './invertible.component';
 
 @Directive()
 export abstract class LabeledBaseComponent extends InvertibleComponent {
+    protected static override readonly providers = [...InvertibleComponent.providers];
+    protected static override readonly directives = [...InvertibleComponent.directives];
+
     private labelValue: LabelOptions;
     private labelDropdownValue: LabelDropdownComponent;
 
@@ -19,7 +22,7 @@ export abstract class LabeledBaseComponent extends InvertibleComponent {
     public set label(value: LabelOptions) {
         this.labelValue = value;
         if (value) {
-            this.classList.set('labeled', (value.position ?? '') + ' labeled');
+            this.classes.set('labeled', (value.position ?? '') + ' labeled');
         }
     }
 
@@ -31,7 +34,7 @@ export abstract class LabeledBaseComponent extends InvertibleComponent {
     public set labelDropdown(value: LabelDropdownComponent) {
         this.labelDropdownValue = value;
         if (value) {
-            this.classList.set('labeled', (value.position ?? '') + ' labeled');
+            this.classes.set('labeled', (value.position ?? '') + ' labeled');
         }
     }
 
@@ -55,7 +58,7 @@ export abstract class LabeledBaseComponent extends InvertibleComponent {
 
     protected constructor() {
         super();
-        this.classList.register('labeled');
+        this.classes.register('labeled');
         //TODO: Implement actions
         // .registerAction('labelDropdown', (entry) => entry.classes = this.labelDropdown ? ((this.labelDropdown.position || '') + ' labeled').trim() : undefined);
     }

@@ -1,10 +1,21 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { BooleanLike, SegmentComponent } from '@mantic-ui/angular';
+import { BooleanLike, ButtonComponent, SegmentComponent } from '@mantic-ui/angular';
+import { CommonModule } from '@angular/common';
+import { HighlightModule } from 'ngx-highlightjs';
+import { highlightJsProviders } from '../../highlightjs.providers';
 
 @Component({
     selector: 'm-example-code',
     templateUrl: './example-code.component.html',
-    styleUrls: ['./example-code.component.scss']
+    styleUrls: ['./example-code.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        HighlightModule,
+        ButtonComponent
+    ],
+    hostDirectives: [...SegmentComponent.directives],
+    providers: [...SegmentComponent.providers, ...highlightJsProviders]
 })
 export class ExampleCodeComponent extends SegmentComponent {
     private isLive = false;
@@ -32,6 +43,6 @@ export class ExampleCodeComponent extends SegmentComponent {
 
     public constructor() {
         super();
-        this.classList.register('label', 'code', 'languages');
+        this.classes.register('label', 'code', 'languages');
     }
 }

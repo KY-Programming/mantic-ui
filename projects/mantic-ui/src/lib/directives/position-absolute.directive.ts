@@ -1,7 +1,8 @@
 import { AfterViewInit, Directive, ElementRef, Input, OnDestroy } from '@angular/core';
 
 @Directive({
-    selector: '[m-position-absolute]'
+    selector: '[m-position-absolute]',
+    standalone: true
 })
 export class PositionAbsoluteDirective implements AfterViewInit, OnDestroy {
     private readonly observer = new MutationObserver(() => this.refresh());

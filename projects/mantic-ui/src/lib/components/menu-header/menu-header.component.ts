@@ -1,19 +1,19 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 
 @Component({
     selector: 'm-menu-header',
     templateUrl: './menu-header.component.html',
-    styleUrls: ['./menu-header.component.scss']
+    styleUrls: ['./menu-header.component.scss'],
+    standalone: true,
+    hostDirectives: [...BaseComponent.directives],
+    providers: [...BaseComponent.providers]
 })
 export class MenuHeaderComponent extends BaseComponent {
 
-    @HostBinding('class.header')
-    @HostBinding('class.item')
-    public readonly menuHeader = true;
-
     public constructor() {
         super();
+        this.classes.registerFixed('header', 'item');
     }
 
 }

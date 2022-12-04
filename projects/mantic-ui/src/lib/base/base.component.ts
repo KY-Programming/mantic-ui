@@ -1,23 +1,20 @@
-﻿import { Directive, ElementRef, inject, Inject, OnInit, Optional, TypeProvider } from '@angular/core';
-import { DestroyableComponent } from './destroyable.component';
-import { ClassList } from '../models/class-list';
-import { takeUntil } from 'rxjs/operators';
+﻿import { Directive, ElementRef, inject, Inject, OnInit, Optional } from '@angular/core';
 import { BooleanLike } from '../models/boolean-like';
 import { toBoolean } from '../helpers/to-boolean';
+import { Destroyable } from './destroyable';
 import { SortedClassesService } from '../services/sorted-classes.service';
 
 @Directive()
-export abstract class BaseComponent extends DestroyableComponent implements OnInit {
-    protected static readonly providers: TypeProvider[] = [SortedClassesService];
+export abstract class BaseComponent extends Destroyable implements OnInit {
+    protected static readonly providers = [SortedClassesService];
+    protected static readonly directives = [];
 
-    // TODO: Remove optional flag
-    private readonly classes = inject(SortedClassesService, { optional: true, self: true });
+    protected readonly classes = inject(SortedClassesService, { self: true, optional: true });
     private noClassesValue = false;
     private initialized = false;
     protected readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
     protected tag: string;
-    protected readonly classList: ClassList;
     protected validateAttributes = true;
 
     protected get noClasses(): boolean {
@@ -34,19 +31,15 @@ export abstract class BaseComponent extends DestroyableComponent implements OnIn
     ) {
         super();
         this.tag = this.elementRef.nativeElement.tagName.toLowerCase();
-        this.classList = new ClassList(this.tag);
-        this.classList.refresh.pipe(takeUntil(this.destroy)).subscribe(() => this.refreshClasses());
         if (useUiClass) {
-            this.classList.register('ui');
-            this.classList.set('ui', true, false);
             this.classes?.registerFixed('ui');
         }
-        this.classList.register('title', 'style');
+        this.classes.register('style');
     }
 
     public ngOnInit(): void {
         this.initialized = true;
-        if (this.classList) {
+        if (this.classes) {
             this.readPropertiesFromAttributes();
             this.refreshClasses();
         }
@@ -61,7 +54,7 @@ export abstract class BaseComponent extends DestroyableComponent implements OnIn
             if (attribute.name.indexOf('_ng') === 0 || attribute.name.indexOf('ng-') === 0 || attribute.name.indexOf('m-') === 0 || attribute.name === 'class') {
                 continue;
             }
-            if (!this.classList.has(attribute.name)) {
+            if (!this.classes.has(attribute.name)) {
                 console.warn(`Unknown attribute '${attribute.name}' on <${this.tag}> found.`, this.elementRef.nativeElement);
             }
         }
@@ -69,10 +62,9 @@ export abstract class BaseComponent extends DestroyableComponent implements OnIn
 
     // TODO: Check usage
     protected refreshClasses(): void {
-        if (!this.initialized || !this.classList) {
+        if (!this.initialized) {
             return;
         }
-        this.classList.update(this.elementRef.nativeElement.classList);
         this.classes?.update();
     }
 

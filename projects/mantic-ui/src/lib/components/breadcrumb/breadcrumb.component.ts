@@ -1,17 +1,18 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 
 @Component({
     selector: 'm-breadcrumb',
     templateUrl: './breadcrumb.component.html',
-    styleUrls: ['./breadcrumb.component.scss']
+    styleUrls: ['./breadcrumb.component.scss'],
+    standalone: true,
+    hostDirectives: [...BaseComponent.directives],
+    providers: [...BaseComponent.providers]
 })
 export class BreadcrumbComponent extends BaseComponent {
 
-    @HostBinding('class.breadcrumb')
-    public readonly breadcrumb = true;
-
     public constructor() {
         super();
+        this.classes.registerFixed('breadcrumb');
     }
 }

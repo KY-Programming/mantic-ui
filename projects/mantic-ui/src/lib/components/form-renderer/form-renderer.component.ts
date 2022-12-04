@@ -2,23 +2,30 @@ import { Component, ContentChildren, Input, Output, QueryList } from '@angular/c
 import { FormLayout } from './form-layout';
 import { Subject } from 'rxjs';
 import { DataSourceComponent } from '../data-source/data-source.component';
+import { CommonModule } from '@angular/common';
+import { FormComponent } from '../form/form.component';
+import { FormElementRendererComponent } from '../form-element-renderer/form-element-renderer.component';
+import { FlexDirective } from '../flex/flex.directive';
+import { FillDirective } from '../flex/fill/fill.directive';
 
 @Component({
     selector: 'm-form-renderer',
     templateUrl: './form-renderer.component.html',
-    styleUrls: ['./form-renderer.component.scss']
+    styleUrls: ['./form-renderer.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormComponent,
+        FormElementRendererComponent,
+        FlexDirective,
+        FillDirective
+    ]
 })
 export class FormRendererComponent {
     private readonly dataChangeSubject = new Subject<unknown>();
     private readonly executeSubject = new Subject<string>();
     private dataValue: unknown;
     public dataSources: DataSourceComponent[] = [];
-
-    @ContentChildren(DataSourceComponent)
-    public set dataSourceElements(query: QueryList<DataSourceComponent>) {
-        this.dataSources = Array.from(query);
-        query.changes.subscribe(() => this.dataSources = Array.from(query));
-    }
 
     @Input()
     public layout: FormLayout;
@@ -44,7 +51,13 @@ export class FormRendererComponent {
     @Output()
     public readonly execute = this.executeSubject.asObservable();
 
-    public onExecute(action: string): void {
+    @ContentChildren(DataSourceComponent)
+    protected set dataSourceElements(query: QueryList<DataSourceComponent>) {
+        this.dataSources = Array.from(query);
+        query.changes.subscribe(() => this.dataSources = Array.from(query));
+    }
+
+    protected onExecute(action: string): void {
         this.executeSubject.next(action);
     }
 }

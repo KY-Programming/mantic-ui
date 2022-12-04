@@ -1,8 +1,6 @@
 import { ElementRef, inject, Injectable } from '@angular/core';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class SortedClassesService {
     private readonly entries = new Map<string, string>();
     private readonly last = new Map<string, string[]>();

@@ -2,6 +2,7 @@ import { Component, ContentChildren, HostBinding, Input, QueryList } from '@angu
 import { FieldComponent } from '../field/field.component';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
+import { InlineDirective } from '../../directives/inline.directive';
 
 export declare type FieldsType =
     ''
@@ -19,7 +20,10 @@ export declare type FieldsType =
 @Component({
     selector: 'm-field-group',
     templateUrl: './field-group.component.html',
-    styleUrls: ['./field-group.component.scss']
+    styleUrls: ['./field-group.component.scss'],
+    standalone: true,
+    hostDirectives: [...BaseComponent.directives, InlineDirective.default],
+    providers: [...BaseComponent.providers]
 })
 export class FieldGroupComponent extends BaseComponent {
     private readonly fieldClasses: FieldsType[] = ['', '', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
@@ -28,11 +32,11 @@ export class FieldGroupComponent extends BaseComponent {
     private isInline: boolean;
     private isGrouped: boolean;
 
+    @Input()
     public get fields(): FieldsType {
         return this.fieldsValue || this.fieldsAutoValue;
     }
 
-    @Input()
     public set fields(value: FieldsType) {
         // TODO: Parse number as string e.g. '2'
         if (typeof value === 'number') {
@@ -43,21 +47,11 @@ export class FieldGroupComponent extends BaseComponent {
     }
 
     @ContentChildren(FieldComponent)
-    public set fieldComponents(query: QueryList<FieldComponent>) {
+    protected set fieldComponents(query: QueryList<FieldComponent>) {
         if (query) {
             this.refreshFields(query.length);
             query.changes.subscribe(() => this.refreshFields(query.length));
         }
-    }
-
-    @Input()
-    @HostBinding('class.inline')
-    public get inline(): boolean {
-        return this.isInline;
-    }
-
-    public set inline(value: BooleanLike) {
-        this.isInline = this.toBoolean(value);
     }
 
     @Input()
@@ -70,12 +64,10 @@ export class FieldGroupComponent extends BaseComponent {
         this.isGrouped = this.toBoolean(value);
     }
 
-    @HostBinding('class.fields')
-    public readonly fieldsHost = true;
-
     public constructor() {
         super(false);
-        this.classList.register('inline', 'grouped', 'fields');
+        this.classes.registerFixed('fields');
+        this.classes.register('grouped', 'fields');
     }
 
     private refreshFields(count: number): void {

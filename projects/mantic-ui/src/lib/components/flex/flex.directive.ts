@@ -1,14 +1,17 @@
 import { Directive, HostBinding, Input } from '@angular/core';
-import { FlexAlignItems, FlexDirection } from './flex.component';
+import { FlexAlignItems, FlexDirection, FlexJustifyContent } from './flex.types';
 
 @Directive({
-    selector: '[m-flex]'
+    selector: '[m-flex]',
+    standalone: true
 })
 export class FlexDirective {
+    public static readonly default = { directive: FlexDirective, inputs: ['direction', 'alignItems', 'justifyContent'] };
 
     @HostBinding('style.display')
-    protected display: string;
+    protected display = 'flex';
 
+    @Input()
     @HostBinding('style.flex-direction')
     public direction: FlexDirection | '';
 
@@ -25,4 +28,8 @@ export class FlexDirective {
     @Input()
     @HostBinding('style.align-items')
     public alignItems: FlexAlignItems;
+
+    @Input()
+    @HostBinding('style.justify-content')
+    public justifyContent: FlexJustifyContent;
 }

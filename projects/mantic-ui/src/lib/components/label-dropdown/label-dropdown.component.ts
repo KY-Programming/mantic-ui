@@ -1,15 +1,24 @@
-import { Component, HostBinding, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
 import { LabelPosition } from '../../models/label-position';
+import { IconComponent } from '../icon/icon.component';
+import { CommonModule } from '@angular/common';
 
 // TODO: Enable animation
 // TODO: Enable active state
 @Component({
     selector: 'm-label-dropdown',
     templateUrl: './label-dropdown.component.html',
-    styleUrls: ['./label-dropdown.component.scss']
+    styleUrls: ['./label-dropdown.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        IconComponent
+    ],
+    hostDirectives: [...BaseComponent.directives],
+    providers: [...BaseComponent.providers]
 })
 export class LabelDropdownComponent extends BaseComponent {
     public static readonly defaults = { dropdownIcon: <IconType>'dropdown', dropdownIconSize: <IconSize>undefined };
@@ -32,18 +41,15 @@ export class LabelDropdownComponent extends BaseComponent {
     @Input()
     public items: string[];
 
-    private readonly onOutsideClickHandler = () => this.close();
-
-    @HostBinding('class.dropdown')
-    @HostBinding('class.label')
-    public readonly label = true;
-
     public constructor() {
         super();
+        this.classes.registerFixed('dropdown', 'label');
     }
 
+    private readonly onOutsideClickHandler = () => this.close();
+
     @HostListener('click', ['$event'])
-    public onClick(event: MouseEvent): void {
+    private onClick(event: MouseEvent): void {
         // TODO: Replace prevent
         event.preventDefault();
         event.stopPropagation();

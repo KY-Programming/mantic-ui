@@ -3,7 +3,8 @@ import { FormValidation, isFormValidation } from '../models/form-validation';
 import { ValidationPipe } from './validation.pipe';
 
 @Pipe({
-    name: 'mIsMail'
+    name: 'mIsMail',
+    standalone: true
 })
 export class IsMailPipe implements ValidationPipe, PipeTransform {
 

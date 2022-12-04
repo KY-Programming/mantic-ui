@@ -1,12 +1,9 @@
-import { Directive, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Directive } from '@angular/core';
+import { Destroyable } from './destroyable';
 
+/**
+ * @deprecated Use Destroyable instead
+ */
 @Directive()
-export abstract class DestroyableDirective implements OnDestroy {
-    private readonly destroySubject = new Subject<void>();
-    protected readonly destroy = this.destroySubject.asObservable();
-
-    public ngOnDestroy(): void {
-        this.destroySubject.next();
-    }
+export abstract class DestroyableDirective extends Destroyable {
 }

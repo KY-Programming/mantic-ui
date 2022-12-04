@@ -8,20 +8,31 @@ import { takeUntil } from 'rxjs/operators';
 import { ContextMenuEvent } from './models/context-menu-event';
 import { ContextMenuMouseEvent } from './models/context-menu-mouse-event';
 import { BooleanLike } from '../../models/boolean-like';
+import { CommonModule } from '@angular/common';
+import { ToBodyDirective } from '../../directives/to-body.directive';
 
 @Component({
     selector: 'm-context-menu',
     templateUrl: './context-menu.component.html',
-    styleUrls: ['./context-menu.component.scss']
+    styleUrls: ['./context-menu.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        MenuComponent,
+        ToBodyDirective
+    ],
+    hostDirectives: [...BaseComponent.directives],
+    providers: [...BaseComponent.providers]
 })
 export class ContextMenuComponent extends BaseComponent implements AfterViewInit {
     private isOpenOnLeftClick = false;
     private isOpenOnRightClick = true;
     private isVertical = true;
     private isShared: boolean;
-    public left: number;
 
+    public left: number;
     public top: number;
+
     @HostBinding('class.visible')
     public isVisible = false;
 
@@ -69,7 +80,7 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
 
     public constructor() {
         super();
-        this.classList.register('openOnLeftClick', 'openOnRightClick', 'vertical', 'margin', 'shared');
+        this.classes.register('openOnLeftClick', 'openOnRightClick', 'vertical', 'margin', 'shared');
     }
 
     public ngAfterViewInit(): void {

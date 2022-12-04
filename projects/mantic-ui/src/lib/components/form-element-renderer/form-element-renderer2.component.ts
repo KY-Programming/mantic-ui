@@ -2,11 +2,16 @@
 import { formElements } from './form-element.decorator';
 import { FormElements } from '../form-renderer/form-layout';
 import { FormElementBase } from './form-element-base';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'm-form-renderer2',
     templateUrl: './form-element-renderer2.component.html',
-    styleUrls: ['./form-element-renderer2.component.scss']
+    styleUrls: ['./form-element-renderer2.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule
+    ]
 })
 export class FormElementRenderer2Component implements OnDestroy {
     private elementType: Type<unknown>;

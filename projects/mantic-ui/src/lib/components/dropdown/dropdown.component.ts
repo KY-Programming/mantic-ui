@@ -8,12 +8,25 @@ import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
 import { fromEvent, ReplaySubject } from 'rxjs';
 import { InvertibleComponent } from '../../base/invertible.component';
+import { FluidDirective } from '../../directives/fluid.directive';
+import { DisabledDirective } from '../../directives/disabled.directive';
+import { IconComponent } from '../icon/icon.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'm-dropdown',
     templateUrl: './dropdown.component.html',
     styleUrls: ['./dropdown.component.scss'],
-    providers: [DropDownSelectionService]
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        IconComponent,
+        DropdownItemComponent
+    ],
+    hostDirectives: [...InvertibleComponent.directives, FluidDirective.default, DisabledDirective.default],
+    providers: [...InvertibleComponent.providers, DropDownSelectionService]
 })
 export class DropdownComponent extends InvertibleComponent implements OnInit {
     public static readonly defaults = {
@@ -26,9 +39,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     };
     private isMultiple: boolean;
     private isSearch: boolean;
-    private isFluid: boolean;
     private isSelectFirst: boolean;
-    private isDisabled: boolean;
     private isAttachedLeft: boolean;
     private isAttachedTop: boolean;
     private isAttachedRight: boolean;
@@ -80,26 +91,6 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
 
     public set search(value: BooleanLike) {
         this.isSearch = this.toBoolean(value);
-    }
-
-    @Input()
-    @HostBinding('class.fluid')
-    public get fluid(): boolean {
-        return this.isFluid;
-    }
-
-    public set fluid(value: BooleanLike) {
-        this.isFluid = this.toBoolean(value);
-    }
-
-    @Input()
-    @HostBinding('class.disabled')
-    public get disabled(): boolean {
-        return this.isDisabled;
-    }
-
-    public set disabled(value: BooleanLike) {
-        this.isDisabled = this.toBoolean(value);
     }
 
     @Input()
@@ -275,16 +266,13 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     @Output()
     public readonly valueChange = new EventEmitter();
 
-    @HostBinding('class.selection')
-    @HostBinding('class.dropdown')
-    public readonly dropdown = true;
-
     public constructor(
         private readonly dropDownSelectionService: DropDownSelectionService,
         private readonly zone: NgZone
     ) {
         super();
-        this.classList.register('disabled', 'multiple', 'search', 'fluid', 'active', 'visible', 'upward', 'selectFirst', 'placeholder', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom', 'filterType', 'allowFreetext');
+        this.classes.registerFixed('selection', 'dropdown');
+        this.classes.register('disabled', 'multiple', 'search', 'fluid', 'active', 'visible', 'upward', 'selectFirst', 'placeholder', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom', 'filterType', 'allowFreetext');
         this.dropDownSelectionService.selected.pipe(takeUntil(this.destroy)).subscribe(event => this.select(event));
         DropdownComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
@@ -329,7 +317,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     }
 
     @HostListener('keydown', ['$event'])
-    public onKeyDown(event: KeyboardEvent): void {
+    protected onKeyDown(event: KeyboardEvent): void {
         if (event.code === 'ArrowUp') {
             event.preventDefault();
             event.stopPropagation();
@@ -381,7 +369,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         }
     }
 
-    public deleteClick(item: DropdownValue, event: MouseEvent): void {
+    protected deleteClick(item: DropdownValue, event: MouseEvent): void {
         event.preventDefault();
         this.deselect(item);
     }
@@ -435,7 +423,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         // this.refreshClasses();
     }
 
-    public select(value: unknown): void {
+    protected select(value: unknown): void {
         if (this.items?.length && !this.itemComponents?.length) {
             return;
         }
@@ -480,7 +468,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         // HACK-END
     }
 
-    public deselect(item: DropdownValue): void {
+    protected deselect(item: DropdownValue): void {
         const index = this.selectedItems.indexOf(item);
         if (index >= 0) {
             this.selectedItems.splice(index, 1);
@@ -490,12 +478,12 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         }
     }
 
-    public selectIndex(index: number): void {
+    protected selectIndex(index: number): void {
         this.selectedIndex = Math.max(0, Math.min(index, this.itemComponents.length - 1));
         this.itemComponents.forEach((item, itemIndex) => item.select(itemIndex === this.selectedIndex));
     }
 
-    public onFilter(): void {
+    protected onFilter(): void {
         if (this.itemComponents) {
             this.itemComponents.forEach(item => item.filteredOut = this.isItemFilteredOut(item));
             // this.isFiltered = this.itemComponents.some(item => item.filtered);
@@ -532,7 +520,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         }
     }
 
-    public itemMouseDown(item: DropdownValue): void {
+    protected itemMouseDown(item: DropdownValue): void {
         this.keepOpen = true;
         // this.select(item);
         setTimeout(() => {
@@ -544,7 +532,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         });
     }
 
-    public itemMouseUp(item: DropdownValue): void {
+    protected itemMouseUp(item: DropdownValue): void {
         this.keepOpen = false;
     }
 }

@@ -4,11 +4,20 @@ import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
 import { IconSize } from '../icon/icon-size';
 import { IconType } from '../icon/icon-type';
+import { IconComponent } from '../icon/icon.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'm-expander',
     templateUrl: './expander.component.html',
-    styleUrls: ['./expander.component.scss']
+    styleUrls: ['./expander.component.scss'],
+    standalone: true,
+    imports: [
+        CommonModule,
+        IconComponent
+    ],
+    hostDirectives: [...BaseComponent.directives],
+    providers: [...BaseComponent.providers]
 })
 export class ExpanderComponent extends BaseComponent {
     public static readonly defaults = {
@@ -20,9 +29,6 @@ export class ExpanderComponent extends BaseComponent {
 
     @Input()
     public header: string | undefined;
-
-    @ContentChild(ExpanderHeaderComponent)
-    public headerTemplate: ExpanderHeaderComponent | undefined;
 
     @Input()
     public get expanded(): boolean {
@@ -39,9 +45,13 @@ export class ExpanderComponent extends BaseComponent {
     @Input()
     public dropdownIconSize: IconSize;
 
+    @ContentChild(ExpanderHeaderComponent)
+    protected headerTemplate: ExpanderHeaderComponent | undefined;
+
     public constructor() {
         super();
-        this.classList.registerFixed('fluid', 'styled', 'accordion');
+        this.classes.register('header', 'expanded', 'dropdownIcon', 'dropdownIconSize')
+            .registerFixed('fluid', 'styled', 'accordion');
     }
 
     public toggle(): void {

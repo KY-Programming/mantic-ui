@@ -4,7 +4,6 @@ import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { BasicDirective } from '../../directives/basic.directive';
-import { BaseComponent } from '../../base/base.component';
 
 export declare type Align =
     | 'top'
@@ -16,10 +15,8 @@ export declare type Align =
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.scss'],
     standalone: true,
-    hostDirectives: [
-        BasicDirective.default
-    ],
-    providers: [...BaseComponent.providers]
+    hostDirectives: [...InvertibleComponent.directives, BasicDirective.default],
+    providers: [...InvertibleComponent.providers]
 })
 export class TableComponent extends InvertibleComponent implements OnInit {
     public static readonly defaults = {
@@ -80,7 +77,7 @@ export class TableComponent extends InvertibleComponent implements OnInit {
 
     public set aligned(value: Align) {
         this.alignedValue = value;
-        this.classList.set('aligned', value ? value + ' aligned' : undefined);
+        this.classes.set('aligned', value ? value + ' aligned' : undefined);
     }
 
     @Input()
@@ -105,7 +102,8 @@ export class TableComponent extends InvertibleComponent implements OnInit {
 
     public constructor() {
         super();
-        this.classList.register('celled', 'notCelled', 'very', 'basic', 'unstackable', 'aligned', 'definition', 'collapsing').registerFixed('table');
+        this.classes.register('celled', 'notCelled', 'very', 'basic', 'unstackable', 'aligned', 'definition', 'collapsing')
+            .registerFixed('table');
         this.aligned ??= 'middle';
     }
 

@@ -1,7 +1,8 @@
 import { AfterViewInit, Directive, EmbeddedViewRef, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
-    selector: '[m-to-body]'
+    selector: '[m-to-body]',
+    standalone: true
 })
 export class ToBodyDirective implements AfterViewInit, OnDestroy {
     private embeddedViewRef: EmbeddedViewRef<unknown>;

@@ -6,21 +6,24 @@ import { BooleanLike } from '../../models/boolean-like';
 @Component({
     selector: 'm-row',
     templateUrl: './row.component.html',
-    styleUrls: ['./row.component.scss']
+    styleUrls: ['./row.component.scss'],
+    standalone: true,
+    hostDirectives: [...BaseComponent.directives],
+    providers: [...BaseComponent.providers]
 })
 export class RowComponent extends BaseComponent {
     private columnsValue: FieldSize;
     private isStretched: boolean;
 
+    @Input()
+    @HostBinding('class.column')
     public get columns(): FieldSize {
         return this.columnsValue;
     }
 
-    @Input()
-    @HostBinding('class.column')
     public set columns(value: ParsableFieldSize) {
         this.columnsValue = parseFieldSize(value);
-        this.classList.set('columns', this.columnsValue);
+        this.classes.set('columns', this.columnsValue);
     }
 
     @Input()
@@ -33,12 +36,10 @@ export class RowComponent extends BaseComponent {
         this.isStretched = this.toBoolean(value);
     }
 
-    @HostBinding('class.row')
-    public readonly row = true;
-
     public constructor() {
         super(false);
-        this.classList.register('columns', 'stretched');
+        this.classes.register('columns', 'stretched')
+            .registerFixed('row');
     }
 
 }

@@ -7,7 +7,7 @@ import { Component, TemplateRef, ViewChild } from '@angular/core';
             <ng-content></ng-content>
         </ng-template>
     `,
-    styles: []
+    standalone: true
 })
 export class ExpanderHeaderComponent {
 
