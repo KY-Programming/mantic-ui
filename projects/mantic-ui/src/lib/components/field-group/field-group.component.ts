@@ -29,7 +29,6 @@ export class FieldGroupComponent extends BaseComponent {
     private readonly fieldClasses: FieldsType[] = ['', '', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
     private fieldsValue: FieldsType;
     private fieldsAutoValue: FieldsType;
-    private isInline: boolean;
     private isGrouped: boolean;
 
     @Input()
@@ -66,8 +65,8 @@ export class FieldGroupComponent extends BaseComponent {
 
     public constructor() {
         super(false);
-        this.classes.registerFixed('fields');
-        this.classes.register('grouped', 'fields');
+        this.classes.register('grouped', 'fields')
+            .registerFixed('fields');
     }
 
     private refreshFields(count: number): void {

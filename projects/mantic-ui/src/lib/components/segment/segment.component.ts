@@ -96,7 +96,7 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
     @Input()
     public set attached(value: SegmentAttached) {
         this.attachedValue = value;
-        this.classes.set('attachedValue', value, false);
+        this.classes.set('attachedValue', value);
         this.classes.set('attached', !!value);
     }
 

@@ -1,80 +1,112 @@
 import { ElementRef, inject, Injectable } from '@angular/core';
 
+interface Entry {
+    key: string;
+    order: number;
+    value: string;
+    fixed?: boolean;
+    ignore?: boolean;
+    previous?: string[];
+}
+
 @Injectable()
 export class SortedClassesService {
-    private readonly entries = new Map<string, string>();
-    private readonly last = new Map<string, string[]>();
-    private readonly order: string[] = [];
+    private readonly entries = new Map<string, Entry>();
     private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
     public register(...keys: string[]): SortedClassesService {
         for (const key of keys) {
-            this.order.push(key.toLocaleLowerCase());
-            this.entries.set(key.toLocaleLowerCase(), undefined);
+            this.registerEntry(key);
         }
         return this;
     }
 
     public registerFixed(...keys: string[]): SortedClassesService {
-        this.register(...keys);
         for (const key of keys) {
-            this.set(key, true, false);
+            this.registerEntry(key, { fixed: true });
         }
         return this;
     }
 
-    public set(key: string, value: unknown, refresh = true): SortedClassesService {
-        if (this.order.indexOf(key.toLocaleLowerCase()) === -1) {
+    public ignore(...keys: string[]): SortedClassesService {
+        for (const key of keys) {
+            this.registerEntry(key, { ignore: true });
+        }
+        return this;
+    }
+
+    private registerEntry(key: string, options?: Partial<Entry>): void {
+        if (!key) {
+            return;
+        }
+        const entry: Entry = {
+            ...options,
+            key: key.toLocaleLowerCase(),
+            value: options?.fixed ? key : options?.value ?? '',
+            order: this.entries.size
+        };
+        this.entries.set(entry.key, entry);
+    }
+
+    private getEntry(key: string): Entry | undefined {
+        key = key.toLocaleLowerCase();
+        return this.entries.get(key);
+    }
+
+    public set(key: string, value: unknown): SortedClassesService {
+        let entry = this.getEntry(key);
+        if (!entry) {
             console.warn(`Set an unregistered value '${key}' on <${this.elementRef.nativeElement.tagName}> is not recommended. Call register(key) method once, before using set(...) method.`);
+            entry = this.register(key).getEntry(key);
+        }
+        if (entry.fixed) {
+            console.error(`Can not change an fixed value '${key} on <${this.elementRef.nativeElement.tagName}>. Use register(key) instead of registerFixed(key)`);
+            return this;
         }
         if (value === true) {
-            this.entries.set(key.toLocaleLowerCase(), key);
+            entry.value = key;
         } else if (value === false || value === undefined) {
-            this.entries.set(key.toLocaleLowerCase(), undefined);
+            entry.value = '';
         } else {
-            this.entries.set(key.toLocaleLowerCase(), value?.toString());
+            entry.value = value.toString();
         }
         return this;
     }
 
-    public get(key: string): string {
-        return this.entries.get(key.toLocaleLowerCase());
+    public get(key: string): unknown {
+        return this.getEntry(key)?.value;
     }
 
     public has(key: string): boolean {
-        return this.entries.has(key.toLocaleLowerCase());
+        return !!this.getEntry(key);
     }
 
     public toString(): string {
-        const notRegisteredValues = Array.from(this.entries.keys()).filter(key => this.order.indexOf(key) === -1);
-        return this.order.map(key => this.entries.get(key))
-            .concat(notRegisteredValues.map(key => this.entries.get(key)))
-            .filter(x => x)
+        return Array.from(this.entries.values())
+            .sort(SortedClassesService.sortByOrder)
+            .map(entry => entry.value)
+            .filter(value => value)
             .join(' ');
     }
 
     public update(): void {
-        for (const key of this.order) {
-            this.updateEntry(key);
-        }
-        for (const key of Array.from(this.entries.keys()).filter(x => this.order.indexOf(x) === -1)) {
-            this.updateEntry(key);
-        }
+        Array.from(this.entries.values())
+            .filter(entry => !entry.ignore)
+            .sort(SortedClassesService.sortByOrder)
+            .forEach(entry => this.updateEntry(entry));
     }
 
-    private updateEntry(key: string): void {
+    private updateEntry(entry: Entry): void {
         const classList = this.elementRef.nativeElement.classList;
-        const value = this.entries.get(key);
-        if (value) {
-            if (this.last.has(key)) {
-                this.last.get(key).forEach(x => classList.remove(x));
-            }
-            const values = value.split(' ').filter(x => !!x);
-            classList.add(...values);
-            this.last.set(key, values);
-        } else if (this.last.has(key)) {
-            this.last.get(key).forEach(x => classList.remove(x));
-            this.last.delete(key);
+        if (entry.previous) {
+            classList.remove(...entry.previous);
         }
+        const values = entry.value.split(' ').filter(x => !!x);
+        classList.add(...values);
+        entry.previous = values;
+    }
+
+    private static sortByOrder(left: Entry, right: Entry): number {
+        return left.order > right.order ? 1 : left.order < right.order ? -1 : 0;
     }
 }
