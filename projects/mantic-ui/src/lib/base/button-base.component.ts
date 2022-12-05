@@ -6,11 +6,12 @@ import { BasicDirective } from '../directives/basic.directive';
 import { InvertedDirective } from '../directives/inverted.directive';
 import { DisabledDirective } from '../directives/disabled.directive';
 import { LoadingDirective } from '../directives/loading.directive';
+import { ActiveDirective } from '../directives/active.directive';
 
 @Directive()
 export abstract class ButtonBaseComponent extends BaseComponent {
     protected static override readonly providers = [...BaseComponent.providers];
-    protected static override readonly directives = [ColorDirective.default, BasicDirective.default, InvertedDirective.default, DisabledDirective.default, LoadingDirective.default];
+    protected static override readonly directives = [ColorDirective.default, BasicDirective.default, InvertedDirective.default, DisabledDirective.default, LoadingDirective.default, ActiveDirective.default];
     private sizeValue: string;
     private isPrimary: boolean;
     private isSecondary: boolean;
@@ -128,6 +129,6 @@ export abstract class ButtonBaseComponent extends BaseComponent {
     protected constructor() {
         super();
         this.elementRef.nativeElement.setAttribute('tabindex', '0');
-        this.classes.register('size', 'primary', 'secondary', 'positive', 'negative', 'circular', 'active', 'disabled', 'loading', 'tabindex', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom');
+        this.classes.register('size', 'primary', 'secondary', 'positive', 'negative', 'circular', 'tabindex', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom');
     }
 }

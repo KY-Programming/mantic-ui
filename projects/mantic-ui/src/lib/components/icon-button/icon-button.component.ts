@@ -31,7 +31,7 @@ export class IconButtonComponent extends ButtonBaseComponent {
 
     public constructor() {
         super();
-        this.classes.register('icon', 'iconSize', 'social')
+        this.classes.register('iconSize', 'social')
             .registerFixed('icon');
     }
 }

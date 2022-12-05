@@ -102,7 +102,7 @@ export class TableComponent extends InvertibleComponent implements OnInit {
 
     public constructor() {
         super();
-        this.classes.register('celled', 'notCelled', 'very', 'basic', 'unstackable', 'aligned', 'definition', 'collapsing')
+        this.classes.register('celled', 'notCelled', 'very', 'unstackable', 'aligned', 'definition', 'collapsing')
             .registerFixed('table');
         this.aligned ??= 'middle';
     }

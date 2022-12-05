@@ -15,7 +15,7 @@ import { ActiveDirective } from '../../directives/active.directive';
         CommonModule,
         IconComponent
     ],
-    hostDirectives: [...ButtonBaseComponent.directives, ActiveDirective.default],
+    hostDirectives: [...ButtonBaseComponent.directives],
     providers: [...ButtonBaseComponent.providers]
 })
 export class ToggleButtonComponent extends ButtonBaseComponent {

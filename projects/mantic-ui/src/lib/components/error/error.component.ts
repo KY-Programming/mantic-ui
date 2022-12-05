@@ -14,6 +14,5 @@ export class ErrorComponent extends BaseComponent {
     public constructor() {
         super();
         this.classes.registerFixed('visible', 'error', 'message');
-        this.classes.register('ignored');
     }
 }

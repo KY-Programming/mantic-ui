@@ -13,7 +13,6 @@ import { IgnoredDirective } from '../../directives/ignored.directive';
 export class InfoComponent extends BaseComponent {
     public constructor() {
         super();
-        this.classes.register('ignored')
-            .registerFixed('visible', 'info', 'message');
+        this.classes.registerFixed('visible', 'info', 'message');
     }
 }

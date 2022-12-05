@@ -13,7 +13,6 @@ import { BasicDirective } from '../../directives/basic.directive';
 import { FluidDirective } from '../../directives/fluid.directive';
 import { ColorName } from '../../models/color';
 import { PointingDirective } from '../../directives/pointing.directive';
-import { BaseComponent } from '../../base/base.component';
 
 export declare type Pointing =
     'left'
@@ -32,7 +31,7 @@ export declare type Pointing =
         IconComponent
     ],
     hostDirectives: [...ButtonBaseComponent.directives, FluidDirective.default, PointingDirective.default],
-    providers: [...BaseComponent.providers]
+    providers: [...ButtonBaseComponent.providers]
 })
 export class ButtonComponent extends ButtonBaseComponent {
     private readonly basicDirective = inject(BasicDirective, { self: true });

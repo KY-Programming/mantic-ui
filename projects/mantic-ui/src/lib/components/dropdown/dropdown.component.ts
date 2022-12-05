@@ -271,8 +271,8 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         private readonly zone: NgZone
     ) {
         super();
-        this.classes.registerFixed('selection', 'dropdown');
-        this.classes.register('disabled', 'multiple', 'search', 'fluid', 'active', 'visible', 'upward', 'selectFirst', 'placeholder', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom', 'filterType', 'allowFreetext');
+        this.classes.register('multiple', 'search', 'active', 'visible', 'upward', 'selectFirst', 'placeholder', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom', 'filterType', 'allowFreetext')
+            .registerFixed('selection', 'dropdown');
         this.dropDownSelectionService.selected.pipe(takeUntil(this.destroy)).subscribe(event => this.select(event));
         DropdownComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }

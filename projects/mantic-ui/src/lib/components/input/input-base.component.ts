@@ -136,7 +136,7 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
         super();
         InputBaseComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
         this.classes.registerFixed('input');
-        this.classes.register('icon', 'focused', 'loading', 'disabled', 'readonly', 'transparent', 'fluid', 'hasError', 'autofocus', 'placeholder', 'type', 'iconPosition');
+        this.classes.register('icon', 'focused', 'disabled', 'readonly', 'transparent', 'hasError', 'autofocus', 'placeholder', 'iconPosition');
     }
 
     public override ngOnDestroy(): void {

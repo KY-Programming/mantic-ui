@@ -45,6 +45,7 @@ import { CommonLayoutComponent } from './common/layout.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { TextareaExampleComponent } from './examples/textarea/textarea.component';
 import { TableExampleComponent } from './examples/table/table.component';
+import { TestExampleComponent } from './examples/test/test.component';
 
 const sharedRoutes: Route[] = [
     { path: 'help', redirectTo: 'help/', pathMatch: 'full' },
@@ -152,6 +153,7 @@ const routes: Routes = [
             }
         ]
     },
+    { path: 'test', title: 'Test', component: TestExampleComponent },
     { path: '**', redirectTo: '' }
 ];
 

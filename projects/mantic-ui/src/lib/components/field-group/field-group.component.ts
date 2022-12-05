@@ -65,7 +65,7 @@ export class FieldGroupComponent extends BaseComponent {
 
     public constructor() {
         super(false);
-        this.classes.register('grouped', 'fields')
+        this.classes.register('grouped')
             .registerFixed('fields');
     }
 

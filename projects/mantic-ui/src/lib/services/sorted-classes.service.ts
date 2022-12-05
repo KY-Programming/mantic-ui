@@ -39,6 +39,9 @@ export class SortedClassesService {
         if (!key) {
             return;
         }
+        if (this.has(key)) {
+            console.warn(`'${key}' is already registered on <${this.elementRef.nativeElement.tagName}>.`);
+        }
         const entry: Entry = {
             ...options,
             key: key.toLocaleLowerCase(),
@@ -53,7 +56,7 @@ export class SortedClassesService {
         return this.entries.get(key);
     }
 
-    public set(key: string, value: unknown): SortedClassesService {
+    public set(key: string, value: unknown, options?: { refresh: boolean }): SortedClassesService {
         let entry = this.getEntry(key);
         if (!entry) {
             console.warn(`Set an unregistered value '${key}' on <${this.elementRef.nativeElement.tagName}> is not recommended. Call register(key) method once, before using set(...) method.`);
@@ -69,6 +72,9 @@ export class SortedClassesService {
             entry.value = '';
         } else {
             entry.value = value.toString();
+        }
+        if (options?.refresh !== false) {
+            this.updateEntry(entry);
         }
         return this;
     }
