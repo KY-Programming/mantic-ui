@@ -1,6 +1,7 @@
 export * from './lib/base/base.component';
 export * from './lib/base/destroyable.component';
 export * from './lib/base/destroyable.directive';
+export * from './lib/base/destroyable';
 export * from './lib/base/base.component';
 export * from './lib/base/base.directive';
 export * from './lib/base/invertible.component';
