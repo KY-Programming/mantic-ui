@@ -7,6 +7,7 @@
 <ng-container *ngIf="buttonPosition === 'right'" [ngTemplateOutlet]="contentTemplate"></ng-container>
 
 <ng-template #labelTemplate>
+    <m-label *ngIf="showDay" [color]="value?.getDay() === 0 || value?.getDay() === 6 ? weekendColor : undefined">{{value | date: 'E'}}</m-label>
     <ng-content select="m-label"></ng-content>
     <ng-content select="m-label-dropdown"></ng-content>
 </ng-template>

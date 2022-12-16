@@ -37,6 +37,7 @@ export * from './lib/components/expander-icon/expander-icon.component';
 export * from './lib/components/expander-part/expander-part.component';
 export * from './lib/components/flag/flag.component';
 export * from './lib/components/field-group/field-group.component';
+export * from './lib/components/field/field-defaults.component';
 export * from './lib/components/field/field.component';
 export * from './lib/components/flex/flex.component';
 export * from './lib/components/flex/flex.directive';

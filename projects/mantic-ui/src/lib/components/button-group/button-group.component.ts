@@ -2,13 +2,14 @@ import { Component, ContentChildren, QueryList } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ToggleButtonComponent } from '../toggle-button/toggle-button.component';
 import { BaseComponent } from '../../base/base.component';
+import { ColorDirective } from '../../directives/color.directive';
 
 @Component({
     selector: 'm-button-group',
     templateUrl: './button-group.component.html',
     styleUrls: ['./button-group.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives],
+    hostDirectives: [...BaseComponent.directives, ColorDirective.default],
     providers: [...BaseComponent.providers]
 })
 export class ButtonGroupComponent extends BaseComponent {

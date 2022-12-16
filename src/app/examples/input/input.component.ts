@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { InputIconPosition, InputType } from '@mantic-ui/angular';
 
-// tslint:disable: member-ordering
 @Component({
+    selector: 'app-input-example',
     templateUrl: './input.component.html',
     styleUrls: ['./input.component.scss']
 })
@@ -127,6 +127,8 @@ export class InputExampleComponent {
     public readonly file = `<m-file-input (change)="upload($event)">Upload</m-file-input>`;
 
     public readonly inverted = `<m-input inverted></m-input>`;
+
+    public readonly dateWithDayCode = `<m-date-input showDay></m-date-input>`;
 
     public getType(value: unknown): string {
         return typeof value;

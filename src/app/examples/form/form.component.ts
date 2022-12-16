@@ -4,6 +4,7 @@ import { DataSourceRequest, FormLayout } from '@mantic-ui/angular';
 import { environment } from '../../../environments/environment';
 
 @Component({
+    selector: 'app-form-example',
     templateUrl: './form.component.html',
     styleUrls: ['./form.component.scss']
 })
@@ -120,6 +121,8 @@ export class FormExampleComponent {
       <m-input></m-input>
   </m-field>
 </m-form>`;
+
+    public readonly codeFieldHint = `<m-field hint="Show a hint with an icon">`;
 
     public readonly code4 = `<m-form>
   <m-field-group>

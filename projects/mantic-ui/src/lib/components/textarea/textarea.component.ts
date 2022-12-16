@@ -67,6 +67,9 @@ export class TextareaComponent extends InvertibleComponent {
     @Input()
     public defaultValue: string | undefined;
 
+    @Input()
+    public inputId: string | undefined;
+
     @Output()
     public readonly valueChange = new EventEmitter<string | undefined>();
 

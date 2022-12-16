@@ -1,2 +1,5 @@
-<label *ngIf="label && !checkboxComponent && !sliderComponent && !toggleComponent && !radioComponent" [attr.for]="name" #labelElement>{{label}}</label>
+<label *ngIf="label && !checkboxComponent && !sliderComponent && !toggleComponent && !radioComponent" [attr.for]="name" #labelElement>
+    {{label}}
+    <m-icon *ngIf="hint" [icon]="defaults.hintIcon" [size]="defaults.hintIconSize" [title]="hint"></m-icon>
+</label>
 <ng-content></ng-content>

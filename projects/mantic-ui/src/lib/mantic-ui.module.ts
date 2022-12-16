@@ -131,6 +131,7 @@ import { DisabledDirective } from './directives/disabled.directive';
 import { FluidDirective } from './directives/fluid.directive';
 import { ReadonlyDirective } from './directives/readonly.directive';
 import { ReadOnlyDirective } from './directives/read-only.directive';
+import { FieldDefaultsComponent } from './components/field/field-defaults.component';
 
 const standalone = [
     AllowedCharsPipe,
@@ -175,6 +176,7 @@ const standalone = [
     ExpanderPartComponent,
     FallbackForDirective,
     FieldComponent,
+    FieldDefaultsComponent,
     FieldGroupComponent,
     FileInputComponent,
     FillComponent,

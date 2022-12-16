@@ -5,6 +5,9 @@ import { CommonModule } from '@angular/common';
 import { IconComponent } from '../../icon/icon.component';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 import { FormsModule } from '@angular/forms';
+import { LabelComponent } from '../../label/label.component';
+import { BooleanLike } from '../../../models/boolean-like';
+import { ColorName } from '../../../models/color';
 
 @Component({
     selector: 'm-date-input',
@@ -15,13 +18,15 @@ import { FormsModule } from '@angular/forms';
         CommonModule,
         IconComponent,
         FallbackForDirective,
-        FormsModule
+        FormsModule,
+        LabelComponent
     ],
     hostDirectives: [...InputBaseComponent.directives],
     providers: [...InputBaseComponent.providers]
 })
 export class DateInputComponent extends InputBaseComponent implements OnInit {
     private valueField: Date | undefined;
+    private showDayValue: boolean;
 
     protected internalValue: string | null;
 
@@ -48,6 +53,19 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
 
     @Input()
     public max: Date | undefined;
+
+    @Input()
+    public get showDay(): boolean {
+        return this.showDayValue;
+    }
+
+    public set showDay(value: BooleanLike) {
+        this.showDayValue = this.toBoolean(value);
+        this.classes.set('labeled', this.showDayValue);
+    }
+
+    @Input()
+    public weekendColor: ColorName | undefined = 'red';
 
     @Output()
     public readonly valueChange = new EventEmitter<Date | undefined>();

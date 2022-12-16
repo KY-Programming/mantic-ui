@@ -13,6 +13,9 @@ import { NumericInputComponent } from '../input/numeric/numeric-input.component'
 import { DateInputComponent } from '../input/date/date-input.component';
 import { BooleanLike } from '../../models/boolean-like';
 import { CommonModule } from '@angular/common';
+import { IconType } from '../icon/icon-type';
+import { IconSize } from '../icon/icon-size';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
     selector: 'm-field',
@@ -20,12 +23,14 @@ import { CommonModule } from '@angular/common';
     styleUrls: ['./field.component.scss'],
     standalone: true,
     imports: [
-        CommonModule
+        CommonModule,
+        IconComponent
     ],
     hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class FieldComponent extends BaseComponent {
+    public static readonly defaults = { hintIcon: <IconType>'info circle', hintIconSize: <IconSize>undefined };
     private labelElementValue: HTMLLabelElement;
     private inputComponentValue: InputComponent;
     private numericInputComponentValue: NumericInputComponent;
@@ -45,8 +50,9 @@ export class FieldComponent extends BaseComponent {
     private isInline: boolean;
     private isFill: boolean;
 
-    public wasAnytimeValid = false;
+    protected wasAnytimeValid = false;
     public readonly errors: FormError[] = [];
+    protected readonly defaults = FieldComponent.defaults;
 
     @ContentChild('labelElement')
     protected get labelElement(): HTMLLabelElement {
@@ -242,6 +248,9 @@ export class FieldComponent extends BaseComponent {
             // this.textareaComponent.label = value;
         }
     }
+
+    @Input()
+    public hint: string | undefined;
 
     @Input()
     @HostBinding('class.wide')

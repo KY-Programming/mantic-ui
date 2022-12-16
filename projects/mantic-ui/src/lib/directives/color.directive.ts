@@ -10,18 +10,18 @@ export class ColorDirective {
     public static readonly color = 'color';
     public static readonly default = { directive: ColorDirective, inputs: [ColorDirective.color] };
     private readonly classes = inject(SortedClassesService);
-    private colorValue: ColorName;
+    private colorValue: ColorName | undefined;
 
     public constructor() {
         this.classes.register(ColorDirective.color);
     }
 
-    public get color(): ColorName {
+    public get color(): ColorName | undefined {
         return this.colorValue;
     }
 
     @Input()
-    public set color(value: ColorName) {
+    public set color(value: ColorName | undefined) {
         this.colorValue = value;
         this.classes.set(ColorDirective.color, value);
     }
