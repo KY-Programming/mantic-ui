@@ -65,7 +65,7 @@
                     Top-Left
                     <m-context-menu openOnLeftClick>
                         <m-context-menu-item (click)="show('Top-Left')">Top-Left</m-context-menu-item>
-                        <m-context-menu-item icon="lock" (click)="show('Keep open')" keepOpen>Keep open</m-context-menu-item>
+                        <m-context-menu-item icon="lock" keepOpen (click)="show('Keep open')">Keep open</m-context-menu-item>
                         <m-context-menu-item *ngIf="!isScrolling" icon="angle double down" (click)="isScrolling = true">Activate Scrolling</m-context-menu-item>
                         <m-context-menu-item *ngIf="isScrolling" icon="angle double up" (click)="isScrolling = false">Deactivate Scrolling</m-context-menu-item>
                     </m-context-menu>
@@ -146,5 +146,22 @@
                 </m-button>
             </m-flex>
         </m-flex>
+    </m-tab>
+    <m-tab label="Events">
+        <m-example header="Open event" description="Occurs when the context menu opens">
+            <m-button>
+                Context Menu
+                <m-context-menu (open)="log('open')"></m-context-menu>
+            </m-button>
+            <m-example-code [code]="openEventCode"></m-example-code>
+        </m-example>
+        <m-example header="Close event" description="Occurs when the context menu closes">
+            <m-button>
+                Context Menu
+                <m-context-menu (close)="log('close')"></m-context-menu>
+            </m-button>
+            <m-example-code [code]="closeEventCode"></m-example-code>
+        </m-example>
+        <pre><ng-container *ngFor="let entry of logEntries">{{entry + '\n'}}</ng-container></pre>
     </m-tab>
 </m-tab-group>

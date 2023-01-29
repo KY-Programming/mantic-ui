@@ -48,4 +48,12 @@ this.contextMenu?.open();`;
     public show(message: string): void {
         alert(message);
     }
+
+    protected readonly logEntries: string[] = [];
+    public openEventCode = `<m-context-menu (open)="log('open')"></m-context-menu>`;
+    public closeEventCode = `<m-context-menu (close)="log('close')"></m-context-menu>`;
+
+    protected log(eventName: string): void {
+        this.logEntries.push(eventName);
+    }
 }

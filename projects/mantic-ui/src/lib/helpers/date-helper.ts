@@ -15,4 +15,10 @@
         }
         return left.getFullYear() === right.getFullYear() && left.getMonth() === right.getMonth() && left.getDate() === right.getDate();
     }
+
+    public static today(): Date {
+        const today = new Date();
+        today.setUTCHours(0, 0, 0, 0);
+        return today;
+    }
 }

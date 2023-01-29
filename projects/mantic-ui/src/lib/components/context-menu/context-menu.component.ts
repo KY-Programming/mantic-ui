@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostBinding, HostListener, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { Mouse } from '../../helpers/mouse';
 import { animationFrameScheduler, fromEvent } from 'rxjs';
@@ -75,6 +75,14 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
     @Input()
     public margin = 5;
 
+    // eslint-disable-next-line @angular-eslint/no-output-rename
+    @Output('close')
+    public readonly onclose = new EventEmitter<void>();
+
+    // eslint-disable-next-line @angular-eslint/no-output-rename
+    @Output('open')
+    public readonly onopen = new EventEmitter<void>();
+
     @ViewChild(MenuComponent)
     public menu: MenuComponent;
 
@@ -137,10 +145,12 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
         }
         this.isVisible = true;
         animationFrameScheduler.schedule(() => this.refreshPosition());
+        this.onopen.emit();
     }
 
     public close(): void {
         this.isVisible = false;
+        this.onclose.emit();
     }
 }
 

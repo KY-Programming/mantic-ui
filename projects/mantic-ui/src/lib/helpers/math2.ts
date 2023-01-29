@@ -14,4 +14,9 @@
     public static sum(values: (number | undefined)[] | undefined): number {
         return values ? values.reduce((partialSum, a) => partialSum + (a ?? 0), 0) : 0;
     }
+
+    public static round(value: number, decimals: number): number {
+        const factor = Math.pow(10, decimals);
+        return Math.round(value * factor) / factor;
+    }
 }
