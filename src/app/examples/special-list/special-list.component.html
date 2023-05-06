@@ -1,3 +1,17 @@
+<a routerLink="/semantic/context-menu" m-flex class="element">
+    <m-segment attached="top">
+        <m-button (click)="prevent($event)">
+            Click Me Right
+            <m-context-menu>
+                <m-context-menu-item icon="trash">Delete</m-context-menu-item>
+            </m-context-menu>
+        </m-button>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Context Menu</h3>
+        <p>A menu opened by right click</p>
+    </m-segment>
+</a>
 <a routerLink="/semantic/dimmer" m-flex class="element">
     <m-segment attached="top">
         <m-dimmer *ngIf="showDimmer" (click)="showDimmer = false; prevent($event)">
@@ -8,6 +22,20 @@
     <m-segment attached="bottom" m-fill>
         <h3 m-header>Dimmer</h3>
         <p>Hides distractions to focus attention on particular content</p>
+    </m-segment>
+</a>
+<a routerLink="/semantic/markdown" m-flex class="element">
+    <m-segment attached="top">
+        <div class="markdown">
+            <div class="header-1"># header</div>
+            <div><i>*italic*</i></div>
+            <div><b>**bold**</b></div>
+            <div><s>~~strikethrough~~</s></div>
+        </div>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Markdown</h3>
+        <p>Renders markdown text</p>
     </m-segment>
 </a>
 <a routerLink="/semantic/modal" m-flex class="element">
@@ -25,17 +53,17 @@
         <p>Displays content that temporarily blocks interactions</p>
     </m-segment>
 </a>
-<a routerLink="/semantic/context-menu" m-flex class="element">
-    <m-segment attached="top">
-        <m-button (click)="prevent($event)">
-            Click Me Right
-            <m-context-menu>
-                <m-context-menu-item icon="trash">Delete</m-context-menu-item>
-            </m-context-menu>
-        </m-button>
+<a routerLink="/semantic/notification" m-flex class="element">
+    <m-segment attached="top" class="no-overflow">
+        <div class="notifications">
+            <m-info>Info</m-info>
+            <m-warning>Warning</m-warning>
+            <m-error>Error</m-error>
+            <m-message positive>Success</m-message>
+        </div>
     </m-segment>
     <m-segment attached="bottom" m-fill>
-        <h3 m-header>Context Menu</h3>
-        <p>A menu opened by right click</p>
+        <h3 m-header>Notification</h3>
+        <p>A popup to inform the user</p>
     </m-segment>
 </a>

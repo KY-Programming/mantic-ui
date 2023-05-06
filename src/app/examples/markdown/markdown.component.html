@@ -1,0 +1,14 @@
+<h1 m-header>
+    Markdown
+    <div class="sub header">
+        Markdown is a lightweight markup language for creating formatted text using a plain-text editor
+    </div>
+</h1>
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Examples">
+        <m-example header="Example" description="A example text">
+            <m-markdown-renderer [value]="example1"></m-markdown-renderer>
+            <m-example-code [code]="example1"></m-example-code>
+        </m-example>
+    </m-tab>
+</m-tab-group>

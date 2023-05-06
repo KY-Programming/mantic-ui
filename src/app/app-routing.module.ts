@@ -46,6 +46,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { TextareaExampleComponent } from './examples/textarea/textarea.component';
 import { TableExampleComponent } from './examples/table/table.component';
 import { TestExampleComponent } from './examples/test/test.component';
+import { MarkdownExampleComponent } from './examples/markdown/markdown.component';
 
 const sharedRoutes: Route[] = [
     { path: 'help', redirectTo: 'help/', pathMatch: 'full' },
@@ -76,6 +77,8 @@ const sharedRoutes: Route[] = [
     { path: 'dropdown/:tab', title: 'Dropdown', component: DropdownExampleComponent },
     { path: 'tab', redirectTo: 'tab/', pathMatch: 'full' },
     { path: 'tab/:tab', title: 'Tab', component: TabExampleComponent },
+    { path: 'markdown', redirectTo: 'markdown/', pathMatch: 'full' },
+    { path: 'markdown/:tab', title: 'Menu', component: MarkdownExampleComponent },
     { path: 'menu', redirectTo: 'menu/', pathMatch: 'full' },
     { path: 'menu/:tab', title: 'Menu', component: MenuExampleComponent },
     { path: 'segment', redirectTo: 'segment/', pathMatch: 'full' },

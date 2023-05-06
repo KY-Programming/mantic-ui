@@ -57,6 +57,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { TextareaExampleComponent } from './examples/textarea/textarea.component';
 import { TableExampleComponent } from './examples/table/table.component';
+import { MarkdownExampleComponent } from './examples/markdown/markdown.component';
 
 @NgModule({
     declarations: [
@@ -107,7 +108,8 @@ import { TableExampleComponent } from './examples/table/table.component';
         IntroComponent,
         NavigationComponent,
         TextareaExampleComponent,
-        TableExampleComponent
+        TableExampleComponent,
+        MarkdownExampleComponent
     ],
     imports: [
         BrowserModule,

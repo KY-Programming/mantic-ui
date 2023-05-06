@@ -132,6 +132,9 @@ import { FluidDirective } from './directives/fluid.directive';
 import { ReadonlyDirective } from './directives/readonly.directive';
 import { ReadOnlyDirective } from './directives/read-only.directive';
 import { FieldDefaultsComponent } from './components/field/field-defaults.component';
+import { CardComponent } from './components/card/card.component';
+import { CardGroupComponent } from './components/card-group/card-group.component';
+import { MarkdownRendererComponent } from './components/markdown-renderer/markdown-renderer.component';
 
 const standalone = [
     AllowedCharsPipe,
@@ -144,6 +147,8 @@ const standalone = [
     ButtonComponent,
     ButtonDirective,
     ButtonGroupComponent,
+    CardComponent,
+    CardGroupComponent,
     CeilPipe,
     CellComponent,
     ChatComponent,
@@ -216,6 +221,7 @@ const standalone = [
     LoaderComponent,
     LoadingDirective,
     LogPipe,
+    MarkdownRendererComponent,
     MenuComponent,
     MenuHeaderComponent,
     MenuItemComponent,
@@ -275,7 +281,8 @@ const standalone = [
     ],
     exports: [
         ...standalone
-    ]
+    ],
+    declarations: []
 })
 export class ManticUiModule {
 }

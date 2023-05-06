@@ -5,13 +5,15 @@
   "schematics": {
     "@schematics/angular:component": {
       "style": "scss",
-      "skipTests": true
+      "skipTests": true,
+      "standalone": true
     },
     "@schematics/angular:class": {
       "skipTests": true
     },
     "@schematics/angular:directive": {
-      "skipTests": true
+      "skipTests": true,
+      "standalone": true
     },
     "@schematics/angular:guard": {
       "skipTests": true
@@ -20,7 +22,8 @@
       "skipTests": true
     },
     "@schematics/angular:pipe": {
-      "skipTests": true
+      "skipTests": true,
+      "standalone": true
     },
     "@schematics/angular:service": {
       "skipTests": true
