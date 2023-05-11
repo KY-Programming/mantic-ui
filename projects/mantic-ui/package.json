@@ -1,6 +1,6 @@
 {
   "name": "@mantic-ui/angular",
-  "version": "16.0.0",
+  "version": "16.0.1",
   "description": "mantic UI for Angular",
   "keywords": [
     "mantic-ui",
@@ -19,6 +19,10 @@
     "url": "https://ky-programming.de"
   },
   "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/KY-Programming"
+    },
     {
       "type": "patreon",
       "url": "https://www.patreon.com/kylst"
@@ -41,7 +45,7 @@
     "rxjs": "^6.0.0 || ^7.0.0"
   },
   "optionalDependencies": {
-    "@fortawesome/angular-fontawesome": "~0.12.0"
+    "@fortawesome/angular-fontawesome": "~0.13.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
