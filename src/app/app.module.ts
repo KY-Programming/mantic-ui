@@ -132,8 +132,8 @@ export class AppModule {
     public constructor(
         titleStrategy: ManticTitleStrategy
     ) {
-        titleStrategy.postfix = ' - mantic UI';
-        titleStrategy.fallback = 'mantic UI';
+        titleStrategy.configuration.postfix = ' - mantic UI';
+        titleStrategy.configuration.fallback = 'mantic UI';
         titleStrategy.addCondition({ condition: '/semantic', fallback: 'Semantic UI Angular - mantic UI', postfix: ' - Semantic UI Angular - mantic UI' });
         titleStrategy.addCondition({ condition: '/fomantic', fallback: 'Fomantic UI Angular - mantic UI', postfix: ' - Fomantic UI Angular - mantic UI' });
     }
