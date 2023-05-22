@@ -150,6 +150,7 @@ export * from './lib/helpers/object-helper';
 export * from './lib/helpers/math2';
 export * from './lib/helpers/mouse';
 export * from './lib/helpers/date-helper';
+export * from './lib/helpers/provide-locale';
 export * from './lib/mantic-ui.module';
 export * from './lib/models/boolean-like';
 export * from './lib/models/chat-message';
