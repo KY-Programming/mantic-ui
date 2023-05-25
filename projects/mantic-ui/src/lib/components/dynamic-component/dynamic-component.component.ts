@@ -6,8 +6,8 @@ import { ComponentParser } from './component-parser';
     selector: 'm-dynamic-component',
     standalone: true,
     imports: [CommonModule],
-    templateUrl: './dynamic-component.component.html',
-    styleUrls: ['./dynamic-component.component.scss']
+    template: '',
+    styleUrls: []
 })
 export class DynamicComponentComponent {
     private readonly viewContainerRef = inject(ViewContainerRef);

@@ -26,7 +26,7 @@ export class ComponentParser {
         if (!componentDef) {
             throw new Error(`Can not register component '${component.name}': no definition found`);
         }
-        this.registeredComponents.push();
+        this.registeredComponents.push(componentDef);
     }
 
     public static parse(template: string | undefined, viewContainerRef: ViewContainerRef, data?: Record<string, unknown>): Node[] {
