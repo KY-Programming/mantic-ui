@@ -30,16 +30,16 @@ export class LabelDropdownComponent extends BaseComponent {
     public position: LabelPosition;
 
     @Input()
-    public dropdownIcon: IconType;
+    public dropdownIcon: IconType | undefined;
 
     @Input()
     public dropdownIconSize: IconSize;
 
     @Input()
-    public value: string;
+    public value: string | undefined;
 
     @Input()
-    public items: string[];
+    public items: string[] | undefined;
 
     public constructor() {
         super();

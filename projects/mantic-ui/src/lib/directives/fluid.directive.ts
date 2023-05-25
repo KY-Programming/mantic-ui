@@ -11,7 +11,7 @@ export class FluidDirective {
     public static readonly fluid = 'fluid';
     public static readonly default = { directive: FluidDirective, inputs: [FluidDirective.fluid] };
     private readonly classes = inject(SortedClassesService);
-    private isFluid: boolean;
+    private isFluid = false;
 
     public constructor() {
         this.classes.register(FluidDirective.fluid);

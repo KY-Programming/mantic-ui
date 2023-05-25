@@ -31,47 +31,47 @@ import { IconComponent } from '../icon/icon.component';
 })
 export class FieldComponent extends BaseComponent {
     public static readonly defaults = { hintIcon: <IconType>'info circle', hintIconSize: <IconSize>undefined };
-    private labelElementValue: HTMLLabelElement;
-    private inputComponentValue: InputComponent;
-    private numericInputComponentValue: NumericInputComponent;
-    private dateInputComponentValue: DateInputComponent;
-    private checkboxComponentValue: CheckboxComponent;
-    private sliderComponentValue: SliderComponent;
-    private toggleComponentValue: ToggleComponent;
-    private radioComponentValue: RadioComponent;
-    private textareaComponentValue: TextareaComponent;
-    private nameValue: string;
-    private labelValue: string;
-    private sizeValue: FieldSize;
-    private disabledValue: boolean;
-    private readonlyValue: boolean;
-    private errorValue: boolean;
+    private labelElementValue?: HTMLLabelElement;
+    private inputComponentValue?: InputComponent;
+    private numericInputComponentValue?: NumericInputComponent;
+    private dateInputComponentValue?: DateInputComponent;
+    private checkboxComponentValue?: CheckboxComponent;
+    private sliderComponentValue?: SliderComponent;
+    private toggleComponentValue?: ToggleComponent;
+    private radioComponentValue?: RadioComponent;
+    private textareaComponentValue?: TextareaComponent;
+    private nameValue?: string;
+    private labelValue?: string;
+    private sizeValue: FieldSize = '';
+    private disabledValue = false;
+    private readonlyValue = false;
+    private errorValue = false;
     private hideInitialErrorValue = true;
-    private isInline: boolean;
-    private isFill: boolean;
+    private isInline = false;
+    private isFill = false;
 
     protected wasAnytimeValid = false;
     public readonly errors: FormError[] = [];
     protected readonly defaults = FieldComponent.defaults;
 
     @ContentChild('labelElement')
-    protected get labelElement(): HTMLLabelElement {
+    protected get labelElement(): HTMLLabelElement | undefined {
         return this.labelElementValue;
     }
 
-    protected set labelElement(value: HTMLLabelElement) {
+    protected set labelElement(value: HTMLLabelElement | undefined) {
         this.labelElementValue = value;
-        if (this.labelElementValue) {
+        if (this.labelElementValue && this.name) {
             this.labelElementValue.setAttribute('for', this.name);
         }
     }
 
     @ContentChild(InputComponent)
-    protected get inputComponent(): InputComponent {
+    protected get inputComponent(): InputComponent | undefined {
         return this.inputComponentValue;
     }
 
-    protected set inputComponent(value: InputComponent) {
+    protected set inputComponent(value: InputComponent | undefined) {
         this.inputComponentValue = value;
         if (this.inputComponentValue) {
             this.inputComponentValue.for = this.name;
@@ -82,11 +82,11 @@ export class FieldComponent extends BaseComponent {
     }
 
     @ContentChild(NumericInputComponent)
-    protected get numericInputComponent(): NumericInputComponent {
+    protected get numericInputComponent(): NumericInputComponent | undefined {
         return this.numericInputComponentValue;
     }
 
-    protected set numericInputComponent(value: NumericInputComponent) {
+    protected set numericInputComponent(value: NumericInputComponent | undefined) {
         this.numericInputComponentValue = value;
         if (this.numericInputComponentValue) {
             this.numericInputComponentValue.for = this.name;
@@ -97,11 +97,11 @@ export class FieldComponent extends BaseComponent {
     }
 
     @ContentChild(DateInputComponent)
-    protected get dateInputComponent(): DateInputComponent {
+    protected get dateInputComponent(): DateInputComponent | undefined {
         return this.dateInputComponentValue;
     }
 
-    protected set dateInputComponent(value: DateInputComponent) {
+    protected set dateInputComponent(value: DateInputComponent | undefined) {
         this.dateInputComponentValue = value;
         if (this.dateInputComponentValue) {
             this.dateInputComponentValue.for = this.name;
@@ -112,11 +112,11 @@ export class FieldComponent extends BaseComponent {
     }
 
     @ContentChild(CheckboxComponent)
-    protected get checkboxComponent(): CheckboxComponent {
+    protected get checkboxComponent(): CheckboxComponent | undefined {
         return this.checkboxComponentValue;
     }
 
-    protected set checkboxComponent(value: CheckboxComponent) {
+    protected set checkboxComponent(value: CheckboxComponent | undefined) {
         this.checkboxComponentValue = value;
         if (this.checkboxComponentValue) {
             this.checkboxComponentValue.name = this.name;
@@ -127,11 +127,11 @@ export class FieldComponent extends BaseComponent {
     }
 
     @ContentChild(SliderComponent)
-    protected get sliderComponent(): SliderComponent {
+    protected get sliderComponent(): SliderComponent | undefined {
         return this.sliderComponentValue;
     }
 
-    protected set sliderComponent(value: SliderComponent) {
+    protected set sliderComponent(value: SliderComponent | undefined) {
         this.sliderComponentValue = value;
         if (this.sliderComponentValue) {
             this.sliderComponentValue.name = this.name;
@@ -142,11 +142,11 @@ export class FieldComponent extends BaseComponent {
     }
 
     @ContentChild(ToggleComponent)
-    protected get toggleComponent(): ToggleComponent {
+    protected get toggleComponent(): ToggleComponent | undefined {
         return this.toggleComponentValue;
     }
 
-    protected set toggleComponent(value: ToggleComponent) {
+    protected set toggleComponent(value: ToggleComponent | undefined) {
         this.toggleComponentValue = value;
         if (this.toggleComponentValue) {
             this.toggleComponentValue.name = this.name;
@@ -157,11 +157,11 @@ export class FieldComponent extends BaseComponent {
     }
 
     @ContentChild(RadioComponent)
-    protected get radioComponent(): RadioComponent {
+    protected get radioComponent(): RadioComponent | undefined {
         return this.radioComponentValue;
     }
 
-    protected set radioComponent(value: RadioComponent) {
+    protected set radioComponent(value: RadioComponent | undefined) {
         this.radioComponentValue = value;
         if (this.radioComponentValue) {
             this.radioComponentValue.name = this.name;
@@ -172,11 +172,11 @@ export class FieldComponent extends BaseComponent {
     }
 
     @ContentChild(TextareaComponent)
-    protected get textareaComponent(): TextareaComponent {
+    protected get textareaComponent(): TextareaComponent | undefined {
         return this.textareaComponentValue;
     }
 
-    protected set textareaComponent(value: TextareaComponent) {
+    protected set textareaComponent(value: TextareaComponent | undefined) {
         this.textareaComponentValue = value;
         if (this.textareaComponentValue) {
             this.textareaComponentValue.name = this.name;
@@ -187,14 +187,14 @@ export class FieldComponent extends BaseComponent {
     }
 
     @Input()
-    public get name(): string {
+    public get name(): string | undefined {
         return this.nameValue;
     }
 
-    public set name(value: string) {
+    public set name(value: string | undefined) {
         this.nameValue = value;
         if (this.labelElement) {
-            this.labelElement.setAttribute('for', value);
+            this.labelElement.setAttribute('for', value ?? '');
         }
         if (this.inputComponent) {
             this.inputComponent.for = value;
@@ -226,11 +226,11 @@ export class FieldComponent extends BaseComponent {
     }
 
     @Input()
-    public get label(): string {
+    public get label(): string | undefined {
         return this.labelValue;
     }
 
-    public set label(value: string) {
+    public set label(value: string | undefined) {
         this.labelValue = value;
         if (this.checkboxComponent) {
             this.checkboxComponent.label = value;
@@ -259,7 +259,7 @@ export class FieldComponent extends BaseComponent {
     }
 
     public set size(value: ParsableFieldSize) {
-        this.sizeValue = parseFieldSize(value);
+        this.sizeValue = parseFieldSize(value) ?? '';
         this.classes.set('size', this.sizeValue);
     }
 
@@ -279,7 +279,7 @@ export class FieldComponent extends BaseComponent {
     }
 
     @HostBinding('class.error')
-    protected visibleError: boolean;
+    protected visibleError = false;
 
     @Input()
     public set valid(value: boolean | FormValidation) {
@@ -287,8 +287,8 @@ export class FieldComponent extends BaseComponent {
         const newError = typeof value === 'boolean' ? !value : value && !value.valid;
         this.errors.length = 0;
         if (newError) {
-            const message = typeof value === 'boolean' ? '' : value.message;
-            const label = typeof value === 'boolean' ? this.label : value.label === undefined ? this.label : value.label;
+            const message = typeof value === 'boolean' ? '' : value.message ?? '';
+            const label = (typeof value === 'boolean' ? this.label : value.label === undefined ? this.label : value.label) ?? '';
             this.errors.push({ message, label });
         }
         if (newError !== oldError) {

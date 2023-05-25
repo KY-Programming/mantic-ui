@@ -14,7 +14,7 @@ export class FileInputComponent {
     public readonly id = `file_input_${Date.now()}_${Math.floor(Math.random() * 1000000)}`;
 
     @Input()
-    public accept: string;
+    public accept: string | undefined;
 
     @Output()
     public readonly change = new EventEmitter<Event>();

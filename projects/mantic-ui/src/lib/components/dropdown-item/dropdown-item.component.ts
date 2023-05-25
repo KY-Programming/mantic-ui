@@ -12,8 +12,8 @@ import { BooleanLike } from '../../models/boolean-like';
     providers: [...BaseComponent.providers]
 })
 export class DropdownItemComponent extends BaseComponent {
-    private isFilteredOut: boolean;
-    private isSelected: boolean;
+    private isFilteredOut = false;
+    private isSelected = false;
 
     @Input()
     public value: unknown;
@@ -40,7 +40,7 @@ export class DropdownItemComponent extends BaseComponent {
     }
 
     @Input()
-    public icon: string;
+    public icon: string | undefined;
 
     public readonly element = this.elementRef;
 

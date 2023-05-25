@@ -23,7 +23,8 @@ import { FallbackForDirective } from '../../../directives/fallback-for.directive
 export class TimeInputComponent extends InputBaseComponent implements OnInit {
     private valueField: Date | undefined;
 
-    protected internalValue: string | null;
+    // eslint-disable-next-line no-null/no-null
+    protected internalValue: string | null = null;
 
     @Input()
     public get value(): Date | undefined {
@@ -33,7 +34,7 @@ export class TimeInputComponent extends InputBaseComponent implements OnInit {
     public set value(value: Date | number | string | undefined) {
         value ??= this.defaultValue;
         value = value ? new Date(value) : undefined;
-        value = isNaN(value?.getDate()) ? undefined : value;
+        value = isNaN(value?.getDate() as any) ? undefined : value;
         if (value != this.valueField) {
             this.setInternalValue(value);
         }

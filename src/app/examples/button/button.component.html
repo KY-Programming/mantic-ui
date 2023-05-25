@@ -1,9 +1,5 @@
-<h1 m-header>
-    Button
-    <div class="sub header">
-        A button indicates a possible user action
-    </div>
-</h1>
+<app-header header="Button" subHeader="A button indicates a possible user action"></app-header>
+
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Examples">
         <m-example header="Button" description="A button">
@@ -15,7 +11,7 @@
             <m-example-code [code]="button2Code"></m-example-code>
         </m-example>
         <m-example description="Use a standard a-tag">
-            <a [routerLink]="['#test']" m-button>Go to</a>
+            <a [routerLink]="['.']" m-button>Go to</a>
             <m-example-code [code]="linkButtonCode"></m-example-code>
         </m-example>
     </m-tab>

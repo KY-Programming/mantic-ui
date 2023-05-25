@@ -20,14 +20,14 @@ import { IconComponent } from '../icon/icon.component';
 export class IconButtonComponent extends ButtonBaseComponent {
 
     @Input()
-    public icon: IconType;
+    public icon: IconType | undefined;
 
     @Input()
     public iconSize: IconSize;
 
     @Input()
     @HostBinding('class.social')
-    public social: string;
+    public social: string | undefined;
 
     public constructor() {
         super();

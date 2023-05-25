@@ -24,18 +24,18 @@ import { FillDirective } from '../flex/fill/fill.directive';
 export class FormRendererComponent {
     private readonly dataChangeSubject = new Subject<unknown>();
     private readonly executeSubject = new Subject<string>();
-    private dataValue: unknown;
+    private dataValue: Record<string, unknown> = {};
     public dataSources: DataSourceComponent[] = [];
 
     @Input()
-    public layout: FormLayout;
+    public layout: FormLayout = { elements: [] };
 
-    public get data(): unknown {
+    public get data(): Record<string, unknown> {
         return this.dataValue;
     }
 
     @Input()
-    public set data(value: unknown) {
+    public set data(value: Record<string, unknown>) {
         this.dataValue = value;
         if (!value) {
             setTimeout(() => {

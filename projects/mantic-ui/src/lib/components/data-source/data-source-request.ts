@@ -1,7 +1,7 @@
 ﻿import { Observable, ReplaySubject } from 'rxjs';
 
 export class DataSourceRequest {
-    private readonly subject = new ReplaySubject<unknown[]>(1);
+    private readonly subject = new ReplaySubject<Record<string, unknown>[]>(1);
     public readonly observable = this.subject.asObservable();
 
     public constructor(
@@ -9,7 +9,7 @@ export class DataSourceRequest {
     ) {
     }
 
-    public resolve(data: unknown[] | Observable<unknown[]>): void {
+    public resolve(data: Record<string, unknown>[] | Observable<Record<string, unknown>[]>): void {
         if (Array.isArray(data)) {
             this.subject.next(data);
         } else {

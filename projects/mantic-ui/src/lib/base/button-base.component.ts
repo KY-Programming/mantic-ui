@@ -12,16 +12,16 @@ import { ActiveDirective } from '../directives/active.directive';
 export abstract class ButtonBaseComponent extends BaseComponent {
     protected static override readonly providers = [...BaseComponent.providers];
     protected static override readonly directives = [ColorDirective.default, BasicDirective.default, InvertedDirective.default, DisabledDirective.default, LoadingDirective.default, ActiveDirective.default];
-    private sizeValue: string;
-    private isPrimary: boolean;
-    private isSecondary: boolean;
-    private isPositive: boolean;
-    private isNegative: boolean;
-    private isCircular: boolean;
-    private isAttachedLeft: boolean;
-    private isAttachedTop: boolean;
-    private isAttachedRight: boolean;
-    private isAttachedBottom: boolean;
+    private sizeValue = '';
+    private isPrimary = false;
+    private isSecondary = false;
+    private isPositive = false;
+    private isNegative = false;
+    private isCircular = false;
+    private isAttachedLeft = false;
+    private isAttachedTop = false;
+    private isAttachedRight = false;
+    private isAttachedBottom = false;
 
     @Input()
     @HostBinding('class.primary')

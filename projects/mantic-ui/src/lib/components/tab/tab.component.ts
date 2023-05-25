@@ -18,19 +18,20 @@ import { IconSize } from '../icon/icon-size';
 export class TabComponent extends MenuItemComponent {
 
     @Input()
-    public name: string;
+    public name: string | undefined;
 
     @Input()
-    public label: string;
+    public label: string | undefined;
 
     @Input()
-    public icon: IconType;
+    public icon: IconType | undefined;
 
     @Input()
     public iconSize: IconSize;
 
     @Input()
-    public template: TemplateRef<NgIfContext<boolean>>;
+    // eslint-disable-next-line no-null/no-null
+    public template: TemplateRef<NgIfContext<boolean>> | null = null;
 
     @Output()
     public readonly activate = new EventEmitter<void>();

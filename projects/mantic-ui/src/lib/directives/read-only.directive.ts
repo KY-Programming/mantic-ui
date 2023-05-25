@@ -12,7 +12,7 @@ export class ReadOnlyDirective {
     private static readonly readOnly = 'read-only';
     public static readonly default = { directive: ReadOnlyDirective, inputs: [ReadOnlyDirective.readonly] };
     private readonly classes = inject(SortedClassesService);
-    private isReadonly: boolean;
+    private isReadonly = false;
 
     public constructor() {
         this.classes.register(ReadOnlyDirective.readOnly);

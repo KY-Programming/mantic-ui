@@ -24,7 +24,7 @@ export class NotificationComponent extends BaseComponent {
     }
 
     @Input()
-    public messages: Notification[];
+    public messages: Notification[] = [];
 
     @Input()
     public mode: 'overlap' | 'stack' = 'stack';

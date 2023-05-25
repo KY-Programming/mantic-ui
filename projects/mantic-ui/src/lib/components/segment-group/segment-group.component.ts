@@ -11,7 +11,7 @@ import { BooleanLike } from '../../models/boolean-like';
     providers: [...BaseComponent.providers]
 })
 export class SegmentGroupComponent extends BaseComponent {
-    private isHorizontal: boolean;
+    private isHorizontal = false;
 
     @Input()
     @HostBinding('class.horizontal')

@@ -1,4 +1,4 @@
-﻿import { Directive, ElementRef, inject, Inject, OnInit, Optional } from '@angular/core';
+﻿import { Directive, ElementRef, inject, Inject, OnInit, Optional, Type } from '@angular/core';
 import { BooleanLike } from '../models/boolean-like';
 import { toBoolean } from '../helpers/to-boolean';
 import { Destroyable } from './destroyable';
@@ -7,9 +7,9 @@ import { SortedClassesService } from '../services/sorted-classes.service';
 @Directive()
 export abstract class BaseComponent extends Destroyable implements OnInit {
     protected static readonly providers = [SortedClassesService];
-    protected static readonly directives = [];
+    protected static readonly directives: (Type<unknown> | { directive: Type<unknown>, inputs?: string[], outputs?: string[] })[] = [];
 
-    protected readonly classes = inject(SortedClassesService, { self: true, optional: true });
+    protected readonly classes = inject(SortedClassesService, { self: true });
     private noClassesValue = false;
     private initialized = false;
     protected readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
@@ -32,7 +32,7 @@ export abstract class BaseComponent extends Destroyable implements OnInit {
         super();
         this.tag = this.elementRef.nativeElement.tagName.toLowerCase();
         if (useUiClass) {
-            this.classes?.registerFixed('ui');
+            this.classes.registerFixed('ui');
         }
         this.classes.register('style');
     }
@@ -65,7 +65,7 @@ export abstract class BaseComponent extends Destroyable implements OnInit {
         if (!this.initialized) {
             return;
         }
-        this.classes?.update();
+        this.classes.update();
     }
 
     protected toBoolean(value: BooleanLike): boolean {

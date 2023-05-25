@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ButtonGroupComponent, HeaderComponent, IconButtonComponent, IconComponent, InfoComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { HeaderComponent as AppHeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-header-example',
+    standalone: true,
+    imports: [CommonModule, AppHeaderComponent, TabGroupComponent, TabComponent, IconComponent, ExampleComponent, ExampleCodeComponent, InfoComponent, ButtonGroupComponent, IconButtonComponent, SegmentComponent, HeaderComponent],
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
@@ -18,7 +24,7 @@ export class HeaderExampleComponent {
 <m-header size="medium">Medium Header</m-header>
 <m-header size="small">Small Header</m-header>
 <m-header size="tiny">Tiny Header</m-header>`;
-    
+
     public invertedCode = `<h1 m-header inverted>Inverted H1</h1>
 <h2 m-header inverted>Inverted H2</h2>
 <h3 m-header inverted>Inverted H3</h3>`;

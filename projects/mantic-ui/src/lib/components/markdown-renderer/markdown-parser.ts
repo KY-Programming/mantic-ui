@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
 import { MarkdownBlockParser } from './models/markdown-block-parser';
 import { MarkdownInlineParser } from './models/markdown-inline-parser';
 import { MarkdownHeader1, markdownHeader1Type, MarkdownHeader2, markdownHeader2Type, MarkdownHeader3, markdownHeader3Type, MarkdownHeader4, markdownHeader4Type, MarkdownHeader5, markdownHeader5Type, MarkdownHeader6, markdownHeader6Type } from './models/markdown-header';
@@ -14,6 +14,9 @@ import { MarkdownBold, markdownBoldType } from './models/markdown-bold';
 import { MarkdownStrikethrough, markdownStrikethroughType } from './models/markdown-strikethrough';
 import { MarkdownParagraph } from './models/markdown-paragraph';
 import { MarkdownText, markdownTextType } from './models/markdown-text';
+import { MarkdownCustomElement, markdownCustomElementType } from './models/markdown-custom-element';
+import { MarkdownEmpty, markdownEmptyType } from './models/markdown-empty';
+import { ComponentParser } from '../dynamic-component/component-parser';
 
 @Injectable({
     providedIn: 'root'
@@ -85,6 +88,21 @@ export class MarkdownParser {
             factory: (): MarkdownSeparator => ({
                 type: markdownSeparatorType,
                 isBlock: true
+            })
+        });
+        this.registerBlockParser({
+            regex: /^\s*(?<code><([^>]+)(.+?)<\/\2>)\s*$/g,
+            factory: (result: RegExpExecArray, data?: Record<string, unknown>): MarkdownCustomElement => ({
+                type: markdownCustomElementType,
+                code: result.groups?.['code'],
+                data,
+                isBlock: true
+            })
+        });
+        this.registerBlockParser({
+            regex: /^\s*<m-json(.+?)<\/m-json>\s*$/g,
+            factory: (): MarkdownEmpty => ({
+                type: markdownEmptyType
             })
         });
 
@@ -189,24 +207,39 @@ export class MarkdownParser {
         this.inlineParsers.push(parser);
     }
 
+    public registerComponent(component: Type<unknown>): void {
+        ComponentParser.register(component);
+    }
+
     public parse(value: string): MarkdownElement[] {
-        const elements: MarkdownElement[] = [];
+        const data = this.parseData(value);
         if (value.includes('\n\n')) {
+            const elements: MarkdownElement[] = [];
             const paragraphs = value.split('\n\n');
             for (const paragraph of paragraphs) {
                 elements.push(cast<MarkdownParagraph>({
                     type: 'paragraph',
-                    elements: this.parseBlock(paragraph),
+                    elements: this.parseBlock(paragraph, data),
                     isBlock: true
                 }));
             }
-        } else {
-            this.parseBlock(value);
+            return elements;
         }
-        return elements;
+        return this.parseBlock(value, data);
     }
 
-    private parseBlock(text: string): MarkdownElement[] {
+    private parseData(value: string): Record<string, unknown> {
+        const data: Record<string, unknown> = {};
+        const regex = /<m-json>(?<json>.*?)<\/m-json> *\r?\n?/gm;
+        let match = regex.exec(value);
+        while (match) {
+            Object.assign(data, JSON.parse(match.groups?.['json'] ?? '{}'));
+            match = regex.exec(value);
+        }
+        return data;
+    }
+
+    private parseBlock(text: string, data: Record<string, unknown>): MarkdownElement[] {
         const lines = text.split('\n');
         const elements: MarkdownElement[] = [];
         for (const line of lines) {
@@ -214,7 +247,7 @@ export class MarkdownParser {
             for (const parser of this.blockParsers) {
                 const regexResult = parser.regex.exec(line);
                 if (regexResult) {
-                    elements.push(parser.factory(regexResult));
+                    elements.push(parser.factory(regexResult, data));
                     parsed = true;
                     break;
                 }

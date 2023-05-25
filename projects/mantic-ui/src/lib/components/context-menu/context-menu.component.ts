@@ -28,10 +28,10 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
     private isOpenOnLeftClick = false;
     private isOpenOnRightClick = true;
     private isVertical = true;
-    private isShared: boolean;
+    private isShared = false;
 
-    public left: number;
-    public top: number;
+    public left: number | undefined;
+    public top: number | undefined;
 
     @HostBinding('class.visible')
     public isVisible = false;
@@ -84,7 +84,7 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
     public readonly onopen = new EventEmitter<void>();
 
     @ViewChild(MenuComponent)
-    public menu: MenuComponent;
+    protected menu: MenuComponent | undefined;
 
     public constructor() {
         super();
@@ -92,9 +92,9 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
     }
 
     public ngAfterViewInit(): void {
-        if (!this.isShared) {
-            fromEvent(this.elementRef.nativeElement.parentElement, 'click').pipe(takeUntil(this.destroy)).subscribe((event: MouseEvent) => this.onParentClick(event));
-            fromEvent(this.elementRef.nativeElement.parentElement, 'contextmenu').pipe(takeUntil(this.destroy)).subscribe((event: MouseEvent) => this.onParentClick(event));
+        if (!this.isShared && this.elementRef.nativeElement.parentElement) {
+            fromEvent(this.elementRef.nativeElement.parentElement, 'click').pipe(takeUntil(this.destroy)).subscribe(event => this.onParentClick(event as ContextMenuMouseEvent));
+            fromEvent(this.elementRef.nativeElement.parentElement, 'contextmenu').pipe(takeUntil(this.destroy)).subscribe(event => this.onParentClick(event as ContextMenuMouseEvent));
         }
         fromEvent(document.documentElement, 'scroll', { capture: true }).pipe(takeUntil(this.destroy)).subscribe(event => this.onOutsideAction(event));
     }
@@ -125,6 +125,9 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
     }
 
     private refreshPosition(): void {
+        if (!this.menu) {
+            return;
+        }
         const menuRect = this.menu.element.nativeElement.getBoundingClientRect();
         const clipRect = document.documentElement.getBoundingClientRect();
         this.left = Math2.keepInRange(clipRect.left + this.margin, this.left, clipRect.right - this.margin - menuRect.width);
@@ -134,7 +137,7 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
     public open(left?: number, top?: number): void
     public open(event: MouseEvent): void
     public open(leftOrEvent?: number | ContextMenuMouseEvent, top?: number): void {
-        if (typeof leftOrEvent === 'number') {
+        if (typeof leftOrEvent === 'number' || leftOrEvent === undefined) {
             this.left = leftOrEvent ?? this.left;
             this.top = top ?? this.top;
         } else {

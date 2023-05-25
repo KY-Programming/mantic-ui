@@ -1,12 +1,15 @@
 ﻿export abstract class DateHelper {
-    public static keepInRange(min: Date | undefined, value: Date, max?: Date | undefined): Date {
-        if (min !== undefined && value < min) {
+    public static keepInRange(min: Date, value: Date | undefined, max?: Date | undefined): Date
+    public static keepInRange(min: Date | undefined, value: Date, max?: Date | undefined): Date
+    public static keepInRange(min: Date | undefined, value: Date | undefined, max?: Date): Date
+    public static keepInRange(min: Date | undefined, value: Date | undefined, max?: Date | undefined): Date {
+        if (min !== undefined && (value === undefined || value < min)) {
             return min;
         }
-        if (max !== undefined && value > max) {
+        if (max !== undefined && (value === undefined || value > max)) {
             return max;
         }
-        return value;
+        return value as any;
     }
 
     public static sameDay(left: Date | undefined, right: Date | undefined): boolean {

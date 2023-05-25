@@ -1,13 +1,20 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../../components/header/header.component';
+import { ButtonComponent, DimmerComponent, HeaderDirective, IconComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
+    selector: 'app-dimmer-example',
+    standalone: true,
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, SegmentComponent, DimmerComponent, ButtonComponent],
     templateUrl: './dimmer.component.html',
     styleUrls: ['./dimmer.component.scss']
 })
 export class DimmerExampleComponent {
-    public dim1: boolean;
-    public dim2: boolean;
-    public dim3: boolean;
+    public dim1 = false;
+    public dim2 = false;
+    public dim3 = false;
 
     public simpleCode = `<m-segment dimmable>
   <h3 m-header>Overlayable Section</h3>

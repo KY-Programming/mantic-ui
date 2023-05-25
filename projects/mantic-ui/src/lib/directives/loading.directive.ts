@@ -11,7 +11,7 @@ export class LoadingDirective {
     public static readonly loading = 'loading';
     public static readonly default = { directive: LoadingDirective, inputs: [LoadingDirective.loading] };
     private readonly classes = inject(SortedClassesService);
-    private isLoading: boolean;
+    private isLoading = false;
 
     public constructor() {
         this.classes.register(LoadingDirective.loading);

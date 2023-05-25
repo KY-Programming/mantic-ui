@@ -13,18 +13,18 @@ import { ColorDirective } from '../../directives/color.directive';
     providers: [...BaseComponent.providers]
 })
 export class ButtonGroupComponent extends BaseComponent {
-    private toggleButtonsChangeSubscription: Subscription;
-    private toggleButtonSubscriptions: Subscription[];
-    private toggleButtonsValue: QueryList<ToggleButtonComponent>;
+    private toggleButtonsChangeSubscription?: Subscription;
+    private toggleButtonSubscriptions?: Subscription[];
+    private toggleButtonsValue?: QueryList<ToggleButtonComponent>;
 
     @ContentChildren(ToggleButtonComponent)
-    protected get toggleButtons(): QueryList<ToggleButtonComponent> {
+    protected get toggleButtons(): QueryList<ToggleButtonComponent> | undefined {
         return this.toggleButtonsValue;
     }
 
-    protected set toggleButtons(query: QueryList<ToggleButtonComponent>) {
+    protected set toggleButtons(query: QueryList<ToggleButtonComponent> | undefined) {
         this.toggleButtonsChangeSubscription?.unsubscribe();
-        this.toggleButtonsChangeSubscription = query.changes.subscribe(() => this.subscribeToggleButtons());
+        this.toggleButtonsChangeSubscription = query?.changes.subscribe(() => this.subscribeToggleButtons());
         this.toggleButtonsValue = query;
         this.subscribeToggleButtons();
     }
@@ -36,15 +36,15 @@ export class ButtonGroupComponent extends BaseComponent {
 
     private subscribeToggleButtons(): void {
         this.toggleButtonSubscriptions?.forEach(subscription => subscription.unsubscribe());
-        this.toggleButtonSubscriptions = this.toggleButtons.map(button => button.checkedChange.subscribe(value => value ? this.uncheckOthers(button) : this.keepOneChecked()));
+        this.toggleButtonSubscriptions = this.toggleButtons?.map(button => button.checkedChange.subscribe(value => value ? this.uncheckOthers(button) : this.keepOneChecked()));
     }
 
     private uncheckOthers(button: ToggleButtonComponent): void {
-        this.toggleButtons.filter(x => x !== button).forEach(x => x.uncheck());
+        this.toggleButtons?.filter(x => x !== button).forEach(x => x.uncheck());
     }
 
     private keepOneChecked(): void {
-        const buttons = Array.from(this.toggleButtons);
+        const buttons = Array.from(this.toggleButtons ?? []);
         if (buttons.length > 0 && buttons.every(button => !button.checked)) {
             buttons[0].check();
         }

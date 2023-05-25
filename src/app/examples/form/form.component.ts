@@ -1,26 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, isDevMode } from '@angular/core';
 import { DemoData } from '../../helpers/demo-data';
-import { DataSourceRequest, FormLayout } from '@mantic-ui/angular';
-import { environment } from '../../../environments/environment';
+import { CheckboxComponent, DataSourceComponent, DataSourceRequest, DropdownComponent, DropdownItemComponent, ErrorComponent, FieldComponent, FieldGroupComponent, FormComponent, FormLayout, FormRendererComponent, HeaderDirective, IconComponent, InfoComponent, InputComponent, IsFilledPipe, IsMailPipe, MessageComponent, SegmentComponent, SliderComponent, SubmitComponent, TabComponent, TabGroupComponent, TextareaComponent, TitlePipe, ToggleComponent } from '@mantic-ui/angular';
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../../components/header/header.component';
+import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { MyValidationPipe } from './my-validation.pipe';
 
 @Component({
     selector: 'app-form-example',
+    standalone: true,
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, FormComponent, FieldComponent, InputComponent, CheckboxComponent, SubmitComponent, FieldGroupComponent, DropdownComponent, DropdownItemComponent, SegmentComponent, ToggleComponent, MessageComponent, SliderComponent, IsFilledPipe, IsMailPipe, TitlePipe, MyValidationPipe, TextareaComponent, ErrorComponent, FormRendererComponent, DataSourceComponent, InfoComponent],
     templateUrl: './form.component.html',
     styleUrls: ['./form.component.scss']
 })
 export class FormExampleComponent {
+    protected readonly isDev = isDevMode();
 
     public countries = DemoData.countries;
     public states = DemoData.states;
 
-    public name1: string;
-    public name2: string;
-    public name3: string;
-    public name4: string;
-    public name5: string;
-    public name6: string;
-    public email1: string;
-    public email2: string;
+    public name1?: string;
+    public name2?: string;
+    public name3?: string;
+    public name4?: string;
+    public name5?: string;
+    public name6?: string;
+    public email1?: string;
+    public email2?: string;
 
     public readonly code1 = `<m-form>
   <m-field name="first-name" label="First Name">
@@ -314,13 +320,14 @@ export class MyValidationPipe implements ValidationPipe, PipeTransform {
     };
   }
 }`;
-    public rendererLayoutError: string;
+    public rendererLayoutError?: string;
     public rendererLayout: FormLayout = {
         elements: [
             {
                 'elementType': 'h3',
                 'text': 'Header 3',
-                'dividing': true
+                'dividing': true,
+                'field': ''
             },
             {
                 'elementType': 'dropdown',
@@ -335,8 +342,7 @@ export class MyValidationPipe implements ValidationPipe, PipeTransform {
         ]
     };
     public rendererData = {};
-    public rendererDataError: string;
-    public isProd = environment.production;
+    public rendererDataError?: string;
 
     public requestData(request: DataSourceRequest): void {
         if (request.key === 'status') {
@@ -348,21 +354,21 @@ export class MyValidationPipe implements ValidationPipe, PipeTransform {
         }
     }
 
-    public parseLayout(json: string): void {
+    public parseLayout(json: string | undefined | null): void {
         this.rendererLayoutError = undefined;
         try {
-            this.rendererLayout = JSON.parse(json);
+            this.rendererLayout = json ? JSON.parse(json) : undefined;
         } catch (error) {
-            this.rendererLayoutError = error.message;
+            this.rendererLayoutError = error instanceof Error ? error.message : error?.toString();
         }
     }
 
-    public parseData(json: string): void {
+    public parseData(json: string | undefined | null): void {
         this.rendererDataError = undefined;
         try {
-            this.rendererData = JSON.parse(json);
+            this.rendererData = json ? JSON.parse(json) : undefined;
         } catch (error) {
-            this.rendererDataError = error.message;
+            this.rendererDataError = error instanceof Error ? error.message : error?.toString();
         }
     }
 

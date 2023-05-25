@@ -7,8 +7,6 @@ export const manticTitleStrategyConfigurationToken = new InjectionToken<string>(
 
 @Injectable()
 export class ManticTitleStrategy extends TitleStrategy {
-    private readonly conditions: ManticTitleStrategyCondition[] = [];
-
     public constructor(
         @Inject(manticTitleStrategyConfigurationToken) public readonly configuration: ManticTitleStrategyConfiguration = {}
     ) {
@@ -17,7 +15,7 @@ export class ManticTitleStrategy extends TitleStrategy {
     }
 
     public override updateTitle(snapshot: RouterStateSnapshot): void {
-        const condition = this.conditions.find(condition => this.matches(condition, snapshot.url));
+        const condition = this.configuration.conditions?.find(condition => this.matches(condition, snapshot.url));
         const title = this.buildTitle(snapshot);
         const prefix = condition?.showPrefixOnFallback || this.configuration.showPrefixOnFallback || title ? condition?.prefix ?? this.configuration.prefix ?? '' : '';
         const postfix = condition?.showPostfixOnFallback || this.configuration.showPostfixOnFallback || title ? condition?.postfix ?? this.configuration.postfix ?? '' : '';
@@ -25,7 +23,8 @@ export class ManticTitleStrategy extends TitleStrategy {
     }
 
     public addCondition(condition: ManticTitleStrategyCondition): void {
-        this.conditions.push(condition);
+        this.configuration.conditions ??= [];
+        this.configuration.conditions.push(condition);
     }
 
     private matches(condition: ManticTitleStrategyCondition, url: string): boolean {

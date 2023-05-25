@@ -18,34 +18,34 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
     protected static override readonly providers = [...LabeledBaseComponent.providers];
     protected static override readonly directives = [...LabeledBaseComponent.directives, LoadingDirective.default, FluidDirective.default];
 
-    private iconPositionValue: InputIconPosition;
-    private transparentValue: boolean;
-    private hasErrorValue: boolean;
-    private readonlyValue: boolean;
-    private disabledValue: boolean;
-    private isAutoFocused: boolean;
+    private iconPositionValue: InputIconPosition | undefined;
+    private transparentValue = false;
+    private hasErrorValue = false;
+    private readonlyValue = false;
+    private disabledValue = false;
+    private isAutoFocused = false;
 
-    protected inputElement: ElementRef<HTMLInputElement>;
+    protected inputElement: ElementRef<HTMLInputElement> | undefined;
 
-    public get iconPosition(): InputIconPosition {
+    public get iconPosition(): InputIconPosition | undefined {
         return this.iconPositionValue;
     }
 
     @Input()
-    public set iconPosition(value: InputIconPosition) {
+    public set iconPosition(value: InputIconPosition | undefined) {
         this.iconPositionValue = value;
         this.classes.set('iconPosition', value);
     }
 
     @Input()
     @HostBinding('class.icon')
-    public icon: IconType;
+    public icon: IconType | undefined;
 
     @Input()
     public iconSize: IconSize;
 
     @HostBinding('class.focus')
-    public focused: boolean;
+    public focused = false;
 
     @Input()
     @HostBinding('class.disabled')
@@ -130,7 +130,7 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
     public readonly focusout = new EventEmitter<FocusEvent>();
 
     @HostBinding('class.color')
-    protected isColor: boolean;
+    protected isColor = false;
 
     protected constructor() {
         super();
@@ -152,13 +152,13 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
         this.inputElement.nativeElement.readOnly = this.readonlyValue;
     }
 
-    private readonly keyDownEventHandler = event => this.keyDown.next(event);
-    private readonly keyUpEventHandler = event => this.keyUp.next(event);
-    private readonly keyPressEventHandler = event => this.keyPress.next(event);
-    private readonly blurEventHandler = event => this.blur.next(event);
-    private readonly focusEventHandler = event => this.focus.next(event);
-    private readonly focusinEventHandler = event => this.focusin.next(event);
-    private readonly focusoutEventHandler = event => this.focusout.next(event);
+    private readonly keyDownEventHandler = (event: KeyboardEvent) => this.keyDown.next(event);
+    private readonly keyUpEventHandler = (event: KeyboardEvent) => this.keyUp.next(event);
+    private readonly keyPressEventHandler = (event: Event) => this.keyPress.next(event);
+    private readonly blurEventHandler = (event: FocusEvent) => this.blur.next(event);
+    private readonly focusEventHandler = (event: FocusEvent) => this.focus.next(event);
+    private readonly focusinEventHandler = (event: FocusEvent) => this.focusin.next(event);
+    private readonly focusoutEventHandler = (event: FocusEvent) => this.focusout.next(event);
 
     protected bindEvents(): void {
         if (!this.inputElement) {

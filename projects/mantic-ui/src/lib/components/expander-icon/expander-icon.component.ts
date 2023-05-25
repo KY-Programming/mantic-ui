@@ -18,7 +18,7 @@ import { IconComponent } from '../icon/icon.component';
     providers: [...BaseComponent.providers]
 })
 export class ExpanderIconComponent extends BaseComponent {
-    private isExpanded: boolean;
+    private isExpanded = false;
     protected readonly defaults = ExpanderComponent.defaults;
 
     @Input()
@@ -32,7 +32,7 @@ export class ExpanderIconComponent extends BaseComponent {
     }
 
     @Input()
-    public dropdownIcon: IconType;
+    public dropdownIcon: IconType | undefined;
 
     @Input()
     public dropdownIconSize: IconSize;

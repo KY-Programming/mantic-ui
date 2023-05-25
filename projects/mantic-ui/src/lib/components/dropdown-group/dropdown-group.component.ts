@@ -18,16 +18,16 @@ import { CommonModule } from '@angular/common';
 })
 export class DropdownGroupComponent implements AfterViewInit {
     @Input()
-    public label: string;
+    public label: string | undefined;
 
     @Input()
-    public icon: IconType;
+    public icon: IconType | undefined;
 
     @Input()
     public iconSize: IconSize;
 
     @ViewChild('contentTemplate')
-    protected contentTemplate: TemplateRef<unknown>;
+    protected contentTemplate: TemplateRef<unknown> | undefined;
 
     public constructor(
         private readonly viewContainerRef: ViewContainerRef
@@ -35,7 +35,11 @@ export class DropdownGroupComponent implements AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
-        this.viewContainerRef.createEmbeddedView(this.contentTemplate);
+        if (this.contentTemplate) {
+            this.viewContainerRef.createEmbeddedView(this.contentTemplate);
+        } else {
+            this.viewContainerRef.clear();
+        }
     }
 
 }

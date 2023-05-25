@@ -19,13 +19,13 @@ export declare type MenuPosition =
     providers: [...InvertibleComponent.providers]
 })
 export class MenuComponent extends InvertibleComponent {
-    private isFixed: boolean;
+    private isFixed = false;
     private positionValue: MenuPosition;
-    private isSecondary: boolean;
+    private isSecondary = false;
     private attachedValue: MenuPosition;
-    private isTabular: boolean;
-    private isText: boolean;
-    private isVertical: boolean;
+    private isTabular = false;
+    private isText = false;
+    private isVertical = false;
 
     public readonly element = this.elementRef;
 

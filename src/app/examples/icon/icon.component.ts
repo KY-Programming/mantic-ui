@@ -1,8 +1,15 @@
 import { Component } from '@angular/core';
 import { faRocket } from '@fortawesome/pro-solid-svg-icons';
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../../components/header/header.component';
+import { HeaderDirective, IconComponent, TabComponent, TabGroupComponent, TableComponent } from '@mantic-ui/angular';
+import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
-    selector: 'app-icon',
+    selector: 'app-icon-example',
+    standalone: true,
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, FontAwesomeModule, TableComponent],
     templateUrl: './icon.component.html',
     styleUrls: ['./icon.component.scss']
 })

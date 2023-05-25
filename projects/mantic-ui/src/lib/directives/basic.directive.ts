@@ -11,7 +11,7 @@ export class BasicDirective {
     public static readonly basic = 'basic';
     public static readonly default = { directive: BasicDirective, inputs: [BasicDirective.basic] };
     private readonly classes = inject(SortedClassesService);
-    private isBasic: boolean;
+    private isBasic = false;
 
     public constructor() {
         this.classes.register(BasicDirective.basic);

@@ -1,9 +1,16 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Component } from '@angular/core';
 import { faArrowRight, faCloud, faPause } from '@fortawesome/pro-solid-svg-icons';
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../../components/header/header.component';
+import { AnimationComponent, ButtonComponent, ButtonDirective, ButtonGroupComponent, DividerComponent, HeaderDirective, IconButtonComponent, IconComponent, InputComponent, LabelComponent, OrComponent, SegmentComponent, TabComponent, TabGroupComponent, ToggleButtonComponent, ToggleComponent, WarningComponent } from '@mantic-ui/angular';
+import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-button-example',
+    standalone: true,
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ButtonComponent, ButtonDirective, ExampleCodeComponent, RouterLink, WarningComponent, IconButtonComponent, SegmentComponent, ToggleButtonComponent, ButtonGroupComponent, OrComponent, InputComponent, DividerComponent, ToggleComponent, LabelComponent, AnimationComponent],
     templateUrl: './button.component.html',
     styleUrls: ['./button.component.scss']
 })
@@ -398,7 +405,7 @@ export class ButtonExampleComponent {
     private loadingValue = false;
     private disabledValue = false;
 
-    public text = 'Click Me';
+    public text? = 'Click Me';
 
     public get loading(): boolean {
         return this.loadingValue;
@@ -418,14 +425,14 @@ export class ButtonExampleComponent {
         this.disabledValue = value;
     }
 
-    public fluid: boolean;
+    public fluid = false;
 
     private reset(): void {
         this.loadingValue = false;
         this.disabledValue = false;
     }
 
-    public eventMessage: string;
+    public eventMessage?: string;
     public eventCode = `<m-button (click)="eventClick()">Click me</m-button>`;
 
     public eventClick(): void {

@@ -1,8 +1,14 @@
 import { Component } from '@angular/core';
-import { InputIconPosition, InputType } from '@mantic-ui/angular';
+import { DateInputComponent, DividerComponent, DropdownComponent, DropdownItemComponent, FileInputComponent, FlexComponent, HeaderDirective, IconComponent, InputComponent, InputIconPosition, InputType, LabelComponent, LabelDropdownComponent, NumericInputComponent, SegmentComponent, TabComponent, TabGroupComponent, TextareaComponent, TimeInputComponent, ToggleComponent, WarningComponent } from '@mantic-ui/angular';
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../../components/header/header.component';
+import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { ValueComponent } from '../../components/value/value.component';
 
 @Component({
     selector: 'app-input-example',
+    standalone: true,
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, FlexComponent, InputComponent, ValueComponent, TextareaComponent, NumericInputComponent, DateInputComponent, TimeInputComponent, ToggleComponent, DropdownItemComponent, DropdownComponent, DividerComponent, SegmentComponent, FileInputComponent, WarningComponent, LabelComponent, LabelDropdownComponent],
     templateUrl: './input.component.html',
     styleUrls: ['./input.component.scss']
 })
@@ -12,15 +18,15 @@ export class InputExampleComponent {
     private disabledValue = false;
     private errorValue = false;
 
-    public inputValue = 'Default Value';
+    public inputValue? = 'Default Value';
     public type: InputType = 'text';
     public icon = 'search';
     public iconPosition: InputIconPosition = 'left';
-    public selectedTabName: string;
-    public textValue: string;
-    public textareaValue: string;
-    public numericValue: number;
-    public dateValue: Date;
+    public selectedTabName?: string;
+    public textValue?: string;
+    public textareaValue?: string;
+    public numericValue?: number;
+    public dateValue?: Date;
 
     public get focus(): boolean {
         return this.focusValue;
@@ -58,7 +64,7 @@ export class InputExampleComponent {
         this.errorValue = value;
     }
 
-    public fluid: boolean;
+    public fluid = false;
 
     private reset(): void {
         this.focusValue = false;
@@ -67,9 +73,9 @@ export class InputExampleComponent {
         this.errorValue = false;
     }
 
-    public inputMessage: string;
+    public inputMessage?: string;
 
-    public valueChange(event: string): void {
+    public valueChange(event: string | undefined): void {
         this.inputMessage = `Value changed to: ${event}`;
         setTimeout(() => this.inputMessage = undefined, 2000);
     }

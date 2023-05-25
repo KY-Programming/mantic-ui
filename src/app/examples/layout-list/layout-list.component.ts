@@ -1,7 +1,12 @@
 import { Component, HostBinding } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { DividerComponent, ExpanderComponent, FieldComponent, FillDirective, FlexDirective, FormComponent, HeaderDirective, IconComponent, InputComponent, MenuComponent, MenuItemComponent, SegmentComponent, SubmitComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 
 @Component({
     selector: 'app-layout-list',
+    standalone: true,
+    imports: [CommonModule, RouterLink, SegmentComponent, DividerComponent, ExpanderComponent, FormComponent, HeaderDirective, FlexDirective, FillDirective, FieldComponent, InputComponent, SubmitComponent, MenuComponent, MenuItemComponent, IconComponent, TabGroupComponent, TabComponent],
     templateUrl: './layout-list.component.html',
     styleUrls: ['./layout-list.component.scss']
 })

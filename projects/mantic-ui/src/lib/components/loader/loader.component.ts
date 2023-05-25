@@ -19,25 +19,25 @@ export declare type LoaderSize = 'mini' | 'tiny' | 'small' | 'large' | 'big' | '
     providers: [...BaseComponent.providers]
 })
 export class LoaderComponent extends BaseComponent {
-    private textValue: string;
-    private sizeValue: LoaderSize;
+    private textValue: string | undefined;
+    private sizeValue: LoaderSize | undefined;
 
     @Input()
-    public get text(): string {
+    public get text(): string | undefined {
         return this.textValue;
     }
 
-    public set text(value: string) {
+    public set text(value: string | undefined) {
         this.textValue = value;
         this.classes.set('text', value || value === '');
     }
 
     @Input()
-    public get size(): LoaderSize {
+    public get size(): LoaderSize | undefined {
         return this.sizeValue;
     }
 
-    public set size(value: LoaderSize) {
+    public set size(value: LoaderSize | undefined) {
         this.sizeValue = value;
         this.classes.set('size', value);
     }

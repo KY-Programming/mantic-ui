@@ -29,14 +29,14 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
     protected static override readonly providers = [...InvertibleComponent.providers];
     protected static override readonly directives = [...InvertibleComponent.directives, BasicDirective.default, ColorDirective.default, LoadingDirective.default];
 
-    private isVertical: boolean;
-    private isRaised: boolean;
+    private isVertical = false;
+    private isRaised = false;
     private isRaisedChanged = false;
-    private isPlaceholder: boolean;
-    private isSecondary: boolean;
-    private isTertiary: boolean;
-    private attachedValue: SegmentAttached;
-    private isNoPadding: boolean;
+    private isPlaceholder = false;
+    private isSecondary = false;
+    private isTertiary = false;
+    private attachedValue: SegmentAttached | undefined;
+    private isNoPadding = false;
 
     @Input()
     public get raised(): boolean {
@@ -89,12 +89,12 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
         this.classes.set('tertiary', this.isTertiary);
     }
 
-    public get attached(): SegmentAttached {
+    public get attached(): SegmentAttached | undefined {
         return this.attachedValue;
     }
 
     @Input()
-    public set attached(value: SegmentAttached) {
+    public set attached(value: SegmentAttached | undefined) {
         this.attachedValue = value;
         this.classes.set('attachedValue', value);
         this.classes.set('attached', !!value);

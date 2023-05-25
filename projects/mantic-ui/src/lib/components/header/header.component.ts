@@ -20,20 +20,20 @@ export declare type HeaderSize = 'huge' | 'large' | 'medium' | 'small' | 'tiny';
     providers: [...BaseComponent.providers]
 })
 export class HeaderComponent extends BaseComponent {
-    private sizeValue: HeaderSize;
+    private sizeValue: HeaderSize | undefined;
 
     @Input()
-    public icon: IconType;
+    public icon: IconType | undefined;
 
     @Input()
     public iconSize: IconSize;
 
     @Input()
-    public get size(): HeaderSize {
+    public get size(): HeaderSize | undefined {
         return this.sizeValue;
     }
 
-    public set size(value: HeaderSize) {
+    public set size(value: HeaderSize | undefined) {
         this.sizeValue = value;
         this.classes.set('size', value);
     }

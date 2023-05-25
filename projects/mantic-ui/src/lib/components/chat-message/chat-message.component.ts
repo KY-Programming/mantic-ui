@@ -19,8 +19,8 @@ import { RouterLink } from '@angular/router';
 })
 export class ChatMessageComponent {
 
-    @Input()
-    public message: ChatMessage;
+    @Input({ required: true })
+    public message: ChatMessage | undefined;
 
     @HostBinding('class.in')
     public get in(): boolean {
@@ -34,7 +34,7 @@ export class ChatMessageComponent {
 
     @HostBinding('class.grouped')
     public get grouped(): boolean {
-        return this.message?.grouped;
+        return this.message?.grouped ?? false;
     }
 
     @Output()

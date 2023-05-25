@@ -11,7 +11,7 @@ export class ActiveDirective {
     public static readonly active = 'active';
     public static readonly default = { directive: ActiveDirective, inputs: [ActiveDirective.active] };
     private readonly classes = inject(SortedClassesService);
-    private isActive: boolean;
+    private isActive = false;
 
     public constructor() {
         this.classes.register(ActiveDirective.active);

@@ -1,12 +1,18 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../../components/header/header.component';
+import { DividerComponent, HeaderDirective, IconComponent, NumericInputComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-tab-example',
+    standalone: true,
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, DividerComponent, NumericInputComponent],
     templateUrl: './tab.component.html',
     styleUrls: ['./tab.component.scss']
 })
 export class TabExampleComponent {
-    public selectedTab = 1;
+    public selectedTab? = 1;
 
     public code1 = `<m-tab-group>
   <m-tab label="Tab"></m-tab>

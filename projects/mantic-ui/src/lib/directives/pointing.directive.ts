@@ -11,7 +11,7 @@ export class PointingDirective {
     public static readonly pointing = 'pointing';
     public static readonly default = { directive: PointingDirective, inputs: [PointingDirective.pointing] };
     private readonly classes = inject(SortedClassesService);
-    private isPointing: boolean;
+    private isPointing = false;
 
     public constructor() {
         this.classes.register(PointingDirective.pointing);

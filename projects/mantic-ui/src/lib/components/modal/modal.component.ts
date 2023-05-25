@@ -45,7 +45,7 @@ export class ModalComponent extends InvertibleComponent {
         invertedChange: new ReplaySubject<boolean>(1)
     };
 
-    private isShowClose: boolean;
+    private isShowClose = false;
     private isShowHeader = true;
     private isShowFooter = true;
     private isVisible = true;
@@ -63,7 +63,7 @@ export class ModalComponent extends InvertibleComponent {
     }
 
     @Input()
-    public header: string;
+    public header: string | undefined;
 
     @Input()
     public get showClose(): boolean {
@@ -120,7 +120,7 @@ export class ModalComponent extends InvertibleComponent {
     }
 
     @Input()
-    public size: ModalSize;
+    public size: ModalSize | undefined;
 
     @Input()
     public get scrolling(): boolean {
@@ -150,13 +150,13 @@ export class ModalComponent extends InvertibleComponent {
     }
 
     @Input()
-    public minContentHeight: string;
+    public minContentHeight: string | undefined;
 
     @Input()
-    public maxContentHeight: string;
+    public maxContentHeight: string | undefined;
 
     @Input()
-    public closeIcon: IconType;
+    public closeIcon: IconType | undefined;
 
     @Output()
     public readonly close = new EventEmitter<void>();

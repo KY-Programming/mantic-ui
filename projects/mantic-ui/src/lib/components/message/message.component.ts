@@ -24,15 +24,15 @@ export declare type MessageAttached = 'bottom' | 'top' | undefined;
 export class MessageComponent extends BaseComponent {
     public static readonly defaults = { closeIcon: <IconType>'close', closeIconSize: <IconSize>undefined };
 
-    private isPositive: boolean;
-    private isSuccess: boolean;
-    private isWarning: boolean;
-    private isError: boolean;
-    private isInfo: boolean;
-    private isClosable: boolean;
+    private isPositive = false;
+    private isSuccess = false;
+    private isWarning = false;
+    private isError = false;
+    private isInfo = false;
+    private isClosable = false;
     private isCloseVisible = true;
     private attachedValue: MessageAttached;
-    private iconValue: IconType;
+    private iconValue: IconType | undefined;
 
     protected readonly defaults = MessageComponent.defaults;
 
@@ -115,14 +115,14 @@ export class MessageComponent extends BaseComponent {
     }
 
     @Input()
-    public header: string;
+    public header: string | undefined;
 
     @Input()
-    public get icon(): IconType {
+    public get icon(): IconType | undefined {
         return this.iconValue;
     }
 
-    public set icon(value: IconType) {
+    public set icon(value: IconType | undefined) {
         this.iconValue = value;
         this.classes.set('icon', !!value);
     }
@@ -131,7 +131,7 @@ export class MessageComponent extends BaseComponent {
     public iconSize: IconSize;
 
     @Input()
-    public closeIcon: IconType;
+    public closeIcon: IconType | undefined;
 
     @Input()
     public closeIconSize: IconSize;

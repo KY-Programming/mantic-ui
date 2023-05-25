@@ -11,7 +11,7 @@ export class ReadonlyDirective {
     public static readonly readonly = 'readonly';
     public static readonly default = { directive: ReadonlyDirective, inputs: [ReadonlyDirective.readonly] };
     private readonly classes = inject(SortedClassesService);
-    private isReadonly: boolean;
+    private isReadonly = false;
 
     public constructor() {
         this.classes.register(ReadonlyDirective.readonly);

@@ -9,7 +9,7 @@ import { IconSize } from '../icon/icon-size';
 })
 export class FlagComponent {
     @Input()
-    public flag: string;
+    public flag: string | undefined;
 
     @Input()
     public size: IconSize;

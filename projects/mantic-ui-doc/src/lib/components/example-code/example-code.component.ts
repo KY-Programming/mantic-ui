@@ -14,17 +14,16 @@ import { highlightJsProviders } from '../../highlightjs.providers';
         HighlightModule,
         ButtonComponent
     ],
-    hostDirectives: [...SegmentComponent.directives],
     providers: [...SegmentComponent.providers, ...highlightJsProviders]
 })
 export class ExampleCodeComponent extends SegmentComponent {
     private isLive = false;
 
     @Input()
-    public label: string;
+    public label: string | undefined;
 
     @Input()
-    public code: string;
+    public code: string | undefined;
 
     @Input()
     public languages: string[] = ['html'];

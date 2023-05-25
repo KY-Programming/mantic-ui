@@ -2,7 +2,7 @@
 
 export interface MarkdownCode extends MarkdownElement {
     type: 'code';
-    code: string;
+    code: string | undefined;
 }
 
 export const markdownCodeType = 'code';

@@ -2,8 +2,8 @@
 
 export interface MarkdownCodeBlock extends MarkdownElement {
     type: 'code-block';
-    language: string;
-    code: string;
+    language: string | undefined;
+    code: string | undefined;
     isBlock: true;
 }
 

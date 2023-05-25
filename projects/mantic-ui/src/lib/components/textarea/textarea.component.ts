@@ -24,13 +24,13 @@ export class TextareaComponent extends InvertibleComponent {
         invertedChange: new ReplaySubject<boolean>(1)
     };
 
-    private readonlyValue: boolean;
-    private disabledValue: boolean;
+    private readonlyValue = false;
+    private disabledValue = false;
 
-    public textareaElement: ElementRef<HTMLTextAreaElement>;
+    public textareaElement?: ElementRef<HTMLTextAreaElement>;
 
     @Input()
-    public name: string;
+    public name?: string;
 
     public get disabled(): boolean {
         return this.disabledValue;
@@ -56,7 +56,7 @@ export class TextareaComponent extends InvertibleComponent {
 
     @Input()
     @HostBinding('class.error')
-    public hasError: boolean;
+    public hasError = false;
 
     @Input()
     public placeholder: string | undefined;
@@ -71,7 +71,7 @@ export class TextareaComponent extends InvertibleComponent {
     public inputId: string | undefined;
 
     @Output()
-    public readonly valueChange = new EventEmitter<string | undefined>();
+    public readonly valueChange = new EventEmitter<string | undefined | null>();
 
     @Output()
     public readonly keyDown = new EventEmitter<KeyboardEvent>();
@@ -142,13 +142,13 @@ export class TextareaComponent extends InvertibleComponent {
         this.textareaElement.nativeElement.readOnly = this.readonlyValue;
     }
 
-    private readonly keyDownEventHandler = event => this.keyDown.next(event);
-    private readonly keyUpEventHandler = event => this.keyUp.next(event);
-    private readonly keyPressEventHandler = event => this.keyPress.next(event);
-    private readonly blurEventHandler = event => this.blur.next(event);
-    private readonly focusEventHandler = event => this.focus.next(event);
-    private readonly focusinEventHandler = event => this.focusin.next(event);
-    private readonly focusoutEventHandler = event => this.focusout.next(event);
+    private readonly keyDownEventHandler = (event: KeyboardEvent) => this.keyDown.next(event);
+    private readonly keyUpEventHandler = (event: KeyboardEvent) => this.keyUp.next(event);
+    private readonly keyPressEventHandler = (event: Event) => this.keyPress.next(event);
+    private readonly blurEventHandler = (event: FocusEvent) => this.blur.next(event);
+    private readonly focusEventHandler = (event: FocusEvent) => this.focus.next(event);
+    private readonly focusinEventHandler = (event: FocusEvent) => this.focusin.next(event);
+    private readonly focusoutEventHandler = (event: FocusEvent) => this.focusout.next(event);
 
     protected bindEvents(): void {
         if (!this.textareaElement) {

@@ -17,10 +17,10 @@ import { IconComponent } from '../../icon/icon.component';
     providers: [...MenuItemComponent.providers]
 })
 export class ContextMenuItemComponent extends MenuItemComponent {
-    private keepOpenValue: boolean;
+    private keepOpenValue = false;
 
     @Input()
-    public icon: IconType;
+    public icon: IconType | undefined;
 
     @Input()
     public get keepOpen(): boolean {

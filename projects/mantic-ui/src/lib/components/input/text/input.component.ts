@@ -26,7 +26,7 @@ export declare type InputType = 'button' | 'checkbox' | 'color' | 'date' | 'date
     providers: [...InputBaseComponent.providers]
 })
 export class InputComponent extends InputBaseComponent {
-    private typeValue: InputType;
+    private typeValue?: InputType;
 
     @Input()
     public value: string | undefined;
@@ -35,11 +35,11 @@ export class InputComponent extends InputBaseComponent {
     public defaultValue: string | undefined;
 
     @Input()
-    public get type(): InputType {
+    public get type(): InputType | undefined {
         return this.typeValue;
     }
 
-    public set type(value: InputType) {
+    public set type(value: InputType | undefined) {
         this.typeValue = value;
         this.isColor = value === 'color';
         if (this.isColor) {

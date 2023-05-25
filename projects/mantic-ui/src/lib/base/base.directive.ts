@@ -32,7 +32,7 @@ export abstract class BaseDirective extends Destroyable implements OnInit {
         super();
         this.tag = this.elementRef.nativeElement.tagName.toLowerCase();
         if (useUiClass) {
-            this.classes?.registerFixed('ui');
+            this.classes.registerFixed('ui');
         }
     }
 
@@ -61,7 +61,7 @@ export abstract class BaseDirective extends Destroyable implements OnInit {
         if (!this.initialized) {
             return;
         }
-        this.classes?.update();
+        this.classes.update();
     }
 
     protected toBoolean(value: BooleanLike): boolean {

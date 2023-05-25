@@ -19,25 +19,25 @@ export class ImageUploadComponent extends ButtonBaseComponent {
     private readonly previewImageChangeSubject = new Subject<string>();
     private readonly uploadSubject = new Subject<FileList>();
     public isPreviewVisible = true;
-    private isPreviewImageChangeForced: boolean;
+    private isPreviewImageChangeForced = false;
 
     @Input()
-    public previewImage: string;
+    public previewImage?: string;
 
     @Input()
-    public radius: number;
+    public radius?: number;
 
     @Input()
-    public previewWidth: number;
+    public previewWidth?: number;
 
     @Input()
-    public previewHeight: number;
+    public previewHeight?: number;
 
     @Input()
-    public width: number;
+    public width?: number;
 
     @Input()
-    public height: number;
+    public height?: number;
 
     @Input()
     public set hidePreview(value: BooleanLike) {
@@ -55,8 +55,8 @@ export class ImageUploadComponent extends ButtonBaseComponent {
     @Output()
     public readonly upload = this.uploadSubject.asObservable();
 
-    protected onUpload(fileList: FileList): void {
-        if (fileList.length === 0) {
+    protected onUpload(fileList: FileList | null): void {
+        if (!fileList?.length) {
             return;
         }
         this.uploadSubject.next(fileList);
@@ -70,7 +70,7 @@ export class ImageUploadComponent extends ButtonBaseComponent {
         const reader = new FileReader();
         const image = new Image();
         reader.onload = () => {
-            image.src = reader.result.toString();
+            image.src = reader.result?.toString() ?? '';
         };
         image.onload = () => {
             let width = this.width || image.width;
@@ -92,7 +92,7 @@ export class ImageUploadComponent extends ButtonBaseComponent {
             const left = (width - imageWidth) / 2;
             const top = (height - imageHeight) / 2;
             const context = canvas.getContext('2d');
-            context.drawImage(image, left, top, imageWidth, imageHeight);
+            context?.drawImage(image, left, top, imageWidth, imageHeight);
             this.previewImage = canvas.toDataURL('image/png', 1);
             this.previewImageChangeSubject.next(this.previewImage);
         };

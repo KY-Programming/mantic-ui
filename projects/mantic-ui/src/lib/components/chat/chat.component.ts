@@ -4,7 +4,7 @@ import { ChatMessage } from '../../models/chat-message';
 import { InputComponent } from '../input/text/input.component';
 import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIfContext } from '@angular/common';
 import { ChatMessageComponent } from '../chat-message/chat-message.component';
 import { ButtonComponent } from '../button/button.component';
 import { IconComponent } from '../icon/icon.component';
@@ -29,21 +29,22 @@ export class ChatComponent implements DoCheck {
     protected readonly defaults = ChatComponent.defaults;
 
     @Input()
-    public messages: ChatMessage[];
+    public messages: ChatMessage[] = [];
 
-    public message: string;
+    public message: string | undefined;
 
     @Input()
     public canSend = true;
 
     @Input()
-    public sender: string;
+    public sender: string | undefined;
 
     @Input()
-    public sendIconTemplate: TemplateRef<never>;
+    // eslint-disable-next-line no-null/no-null
+    public sendIconTemplate: TemplateRef<NgIfContext<boolean>> | null = null;
 
     @Input()
-    public sendIcon: IconType;
+    public sendIcon: IconType | undefined;
 
     @Input()
     public sendIconSize: IconSize;
@@ -52,10 +53,10 @@ export class ChatComponent implements DoCheck {
     public readonly send = this.sendSubject.asObservable();
 
     @ViewChild('chat')
-    protected chat: ElementRef<HTMLElement>;
+    protected chat: ElementRef<HTMLElement> | undefined;
 
     @ViewChild(InputComponent)
-    protected input: InputComponent;
+    protected input: InputComponent | undefined;
 
     public constructor(
         iterableDiffers: IterableDiffers
@@ -71,10 +72,10 @@ export class ChatComponent implements DoCheck {
 
     protected sendMessage(): void {
         if (this.message) {
-            this.sendSubject.next({ direction: 'out', text: this.message, sender: this.sender, timestamp: Date.now() });
+            this.sendSubject.next({ direction: 'out', text: this.message, sender: this.sender ?? 'Unknown', timestamp: Date.now() });
         }
         this.message = undefined;
-        this.input.setFocus();
+        this.input?.setFocus();
     }
 
     protected onKeyDown(event: KeyboardEvent): void {

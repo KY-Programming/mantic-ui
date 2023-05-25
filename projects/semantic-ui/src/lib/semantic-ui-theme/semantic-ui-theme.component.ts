@@ -1,15 +1,17 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { BooleanLike, ThemeService, toBoolean } from '@mantic-ui/angular';
+import { BooleanLike, CheckboxDefaultsComponent, DropdownDefaultsComponent, FormDefaultsComponent, InputDefaultsComponent, ModalDefaultsComponent, SegmentDefaultsComponent, TabGroupDefaultsComponent, TableDefaultsComponent, TextareaDefaultsComponent, ThemeService, toBoolean } from '@mantic-ui/angular';
 
 @Component({
     selector: 'm-semantic-ui-theme',
+    standalone: true,
+    imports: [SegmentDefaultsComponent, TableDefaultsComponent, FormDefaultsComponent, InputDefaultsComponent, CheckboxDefaultsComponent, DropdownDefaultsComponent, TextareaDefaultsComponent, TabGroupDefaultsComponent, ModalDefaultsComponent],
     templateUrl: './semantic-ui-theme.component.html',
     styleUrls: ['./semantic-ui-theme.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
 export class SemanticUiThemeComponent {
-    private isDark: boolean;
-    private isAuto: boolean;
+    private isDark = false;
+    private isAuto = false;
 
     @Input()
     public get dark(): boolean {

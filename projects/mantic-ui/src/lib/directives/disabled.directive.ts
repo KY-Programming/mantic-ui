@@ -11,7 +11,7 @@ export class DisabledDirective {
     public static readonly disabled = 'disabled';
     public static readonly default = { directive: DisabledDirective, inputs: [DisabledDirective.disabled] };
     private readonly classes = inject(SortedClassesService);
-    private isDisabled: boolean;
+    private isDisabled = false;
 
     public constructor() {
         this.classes.register(DisabledDirective.disabled);

@@ -1,14 +1,10 @@
-<h1 m-header>
-    Modal
-    <div class="sub header">
-        A modal displays content that temporarily blocks interactions with the main view of a site
-    </div>
-</h1>
+<app-header header="Modal" subHeader="A modal displays content that temporarily blocks interactions with the main view of a site"></app-header>
 
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Examples">
         <m-example header="Modal" description="A standard modal" [code]="standardCode">
             <m-button (click)="showModal = true">Open Modal</m-button>
+            {{showModal}}
             <m-modal *ngIf="showModal" imageContent (close)="showModal = false">
                 <m-modal-header>
                     <m-icon icon="question"></m-icon>

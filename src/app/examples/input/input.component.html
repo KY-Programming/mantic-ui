@@ -1,9 +1,5 @@
-<h1 m-header>
-    Input
-    <div class="sub header">
-        An input is a field used to elicit a response from a user
-    </div>
-</h1>
+<app-header header="Input" subHeader="An input is a field used to elicit a response from a user"></app-header>
+
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Examples">
         <m-example header="Text" description="A text input">
@@ -14,7 +10,7 @@
             <m-example-code [code]="textCode"></m-example-code>
         </m-example>
         <m-example description="A text area">
-            <m-textarea placeholder="Enter a text with line breaks..." [(value)]="textareaValue"></m-textarea>
+            <m-textarea placeholder="Enter a text with line breaks..." [value]="textareaValue" (valueChange)="textareaValue = $event ?? undefined"></m-textarea>
             <app-value *ngIf="textValue !== undefined" [value]="textareaValue"></app-value>
             <m-example-code [code]="textareaCode"></m-example-code>
         </m-example>

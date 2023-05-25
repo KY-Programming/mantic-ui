@@ -1,9 +1,4 @@
-<h1 m-header>
-    Dimmer
-    <div class="sub header">
-        A dimmer hides distractions to focus attention on particular content
-    </div>
-</h1>
+<app-header header="Dimmer" subHeader="A dimmer hides distractions to focus attention on particular content"></app-header>
 
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Examples">
@@ -43,7 +38,7 @@
         </m-example>
 
         <m-example header="Page Dimmer" description="A dimmer can be formatted to be fixed to the page" [code]="pageCode">
-            <m-dimmer *ngIf="dim3" (click)="dim3 = false" page>
+            <m-dimmer *ngIf="dim3" page (click)="dim3 = false">
                 <h2 m-header inverted icon>
                     <m-icon icon="mail"></m-icon>
                     Dimmer Message

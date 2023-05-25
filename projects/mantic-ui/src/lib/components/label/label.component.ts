@@ -24,7 +24,7 @@ export declare type LabelPointing =
 export class LabelComponent extends BaseComponent implements LabelOptions {
     private positionValue: LabelPosition;
     private pointingValue: LabelPointing;
-    private isHorizontal: boolean;
+    private isHorizontal = false;
 
     @Input()
     public get position(): LabelPosition {

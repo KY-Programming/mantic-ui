@@ -29,7 +29,7 @@ export class LayoutComponent {
     public showHamburger = false;
 
     @Input()
-    public menuIcon: IconType;
+    public menuIcon: IconType | undefined;
 
     @Input()
     public menuIconSize: IconSize;

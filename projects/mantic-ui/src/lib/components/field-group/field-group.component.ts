@@ -27,16 +27,16 @@ export declare type FieldsType =
 })
 export class FieldGroupComponent extends BaseComponent {
     private readonly fieldClasses: FieldsType[] = ['', '', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
-    private fieldsValue: FieldsType;
-    private fieldsAutoValue: FieldsType;
-    private isGrouped: boolean;
+    private fieldsValue: FieldsType | undefined;
+    private fieldsAutoValue: FieldsType | undefined;
+    private isGrouped = false;
 
     @Input()
-    public get fields(): FieldsType {
+    public get fields(): FieldsType | undefined {
         return this.fieldsValue || this.fieldsAutoValue;
     }
 
-    public set fields(value: FieldsType) {
+    public set fields(value: FieldsType | undefined) {
         // TODO: Parse number as string e.g. '2'
         if (typeof value === 'number') {
             this.fieldsValue = this.fieldClasses[value];

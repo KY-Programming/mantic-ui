@@ -5,7 +5,7 @@ import { AfterViewInit, Directive, EmbeddedViewRef, OnDestroy, TemplateRef, View
     standalone: true
 })
 export class ToBodyDirective implements AfterViewInit, OnDestroy {
-    private embeddedViewRef: EmbeddedViewRef<unknown>;
+    private embeddedViewRef: EmbeddedViewRef<unknown> | undefined;
 
     public constructor(
         private readonly template: TemplateRef<unknown>,
@@ -22,12 +22,12 @@ export class ToBodyDirective implements AfterViewInit, OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        for (const node of this.embeddedViewRef.rootNodes) {
+        for (const node of this.embeddedViewRef?.rootNodes ?? []) {
             if (document.body.contains(node)) {
                 document.body.removeChild(node);
             }
         }
-        this.embeddedViewRef.destroy();
+        this.embeddedViewRef?.destroy();
         this.embeddedViewRef = undefined;
     }
 }

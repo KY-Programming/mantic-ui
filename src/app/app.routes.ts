@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { Route, RouterModule, Routes } from '@angular/router';
+import { Route, Routes } from '@angular/router';
 import { FomanticStartComponent } from './fomantic/start/start.component';
 import { IntroComponent } from './common/intro/intro.component';
 import { ButtonExampleComponent } from './examples/button/button.component';
@@ -48,7 +47,7 @@ import { TableExampleComponent } from './examples/table/table.component';
 import { TestExampleComponent } from './examples/test/test.component';
 import { MarkdownExampleComponent } from './examples/markdown/markdown.component';
 
-const sharedRoutes: Route[] = [
+export const sharedRoutes: Route[] = [
     { path: 'help', redirectTo: 'help/', pathMatch: 'full' },
     { path: 'help/feature', title: 'Missing a Feature?', component: FeatureComponent },
     { path: 'help/:tab', title: 'How to get help?', component: HelpComponent },
@@ -121,10 +120,11 @@ const sharedRoutes: Route[] = [
     { path: 'textarea/:tab', title: 'Icon', component: TextareaExampleComponent },
     { path: 'table', redirectTo: 'table/', pathMatch: 'full' },
     { path: 'table/:tab', title: 'Icon', component: TableExampleComponent },
+    { path: 'test', title: 'Test', component: TestExampleComponent },
     { path: '**', redirectTo: 'components/' }
 ];
 
-const routes: Routes = [
+export const routes: Routes = [
     {
         path: '', component: CommonLayoutComponent, children: [
             { path: '', component: IntroComponent }
@@ -159,9 +159,3 @@ const routes: Routes = [
     { path: 'test', title: 'Test', component: TestExampleComponent },
     { path: '**', redirectTo: '' }
 ];
-
-@NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
-})
-export class AppRoutingModule {}

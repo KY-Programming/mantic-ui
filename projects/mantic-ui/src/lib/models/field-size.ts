@@ -5,9 +5,12 @@ export declare type ParsableFieldSize = FieldSize | number | '1' | '2' | '3' | '
 export const fieldSizes: FieldSize[] = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen'];
 
 export const parseFieldSize = (size: ParsableFieldSize): FieldSize => {
-    const parsedSizeNumber = size ? parseInt(size.toString(), 10) : undefined;
-    if (typeof size === 'number' || parsedSizeNumber && !Number.isNaN(parsedSizeNumber)) {
+    if (typeof size === 'number') {
         return fieldSizes[size];
     }
-    return size as FieldSize;
+    if (typeof size === 'string') {
+        const parsedSizeNumber = size ? parseInt(size.toString(), 10) : undefined;
+        return parsedSizeNumber && !Number.isNaN(parsedSizeNumber) ? fieldSizes[parsedSizeNumber] : '';
+    }
+    return size ?? '';
 };

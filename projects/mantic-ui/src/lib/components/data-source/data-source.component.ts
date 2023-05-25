@@ -13,7 +13,7 @@ export class DataSourceComponent {
     @Output()
     public readonly request = this.requestSubject.asObservable();
 
-    public get(key: string): Observable<unknown[]> {
+    public get(key: string): Observable<Record<string, unknown>[]> {
         const request = new DataSourceRequest(key);
         this.requestSubject.next(request);
         return request.observable;

@@ -36,26 +36,26 @@ export declare type Pointing =
 export class ButtonComponent extends ButtonBaseComponent {
     private readonly basicDirective = inject(BasicDirective, { self: true });
     private readonly colorDirective = inject(ColorDirective, { self: true });
-    private animatedField: AnimationComponent;
-    private labelField: LabelComponent;
-    private socialValue: string;
+    private animatedField?: AnimationComponent;
+    private labelField?: LabelComponent;
+    private socialValue?: string;
     private iconPositionValue: LabelPosition;
-    private icoValue: IconType;
+    private icoValue?: IconType;
 
     protected get basic(): boolean {
         return this.basicDirective.basic;
     }
 
-    protected get color(): ColorName {
+    protected get color(): ColorName | undefined {
         return this.colorDirective.color;
     }
 
-    public get animated(): AnimationComponent {
+    public get animated(): AnimationComponent | undefined {
         return this.animatedField;
     }
 
     @ContentChild(AnimationComponent)
-    public set animated(value: AnimationComponent) {
+    public set animated(value: AnimationComponent | undefined) {
         this.animatedField = value;
         this.refreshClasses();
     }
@@ -65,11 +65,11 @@ export class ButtonComponent extends ButtonBaseComponent {
     }
 
     @ContentChild(LabelComponent)
-    public get label(): LabelComponent {
+    public get label(): LabelComponent | undefined {
         return this.labelField;
     }
 
-    public set label(value: LabelComponent) {
+    public set label(value: LabelComponent | undefined) {
         this.labelField = value;
         this.classes.set('labeled', !!value);
     }
@@ -79,11 +79,11 @@ export class ButtonComponent extends ButtonBaseComponent {
     }
 
     @Input()
-    public get icon(): IconType {
+    public get icon(): IconType | undefined {
         return this.icoValue;
     }
 
-    public set icon(value: IconType) {
+    public set icon(value: IconType | undefined) {
         this.icoValue = value;
         this.classes.set('icon', !!value);
         this.classes.set('iconLabeled', value ? 'labeled' : undefined);
@@ -103,11 +103,11 @@ export class ButtonComponent extends ButtonBaseComponent {
     }
 
     @Input()
-    public get social(): string {
+    public get social(): string | undefined {
         return this.socialValue;
     }
 
-    public set social(value: string) {
+    public set social(value: string | undefined) {
         this.socialValue = value;
         this.classes.set('social', value);
     }

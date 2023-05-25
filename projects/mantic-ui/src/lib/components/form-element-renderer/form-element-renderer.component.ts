@@ -51,14 +51,14 @@ import { HeaderDirective } from '../../directives/header.directive';
     providers: [...BaseComponent.providers]
 })
 export class FormElementRendererComponent extends BaseComponent implements DoCheck {
-    private isFields: boolean;
+    private isFields = false;
     private readonly elementsDiffer: IterableDiffer<FormElements>;
     private readonly fieldClasses = ['', '', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
-    private readonly dataCache = new Map<string, Observable<unknown[]>>();
-    private readonly dropDownCache = new Map<FormDropDownElement, Observable<DropdownValue[]>>();
+    private readonly dataCache = new Map<string, Observable<Record<string, unknown>[]>>();
+    private readonly dropDownCache = new Map<string, Observable<DropdownValue[]>>();
     private readonly executeSubject = new Subject<string>();
-    private elementsValue: FormElements[];
-    private dataValue: unknown;
+    private elementsValue: FormElements[] = [];
+    private dataValue: Record<string, unknown> = {};
 
     @Input()
     public get elements(): FormElements[] {
@@ -83,18 +83,22 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
         this.isFields = this.toBoolean(value);
     }
 
+    protected get anyData(): any {
+        return this.data;
+    }
+
     @Input()
-    public get data(): unknown {
+    public get data(): Record<string, unknown> {
         return this.dataValue ?? {};
     }
 
-    public set data(value: unknown) {
+    public set data(value: Record<string, unknown>) {
         this.dataValue = value;
         this.applyDefaults();
     }
 
     @Input()
-    public dataSources: DataSourceComponent[];
+    public dataSources: DataSourceComponent[] = [];
 
     public constructor(
         iterableDiffers: IterableDiffers
@@ -110,35 +114,39 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
         }
     }
 
-    protected getData(dataSource: string): Observable<unknown[]> {
-        if (!this.dataCache[dataSource]) {
-            const subject = new ReplaySubject<unknown[]>(1);
-            this.dataCache[dataSource] = subject.asObservable();
-            merge(...this.dataSources.map(x => x.get(dataSource)).filter(x => x)).subscribe({
-                next: data => subject.next(data),
-                error: error => subject.next(error)
-            });
+    protected getData(dataSource: string): Observable<Record<string, unknown>[]> {
+        const cachedObservable = this.dataCache.get(dataSource);
+        if (cachedObservable) {
+            return cachedObservable;
         }
-        return this.dataCache[dataSource];
+        const subject = new ReplaySubject<Record<string, unknown>[]>(1);
+        this.dataCache.set(dataSource, subject.asObservable());
+        merge(...this.dataSources.map(x => x.get(dataSource)).filter(x => x)).subscribe({
+            next: data => subject.next(data),
+            error: error => subject.next(error)
+        });
+        return subject.asObservable();
     }
 
     protected getItems(dropdown: FormDropDownElement): Observable<DropdownValue[]> {
-        if (!this.dropDownCache[dropdown.dataSource]) {
-            const subject = new ReplaySubject<DropdownValue[]>(1);
-            this.dropDownCache[dropdown.dataSource] = subject.asObservable();
-            this.getData(dropdown.dataSource).subscribe({
-                next: data => {
-                    const values = data?.map(entry => new DropdownValue<unknown>(entry[dropdown.valueField], this.format(entry, dropdown.textField, dropdown.textFieldFormatter)));
-                    subject.next([
-                        ...this.upgradeItems(dropdown.prefixItems),
-                        ...values,
-                        ...this.upgradeItems(dropdown.postfixItems)
-                    ]);
-                },
-                error: error => subject.next(error)
-            });
+        const cachedObservable = this.dropDownCache.get(dropdown.dataSource);
+        if (cachedObservable) {
+            return cachedObservable;
         }
-        return this.dropDownCache[dropdown.dataSource];
+        const subject = new ReplaySubject<DropdownValue[]>(1);
+        this.dropDownCache.set(dropdown.dataSource, subject.asObservable());
+        this.getData(dropdown.dataSource).subscribe({
+            next: data => {
+                const values = data?.map(entry => new DropdownValue<unknown>(entry[dropdown.valueField], this.format(entry, dropdown.textField, dropdown.textFieldFormatter)));
+                subject.next([
+                    ...this.upgradeItems(dropdown.prefixItems),
+                    ...values,
+                    ...this.upgradeItems(dropdown.postfixItems)
+                ]);
+            },
+            error: error => subject.next(error)
+        });
+        return subject.asObservable();
     }
 
     protected onExecute(action: string): void {
@@ -150,24 +158,24 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
             return;
         }
         for (const element of this.elements as FormDataElement[]) {
-            if (element.defaultValue) {
+            if (element.field && element.defaultValue) {
                 this.data[element.field] ??= element.defaultValue;
             }
         }
     }
 
-    private format(entry: unknown, field: string | string[], fieldFormatter?: string): string {
+    private format(entry: Record<string, unknown>, field: string | string[], fieldFormatter?: string): string {
         if (typeof field === 'string') {
-            return entry[field];
+            return entry[field]?.toString() ?? '';
         }
         if (fieldFormatter) {
             let result = fieldFormatter;
             const matches = fieldFormatter.matchAll(/[^$]*(?<var>\$+\d+)/gm);
             for (const match of matches) {
-                const variable = match.groups['var'];
-                if (!variable.startsWith('$$')) {
+                const variable = match?.groups?.['var'];
+                if (variable && !variable.startsWith('$$')) {
                     const index = parseInt(variable.replace(/\$/g, ''));
-                    result = result.replace(variable, entry[field[index]]);
+                    result = result.replace(variable, entry[field[index]] as string);
                 }
             }
             return result;
@@ -175,7 +183,7 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
         return field.map(x => entry[x]).join(' ');
     }
 
-    private upgradeItems(values: DropdownValue[]): DropdownValue[] {
+    private upgradeItems(values: DropdownValue[] | undefined): DropdownValue[] {
         if (!values) {
             return [];
         }

@@ -14,23 +14,23 @@ import { CommonModule } from '@angular/common';
     ]
 })
 export class FormElementRenderer2Component implements OnDestroy {
-    private elementType: Type<unknown>;
-    private elementValue: FormElements;
+    private elementType: Type<unknown> | undefined;
+    private elementValue: FormElements | undefined;
     private dataValue: unknown;
 
-    public componentRef: ComponentRef<FormElementBase>;
+    public componentRef: ComponentRef<FormElementBase> | undefined;
 
     @HostBinding('class.visible')
-    public invalidType: string;
+    public invalidType: string | undefined;
 
-    public get element(): FormElements {
+    public get element(): FormElements | undefined {
         return this.elementValue;
     }
 
     @Input()
-    public set element(value: FormElements) {
+    public set element(value: FormElements | undefined) {
         this.elementValue = value;
-        this.elementType = formElements[value?.elementType];
+        this.elementType = value ? formElements[value.elementType] : undefined;
         if (!this.elementType) {
             this.invalidType = value?.elementType;
         }

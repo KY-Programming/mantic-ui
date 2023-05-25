@@ -42,7 +42,7 @@ export class NotificationService {
             this.messages['empty'].push(message);
         }
         this.addedSubject.next(message);
-        if (message && message.timeout > 0) {
+        if (message?.timeout && message.timeout > 0) {
             setTimeout(() => this.remove(message), message.timeout);
         }
     }

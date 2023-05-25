@@ -24,7 +24,7 @@ export class ExpanderComponent extends BaseComponent {
         dropdownIcon: <IconType>'caret right',
         dropdownIconSize: <IconSize>undefined
     };
-    private isExpanded: boolean;
+    private isExpanded = false;
     protected readonly defaults = ExpanderComponent.defaults;
 
     @Input()
@@ -40,7 +40,7 @@ export class ExpanderComponent extends BaseComponent {
     }
 
     @Input()
-    public dropdownIcon: IconType;
+    public dropdownIcon: IconType | undefined;
 
     @Input()
     public dropdownIconSize: IconSize;

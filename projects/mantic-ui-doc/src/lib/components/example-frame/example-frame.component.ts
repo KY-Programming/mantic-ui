@@ -12,7 +12,7 @@ import { SafePipe } from '@mantic-ui/angular';
 })
 export class ExampleFrameComponent {
 
-    @Input()
-    public src: string;
+    @Input({ required: true })
+    public src = '';
 
 }

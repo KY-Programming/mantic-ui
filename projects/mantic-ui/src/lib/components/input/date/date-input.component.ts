@@ -26,9 +26,10 @@ import { ColorName } from '../../../models/color';
 })
 export class DateInputComponent extends InputBaseComponent implements OnInit {
     private valueField: Date | undefined;
-    private showDayValue: boolean;
+    private showDayValue = false;
 
-    protected internalValue: string | null;
+    // eslint-disable-next-line no-null/no-null
+    protected internalValue: string | null = null;
 
     @Input()
     public get value(): Date | undefined {
@@ -38,7 +39,7 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
     public set value(value: Date | number | string | undefined) {
         value ??= this.defaultValue;
         value = value ? new Date(value) : undefined;
-        value = isNaN(value?.getDate()) ? undefined : value;
+        value = isNaN(value?.getDate() as any) ? undefined : value;
         if (value != this.valueField) {
             this.setInternalValue(value);
         }

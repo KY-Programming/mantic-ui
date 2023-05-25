@@ -27,9 +27,9 @@ export declare type SidebarPosition =
 })
 export class SidebarComponent extends BaseComponent {
     private widthValue: SidebarWidth;
-    private isVisible: boolean;
-    private positionValue: SidebarPosition;
-    private noScrollingValue: boolean;
+    private isVisible = false;
+    private positionValue: SidebarPosition | undefined;
+    private noScrollingValue = false;
 
     @Input()
     public get visible(): boolean {
@@ -52,11 +52,11 @@ export class SidebarComponent extends BaseComponent {
     }
 
     @Input()
-    public get position(): SidebarPosition {
+    public get position(): SidebarPosition | undefined {
         return this.positionValue;
     }
 
-    public set position(value: SidebarPosition) {
+    public set position(value: SidebarPosition | undefined) {
         this.positionValue = value;
         this.classes.set('position', value);
     }

@@ -1,13 +1,19 @@
 import { Component } from '@angular/core';
 import { DemoData } from '../../helpers/demo-data';
+import { CommonModule } from '@angular/common';
+import { DividerComponent, DropdownComponent, DropdownGroupComponent, DropdownItemComponent, HeaderDirective, IconComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-dropdown-example',
+    standalone: true,
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, DropdownComponent, DropdownItemComponent, DropdownGroupComponent, HeaderComponent, SegmentComponent, DividerComponent],
     templateUrl: './dropdown.component.html',
     styleUrls: ['./dropdown.component.scss']
 })
 export class DropdownExampleComponent {
-    public value1: number;
+    public value1?: number;
 
     public countries = DemoData.countries;
 
@@ -33,7 +39,7 @@ public countries: DropdownValue<string>[] = [
     public containsCode = `<m-dropdown [items]="countries" filterType="contains" search></m-dropdown>`;
     public multiselectCode = `<m-dropdown [items]="countries" multiple fluid search></m-dropdown>`;
     public freetextCode = `<m-dropdown [(value)]="value" [items]="countries" fluid allowFreeText></m-dropdown>`;
-    public freetextValue: string;
+    public freetextValue?: string;
 
     public dividerCode = `<m-dropdown selectFirst>
     <m-dropdown-item value="1">One</m-dropdown-item>

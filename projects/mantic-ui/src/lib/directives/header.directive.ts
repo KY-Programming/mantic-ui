@@ -11,8 +11,8 @@ import { InvertedDirective } from './inverted.directive';
 })
 // TODO: Implement
 export class HeaderDirective extends BaseDirective {
-    private isDividing: boolean;
-    private isIcon: boolean;
+    private isDividing = false;
+    private isIcon = false;
 
     public get dividing(): boolean {
         return this.isDividing;
@@ -36,7 +36,7 @@ export class HeaderDirective extends BaseDirective {
 
     @Input()
     @HostBinding('class.sub')
-    public sub: boolean;
+    public sub = false;
 
     public constructor() {
         super();

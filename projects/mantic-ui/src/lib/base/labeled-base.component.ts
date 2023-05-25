@@ -11,15 +11,15 @@ export abstract class LabeledBaseComponent extends InvertibleComponent {
     protected static override readonly providers = [...InvertibleComponent.providers];
     protected static override readonly directives = [...InvertibleComponent.directives];
 
-    private labelValue: LabelOptions;
-    private labelDropdownValue: LabelDropdownComponent;
+    private labelValue: LabelOptions | undefined;
+    private labelDropdownValue: LabelDropdownComponent | undefined;
 
     @ContentChild(LabelComponent)
-    public get label(): LabelOptions {
+    public get label(): LabelOptions | undefined {
         return this.labelValue;
     }
 
-    public set label(value: LabelOptions) {
+    public set label(value: LabelOptions | undefined) {
         this.labelValue = value;
         if (value) {
             this.classes.set('labeled', (value.position ?? '') + ' labeled');
@@ -27,11 +27,11 @@ export abstract class LabeledBaseComponent extends InvertibleComponent {
     }
 
     @ContentChild(LabelDropdownComponent)
-    public get labelDropdown(): LabelDropdownComponent {
+    public get labelDropdown(): LabelDropdownComponent | undefined {
         return this.labelDropdownValue;
     }
 
-    public set labelDropdown(value: LabelDropdownComponent) {
+    public set labelDropdown(value: LabelDropdownComponent | undefined) {
         this.labelDropdownValue = value;
         if (value) {
             this.classes.set('labeled', (value.position ?? '') + ' labeled');
@@ -39,13 +39,13 @@ export abstract class LabeledBaseComponent extends InvertibleComponent {
     }
 
     @ContentChild(IconButtonComponent)
-    public iconButton: IconButtonComponent;
+    protected iconButton: IconButtonComponent | undefined;
 
     @ContentChild(ButtonComponent)
-    public button: ButtonComponent;
+    protected button: ButtonComponent | undefined;
 
     public get isRight(): boolean {
-        return this.label && this.label.position === 'right' || this.labelDropdown && this.labelDropdown.position === 'right';
+        return !!this.label && this.label.position === 'right' || !!this.labelDropdown && this.labelDropdown.position === 'right';
     }
 
     @Input()

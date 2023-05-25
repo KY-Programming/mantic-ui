@@ -30,12 +30,12 @@ export class FormComponent extends InvertibleComponent implements OnInit {
     };
     private readonly loadingDirective = inject(LoadingDirective, { self: true });
     private readonly flexDirective = inject(FlexDirective, { self: true, optional: true });
-    private fieldComponentsValue: QueryList<FieldComponent>;
-    private subscriptions: Subscription[];
+    private fieldComponentsValue?: QueryList<FieldComponent>;
+    private subscriptions?: Subscription[];
     private isValidValue = false;
-    private isSuccess: boolean;
-    private isWarning: boolean;
-    private isError: boolean;
+    private isSuccess = false;
+    private isWarning = false;
+    private isError = false;
 
     protected get loading(): boolean {
         return this.loadingDirective.loading;
@@ -46,11 +46,11 @@ export class FormComponent extends InvertibleComponent implements OnInit {
     }
 
     @ContentChildren(FieldComponent)
-    public get fieldComponents(): QueryList<FieldComponent> {
+    public get fieldComponents(): QueryList<FieldComponent> | undefined {
         return this.fieldComponentsValue;
     }
 
-    protected set fieldComponents(value: QueryList<FieldComponent>) {
+    protected set fieldComponents(value: QueryList<FieldComponent> | undefined) {
         this.releaseFields();
         this.fieldComponentsValue = value;
         this.subscribeFields();
@@ -64,22 +64,22 @@ export class FormComponent extends InvertibleComponent implements OnInit {
     }
 
     @Input()
-    public action: string;
+    public action?: string;
 
     @Input()
-    public autocomplete: 'on' | 'off';
+    public autocomplete?: 'on' | 'off';
 
     @Input()
-    public enctype: 'application/x-www-form-urlencoded' | 'multipart/form-data' | 'text/plain';
+    public enctype?: 'application/x-www-form-urlencoded' | 'multipart/form-data' | 'text/plain';
 
     @Input()
-    public method: 'get' | 'post';
+    public method?: 'get' | 'post';
 
     @Input()
-    public name: string;
+    public name?: string;
 
     @Input()
-    public novalidate: boolean;
+    public novalidate = false;
 
     @Input()
     @HostBinding('class.success')
@@ -112,7 +112,7 @@ export class FormComponent extends InvertibleComponent implements OnInit {
     }
 
     @Input()
-    public target: '_blank' | '_self' | '_parent' | '_top';
+    public target?: '_blank' | '_self' | '_parent' | '_top';
 
     public get isValid(): boolean {
         return this.isValidValue;
@@ -153,7 +153,7 @@ export class FormComponent extends InvertibleComponent implements OnInit {
     }
 
     private refreshIsValid(): void {
-        const hasError = this.fieldComponents.some(field => field.error);
+        const hasError = this.fieldComponents?.some(field => field.error);
         const isValid = !hasError;
         this.error = hasError;
         if (this.isValidValue !== isValid) {
@@ -165,7 +165,7 @@ export class FormComponent extends InvertibleComponent implements OnInit {
 
     public validateAndSubmit(): void {
         if (this.error) {
-            this.fieldComponents.forEach(field => field.forceValidation());
+            this.fieldComponents?.forEach(field => field.forceValidation());
         } else {
             this.submit.emit();
         }

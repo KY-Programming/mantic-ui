@@ -11,7 +11,7 @@ export class InvertedDirective {
     public static readonly inverted = 'inverted';
     public static readonly default = { directive: InvertedDirective, inputs: [InvertedDirective.inverted] };
     private readonly classes = inject(SortedClassesService);
-    private isInverted: boolean;
+    private isInverted = false;
 
     public constructor() {
         this.classes.register(InvertedDirective.inverted);

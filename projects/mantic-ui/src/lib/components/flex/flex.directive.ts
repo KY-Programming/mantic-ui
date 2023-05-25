@@ -13,10 +13,10 @@ export class FlexDirective {
 
     @Input()
     @HostBinding('style.flex-direction')
-    public direction: FlexDirection | '';
+    public direction: FlexDirection | '' | undefined;
 
     @Input()
-    public get 'm-flex'(): FlexDirection | '' {
+    public get 'm-flex'(): FlexDirection | '' | undefined {
         return this.direction;
     }
 
@@ -27,9 +27,9 @@ export class FlexDirective {
 
     @Input()
     @HostBinding('style.align-items')
-    public alignItems: FlexAlignItems;
+    public alignItems: FlexAlignItems | undefined;
 
     @Input()
     @HostBinding('style.justify-content')
-    public justifyContent: FlexJustifyContent;
+    public justifyContent: FlexJustifyContent | undefined;
 }

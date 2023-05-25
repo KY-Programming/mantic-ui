@@ -1,4 +1,5 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { CommonModule, NgIfContext } from '@angular/common';
 
 @Component({
     selector: 'm-expander-header',
@@ -7,11 +8,13 @@ import { Component, TemplateRef, ViewChild } from '@angular/core';
             <ng-content></ng-content>
         </ng-template>
     `,
-    standalone: true
+    standalone: true,
+    imports: [CommonModule]
 })
 export class ExpanderHeaderComponent {
 
     @ViewChild(TemplateRef)
-    public template: TemplateRef<unknown>;
+    // eslint-disable-next-line no-null/no-null
+    public template: TemplateRef<NgIfContext<boolean>> | null = null;
 
 }

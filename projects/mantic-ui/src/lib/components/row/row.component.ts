@@ -12,12 +12,12 @@ import { BooleanLike } from '../../models/boolean-like';
     providers: [...BaseComponent.providers]
 })
 export class RowComponent extends BaseComponent {
-    private columnsValue: FieldSize;
-    private isStretched: boolean;
+    private columnsValue: FieldSize | undefined;
+    private isStretched = false;
 
     @Input()
     @HostBinding('class.column')
-    public get columns(): FieldSize {
+    public get columns(): FieldSize | undefined {
         return this.columnsValue;
     }
 

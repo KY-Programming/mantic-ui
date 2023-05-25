@@ -1,26 +1,26 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
+﻿/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": [],
     "paths": {
+      "@mantic-ui/fomantic-ui-angular": [
+        "projects/fomantic-ui/src/projects"
+      ],
       "@mantic-ui/angular": [
         "projects/mantic-ui/src/projects"
       ],
       "@mantic-ui/angular-doc": [
         "projects/mantic-ui-doc/src/projects"
       ],
-      "@mantic-ui/fomantic-ui-angular": [
-        "projects/fomantic-ui/src/projects"
-      ],
       "@mantic-ui/semantic-ui-angular": [
         "projects/semantic-ui/src/projects"
       ]
-    },
-    "types": []
+    }
   },
   "files": [
-    "src/main.ts",
-    "src/polyfills.ts"
+    "src/main.ts"
   ],
   "include": [
     "src/**/*.d.ts"

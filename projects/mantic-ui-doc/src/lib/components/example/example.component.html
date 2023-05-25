@@ -14,5 +14,5 @@
     <div class="live">
         <ng-content></ng-content>
     </div>
-    <code [highlight]="code" [languages]="languages"></code>
+    <code *ngIf="code" [highlight]="code" [languages]="languages"></code>
 </div>

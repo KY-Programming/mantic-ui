@@ -39,10 +39,10 @@ export class CheckboxComponent extends InvertibleComponent {
 
     private readonly readOnlyDirective = inject(ReadOnlyDirective, { self: true });
     private readonly disabledDirective = inject(DisabledDirective, { self: true });
-    private nameValue: string;
-    private labelValue: string;
-    private isChecked: boolean;
-    private isIndeterminate: boolean;
+    private nameValue?: string;
+    private labelValue?: string;
+    private isChecked = false;
+    private isIndeterminate = false;
     protected readonly defaults = CheckboxComponent.defaults;
 
     public get readonly(): boolean {
@@ -75,20 +75,20 @@ export class CheckboxComponent extends InvertibleComponent {
 
     @Input()
     public get name(): string {
-        return this.nameValue;
+        return this.nameValue ?? '';
     }
 
-    public set name(value: string) {
+    public set name(value: string | undefined) {
         this.nameValue = value;
         this.classes.set('name', value);
     }
 
     @Input()
-    public get label(): string {
+    public get label(): string | undefined {
         return this.labelValue;
     }
 
-    public set label(value: string) {
+    public set label(value: string | undefined) {
         this.labelValue = value;
         this.classes.set('label', value);
     }

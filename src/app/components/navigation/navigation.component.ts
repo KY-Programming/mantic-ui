@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
+import { ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, FillComponent, FlexComponent, FlexDirective, IconComponent } from '@mantic-ui/angular';
 
 @Component({
     selector: 'app-navigation',
+    standalone: true,
+    imports: [CommonModule, RouterLink, RouterLinkActive, FlexComponent, IconComponent, FillComponent, FlexDirective, RouterOutlet, ButtonComponent, ContextMenuComponent, ContextMenuItemComponent],
     templateUrl: './navigation.component.html',
     styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
+    private static previous: string;
     protected isSemantic = false;
     protected prefix = '';
-    private static previous: string;
 
     public constructor(
         private readonly router: Router

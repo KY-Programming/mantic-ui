@@ -1,6 +1,13 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../../components/header/header.component';
+import { CellComponent, GridComponent, HeaderDirective, IconComponent, RowComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
+    selector: 'app-grid-example',
+    standalone: true,
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, GridComponent, CellComponent, RowComponent, SegmentComponent],
     templateUrl: './grid.component.html',
     styleUrls: ['./grid.component.scss']
 })

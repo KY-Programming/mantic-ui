@@ -13,11 +13,14 @@ import { isMarkdownCodeBlock, MarkdownCodeBlock, markdownCodeBlockType } from '.
 import { isMarkdownCode, MarkdownCode, markdownCodeType } from './models/markdown-code';
 import { markdownSeparatorType } from './models/markdown-separator';
 import { MarkdownParser } from './markdown-parser';
+import { isMarkdownCustomElement, MarkdownCustomElement, markdownCustomElementType } from './models/markdown-custom-element';
+import { markdownEmptyType } from './models/markdown-empty';
+import { DynamicComponentComponent } from '../dynamic-component/dynamic-component.component';
 
 @Component({
     selector: 'm-markdown-renderer',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, DynamicComponentComponent],
     templateUrl: './markdown-renderer.component.html',
     styleUrls: ['./markdown-renderer.component.scss']
 })
@@ -34,6 +37,7 @@ export class MarkdownRendererComponent {
     protected readonly markdownHeader6Type = markdownHeader6Type;
     protected readonly markdownCodeBlockType = markdownCodeBlockType;
     protected readonly markdownSeparatorType = markdownSeparatorType;
+    protected readonly markdownCustomElementType = markdownCustomElementType;
     protected readonly markdownCodeType = markdownCodeType;
     protected readonly markdownImageType = markdownImageType;
     protected readonly markdownLinkType = markdownLinkType;
@@ -41,6 +45,7 @@ export class MarkdownRendererComponent {
     protected readonly markdownBoldType = markdownBoldType;
     protected readonly markdownStrikethroughType = markdownStrikethroughType;
     protected readonly markdownTextType = markdownTextType;
+    protected readonly markdownEmptyType = markdownEmptyType;
 
     @Input()
     public get value(): string {
@@ -90,6 +95,10 @@ export class MarkdownRendererComponent {
 
     protected $codeBlock(element: MarkdownElement): MarkdownCodeBlock | undefined {
         return isMarkdownCodeBlock(element) ? element : undefined;
+    }
+
+    protected $customElement(element: MarkdownElement): MarkdownCustomElement | undefined {
+        return isMarkdownCustomElement(element) ? element : undefined;
     }
 
     protected $code(element: MarkdownElement): MarkdownCode | undefined {

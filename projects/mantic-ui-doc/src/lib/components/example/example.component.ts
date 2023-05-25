@@ -17,41 +17,41 @@ import { HeaderDirective } from '@mantic-ui/angular';
     providers: [...highlightJsProviders]
 })
 export class ExampleComponent {
-    private headerField: string;
+    private headerField: string | undefined;
 
-    public get header(): string {
+    public get header(): string | undefined {
         return this.headerField;
     }
 
     @Input()
-    public set header(value: string) {
+    public set header(value: string | undefined) {
         this.headerField = value;
         this.refreshId();
     }
 
     @Input()
-    public description: string;
+    public description: string | undefined;
 
     @Input()
-    public code: string;
+    public code: string | undefined;
 
     @Input()
-    public showCode: boolean;
+    public showCode = false;
 
     @Input()
     public languages: string[] = ['html'];
 
     @HostBinding('id')
-    public id: string;
+    public id: string | undefined;
 
     @Input()
-    public hint: string;
+    public hint: string | undefined;
 
     @Input()
     public hintClass = 'black';
 
     @Input()
-    public hintLink: string;
+    public hintLink: string | undefined;
 
     @Input()
     public hintTarget = '_blank';
@@ -61,6 +61,6 @@ export class ExampleComponent {
     }
 
     private refreshId(): void {
-        this.id = this.header ? this.header.replace(/[^\a-zA-Z0-9]/g, '').toLocaleLowerCase() : undefined;
+        this.id = this.header ? this.header.replace(/[^a-zA-Z0-9]/g, '').toLocaleLowerCase() : undefined;
     }
 }

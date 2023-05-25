@@ -25,11 +25,12 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     private valueField: number | undefined;
     private rangeValue = false;
 
-    protected internalValue: number | null;
+    // eslint-disable-next-line no-null/no-null
+    protected internalValue: number | null = null;
     public type: 'number' | 'range' = 'number';
 
     protected get placeholderInternal(): string {
-        return this.value === 0 && this.zeroText ? this.zeroText : this.placeholder;
+        return this.value === 0 && this.zeroText ? this.zeroText : this.placeholder ?? '';
     }
 
     @Input()

@@ -1,16 +1,16 @@
 <div class="wrapper">
-    <div *ngIf="!message.grouped" class="header">{{message.sender}}</div>
-    {{message.text}}
-    <div *ngIf="message.options" class="options">
-        <ng-container *ngFor="let option of message.options">
+    <div *ngIf="message && !message.grouped" class="header">{{message.sender}}</div>
+    {{message?.text}}
+    <div *ngIf="message?.options" class="options">
+        <ng-container *ngFor="let option of message?.options">
             <ng-container *ngIf="option.url">
                 <ng-container *ngIf="!option.hideUrl">
-                    <a m-button *ngIf="option.url.indexOf('http') === 0" [attr.href]="option.url" class="option">{{option.text}}</a>
-                    <a m-button *ngIf="option.url.indexOf('http') !== 0" [routerLink]="[option.url]" class="option">{{option.text}}</a>
+                    <a *ngIf="option.url.indexOf('http') === 0" m-button [attr.href]="option.url" class="option">{{option.text}}</a>
+                    <a *ngIf="option.url.indexOf('http') !== 0" m-button [routerLink]="[option.url]" class="option">{{option.text}}</a>
                 </ng-container>
-                <a m-button *ngIf="option.hideUrl" (click)="open(option.url)" class="option">{{option.text}}</a>
+                <a *ngIf="option.hideUrl" m-button class="option" (click)="open(option.url)">{{option.text}}</a>
             </ng-container>
-            <m-button *ngIf="option.action" (click)="onExecute(option.action)" class="option">{{option.text}}</m-button>
+            <m-button *ngIf="option.action" class="option" (click)="onExecute(option.action)">{{option.text}}</m-button>
             <span *ngIf="!option.url && !option.action" class="option">{{option.text}}</span>
         </ng-container>
     </div>

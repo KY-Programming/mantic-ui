@@ -15,7 +15,7 @@ export class MenuItemComponent extends BaseComponent {
     protected static override readonly providers = [...BaseComponent.providers];
     protected static override readonly directives = [...BaseComponent.directives, ActiveDirective.default];
     protected readonly activeDirective = inject(ActiveDirective, { self: true });
-    private isLink: boolean;
+    private isLink = false;
 
     // TODO: Remove HostBinding
     @HostBinding('class.active')

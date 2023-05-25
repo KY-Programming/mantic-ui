@@ -9,7 +9,7 @@ export interface FormLayout {
 }
 
 export interface FormDataElement {
-    field?: string;
+    field: string;
     defaultValue?: unknown;
     defaultAction?: string;
     fill?: boolean;

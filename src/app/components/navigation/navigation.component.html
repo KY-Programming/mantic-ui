@@ -2,20 +2,20 @@
 <m-flex class="ui vertical inverted menu">
     <a class="item" routerLink="/">
         <span class="ui logo icon image">
-            <img src="/assets/mantic.png">
+            <img src="/assets/mantic.png" alt="mantic">
         </span>
         <span><b>mantic UI</b></span>
     </a>
     <a class="item active">
         <ng-container *ngIf="isSemantic else fomanticTemplate">
             <span class="ui logo icon image">
-                <img src="/assets/semantic.png">
+                <img src="/assets/semantic.png" alt="semantic">
             </span>
             <span><b>Semantic UI Angular</b></span>
         </ng-container>
         <ng-template #fomanticTemplate>
             <span class="ui logo icon image">
-                <img src="/assets/fomantic.png">
+                <img src="/assets/fomantic.png" alt="fomantic">
             </span>
             <span><b>Fomantic UI Angular</b></span>
         </ng-template>

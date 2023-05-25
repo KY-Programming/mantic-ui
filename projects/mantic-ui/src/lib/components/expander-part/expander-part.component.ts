@@ -21,11 +21,11 @@ import { CommonModule } from '@angular/common';
     providers: [...BaseComponent.providers]
 })
 export class ExpanderPartComponent extends BaseComponent {
-    private isExpanded: boolean;
+    private isExpanded = false;
 
     @Input()
     @HostBinding('class.expandable')
-    public expandable? = true;
+    public expandable: boolean | undefined = true;
 
     @Input()
     @HostBinding('class.expanded')
@@ -38,7 +38,7 @@ export class ExpanderPartComponent extends BaseComponent {
     }
 
     @Input()
-    public dropdownIcon: IconType;
+    public dropdownIcon: IconType | undefined;
 
     @Input()
     public dropdownIconSize: IconSize;
@@ -47,7 +47,7 @@ export class ExpanderPartComponent extends BaseComponent {
     public readonly expandedChange = new EventEmitter<boolean>();
 
     @ViewChild(ExpanderIconComponent)
-    protected icon: ExpanderIconComponent;
+    protected icon: ExpanderIconComponent | undefined;
 
     public constructor() {
         super(false);
@@ -59,6 +59,6 @@ export class ExpanderPartComponent extends BaseComponent {
         if (this.expandable === false) {
             return;
         }
-        this.icon.toggle();
+        this.icon?.toggle();
     }
 }

@@ -25,11 +25,11 @@ export class TableComponent extends InvertibleComponent implements OnInit {
     };
 
     private isCelled = true;
-    private isUnstackable: boolean;
-    private isVery: boolean;
-    private alignedValue: Align;
-    private isDefinition: boolean;
-    private isCollapsing: boolean;
+    private isUnstackable = false;
+    private isVery = false;
+    private alignedValue: Align | undefined;
+    private isDefinition = false;
+    private isCollapsing = false;
 
     @Input()
     @HostBinding('class.celled')
@@ -71,11 +71,11 @@ export class TableComponent extends InvertibleComponent implements OnInit {
     }
 
     @Input()
-    public get aligned(): Align {
+    public get aligned(): Align | undefined {
         return this.alignedValue;
     }
 
-    public set aligned(value: Align) {
+    public set aligned(value: Align | undefined) {
         this.alignedValue = value;
         this.classes.set('aligned', value ? value + ' aligned' : undefined);
     }

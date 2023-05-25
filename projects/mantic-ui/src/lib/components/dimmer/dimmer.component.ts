@@ -19,8 +19,8 @@ export class DimmerComponent extends InvertibleComponent implements OnInit, OnDe
         inverted: false,
         invertedChange: new ReplaySubject<boolean>(1)
     };
-    private visibleValue: boolean;
-    private isPage: boolean;
+    private visibleValue = true;
+    private isPage = false;
 
     @Input()
     @HostBinding('class.page')

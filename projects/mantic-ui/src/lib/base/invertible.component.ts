@@ -8,7 +8,7 @@ export abstract class InvertibleComponent extends BaseComponent {
     protected static override readonly providers = [...BaseComponent.providers];
     protected static override readonly directives = [/*InvertedDirective.default,*/ ...BaseComponent.directives];
 
-    private isInverted: boolean;
+    private isInverted = false;
     private isInvertedChanged = false;
 
     @Input()

@@ -1,6 +1,6 @@
 ﻿import { Type } from '@angular/core';
 
-export function FormElement(name: string): (_) => void {
+export function FormElement(name: string): (constructor: Type<unknown>) => void {
     if (!name) {
         throw new Error('FormElement decorator requires a name');
     }

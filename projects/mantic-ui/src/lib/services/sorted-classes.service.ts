@@ -62,13 +62,16 @@ export class SortedClassesService {
             console.warn(`Set an unregistered value '${key}' on <${this.elementRef.nativeElement.tagName}> is not recommended. Call register(key) method once, before using set(...) method.`);
             entry = this.register(key).getEntry(key);
         }
+        if (!entry) {
+            throw new Error('Entry not found #dki3kjk');
+        }
         if (entry.fixed) {
             console.error(`Can not change an fixed value '${key} on <${this.elementRef.nativeElement.tagName}>. Use register(key) instead of registerFixed(key)`);
             return this;
         }
         if (value === true) {
             entry.value = key;
-        } else if (value === false || value === undefined) {
+        } else if (value === false || value === undefined || value === null) {
             entry.value = '';
         } else {
             entry.value = value.toString();

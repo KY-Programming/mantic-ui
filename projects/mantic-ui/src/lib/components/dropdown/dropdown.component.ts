@@ -37,29 +37,29 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         inverted: false,
         invertedChange: new ReplaySubject<boolean>(1)
     };
-    private isMultiple: boolean;
-    private isSearch: boolean;
-    private isSelectFirst: boolean;
-    private isAttachedLeft: boolean;
-    private isAttachedTop: boolean;
-    private isAttachedRight: boolean;
-    private isAttachedBottom: boolean;
-    private isFreeTextAllowed: boolean;
-    private isUserUpward: boolean;
-    private isSystemUpward: boolean;
+    private isMultiple = false;
+    private isSearch = false;
+    private isSelectFirst = false;
+    private isAttachedLeft = false;
+    private isAttachedTop = false;
+    private isAttachedRight = false;
+    private isAttachedBottom = false;
+    private isFreeTextAllowed = false;
+    private isUserUpward = false;
+    private isSystemUpward = false;
     protected readonly defaults = DropdownComponent.defaults;
 
     @ViewChild('htmlElement')
-    public textElement: ElementRef<HTMLDivElement>;
+    protected textElement: ElementRef<HTMLDivElement> | undefined;
 
     @ViewChild('menuElement')
-    public menuElement: ElementRef<HTMLDivElement>;
+    protected menuElement: ElementRef<HTMLDivElement> | undefined;
 
     @ViewChild('inputElement')
-    public inputElement: ElementRef<HTMLInputElement>;
+    protected inputElement: ElementRef<HTMLInputElement> | undefined;
 
     @ContentChildren(DropdownItemComponent)
-    public set contentItemComponentsQuery(query: QueryList<DropdownItemComponent>) {
+    protected set contentItemComponentsQuery(query: QueryList<DropdownItemComponent>) {
         if (query.length > 0) {
             this.refreshItems(query);
         }
@@ -67,7 +67,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     }
 
     @ViewChildren(DropdownItemComponent)
-    public set viewItemComponentsQuery(query: QueryList<DropdownItemComponent>) {
+    protected set viewItemComponentsQuery(query: QueryList<DropdownItemComponent>) {
         if (query.length > 0) {
             this.refreshItems(query);
         }
@@ -134,7 +134,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     }
 
     @Input()
-    public placeholder: string;
+    public placeholder: string | undefined;
 
     public get value(): unknown {
         return this.valueField;
@@ -151,17 +151,17 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     }
 
     @Input()
-    public filter: string;
+    public filter: string | undefined;
 
     @Input()
     public animationDuration = 200;
 
-    public get items(): DropdownValue[] {
+    public get items(): DropdownValue[] | undefined {
         return this.itemsField;
     }
 
     @Input()
-    public set items(value: DropdownValue[]) {
+    public set items(value: DropdownValue[] | null | undefined) {
         value ??= undefined;
         if (this.itemsField === value) {
             return;
@@ -177,19 +177,19 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     public filterText = true;
 
     @Input()
-    public icon: IconType;
+    public icon: IconType | undefined;
 
     @Input()
     public iconSize: IconSize;
 
     @Input()
-    public dropdownIcon: IconType;
+    public dropdownIcon: IconType | undefined;
 
     @Input()
     public dropdownIconSize: IconSize;
 
     @Input()
-    public deleteIcon: IconType;
+    public deleteIcon: IconType | undefined;
 
     @Input()
     public deleteIconSize: IconSize;
@@ -217,7 +217,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
 
     @HostBinding('attr.tabindex')
     public get tabIndex(): number {
-        return this.search ? undefined : 0;
+        return (this.search ? undefined : 0) as any;
     }
 
     @HostBinding('class.search')
@@ -249,15 +249,15 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     public isSlidingOut = false;
     public isFiltered = false;
     public isLoading = false;
-    public selectedIndex: number;
-    public selectedItem: DropdownValue;
+    public selectedIndex: number | undefined;
+    public selectedItem: DropdownValue | undefined;
     public selectedItems: DropdownValue[] = [];
 
     private isFocused = false;
     private keepOpen = false;
     private itemComponents: DropdownItemComponent[] = [];
     private valueField: unknown;
-    private itemsField: DropdownValue[];
+    private itemsField: DropdownValue[] | undefined;
 
     public get hasItems(): boolean {
         return !!this.itemComponents?.length;
@@ -329,7 +329,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
             this.selectIndex(this.selectedIndex === undefined ? 0 : this.selectedIndex + 1);
             this.open();
         } else if (event.code === 'Enter' || event.code === 'Space') {
-            if (this.selectedIndex >= 0) {
+            if (this.selectedIndex !== undefined && this.selectedIndex >= 0) {
                 event.preventDefault();
                 event.stopPropagation();
                 const component = this.itemComponents[this.selectedIndex];
@@ -357,7 +357,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
             this.onFilter();
             this.close();
         } else if (event.code === 'Tab') {
-            if (this.selectedIndex >= 0) {
+            if (this.selectedIndex !== undefined && this.selectedIndex >= 0) {
                 const component = this.itemComponents[this.selectedIndex];
                 this.select(component.value);
             } else {
@@ -379,7 +379,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
             return;
         }
         if (this.search) {
-            this.inputElement.nativeElement.focus();
+            this.inputElement?.nativeElement.focus();
         }
         this.isHidden = true;
         this.isLoading = true;
@@ -387,8 +387,8 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         // this.refreshClasses();
         // Wait for rendering complete
         setTimeout(() => {
-            const bounds = this.menuElement.nativeElement.getBoundingClientRect();
-            this.isSystemUpward = bounds.bottom >= window.innerHeight;
+            const bounds = this.menuElement?.nativeElement.getBoundingClientRect();
+            this.isSystemUpward = !!bounds && bounds.bottom >= window.innerHeight;
 
             this.isLoading = false;
             this.isHidden = false;
@@ -449,7 +449,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
             this.value = component?.value;
         }
         this.valueChange.emit(this.value);
-        this.selectedIndex = this.itemComponents.indexOf(component);
+        this.selectedIndex = component ? this.itemComponents.indexOf(component) : undefined;
         if (this.multiple && component) {
             this.selectedItem = undefined;
             // TODO: Implement
@@ -463,6 +463,9 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         }
         // HACK: This is a dirty hack, but currently i found no other solution. If you have a solution please create an issue
         setTimeout(() => {
+            if (!this.textElement) {
+                return;
+            }
             this.textElement.nativeElement.innerHTML = component?.element.nativeElement.innerHTML ?? '';
         });
         // HACK-END
@@ -493,7 +496,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         const filteredItems = this.itemComponents.filter(item => !item.filteredOut);
         if (filteredItems.length === 1) {
             this.selectedIndex = this.itemComponents.indexOf(filteredItems[0]);
-        } else if (!filteredItems.includes(this.itemComponents[this.selectedIndex])) {
+        } else if (this.selectedIndex !== undefined && !filteredItems.includes(this.itemComponents[this.selectedIndex])) {
             this.selectedIndex = this.itemComponents.indexOf(filteredItems[0]);
         }
         this.isFiltered = !!this.filter;
@@ -505,9 +508,9 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
             return false;
         }
         const caseInsensitiveFilter = this.filter.toLowerCase();
-        const filterAction: (value: string) => boolean = this.filterType === 'contains'
-            ? value => value && value.toLowerCase().indexOf(caseInsensitiveFilter) === -1
-            : value => value && value.toLowerCase().indexOf(caseInsensitiveFilter) !== 0;
+        const filterAction: (value: string | undefined) => boolean = this.filterType === 'contains'
+            ? value => !!value && value.toLowerCase().indexOf(caseInsensitiveFilter) === -1
+            : value => !!value && value.toLowerCase().indexOf(caseInsensitiveFilter) !== 0;
         const textContainsFilter = !this.filterText || filterAction(item.element.nativeElement.innerText);
         const valueContainsFilter = !this.filterValue || filterAction(item.value && typeof item.value.toString === 'function' ? item.value.toString() : undefined);
         return textContainsFilter && valueContainsFilter;
@@ -525,7 +528,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         // this.select(item);
         setTimeout(() => {
             if (this.search) {
-                this.inputElement.nativeElement.focus();
+                this.inputElement?.nativeElement.focus();
             } else {
                 this.elementRef.nativeElement.focus();
             }

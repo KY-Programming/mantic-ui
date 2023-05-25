@@ -14,13 +14,13 @@ export declare type GridWidth = 'equal';
     providers: [...BaseComponent.providers]
 })
 export class GridComponent extends BaseComponent {
-    private columnsValue: FieldSize;
-    private isVertically: boolean;
-    private isDivided: boolean;
-    private isCelled: boolean;
-    private isInternally: boolean;
-    private widthValue: GridWidth;
-    private noMarginValue: boolean;
+    private columnsValue?: FieldSize;
+    private isVertically = false;
+    private isDivided = false;
+    private isCelled = false;
+    private isInternally = false;
+    private widthValue?: GridWidth;
+    private noMarginValue = false;
 
     @Input()
     public get vertically(): boolean {
@@ -43,11 +43,11 @@ export class GridComponent extends BaseComponent {
     }
 
     @Input()
-    public get columns(): FieldSize {
+    public get columns(): FieldSize | undefined {
         return this.columnsValue;
     }
 
-    public set columns(value: ParsableFieldSize) {
+    public set columns(value: ParsableFieldSize | undefined) {
         this.columnsValue = parseFieldSize(value);
         this.classes.set('columns', this.columnsValue ? `${this.columnsValue} column` : undefined);
     }
@@ -73,11 +73,11 @@ export class GridComponent extends BaseComponent {
     }
 
     @Input()
-    public get width(): GridWidth {
+    public get width(): GridWidth | undefined {
         return this.widthValue;
     }
 
-    public set width(value: GridWidth) {
+    public set width(value: GridWidth | undefined) {
         this.widthValue = value;
         this.classes.set('width', value ? `${value} width` : undefined);
     }

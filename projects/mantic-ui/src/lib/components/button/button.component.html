@@ -22,6 +22,6 @@
     <ng-container [ngTemplateOutlet]="content"></ng-container>
 </ng-container>
 <ng-template #content>
-    <m-icon *ngIf="icon" [icon]="icon ?? social" [size]="iconSize"></m-icon>
+    <m-icon *ngIf="icon" [icon]="icon" [size]="iconSize"></m-icon>
     <ng-content></ng-content>
 </ng-template>

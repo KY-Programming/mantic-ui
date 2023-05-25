@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
 import { faRocket } from '@fortawesome/pro-solid-svg-icons';
-import { ModalSize } from '@mantic-ui/angular';
+import { ButtonComponent, DropdownComponent, DropdownItemComponent, HeaderDirective, IconComponent, ModalComponent, ModalDefaultsComponent, ModalFooterComponent, ModalHeaderComponent, ModalSize, TabComponent, TabGroupComponent, ToBodyDirective } from '@mantic-ui/angular';
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../../components/header/header.component';
+import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-modal-example',
+    standalone: true,
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, ButtonComponent, ModalComponent, ModalHeaderComponent, ModalFooterComponent, ToBodyDirective, DropdownComponent, DropdownItemComponent, ModalDefaultsComponent],
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss']
 })

@@ -11,12 +11,11 @@ import { Title } from '@angular/platform-browser';
     standalone: true
 })
 export class DocumentTitleComponent implements DoCheck, OnDestroy {
-    private previousTitle: string;
-    private value: string;
-    private title: string;
-
     public static globalPostfix = '';
     public static globalPrefix = '';
+    private previousTitle: string | undefined;
+    private value: string | undefined;
+    private title: string | undefined;
 
     @Input()
     public get postfix(): string {
@@ -56,7 +55,7 @@ export class DocumentTitleComponent implements DoCheck, OnDestroy {
 
     public ngOnDestroy(): void {
         if (this.titleService.getTitle() === this.title) {
-            this.titleService.setTitle(this.previousTitle);
+            this.titleService.setTitle(this.previousTitle ?? '');
         }
     }
 }

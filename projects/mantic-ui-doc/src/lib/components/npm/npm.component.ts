@@ -12,28 +12,28 @@ import { CommonModule } from '@angular/common';
     ]
 })
 export class NpmComponent {
-    private packageValue: string;
-    private searchVersionValue: string;
+    private packageValue: string | undefined;
+    private searchVersionValue: string | undefined;
 
     @Input()
-    public get package(): string {
+    public get package(): string | undefined {
         return this.packageValue;
     }
 
-    public set package(value: string) {
+    public set package(value: string | undefined) {
         this.packageValue = value;
         this.refreshVersion();
     }
 
     @Input()
-    public version: string;
+    public version: string | undefined;
 
     @Input()
-    public get searchVersion(): string {
+    public get searchVersion(): string | undefined {
         return this.searchVersionValue;
     }
 
-    public set searchVersion(value: string) {
+    public set searchVersion(value: string | undefined) {
         this.searchVersionValue = value;
         this.refreshVersion();
     }

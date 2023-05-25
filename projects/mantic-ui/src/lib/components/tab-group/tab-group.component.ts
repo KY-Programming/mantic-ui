@@ -30,14 +30,14 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
         invertedChange: new ReplaySubject<boolean>(1)
     };
 
-    private selectedIndexField: number;
-    private isSelectByRoute: boolean;
-    private routeParameterName: string;
-    private isNoPadding: boolean;
-    private tabsValue: QueryList<TabComponent>;
-    private isScrollable: boolean;
-    private isPointing: boolean;
-    private isSecondary: boolean;
+    private selectedIndexField: number | undefined;
+    private isSelectByRoute = false;
+    private routeParameterName = '';
+    private isNoPadding = false;
+    private tabsValue: QueryList<TabComponent> | undefined;
+    private isScrollable = false;
+    private isPointing = false;
+    private isSecondary = false;
     private isLoading = false;
 
     @Input()
@@ -81,21 +81,21 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
     }
 
     @Input()
-    public get selectByRoute(): '' | string {
+    public get selectByRoute(): string {
         return this.routeParameterName;
     }
 
-    public set selectByRoute(value: '' | string) {
+    public set selectByRoute(value: string) {
         this.isSelectByRoute = value === '' || !!value;
         this.routeParameterName = value || 'tab';
     }
 
-    public get selectedIndex(): number {
+    public get selectedIndex(): number | undefined {
         return this.selectedIndexField;
     }
 
     @Input()
-    public set selectedIndex(value: number) {
+    public set selectedIndex(value: number | undefined) {
         this.selectedIndexField = value;
         if (this.tabs) {
             this.tabs.forEach((tab, index) => tab.changeState(index === value));
@@ -124,11 +124,11 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
     public readonly selectedIndexChange = new EventEmitter<number>();
 
     @ContentChildren(TabComponent)
-    protected get tabs(): QueryList<TabComponent> {
+    protected get tabs(): QueryList<TabComponent> | undefined {
         return this.tabsValue;
     }
 
-    protected set tabs(value: QueryList<TabComponent>) {
+    protected set tabs(value: QueryList<TabComponent> | undefined) {
         this.tabsValue = value;
         value?.changes.pipe(takeUntil(this.destroy)).subscribe(() => this.refreshTab());
     }
@@ -151,7 +151,7 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
     public ngAfterViewInit(): void {
         if (this.tabs && this.tabs.length > 0 && this.tabs.toArray().every(tab => !tab.active)) {
             setTimeout(() => {
-                this.tabs.forEach((tab, index) => {
+                this.tabs?.forEach((tab, index) => {
                     tab.changeState(index === (this.selectedIndex || 0));
                 });
             });
@@ -165,7 +165,7 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
         }
         let selectedTabName = this.route.snapshot.params[this.routeParameterName];
         const selectedTabIndex = parseInt(selectedTabName, 10);
-        let found: TabComponent;
+        let found: TabComponent | undefined;
         if (selectedTabName) {
             selectedTabName = selectedTabName.toLowerCase();
             found = this.tabs?.find((tab, index) => tab.name && tab.name.toLocaleLowerCase() === selectedTabName || !tab.name && this.toName(tab.label) === selectedTabName || selectedTabIndex === index);
@@ -174,45 +174,50 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
             found = this.tabs?.find((_, index) => index === selectedTabIndex) || this.tabs?.find((_, index) => index === 0);
         }
         if (found) {
-            setTimeout(() => this.activate(found));
+            const found2 = found;
+            setTimeout(() => this.activate(found2));
         }
     }
 
     protected activate(tab: TabComponent): void {
-        for (const activeTab of this.tabs.filter(t => t.active)) {
+        for (const activeTab of this.tabs?.filter(t => t.active) ?? []) {
             activeTab.changeState(false);
         }
         tab.changeState(true);
-        this.selectedIndex = this.tabs.toArray().indexOf(tab);
+        this.selectedIndex = this.tabs?.toArray().indexOf(tab);
         this.selectedIndexChange.emit(this.selectedIndex);
         if (this.isSelectByRoute) {
             const name = tab.name || this.toName(tab.label);
             const urlSegments = this.getUrlSegments();
             const segment = urlSegments.find(s => s.name === ':' + this.routeParameterName);
+            if (segment?.path === name) {
+                return;
+            }
             if (segment) {
+                const replaceUrl = !segment.path;
                 segment.path = name;
-                void this.router.navigate(urlSegments.map(s => s.path));
+                void this.router.navigate(urlSegments.map(s => s.path), { replaceUrl });
             } else {
                 console.warn(`tab-group selectByRoute is set, but the route does not have a :${this.routeParameterName} parameter like { path: '/${urlSegments.map(s => s.path).join('/')}/:${this.routeParameterName}', component: ... }`);
             }
         }
     }
 
-    private toName(value: string): string {
-        return value ? value.toLocaleLowerCase().replace(/[^a-zA-Z0-9]/g, '-').replace(/-+/g, '-') : value;
+    private toName(value: string | undefined): string {
+        return value ? value.toLocaleLowerCase().replace(/[^a-zA-Z0-9]/g, '-').replace(/-+/g, '-') : '';
     }
 
     private getUrlSegments(): NamedUrlSegment[] {
         const segments: NamedUrlSegment[] = [];
-        let current = this.route;
+        let current: ActivatedRoute | null = this.route;
         do {
-            if (current.snapshot?.routeConfig) {
-                const names = current.routeConfig.path.split('/').reverse();
+            if (current?.snapshot?.routeConfig) {
+                const names = current.routeConfig?.path?.split('/').reverse();
                 for (const segment of current.snapshot.url.slice().reverse()) {
-                    segments.unshift(new NamedUrlSegment(names.shift(), segment));
+                    segments.unshift(new NamedUrlSegment(names?.shift() ?? '', segment));
                 }
             }
-            current = current.parent;
+            current = current?.parent;
         }
         while (current);
         return segments;

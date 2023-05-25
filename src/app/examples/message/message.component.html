@@ -1,9 +1,5 @@
-<h1 m-header>
-    Message
-    <div class="sub header">
-        A message displays information that explains nearby content
-    </div>
-</h1>
+<app-header header="Message" subHeader="A message displays information that explains nearby content"></app-header>
+
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Examples">
         <m-example header="Message" description="A basic message">
@@ -13,7 +9,7 @@
             </m-message>
             <m-example-code [code]="messageCode"></m-example-code>
         </m-example>
-<!--    TODO: Add missing examples here    -->
+        <!--    TODO: Add missing examples here    -->
         <!--    TODO: Fix missing header    -->
         <m-example header="Warning" description="A message may be formatted to display warning messages.">
             <m-warning header="You must register before you can do that!">

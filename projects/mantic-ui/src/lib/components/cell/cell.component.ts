@@ -19,37 +19,37 @@ export declare type CellAlign =
     providers: [...BaseComponent.providers]
 })
 export class CellComponent extends BaseComponent {
-    private sizeValue: FieldSize;
-    private floatValue: CellFloat;
-    private alignValue: CellAlign;
+    private sizeValue?: FieldSize;
+    private floatValue?: CellFloat;
+    private alignValue?: CellAlign;
 
-    public get size(): FieldSize {
+    public get size(): FieldSize | undefined {
         return this.sizeValue;
     }
 
     @Input()
     @HostBinding('class.wide')
-    public set size(value: ParsableFieldSize) {
+    public set size(value: ParsableFieldSize | undefined) {
         this.sizeValue = parseFieldSize(value);
         this.classes.set('size', this.sizeValue);
     }
 
     @Input()
-    public get float(): CellFloat {
+    public get float(): CellFloat | undefined {
         return this.floatValue;
     }
 
-    public set float(value: CellFloat) {
+    public set float(value: CellFloat | undefined) {
         this.floatValue = value;
         this.classes.set('float', value ? `${value} floated` : undefined);
     }
 
     @Input()
-    public get align(): CellAlign {
+    public get align(): CellAlign | undefined {
         return this.alignValue;
     }
 
-    public set align(value: CellAlign) {
+    public set align(value: CellAlign | undefined) {
         this.alignValue = value;
         this.classes.set('align', value ? `${value} aligned` : undefined);
     }

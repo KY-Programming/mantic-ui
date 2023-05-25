@@ -11,7 +11,7 @@ export class IgnoredDirective {
     public static readonly ignored = 'ignored';
     public static readonly default = { directive: IgnoredDirective, inputs: [IgnoredDirective.ignored] };
     private readonly classes = inject(SortedClassesService);
-    private isIgnored: boolean;
+    private isIgnored = false;
 
     public constructor() {
         this.classes.register(IgnoredDirective.ignored);

@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { LayoutComponent } from '@mantic-ui/angular';
 
 @Component({
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+    selector: 'app-layout-iframe',
+    standalone: true,
+    imports: [CommonModule, LayoutComponent],
+    templateUrl: './layout.component.html',
+    styleUrls: ['./layout.component.scss']
 })
 export class SemanticLayoutIframeComponent {
 

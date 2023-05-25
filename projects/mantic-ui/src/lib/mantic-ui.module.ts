@@ -1,6 +1,4 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { AnimationComponent } from './components/animation/animation.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { ButtonGroupComponent } from './components/button-group/button-group.component';
@@ -81,7 +79,6 @@ import { FlagComponent } from './components/flag/flag.component';
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 import { DataSourceComponent } from './components/data-source/data-source.component';
 import { FormElementRenderer2Component } from './components/form-element-renderer/form-element-renderer2.component';
-import { RouterModule } from '@angular/router';
 import { FlexComponent } from './components/flex/flex.component';
 import { FillComponent } from './components/flex/fill/fill.component';
 import { AutoComponent } from './components/flex/auto/auto.component';
@@ -104,7 +101,6 @@ import { ContextMenuComponent } from './components/context-menu/context-menu.com
 import { ContextMenuItemComponent } from './components/context-menu/item/context-menu-item.component';
 import { FileInputComponent } from './components/input/file/file-input.component';
 import { DocumentNoIndexComponent } from './components/document-no-index/document-no-index.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalDefaultsComponent } from './components/modal/modal-defaults.component';
 import { ChatDefaultsComponent } from './components/chat/chat-defaults.component';
 import { ExpanderDefaultsComponent } from './components/expander/expander-defaults.component';
@@ -273,10 +269,6 @@ const standalone = [
 
 @NgModule({
     imports: [
-        CommonModule,
-        FormsModule,
-        RouterModule,
-        FontAwesomeModule,
         ...standalone
     ],
     exports: [

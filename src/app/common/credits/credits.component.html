@@ -1,9 +1,5 @@
-<h1 m-header>
-    Credits
-    <div class="sub header">
-        We use these 3d party software
-    </div>
-</h1>
+<app-header header="Credits" subHeader="We use these 3d party software"></app-header>
+
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab m-flex="column" label="3d party software">
         <m-expander *ngFor="let entry of licenses">

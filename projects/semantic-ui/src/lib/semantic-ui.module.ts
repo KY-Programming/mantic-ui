@@ -8,27 +8,25 @@ import { SemanticUiLatoLocalComponent } from './semantic-ui-lato-local/semantic-
 import { SemanticUiLatoGoogleapiComponent } from './semantic-ui-lato-googleapi/semantic-ui-lato-googleapi.component';
 import { SemanticUiIconsLocalComponent } from './semantic-ui-icons-local/semantic-ui-icons-local.component';
 
+const standalone = [
+    SemanticUiThemeComponent,
+    SemanticUiSiteComponent,
+    SemanticUiResetComponent,
+    SemanticUiLatoLocalComponent,
+    SemanticUiLatoGoogleapiComponent,
+    SemanticUiIconsLocalComponent
+];
+
 @NgModule({
-    declarations: [
-        SemanticUiThemeComponent,
-        SemanticUiSiteComponent,
-        SemanticUiResetComponent,
-        SemanticUiLatoLocalComponent,
-        SemanticUiLatoGoogleapiComponent,
-        SemanticUiIconsLocalComponent
-    ],
+    declarations: [],
     imports: [
         CommonModule,
-        ManticUiModule
+        ManticUiModule,
+        ...standalone
     ],
     exports: [
         ManticUiModule,
-        SemanticUiThemeComponent,
-        SemanticUiSiteComponent,
-        SemanticUiResetComponent,
-        SemanticUiLatoLocalComponent,
-        SemanticUiLatoGoogleapiComponent,
-        SemanticUiIconsLocalComponent
+        ...standalone
     ]
 })
 export class SemanticUiModule {}

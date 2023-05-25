@@ -11,7 +11,7 @@ export class InlineDirective {
     public static readonly inline = 'inline';
     public static readonly default = { directive: InlineDirective, inputs: [InlineDirective.inline] };
     private readonly classes = inject(SortedClassesService);
-    private isInline: boolean;
+    private isInline = false;
 
     public constructor() {
         this.classes.register(InlineDirective.inline);

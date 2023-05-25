@@ -22,11 +22,11 @@ export class IconComponent {
     protected faSize?: SizeProp;
 
     @Input()
-    public get icon(): IconType {
+    public get icon(): IconType | undefined {
         return this.mIcon ?? this.faIcon;
     }
 
-    public set icon(value: IconType) {
+    public set icon(value: IconType | undefined) {
         if (typeof value === 'string') {
             this.mIcon = value;
         } else {

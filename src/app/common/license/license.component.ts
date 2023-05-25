@@ -1,7 +1,14 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../../components/header/header.component';
+import { HeaderDirective, IconComponent, InfoComponent, TabComponent, TabGroupComponent, TableComponent } from '@mantic-ui/angular';
+import { ExampleCodeComponent, NpmComponent, NpmInstallComponent } from '@mantic-ui/angular-doc';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-license',
+    standalone: true,
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, NpmInstallComponent, ExampleCodeComponent, NpmComponent, InfoComponent, TableComponent, RouterLink],
     templateUrl: './license.component.html',
     styleUrls: ['./license.component.scss']
 })

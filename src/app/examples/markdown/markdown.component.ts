@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../../components/header/header.component';
+import { HeaderDirective, IconComponent, MarkdownRendererComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
-    selector: 'app-markdown',
+    selector: 'app-markdown-example',
+    standalone: true,
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, MarkdownRendererComponent],
     templateUrl: './markdown.component.html',
     styleUrls: ['./markdown.component.scss']
 })

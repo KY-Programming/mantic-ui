@@ -1,9 +1,4 @@
-<h1 m-header>
-    Dropdown
-    <div class="sub header">
-        A dropdown allows a user to select a value from a series of options
-    </div>
-</h1>
+<app-header header="Dropdown" subHeader="A dropdown allows a user to select a value from a series of options"></app-header>
 
 <m-tab-group secondary pointing class="page" selectByRoute m-fill>
     <m-tab label="Examples">
@@ -92,7 +87,7 @@
 
         <m-example header="Header" description="Add a header above elements" [code]="headerCode">
             <m-dropdown selectFirst>
-                <m-header icon="tags">Filter by tags</m-header>
+                <div icon="tags">Filter by tags</div>
                 <m-dropdown-item value="1">One</m-dropdown-item>
                 <m-dropdown-item value="2">Two</m-dropdown-item>
                 <m-dropdown-item value="3">Three</m-dropdown-item>

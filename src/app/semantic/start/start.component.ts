@@ -1,7 +1,13 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../../components/header/header.component';
+import { InfoComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { ExampleCodeComponent, NpmComponent, NpmInstallComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-semantic-start',
+    standalone: true,
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, NpmComponent, NpmInstallComponent, ExampleCodeComponent, InfoComponent],
     templateUrl: './start.component.html',
     styleUrls: ['./start.component.scss']
 })

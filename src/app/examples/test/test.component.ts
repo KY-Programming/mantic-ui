@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { ButtonComponent } from '@mantic-ui/angular';
+import { ButtonComponent, MarkdownRendererComponent } from '@mantic-ui/angular';
 import { SemanticUiModule } from '@mantic-ui/semantic-ui-angular';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
+import { ComponentParser } from '../../../../projects/mantic-ui/src/lib/components/dynamic-component/component-parser';
+import { ButtonExampleComponent } from '../button/button.component';
 
 @Component({
     selector: 'app-test-example',
@@ -9,9 +12,20 @@ import { SemanticUiModule } from '@mantic-ui/semantic-ui-angular';
     standalone: true,
     imports: [
         ButtonComponent,
-        SemanticUiModule
+        SemanticUiModule,
+        CommonModule,
+        NgTemplateOutlet,
+        MarkdownRendererComponent
     ]
 })
 export class TestExampleComponent {
+    protected markdown = '# Test\n' +
+        '<app-button-example ></app-button-example>\n' +
+        '<m-json>{ "test": true }</m-json>\n' +
+        '**end**';
 
+    public constructor() {
+        ComponentParser.register(ButtonExampleComponent);
+    }
 }
+

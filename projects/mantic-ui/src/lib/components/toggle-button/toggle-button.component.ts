@@ -22,7 +22,8 @@ export class ToggleButtonComponent extends ButtonBaseComponent {
     private readonly activeDirective = inject(ActiveDirective, { self: true });
 
     @ContentChild('active')
-    public activeTemplate: TemplateRef<NgIfContext<boolean>>;
+    // eslint-disable-next-line no-null/no-null
+    public activeTemplate: TemplateRef<NgIfContext<boolean>> | null = null;
 
     protected get active(): boolean {
         return this.activeDirective.active;

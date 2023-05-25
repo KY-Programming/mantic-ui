@@ -1,9 +1,5 @@
-<h1 m-header>
-    Form
-    <div class="sub header">
-        A form displays a set of related user input fields in a structured way
-    </div>
-</h1>
+<app-header header="Form" subHeader="A form displays a set of related user input fields in a structured way"></app-header>
+
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Examples">
         <m-example header="Form" description="A form">
@@ -359,7 +355,7 @@
             </m-segment>
         </m-example>
     </m-tab>
-    <m-tab *ngIf="!isProd" label="Renderer">
+    <m-tab *ngIf="isDev" label="Renderer">
         <m-segment>
             <h3 m-header>Layout (JSON)</h3>
             <m-textarea [value]="rendererLayout | json" (valueChange)="parseLayout($event)"></m-textarea>

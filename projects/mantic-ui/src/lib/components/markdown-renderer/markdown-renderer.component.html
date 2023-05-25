@@ -45,6 +45,9 @@
         <ng-container *ngSwitchCase="markdownSeparatorType">
             <hr/>
         </ng-container>
+        <ng-container *ngSwitchCase="markdownCustomElementType">
+            <m-dynamic-component *ngIf="$customElement(element) as customElement" [code]="customElement.code"/>
+        </ng-container>
         <ng-container *ngSwitchCase="markdownCodeType">
             <code *ngIf="$code(element) as code">
                 {{code.code}}
@@ -76,6 +79,7 @@
         <ng-container *ngSwitchCase="markdownTextType">
             <span *ngIf="$text(element) as text">{{text.text}}</span>
         </ng-container>
+        <ng-container *ngSwitchCase="markdownEmptyType"></ng-container>
         <span *ngSwitchDefault>Unknown element {{element.type}}</span>
         <br *ngIf="element.breakLine && !element.isBlock">
     </ng-container>
