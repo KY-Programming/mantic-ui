@@ -8,4 +8,4 @@ export interface MarkdownCodeBlock extends MarkdownElement {
 }
 
 export const markdownCodeBlockType = 'code-block';
-export const isMarkdownCodeBlock = (element: MarkdownElement): element is MarkdownCodeBlock => element.type === markdownCodeBlockType;
+export const isMarkdownCodeBlock = (element: MarkdownElement): element is MarkdownCodeBlock => element?.type === markdownCodeBlockType;

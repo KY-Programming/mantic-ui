@@ -16,6 +16,7 @@ import { MarkdownParser } from './markdown-parser';
 import { isMarkdownCustomElement, MarkdownCustomElement, markdownCustomElementType } from './models/markdown-custom-element';
 import { markdownEmptyType } from './models/markdown-empty';
 import { DynamicComponentComponent } from '../dynamic-component/dynamic-component.component';
+import { isMarkdownList, MarkdownList, markdownListType } from './models/markdown-list';
 
 @Component({
     selector: 'm-markdown-renderer',
@@ -46,6 +47,7 @@ export class MarkdownRendererComponent {
     protected readonly markdownStrikethroughType = markdownStrikethroughType;
     protected readonly markdownTextType = markdownTextType;
     protected readonly markdownEmptyType = markdownEmptyType;
+    protected readonly markdownListType = markdownListType;
 
     @Input()
     public get value(): string {
@@ -103,6 +105,10 @@ export class MarkdownRendererComponent {
 
     protected $code(element: MarkdownElement): MarkdownCode | undefined {
         return isMarkdownCode(element) ? element : undefined;
+    }
+
+    protected $list(element: MarkdownElement): MarkdownList | undefined {
+        return isMarkdownList(element) ? element : undefined;
     }
 
     protected $image(element: MarkdownElement): MarkdownImage | undefined {

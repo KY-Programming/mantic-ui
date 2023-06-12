@@ -6,4 +6,4 @@ export interface MarkdownSeparator extends MarkdownElement {
 }
 
 export const markdownSeparatorType = 'separator';
-export const isMarkdownSeparator = (element: MarkdownElement): element is MarkdownSeparator => element.type === markdownSeparatorType;
+export const isMarkdownSeparator = (element: MarkdownElement): element is MarkdownSeparator => element?.type === markdownSeparatorType;

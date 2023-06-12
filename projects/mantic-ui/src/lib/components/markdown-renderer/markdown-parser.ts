@@ -17,6 +17,7 @@ import { MarkdownText, markdownTextType } from './models/markdown-text';
 import { MarkdownCustomElement, markdownCustomElementType } from './models/markdown-custom-element';
 import { MarkdownEmpty, markdownEmptyType } from './models/markdown-empty';
 import { ComponentParser } from '../dynamic-component/component-parser';
+import { isMarkdownList, MarkdownList, MarkdownListItem, markdownListType } from './models/markdown-list';
 
 @Injectable({
     providedIn: 'root'
@@ -75,7 +76,7 @@ export class MarkdownParser {
             })
         });
         this.registerBlockParser({
-            regex: /^\s*`{3}(?<language>.*?)\r?\n(?<code>.*?)`{3}$/g,
+            regex: /^\s*`{3}(?<language>.*?)\r?\n(?<code>(.|\r?\n)*?)`{3}$/g,
             factory: (result: RegExpExecArray): MarkdownCodeBlock => ({
                 type: markdownCodeBlockType,
                 language: result.groups?.['language'],
@@ -84,14 +85,14 @@ export class MarkdownParser {
             })
         });
         this.registerBlockParser({
-            regex: /^\s*-{3}\s*$/,
+            regex: /^\s*-{3}$/,
             factory: (): MarkdownSeparator => ({
                 type: markdownSeparatorType,
                 isBlock: true
             })
         });
         this.registerBlockParser({
-            regex: /^\s*(?<code><([^>]+)(.+?)<\/\2>)\s*$/g,
+            regex: /^\s*(?<code><([^>]+)(.+?)<\/\2>)$/g,
             factory: (result: RegExpExecArray, data?: Record<string, unknown>): MarkdownCustomElement => ({
                 type: markdownCustomElementType,
                 code: result.groups?.['code'],
@@ -100,10 +101,30 @@ export class MarkdownParser {
             })
         });
         this.registerBlockParser({
-            regex: /^\s*<m-json(.+?)<\/m-json>\s*$/g,
+            regex: /^\s*<m-json(.+?)<\/m-json>$/g,
             factory: (): MarkdownEmpty => ({
                 type: markdownEmptyType
             })
+        });
+        this.registerBlockParser({
+            regex: /^(?<level>\s*)-\s*(?<inline>.*)$/,
+            factory: (result: RegExpExecArray, _, previous): MarkdownList | undefined => {
+                const item: MarkdownListItem = {
+                    type: 'list-item',
+                    elements: this.parseInline(result.groups?.['inline'])
+                };
+                if (isMarkdownList(previous)) {
+                    previous.items.push(item);
+                    return undefined;
+                }
+                return {
+                    type: markdownListType,
+                    level: result.groups?.['level'].length ?? 0,
+                    style: 'unordered',
+                    items: [item],
+                    isBlock: true
+                };
+            }
         });
 
         this.registerInlineParser({
@@ -242,12 +263,16 @@ export class MarkdownParser {
     private parseBlock(text: string, data: Record<string, unknown>): MarkdownElement[] {
         const lines = text.split('\n');
         const elements: MarkdownElement[] = [];
-        for (const line of lines) {
+        for (let line of lines) {
+            line = line?.trimEnd();
             let parsed = false;
             for (const parser of this.blockParsers) {
                 const regexResult = parser.regex.exec(line);
                 if (regexResult) {
-                    elements.push(parser.factory(regexResult, data));
+                    const element = parser.factory(regexResult, data, elements[elements.length - 1]);
+                    if (element) {
+                        elements.push(element);
+                    }
                     parsed = true;
                     break;
                 }
@@ -262,7 +287,7 @@ export class MarkdownParser {
 
     private parseInline(text: string | undefined): MarkdownElement[] {
         if (!text) {
-            return [];
+            return [{ type: 'empty' }];
         }
         const elements: MarkdownElement[] = [];
         let firstResult: RegExpExecArray | undefined;

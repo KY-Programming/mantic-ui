@@ -7,4 +7,4 @@ export interface MarkdownParagraph extends MarkdownElement {
 }
 
 export const markdownParagraphType = 'paragraph';
-export const isMarkdownParagraph = (element: MarkdownElement): element is MarkdownParagraph => element.type === markdownParagraphType;
+export const isMarkdownParagraph = (element: MarkdownElement): element is MarkdownParagraph => element?.type === markdownParagraphType;

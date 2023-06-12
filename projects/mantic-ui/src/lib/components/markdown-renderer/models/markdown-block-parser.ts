@@ -2,5 +2,5 @@
 
 export interface MarkdownBlockParser {
     regex: RegExp;
-    factory: (result: RegExpExecArray, data?: Record<string, unknown>) => MarkdownElement;
+    factory: (result: RegExpExecArray, data: Record<string, unknown>, previous: MarkdownElement) => MarkdownElement | undefined;
 }

@@ -65,7 +65,7 @@
     "@angular-eslint/template-parser": "16.0.2",
     "@angular/cli": "~16.0.2",
     "@angular/compiler-cli": "^16.0.0",
-    "@ky/eslint-config": "^16.0.0",
+    "@ky/eslint-config": "^16.0.1",
     "@types/jasmine": "~4.3.0",
     "@types/resize-observer-browser": "^0.1.7",
     "@typescript-eslint/eslint-plugin": "5.59.2",

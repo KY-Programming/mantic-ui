@@ -6,4 +6,4 @@ export interface MarkdownBold extends MarkdownElement {
 }
 
 export const markdownBoldType = 'bold';
-export const isMarkdownBold = (element: MarkdownElement): element is MarkdownBold => element.type === markdownBoldType;
+export const isMarkdownBold = (element: MarkdownElement): element is MarkdownBold => element?.type === markdownBoldType;

@@ -8,4 +8,4 @@ export interface MarkdownCustomElement extends MarkdownElement {
 }
 
 export const markdownCustomElementType = 'custom-element';
-export const isMarkdownCustomElement = (element: MarkdownElement): element is MarkdownCustomElement => element.type === markdownCustomElementType;
+export const isMarkdownCustomElement = (element: MarkdownElement): element is MarkdownCustomElement => element?.type === markdownCustomElementType;

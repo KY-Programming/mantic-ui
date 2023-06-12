@@ -7,4 +7,4 @@ export interface MarkdownLink extends MarkdownElement {
 }
 
 export const markdownLinkType = 'link';
-export const isMarkdownLink = (element: MarkdownElement): element is MarkdownLink => element.type === markdownLinkType;
+export const isMarkdownLink = (element: MarkdownElement): element is MarkdownLink => element?.type === markdownLinkType;

@@ -71,7 +71,7 @@ export class TextareaComponent extends InvertibleComponent {
     public inputId: string | undefined;
 
     @Output()
-    public readonly valueChange = new EventEmitter<string | undefined | null>();
+    public readonly valueChange = new EventEmitter<string | undefined>();
 
     @Output()
     public readonly keyDown = new EventEmitter<KeyboardEvent>();
@@ -122,16 +122,6 @@ export class TextareaComponent extends InvertibleComponent {
     protected onChange(): void {
         this.value ??= this.defaultValue;
         this.valueChange.emit(this.value);
-    }
-
-    public forceChange(): void {
-        const value = this.value;
-        // Currently no other way available to force rebind.
-        // eslint-disable-next-line no-null/no-null
-        const tempValue = value === undefined ? null : this.defaultValue;
-        this.valueChange.emit(tempValue);
-        this.applicationRef.tick();
-        this.valueChange.emit(value);
     }
 
     private refreshTextarea(): void {

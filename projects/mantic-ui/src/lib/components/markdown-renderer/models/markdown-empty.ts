@@ -5,4 +5,4 @@ export interface MarkdownEmpty extends MarkdownElement {
 }
 
 export const markdownEmptyType = 'empty';
-export const isMarkdownElement = (element: MarkdownElement): element is MarkdownEmpty => element.type === markdownEmptyType;
+export const isMarkdownElement = (element: MarkdownElement): element is MarkdownEmpty => element?.type === markdownEmptyType;

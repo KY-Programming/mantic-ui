@@ -6,4 +6,4 @@ export interface MarkdownItalic extends MarkdownElement {
 }
 
 export const markdownItalicType = 'italic';
-export const isMarkdownItalic = (element: MarkdownElement): element is MarkdownItalic => element.type === markdownItalicType;
+export const isMarkdownItalic = (element: MarkdownElement): element is MarkdownItalic => element?.type === markdownItalicType;

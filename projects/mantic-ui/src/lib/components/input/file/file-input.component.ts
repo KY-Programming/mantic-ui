@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ButtonDirective } from '../../../directives/button.directive';
 
 @Component({
@@ -12,6 +12,13 @@ import { ButtonDirective } from '../../../directives/button.directive';
 })
 export class FileInputComponent {
     public readonly id = `file_input_${Date.now()}_${Math.floor(Math.random() * 1000000)}`;
+
+    @ViewChild('input')
+    public input: ElementRef<HTMLInputElement> | undefined;
+
+    public get files(): FileList | undefined {
+        return this.input?.nativeElement.files ?? undefined;
+    }
 
     @Input()
     public accept: string | undefined;

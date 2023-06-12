@@ -7,4 +7,4 @@ export interface MarkdownImage extends MarkdownElement {
 }
 
 export const markdownImageType = 'image';
-export const isMarkdownImage = (element: MarkdownElement): element is MarkdownImage => element.type === markdownImageType;
+export const isMarkdownImage = (element: MarkdownElement): element is MarkdownImage => element?.type === markdownImageType;

@@ -53,6 +53,15 @@
                 {{code.code}}
             </code>
         </ng-container>
+        <ng-container *ngSwitchCase="markdownListType">
+            <ng-container *ngIf="$list(element) as list">
+                <ul *ngIf="list.style === 'unordered'">
+                    <li *ngFor="let item of list.items">
+                        <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': item.elements }"></ng-container>
+                    </li>
+                </ul>
+            </ng-container>
+        </ng-container>
         <ng-container *ngSwitchCase="markdownImageType">
             <img *ngIf="$image(element) as image" [src]="image.url" [alt]="image.alt"/>
         </ng-container>
@@ -80,7 +89,7 @@
             <span *ngIf="$text(element) as text">{{text.text}}</span>
         </ng-container>
         <ng-container *ngSwitchCase="markdownEmptyType"></ng-container>
-        <span *ngSwitchDefault>Unknown element {{element.type}}</span>
+        <span *ngSwitchDefault>Unknown element '{{element.type}}'</span>
         <br *ngIf="element.breakLine && !element.isBlock">
     </ng-container>
 </ng-template>

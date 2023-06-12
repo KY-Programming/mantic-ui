@@ -139,7 +139,7 @@ export class CheckboxComponent extends InvertibleComponent {
 
     public constructor() {
         super();
-        this.classes.register('indeterminate', 'fitted', 'checked', 'value', 'name', 'label');
+        this.classes.register('indeterminate', 'fitted', 'checked', 'value', 'name', 'label', 'readonly');
         CheckboxComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
 

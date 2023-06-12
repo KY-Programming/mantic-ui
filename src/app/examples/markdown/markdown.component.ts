@@ -65,6 +65,11 @@ You can create a code block by wrapping the code in triple backticks:
         print("Hello, Markdown!")
 \`\`\`
 
+## Custom Components
+
+You can use your angular components, after register them via \`provideDynamicComponent\` in \`app.config.ts\`, like a mantic UI button:
+<m-button primary>Click me</m-button>
+
 ## Conclusion
 
 That's it for this Markdown document! I hope you found it informative and helpful. Markdown is a simple and versatile formatting language for creating rich-text documents.

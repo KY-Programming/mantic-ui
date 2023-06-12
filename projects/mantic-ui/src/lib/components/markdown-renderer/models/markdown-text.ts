@@ -6,4 +6,4 @@ export interface MarkdownText extends MarkdownElement {
 }
 
 export const markdownTextType = 'text';
-export const isMarkdownText = (element: MarkdownElement): element is MarkdownText => element.type === markdownTextType;
+export const isMarkdownText = (element: MarkdownElement): element is MarkdownText => element?.type === markdownTextType;

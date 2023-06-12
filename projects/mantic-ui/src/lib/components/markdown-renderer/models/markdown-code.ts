@@ -6,4 +6,4 @@ export interface MarkdownCode extends MarkdownElement {
 }
 
 export const markdownCodeType = 'code';
-export const isMarkdownCode = (element: MarkdownElement): element is MarkdownCode => element.type === markdownCodeType;
+export const isMarkdownCode = (element: MarkdownElement): element is MarkdownCode => element?.type === markdownCodeType;
