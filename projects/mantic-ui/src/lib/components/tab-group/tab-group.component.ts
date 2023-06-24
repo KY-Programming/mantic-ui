@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ContentChildren, EventEmitter, HostBinding, Input, OnInit, Output, QueryList } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, UrlSegment } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Route, Router, Routes, UrlSegment } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { MenuComponent, MenuPosition } from '../menu/menu.component';
 import { TabComponent } from '../tab/tab.component';
@@ -39,6 +39,13 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
     private isPointing = false;
     private isSecondary = false;
     private isLoading = false;
+    private routes: NamedRoute[] = [];
+
+    @Input()
+    public menu: MenuPosition = 'top';
+
+    @Output()
+    public readonly selectedIndexChange = new EventEmitter<number>();
 
     @Input()
     public get pointing(): boolean {
@@ -66,9 +73,6 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
     public set loading(value: BooleanLike) {
         this.isLoading = this.toBoolean(value);
     }
-
-    @Input()
-    public menu: MenuPosition = 'top';
 
     @HostBinding('class')
     protected get menuPosition(): string {
@@ -120,9 +124,6 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
         this.isScrollable = this.toBoolean(value);
     }
 
-    @Output()
-    public readonly selectedIndexChange = new EventEmitter<number>();
-
     @ContentChildren(TabComponent)
     protected get tabs(): QueryList<TabComponent> | undefined {
         return this.tabsValue;
@@ -139,7 +140,12 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
     ) {
         super(false);
         this.noClasses = true;
-        this.classes.register('pointing', 'secondary', 'position', 'selectByRoute', 'routeParameterName', 'noPadding', 'menu');
+        this.classes.register('pointing', 'secondary', 'position', 'selectByRoute', 'routeParameterName', 'noPadding', 'menu', 'loading', 'scrollable');
+    }
+
+    public override ngOnInit(): void {
+        super.ngOnInit();
+        this.routes = this.parseRoutes(this.router.config, []);
         this.router.events.pipe(takeUntil(this.destroy)).subscribe(event => {
             if (event instanceof NavigationEnd) {
                 this.refreshTab();
@@ -188,7 +194,7 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
         this.selectedIndexChange.emit(this.selectedIndex);
         if (this.isSelectByRoute) {
             const name = tab.name || this.toName(tab.label);
-            const urlSegments = this.getUrlSegments();
+            const urlSegments = this.getActiveRouteSegments();
             const segment = urlSegments.find(s => s.name === ':' + this.routeParameterName);
             if (segment?.path === name) {
                 return;
@@ -196,10 +202,28 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
             if (segment) {
                 const replaceUrl = !segment.path;
                 segment.path = name;
-                void this.router.navigate(urlSegments.map(s => s.path), { replaceUrl });
-            } else {
-                console.warn(`tab-group selectByRoute is set, but the route does not have a :${this.routeParameterName} parameter like { path: '/${urlSegments.map(s => s.path).join('/')}/:${this.routeParameterName}', component: ... }`);
+                void this.router.navigate(urlSegments.map(s => s.path), {replaceUrl});
+                return;
             }
+            const activePath = urlSegments.map(segment => segment.path).join('/');
+            const parameters = [
+                ...urlSegments.filter(segment => segment.name.startsWith(':')).map(segment => segment.path.slice(1)),
+                this.routeParameterName
+            ];
+            const possibleRoutes = this.routes.filter(route => route.fullPath.startsWith(activePath) && parameters.every(parameter => route.parameters.includes(parameter)))
+                .sort((leftRoute, rightRoute) => leftRoute.parameters < rightRoute.parameters ? -1 : leftRoute.parameters > rightRoute.parameters ? 1 : 0);
+
+            if (possibleRoutes.length === 0) {
+                console.warn(`tab-group selectByRoute is set, but the route does not have a :${this.routeParameterName} parameter like { path: '/${urlSegments.map(s => s.path).join('/')}/:${this.routeParameterName}', component: ... }`);
+                return;
+            }
+            const route = possibleRoutes[0];
+            let fullPath = route.fullPath.replace(':' + this.routeParameterName, name);
+            for (const parameterName of route.parameters) {
+                const segmentValue = urlSegments.find(segment => segment.name === ':' + parameterName)?.path;
+                fullPath = fullPath.replace(':' + parameterName, segmentValue ?? '');
+            }
+            void this.router.navigate(['/' + fullPath], {replaceUrl: true});
         }
     }
 
@@ -207,7 +231,7 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
         return value ? value.toLocaleLowerCase().replace(/[^a-zA-Z0-9]/g, '-').replace(/-+/g, '-') : '';
     }
 
-    private getUrlSegments(): NamedUrlSegment[] {
+    private getActiveRouteSegments(): NamedUrlSegment[] {
         const segments: NamedUrlSegment[] = [];
         let current: ActivatedRoute | null = this.route;
         do {
@@ -222,6 +246,22 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
         while (current);
         return segments;
     }
+
+    private parseRoutes(routes: Routes, path: string[]): NamedRoute[] {
+        const namedRoutes: NamedRoute[] = [];
+        for (const route of routes) {
+            const fullPath = [...path, route.path ?? ''].filter(path => !!path);
+            namedRoutes.push({
+                fullPath: fullPath.join('/'),
+                parameters: fullPath.join('/').split('/').filter(parameter => parameter.startsWith(':')).map(parameter => parameter.slice(1)),
+                ...route
+            });
+            if (route.children) {
+                namedRoutes.push(...this.parseRoutes(route.children, fullPath));
+            }
+        }
+        return namedRoutes;
+    }
 }
 
 class NamedUrlSegment extends UrlSegment {
@@ -232,4 +272,9 @@ class NamedUrlSegment extends UrlSegment {
         super(segment.path, segment.parameters);
         Object.assign(this, segment);
     }
+}
+
+interface NamedRoute extends Route {
+    fullPath: string;
+    parameters: string[];
 }

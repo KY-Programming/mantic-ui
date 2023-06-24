@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class LogPipe implements PipeTransform {
 
-    public transform(value: unknown, ...args: unknown[]): unknown {
+    public transform<T>(value: T, ...args: unknown[]): T {
         if (args && args.length > 0) {
             console.log(args[0], value);
         } else {
