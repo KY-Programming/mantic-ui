@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { InvertedDirective } from '../../directives/inverted.directive';
 import { CommonModule } from '@angular/common';
@@ -19,6 +19,7 @@ export declare type LoaderSize = 'mini' | 'tiny' | 'small' | 'large' | 'big' | '
     providers: [...BaseComponent.providers]
 })
 export class LoaderComponent extends BaseComponent {
+    private readonly activeDirective = inject(ActiveDirective);
     private textValue: string | undefined;
     private sizeValue: LoaderSize | undefined;
 
@@ -44,6 +45,7 @@ export class LoaderComponent extends BaseComponent {
 
     public constructor() {
         super();
+        this.activeDirective.active = true;
         this.classes.register('text', 'size')
             .registerFixed('loader');
     }

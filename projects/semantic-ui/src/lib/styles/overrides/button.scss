@@ -1,26 +1,4 @@
-﻿/* Top / Bottom */
-.ui.attached-top.button {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.ui.attached-bottom.button {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-}
-
-/* Left / Right */
-.ui.attached-left.button {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.ui.attached-right.button {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-/*--- Transparent ---*/
+﻿/*--- Transparent ---*/
 
 .ui.transparent.buttons .button,
 .ui.transparent.button {

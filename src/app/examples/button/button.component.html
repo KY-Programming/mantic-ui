@@ -260,7 +260,7 @@
             <m-icon-button class="circular" social="youtube"></m-icon-button>
         </m-example>
         <m-example header="Vertically Attached" description="A button can be attached to the top or bottom of other content" [code]="verticallyAttached">
-            <m-button class="top attached">Top</m-button>
+            <m-button attachedTop>Top</m-button>
             <m-segment class="attached">
                 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
                     dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
@@ -269,10 +269,10 @@
                     sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no
                     sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
             </m-segment>
-            <m-button class="bottom attached">Bottom</m-button>
+            <m-button attachedBottom>Bottom</m-button>
         </m-example>
         <m-example [code]="verticallyAttached2">
-            <m-button-group class="two top attached">
+            <m-button-group attachedTop class="two">
                 <m-button>One</m-button>
                 <m-button>Two</m-button>
             </m-button-group>
@@ -284,14 +284,14 @@
                     sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no
                     sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
             </m-segment>
-            <m-button-group class="two bottom attached">
+            <m-button-group attachedBottom class="two">
                 <m-button>One</m-button>
                 <m-button>Two</m-button>
             </m-button-group>
         </m-example>
         <m-example header="Horizontally Attached" description="A button can be attached to the left or right of other content">
-            <m-button class="left attached">Left</m-button>
-            <m-button class="right attached">Right</m-button>
+            <m-button attachedLeft>Left</m-button>
+            <m-button attachedRight>Right</m-button>
         </m-example>
     </m-tab>
     <m-tab label="Groups">

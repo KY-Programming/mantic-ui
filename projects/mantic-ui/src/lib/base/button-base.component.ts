@@ -84,7 +84,7 @@ export abstract class ButtonBaseComponent extends BaseComponent {
     }
 
     @Input()
-    @HostBinding('class.attached-left')
+    @HostBinding('class.left')
     public get attachedLeft(): boolean {
         return this.isAttachedLeft;
     }
@@ -94,7 +94,7 @@ export abstract class ButtonBaseComponent extends BaseComponent {
     }
 
     @Input()
-    @HostBinding('class.attached-top')
+    @HostBinding('class.top')
     public get attachedTop(): boolean {
         return this.isAttachedTop;
     }
@@ -104,7 +104,7 @@ export abstract class ButtonBaseComponent extends BaseComponent {
     }
 
     @Input()
-    @HostBinding('class.attached-right')
+    @HostBinding('class.right')
     public get attachedRight(): boolean {
         return this.isAttachedRight;
     }
@@ -114,7 +114,7 @@ export abstract class ButtonBaseComponent extends BaseComponent {
     }
 
     @Input()
-    @HostBinding('class.attached-bottom')
+    @HostBinding('class.bottom')
     public get attachedBottom(): boolean {
         return this.isAttachedBottom;
     }
@@ -123,8 +123,13 @@ export abstract class ButtonBaseComponent extends BaseComponent {
         this.isAttachedBottom = this.toBoolean(value);
     }
 
+    @HostBinding('class.attached')
+    protected get attached(): boolean {
+        return this.isAttachedTop || this.attachedBottom || this.attachedLeft || this.attachedRight;
+    }
+
     @HostBinding('class.button')
-    public button = true;
+    protected readonly button = true;
 
     protected constructor() {
         super();

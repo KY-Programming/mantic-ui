@@ -202,12 +202,12 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
             if (segment) {
                 const replaceUrl = !segment.path;
                 segment.path = name;
-                void this.router.navigate(urlSegments.map(s => s.path), {replaceUrl});
+                void this.router.navigate(urlSegments.map(s => s.path), { replaceUrl });
                 return;
             }
-            const activePath = urlSegments.map(segment => segment.path).join('/');
+            const activePath = urlSegments.map(segment => segment.name).join('/');
             const parameters = [
-                ...urlSegments.filter(segment => segment.name.startsWith(':')).map(segment => segment.path.slice(1)),
+                ...urlSegments.filter(segment => segment.name.startsWith(':')).map(segment => segment.name.slice(1)),
                 this.routeParameterName
             ];
             const possibleRoutes = this.routes.filter(route => route.fullPath.startsWith(activePath) && parameters.every(parameter => route.parameters.includes(parameter)))
@@ -223,7 +223,7 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
                 const segmentValue = urlSegments.find(segment => segment.name === ':' + parameterName)?.path;
                 fullPath = fullPath.replace(':' + parameterName, segmentValue ?? '');
             }
-            void this.router.navigate(['/' + fullPath], {replaceUrl: true});
+            void this.router.navigate(['/' + fullPath], { replaceUrl: true });
         }
     }
 

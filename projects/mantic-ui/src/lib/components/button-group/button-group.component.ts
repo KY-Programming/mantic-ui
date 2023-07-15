@@ -1,8 +1,9 @@
-import { Component, ContentChildren, QueryList } from '@angular/core';
+import { Component, ContentChildren, HostBinding, Input, QueryList } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ToggleButtonComponent } from '../toggle-button/toggle-button.component';
 import { BaseComponent } from '../../base/base.component';
 import { ColorDirective } from '../../directives/color.directive';
+import { BooleanLike } from "../../models/boolean-like";
 
 @Component({
     selector: 'm-button-group',
@@ -16,6 +17,55 @@ export class ButtonGroupComponent extends BaseComponent {
     private toggleButtonsChangeSubscription?: Subscription;
     private toggleButtonSubscriptions?: Subscription[];
     private toggleButtonsValue?: QueryList<ToggleButtonComponent>;
+    private isAttachedLeft = false;
+    private isAttachedTop = false;
+    private isAttachedRight = false;
+    private isAttachedBottom = false;
+
+    @Input()
+    @HostBinding('class.left')
+    public get attachedLeft(): boolean {
+        return this.isAttachedLeft;
+    }
+
+    public set attachedLeft(value: BooleanLike) {
+        this.isAttachedLeft = this.toBoolean(value);
+    }
+
+    @Input()
+    @HostBinding('class.top')
+    public get attachedTop(): boolean {
+        return this.isAttachedTop;
+    }
+
+    public set attachedTop(value: BooleanLike) {
+        this.isAttachedTop = this.toBoolean(value);
+    }
+
+    @Input()
+    @HostBinding('class.right')
+    public get attachedRight(): boolean {
+        return this.isAttachedRight;
+    }
+
+    public set attachedRight(value: BooleanLike) {
+        this.isAttachedRight = this.toBoolean(value);
+    }
+
+    @Input()
+    @HostBinding('class.bottom')
+    public get attachedBottom(): boolean {
+        return this.isAttachedBottom;
+    }
+
+    public set attachedBottom(value: BooleanLike) {
+        this.isAttachedBottom = this.toBoolean(value);
+    }
+
+    @HostBinding('class.attached')
+    protected get attached(): boolean {
+        return this.isAttachedTop || this.attachedBottom || this.attachedLeft || this.attachedRight;
+    }
 
     @ContentChildren(ToggleButtonComponent)
     protected get toggleButtons(): QueryList<ToggleButtonComponent> | undefined {
