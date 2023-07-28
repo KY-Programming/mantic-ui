@@ -17,6 +17,7 @@ export * from './lib/components/checkbox/checkbox-defaults.component';
 export * from './lib/components/chat/chat.component';
 export * from './lib/components/chat/chat-defaults.component';
 export * from './lib/components/chat-message/chat-message.component';
+export * from './lib/components/circular-progress/circular-progress.component';
 export * from './lib/components/context-menu/context-menu.component';
 export * from './lib/components/context-menu/item/context-menu-item.component';
 export * from './lib/components/dimmer/dimmer.component';

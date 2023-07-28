@@ -131,6 +131,7 @@ import { FieldDefaultsComponent } from './components/field/field-defaults.compon
 import { CardComponent } from './components/card/card.component';
 import { CardGroupComponent } from './components/card-group/card-group.component';
 import { MarkdownRendererComponent } from './components/markdown-renderer/markdown-renderer.component';
+import { CircularProgressComponent } from './components/circular-progress/circular-progress.component';
 
 const standalone = [
     AllowedCharsPipe,
@@ -152,6 +153,7 @@ const standalone = [
     ChatMessageComponent,
     CheckboxComponent,
     CheckboxDefaultsComponent,
+    CircularProgressComponent,
     ColorDirective,
     ContextMenuComponent,
     ContextMenuItemComponent,
@@ -273,8 +275,7 @@ const standalone = [
     ],
     exports: [
         ...standalone
-    ],
-    declarations: []
+    ]
 })
 export class ManticUiModule {
 }

@@ -1,0 +1,75 @@
+﻿.ui.progress.circular {
+    background: unset;
+
+    .track {
+        stroke: rgba(0, 0, 0, 0.1);
+    }
+
+    .value {
+        stroke: #888888;
+    }
+}
+
+.ui.progress.circular.success .value {
+    stroke: #21BA45;
+}
+
+.ui.progress.circular.warning .value {
+    stroke: #F2C037;
+}
+
+.ui.progress.circular.error .value {
+    stroke: #DB2828;
+}
+
+.ui.progress.circular.red .value {
+    stroke: #DB2828;
+}
+
+.ui.progress.circular.orange .value {
+    stroke: #F2711C;
+}
+
+.ui.progress.circular.yellow .value {
+    stroke: #FBBD08;
+}
+
+.ui.progress.circular.olive .value {
+    stroke: #B5CC18;
+}
+
+.ui.progress.circular.green .value {
+    stroke: #21BA45;
+}
+
+.ui.progress.circular.teal .value {
+    stroke: #00B5AD;
+}
+
+.ui.progress.circular.blue .value {
+    stroke: #2185D0;
+}
+
+.ui.progress.circular.violet .value {
+    stroke: #6435C9;
+}
+
+.ui.progress.circular.purple .value {
+    stroke: #A333C8;
+}
+
+.ui.progress.circular.pink .value {
+    stroke: #E03997;
+}
+
+.ui.progress.circular.brown .value {
+    stroke: #A5673F;
+}
+
+.ui.progress.circular.grey .value {
+    stroke: #767676;
+}
+
+.ui.progress.circular.black .value {
+    stroke: #1B1C1D;
+}

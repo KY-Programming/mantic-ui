@@ -1,0 +1,18 @@
+:host {
+    position: relative;
+}
+
+:host.ui.progress > .label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.label-centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+}

@@ -1,0 +1,13 @@
+<svg [attr.width]="size" [attr.height]="size" [attr.viewBox]="'0 0 ' + size + ' ' + size" style="transform: rotate(-90deg)">
+    <circle [attr.r]="radius" [attr.cx]="size/2" [attr.cy]="size/2" fill="transparent" stroke="#e0e0e0" [attr.stroke-width]="strokeWidth + 'px'" class="track"></circle>
+    <circle [attr.r]="radius" [attr.cx]="size/2" [attr.cy]="size/2" fill="transparent" stroke="#808080" stroke-linecap="round" [attr.stroke-width]="strokeWidth + 'px'"
+            [attr.stroke-dasharray]="total + 'px'" [attr.stroke-dashoffset]="offset + 'px'" class="value"></circle>
+</svg>
+<div class="label" [style.width.px]="size - 2*strokeWidth" [style.height.px]="size - 2*strokeWidth" [style.margin.px]="strokeWidth">
+    <div *ngIf="centerContent else labelTemplate" class="label-centered">
+        <ng-container [ngTemplateOutlet]="labelTemplate" />
+    </div>
+    <ng-template #labelTemplate>
+        <ng-content />
+    </ng-template>
+</div>
