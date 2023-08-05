@@ -27,6 +27,6 @@ export class RadioComponent extends CheckboxComponent {
             filter(event => !!event.group && event.group === this.name && event.value !== this),
             takeUntil(this.destroy)
         ).subscribe(() => this.checked = false);
-        this.valueChange.pipe(filter(checked => checked)).subscribe(() => this.radioService.check(this.name, this));
+        this.valueChange.pipe(filter(checked => !!checked)).subscribe(() => this.radioService.check(this.name, this));
     }
 }
