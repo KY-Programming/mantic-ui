@@ -44,21 +44,21 @@
                         <label>
                             Text
                         </label>
-                        <m-input [(value)]="text"></m-input>
+                        <m-input [(text)]="text"></m-input>
                     </div>
                 </div>
                 <div class="four fields">
                     <div class="field">
-                        <m-toggle [(value)]="readonly">Read Only</m-toggle>
+                        <m-toggle [(checked)]="readonly">Read Only</m-toggle>
                     </div>
                     <div class="field">
-                        <m-toggle [(value)]="checked">Checked</m-toggle>
+                        <m-toggle [(checked)]="checked">Checked</m-toggle>
                     </div>
                     <div class="field">
-                        <m-toggle [(value)]="indeterminated">Indeterminate</m-toggle>
+                        <m-toggle [(checked)]="indeterminated">Indeterminate</m-toggle>
                     </div>
                     <div class="field">
-                        <m-toggle [(value)]="disabled">Disabled</m-toggle>
+                        <m-toggle [(checked)]="disabled">Disabled</m-toggle>
                     </div>
                 </div>
             </div>

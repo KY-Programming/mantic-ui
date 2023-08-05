@@ -22,7 +22,7 @@ export class CheckboxExampleComponent {
     public bindCode = `<m-checkbox [readonly]="readonly" [checked]="checked" [indeterminate]="indeterminated" [disabled]="disabled">{{text}}</m-checkbox>`;
     private readonlyField = false;
     private checkedField = false;
-    private indeterminatedField = false;
+    private indeterminatedField: boolean | undefined = false;
     private disabledField = false;
 
     public text? = 'Label Text';
@@ -45,11 +45,11 @@ export class CheckboxExampleComponent {
         this.indeterminatedField = false;
     }
 
-    public get indeterminated(): boolean {
+    public get indeterminated(): boolean | undefined {
         return this.indeterminatedField;
     }
 
-    public set indeterminated(value: boolean) {
+    public set indeterminated(value: boolean | undefined) {
         this.indeterminatedField = value;
         this.checkedField = false;
     }
