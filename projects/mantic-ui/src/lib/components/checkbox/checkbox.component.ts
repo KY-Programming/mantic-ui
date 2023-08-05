@@ -41,7 +41,7 @@ export class CheckboxComponent extends InvertibleComponent {
     private readonly disabledDirective = inject(DisabledDirective, { self: true });
     private nameValue?: string;
     private labelValue?: string;
-    private isChecked = false;
+    private isChecked: boolean | undefined = false;
     private isIndeterminate = false;
     protected readonly defaults = CheckboxComponent.defaults;
 
@@ -62,16 +62,13 @@ export class CheckboxComponent extends InvertibleComponent {
     }
 
     @Input()
-    public get value(): boolean {
+    public get value(): boolean | undefined {
         return this.isChecked;
     }
 
     public set value(value: BooleanLike) {
         this.isChecked = this.toBoolean(value);
     }
-
-    @Output()
-    public readonly valueChange = new EventEmitter<boolean>();
 
     @Input()
     public get name(): string {
@@ -96,7 +93,7 @@ export class CheckboxComponent extends InvertibleComponent {
     @Input()
     @HostBinding('class.checked')
     public get checked(): boolean {
-        return this.isChecked;
+        return this.isChecked ?? false;
     }
 
     public set checked(value: BooleanLike) {
@@ -104,7 +101,10 @@ export class CheckboxComponent extends InvertibleComponent {
     }
 
     @Output()
-    public readonly checkedChange = this.valueChange;
+    public readonly valueChange = new EventEmitter<boolean | undefined>();
+
+    @Output()
+    public readonly checkedChange = new EventEmitter<boolean>();
 
     @Input()
     @HostBinding('class.indeterminate')
@@ -173,7 +173,8 @@ export class CheckboxComponent extends InvertibleComponent {
     }
 
     protected onChange(): void {
-        this.valueChange.emit(this.isChecked);
+        this.valueChange.emit(this.value);
+        this.checkedChange.emit(this.isChecked);
     }
 
 }

@@ -35,7 +35,7 @@ export class FormRendererComponent {
     }
 
     @Input()
-    public set data(value: Record<string, unknown>) {
+    public set data(value: Record<string, unknown> | any) {
         this.dataValue = value;
         if (!value) {
             setTimeout(() => {

@@ -65,13 +65,25 @@ export class TextareaComponent extends InvertibleComponent {
     public value: string | undefined;
 
     @Input()
-    public defaultValue: string | undefined;
+    public get text(): string {
+        return this.value ?? this.default;
+    }
+
+    public set text(value: string | undefined) {
+        this.value = value;
+    }
+
+    @Input()
+    public default = '';
 
     @Input()
     public inputId: string | undefined;
 
     @Output()
     public readonly valueChange = new EventEmitter<string | undefined>();
+
+    @Output()
+    public readonly textChange = new EventEmitter<string>();
 
     @Output()
     public readonly keyDown = new EventEmitter<KeyboardEvent>();
@@ -113,15 +125,16 @@ export class TextareaComponent extends InvertibleComponent {
         private readonly applicationRef: ApplicationRef
     ) {
         super();
-        this.classes.register('disabled', 'readonly', 'hasError', 'fluid')
+        this.classes.register('disabled', 'readonly', 'hasError', 'fluid', 'value', 'text', 'default')
             // HACK: Currently I do not know a other way to style a textarea with semantic ui, so I have to use form class here
             .registerFixed('form', 'textarea');
         TextareaComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
 
     protected onChange(): void {
-        this.value ??= this.defaultValue;
+        this.value ??= this.default;
         this.valueChange.emit(this.value);
+        this.textChange.emit(this.text);
     }
 
     private refreshTextarea(): void {

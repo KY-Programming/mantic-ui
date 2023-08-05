@@ -24,10 +24,21 @@ import { FormsModule } from '@angular/forms';
 export class NumericInputComponent extends InputBaseComponent implements OnInit {
     private valueField: number | undefined;
     private rangeValue = false;
-
     // eslint-disable-next-line no-null/no-null
     protected internalValue: number | null = null;
     public type: 'number' | 'range' = 'number';
+
+    @Input()
+    public default = 0;
+
+    @Input()
+    public min: number | undefined;
+
+    @Input()
+    public max: number | undefined;
+
+    @Input()
+    public zeroText: string | undefined;
 
     protected get placeholderInternal(): string {
         return this.value === 0 && this.zeroText ? this.zeroText : this.placeholder ?? '';
@@ -39,7 +50,6 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     }
 
     public set value(value: number | undefined) {
-        value ??= this.defaultValue;
         if (value != this.valueField) {
             this.setInternalValue(value);
         }
@@ -47,13 +57,13 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     }
 
     @Input()
-    public defaultValue: number | undefined;
+    public get number(): number {
+        return this.value ?? this.default;
+    }
 
-    @Input()
-    public min: number | undefined;
-
-    @Input()
-    public max: number | undefined;
+    public set number(value: number | undefined) {
+        this.value = value;
+    }
 
     @Input()
     public get range(): boolean {
@@ -65,11 +75,11 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
         this.type = this.rangeValue ? 'range' : 'number';
     }
 
-    @Input()
-    public zeroText: string | undefined;
-
     @Output()
     public readonly valueChange = new EventEmitter<number | undefined>();
+
+    @Output()
+    public readonly numberChange = new EventEmitter<number>();
 
     @ContentChild('input')
     protected set contentInputElement(input: ElementRef<HTMLInputElement>) {
@@ -90,7 +100,7 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
 
     public constructor() {
         super();
-        this.classes.register('min', 'max', 'defaultValue', 'value', 'range', 'zeroText');
+        this.classes.register('min', 'max', 'defaultValue', 'value', 'range', 'zeroText', 'number');
     }
 
     public override ngOnInit(): void {
@@ -100,12 +110,13 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     }
 
     protected onInternalChange(rawValue: string | null | undefined): void {
-        let value = rawValue ? parseFloat(rawValue) : this.defaultValue;
+        let value = typeof rawValue === 'string' ? parseFloat(rawValue) : rawValue ?? undefined;
         this.setInternalValue(value);
         value = value == undefined ? undefined : Math2.keepInRange(this.min, value, this.max);
         if (value !== this.value) {
             this.valueField = value;
             this.valueChange.emit(this.value);
+            this.numberChange.emit(this.number);
         }
     }
 

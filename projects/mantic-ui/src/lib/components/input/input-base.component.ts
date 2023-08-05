@@ -25,7 +25,7 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
     private disabledValue = false;
     private isAutoFocused = false;
 
-    protected inputElement: ElementRef<HTMLInputElement> | undefined;
+    public inputElement: ElementRef<HTMLInputElement> | undefined;
 
     public get iconPosition(): InputIconPosition | undefined {
         return this.iconPositionValue;

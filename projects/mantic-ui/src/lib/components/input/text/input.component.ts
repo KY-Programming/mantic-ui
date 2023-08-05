@@ -32,7 +32,16 @@ export class InputComponent extends InputBaseComponent {
     public value: string | undefined;
 
     @Input()
-    public defaultValue: string | undefined;
+    public get text(): string {
+        return this.value ?? this.default;
+    }
+
+    public set text(value: string | undefined) {
+        this.value = value;
+    }
+
+    @Input()
+    public default = '';
 
     @Input()
     public get type(): InputType | undefined {
@@ -53,6 +62,9 @@ export class InputComponent extends InputBaseComponent {
     @Output()
     public readonly valueChange = new EventEmitter<string | undefined>();
 
+    @Output()
+    public readonly textChange = new EventEmitter<string>();
+
     @ContentChild('input')
     protected set contentInputElement(input: ElementRef<HTMLInputElement>) {
         this.unbindEvents();
@@ -72,11 +84,12 @@ export class InputComponent extends InputBaseComponent {
 
     public constructor() {
         super();
-        this.classes.register('maxlength', 'type', 'defaultValue', 'value');
+        this.classes.register('maxlength', 'type', 'defaultValue', 'value', 'text');
     }
 
     protected onChange(): void {
-        this.value ??= this.defaultValue;
+        this.value ??= this.default;
         this.valueChange.emit(this.value);
+        this.textChange.emit(this.text);
     }
 }

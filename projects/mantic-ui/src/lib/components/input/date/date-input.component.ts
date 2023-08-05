@@ -37,7 +37,7 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
     }
 
     public set value(value: Date | number | string | undefined) {
-        value ??= this.defaultValue;
+        value ??= this.default;
         value = value ? new Date(value) : undefined;
         value = isNaN(value?.getDate() as any) ? undefined : value;
         if (value != this.valueField) {
@@ -47,7 +47,16 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
     }
 
     @Input()
-    public defaultValue: Date | undefined;
+    public get date(): Date {
+        return this.value ?? this.default;
+    }
+
+    public set date(value: Date | number | string | undefined) {
+        this.value = value;
+    }
+
+    @Input()
+    public default = new Date(0);
 
     @Input()
     public min: Date | undefined;
@@ -71,6 +80,9 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
     @Output()
     public readonly valueChange = new EventEmitter<Date | undefined>();
 
+    @Output()
+    public readonly dateChange = new EventEmitter<Date>();
+
     @ContentChild('input')
     protected set contentInputElement(input: ElementRef<HTMLInputElement>) {
         this.unbindEvents();
@@ -90,7 +102,7 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
 
     public constructor() {
         super();
-        this.classes.register('min', 'max', 'defaultValue', 'value');
+        this.classes.register('min', 'max', 'default', 'value', 'date', 'showDay', 'weekendColor');
     }
 
     public override ngOnInit(): void {
@@ -101,7 +113,7 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
 
     protected onInternalChange(rawValue: string): void {
         let value = rawValue ? new Date(rawValue) : undefined;
-        value ??= this.defaultValue;
+        value ??= this.default;
         if (value) {
             this.setInternalValue(value);
         }
@@ -109,6 +121,7 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
         if (value !== this.value) {
             this.valueField = value;
             this.valueChange.emit(this.value);
+            this.dateChange.emit(this.date);
         }
     }
 

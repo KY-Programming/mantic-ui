@@ -32,7 +32,6 @@ export class TimeInputComponent extends InputBaseComponent implements OnInit {
     }
 
     public set value(value: Date | number | string | undefined) {
-        value ??= this.defaultValue;
         value = value ? new Date(value) : undefined;
         value = isNaN(value?.getDate() as any) ? undefined : value;
         if (value != this.valueField) {
@@ -42,7 +41,16 @@ export class TimeInputComponent extends InputBaseComponent implements OnInit {
     }
 
     @Input()
-    public defaultValue: Date | undefined;
+    public get time(): Date {
+        return this.value ?? this.default;
+    }
+
+    public set time(value: Date | number | string | undefined) {
+        this.value = value;
+    }
+
+    @Input()
+    public default = new Date(0);
 
     @Input()
     public min: Date | undefined;
@@ -52,6 +60,9 @@ export class TimeInputComponent extends InputBaseComponent implements OnInit {
 
     @Output()
     public readonly valueChange = new EventEmitter<Date | undefined>();
+
+    @Output()
+    public readonly timeChange = new EventEmitter<Date>();
 
     @ContentChild('input')
     protected set contentInputElement(input: ElementRef<HTMLInputElement>) {
@@ -72,7 +83,7 @@ export class TimeInputComponent extends InputBaseComponent implements OnInit {
 
     public constructor() {
         super();
-        this.classes.register('min', 'max', 'defaultValue', 'value');
+        this.classes.register('min', 'max', 'defaultValue', 'value', 'time');
     }
 
     public override ngOnInit(): void {
@@ -89,7 +100,8 @@ export class TimeInputComponent extends InputBaseComponent implements OnInit {
         value = DateHelper.keepInRange(this.min, value, this.max);
         if (value !== this.valueField || oldValue !== value) {
             this.valueField = value;
-            this.valueChange.emit(this.valueField);
+            this.valueChange.emit(this.value);
+            this.timeChange.emit(this.time);
         }
     }
 
