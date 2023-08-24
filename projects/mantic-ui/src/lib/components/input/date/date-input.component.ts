@@ -37,7 +37,6 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
     }
 
     public set value(value: Date | number | string | undefined) {
-        value ??= this.default;
         value = value ? new Date(value) : undefined;
         value = isNaN(value?.getDate() as any) ? undefined : value;
         if (value != this.valueField) {
@@ -113,7 +112,6 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
 
     protected onInternalChange(rawValue: string): void {
         let value = rawValue ? new Date(rawValue) : undefined;
-        value ??= this.default;
         if (value) {
             this.setInternalValue(value);
         }

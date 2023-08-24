@@ -25,8 +25,13 @@ export class InputExampleComponent {
     public selectedTabName?: string;
     public textValue?: string;
     public textareaValue?: string;
-    public numericValue?: number;
-    public dateValue?: Date;
+    protected stringValue?: string;
+    protected stringText = '';
+    protected numericValue?: number;
+    protected numericNumber = 0;
+    protected dateValue?: Date;
+    protected dateDate = new Date();
+    protected showDayValue = new Date();
 
     public get focus(): boolean {
         return this.focusValue;
@@ -91,11 +96,23 @@ export class InputExampleComponent {
   <input type="text" placeholder="Search..." maxlength="3">
 </m-input>`;
 
-    public readonly maxlengthCode = `<m-input type="text" maxlength="3"></m-input>`;
-    public readonly minCode = `<m-numeric-input [min]="1"></m-numeric-input>`;
-    public readonly maxCode = `<m-numeric-input [max]="9"></m-numeric-input>`;
-    public readonly zeroCode = `<m-numeric-input zeroText="Zero"></m-numeric-input>`;
-    public readonly rangeCode = `<m-numeric-input range [min]="0" [max]="9"></m-numeric-input>`;
+    public readonly maxlengthCode = `<m-input type="text" maxlength="3"/>`;
+    protected readonly stringValueCode = `<m-input [(value)]="value"/>`;
+    protected readonly stringValueTypeScriptCode = `protected value: string | undefined;`;
+    protected readonly stringTextCode = `<m-input [(text)]="value"/>`;
+    protected readonly stringTextTypeScriptCode = `protected value: string = '';`;
+    protected readonly numericValueCode = `<m-numeric-input [(value)]="value"/>`;
+    protected readonly numericValueTypeScriptCode = `protected value: number | undefined;`;
+    protected readonly numericNumberCode = `<m-numeric-input [(number)]="value"/>`;
+    protected readonly numericNumberTypeScriptCode = `protected value: number = 0;`;
+    protected readonly dateValueCode = `<m-date-input [(value)]="value"/>`;
+    protected readonly dateValueTypeScriptCode = `protected value: Date | undefined;`;
+    protected readonly dateDateCode = `<m-date-input [(date)]="value"/>`;
+    protected readonly dateDateTypeScriptCode = `protected value: Date = new Date();`;
+    public readonly minCode = `<m-numeric-input [min]="1"/>`;
+    public readonly maxCode = `<m-numeric-input [max]="9"/>`;
+    public readonly zeroCode = `<m-numeric-input zeroText="Zero"/>`;
+    public readonly rangeCode = `<m-numeric-input range [min]="0" [max]="9"/>`;
 
     public readonly states1 = `<m-input type="text" placeholder="Search..." focused></m-input>`;
     public readonly states2 = `<m-input type="text" placeholder="Search..." icon="search" iconPosition="left" loading></m-input>`;

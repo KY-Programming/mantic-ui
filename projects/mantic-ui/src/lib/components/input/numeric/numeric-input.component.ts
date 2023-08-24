@@ -112,7 +112,7 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     protected onInternalChange(rawValue: string | null | undefined): void {
         let value = typeof rawValue === 'string' ? parseFloat(rawValue) : rawValue ?? undefined;
         this.setInternalValue(value);
-        value = value == undefined ? undefined : Math2.keepInRange(this.min, value, this.max);
+        value = value == undefined || Number.isNaN(value) ? undefined : Math2.keepInRange(this.min, value, this.max);
         if (value !== this.value) {
             this.valueField = value;
             this.valueChange.emit(this.value);
