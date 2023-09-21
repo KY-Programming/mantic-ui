@@ -8,4 +8,5 @@ export interface Notification {
     closeable?: boolean;
     group?: string;
     icon?: IconType;
+    loading?: boolean;
 }

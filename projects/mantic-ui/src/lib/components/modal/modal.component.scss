@@ -1,3 +1,8 @@
+:host.hide-dimmer > .ui.dimmer {
+    transition: none;
+    background-color: transparent;
+}
+
 .ui.modal > .content.no-padding {
     padding: 0;
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../components/header/header.component';
 import { ErrorComponent, HeaderDirective, IconComponent, InfoComponent, MessageComponent, TabComponent, TabGroupComponent, WarningComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { faRocket } from '@fortawesome/pro-solid-svg-icons';
 
 @Component({
     selector: 'app-message-example',
@@ -12,6 +13,8 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
     styleUrls: ['./message.component.scss']
 })
 export class MessageExampleComponent {
+    protected readonly faRocket = faRocket;
+
     public readonly messageCode = `<m-message header="Changes in Service">
     We just updated our privacy policy here to better service our customers.
     We recommend reviewing the changes.
@@ -32,4 +35,6 @@ export class MessageExampleComponent {
     That offer has expired
 </m-error>`;
 
+    protected readonly iconCode = `<m-message [icon]="faRocket">Launching...</m-message>`;
+    protected readonly loadingCode = `<m-message loading>Loading...</m-message>`;
 }

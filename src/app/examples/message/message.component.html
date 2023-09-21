@@ -25,14 +25,31 @@
                     <li>Did you know it's been a while?</li>
                 </ul>
             </m-info>
-            <m-example-code [code]="infoCode"></m-example-code>
+            <m-example-code [code]="infoCode" />
         </m-example>
         <!--    TODO: Fix missing header    -->
         <m-example header="Negative / Error" description="A message may be formatted to display a negative message.">
             <m-error header="We're sorry we can't apply that discount">
                 That offer has expired
             </m-error>
-            <m-example-code [code]="errorCode"></m-example-code>
+            <m-example-code [code]="errorCode" />
+        </m-example>
+    </m-tab>
+    <m-tab label="Variations">
+        <m-info>All examples work also for
+            <code>m-error</code>
+            ,
+            <code>m-warning</code>
+            and
+            <code>m-info</code>
+        </m-info>
+        <m-example header="Icon" description="A message can have a icon">
+            <m-message [icon]="faRocket">Launching...</m-message>
+            <m-example-code [code]="iconCode" />
+        </m-example>
+        <m-example header="Loading" description="A message can have a spinner">
+            <m-message loading>Loading...</m-message>
+            <m-example-code [code]="loadingCode" />
         </m-example>
     </m-tab>
 </m-tab-group>

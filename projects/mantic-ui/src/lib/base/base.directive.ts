@@ -48,7 +48,7 @@ export abstract class BaseDirective extends Destroyable implements OnInit {
         }
         for (let index = 0; index < this.elementRef.nativeElement.attributes.length; index++) {
             const attribute = this.elementRef.nativeElement.attributes[index];
-            if (attribute.name.indexOf('_ng') === 0 || attribute.name.indexOf('ng-') === 0 || attribute.name.indexOf('m-') === 0 || attribute.name === 'class') {
+            if (attribute.name.indexOf('_ng') === 0 || attribute.name.indexOf('ng-') === 0 || attribute.name.indexOf('m-') === 0 || attribute.name === 'class' || attribute.name === 'title') {
                 continue;
             }
             if (!this.classes.has(attribute.name)) {

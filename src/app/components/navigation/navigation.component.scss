@@ -3,8 +3,40 @@
     height: 100%;
 }
 
+.expander {
+    position: absolute;
+    top: 0;
+    left: 16rem;
+    background-color: #1B1C1D;
+    color: white;
+    z-index: 999;
+    width: 32px;
+    height: 32px;
+    border-bottom-right-radius: 8px;
+    cursor: pointer;
+
+    m-icon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    &:not(.expanded) {
+        left: 0;
+
+        m-icon {
+            transform: translate(-50%, -50%) rotate(180deg);
+        }
+    }
+}
+
 m-flex.ui.vertical.menu {
     display: flex;
+
+    &:not(.expanded) {
+        width: 0;
+    }
 }
 
 // m-menu {

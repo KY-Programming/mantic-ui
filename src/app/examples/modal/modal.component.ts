@@ -26,6 +26,10 @@ export class ModalExampleComponent {
     public showChangeIcon = false;
     public showInverted = false;
     public showLoading = false;
+    public showWithoutHeader = false;
+    public showWithoutFooter = false;
+    public showWithoutDimmer = false;
+    public showWithClose = false;
     protected readonly faRocket = faRocket;
 
     public standardCode = `<m-button (click)="showModal = true">Open</m-button>
@@ -99,5 +103,12 @@ public size: ModalSize = 'mini';`;
     public readonly changeIconCode = `<!-- Place the next line anywhere global like on your app.component.html -->
 <m-modal-defaults [closeIcon]="faRocket"></m-modal-defaults>
 <m-modal>...</m-modal>`;
+
+    protected invertedCode = `<m-modal inverted />`;
+    protected loadingCode = `<m-modal [loading]="isLoading" />`;
+    protected hideHeaderCode = `<m-modal hideHeader />`;
+    protected hideFooterCode = `<m-modal hideFooter />`;
+    protected hideDimmerCode = `<m-modal hideDimmer />`;
+    protected showCloseCode = `<m-modal showClose />`;
 
 }

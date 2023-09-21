@@ -1,22 +1,22 @@
-<m-dimmer page [useContent]="false" [hideOnClick]="false" (mousedown)="onDimmerClick($event)">
+<m-dimmer page (mousedown)="onDimmerClick($event)">
     <div class="ui" [class.basic]="basic" [class.active]="visible" [class.fullscreen]="fullscreen" [class.modal]="true" [class.mini]="size === 'mini'" [class.tiny]="size === 'tiny'" [class.small]="size === 'small'" [class.large]="size === 'large'" [class.inverted]="inverted">
         <div *ngIf="showHeader" [class.ui]="basic" [class.icon]="basic" class="header">
-            <ng-content select="m-modal-header"></ng-content>
+            <ng-content select="m-modal-header" />
             <m-modal-header *m-fallback-for="'m-modal-header'">
                 {{header}}
             </m-modal-header>
             <ng-container *ngIf="basic && showClose === true || !basic && (showClose || showClose === undefined)">
-                <m-icon *ngIf="closeIcon || defaults.closeIcon" [icon]="closeIcon ?? defaults.closeIcon" class="close" (click)="onClose()"></m-icon>
+                <m-icon *ngIf="closeIcon || defaults.closeIcon" [icon]="closeIcon ?? defaults.closeIcon" class="close" (click)="onClose()" />
             </ng-container>
         </div>
         <div [class.image]="imageContent" [class.scrolling]="scrolling" class="content" [class.no-padding]="noPadding" [style.min-height]="minContentHeight" [style.max-height]="maxContentHeight">
-            <ng-content></ng-content>
+            <ng-content />
             <m-dimmer *ngIf="loading" inverted>
-                <m-loader></m-loader>
+                <m-loader />
             </m-dimmer>
         </div>
         <div *ngIf="showFooter" class="actions">
-            <ng-content select="m-modal-footer"></ng-content>
+            <ng-content select="m-modal-footer" />
             <m-modal-footer *m-fallback-for="'m-modal-footer'">
                 <m-button primary (click)="onClose()">Close</m-button>
             </m-modal-footer>

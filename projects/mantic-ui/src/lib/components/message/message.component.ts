@@ -6,6 +6,7 @@ import { IconSize } from '../icon/icon-size';
 import { IgnoredDirective } from '../../directives/ignored.directive';
 import { CommonModule } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
+import { LoaderComponent } from '../loader/loader.component';
 
 export declare type MessageAttached = 'bottom' | 'top' | undefined;
 
@@ -16,7 +17,8 @@ export declare type MessageAttached = 'bottom' | 'top' | undefined;
     standalone: true,
     imports: [
         CommonModule,
-        IconComponent
+        IconComponent,
+        LoaderComponent
     ],
     hostDirectives: [...BaseComponent.directives, IgnoredDirective.default],
     providers: [...BaseComponent.providers]
@@ -31,6 +33,7 @@ export class MessageComponent extends BaseComponent {
     private isInfo = false;
     private isClosable = false;
     private isCloseVisible = true;
+    private isLoading = false;
     private attachedValue: MessageAttached;
     private iconValue: IconType | undefined;
 
@@ -86,29 +89,39 @@ export class MessageComponent extends BaseComponent {
         this.isError = this.toBoolean(value);
     }
 
+    @Input()
     public get closable(): boolean {
         return this.isClosable;
     }
 
-    @Input()
     public set closable(value: BooleanLike) {
         this.isClosable = this.toBoolean(value);
     }
 
+    @Input()
     public get showClose(): boolean {
         return this.isCloseVisible;
     }
 
-    @Input()
     public set showClose(value: BooleanLike) {
         this.isCloseVisible = this.toBoolean(value);
     }
 
+    @Input()
+    public get loading(): boolean {
+        return this.isLoading;
+    }
+
+    public set loading(value: BooleanLike) {
+        this.isLoading = this.toBoolean(value);
+        this.classes.set('icon', this.isLoading || !!this.iconValue);
+    }
+
+    @Input()
     public get attached(): MessageAttached {
         return this.attachedValue;
     }
 
-    @Input()
     public set attached(value: MessageAttached) {
         this.attachedValue = value;
         this.classes.set('attached', value ? value + ' attached' : undefined);

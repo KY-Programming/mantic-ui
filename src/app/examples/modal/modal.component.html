@@ -15,7 +15,9 @@
                 </div>
                 <div class="description">
                     <div class="ui header">We've auto-chosen a profile image for you.</div>
-                    <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+                    <p>We've grabbed the following image from the
+                        <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.
+                    </p>
                     <p>Is it okay to use this photo?</p>
                 </div>
                 <m-modal-footer>
@@ -103,6 +105,46 @@
         </m-example>
     </m-tab>
     <m-tab label="Variations">
+        <m-example header="Show close button" description="A modal can have a close button">
+            <m-example-code [code]="showCloseCode"/>
+            <ng-container>
+                <m-modal *ngIf="showWithClose" showClose hideFooter (close)="showWithClose = false">
+                    Some content
+                </m-modal>
+            </ng-container>
+            <m-button (click)="showWithClose = true">Open with close</m-button>
+        </m-example>
+
+        <m-example header="Hide header" description="Show a modal without a header">
+            <m-example-code [code]="hideHeaderCode"/>
+            <ng-container>
+                <m-modal *ngIf="showWithoutHeader" hideHeader (close)="showWithoutHeader = false">
+                    Some content
+                </m-modal>
+            </ng-container>
+            <m-button (click)="showWithoutHeader = true">Open without header</m-button>
+        </m-example>
+
+        <m-example header="Hide footer" description="Show a modal without a footer">
+            <m-example-code [code]="hideFooterCode"/>
+            <ng-container>
+                <m-modal *ngIf="showWithoutFooter" header="Header" hideFooter showClose (close)="showWithoutFooter = false">
+                    Some content
+                </m-modal>
+            </ng-container>
+            <m-button (click)="showWithoutFooter = true">Open without footer</m-button>
+        </m-example>
+
+        <m-example header="Hide dimmer" description="Show a modal without a dimmer">
+            <m-example-code [code]="hideDimmerCode"/>
+            <ng-container>
+                <m-modal *ngIf="showWithoutDimmer" hideDimmer (close)="showWithoutDimmer = false">
+                    Some content
+                </m-modal>
+            </ng-container>
+            <m-button (click)="showWithoutDimmer = true">Open without dimmer</m-button>
+        </m-example>
+
         <m-example header="Full Screen" description="A modal can use the entire size of the screen">
             <m-example-code [code]="fullscreenCode"></m-example-code>
             <m-modal *ngIf="showFullscreen" fullscreen (close)="showFullscreen = false">
@@ -122,11 +164,31 @@
         </m-example>
 
         <m-example header="Without content padding" description="Removes the padding of the modal content">
-            <m-example-code [code]="noPaddingCode"></m-example-code>
+            <m-example-code [code]="noPaddingCode"/>
             <m-modal *ngIf="showNoPadding" noPadding (close)="showNoPadding = false">
                 This modal has no content padding
             </m-modal>
             <m-button (click)="showNoPadding = true">Open without padding</m-button>
+        </m-example>
+
+        <m-example header="Inverted" description="A modal can be displayed with inverted colors">
+            <m-example-code [code]="invertedCode"/>
+            <ng-container>
+                <m-modal *ngIf="showInverted" header="Inverted" inverted (close)="showInverted = false">
+                    The colors are inverted
+                </m-modal>
+            </ng-container>
+            <m-button (click)="showInverted = true">Show with inverted colors</m-button>
+        </m-example>
+
+        <m-example header="Loading" description="A modal can have a spinner">
+            <m-example-code [code]="loadingCode"/>
+            <ng-container>
+                <m-modal *ngIf="showLoading" header="Loading..." loading (close)="showLoading = false">
+                    Some content
+                </m-modal>
+            </ng-container>
+            <m-button (click)="showLoading = true">Show loading</m-button>
         </m-example>
 
         <m-example header="Size" description="A modal can vary in size" [code]="sizeCode">
@@ -175,24 +237,6 @@
                 </m-modal>
             </ng-container>
             <m-button (click)="showChangeIcon = true">Show with changed Item</m-button>
-        </m-example>
-
-        <m-example header="Inverted" description="A modal can be displayed with inverted colors" [code]="changeIconCode">
-            <ng-container>
-                <m-modal *ngIf="showInverted" header="Inverted" inverted (close)="showInverted = false">
-                    The colors are inverted
-                </m-modal>
-            </ng-container>
-            <m-button (click)="showInverted = true">Show with inverted colors</m-button>
-        </m-example>
-
-        <m-example header="Loading" description="A modal can have a spinner" [code]="changeIconCode">
-            <ng-container>
-                <m-modal *ngIf="showLoading" header="Loading..." loading (close)="showLoading = false">
-                    Some content
-                </m-modal>
-            </ng-container>
-            <m-button (click)="showLoading = true">Show loading</m-button>
         </m-example>
     </m-tab>
     <m-tab label="Binding">

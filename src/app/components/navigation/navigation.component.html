@@ -1,5 +1,8 @@
+<div class="expander" [class.expanded]="isMenuExpanded" (click)="toggle()">
+    <m-icon [icon]="faChevronLeft" />
+</div>
 <!-- <m-menu position="left"> -->
-<m-flex class="ui vertical inverted menu">
+<m-flex class="ui vertical inverted menu" [class.expanded]="isMenuExpanded">
     <a class="item" routerLink="/">
         <span class="ui logo icon image">
             <img src="/assets/mantic.png" alt="mantic">

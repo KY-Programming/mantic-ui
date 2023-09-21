@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, inject, Input, Output } from '@angular/core';
 import { BooleanLike } from '../../models/boolean-like';
 import { IconType } from '../icon/icon-type';
 import { ReplaySubject } from 'rxjs';
@@ -48,6 +48,7 @@ export class ModalComponent extends InvertibleComponent {
     private isShowClose = false;
     private isShowHeader = true;
     private isShowFooter = true;
+    private isHideDimmer = false;
     private isVisible = true;
     private isImageContent = false;
     private isFullscreen = false;
@@ -84,12 +85,40 @@ export class ModalComponent extends InvertibleComponent {
     }
 
     @Input()
+    public get hideHeader(): boolean {
+        return !this.isShowHeader;
+    }
+
+    public set hideHeader(value: BooleanLike) {
+        this.isShowHeader = !this.toBoolean(value);
+    }
+
+    @Input()
     public get showFooter(): boolean {
         return this.isShowFooter;
     }
 
     public set showFooter(value: BooleanLike) {
         this.isShowFooter = this.toBoolean(value);
+    }
+
+    @Input()
+    public get hideFooter(): boolean {
+        return !this.isShowFooter;
+    }
+
+    public set hideFooter(value: BooleanLike) {
+        this.isShowFooter = !this.toBoolean(value);
+    }
+
+    @Input()
+    @HostBinding('class.hide-dimmer')
+    public get hideDimmer(): boolean {
+        return this.isHideDimmer;
+    }
+
+    public set hideDimmer(value: BooleanLike) {
+        this.isHideDimmer = this.toBoolean(value);
     }
 
     @Input()
@@ -163,7 +192,7 @@ export class ModalComponent extends InvertibleComponent {
 
     public constructor() {
         super(false);
-        this.classes.register('visible', 'fullscreen', 'size', 'scrolling', 'imageContent', 'header', 'footer', 'showHeader', 'showFooter', 'showClose', 'minContentHeight', 'maxContentHeight');
+        this.classes.register('visible', 'fullscreen', 'size', 'scrolling', 'imageContent', 'header', 'footer', 'showHeader', 'hideHeader', 'showFooter', 'hideFooter', 'hideDimmer', 'showClose', 'minContentHeight', 'maxContentHeight');
         ModalComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
 

@@ -1,11 +1,12 @@
-<ng-container *ngIf="messages?.length && mode === 'overlap'" [ngTemplateOutlet]="messageTemplate" [ngTemplateOutletContext]="{ $implicit: messages[0] }"></ng-container>
+<ng-container *ngIf="messages?.length && mode === 'overlap'" [ngTemplateOutlet]="messageTemplate" [ngTemplateOutletContext]="{ $implicit: messages[0] }" />
 <ng-container *ngIf="mode === 'stack'">
-    <ng-container *ngFor="let message of messages" [ngTemplateOutlet]="messageTemplate" [ngTemplateOutletContext]="{ $implicit: message }"></ng-container>
+    <ng-container *ngFor="let message of messages" [ngTemplateOutlet]="messageTemplate" [ngTemplateOutletContext]="{ $implicit: message }" />
 </ng-container>
 
 <ng-template let-message #messageTemplate>
-    <m-message [error]="message.type === 'error'" [warning]="message.type === 'warning'" [success]="message.type === 'success'" [positive]="message.type === 'positive'" [info]="message.type === 'info'"
-               [header]="message.title" [icon]="message.icon" closable [showClose]="message.type === 'error'" attached="bottom" (close)="close(message)">
+    <m-message *ngIf="$message(message) as message"
+               [error]="message.type === 'error'" [warning]="message.type === 'warning'" [success]="message.type === 'success'" [positive]="message.type === 'positive'" [info]="message.type === 'info'"
+               [header]="message.title" [icon]="message.icon" closable [showClose]="message.type === 'error'" attached="bottom" [loading]="message.loading" (close)="close(message)">
         {{message.text}}
     </m-message>
 </ng-template>

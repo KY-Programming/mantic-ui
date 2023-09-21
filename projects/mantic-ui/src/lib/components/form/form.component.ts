@@ -166,8 +166,14 @@ export class FormComponent extends InvertibleComponent implements OnInit {
     public validateAndSubmit(): void {
         if (this.error) {
             this.fieldComponents?.forEach(field => field.forceValidation());
-        } else {
+        }
+        else {
             this.submit.emit();
         }
+    }
+
+    protected onSubmit(event: SubmitEvent): void {
+        event.preventDefault();
+        // TODO: Implement
     }
 }

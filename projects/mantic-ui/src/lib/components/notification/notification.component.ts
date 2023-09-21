@@ -39,4 +39,8 @@ export class NotificationComponent extends BaseComponent {
     public close(message: Notification): void {
         this.notificationService.remove(message);
     }
+
+    protected $message(message: unknown): Notification {
+        return message as Notification;
+    }
 }

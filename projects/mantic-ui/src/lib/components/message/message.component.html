@@ -1,4 +1,5 @@
 <div *ngIf="header" class="header">{{header}}</div>
-<m-icon *ngIf="icon" [icon]="icon" [size]="iconSize" class="icon"></m-icon>
-<ng-content></ng-content>
-<m-icon *ngIf="closable && showClose" [icon]="closeIcon ?? defaults.closeIcon" [size]="closeIconSize ?? defaults.closeIconSize" class="close icon" (click)="close.emit()"></m-icon>
+<m-icon *ngIf="icon && !loading" [icon]="icon" [size]="iconSize" class="icon" />
+<m-loader *ngIf="loading" inline class="icon" />
+<ng-content />
+<m-icon *ngIf="closable && showClose" [icon]="closeIcon ?? defaults.closeIcon" [size]="closeIconSize ?? defaults.closeIconSize" class="close icon" (click)="close.emit()" />

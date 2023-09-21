@@ -21,6 +21,7 @@ export class DimmerComponent extends InvertibleComponent implements OnInit, OnDe
     };
     private visibleValue = true;
     private isPage = false;
+    private isHideOnClick = false;
 
     @Input()
     @HostBinding('class.page')
@@ -32,11 +33,17 @@ export class DimmerComponent extends InvertibleComponent implements OnInit, OnDe
         this.isPage = this.toBoolean(value);
     }
 
-    @Input()
-    public useContent = true;
+    // @Input()
+    // public useContent = true;
 
     @Input()
-    public hideOnClick = true;
+    public get hideOnClick(): boolean {
+        return this.isHideOnClick;
+    }
+
+    public set hideOnClick(value: BooleanLike) {
+        this.isHideOnClick = this.toBoolean(value);
+    }
 
     @Input()
     @HostBinding('class.visible')
@@ -48,7 +55,8 @@ export class DimmerComponent extends InvertibleComponent implements OnInit, OnDe
     public set visible(value: BooleanLike) {
         if (this.toBoolean(value)) {
             this.show();
-        } else {
+        }
+        else {
             this.hide();
         }
     }

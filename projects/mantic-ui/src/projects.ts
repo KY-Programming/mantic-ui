@@ -154,6 +154,7 @@ export * from './lib/helpers/to-boolean';
 export * from './lib/helpers/timespan';
 export * from './lib/helpers/object-helper';
 export * from './lib/helpers/math2';
+export * from './lib/helpers/map-void';
 export * from './lib/helpers/mouse';
 export * from './lib/helpers/date-helper';
 export * from './lib/helpers/provide-locale';

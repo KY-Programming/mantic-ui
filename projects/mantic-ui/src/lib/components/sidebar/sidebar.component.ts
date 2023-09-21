@@ -73,7 +73,7 @@ export class SidebarComponent extends BaseComponent {
 
     public constructor() {
         super();
-        this.classes.register('inverted', 'width', 'position', 'visible', 'fluid', 'noScrolling')
+        this.classes.register('width', 'position', 'visible', 'noScrolling')
             .registerFixed('sidebar');
         this.position = 'left';
         this.visible = true;

@@ -23,6 +23,9 @@ export class ContextMenuItemComponent extends MenuItemComponent {
     public icon: IconType | undefined;
 
     @Input()
+    public iconColor: string | undefined;
+
+    @Input()
     public get keepOpen(): boolean {
         return this.keepOpenValue;
     }

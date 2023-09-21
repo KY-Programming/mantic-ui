@@ -3,6 +3,7 @@ import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } fro
 import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, FillComponent, FlexComponent, FlexDirective, IconComponent } from '@mantic-ui/angular';
+import { faChevronLeft } from '@fortawesome/pro-solid-svg-icons';
 
 @Component({
     selector: 'app-navigation',
@@ -12,9 +13,11 @@ import { ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, FillCo
     styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
+    protected readonly faChevronLeft = faChevronLeft;
     private static previous: string;
     protected isSemantic = false;
     protected prefix = '';
+    protected isMenuExpanded = true;
 
     public constructor(
         private readonly router: Router
@@ -31,7 +34,8 @@ export class NavigationComponent implements OnInit {
         if (this.isSemantic) {
             favicon.href = window.location.origin + '/assets/semantic.png';
             this.prefix = 'semantic';
-        } else {
+        }
+        else {
             favicon.href = window.location.origin + '/assets/fomantic.png';
             this.prefix = 'fomantic';
         }
@@ -44,5 +48,9 @@ export class NavigationComponent implements OnInit {
 
     protected toSemantic(): void {
         window.location.href = this.router.url.replace('fomantic', 'semantic');
+    }
+
+    protected toggle(): void {
+        this.isMenuExpanded = !this.isMenuExpanded;
     }
 }

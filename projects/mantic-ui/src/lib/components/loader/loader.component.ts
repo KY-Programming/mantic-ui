@@ -1,9 +1,10 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, HostBinding, inject, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { InvertedDirective } from '../../directives/inverted.directive';
 import { CommonModule } from '@angular/common';
 import { ActiveDirective } from '../../directives/active.directive';
 import { InlineDirective } from '../../directives/inline.directive';
+import { BooleanLike } from '../../models/boolean-like';
 
 export declare type LoaderSize = 'mini' | 'tiny' | 'small' | 'large' | 'big' | 'huge' | 'massive';
 
@@ -22,6 +23,7 @@ export class LoaderComponent extends BaseComponent {
     private readonly activeDirective = inject(ActiveDirective);
     private textValue: string | undefined;
     private sizeValue: LoaderSize | undefined;
+    private isInline = false;
 
     @Input()
     public get text(): string | undefined {
@@ -41,6 +43,16 @@ export class LoaderComponent extends BaseComponent {
     public set size(value: LoaderSize | undefined) {
         this.sizeValue = value;
         this.classes.set('size', value);
+    }
+
+    @Input()
+    @HostBinding('class.inline')
+    public get inline(): boolean {
+        return this.isInline;
+    }
+
+    public set inline(value: BooleanLike) {
+        this.isInline = this.toBoolean(value);
     }
 
     public constructor() {
