@@ -1,198 +1,255 @@
+<!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
-    <title>mantic UI</title>
+    <title>mantic UI - KY-Programming</title>
     <base href="/">
 
     <meta content="width=device-width, initial-scale=1, minimum-scale=1" name="viewport">
+    <meta name="theme-color" content="#254b7c" />
 
     <link rel="icon" type="image/png" href="/assets/mantic.png" sizes="64x64" id="favicon">
 </head>
-
 <body>
 <app-root>
     <style>
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
+        body, html {
+            font-family: Lato, Helvetica Neue, Arial, Helvetica, sans-serif;
+            background-color: #262626;
         }
 
-        body {
-            background-color: #0099D3;
-            font-family: "Segoe UI", Arial, sans-serif;
-        }
-
-        .loader, .loader svg {
+        .ui.modal {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            background: #FFFFFF;
+            box-shadow: 1px 3px 3px #0003, 1px 3px 15px 2px #0003;
+            border-radius: 0.28571429rem;
         }
 
-        .loader .dot {
-            display: inline-block;
-            width: 15px;
-            height: 15px;
+        .ui.modal > .header {
+            display: flex;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            background-color: #254B7C;
+            color: white;
+            border-bottom: 1px solid rgba(34, 36, 38, .15);
+            font-weight: 700;
+        }
+
+        .header img {
+            width: 48px;
+            height: 48px;
+        }
+
+        .header span {
+            font-size: 1.75rem;
+        }
+
+        .content {
+            padding: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .ui.segment {
+            position: relative;
+            box-shadow: 0 1px 2px #22242626;
+            padding: 1em;
+            border-radius: 0.28571429rem;
+            border: 1px solid rgba(34, 36, 38, .15);
+        }
+
+        m-segment {
+            display: flex;
+            align-items: center;
+        }
+
+        .step:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+
+        .ui.segment:first-child {
+            margin-top: 0;
+        }
+
+        m-auto {
+            flex: 0 0 auto;
+        }
+
+        m-fill {
+            flex: 1;
+        }
+
+        .step .loader {
+            position: relative;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            margin: 4px;
-            background: white;
-            animation: wave 0.9s linear infinite;
+            background-color: #f0f0f0;
+            margin-right: 1rem;
         }
 
-        .loader .dot:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .loader .dot:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        .loader.error .dot {
-            display: none;
-        }
-
-        .loader svg {
-            top: calc(50% - 8px);
-        }
-
-        .loader.error svg * {
-            stroke: red;
-        }
-
-        .loader .text {
+        .step .loader.active:before,
+        .step .loader.active:after {
             position: absolute;
-            top: 105px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            width: 240px;
-            text-align: center;
+            content: "";
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 4px solid rgba(0, 0, 0, .1);
+            border-radius: 50%;
+            box-sizing: border-box;
         }
 
-        .loader .text:not(.visible) {
-            display: none;
+        .step .loader.active:after {
+            border-top-color: #767676;
+            animation: loader 0.6s linear;
+            animation-iteration-count: infinite;
         }
 
-        button {
-            background-color: #254b7c;
-            color: white;
-            margin-top: 0.5em;
-            padding: 0.688em 1.5em;
-            border: 1px solid #254B7C;
-            cursor: pointer;
+        .step .loader.error {
+            background-color: #DB2828;
         }
 
-        @keyframes wave {
+        .step .header {
+            font-weight: bold;
+        }
 
-            0%,
-            60%,
-            100% {
-                transform: initial;
+        .step .small {
+            font-size: 0.875em;
+        }
+
+        .step .wait {
+            font-style: italic;
+            opacity: 0.5;
+        }
+
+        @keyframes loader {
+            from {
+                transform: rotate(0deg);
             }
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
-            30% {
-                transform: translateY(-20px);
+        @media only screen and (max-width: 767.98px) {
+            .ui.tiny.modal {
+                width: 95%;
+                margin: 0 0 0 0;
+            }
+        }
+
+        @media only screen and (min-width: 768px) {
+            .ui.tiny.modal {
+                width: 52.8%;
+                margin: 0 0 0 0;
+            }
+        }
+
+        @media only screen and (min-width: 992px) {
+            .ui.tiny.modal {
+                width: 510px;
+                margin: 0 0 0 0;
             }
         }
     </style>
     <script>
-        function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
-            var angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
+        let filesToLoad = 1;
+        let filesLoaded = 1;
+        let longLoading = false;
+        let veryLongLoading = false;
+        let errorLoading = false;
+        setTimeout(() => {
+            longLoading = true;
+            refresh();
+        }, 10 * 1000);
+        setTimeout(() => {
+            veryLongLoading = true;
+            refresh();
+        }, 15 * 1000);
+        const refresh = function () {
+            let percentageElement = document.getElementById('percentage');
+            if (!percentageElement) {
+                return;
+            }
+            if (errorLoading) {
+                percentageElement.innerText = 'Looks like there is something wrong. Try to reload the page.';
+                let loaderElement = document.getElementById('loader');
+                loaderElement.classList.remove('active');
+                loaderElement.classList.add('error');
+                return;
+            }
+            let percentage = filesToLoad > 1 ? filesLoaded / filesToLoad * 100 : 0;
+            percentageElement.innerText = Math.floor(percentage) + '% downloaded.';
+            if (veryLongLoading) {
+                percentageElement.innerText += 'Something takes very long. Maybe the connection is very slow or something went wrong. Wait a bit more or try to reload.';
+            } else if (longLoading) {
+                percentageElement.innerText += 'Something takes longer than usual...';
+            }
+        };
 
-            return {
-                x: centerX + (radius * Math.cos(angleInRadians)),
-                y: centerY + (radius * Math.sin(angleInRadians))
-            };
-        }
-
-        function describeArc(x, y, radius, startAngle, endAngle) {
-
-            var start = polarToCartesian(x, y, radius, endAngle);
-            var end = polarToCartesian(x, y, radius, startAngle);
-
-            var largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1';
-
-            var d = [
-                'M', start.x, start.y,
-                'A', radius, radius, 0, largeArcFlag, 0, end.x, end.y
-            ].join(' ');
-
-            return d;
-        }
-
-        let currentRadius = 0;
-        const animationTime = 1000;
-        const steps = 10;
-        const threshold = 360 * 0.75;
-        let interval;
-
-        function refresh(radius) {
-            let startTimestamp;
-            let stepDuration;
-            let stepRadius;
-            const animate = currentTimestamp => {
-                if (!startTimestamp) {
-                    startTimestamp = currentTimestamp;
-                    window.requestAnimationFrame(animate);
-                    return;
+        const observer = new MutationObserver(records => {
+            for (const record of records) {
+                for (const node of record.addedNodes) {
+                    if (node.nodeName === 'SCRIPT') {
+                        filesToLoad++;
+                        refresh();
+                        node.onload = () => {
+                            filesLoaded++;
+                            refresh();
+                        };
+                        node.onerror = () => {
+                            errorLoading = true;
+                            refresh();
+                        };
+                    }
                 }
-                stepDuration ??= currentTimestamp - startTimestamp;
-                stepRadius ??= (radius - currentRadius) / animationTime * 2 * stepDuration;
-
-                currentRadius += stepRadius;
-                if (currentRadius < radius) {
-                    window.requestAnimationFrame(animate);
-                } else {
-                    currentRadius = radius;
-                }
-                document.getElementById('arc')?.setAttribute('d', describeArc(160, 160, 80, 0, Math.min(currentRadius, 359)));
-            };
-            window.requestAnimationFrame(animate);
-        }
-
-        window.onload = function() {
-            clearInterval(interval);
-        }
-
-        let step = 1;
-        refresh(360 / steps * step);
-        interval = setInterval(() => {
-            step++;
-            const maxRadius = 360 / steps * step;
-            const maxStep = currentRadius < threshold ? maxRadius - currentRadius : (360 - currentRadius) * 0.25;
-            const radius = maxStep / 2 + maxStep / 2 * Math.random();
-            refresh(currentRadius + radius);
-            if (step > 10) {
-                document.getElementById('wait').classList.add('visible');
             }
-            if (step > 20) {
-                document.getElementById('wait').classList.remove('visible');
-                document.getElementById('error').classList.add('visible');
-                document.getElementById('loader').classList.add('error');
-            }
-            if (currentRadius > 360 || step > 20 || !document.getElementById('loader')) {
-                clearInterval(interval);
-            }
-        }, animationTime);
-        document.getElementById('reload')?.addEventListener('click', () => document.location.reload());
+        });
+        observer.observe(document.body, {childList: true});
     </script>
-    <div class="loader" id="loader">
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <svg width="320" height="320" id="svg">
-            <path id="arc" fill="none" stroke="#ffffff" stroke-width="15" d=""/>
-        </svg>
-        <div class="text" id="wait">Something takes longer than usual...</div>
-        <div class="text" id="error">
-            Maybe the connection is very slow or something went wrong.
-            <button id="reload">Try to reload</button>
+
+    <div class="ui tiny modal">
+        <div class="header">
+            <img src="https://ky-programming.de/assets/images/logos/64.png" loading="lazy" alt="KY">
+            <span>&nbsp; mantic UI</span>
+        </div>
+        <div class="content scrolling" style="min-height: 100px;">
+            <m-segment class="step ui segment">
+                <m-auto class="loader active" id="loader"></m-auto>
+                <m-fill>
+                    <div class="header">Download application</div>
+                    <span id="percentage" class="small">10% downloaded</span>
+                </m-fill>
+            </m-segment>
+            <m-segment class="step ui segment">
+                <m-auto class="loader"></m-auto>
+                <m-fill>
+                    <div class="header">Connect to server</div>
+                    <div class="wait small">Wait for previous step...</div>
+                </m-fill>
+            </m-segment>
+            <m-segment class="step ui segment">
+                <m-auto class="loader"></m-auto>
+                <m-fill>
+                    <div class="header">Sign in</div>
+                    <div class="wait small">Wait for previous step...</div>
+                </m-fill>
+            </m-segment>
+            <m-segment class="step ui segment">
+                <m-auto class="loader"></m-auto>
+                <m-fill>
+                    <div class="header">Load data</div>
+                    <div class="wait small">Wait for previous step ...</div>
+                </m-fill>
+            </m-segment>
         </div>
     </div>
-</app-root>
-</body>
 
+</app-root>
+<noscript>Please enable JavaScript to continue using this application.</noscript>
+</body>
 </html>
