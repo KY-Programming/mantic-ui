@@ -59,7 +59,7 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
     }
 
     @Input()
-    @HostBinding('class.disabled')
+    @HostBinding('class.readonly')
     public get readonly(): boolean {
         return this.readonlyValue;
     }
