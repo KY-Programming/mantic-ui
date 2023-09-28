@@ -1,13 +1,13 @@
-import { Component, ContentChildren, EventEmitter, HostBinding, inject, Input, OnInit, Output, QueryList } from '@angular/core';
-import { ReplaySubject, Subscription } from 'rxjs';
-import { FieldComponent } from '../field/field.component';
-import { BooleanLike } from '../../models/boolean-like';
-import { InvertibleComponent } from '../../base/invertible.component';
-import { takeUntil } from 'rxjs/operators';
-import { FlexDirective } from '../flex/flex.directive';
-import { LoadingDirective } from '../../directives/loading.directive';
 import { CommonModule } from '@angular/common';
+import { Component, ContentChildren, EventEmitter, HostBinding, inject, Input, OnInit, Output, QueryList } from '@angular/core';
+import { ReplaySubject, Subject, Subscription, throttleTime } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { InvertibleComponent } from '../../base/invertible.component';
+import { LoadingDirective } from '../../directives/loading.directive';
+import { BooleanLike } from '../../models/boolean-like';
+import { FieldComponent } from '../field/field.component';
 import { FillDirective } from '../flex/fill/fill.directive';
+import { FlexDirective } from '../flex/flex.directive';
 import { FlexDirection } from '../flex/flex.types';
 
 @Component({
@@ -36,6 +36,10 @@ export class FormComponent extends InvertibleComponent implements OnInit {
     private isSuccess = false;
     private isWarning = false;
     private isError = false;
+    private isAutoSubmit = false;
+    private readonly autoSubmitSubject = new Subject<void>();
+    private autoSubmitThrottleValue = 1000;
+    private autoSubmitSubscription: Subscription | undefined;
 
     protected get loading(): boolean {
         return this.loadingDirective.loading;
@@ -114,13 +118,32 @@ export class FormComponent extends InvertibleComponent implements OnInit {
     @Input()
     public target?: '_blank' | '_self' | '_parent' | '_top';
 
+    @Input()
     public get isValid(): boolean {
         return this.isValidValue;
     }
 
-    @Input()
     public set isValid(_: boolean) {
         // Ignore the value from the binding
+    }
+
+    @Input()
+    public get autoSubmit(): boolean {
+        return this.isAutoSubmit;
+    }
+
+    public set autoSubmit(value: BooleanLike) {
+        this.isAutoSubmit = this.toBoolean(value);
+    }
+
+    @Input()
+    public get autoSubmitThrottle(): number {
+        return this.autoSubmitThrottleValue;
+    }
+
+    public set autoSubmitThrottle(value: number) {
+        this.autoSubmitThrottleValue = value;
+        this.refreshAutoSubmitSubscription();
     }
 
     @Output()
@@ -131,12 +154,13 @@ export class FormComponent extends InvertibleComponent implements OnInit {
 
     public constructor() {
         super(false);
-        this.classes.register('success', 'warning', 'error');
+        this.classes.register('success', 'warning', 'error', 'autoSubmit');
     }
 
     public override ngOnInit(): void {
         super.ngOnInit();
         FormComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
+        this.refreshAutoSubmitSubscription();
     }
 
     private releaseFields(): void {
@@ -148,8 +172,18 @@ export class FormComponent extends InvertibleComponent implements OnInit {
 
     private subscribeFields(): void {
         if (this.fieldComponents) {
-            this.subscriptions = this.fieldComponents.map(field => field.errorChange.subscribe(() => this.refreshIsValid()));
+            this.subscriptions = [
+                ...this.fieldComponents.map(field => field.errorChange.subscribe(() => this.refreshIsValid())),
+                ...(this.isAutoSubmit ? this.fieldComponents.map(field => field.change.subscribe(() => this.autoSubmitSubject.next())) : [])
+            ];
         }
+    }
+
+    private refreshAutoSubmitSubscription(): void {
+        this.autoSubmitSubscription?.unsubscribe();
+        this.autoSubmitSubscription = this.autoSubmitSubject.pipe(
+            throttleTime(this.autoSubmitThrottleValue, undefined, { leading: true, trailing: true })
+        ).subscribe(() => this.validateAndSubmit());
     }
 
     private refreshIsValid(): void {

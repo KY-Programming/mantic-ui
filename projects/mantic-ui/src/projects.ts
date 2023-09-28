@@ -96,6 +96,7 @@ export * from './lib/components/modal/modal-defaults.component';
 export * from './lib/components/modal/modal-footer.component';
 export * from './lib/components/modal/modal-header.component';
 export * from './lib/components/modal/modal.component';
+export * from './lib/components/notification/async-action';
 export * from './lib/components/notification/notification.component';
 export * from './lib/components/notification/notification';
 export * from './lib/components/notification/notification.service';

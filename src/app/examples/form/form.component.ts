@@ -1,19 +1,20 @@
-import { Component, isDevMode } from '@angular/core';
-import { DemoData } from '../../helpers/demo-data';
-import { CheckboxComponent, DataSourceComponent, DataSourceRequest, DropdownComponent, DropdownItemComponent, ErrorComponent, FieldComponent, FieldGroupComponent, FormComponent, FormLayout, FormRendererComponent, HeaderDirective, IconComponent, InfoComponent, InputComponent, IsFilledPipe, IsMailPipe, MessageComponent, SegmentComponent, SliderComponent, SubmitComponent, TabComponent, TabGroupComponent, TextareaComponent, TitlePipe, ToggleComponent } from '@mantic-ui/angular';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../../components/header/header.component';
+import { Component, inject, isDevMode } from '@angular/core';
+import { CheckboxComponent, DataSourceComponent, DataSourceRequest, DropdownComponent, DropdownItemComponent, ErrorComponent, FieldComponent, FieldGroupComponent, FormComponent, FormLayout, FormRendererComponent, HeaderDirective, IconComponent, InfoComponent, InputComponent, IsFilledPipe, IsMailPipe, MessageComponent, NotificationService, NumericInputComponent, SegmentComponent, SliderComponent, SubmitComponent, TabComponent, TabGroupComponent, TextareaComponent, TitlePipe, ToggleComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { HeaderComponent } from '../../components/header/header.component';
+import { DemoData } from '../../helpers/demo-data';
 import { MyValidationPipe } from './my-validation.pipe';
 
 @Component({
     selector: 'app-form-example',
     standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, FormComponent, FieldComponent, InputComponent, CheckboxComponent, SubmitComponent, FieldGroupComponent, DropdownComponent, DropdownItemComponent, SegmentComponent, ToggleComponent, MessageComponent, SliderComponent, IsFilledPipe, IsMailPipe, TitlePipe, MyValidationPipe, TextareaComponent, ErrorComponent, FormRendererComponent, DataSourceComponent, InfoComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, FormComponent, FieldComponent, InputComponent, CheckboxComponent, SubmitComponent, FieldGroupComponent, DropdownComponent, DropdownItemComponent, SegmentComponent, ToggleComponent, MessageComponent, SliderComponent, IsFilledPipe, IsMailPipe, TitlePipe, MyValidationPipe, TextareaComponent, ErrorComponent, FormRendererComponent, DataSourceComponent, InfoComponent, NumericInputComponent],
     templateUrl: './form.component.html',
     styleUrls: ['./form.component.scss']
 })
 export class FormExampleComponent {
+    private readonly notificationService = inject(NotificationService);
     protected readonly isDev = isDevMode();
 
     public countries = DemoData.countries;
@@ -359,7 +360,8 @@ export class MyValidationPipe implements ValidationPipe, PipeTransform {
         this.rendererLayoutError = undefined;
         try {
             this.rendererLayout = json ? JSON.parse(json) : undefined;
-        } catch (error) {
+        }
+        catch (error) {
             this.rendererLayoutError = error instanceof Error ? error.message : error?.toString();
         }
     }
@@ -368,8 +370,14 @@ export class MyValidationPipe implements ValidationPipe, PipeTransform {
         this.rendererDataError = undefined;
         try {
             this.rendererData = json ? JSON.parse(json) : undefined;
-        } catch (error) {
+        }
+        catch (error) {
             this.rendererDataError = error instanceof Error ? error.message : error?.toString();
         }
+    }
+
+    protected onAutoSubmit(): void {
+        const asyncAction = this.notificationService.async('Submitting', 'Auto Submitted');
+        setTimeout(() => asyncAction.done(), 1000);
     }
 }

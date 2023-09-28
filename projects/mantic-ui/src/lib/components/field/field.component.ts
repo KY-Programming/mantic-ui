@@ -1,21 +1,22 @@
+import { CommonModule } from '@angular/common';
 import { Component, ContentChild, EventEmitter, HostBinding, Input, Output } from '@angular/core';
-import { CheckboxComponent } from '../checkbox/checkbox.component';
-import { InputComponent } from '../input/text/input.component';
+import { takeUntil } from 'rxjs/operators';
+import { BaseComponent } from '../../base/base.component';
+import { BooleanLike } from '../../models/boolean-like';
 import { FieldSize, ParsableFieldSize, parseFieldSize } from '../../models/field-size';
 import { FormError } from '../../models/form-error';
 import { FormValidation } from '../../models/form-validation';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { IconSize } from '../icon/icon-size';
+import { IconType } from '../icon/icon-type';
+import { IconComponent } from '../icon/icon.component';
+import { DateInputComponent } from '../input/date/date-input.component';
+import { NumericInputComponent } from '../input/numeric/numeric-input.component';
+import { InputComponent } from '../input/text/input.component';
 import { RadioComponent } from '../radio/radio.component';
 import { SliderComponent } from '../slider/slider.component';
 import { TextareaComponent } from '../textarea/textarea.component';
 import { ToggleComponent } from '../toggle/toggle.component';
-import { BaseComponent } from '../../base/base.component';
-import { NumericInputComponent } from '../input/numeric/numeric-input.component';
-import { DateInputComponent } from '../input/date/date-input.component';
-import { BooleanLike } from '../../models/boolean-like';
-import { CommonModule } from '@angular/common';
-import { IconType } from '../icon/icon-type';
-import { IconSize } from '../icon/icon-size';
-import { IconComponent } from '../icon/icon.component';
 
 @Component({
     selector: 'm-field',
@@ -78,6 +79,7 @@ export class FieldComponent extends BaseComponent {
             this.inputComponentValue.name = this.name;
             this.inputComponentValue.readonly = this.readonly;
             this.inputComponentValue.disabled = this.disabled;
+            this.inputComponentValue.valueChange.pipe(takeUntil(this.destroy)).subscribe(() => this.change.next());
         }
     }
 
@@ -93,6 +95,7 @@ export class FieldComponent extends BaseComponent {
             this.numericInputComponentValue.name = this.name;
             this.numericInputComponentValue.readonly = this.readonly;
             this.numericInputComponentValue.disabled = this.disabled;
+            this.numericInputComponentValue.valueChange.pipe(takeUntil(this.destroy)).subscribe(() => this.change.next());
         }
     }
 
@@ -297,7 +300,8 @@ export class FieldComponent extends BaseComponent {
         }
         if (!this.error) {
             this.wasAnytimeValid = true;
-        } else if (this.hideInitialError && !this.wasAnytimeValid) {
+        }
+        else if (this.hideInitialError && !this.wasAnytimeValid) {
             this.visibleError = false;
         }
     }
@@ -401,6 +405,9 @@ export class FieldComponent extends BaseComponent {
 
     @Output()
     public readonly errorChange = new EventEmitter<boolean>();
+
+    @Output()
+    public readonly change = new EventEmitter<void>();
 
     public constructor() {
         super(false);

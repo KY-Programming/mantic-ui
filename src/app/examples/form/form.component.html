@@ -354,6 +354,14 @@
                 </m-form>
             </m-segment>
         </m-example>
+
+        <m-example header="Auto Submit" description="A from can be configured to automatically submit on changes">
+            <m-form autoSubmit (submit)="onAutoSubmit()">
+                <m-field label="Numeric value">
+                    <m-numeric-input />
+                </m-field>
+            </m-form>
+        </m-example>
     </m-tab>
     <m-tab *ngIf="isDev" label="Renderer">
         <m-segment>
