@@ -40,6 +40,7 @@ export class FormComponent extends InvertibleComponent implements OnInit {
     private readonly autoSubmitSubject = new Subject<void>();
     private autoSubmitThrottleValue = 1000;
     private autoSubmitSubscription: Subscription | undefined;
+    private isInlineValidation = false;
 
     protected get loading(): boolean {
         return this.loadingDirective.loading;
@@ -59,10 +60,12 @@ export class FormComponent extends InvertibleComponent implements OnInit {
         this.fieldComponentsValue = value;
         this.subscribeFields();
         this.refreshIsValid();
+        this.refreshInlineValidation();
         if (this.fieldComponentsValue) {
             this.fieldComponentsValue.changes.subscribe(() => {
                 this.releaseFields();
                 this.subscribeFields();
+                this.refreshInlineValidation();
             });
         }
     }
@@ -146,6 +149,16 @@ export class FormComponent extends InvertibleComponent implements OnInit {
         this.refreshAutoSubmitSubscription();
     }
 
+    @Input()
+    public get inlineValidation(): boolean {
+        return this.isInlineValidation;
+    }
+
+    public set inlineValidation(value: BooleanLike) {
+        this.isInlineValidation = this.toBoolean(value);
+        this.refreshInlineValidation();
+    }
+
     @Output()
     public readonly submit = new EventEmitter<void>();
 
@@ -209,5 +222,9 @@ export class FormComponent extends InvertibleComponent implements OnInit {
     protected onSubmit(event: SubmitEvent): void {
         event.preventDefault();
         // TODO: Implement
+    }
+
+    private refreshInlineValidation(): void {
+        this.fieldComponents?.forEach(field => field.inlineValidation = this.inlineValidation);
     }
 }

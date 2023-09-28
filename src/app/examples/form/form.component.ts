@@ -28,6 +28,7 @@ export class FormExampleComponent {
     public name6?: string;
     public email1?: string;
     public email2?: string;
+    public inlineValidationValue: string | undefined;
 
     public readonly code1 = `<m-form>
   <m-field name="first-name" label="First Name">
@@ -345,6 +346,15 @@ export class MyValidationPipe implements ValidationPipe, PipeTransform {
     public rendererData = {};
     public rendererDataError?: string;
     public readonly inverted = `<m-form inverted></m-form>`;
+
+    protected readonly hintCode = `<m-form>
+    <m-field label="Input with hint" hint="This is a very helpful hint">
+        <m-input />
+    </m-field>
+</m-form>`;
+
+    protected readonly autoSubmitCode = `<m-form autoSubmit />`;
+    protected readonly inlineValidationCode = `<m-form inlineValidation />`;
 
     public requestData(request: DataSourceRequest): void {
         if (request.key === 'status') {

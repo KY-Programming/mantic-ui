@@ -17,6 +17,7 @@ import { RadioComponent } from '../radio/radio.component';
 import { SliderComponent } from '../slider/slider.component';
 import { TextareaComponent } from '../textarea/textarea.component';
 import { ToggleComponent } from '../toggle/toggle.component';
+import { FieldFormatErrorsPipe } from './field-format-errors.pipe';
 
 @Component({
     selector: 'm-field',
@@ -25,13 +26,19 @@ import { ToggleComponent } from '../toggle/toggle.component';
     standalone: true,
     imports: [
         CommonModule,
-        IconComponent
+        IconComponent,
+        FieldFormatErrorsPipe
     ],
     hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class FieldComponent extends BaseComponent {
-    public static readonly defaults = { hintIcon: <IconType>'info circle', hintIconSize: <IconSize>undefined };
+    public static readonly defaults = {
+        hintIcon: <IconType>'info circle',
+        hintIconSize: <IconSize>undefined,
+        errorIcon: <IconType>'exclamation circle',
+        errorIconSize: <IconSize>undefined
+    };
     private labelElementValue?: HTMLLabelElement;
     private inputComponentValue?: InputComponent;
     private numericInputComponentValue?: NumericInputComponent;
@@ -54,6 +61,7 @@ export class FieldComponent extends BaseComponent {
     protected wasAnytimeValid = false;
     public readonly errors: FormError[] = [];
     protected readonly defaults = FieldComponent.defaults;
+    private isInlineValidation = false;
 
     @ContentChild('labelElement')
     protected get labelElement(): HTMLLabelElement | undefined {
@@ -111,6 +119,7 @@ export class FieldComponent extends BaseComponent {
             this.dateInputComponentValue.name = this.name;
             this.dateInputComponentValue.readonly = this.readonly;
             this.dateInputComponentValue.disabled = this.disabled;
+            this.dateInputComponentValue.valueChange.pipe(takeUntil(this.destroy)).subscribe(() => this.change.next());
         }
     }
 
@@ -126,6 +135,7 @@ export class FieldComponent extends BaseComponent {
             this.checkboxComponentValue.label = this.label;
             this.checkboxComponentValue.readonly = this.readonly;
             this.checkboxComponentValue.disabled = this.disabled;
+            this.checkboxComponentValue.valueChange.pipe(takeUntil(this.destroy)).subscribe(() => this.change.next());
         }
     }
 
@@ -141,6 +151,7 @@ export class FieldComponent extends BaseComponent {
             this.sliderComponentValue.label = this.label;
             this.sliderComponentValue.readonly = this.readonly;
             this.sliderComponentValue.disabled = this.disabled;
+            this.sliderComponentValue.valueChange.pipe(takeUntil(this.destroy)).subscribe(() => this.change.next());
         }
     }
 
@@ -156,6 +167,7 @@ export class FieldComponent extends BaseComponent {
             this.toggleComponentValue.label = this.label;
             this.toggleComponentValue.readonly = this.readonly;
             this.toggleComponentValue.disabled = this.disabled;
+            this.toggleComponentValue.valueChange.pipe(takeUntil(this.destroy)).subscribe(() => this.change.next());
         }
     }
 
@@ -171,6 +183,7 @@ export class FieldComponent extends BaseComponent {
             this.radioComponentValue.label = this.label;
             this.radioComponentValue.readonly = this.readonly;
             this.radioComponentValue.disabled = this.disabled;
+            this.radioComponentValue.valueChange.pipe(takeUntil(this.destroy)).subscribe(() => this.change.next());
         }
     }
 
@@ -186,6 +199,7 @@ export class FieldComponent extends BaseComponent {
             // this.textareaComponentValue.label = this.label;
             this.textareaComponentValue.readonly = this.readonly;
             this.textareaComponentValue.disabled = this.disabled;
+            this.textareaComponentValue.valueChange.pipe(takeUntil(this.destroy)).subscribe(() => this.change.next());
         }
     }
 
@@ -401,6 +415,15 @@ export class FieldComponent extends BaseComponent {
 
     public set fill(value: BooleanLike) {
         this.isFill = this.toBoolean(value);
+    }
+
+    @Input()
+    public get inlineValidation(): boolean {
+        return this.isInlineValidation;
+    }
+
+    public set inlineValidation(value: BooleanLike) {
+        this.isInlineValidation = this.toBoolean(value);
     }
 
     @Output()

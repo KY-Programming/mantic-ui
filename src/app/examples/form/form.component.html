@@ -340,6 +340,14 @@
             </m-form>
             <m-example-code [code]="mandatory2"></m-example-code>
         </m-example> -->
+
+        <m-example header="Inline validation" description="Adds an addition info icon with a error title" [code]="inlineValidationCode">
+            <m-form inlineValidation>
+                <m-field label="Validated input" [valid]="inlineValidationValue | mIsFilled">
+                    <m-input [(value)]="inlineValidationValue" />
+                </m-field>
+            </m-form>
+        </m-example>
     </m-tab>
     <m-tab label="Variations">
         <m-example header="Inverted" description="A form can be displayed with inverted colors" [code]="inverted">
@@ -355,7 +363,15 @@
             </m-segment>
         </m-example>
 
-        <m-example header="Auto Submit" description="A from can be configured to automatically submit on changes">
+        <m-example header="Hint" description="A form field can have a hint" [code]="hintCode">
+            <m-form>
+                <m-field label="Input with hint" hint="This is a very helpful hint">
+                    <m-input />
+                </m-field>
+            </m-form>
+        </m-example>
+
+        <m-example header="Auto Submit" description="A from can be configured to automatically submit on changes" [code]="autoSubmitCode">
             <m-form autoSubmit (submit)="onAutoSubmit()">
                 <m-field label="Numeric value">
                     <m-numeric-input />
