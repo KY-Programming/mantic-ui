@@ -51,7 +51,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/pro-solid-svg-icons": "^6.4.0",
     "highlight.js": "^11.8.0",
-    "ngx-highlightjs": "^9.0.0",
+    "ngx-highlightjs": "^10.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
