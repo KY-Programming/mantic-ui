@@ -1,8 +1,9 @@
+import { provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { routes } from './app.routes';
 import { ButtonComponent, provideDynamicComponent, provideManticTitleStrategy } from '@mantic-ui/angular';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHighlightJs } from '@mantic-ui/angular-doc';
+import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -16,6 +17,7 @@ export const appConfig: ApplicationConfig = {
                 { condition: '/fomantic', fallback: 'Fomantic UI Angular - mantic UI', postfix: ' - Fomantic UI Angular - mantic UI' }
             ]
         }),
+        provideHighlightJs(),
         provideDynamicComponent(ButtonComponent)
     ]
 };

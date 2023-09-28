@@ -5,5 +5,6 @@ export * from './lib/components/nuget-install/nuget-install.component';
 export * from './lib/components/nuget/nuget.component';
 export * from './lib/components/npm/npm.component';
 export * from './lib/components/npm-install/npm-install.component';
+export * from './lib/provide-highlight-js';
 export * from './lib/mantic-ui-doc.module';
 

@@ -1,8 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BooleanLike, ButtonComponent, SegmentComponent } from '@mantic-ui/angular';
-import { CommonModule } from '@angular/common';
 import { HighlightModule } from 'ngx-highlightjs';
-import { highlightJsProviders } from '../../highlightjs.providers';
 
 @Component({
     selector: 'm-example-code',
@@ -14,7 +13,7 @@ import { highlightJsProviders } from '../../highlightjs.providers';
         HighlightModule,
         ButtonComponent
     ],
-    providers: [...SegmentComponent.providers, ...highlightJsProviders]
+    providers: [...SegmentComponent.providers]
 })
 export class ExampleCodeComponent extends SegmentComponent {
     private isLive = false;
@@ -26,7 +25,7 @@ export class ExampleCodeComponent extends SegmentComponent {
     public code: string | undefined;
 
     @Input()
-    public languages: string[] = ['html'];
+    public languages = ['html'];
 
     @Input()
     public get live(): boolean {

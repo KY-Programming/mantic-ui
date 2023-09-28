@@ -1,14 +1,17 @@
-﻿import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+﻿import { EnvironmentProviders, makeEnvironmentProviders } from '@angular/core';
+import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 
-export const highlightJsProviders = [
-    {
-        provide: HIGHLIGHT_OPTIONS,
-        useValue: {
-            coreLibraryLoader: () => import('highlight.js/lib/core'),
-            languages: getHighlightLanguages()
+export function provideHighlightJs(): EnvironmentProviders {
+    return makeEnvironmentProviders([
+        {
+            provide: HIGHLIGHT_OPTIONS,
+            useValue: {
+                coreLibraryLoader: () => import('highlight.js/lib/core'),
+                languages: getHighlightLanguages()
+            }
         }
-    }
-];
+    ]);
+}
 
 export function getHighlightLanguages(): unknown {
     return {

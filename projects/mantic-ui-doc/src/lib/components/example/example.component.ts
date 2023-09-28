@@ -1,8 +1,7 @@
-import { Component, HostBinding, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HighlightModule } from 'ngx-highlightjs';
-import { highlightJsProviders } from '../../highlightjs.providers';
+import { Component, HostBinding, Input } from '@angular/core';
 import { HeaderDirective } from '@mantic-ui/angular';
+import { HighlightModule } from 'ngx-highlightjs';
 
 @Component({
     selector: 'm-example',
@@ -13,8 +12,7 @@ import { HeaderDirective } from '@mantic-ui/angular';
         CommonModule,
         HighlightModule,
         HeaderDirective
-    ],
-    providers: [...highlightJsProviders]
+    ]
 })
 export class ExampleComponent {
     private headerField: string | undefined;
@@ -39,7 +37,7 @@ export class ExampleComponent {
     public showCode = false;
 
     @Input()
-    public languages: string[] = ['html'];
+    public languages = ['html'];
 
     @HostBinding('id')
     public id: string | undefined;
