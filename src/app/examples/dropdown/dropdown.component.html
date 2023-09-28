@@ -123,5 +123,16 @@
         <!-- TODO -->
     </m-tab>
     <m-tab label="Binding">
+        <!-- TODO -->
+    </m-tab>
+    <m-tab label="Events">
+        <m-example header="valueChange" description="Event is fired after the value is changed" [code]="valueChangeEventCode">
+            <m-dropdown (valueChange)="onValueChange($event)">
+                <m-dropdown-item value="1">One</m-dropdown-item>
+                <m-dropdown-item value="2">Two</m-dropdown-item>
+                <m-dropdown-item value="3">Three</m-dropdown-item>
+            </m-dropdown>
+            <div *ngFor="let entry of valueChangeEventLog">{{entry}}</div>
+        </m-example>
     </m-tab>
 </m-tab-group>

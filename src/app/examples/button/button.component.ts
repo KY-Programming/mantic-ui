@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { Component } from '@angular/core';
-import { faArrowRight, faCloud, faPause } from '@fortawesome/pro-solid-svg-icons';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../../components/header/header.component';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { faArrowRight, faCloud, faPause } from '@fortawesome/pro-solid-svg-icons';
 import { AnimationComponent, ButtonComponent, ButtonDirective, ButtonGroupComponent, DividerComponent, HeaderDirective, IconButtonComponent, IconComponent, InputComponent, LabelComponent, OrComponent, SegmentComponent, TabComponent, TabGroupComponent, ToggleButtonComponent, ToggleComponent, WarningComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
-import { RouterLink } from '@angular/router';
+import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-button-example',
@@ -356,7 +356,7 @@ export class ButtonExampleComponent {
     public text? = 'Click Me';
     public fluid = false;
     public eventMessage?: string;
-    public eventCode = `<m-button (click)="eventClick()">Click me</m-button>`;
+    public eventCode = `<m-button (click)="onClick()">Click me</m-button>`;
 
     public get loading(): boolean {
         return this.loadingValue;
@@ -379,7 +379,8 @@ export class ButtonExampleComponent {
     public button1Click(): void {
         if (this.button1Text === 'Follow') {
             this.button1Text = 'Following';
-        } else {
+        }
+        else {
             this.button1Text = 'Follow';
         }
     }
@@ -389,7 +390,7 @@ export class ButtonExampleComponent {
         this.disabledValue = false;
     }
 
-    public eventClick(): void {
+    public onClick(): void {
         this.eventMessage = 'Button was clicked';
         setTimeout(() => this.eventMessage = undefined, 2000);
     }

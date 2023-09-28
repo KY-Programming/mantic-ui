@@ -1,18 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component, ContentChildren, ElementRef, EventEmitter, HostBinding, HostListener, Input, NgZone, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { fromEvent, ReplaySubject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
+import { InvertibleComponent } from '../../base/invertible.component';
+import { DisabledDirective } from '../../directives/disabled.directive';
+import { FluidDirective } from '../../directives/fluid.directive';
+import { BooleanLike } from '../../models/boolean-like';
 import { DropdownItemComponent } from '../dropdown-item/dropdown-item.component';
+import { IconSize } from '../icon/icon-size';
+import { IconType } from '../icon/icon-type';
+import { IconComponent } from '../icon/icon.component';
 import { DropDownSelectionService } from './dropdown-selection.service';
 import { DropdownValue } from './dropdown-value';
-import { BooleanLike } from '../../models/boolean-like';
-import { IconType } from '../icon/icon-type';
-import { IconSize } from '../icon/icon-size';
-import { fromEvent, ReplaySubject } from 'rxjs';
-import { InvertibleComponent } from '../../base/invertible.component';
-import { FluidDirective } from '../../directives/fluid.directive';
-import { DisabledDirective } from '../../directives/disabled.directive';
-import { IconComponent } from '../icon/icon.component';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'm-dropdown',
@@ -279,12 +279,11 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
 
     public override ngOnInit(): void {
         super.ngOnInit();
-        this.zone.runOutsideAngular(() => {
+        this.zone.runOutsideAngular(() =>
             fromEvent(window, 'scroll', { capture: true }).pipe(
                 filter(event => this.isActive && event.target instanceof HTMLElement && this.elementRef.nativeElement !== event.target && !this.elementRef.nativeElement.contains(event.target)),
                 takeUntil(this.destroy)
-            ).subscribe(() => this.zone.run(() => this.close()));
-        });
+            ).subscribe(() => this.zone.run(() => this.close())));
     }
 
     @HostListener('focusin')
@@ -311,7 +310,8 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     public toggle(): void {
         if (this.isFocused && this.isMenuVisible && !this.search) {
             this.close();
-        } else {
+        }
+        else {
             this.open();
         }
     }
@@ -323,19 +323,22 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
             event.stopPropagation();
             this.selectIndex(this.selectedIndex === undefined ? 0 : this.selectedIndex - 1);
             this.open();
-        } else if (event.code === 'ArrowDown') {
+        }
+        else if (event.code === 'ArrowDown') {
             event.preventDefault();
             event.stopPropagation();
             this.selectIndex(this.selectedIndex === undefined ? 0 : this.selectedIndex + 1);
             this.open();
-        } else if (event.code === 'Enter' || event.code === 'Space') {
+        }
+        else if (event.code === 'Enter' || event.code === 'Space') {
             if (this.selectedIndex !== undefined && this.selectedIndex >= 0) {
                 event.preventDefault();
                 event.stopPropagation();
                 const component = this.itemComponents[this.selectedIndex];
                 this.select(component.value);
                 this.close();
-            } else {
+            }
+            else {
                 const filteredComponents = this.itemComponents.filter(component => !component.filteredOut);
                 if (filteredComponents.length === 1) {
                     event.preventDefault();
@@ -344,23 +347,27 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
                     this.close();
                 }
             }
-        } else if (event.code === 'Backspace') {
+        }
+        else if (event.code === 'Backspace') {
             if (this.multiple && this.selectedItems.length > 0) {
                 event.preventDefault();
                 event.stopPropagation();
                 this.deselect(this.selectedItems[this.selectedItems.length - 1]);
             }
-        } else if (event.code === 'Escape') {
+        }
+        else if (event.code === 'Escape') {
             event.preventDefault();
             event.stopPropagation();
             this.filter = undefined;
             this.onFilter();
             this.close();
-        } else if (event.code === 'Tab') {
+        }
+        else if (event.code === 'Tab') {
             if (this.selectedIndex !== undefined && this.selectedIndex >= 0) {
                 const component = this.itemComponents[this.selectedIndex];
                 this.select(component.value);
-            } else {
+            }
+            else {
                 const filteredComponents = this.itemComponents.filter(component => !component.filteredOut);
                 if (filteredComponents.length === 1) {
                     this.select(filteredComponents[0].value);
@@ -424,6 +431,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     }
 
     protected select(value: unknown): void {
+        const isChanged = this.valueField !== value;
         if (this.items?.length && !this.itemComponents?.length) {
             return;
         }
@@ -441,21 +449,26 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         }
         if (this.isFreeTextAllowed) {
             this.value = component?.value ?? value;
-        } else if (this.isSearch && this.filter) {
+        }
+        else if (this.isSearch && this.filter) {
             this.filter = undefined;
             this.onFilter();
             this.value = component?.value;
-        } else {
+        }
+        else {
             this.value = component?.value;
         }
-        this.valueChange.emit(this.value);
+        if (isChanged) {
+            this.valueChange.emit(this.value);
+        }
         this.selectedIndex = component ? this.itemComponents.indexOf(component) : undefined;
         if (this.multiple && component) {
             this.selectedItem = undefined;
             // TODO: Implement
             // this.selectedItems.push(item);
             // item.filtered = true;
-        } else {
+        }
+        else {
             this.selectedItem = this.items ? this.items.find(item => item.value === value) : { value };
         }
         if (!this.multiple) {
@@ -490,13 +503,15 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         if (this.itemComponents) {
             this.itemComponents.forEach(item => item.filteredOut = this.isItemFilteredOut(item));
             // this.isFiltered = this.itemComponents.some(item => item.filtered);
-        } else {
+        }
+        else {
             // this.isFiltered = false;
         }
         const filteredItems = this.itemComponents.filter(item => !item.filteredOut);
         if (filteredItems.length === 1) {
             this.selectedIndex = this.itemComponents.indexOf(filteredItems[0]);
-        } else if (this.selectedIndex !== undefined && !filteredItems.includes(this.itemComponents[this.selectedIndex])) {
+        }
+        else if (this.selectedIndex !== undefined && !filteredItems.includes(this.itemComponents[this.selectedIndex])) {
             this.selectedIndex = this.itemComponents.indexOf(filteredItems[0]);
         }
         this.isFiltered = !!this.filter;
@@ -529,7 +544,8 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         setTimeout(() => {
             if (this.search) {
                 this.inputElement?.nativeElement.focus();
-            } else {
+            }
+            else {
                 this.elementRef.nativeElement.focus();
             }
         });

@@ -1,10 +1,10 @@
 import { ApplicationRef, Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, Output, ViewChild } from '@angular/core';
-import { BooleanLike } from '../../models/boolean-like';
-import { InvertibleComponent } from '../../base/invertible.component';
-import { takeUntil } from 'rxjs/operators';
-import { ReplaySubject } from 'rxjs';
 import { FormsModule } from '@angular/forms';
+import { ReplaySubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { InvertibleComponent } from '../../base/invertible.component';
 import { FallbackForDirective } from '../../directives/fallback-for.directive';
+import { BooleanLike } from '../../models/boolean-like';
 
 @Component({
     selector: 'm-textarea',
@@ -125,7 +125,7 @@ export class TextareaComponent extends InvertibleComponent {
         private readonly applicationRef: ApplicationRef
     ) {
         super();
-        this.classes.register('disabled', 'readonly', 'hasError', 'fluid', 'value', 'text', 'default')
+        this.classes.register('disabled', 'readonly', 'hasError', 'fluid', 'value', 'text', 'default', 'placeholder')
             // HACK: Currently I do not know a other way to style a textarea with semantic ui, so I have to use form class here
             .registerFixed('form', 'textarea');
         TextareaComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));

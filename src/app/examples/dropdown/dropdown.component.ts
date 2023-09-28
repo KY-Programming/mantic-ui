@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
-import { DemoData } from '../../helpers/demo-data';
 import { CommonModule } from '@angular/common';
-import { DividerComponent, DropdownComponent, DropdownGroupComponent, DropdownItemComponent, HeaderDirective, IconComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { Component } from '@angular/core';
+import { DividerComponent, DropdownComponent, DropdownGroupComponent, DropdownItemComponent, FillDirective, HeaderDirective, IconComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
+import { DemoData } from '../../helpers/demo-data';
 
 @Component({
     selector: 'app-dropdown-example',
     standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, DropdownComponent, DropdownItemComponent, DropdownGroupComponent, HeaderComponent, SegmentComponent, DividerComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, DropdownComponent, DropdownItemComponent, DropdownGroupComponent, HeaderComponent, SegmentComponent, DividerComponent, FillDirective],
     templateUrl: './dropdown.component.html',
     styleUrls: ['./dropdown.component.scss']
 })
@@ -72,4 +72,11 @@ public countries: DropdownValue<string>[] = [
 </m-dropdown>`;
 
     public readonly inverted = `<m-dropdown inverted></m-dropdown>`;
+
+    protected valueChangeEventCode = `<m-dropdown (valueChange)="onValueChange($event)" />`;
+    protected valueChangeEventLog: string[] = [];
+
+    protected onValueChange(value: string): void {
+        this.valueChangeEventLog.push(`Value was changed to ${value}`);
+    }
 }
