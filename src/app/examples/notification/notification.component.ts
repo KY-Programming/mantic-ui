@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { ButtonComponent, FlexComponent, HeaderDirective, IconComponent, NotificationComponent, NotificationService, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../../components/header/header.component';
+import { Component, inject } from '@angular/core';
+import { AsyncAction, ButtonComponent, FlexComponent, HeaderDirective, IconComponent, NotificationComponent, NotificationService, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-notification-example',
@@ -12,58 +12,73 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
     styleUrls: ['./notification.component.scss']
 })
 export class NotificationExampleComponent {
+    protected asyncAction: AsyncAction | undefined;
+    private readonly notificationService = inject(NotificationService);
 
     public readonly example1Html = `<m-flex>
     <m-button (click)="showError()" color="red">Error</m-button>
     <m-button (click)="showWarning()" color="brown">Warning</m-button>
     <m-button (click)="showSuccess()" color="green">Success</m-button>
     <m-button (click)="showInfo()" color="blue">Info</m-button>
+    <m-button *ngIf="!asyncAction" (click)="startAsync()">Start Async</m-button>
+    <m-button *ngIf="asyncAction" (click)="stopAsync()">Stop Async</m-button>
 </m-flex>
-<m-notification fromService></m-notification>`;
+<m-notification fromService/>`;
 
     public readonly example1Ts = `import { NotificationService } from '@mantic-ui/angular';
 ...
 export class DemoComponent {
-    public constructor(
-        private readonly notificationService: NotificationService
-    ) {
-    }
+    protected asyncAction: AsyncAction | undefined;
+    private readonly notificationService = inject(NotificationService);
 
-    public showError(): void {
+    protected showError(): void {
         this.notificationService.error('Error Text');
     }
 
-    public showWarning(): void {
+    protected showWarning(): void {
         this.notificationService.warning('Warning Text');
     }
 
-    public showSuccess(): void {
+    protected showSuccess(): void {
         this.notificationService.success('Success Text');
     }
 
-    public showInfo(): void {
+    protected showInfo(): void {
         this.notificationService.info('Info Text');
+    }
+
+    protected startAsync(): void {
+        this.asyncAction = this.notificationService.async('Async Info Text', 'Async Done Text');
+    }
+
+    protected stopAsync(): void {
+        this.asyncAction?.done();
+        this.asyncAction = undefined;
     }
 }`;
 
-    public constructor(
-        private readonly notificationService: NotificationService
-    ) {
-    }
-
-    public showError(): void {
+    protected showError(): void {
         this.notificationService.error('Error Text');
     }
 
-    public showWarning(): void {
+    protected showWarning(): void {
         this.notificationService.warning('Warning Text');
     }
 
-    public showSuccess(): void {
+    protected showSuccess(): void {
         this.notificationService.success('Success Text');
     }
 
-    public showInfo(): void {
+    protected showInfo(): void {
         this.notificationService.info('Info Text');
+    }
+
+    protected startAsync(): void {
+        this.asyncAction = this.notificationService.async('Async Info Text', 'Async Done Text');
+    }
+
+    protected stopAsync(): void {
+        this.asyncAction?.done();
+        this.asyncAction = undefined;
     }
 }

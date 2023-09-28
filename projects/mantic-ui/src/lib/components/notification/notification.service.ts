@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Notification } from './notification';
+import { faCheck } from '@fortawesome/pro-solid-svg-icons';
 import { Subject } from 'rxjs';
+import { AsyncAction } from './async-action';
+import { Notification } from './notification';
 
 @Injectable({
     providedIn: 'root'
@@ -38,7 +40,8 @@ export class NotificationService {
         this.messages['all'].push(message);
         if (message.group) {
             this.get(message.group).push(message);
-        } else {
+        }
+        else {
             this.messages['empty'].push(message);
         }
         this.addedSubject.next(message);
@@ -57,13 +60,31 @@ export class NotificationService {
             if (groupIndex >= 0) {
                 this.messages[message.group].splice(groupIndex, 1);
             }
-        } else {
+        }
+        else {
             const groupIndex = this.messages['empty'].indexOf(message);
             if (groupIndex >= 0) {
                 this.messages['empty'].splice(groupIndex, 1);
             }
         }
         this.removedSubject.next(message);
+    }
+
+    public async(processingText: string, doneText: string, errorText?: string): AsyncAction {
+        const action = new AsyncAction();
+        const loadingMessage: Notification = { type: 'none', text: processingText, loading: true, group: 'content' };
+        this.add(loadingMessage);
+        action.event.subscribe({
+            next: () => {
+                this.remove(loadingMessage);
+                this.success(doneText, { icon: faCheck, group: 'content' });
+            },
+            error: (error: string, options?: { timeout: 10000 } | Partial<Notification>) => {
+                this.remove(loadingMessage);
+                this.error(error ?? errorText ?? 'Could not execute action due to an unexpected network issue. Please retry or contact the support team.', options);
+            }
+        });
+        return action;
     }
 
     public error(text: string, options?: { timeout: 0 } | Partial<Notification>): void {

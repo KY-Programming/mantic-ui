@@ -8,8 +8,9 @@
                 <m-button color="brown" (click)="showWarning()">Warning</m-button>
                 <m-button color="green" (click)="showSuccess()">Success</m-button>
                 <m-button color="blue" (click)="showInfo()">Info</m-button>
+                <m-button *ngIf="!asyncAction" (click)="startAsync()">Start Async</m-button>
+                <m-button *ngIf="asyncAction" (click)="stopAsync()">Stop Async</m-button>
             </m-flex>
-            <m-notification fromService></m-notification>
             <m-example-code [code]="example1Html" [languages]="['html']"></m-example-code>
             <m-example-code [code]="example1Ts" [languages]="['ts']"></m-example-code>
         </m-example>
