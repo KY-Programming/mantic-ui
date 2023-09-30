@@ -2,25 +2,31 @@
 
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Examples">
-
         <m-example header="A simple expander">
             <m-expander header="A header">Content goes here</m-expander>
-            <m-example-code [code]="code1"></m-example-code>
+            <m-example-code [code]="code1" />
         </m-example>
 
         <m-example header="Initial expanded">
             <m-expander header="A header" expanded>Content goes here</m-expander>
-            <m-example-code [code]="code2"></m-example-code>
+            <m-example-code [code]="code2" />
         </m-example>
-
-
+    </m-tab>
+    <m-tab label="Variations">
+        <m-example header="Basic expander" description="A less styled expander">
+            <m-expander basic expanded header="A header">Content goes here</m-expander>
+            <m-example-code [code]="iconRightCode" />
+        </m-example>
+        <m-example header="Icon on right side">
+            <m-expander iconPosition="right" header="A header">Content goes here</m-expander>
+            <m-example-code [code]="iconRightCode" />
+        </m-example>
     </m-tab>
     <m-tab label="Icon only">
-
         <m-example header="Only the expander icon" description="Use this component as part for other components">
             <m-button (click)="isExpanded = !isExpanded">Toggle</m-button>
-            <m-expander-icon [expanded]="isExpanded"></m-expander-icon>
-            <m-example-code [code]="expanderCode"></m-example-code>
+            <m-expander-icon [expanded]="isExpanded" />
+            <m-example-code [code]="expanderCode" />
         </m-example>
     </m-tab>
 </m-tab-group>

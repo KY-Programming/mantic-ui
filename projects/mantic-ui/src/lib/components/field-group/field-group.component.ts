@@ -1,8 +1,10 @@
-import { Component, ContentChildren, HostBinding, Input, QueryList } from '@angular/core';
-import { FieldComponent } from '../field/field.component';
+import { Component, ContentChildren, EventEmitter, HostBinding, Input, Output, QueryList } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '../../base/base.component';
-import { BooleanLike } from '../../models/boolean-like';
 import { InlineDirective } from '../../directives/inline.directive';
+import { BooleanLike } from '../../models/boolean-like';
+import { FieldComponent } from '../field/field.component';
 
 export declare type FieldsType =
     ''
@@ -30,6 +32,10 @@ export class FieldGroupComponent extends BaseComponent {
     private fieldsValue: FieldsType | undefined;
     private fieldsAutoValue: FieldsType | undefined;
     private isGrouped = false;
+    private isInlineValidation = false;
+    private errorValue = false;
+    private changeSubscriptions: Subscription[] = [];
+    private fieldComponentsValue?: QueryList<FieldComponent>;
 
     @Input()
     public get fields(): FieldsType | undefined {
@@ -40,16 +46,30 @@ export class FieldGroupComponent extends BaseComponent {
         // TODO: Parse number as string e.g. '2'
         if (typeof value === 'number') {
             this.fieldsValue = this.fieldClasses[value];
-        } else {
+        }
+        else {
             this.fieldsValue = value;
         }
     }
 
     @ContentChildren(FieldComponent)
-    protected set fieldComponents(query: QueryList<FieldComponent>) {
-        if (query) {
-            this.refreshFields(query.length);
-            query.changes.subscribe(() => this.refreshFields(query.length));
+    public get fieldComponents(): QueryList<FieldComponent> | undefined {
+        return this.fieldComponentsValue;
+    }
+
+    public set fieldComponents(value: QueryList<FieldComponent> | undefined) {
+        this.fieldComponentsValue = value;
+        this.refreshInlineValidation();
+        this.refreshChangeSubscriptions();
+        this.refreshIsValid();
+        if (this.fieldComponentsValue) {
+            this.refreshFields(this.fieldComponentsValue.length);
+            this.fieldComponentsValue.changes.subscribe(() => {
+                this.refreshFields(this.fieldComponentsValue?.length ?? 0);
+                this.refreshInlineValidation();
+                this.refreshChangeSubscriptions();
+                this.refreshIsValid();
+            });
         }
     }
 
@@ -63,6 +83,36 @@ export class FieldGroupComponent extends BaseComponent {
         this.isGrouped = this.toBoolean(value);
     }
 
+    @Input()
+    public get inlineValidation(): boolean {
+        return this.isInlineValidation;
+    }
+
+    public set inlineValidation(value: BooleanLike) {
+        this.isInlineValidation = this.toBoolean(value);
+        this.refreshInlineValidation();
+    }
+
+    @Input()
+    public get error(): boolean {
+        return this.errorValue;
+    }
+
+    public set error(value: BooleanLike) {
+        value = this.toBoolean(value);
+        if (this.errorValue === value) {
+            return;
+        }
+        this.errorValue = value;
+        this.errorChange.emit(value);
+    }
+
+    @Output()
+    public readonly errorChange = new EventEmitter<boolean>();
+
+    @Output()
+    public readonly change = new EventEmitter<void>();
+
     public constructor() {
         super(false);
         this.classes.register('grouped')
@@ -73,4 +123,20 @@ export class FieldGroupComponent extends BaseComponent {
         this.fieldsAutoValue = this.fieldClasses[count];
     }
 
+    private refreshInlineValidation(): void {
+        this.fieldComponents?.forEach(field => field.inlineValidation = this.inlineValidation);
+    }
+
+    private refreshChangeSubscriptions(): void {
+        this.changeSubscriptions.forEach(subscription => subscription.unsubscribe());
+        this.fieldComponents?.forEach(field =>
+            this.changeSubscriptions.push(
+                field.change.pipe(takeUntil(this.destroy)).subscribe(() => this.change.emit()),
+                field.errorChange.pipe(takeUntil(this.destroy)).subscribe(() => this.refreshIsValid())
+            ));
+    }
+
+    private refreshIsValid(): void {
+        this.error = this.fieldComponents?.some(component => component.error);
+    }
 }

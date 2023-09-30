@@ -29,6 +29,7 @@ export class FormExampleComponent {
     public email1?: string;
     public email2?: string;
     public inlineValidationValue: string | undefined;
+    protected autoSubmitValue: string | undefined;
 
     public readonly code1 = `<m-form>
   <m-field name="first-name" label="First Name">

@@ -1,11 +1,11 @@
 import { Component, inject, Input } from '@angular/core';
-import { FlexDirective } from './flex.directive';
-import { BooleanLike } from '../../models/boolean-like';
 import { toBoolean } from '../../helpers/to-boolean';
+import { BooleanLike } from '../../models/boolean-like';
+import { FlexDirective } from './flex.directive';
 
 @Component({
     selector: 'm-flex',
-    template: '<ng-content></ng-content>',
+    template: '<ng-content/>',
     standalone: true,
     hostDirectives: [FlexDirective.default]
 })

@@ -47,6 +47,8 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     private isFreeTextAllowed = false;
     private isUserUpward = false;
     private isSystemUpward = false;
+    private isDisabled = false;
+    private isReadonly = false;
     protected readonly defaults = DropdownComponent.defaults;
 
     @ViewChild('htmlElement')
@@ -171,6 +173,9 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     }
 
     @Input()
+    public name?: string;
+
+    @Input()
     public filterValue = true;
 
     @Input()
@@ -235,6 +240,20 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
 
     public set upwards(value: BooleanLike) {
         this.isUserUpward = this.toBoolean(value);
+    }
+
+    public set disabled(value: BooleanLike) {
+        this.isDisabled = this.toBoolean(value);
+    }
+
+    @Input()
+    @HostBinding('class.disabled')
+    public get readonly(): boolean {
+        return this.isReadonly;
+    }
+
+    public set readonly(value: BooleanLike) {
+        this.isReadonly = this.toBoolean(value);
     }
 
     @HostBinding('class.upward')

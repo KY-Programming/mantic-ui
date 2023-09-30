@@ -1,14 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, ContentChildren, EventEmitter, HostBinding, inject, Input, OnInit, Output, QueryList } from '@angular/core';
-import { ReplaySubject, Subject, Subscription, throttleTime } from 'rxjs';
+import { delay, ReplaySubject, Subject, Subscription, throttleTime } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { LoadingDirective } from '../../directives/loading.directive';
 import { BooleanLike } from '../../models/boolean-like';
+import { FieldGroupComponent } from '../field-group/field-group.component';
 import { FieldComponent } from '../field/field.component';
 import { FillDirective } from '../flex/fill/fill.directive';
 import { FlexDirective } from '../flex/flex.directive';
 import { FlexDirection } from '../flex/flex.types';
+import { FormValidationNotifier } from './form-validation-notifier';
 
 @Component({
     selector: 'm-form',
@@ -30,8 +32,11 @@ export class FormComponent extends InvertibleComponent implements OnInit {
     };
     private readonly loadingDirective = inject(LoadingDirective, { self: true });
     private readonly flexDirective = inject(FlexDirective, { self: true, optional: true });
+    private readonly formValidationNotifier = inject(FormValidationNotifier, { optional: true });
     private fieldComponentsValue?: QueryList<FieldComponent>;
-    private subscriptions?: Subscription[];
+    private fieldGroupsComponentsValue?: QueryList<FieldGroupComponent>;
+    private fieldSubscriptions?: Subscription[];
+    private groupSubscriptions?: Subscription[];
     private isValidValue = false;
     private isSuccess = false;
     private isWarning = false;
@@ -65,6 +70,26 @@ export class FormComponent extends InvertibleComponent implements OnInit {
             this.fieldComponentsValue.changes.subscribe(() => {
                 this.releaseFields();
                 this.subscribeFields();
+                this.refreshInlineValidation();
+            });
+        }
+    }
+
+    @ContentChildren(FieldGroupComponent)
+    public get fieldGroupsComponents(): QueryList<FieldGroupComponent> | undefined {
+        return this.fieldGroupsComponentsValue;
+    }
+
+    protected set fieldGroupsComponents(value: QueryList<FieldGroupComponent> | undefined) {
+        this.releaseGroups();
+        this.fieldGroupsComponentsValue = value;
+        this.subscribeGroups();
+        this.refreshIsValid();
+        this.refreshInlineValidation();
+        if (this.fieldGroupsComponentsValue) {
+            this.fieldGroupsComponentsValue.changes.subscribe(() => {
+                this.releaseGroups();
+                this.subscribeGroups();
                 this.refreshInlineValidation();
             });
         }
@@ -177,34 +202,57 @@ export class FormComponent extends InvertibleComponent implements OnInit {
     }
 
     private releaseFields(): void {
-        if (this.subscriptions) {
-            this.subscriptions.forEach(subscription => subscription.unsubscribe());
-            this.subscriptions = undefined;
+        if (this.fieldSubscriptions) {
+            this.fieldSubscriptions.forEach(subscription => subscription.unsubscribe());
+            this.fieldSubscriptions = undefined;
         }
     }
 
     private subscribeFields(): void {
         if (this.fieldComponents) {
-            this.subscriptions = [
+            this.fieldSubscriptions = [
                 ...this.fieldComponents.map(field => field.errorChange.subscribe(() => this.refreshIsValid())),
-                ...(this.isAutoSubmit ? this.fieldComponents.map(field => field.change.subscribe(() => this.autoSubmitSubject.next())) : [])
+                ...(this.isAutoSubmit ? this.fieldComponents.map(field => field.change.subscribe(() => this.changed())) : [])
             ];
         }
+    }
+
+    private releaseGroups(): void {
+        if (this.groupSubscriptions) {
+            this.groupSubscriptions.forEach(subscription => subscription.unsubscribe());
+            this.groupSubscriptions = undefined;
+        }
+    }
+
+    private subscribeGroups(): void {
+        if (this.fieldGroupsComponents) {
+            this.groupSubscriptions = [
+                ...this.fieldGroupsComponents.map(group => group.errorChange.subscribe(() => this.refreshIsValid())),
+                ...(this.isAutoSubmit ? this.fieldGroupsComponents.map(group => group.change.subscribe(() => this.changed())) : [])
+            ];
+        }
+    }
+
+    public changed(): void {
+        this.autoSubmitSubject.next();
     }
 
     private refreshAutoSubmitSubscription(): void {
         this.autoSubmitSubscription?.unsubscribe();
         this.autoSubmitSubscription = this.autoSubmitSubject.pipe(
-            throttleTime(this.autoSubmitThrottleValue, undefined, { leading: true, trailing: true })
+            throttleTime(this.autoSubmitThrottleValue, undefined, { leading: true, trailing: true }),
+            // Delay a little bit to let all bindings be executed and the values written to the objects
+            delay(1)
         ).subscribe(() => this.validateAndSubmit());
     }
 
     private refreshIsValid(): void {
-        const hasError = this.fieldComponents?.some(field => field.error);
+        const hasError = this.fieldComponents?.some(field => field.error) || this.fieldGroupsComponents?.some(group => group.error);
         const isValid = !hasError;
         this.error = hasError;
         if (this.isValidValue !== isValid) {
             this.isValidValue = isValid;
+            this.formValidationNotifier?.set(isValid);
             // Delay the notification be fire the change outside the check to ensure a change detection run will be started
             setTimeout(() => this.isValidChange.emit(isValid));
         }
@@ -226,5 +274,6 @@ export class FormComponent extends InvertibleComponent implements OnInit {
 
     private refreshInlineValidation(): void {
         this.fieldComponents?.forEach(field => field.inlineValidation = this.inlineValidation);
+        this.fieldGroupsComponents?.forEach(group => group.inlineValidation = this.inlineValidation);
     }
 }

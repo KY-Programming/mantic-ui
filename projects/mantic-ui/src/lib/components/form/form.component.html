@@ -7,6 +7,13 @@
                     <li *ngFor="let error of field.errors">{{error.label}} {{error.message}}</li>
                 </ng-container>
             </ng-container>
+            <ng-container *ngFor="let group of fieldGroupsComponents">
+                <ng-container *ngIf="group.error">
+                    <ng-container *ngFor="let field of group.fieldComponents">
+                        <li *ngFor="let error of field.errors">{{error.label}} {{error.message}}</li>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
         </ul>
     </div>
 </form>

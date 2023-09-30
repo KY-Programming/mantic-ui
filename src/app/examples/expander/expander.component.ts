@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../../components/header/header.component';
+import { Component } from '@angular/core';
 import { ButtonComponent, ExpanderComponent, ExpanderIconComponent, HeaderDirective, IconComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-expander-example',
@@ -16,5 +16,6 @@ export class ExpanderExampleComponent {
     public readonly code2 = `<m-expander header="A header" expanded>Content goes here</m-expander>`;
     public isExpanded = false;
     public expanderCode = `<m-expander-icon [expanded]="isExpanded"></m-expander-icon>`;
+    protected readonly iconRightCode = `<m-expander iconPosition="right" header="A header">Content goes here</m-expander>`;
 
 }

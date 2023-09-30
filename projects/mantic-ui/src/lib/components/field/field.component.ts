@@ -7,6 +7,7 @@ import { FieldSize, ParsableFieldSize, parseFieldSize } from '../../models/field
 import { FormError } from '../../models/form-error';
 import { FormValidation } from '../../models/form-validation';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 import { IconSize } from '../icon/icon-size';
 import { IconType } from '../icon/icon-type';
 import { IconComponent } from '../icon/icon.component';
@@ -48,6 +49,7 @@ export class FieldComponent extends BaseComponent {
     private toggleComponentValue?: ToggleComponent;
     private radioComponentValue?: RadioComponent;
     private textareaComponentValue?: TextareaComponent;
+    private dropDownComponentValue?: DropdownComponent;
     private nameValue?: string;
     private labelValue?: string;
     private sizeValue: FieldSize = '';
@@ -196,10 +198,24 @@ export class FieldComponent extends BaseComponent {
         this.textareaComponentValue = value;
         if (this.textareaComponentValue) {
             this.textareaComponentValue.name = this.name;
-            // this.textareaComponentValue.label = this.label;
             this.textareaComponentValue.readonly = this.readonly;
             this.textareaComponentValue.disabled = this.disabled;
             this.textareaComponentValue.valueChange.pipe(takeUntil(this.destroy)).subscribe(() => this.change.next());
+        }
+    }
+
+    @ContentChild(DropdownComponent)
+    protected get dropDownComponent(): DropdownComponent | undefined {
+        return this.dropDownComponentValue;
+    }
+
+    protected set dropDownComponent(value: DropdownComponent | undefined) {
+        this.dropDownComponentValue = value;
+        if (this.dropDownComponentValue) {
+            this.dropDownComponentValue.name = this.name;
+            this.dropDownComponentValue.readonly = this.readonly;
+            this.dropDownComponentValue.disabled = this.disabled;
+            this.dropDownComponentValue.valueChange.pipe(takeUntil(this.destroy)).subscribe(() => this.change.next());
         }
     }
 
@@ -240,6 +256,9 @@ export class FieldComponent extends BaseComponent {
         if (this.textareaComponent) {
             this.textareaComponent.name = value;
         }
+        if (this.dropDownComponent) {
+            this.dropDownComponent.name = value;
+        }
     }
 
     @Input()
@@ -263,6 +282,9 @@ export class FieldComponent extends BaseComponent {
         }
         if (this.textareaComponent) {
             // this.textareaComponent.label = value;
+        }
+        if (this.dropDownComponent) {
+            // this.dropDownComponent.label = value;
         }
     }
 
@@ -352,6 +374,9 @@ export class FieldComponent extends BaseComponent {
         if (this.textareaComponent) {
             this.textareaComponent.disabled = value;
         }
+        if (this.dropDownComponent) {
+            this.dropDownComponent.disabled = value;
+        }
     }
 
     @Input()
@@ -383,8 +408,8 @@ export class FieldComponent extends BaseComponent {
         if (this.radioComponent) {
             this.radioComponent.readonly = value;
         }
-        if (this.textareaComponent) {
-            this.textareaComponent.readonly = value;
+        if (this.dropDownComponent) {
+            this.dropDownComponent.readonly = value;
         }
     }
 

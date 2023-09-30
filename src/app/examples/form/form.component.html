@@ -373,9 +373,17 @@
 
         <m-example header="Auto Submit" description="A from can be configured to automatically submit on changes" [code]="autoSubmitCode">
             <m-form autoSubmit (submit)="onAutoSubmit()">
-                <m-field label="Numeric value">
-                    <m-numeric-input />
-                </m-field>
+                <m-field-group>
+                    <m-field label="Text" size="eight" [valid]="autoSubmitValue | mIsFilled">
+                        <m-input [(value)]="autoSubmitValue" />
+                    </m-field>
+                    <m-field label="DropDown" size="eight">
+                        <m-dropdown>
+                            <m-dropdown-item value="yes">Yes</m-dropdown-item>
+                            <m-dropdown-item value="no">No</m-dropdown-item>
+                        </m-dropdown>
+                    </m-field>
+                </m-field-group>
             </m-form>
         </m-example>
     </m-tab>

@@ -32,23 +32,23 @@ export class TextareaComponent extends InvertibleComponent {
     @Input()
     public name?: string;
 
+    @Input()
+    @HostBinding('class.disabled')
     public get disabled(): boolean {
         return this.disabledValue;
     }
 
-    @Input()
-    @HostBinding('class.disabled')
     public set disabled(value: BooleanLike) {
         this.disabledValue = this.toBoolean(value);
         this.refreshTextarea();
     }
 
+    @Input()
+    @HostBinding('class.disabled')
     public get readonly(): boolean {
         return this.readonlyValue;
     }
 
-    @Input()
-    @HostBinding('class.disabled')
     public set readonly(value: BooleanLike) {
         this.readonlyValue = this.toBoolean(value);
         this.refreshTextarea();
