@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { faCheck } from '@fortawesome/pro-solid-svg-icons';
 import { Subject } from 'rxjs';
+import { IconType } from '../icon/icon-type';
 import { AsyncAction } from './async-action';
 import { Notification } from './notification';
 
@@ -8,6 +8,9 @@ import { Notification } from './notification';
     providedIn: 'root'
 })
 export class NotificationService {
+    public static readonly defaults = {
+        successIcon: <IconType>'check'
+    };
     private readonly addedSubject = new Subject<Notification>();
     private readonly removedSubject = new Subject<Notification>();
     private readonly erroredSubject = new Subject<Notification>();
@@ -77,7 +80,7 @@ export class NotificationService {
         action.event.subscribe({
             next: () => {
                 this.remove(loadingMessage);
-                this.success(doneText, { icon: faCheck, group: 'content' });
+                this.success(doneText, { icon: NotificationService.defaults.successIcon, group: 'content' });
             },
             error: (error: string, options?: { timeout: 10000 } | Partial<Notification>) => {
                 this.remove(loadingMessage);
