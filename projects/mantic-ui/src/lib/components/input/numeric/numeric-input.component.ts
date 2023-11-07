@@ -1,11 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { InputBaseComponent } from '../input-base.component';
+import { FormsModule } from '@angular/forms';
+import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 import { Math2 } from '../../../helpers/math2';
 import { BooleanLike } from '../../../models/boolean-like';
-import { CommonModule } from '@angular/common';
 import { IconComponent } from '../../icon/icon.component';
-import { FallbackForDirective } from '../../../directives/fallback-for.directive';
-import { FormsModule } from '@angular/forms';
+import { InputBaseComponent } from '../input-base.component';
 
 @Component({
     selector: 'm-numeric-input',
@@ -110,7 +110,7 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     }
 
     protected onInternalChange(rawValue: string | null | undefined): void {
-        let value = typeof rawValue === 'string' ? parseFloat(rawValue) : rawValue ?? undefined;
+        let value = typeof rawValue === 'string' ? rawValue !== '' ? parseFloat(rawValue) : undefined : rawValue ?? undefined;
         this.setInternalValue(value);
         value = value == undefined || Number.isNaN(value) ? undefined : Math2.keepInRange(this.min, value, this.max);
         if (value !== this.value) {
