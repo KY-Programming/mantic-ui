@@ -1,22 +1,30 @@
-<app-header header="Icon" subHeader="An icon is a glyph used to represent something else"></app-header>
+<app-header header="Icon" subHeader="An icon is a glyph used to represent something else" />
 
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Examples">
         <p>Supported are standard Semantic UI icons (custom port of Font Awesome 5 icons font) or Font Awesome 6 SVG icons.</p>
         <m-example header="Semantic UI Icon">
-            <m-icon icon="rocket"></m-icon>
-            <m-example-code [code]="mIconCode"></m-example-code>
+            <m-icon icon="rocket" />
+            <m-example-code [code]="mIconCode" />
         </m-example>
         <m-example header="Font Awesome SVG Icon">
-            <fa-icon [icon]="faRocket"></fa-icon>
-            <m-example-code [code]="faIconHtml" label="my.component.html"></m-example-code>
-            <m-example-code [code]="faIconCode" [languages]="['ts']" label="my.component.ts"></m-example-code>
+            <fa-icon [icon]="faRocket" />
+            <m-example-code [code]="faIconHtml" label="my.component.html" />
+            <m-example-code [code]="faIconCode" [languages]="['ts']" label="my.component.ts" />
         </m-example>
-
-        <h3>Setup</h3>
-        <!--    TODO    -->TODO
+    </m-tab>
+    <m-tab label="Activate Semantic UI icons">
+        <p>Activate Semantic UI icons</p>
+        <m-example-code [code]="semanticUiHtml" label="app.component.html" />
+    </m-tab>
+    <m-tab label="Activate Fontawesome icons">
+        <p>Replace all default icons with Fontawesome icons</p>
+        <m-example-code [code]="fontawesomeHtml" label="app.component.html" />
+        <m-example-code [code]="fontawesomeTs" [languages]="['ts']" label="app.component.ts" />
     </m-tab>
     <m-tab label="Icons">
+        Not yet implemented
+        <!-- TODO: Show all icons -->
     </m-tab>
     <m-tab label="Sizes">
         <m-table>
@@ -30,7 +38,7 @@
             <tr>
                 <td>mini</td>
                 <td>
-                    <m-icon icon="rocket" size="mini"></m-icon>
+                    <m-icon icon="rocket" size="mini" />
                 </td>
                 <td colspan="2"></td>
                 <td>6px</td>
@@ -38,7 +46,7 @@
             <tr>
                 <td>tiny</td>
                 <td>
-                    <m-icon icon="rocket" size="tiny"></m-icon>
+                    <m-icon icon="rocket" size="tiny" />
                 </td>
                 <td colspan="2"></td>
                 <td>8px</td>
@@ -46,11 +54,11 @@
             <tr>
                 <td>small</td>
                 <td>
-                    <m-icon icon="rocket" size="small"></m-icon>
+                    <m-icon icon="rocket" size="small" />
                 </td>
                 <td>xs</td>
                 <td>
-                    <fa-icon [icon]="faRocket" size="xs"></fa-icon>
+                    <fa-icon [icon]="faRocket" size="xs" />
                 </td>
                 <td>12px</td>
             </tr>
@@ -58,7 +66,7 @@
                 <td colspan="2"></td>
                 <td>sm</td>
                 <td>
-                    <fa-icon [icon]="faRocket" size="sm"></fa-icon>
+                    <fa-icon [icon]="faRocket" size="sm" />
                 </td>
                 <td>14px</td>
             </tr>
@@ -66,7 +74,7 @@
                 <td colspan="2"></td>
                 <td>1x</td>
                 <td>
-                    <fa-icon [icon]="faRocket" size="1x"></fa-icon>
+                    <fa-icon [icon]="faRocket" size="1x" />
                 </td>
                 <td>16px</td>
             </tr>
@@ -74,14 +82,14 @@
                 <td colspan="2"></td>
                 <td>lg</td>
                 <td>
-                    <fa-icon [icon]="faRocket" size="lg"></fa-icon>
+                    <fa-icon [icon]="faRocket" size="lg" />
                 </td>
                 <td>20px</td>
             </tr>
             <tr>
                 <td>large</td>
                 <td>
-                    <m-icon icon="rocket" size="large"></m-icon>
+                    <m-icon icon="rocket" size="large" />
                 </td>
                 <td colspan="2"></td>
                 <td>24px</td>
@@ -89,11 +97,11 @@
             <tr>
                 <td>big</td>
                 <td>
-                    <m-icon icon="rocket" size="big"></m-icon>
+                    <m-icon icon="rocket" size="big" />
                 </td>
                 <td>2x</td>
                 <td>
-                    <fa-icon [icon]="faRocket" size="2x"></fa-icon>
+                    <fa-icon [icon]="faRocket" size="2x" />
                 </td>
                 <td>32px</td>
             </tr>
@@ -101,18 +109,18 @@
                 <td colspan="2"></td>
                 <td>3x</td>
                 <td>
-                    <fa-icon [icon]="faRocket" size="3x"></fa-icon>
+                    <fa-icon [icon]="faRocket" size="3x" />
                 </td>
                 <td>48px</td>
             </tr>
             <tr>
                 <td>huge</td>
                 <td>
-                    <m-icon icon="rocket" size="huge"></m-icon>
+                    <m-icon icon="rocket" size="huge" />
                 </td>
                 <td>4x</td>
                 <td>
-                    <fa-icon [icon]="faRocket" size="4x"></fa-icon>
+                    <fa-icon [icon]="faRocket" size="4x" />
                 </td>
                 <td>64px</td>
             </tr>
@@ -120,7 +128,7 @@
                 <td colspan="2"></td>
                 <td>5x</td>
                 <td>
-                    <fa-icon [icon]="faRocket" size="5x"></fa-icon>
+                    <fa-icon [icon]="faRocket" size="5x" />
                 </td>
                 <td>80px</td>
             </tr>
@@ -128,7 +136,7 @@
                 <td colspan="2"></td>
                 <td>6x</td>
                 <td>
-                    <fa-icon [icon]="faRocket" size="6x"></fa-icon>
+                    <fa-icon [icon]="faRocket" size="6x" />
                 </td>
                 <td>96px</td>
             </tr>
@@ -136,18 +144,18 @@
                 <td colspan="2"></td>
                 <td>7x</td>
                 <td>
-                    <fa-icon [icon]="faRocket" size="7x"></fa-icon>
+                    <fa-icon [icon]="faRocket" size="7x" />
                 </td>
                 <td>112px</td>
             </tr>
             <tr>
                 <td>massive</td>
                 <td>
-                    <m-icon icon="rocket" size="massive"></m-icon>
+                    <m-icon icon="rocket" size="massive" />
                 </td>
                 <td>8x</td>
                 <td>
-                    <fa-icon [icon]="faRocket" size="8x"></fa-icon>
+                    <fa-icon [icon]="faRocket" size="8x" />
                 </td>
                 <td>128px</td>
             </tr>
@@ -155,7 +163,7 @@
                 <td colspan="2"></td>
                 <td>9x</td>
                 <td>
-                    <fa-icon [icon]="faRocket" size="9x"></fa-icon>
+                    <fa-icon [icon]="faRocket" size="9x" />
                 </td>
                 <td>144px</td>
             </tr>
@@ -163,7 +171,7 @@
                 <td colspan="2"></td>
                 <td>10x</td>
                 <td>
-                    <fa-icon [icon]="faRocket" size="10x"></fa-icon>
+                    <fa-icon [icon]="faRocket" size="10x" />
                 </td>
                 <td>160px</td>
             </tr>
