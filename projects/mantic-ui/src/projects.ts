@@ -102,6 +102,7 @@ export * from './lib/components/notification/async-action';
 export * from './lib/components/notification/notification.component';
 export * from './lib/components/notification/notification';
 export * from './lib/components/notification/notification.service';
+export * from './lib/components/notification/notification-defaults.component';
 export * from './lib/components/or/or.component';
 export * from './lib/components/radio/radio.component';
 export * from './lib/components/row/row.component';

@@ -1,6 +1,6 @@
 {
     "name": "@mantic-ui/fomantic-ui-angular",
-    "version": "16.9.2",
+    "version": "16.9.3",
     "scripts": {
         "copy:fomantic": "npm run copy:accordion && npm run copy:button && npm run copy:checkbox && npm run copy:container && npm run copy:dimmer && npm run copy:divider && npm run copy:dropdown && npm run copy:flag && npm run copy:form && npm run copy:grid && npm run copy:header && npm run copy:icon && npm run copy:image && npm run copy:input && npm run copy:label && npm run copy:list && npm run copy:loader && npm run copy:menu && npm run copy:message && npm run copy:modal && npm run copy:reset && npm run copy:segment && npm run copy:sidebar && npm run copy:site && npm run copy:table && npm run copy:transition",
         "copy:accordion": "copy ..\\..\\node_modules\\fomantic-ui\\dist\\components\\accordion.css .\\src\\lib\\styles\\components\\accordion.less",
@@ -70,7 +70,7 @@
     "peerDependencies": {
         "@angular/common": "8 - 16",
         "@angular/core": "8 - 16",
-        "@mantic-ui/angular": "^16.9.2"
+        "@mantic-ui/angular": "^16.9.3"
     },
     "dependencies": {
         "tslib": "^2.3.0"
