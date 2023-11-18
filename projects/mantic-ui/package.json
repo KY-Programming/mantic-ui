@@ -1,6 +1,6 @@
 {
     "name": "@mantic-ui/angular",
-    "version": "16.9.3",
+    "version": "17.0.0",
     "description": "mantic UI for Angular",
     "keywords": [
         "mantic-ui",
@@ -37,15 +37,15 @@
         "url": "https://github.com/KY-Programming/mantic-ui.git"
     },
     "peerDependencies": {
-        "@angular/common": "8 - 16",
-        "@angular/core": "8 - 16",
-        "@angular/forms": "8 - 16",
-        "@angular/platform-browser": "8 - 16",
-        "@angular/router": "8 - 16",
-        "rxjs": "^6.0.0 || ^7.0.0"
+        "@angular/common": "^17.0.0",
+        "@angular/core": "^17.0.0",
+        "@angular/forms": "^17.0.0",
+        "@angular/platform-browser": "^17.0.0",
+        "@angular/router": "^17.0.0",
+        "rxjs": "^7.0.0"
     },
     "optionalDependencies": {
-        "@fortawesome/angular-fontawesome": "~0.13.0"
+        "@fortawesome/angular-fontawesome": "~0.14.0"
     },
     "dependencies": {
         "tslib": "^2.3.0"
