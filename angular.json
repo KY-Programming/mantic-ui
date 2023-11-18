@@ -83,11 +83,11 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "mantic-ui-test:build:production"
+              "buildTarget": "mantic-ui-test:build:production"
             },
             "development": {
               "port": 4005,
-              "browserTarget": "mantic-ui-test:build:development"
+              "buildTarget": "mantic-ui-test:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -95,7 +95,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mantic-ui-test:build"
+            "buildTarget": "mantic-ui-test:build"
           }
         },
         "test": {
