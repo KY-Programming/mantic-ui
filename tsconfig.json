@@ -8,25 +8,25 @@
     "strict": true,
     "paths": {
       "@mantic-ui/fomantic-ui-angular": [
-        "dist/fomantic-ui"
+        "./dist/fomantic-ui"
       ],
       "@mantic-ui/angular": [
-        "dist/mantic-ui"
+        "./dist/mantic-ui"
       ],
       "@mantic-ui/angular-doc": [
-        "dist/mantic-ui-doc"
+        "./dist/mantic-ui-doc"
       ],
       "@mantic-ui/semantic-ui-angular": [
-        "dist/semantic-ui"
+        "./dist/semantic-ui"
       ]
     },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,

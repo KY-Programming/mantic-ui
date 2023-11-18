@@ -8,15 +8,13 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss",
-          "skipTests": true,
-          "standalone": true
+          "skipTests": true
         },
         "@schematics/angular:class": {
           "skipTests": true
         },
         "@schematics/angular:directive": {
-          "skipTests": true,
-          "standalone": true
+          "skipTests": true
         },
         "@schematics/angular:guard": {
           "skipTests": true
@@ -25,8 +23,7 @@
           "skipTests": true
         },
         "@schematics/angular:pipe": {
-          "skipTests": true,
-          "standalone": true
+          "skipTests": true
         },
         "@schematics/angular:resolver": {
           "skipTests": true
@@ -40,11 +37,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/documentation",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -68,13 +65,9 @@
               "outputHashing": "all"
             },
             "development": {
-              "tsConfig": "./tsconfig.dev.json",
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -115,15 +108,6 @@
             ],
             "scripts": []
           }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
-          }
         }
       }
     },
@@ -151,17 +135,10 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/fomantic-ui/src/test.ts",
             "tsConfig": "projects/fomantic-ui/tsconfig.spec.json",
-            "karmaConfig": "projects/fomantic-ui/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/fomantic-ui/**/*.ts",
-              "projects/fomantic-ui/**/*.html"
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
             ]
           }
         }
@@ -191,17 +168,10 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/mantic-ui/src/test.ts",
             "tsConfig": "projects/mantic-ui/tsconfig.spec.json",
-            "karmaConfig": "projects/mantic-ui/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/mantic-ui/**/*.ts",
-              "projects/mantic-ui/**/*.html"
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
             ]
           }
         }
@@ -231,17 +201,10 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/semantic-ui/src/test.ts",
             "tsConfig": "projects/semantic-ui/tsconfig.spec.json",
-            "karmaConfig": "projects/semantic-ui/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/semantic-ui/**/*.ts",
-              "projects/semantic-ui/**/*.html"
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
             ]
           }
         }
@@ -271,26 +234,14 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/mantic-ui-doc/src/test.ts",
             "tsConfig": "projects/mantic-ui-doc/tsconfig.spec.json",
-            "karmaConfig": "projects/mantic-ui-doc/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/mantic-ui-doc/**/*.ts",
-              "projects/mantic-ui-doc/**/*.html"
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
             ]
           }
         }
       }
     }
-  },
-  "cli": {
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
   }
 }
