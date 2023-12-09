@@ -1,6 +1,6 @@
 {
     "name": "@mantic-ui/semantic-ui-angular",
-    "version": "17.0.0",
+    "version": "17.0.1",
     "description": "Semantic UI theme for mantic UI Angular components. Requires @mantic-ui/angular",
     "keywords": [
         "mantic-ui",
@@ -41,10 +41,10 @@
     "peerDependencies": {
         "@angular/common": "^17.0.0",
         "@angular/core": "^17.0.0",
-        "@mantic-ui/angular": "17.0.0"
+        "@mantic-ui/angular": "17.0.1"
     },
     "dependencies": {
         "tslib": "^2.3.0"
     },
-  "sideEffects": false
+    "sideEffects": false
 }
