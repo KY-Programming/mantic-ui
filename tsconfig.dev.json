@@ -6,16 +6,16 @@
         "types": [],
         "paths": {
             "@mantic-ui/fomantic-ui-angular": [
-                "./projects/fomantic-ui/src/projects"
+                "./projects/fomantic-ui/src/public-api"
             ],
             "@mantic-ui/angular": [
-                "./projects/mantic-ui/src/projects"
+                "./projects/mantic-ui/src/public-api"
             ],
             "@mantic-ui/angular-doc": [
-                "./projects/mantic-ui-doc/src/projects"
+                "./projects/mantic-ui-doc/src/public-api"
             ],
             "@mantic-ui/semantic-ui-angular": [
-                "./projects/semantic-ui/src/projects"
+                "./projects/semantic-ui/src/public-api"
             ]
         }
     },

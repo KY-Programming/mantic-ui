@@ -1,5 +1,7 @@
-<ng-container *ngIf="active">
-    <ng-container *ngIf="!template else template">
-        <ng-content></ng-content>
-    </ng-container>
-</ng-container>
+@if (activate) {
+    @if (template) {
+        <ng-container [ngTemplateOutlet]="template" />
+    } @else {
+        <ng-content />
+    }
+}
