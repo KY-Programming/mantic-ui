@@ -1,14 +1,13 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { FieldSize, ParsableFieldSize, parseFieldSize } from '../../models/field-size';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
+import { FieldSize, ParsableFieldSize, parseFieldSize } from '../../models/field-size';
 
 @Component({
     selector: 'm-row',
     templateUrl: './row.component.html',
     styleUrls: ['./row.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class RowComponent extends BaseComponent {

@@ -1,19 +1,19 @@
 import { Component, EventEmitter, HostBinding, inject, Inject, Input, Optional, Output } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
-import { BooleanLike } from '../../models/boolean-like';
 import { ActiveDirective } from '../../directives/active.directive';
+import { BooleanLike } from '../../models/boolean-like';
+import { SortedClassesService } from '../../services/sorted-classes.service';
 
 @Component({
     selector: 'm-menu-item',
     templateUrl: './menu-item.component.html',
     styleUrls: ['./menu-item.component.scss'],
     standalone: true,
-    hostDirectives: MenuItemComponent.directives,
-    providers: MenuItemComponent.providers
+    providers: [SortedClassesService],
+    hostDirectives: [ActiveDirective.default]
 })
 export class MenuItemComponent extends BaseComponent {
     protected static override readonly providers = [...BaseComponent.providers];
-    protected static override readonly directives = [...BaseComponent.directives, ActiveDirective.default];
     protected readonly activeDirective = inject(ActiveDirective, { self: true });
     private isLink = false;
 

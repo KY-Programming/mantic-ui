@@ -1,18 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, inject, Input, Output } from '@angular/core';
-import { BooleanLike } from '../../models/boolean-like';
-import { IconType } from '../icon/icon-type';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { BasicDirective } from '../../directives/basic.directive';
-import { DimmerComponent } from '../dimmer/dimmer.component';
-import { ModalHeaderComponent } from './modal-header.component';
-import { ModalFooterComponent } from './modal-footer.component';
-import { IconComponent } from '../icon/icon.component';
-import { ButtonComponent } from '../button/button.component';
-import { CommonModule } from '@angular/common';
-import { LoaderComponent } from '../loader/loader.component';
 import { FallbackForDirective } from '../../directives/fallback-for.directive';
+import { BooleanLike } from '../../models/boolean-like';
+import { ButtonComponent } from '../button/button.component';
+import { DimmerComponent } from '../dimmer/dimmer.component';
+import { IconType } from '../icon/icon-type';
+import { IconComponent } from '../icon/icon.component';
+import { LoaderComponent } from '../loader/loader.component';
+import { ModalFooterComponent } from './modal-footer.component';
+import { ModalHeaderComponent } from './modal-header.component';
 
 export type ModalSize =
     'mini'
@@ -35,7 +35,7 @@ export type ModalSize =
         LoaderComponent,
         FallbackForDirective
     ],
-    hostDirectives: [...InvertibleComponent.directives, BasicDirective.default],
+    hostDirectives: [BasicDirective.default],
     providers: [...InvertibleComponent.providers]
 })
 export class ModalComponent extends InvertibleComponent {

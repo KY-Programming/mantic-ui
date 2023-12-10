@@ -1,16 +1,16 @@
 import { Component, ContentChildren, HostBinding, Input, QueryList } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ToggleButtonComponent } from '../toggle-button/toggle-button.component';
 import { BaseComponent } from '../../base/base.component';
 import { ColorDirective } from '../../directives/color.directive';
-import { BooleanLike } from "../../models/boolean-like";
+import { BooleanLike } from '../../models/boolean-like';
+import { ToggleButtonComponent } from '../toggle-button/toggle-button.component';
 
 @Component({
     selector: 'm-button-group',
     templateUrl: './button-group.component.html',
     styleUrls: ['./button-group.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives, ColorDirective.default],
+    hostDirectives: [ColorDirective.default],
     providers: [...BaseComponent.providers]
 })
 export class ButtonGroupComponent extends BaseComponent {

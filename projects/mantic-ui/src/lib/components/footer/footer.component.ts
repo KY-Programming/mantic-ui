@@ -6,7 +6,6 @@ import { BaseComponent } from '../../base/base.component';
     templateUrl: './footer.component.html',
     styleUrls: ['./footer.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class FooterComponent extends BaseComponent {

@@ -1,9 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, HostBinding, inject, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
-import { InvertedDirective } from '../../directives/inverted.directive';
-import { CommonModule } from '@angular/common';
 import { ActiveDirective } from '../../directives/active.directive';
 import { InlineDirective } from '../../directives/inline.directive';
+import { InvertedDirective } from '../../directives/inverted.directive';
 import { BooleanLike } from '../../models/boolean-like';
 
 export declare type LoaderSize = 'mini' | 'tiny' | 'small' | 'large' | 'big' | 'huge' | 'massive';
@@ -16,7 +16,7 @@ export declare type LoaderSize = 'mini' | 'tiny' | 'small' | 'large' | 'big' | '
     imports: [
         CommonModule
     ],
-    hostDirectives: [...BaseComponent.directives, InvertedDirective.default, ActiveDirective.default, InlineDirective.default],
+    hostDirectives: [InvertedDirective.default, ActiveDirective.default, InlineDirective.default],
     providers: [...BaseComponent.providers]
 })
 export class LoaderComponent extends BaseComponent {

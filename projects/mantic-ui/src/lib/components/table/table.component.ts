@@ -1,9 +1,9 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { BooleanLike } from '../../models/boolean-like';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { BasicDirective } from '../../directives/basic.directive';
+import { BooleanLike } from '../../models/boolean-like';
 
 export declare type Align =
     | 'top'
@@ -15,7 +15,7 @@ export declare type Align =
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.scss'],
     standalone: true,
-    hostDirectives: [...InvertibleComponent.directives, BasicDirective.default],
+    hostDirectives: [BasicDirective.default],
     providers: [...InvertibleComponent.providers]
 })
 export class TableComponent extends InvertibleComponent implements OnInit {

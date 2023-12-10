@@ -1,13 +1,12 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { AnimationDirection } from './animation-direction';
 import { BaseComponent } from '../../base/base.component';
+import { AnimationDirection } from './animation-direction';
 
 @Component({
     selector: 'm-animation',
     templateUrl: './animation.component.html',
     styleUrls: ['./animation.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class AnimationComponent extends BaseComponent {

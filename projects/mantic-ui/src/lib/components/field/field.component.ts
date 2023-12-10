@@ -30,7 +30,6 @@ import { FieldFormatErrorsPipe } from './field-format-errors.pipe';
         IconComponent,
         FieldFormatErrorsPipe
     ],
-    hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class FieldComponent extends BaseComponent {

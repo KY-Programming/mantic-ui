@@ -7,7 +7,7 @@ import { FluidDirective } from '../../directives/fluid.directive';
     templateUrl: './text-container.component.html',
     styleUrls: ['./text-container.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives, FluidDirective.default],
+    hostDirectives: [FluidDirective.default],
     providers: [...BaseComponent.providers]
 })
 export class TextContainerComponent extends BaseComponent {

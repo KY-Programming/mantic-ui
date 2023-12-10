@@ -1,16 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, HostListener, inject, Input, Output } from '@angular/core';
-import { Key } from '../../models/key';
-import { BooleanLike } from '../../models/boolean-like';
-import { IconType } from '../icon/icon-type';
-import { IconSize } from '../icon/icon-size';
-import { InvertibleComponent } from '../../base/invertible.component';
+import { FormsModule } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { CommonModule } from '@angular/common';
-import { IconComponent } from '../icon/icon.component';
-import { FormsModule } from '@angular/forms';
+import { InvertibleComponent } from '../../base/invertible.component';
 import { DisabledDirective } from '../../directives/disabled.directive';
 import { ReadOnlyDirective } from '../../directives/read-only.directive';
+import { BooleanLike } from '../../models/boolean-like';
+import { Key } from '../../models/key';
+import { IconSize } from '../icon/icon-size';
+import { IconType } from '../icon/icon-type';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
     selector: 'm-checkbox',
@@ -22,7 +22,7 @@ import { ReadOnlyDirective } from '../../directives/read-only.directive';
         IconComponent,
         FormsModule
     ],
-    hostDirectives: CheckboxComponent.directives,
+    hostDirectives: [DisabledDirective.default, ReadOnlyDirective.default],
     providers: CheckboxComponent.providers
 })
 export class CheckboxComponent extends InvertibleComponent {
@@ -35,7 +35,6 @@ export class CheckboxComponent extends InvertibleComponent {
         invertedChange: new ReplaySubject<boolean>(1)
     };
     protected static override readonly providers = [...InvertibleComponent.providers];
-    protected static override readonly directives = [...InvertibleComponent.directives, DisabledDirective.default, ReadOnlyDirective.default];
 
     private readonly readOnlyDirective = inject(ReadOnlyDirective, { self: true });
     private readonly disabledDirective = inject(DisabledDirective, { self: true });

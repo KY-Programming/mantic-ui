@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { FieldSize, ParsableFieldSize, parseFieldSize } from '../../models/field-size';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
+import { FieldSize, ParsableFieldSize, parseFieldSize } from '../../models/field-size';
 
 export declare type GridWidth = 'equal';
 
@@ -10,7 +10,6 @@ export declare type GridWidth = 'equal';
     templateUrl: './grid.component.html',
     styleUrls: ['./grid.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class GridComponent extends BaseComponent {

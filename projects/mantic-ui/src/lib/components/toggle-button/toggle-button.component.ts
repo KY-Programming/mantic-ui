@@ -1,10 +1,10 @@
-import { Component, ContentChild, EventEmitter, HostBinding, HostListener, inject, Input, Output, TemplateRef } from '@angular/core';
-import { Key } from '../../models/key';
-import { ButtonBaseComponent } from '../../base/button-base.component';
 import { CommonModule, NgIfContext } from '@angular/common';
-import { BooleanLike } from '../../models/boolean-like';
-import { IconComponent } from '../icon/icon.component';
+import { Component, ContentChild, EventEmitter, HostBinding, HostListener, inject, Input, Output, TemplateRef } from '@angular/core';
+import { ButtonBaseComponent } from '../../base/button-base.component';
 import { ActiveDirective } from '../../directives/active.directive';
+import { BooleanLike } from '../../models/boolean-like';
+import { Key } from '../../models/key';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
     selector: 'm-toggle-button',
@@ -15,7 +15,6 @@ import { ActiveDirective } from '../../directives/active.directive';
         CommonModule,
         IconComponent
     ],
-    hostDirectives: [...ButtonBaseComponent.directives],
     providers: [...ButtonBaseComponent.providers]
 })
 export class ToggleButtonComponent extends ButtonBaseComponent {
@@ -56,7 +55,8 @@ export class ToggleButtonComponent extends ButtonBaseComponent {
     private toggle(): void {
         if (this.checked) {
             this.uncheck();
-        } else {
+        }
+        else {
             this.check();
         }
     }

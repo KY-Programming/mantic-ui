@@ -24,7 +24,7 @@ export declare type FieldsType =
     templateUrl: './field-group.component.html',
     styleUrls: ['./field-group.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives, InlineDirective.default],
+    hostDirectives: [InlineDirective.default],
     providers: [...BaseComponent.providers]
 })
 export class FieldGroupComponent extends BaseComponent {

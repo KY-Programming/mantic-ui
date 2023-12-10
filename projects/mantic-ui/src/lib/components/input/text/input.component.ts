@@ -1,9 +1,9 @@
-import { Component, ContentChild, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { InputBaseComponent } from '../input-base.component';
 import { CommonModule } from '@angular/common';
-import { IconComponent } from '../../icon/icon.component';
-import { FallbackForDirective } from '../../../directives/fallback-for.directive';
+import { Component, ContentChild, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { FallbackForDirective } from '../../../directives/fallback-for.directive';
+import { IconComponent } from '../../icon/icon.component';
+import { InputBaseComponent } from '../input-base.component';
 
 export declare type InputIconPosition =
     'left'
@@ -22,7 +22,6 @@ export declare type InputType = 'button' | 'checkbox' | 'color' | 'date' | 'date
         FallbackForDirective,
         FormsModule
     ],
-    hostDirectives: [...InputBaseComponent.directives],
     providers: [...InputBaseComponent.providers]
 })
 export class InputComponent extends InputBaseComponent {

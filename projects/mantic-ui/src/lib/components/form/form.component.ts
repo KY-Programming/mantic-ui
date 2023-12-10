@@ -22,7 +22,7 @@ import { FormValidationNotifier } from './form-validation-notifier';
         FlexDirective,
         FillDirective
     ],
-    hostDirectives: [...InvertibleComponent.directives, LoadingDirective.default],
+    hostDirectives: [LoadingDirective.default],
     providers: [...InvertibleComponent.providers]
 })
 export class FormComponent extends InvertibleComponent implements OnInit {

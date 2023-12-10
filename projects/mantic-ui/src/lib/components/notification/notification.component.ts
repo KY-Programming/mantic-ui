@@ -1,16 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { NotificationService } from './notification.service';
-import { Notification } from './notification';
 import { BaseComponent } from '../../base/base.component';
 import { MessageComponent } from '../message/message.component';
-import { CommonModule } from '@angular/common';
+import { Notification } from './notification';
+import { NotificationService } from './notification.service';
 
 @Component({
     selector: 'm-notification',
     templateUrl: './notification.component.html',
     styleUrls: ['./notification.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives],
     imports: [
         CommonModule,
         MessageComponent

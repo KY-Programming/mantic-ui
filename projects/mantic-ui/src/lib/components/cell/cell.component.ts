@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { FieldSize, ParsableFieldSize, parseFieldSize } from '../../models/field-size';
 import { BaseComponent } from '../../base/base.component';
+import { FieldSize, ParsableFieldSize, parseFieldSize } from '../../models/field-size';
 
 export declare type CellFloat =
     'left'
@@ -15,7 +15,6 @@ export declare type CellAlign =
     templateUrl: './cell.component.html',
     styleUrls: ['./cell.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class CellComponent extends BaseComponent {

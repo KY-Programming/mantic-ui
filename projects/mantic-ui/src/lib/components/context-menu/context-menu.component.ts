@@ -1,15 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild } from '@angular/core';
-import { BaseComponent } from '../../base/base.component';
-import { Mouse } from '../../helpers/mouse';
 import { animationFrameScheduler, fromEvent } from 'rxjs';
-import { MenuComponent } from '../menu/menu.component';
-import { Math2 } from '../../helpers/math2';
 import { takeUntil } from 'rxjs/operators';
+import { BaseComponent } from '../../base/base.component';
+import { ToBodyDirective } from '../../directives/to-body.directive';
+import { Math2 } from '../../helpers/math2';
+import { Mouse } from '../../helpers/mouse';
+import { BooleanLike } from '../../models/boolean-like';
+import { MenuComponent } from '../menu/menu.component';
 import { ContextMenuEvent } from './models/context-menu-event';
 import { ContextMenuMouseEvent } from './models/context-menu-mouse-event';
-import { BooleanLike } from '../../models/boolean-like';
-import { CommonModule } from '@angular/common';
-import { ToBodyDirective } from '../../directives/to-body.directive';
 
 @Component({
     selector: 'm-context-menu',
@@ -21,7 +21,6 @@ import { ToBodyDirective } from '../../directives/to-body.directive';
         MenuComponent,
         ToBodyDirective
     ],
-    hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class ContextMenuComponent extends BaseComponent implements AfterViewInit {
@@ -140,7 +139,8 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
         if (typeof leftOrEvent === 'number' || leftOrEvent === undefined) {
             this.left = leftOrEvent ?? this.left;
             this.top = top ?? this.top;
-        } else {
+        }
+        else {
             leftOrEvent.preventDefault();
             leftOrEvent.contextMenuTarget = this;
             this.left = leftOrEvent.clientX;

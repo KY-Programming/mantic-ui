@@ -1,19 +1,17 @@
-import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
-import { MenuItemComponent } from '../menu-item/menu-item.component';
 import { CommonModule, NgIfContext } from '@angular/common';
-import { IconType } from '../icon/icon-type';
+import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { SortedClassesService } from '../../services/sorted-classes.service';
 import { IconSize } from '../icon/icon-size';
+import { IconType } from '../icon/icon-type';
+import { MenuItemComponent } from '../menu-item/menu-item.component';
 
 @Component({
     selector: 'm-tab',
     templateUrl: './tab.component.html',
     styleUrls: ['./tab.component.scss'],
     standalone: true,
-    imports: [
-        CommonModule
-    ],
-    hostDirectives: [...MenuItemComponent.directives],
-    providers: [...MenuItemComponent.providers]
+    imports: [CommonModule, MenuItemComponent],
+    providers: [SortedClassesService]
 })
 export class TabComponent extends MenuItemComponent {
 
@@ -52,7 +50,8 @@ export class TabComponent extends MenuItemComponent {
         this.activeChange.emit(value);
         if (value) {
             this.activate.emit();
-        } else {
+        }
+        else {
             this.deactivate.emit();
         }
     }

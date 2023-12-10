@@ -1,18 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component, ContentChild, inject, Input } from '@angular/core';
+import { ButtonBaseComponent } from '../../base/button-base.component';
+import { BasicDirective } from '../../directives/basic.directive';
+import { ColorDirective } from '../../directives/color.directive';
+import { FluidDirective } from '../../directives/fluid.directive';
+import { PointingDirective } from '../../directives/pointing.directive';
+import { ColorName } from '../../models/color';
+import { LabelPosition } from '../../models/label-position';
 import { AnimationDirection } from '../animation/animation-direction';
 import { AnimationComponent } from '../animation/animation.component';
-import { LabelComponent } from '../label/label.component';
-import { ButtonBaseComponent } from '../../base/button-base.component';
-import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
-import { LabelPosition } from '../../models/label-position';
-import { ColorDirective } from '../../directives/color.directive';
-import { CommonModule } from '@angular/common';
+import { IconType } from '../icon/icon-type';
 import { IconComponent } from '../icon/icon.component';
-import { BasicDirective } from '../../directives/basic.directive';
-import { FluidDirective } from '../../directives/fluid.directive';
-import { ColorName } from '../../models/color';
-import { PointingDirective } from '../../directives/pointing.directive';
+import { LabelComponent } from '../label/label.component';
 
 export declare type Pointing =
     'left'
@@ -30,7 +30,7 @@ export declare type Pointing =
         CommonModule,
         IconComponent
     ],
-    hostDirectives: [...ButtonBaseComponent.directives, FluidDirective.default, PointingDirective.default],
+    hostDirectives: [FluidDirective.default, PointingDirective.default],
     providers: [...ButtonBaseComponent.providers]
 })
 export class ButtonComponent extends ButtonBaseComponent {

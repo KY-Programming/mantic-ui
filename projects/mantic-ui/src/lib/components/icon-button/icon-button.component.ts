@@ -1,8 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component, HostBinding, Input } from '@angular/core';
 import { ButtonBaseComponent } from '../../base/button-base.component';
-import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
-import { CommonModule } from '@angular/common';
+import { IconType } from '../icon/icon-type';
 import { IconComponent } from '../icon/icon.component';
 
 @Component({
@@ -14,7 +14,6 @@ import { IconComponent } from '../icon/icon.component';
         CommonModule,
         IconComponent
     ],
-    hostDirectives: [...ButtonBaseComponent.directives],
     providers: [...ButtonBaseComponent.providers]
 })
 export class IconButtonComponent extends ButtonBaseComponent {

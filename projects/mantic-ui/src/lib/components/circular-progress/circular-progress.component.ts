@@ -1,9 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, HostBinding, inject, Input } from '@angular/core';
-import { CommonModule } from "@angular/common";
-import { ColorName } from "../../models/color";
-import { ColorDirective } from "../../directives/color.directive";
-import { BaseComponent } from "../../base/base.component";
-import { BooleanLike } from "../../models/boolean-like";
+import { BaseComponent } from '../../base/base.component';
+import { ColorDirective } from '../../directives/color.directive';
+import { BooleanLike } from '../../models/boolean-like';
+import { ColorName } from '../../models/color';
 
 @Component({
     selector: 'm-circular-progress',
@@ -11,7 +11,7 @@ import { BooleanLike } from "../../models/boolean-like";
     imports: [CommonModule],
     templateUrl: './circular-progress.component.html',
     styleUrls: ['./circular-progress.component.scss'],
-    hostDirectives: [...BaseComponent.directives, ColorDirective.default],
+    hostDirectives: [ColorDirective.default],
     providers: [...BaseComponent.providers]
 })
 export class CircularProgressComponent extends BaseComponent {

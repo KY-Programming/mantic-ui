@@ -1,13 +1,13 @@
-import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { DateHelper } from '../../../helpers/date-helper';
-import { InputBaseComponent } from '../input-base.component';
 import { CommonModule } from '@angular/common';
-import { IconComponent } from '../../icon/icon.component';
-import { FallbackForDirective } from '../../../directives/fallback-for.directive';
+import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { LabelComponent } from '../../label/label.component';
+import { FallbackForDirective } from '../../../directives/fallback-for.directive';
+import { DateHelper } from '../../../helpers/date-helper';
 import { BooleanLike } from '../../../models/boolean-like';
 import { ColorName } from '../../../models/color';
+import { IconComponent } from '../../icon/icon.component';
+import { LabelComponent } from '../../label/label.component';
+import { InputBaseComponent } from '../input-base.component';
 
 @Component({
     selector: 'm-date-input',
@@ -21,7 +21,6 @@ import { ColorName } from '../../../models/color';
         FormsModule,
         LabelComponent
     ],
-    hostDirectives: [...InputBaseComponent.directives],
     providers: [...InputBaseComponent.providers]
 })
 export class DateInputComponent extends InputBaseComponent implements OnInit {

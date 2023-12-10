@@ -5,7 +5,7 @@ import { ActiveDirective } from './active.directive';
 @Directive({
     selector: '[m-menu-item]',
     standalone: true,
-    hostDirectives: [...BaseDirective.directives, ActiveDirective.default],
+    hostDirectives: [ActiveDirective.default],
     providers: [...BaseDirective.providers]
 })
 // TODO: Implement

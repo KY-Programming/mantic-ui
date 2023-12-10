@@ -1,7 +1,7 @@
 import { Component, HostBinding, Input, Optional, SkipSelf } from '@angular/core';
-import { BooleanLike } from '../../models/boolean-like';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { PointingDirective } from '../../directives/pointing.directive';
+import { BooleanLike } from '../../models/boolean-like';
 
 export declare type MenuPosition =
     'top'
@@ -15,7 +15,7 @@ export declare type MenuPosition =
     templateUrl: './menu.component.html',
     styleUrls: ['./menu.component.scss'],
     standalone: true,
-    hostDirectives: [...InvertibleComponent.directives, PointingDirective.default],
+    hostDirectives: [PointingDirective.default],
     providers: [...InvertibleComponent.providers]
 })
 export class MenuComponent extends InvertibleComponent {

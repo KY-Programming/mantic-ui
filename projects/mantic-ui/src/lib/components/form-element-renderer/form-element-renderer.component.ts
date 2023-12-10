@@ -1,27 +1,27 @@
-import { Component, DoCheck, HostBinding, Input, IterableDiffer, IterableDiffers, Output } from '@angular/core';
-import { FormAreaElement, FormButtonElement, FormCheckboxElement, FormDataElement, FormDropDownElement, FormElements, FormFieldGroupElement, FormGridElement, FormHeader, FormInputElement, FormLabelElement, FormMessage } from '../form-renderer/form-layout';
-import { BaseComponent } from '../../base/base.component';
-import { DataSourceComponent } from '../data-source/data-source.component';
-import { DropdownValue } from '../dropdown/dropdown-value';
-import { merge, Observable, ReplaySubject, Subject } from 'rxjs';
-import { BooleanLike } from '../../models/boolean-like';
 import { CommonModule } from '@angular/common';
-import { FieldComponent } from '../field/field.component';
-import { InputComponent } from '../input/text/input.component';
-import { NumericInputComponent } from '../input/numeric/numeric-input.component';
-import { CheckboxComponent } from '../checkbox/checkbox.component';
-import { TextareaComponent } from '../textarea/textarea.component';
-import { DropdownComponent } from '../dropdown/dropdown.component';
-import { ButtonComponent } from '../button/button.component';
-import { GridComponent } from '../grid/grid.component';
-import { CellComponent } from '../cell/cell.component';
-import { FormElementRenderer2Component } from './form-element-renderer2.component';
-import { DividerComponent } from '../divider/divider.component';
-import { ErrorComponent } from '../error/error.component';
-import { InfoComponent } from '../info/info.component';
-import { WarningComponent } from '../warning/warning.component';
-import { MessageComponent } from '../message/message.component';
+import { Component, DoCheck, HostBinding, Input, IterableDiffer, IterableDiffers, Output } from '@angular/core';
+import { merge, Observable, ReplaySubject, Subject } from 'rxjs';
+import { BaseComponent } from '../../base/base.component';
 import { HeaderDirective } from '../../directives/header.directive';
+import { BooleanLike } from '../../models/boolean-like';
+import { ButtonComponent } from '../button/button.component';
+import { CellComponent } from '../cell/cell.component';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { DataSourceComponent } from '../data-source/data-source.component';
+import { DividerComponent } from '../divider/divider.component';
+import { DropdownValue } from '../dropdown/dropdown-value';
+import { DropdownComponent } from '../dropdown/dropdown.component';
+import { ErrorComponent } from '../error/error.component';
+import { FieldComponent } from '../field/field.component';
+import { FormAreaElement, FormButtonElement, FormCheckboxElement, FormDataElement, FormDropDownElement, FormElements, FormFieldGroupElement, FormGridElement, FormHeader, FormInputElement, FormLabelElement, FormMessage } from '../form-renderer/form-layout';
+import { GridComponent } from '../grid/grid.component';
+import { InfoComponent } from '../info/info.component';
+import { NumericInputComponent } from '../input/numeric/numeric-input.component';
+import { InputComponent } from '../input/text/input.component';
+import { MessageComponent } from '../message/message.component';
+import { TextareaComponent } from '../textarea/textarea.component';
+import { WarningComponent } from '../warning/warning.component';
+import { FormElementRenderer2Component } from './form-element-renderer2.component';
 
 @Component({
     selector: 'm-form-element-renderer',
@@ -47,7 +47,6 @@ import { HeaderDirective } from '../../directives/header.directive';
         FormElementRenderer2Component,
         HeaderDirective
     ],
-    hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class FormElementRendererComponent extends BaseComponent implements DoCheck {

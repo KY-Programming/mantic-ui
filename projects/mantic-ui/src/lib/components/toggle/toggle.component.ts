@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
-import { filter, takeUntil } from 'rxjs/operators';
-import { CheckboxComponent } from '../checkbox/checkbox.component';
-import { RadioService } from '../../services/radio.service';
 import { FormsModule } from '@angular/forms';
+import { filter, takeUntil } from 'rxjs/operators';
+import { RadioService } from '../../services/radio.service';
+import { CheckboxComponent } from '../checkbox/checkbox.component';
 
 @Component({
     selector: 'm-toggle',
     templateUrl: './toggle.component.html',
     styleUrls: ['./toggle.component.scss'],
     standalone: true,
-    hostDirectives: [...CheckboxComponent.directives],
     imports: [
         FormsModule
     ],

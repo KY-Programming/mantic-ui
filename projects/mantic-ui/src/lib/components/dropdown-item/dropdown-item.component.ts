@@ -1,14 +1,13 @@
 import { Component, HostBinding, HostListener, Input } from '@angular/core';
-import { DropDownSelectionService } from '../dropdown/dropdown-selection.service';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
+import { DropDownSelectionService } from '../dropdown/dropdown-selection.service';
 
 @Component({
     selector: 'm-dropdown-item',
     templateUrl: './dropdown-item.component.html',
     styleUrls: ['./dropdown-item.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class DropdownItemComponent extends BaseComponent {

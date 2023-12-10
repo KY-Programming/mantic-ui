@@ -6,7 +6,6 @@ import { BaseComponent } from '../../base/base.component';
     templateUrl: './menu-header.component.html',
     styleUrls: ['./menu-header.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class MenuHeaderComponent extends BaseComponent {

@@ -1,8 +1,8 @@
-import { Component, Input, Output } from '@angular/core';
-import { ButtonBaseComponent } from '../../base/button-base.component';
-import { Subject } from 'rxjs';
-import { BooleanLike } from '../../models/boolean-like';
 import { CommonModule } from '@angular/common';
+import { Component, Input, Output } from '@angular/core';
+import { Subject } from 'rxjs';
+import { ButtonBaseComponent } from '../../base/button-base.component';
+import { BooleanLike } from '../../models/boolean-like';
 
 @Component({
     selector: 'm-image-upload',
@@ -12,7 +12,6 @@ import { CommonModule } from '@angular/common';
     imports: [
         CommonModule
     ],
-    hostDirectives: [...ButtonBaseComponent.directives],
     providers: [...ButtonBaseComponent.providers]
 })
 export class ImageUploadComponent extends ButtonBaseComponent {
@@ -60,7 +59,7 @@ export class ImageUploadComponent extends ButtonBaseComponent {
             return;
         }
         this.uploadSubject.next(fileList);
-        const files: File[] = Array.from(fileList);
+        const files = Array.from(fileList);
         if (this.isPreviewVisible || this.isPreviewImageChangeForced) {
             this.showPreview(files[0]);
         }

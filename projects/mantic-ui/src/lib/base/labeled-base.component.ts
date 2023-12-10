@@ -1,15 +1,14 @@
 import { ContentChild, Directive, HostBinding, Input } from '@angular/core';
+import { ButtonComponent } from '../components/button/button.component';
+import { IconButtonComponent } from '../components/icon-button/icon-button.component';
 import { LabelDropdownComponent } from '../components/label-dropdown/label-dropdown.component';
 import { LabelComponent } from '../components/label/label.component';
-import { IconButtonComponent } from '../components/icon-button/icon-button.component';
-import { ButtonComponent } from '../components/button/button.component';
 import { LabelOptions } from '../models/label-options';
 import { InvertibleComponent } from './invertible.component';
 
 @Directive()
 export abstract class LabeledBaseComponent extends InvertibleComponent {
     protected static override readonly providers = [...InvertibleComponent.providers];
-    protected static override readonly directives = [...InvertibleComponent.directives];
 
     private labelValue: LabelOptions | undefined;
     private labelDropdownValue: LabelDropdownComponent | undefined;

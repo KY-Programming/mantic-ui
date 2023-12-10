@@ -20,6 +20,7 @@ export function getHighlightLanguages(): unknown {
         html: () => import('highlight.js/lib/languages/xml'),
         js: () => import('highlight.js/lib/languages/javascript'),
         scss: () => import('highlight.js/lib/languages/scss'),
-        ts: () => import('highlight.js/lib/languages/typescript')
+        ts: () => import('highlight.js/lib/languages/typescript'),
+        json: () => import('highlight.js/lib/languages/json')
     };
 }

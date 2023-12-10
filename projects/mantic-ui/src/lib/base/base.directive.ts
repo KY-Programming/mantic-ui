@@ -1,13 +1,12 @@
 import { Directive, ElementRef, Inject, inject, OnInit, Optional, TypeProvider } from '@angular/core';
-import { BooleanLike } from '../models/boolean-like';
 import { toBoolean } from '../helpers/to-boolean';
-import { Destroyable } from './destroyable';
+import { BooleanLike } from '../models/boolean-like';
 import { SortedClassesService } from '../services/sorted-classes.service';
+import { Destroyable } from './destroyable';
 
 @Directive()
 export abstract class BaseDirective extends Destroyable implements OnInit {
     protected static readonly providers: TypeProvider[] = [SortedClassesService];
-    protected static readonly directives = [];
 
     protected readonly classes = inject(SortedClassesService, { self: true });
     private noClassesValue = false;

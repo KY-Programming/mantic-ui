@@ -1,8 +1,8 @@
-import { Component, HostListener, Optional } from '@angular/core';
-import { FormComponent } from '../form/form.component';
-import { Key } from '../../models/key';
-import { ButtonBaseComponent } from '../../base/button-base.component';
 import { CommonModule } from '@angular/common';
+import { Component, HostListener, Optional } from '@angular/core';
+import { ButtonBaseComponent } from '../../base/button-base.component';
+import { Key } from '../../models/key';
+import { FormComponent } from '../form/form.component';
 import { IconComponent } from '../icon/icon.component';
 
 @Component({
@@ -14,7 +14,6 @@ import { IconComponent } from '../icon/icon.component';
         CommonModule,
         IconComponent
     ],
-    hostDirectives: [...ButtonBaseComponent.directives],
     providers: [...ButtonBaseComponent.providers]
 })
 export class SubmitComponent extends ButtonBaseComponent {

@@ -6,7 +6,6 @@ import { BaseComponent } from '../../base/base.component';
     templateUrl: './breadcrumb.component.html',
     styleUrls: ['./breadcrumb.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class BreadcrumbComponent extends BaseComponent {

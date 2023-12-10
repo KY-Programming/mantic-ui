@@ -1,9 +1,9 @@
 import { Component, HostListener, Input, Optional } from '@angular/core';
-import { MenuItemComponent } from '../../menu-item/menu-item.component';
-import { ContextMenuComponent } from '../context-menu.component';
 import { BooleanLike } from '../../../models/boolean-like';
 import { IconType } from '../../icon/icon-type';
 import { IconComponent } from '../../icon/icon.component';
+import { MenuItemComponent } from '../../menu-item/menu-item.component';
+import { ContextMenuComponent } from '../context-menu.component';
 
 @Component({
     selector: 'm-context-menu-item',
@@ -13,7 +13,6 @@ import { IconComponent } from '../../icon/icon.component';
     imports: [
         IconComponent
     ],
-    hostDirectives: [...MenuItemComponent.directives],
     providers: [...MenuItemComponent.providers]
 })
 export class ContextMenuItemComponent extends MenuItemComponent {

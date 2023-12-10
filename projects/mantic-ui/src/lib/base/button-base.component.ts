@@ -1,17 +1,19 @@
 ﻿import { Directive, HostBinding, Input } from '@angular/core';
-import { BaseComponent } from './base.component';
-import { BooleanLike } from '../models/boolean-like';
-import { ColorDirective } from '../directives/color.directive';
-import { BasicDirective } from '../directives/basic.directive';
-import { InvertedDirective } from '../directives/inverted.directive';
-import { DisabledDirective } from '../directives/disabled.directive';
-import { LoadingDirective } from '../directives/loading.directive';
 import { ActiveDirective } from '../directives/active.directive';
+import { BasicDirective } from '../directives/basic.directive';
+import { ColorDirective } from '../directives/color.directive';
+import { DisabledDirective } from '../directives/disabled.directive';
+import { InvertedDirective } from '../directives/inverted.directive';
+import { LoadingDirective } from '../directives/loading.directive';
+import { BooleanLike } from '../models/boolean-like';
+import { BaseComponent } from './base.component';
 
-@Directive()
+@Directive({
+    hostDirectives: [ColorDirective.default, BasicDirective.default, InvertedDirective.default, DisabledDirective.default, LoadingDirective.default, ActiveDirective.default],
+    providers: ButtonBaseComponent.providers
+})
 export abstract class ButtonBaseComponent extends BaseComponent {
     protected static override readonly providers = [...BaseComponent.providers];
-    protected static override readonly directives = [ColorDirective.default, BasicDirective.default, InvertedDirective.default, DisabledDirective.default, LoadingDirective.default, ActiveDirective.default];
     private sizeValue = '';
     private isPrimary = false;
     private isSecondary = false;

@@ -1,10 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
-import { BooleanLike } from '../../models/boolean-like';
-import { IconType } from '../icon/icon-type';
-import { IconSize } from '../icon/icon-size';
 import { IgnoredDirective } from '../../directives/ignored.directive';
-import { CommonModule } from '@angular/common';
+import { BooleanLike } from '../../models/boolean-like';
+import { IconSize } from '../icon/icon-size';
+import { IconType } from '../icon/icon-type';
 import { IconComponent } from '../icon/icon.component';
 import { LoaderComponent } from '../loader/loader.component';
 
@@ -20,7 +20,7 @@ export declare type MessageAttached = 'bottom' | 'top' | undefined;
         IconComponent,
         LoaderComponent
     ],
-    hostDirectives: [...BaseComponent.directives, IgnoredDirective.default],
+    hostDirectives: [IgnoredDirective.default],
     providers: [...BaseComponent.providers]
 })
 export class MessageComponent extends BaseComponent {

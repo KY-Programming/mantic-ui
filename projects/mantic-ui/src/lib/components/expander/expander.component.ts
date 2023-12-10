@@ -15,7 +15,6 @@ import { ExpanderHeaderComponent } from './expander-header.component';
     styleUrls: ['./expander.component.scss'],
     standalone: true,
     imports: [CommonModule, IconComponent, FlexComponent, FillComponent],
-    hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class ExpanderComponent extends BaseComponent {

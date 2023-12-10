@@ -1,8 +1,8 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
-import { BooleanLike } from '../../models/boolean-like';
-import { InvertedDirective } from '../../directives/inverted.directive';
 import { FluidDirective } from '../../directives/fluid.directive';
+import { InvertedDirective } from '../../directives/inverted.directive';
+import { BooleanLike } from '../../models/boolean-like';
 
 export declare type SidebarWidth =
     'thin'
@@ -22,7 +22,7 @@ export declare type SidebarPosition =
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives, InvertedDirective.default, FluidDirective.default],
+    hostDirectives: [InvertedDirective.default, FluidDirective.default],
     providers: [...BaseComponent.providers]
 })
 export class SidebarComponent extends BaseComponent {

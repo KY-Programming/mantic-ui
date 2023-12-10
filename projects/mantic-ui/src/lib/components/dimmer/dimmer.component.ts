@@ -1,8 +1,8 @@
 import { Component, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
-import { BooleanLike } from '../../models/boolean-like';
-import { InvertibleComponent } from '../../base/invertible.component';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { InvertibleComponent } from '../../base/invertible.component';
+import { BooleanLike } from '../../models/boolean-like';
 
 // TODO: Enable animation
 
@@ -11,7 +11,6 @@ import { takeUntil } from 'rxjs/operators';
     templateUrl: './dimmer.component.html',
     styleUrls: ['./dimmer.component.scss'],
     standalone: true,
-    hostDirectives: [...InvertibleComponent.directives],
     providers: [...InvertibleComponent.providers]
 })
 export class DimmerComponent extends InvertibleComponent implements OnInit, OnDestroy {

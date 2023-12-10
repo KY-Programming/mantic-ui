@@ -6,7 +6,6 @@ import { BaseComponent } from '../../base/base.component';
     templateUrl: './divider.component.html',
     styleUrls: ['./divider.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class DividerComponent extends BaseComponent {

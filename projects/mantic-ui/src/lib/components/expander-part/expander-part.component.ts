@@ -1,11 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild } from '@angular/core';
-import { BooleanLike } from '../../models/boolean-like';
 import { BaseComponent } from '../../base/base.component';
-import { IconType } from '../icon/icon-type';
-import { IconSize } from '../icon/icon-size';
+import { BooleanLike } from '../../models/boolean-like';
 import { ExpanderIconComponent } from '../expander-icon/expander-icon.component';
 import { FillComponent } from '../flex/fill/fill.component';
-import { CommonModule } from '@angular/common';
+import { IconSize } from '../icon/icon-size';
+import { IconType } from '../icon/icon-type';
 
 @Component({
     selector: 'm-expander-part',
@@ -17,7 +17,6 @@ import { CommonModule } from '@angular/common';
         FillComponent,
         ExpanderIconComponent
     ],
-    hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class ExpanderPartComponent extends BaseComponent {

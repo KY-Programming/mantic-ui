@@ -1,9 +1,9 @@
 import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
-import { IconType } from '../icon/icon-type';
-import { IconSize } from '../icon/icon-size';
-import { ExpanderComponent } from '../expander/expander.component';
-import { BooleanLike } from '../../models/boolean-like';
 import { BaseComponent } from '../../base/base.component';
+import { BooleanLike } from '../../models/boolean-like';
+import { ExpanderComponent } from '../expander/expander.component';
+import { IconSize } from '../icon/icon-size';
+import { IconType } from '../icon/icon-type';
 import { IconComponent } from '../icon/icon.component';
 
 @Component({
@@ -14,7 +14,6 @@ import { IconComponent } from '../icon/icon.component';
     imports: [
         IconComponent
     ],
-    hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class ExpanderIconComponent extends BaseComponent {
@@ -47,7 +46,8 @@ export class ExpanderIconComponent extends BaseComponent {
     public toggle(): void {
         if (this.isExpanded) {
             this.collapse();
-        } else {
+        }
+        else {
             this.expand();
         }
     }

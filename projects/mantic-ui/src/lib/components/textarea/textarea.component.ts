@@ -15,7 +15,6 @@ import { BooleanLike } from '../../models/boolean-like';
         FormsModule,
         FallbackForDirective
     ],
-    hostDirectives: [...InvertibleComponent.directives],
     providers: [...InvertibleComponent.providers]
 })
 export class TextareaComponent extends InvertibleComponent {

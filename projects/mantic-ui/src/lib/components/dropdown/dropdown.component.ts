@@ -25,7 +25,7 @@ import { DropdownValue } from './dropdown-value';
         IconComponent,
         DropdownItemComponent
     ],
-    hostDirectives: [...InvertibleComponent.directives, FluidDirective.default, DisabledDirective.default],
+    hostDirectives: [FluidDirective.default, DisabledDirective.default],
     providers: [...InvertibleComponent.providers, DropDownSelectionService]
 })
 export class DropdownComponent extends InvertibleComponent implements OnInit {

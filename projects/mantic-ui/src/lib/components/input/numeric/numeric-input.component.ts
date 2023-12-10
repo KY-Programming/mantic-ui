@@ -18,7 +18,6 @@ import { InputBaseComponent } from '../input-base.component';
         FallbackForDirective,
         FormsModule
     ],
-    hostDirectives: [...InputBaseComponent.directives],
     providers: [...InputBaseComponent.providers]
 })
 export class NumericInputComponent extends InputBaseComponent implements OnInit {

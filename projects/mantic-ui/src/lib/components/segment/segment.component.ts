@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BooleanLike } from '../../models/boolean-like';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ColorDirective } from '../../directives/color.directive';
-import { BasicDirective } from '../../directives/basic.directive';
 import { InvertibleComponent } from '../../base/invertible.component';
+import { BasicDirective } from '../../directives/basic.directive';
+import { ColorDirective } from '../../directives/color.directive';
 import { LoadingDirective } from '../../directives/loading.directive';
+import { BooleanLike } from '../../models/boolean-like';
 
 export declare type SegmentAttached =
     'top'
@@ -16,7 +16,7 @@ export declare type SegmentAttached =
     templateUrl: './segment.component.html',
     styleUrls: ['./segment.component.scss'],
     standalone: true,
-    hostDirectives: SegmentComponent.directives,
+    hostDirectives: [BasicDirective.default, ColorDirective.default, LoadingDirective.default],
     providers: SegmentComponent.providers
 })
 export class SegmentComponent extends InvertibleComponent implements OnInit {
@@ -27,7 +27,6 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
         raisedChange: new ReplaySubject<boolean>(1)
     };
     protected static override readonly providers = [...InvertibleComponent.providers];
-    protected static override readonly directives = [...InvertibleComponent.directives, BasicDirective.default, ColorDirective.default, LoadingDirective.default];
 
     private isVertical = false;
     private isRaised = false;

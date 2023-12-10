@@ -1,10 +1,10 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { LabelPosition } from '../../models/label-position';
 import { BaseComponent } from '../../base/base.component';
-import { LabelOptions } from '../../models/label-options';
-import { BooleanLike } from '../../models/boolean-like';
-import { ColorDirective } from '../../directives/color.directive';
 import { BasicDirective } from '../../directives/basic.directive';
+import { ColorDirective } from '../../directives/color.directive';
+import { BooleanLike } from '../../models/boolean-like';
+import { LabelOptions } from '../../models/label-options';
+import { LabelPosition } from '../../models/label-position';
 
 export declare type LabelPointing =
     'left'
@@ -18,7 +18,7 @@ export declare type LabelPointing =
     templateUrl: './label.component.html',
     styleUrls: ['./label.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives, BasicDirective.default, ColorDirective.default],
+    hostDirectives: [BasicDirective.default, ColorDirective.default],
     providers: [...BaseComponent.providers]
 })
 export class LabelComponent extends BaseComponent implements LabelOptions {

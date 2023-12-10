@@ -7,7 +7,6 @@ import { BooleanLike } from '../../models/boolean-like';
     templateUrl: './segment-group.component.html',
     styleUrls: ['./segment-group.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class SegmentGroupComponent extends BaseComponent {

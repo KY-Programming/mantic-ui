@@ -1,22 +1,24 @@
 ﻿import { Directive, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, Output } from '@angular/core';
-import { LabeledBaseComponent } from '../../base/labeled-base.component';
-import { InputIconPosition } from './text/input.component';
-import { BooleanLike } from '../../models/boolean-like';
-import { IconType } from '../icon/icon-type';
-import { IconSize } from '../icon/icon-size';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { LoadingDirective } from '../../directives/loading.directive';
+import { LabeledBaseComponent } from '../../base/labeled-base.component';
 import { FluidDirective } from '../../directives/fluid.directive';
+import { LoadingDirective } from '../../directives/loading.directive';
+import { BooleanLike } from '../../models/boolean-like';
+import { IconSize } from '../icon/icon-size';
+import { IconType } from '../icon/icon-type';
+import { InputIconPosition } from './text/input.component';
 
-@Directive()
+@Directive({
+    hostDirectives: [LoadingDirective.default, FluidDirective.default],
+    providers: InputBaseComponent.providers
+})
 export abstract class InputBaseComponent extends LabeledBaseComponent implements OnDestroy {
     public static readonly defaults = {
         inverted: false,
         invertedChange: new ReplaySubject<boolean>(1)
     };
     protected static override readonly providers = [...LabeledBaseComponent.providers];
-    protected static override readonly directives = [...LabeledBaseComponent.directives, LoadingDirective.default, FluidDirective.default];
 
     private iconPositionValue: InputIconPosition | undefined;
     private transparentValue = false;

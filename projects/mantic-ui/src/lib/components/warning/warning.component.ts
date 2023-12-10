@@ -1,8 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
-import { MessageComponent } from '../message/message.component';
 import { IconComponent } from '../icon/icon.component';
-import { CommonModule } from '@angular/common';
+import { MessageComponent } from '../message/message.component';
 
 @Component({
     selector: 'm-warning',
@@ -13,7 +13,6 @@ import { CommonModule } from '@angular/common';
         CommonModule,
         IconComponent
     ],
-    hostDirectives: [...BaseComponent.directives],
     providers: [...BaseComponent.providers]
 })
 export class WarningComponent extends BaseComponent {

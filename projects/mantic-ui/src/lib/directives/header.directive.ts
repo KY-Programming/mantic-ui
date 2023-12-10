@@ -6,7 +6,7 @@ import { InvertedDirective } from './inverted.directive';
 @Directive({
     selector: '[m-header]',
     standalone: true,
-    hostDirectives: [...BaseDirective.directives, InvertedDirective.default],
+    hostDirectives: [InvertedDirective.default],
     providers: [...BaseDirective.providers]
 })
 // TODO: Implement

@@ -1,14 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ContentChildren, EventEmitter, HostBinding, Input, OnInit, Output, QueryList } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Route, Router, Routes, UrlSegment } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
-import { MenuComponent, MenuPosition } from '../menu/menu.component';
-import { TabComponent } from '../tab/tab.component';
-import { BooleanLike } from '../../models/boolean-like';
-import { InvertibleComponent } from '../../base/invertible.component';
 import { ReplaySubject } from 'rxjs';
-import { CommonModule } from '@angular/common';
-import { SegmentComponent } from '../segment/segment.component';
+import { takeUntil } from 'rxjs/operators';
+import { InvertibleComponent } from '../../base/invertible.component';
+import { BooleanLike } from '../../models/boolean-like';
 import { IconComponent } from '../icon/icon.component';
+import { MenuComponent, MenuPosition } from '../menu/menu.component';
+import { SegmentComponent } from '../segment/segment.component';
+import { TabComponent } from '../tab/tab.component';
 
 @Component({
     selector: 'm-tab-group',
@@ -21,7 +21,6 @@ import { IconComponent } from '../icon/icon.component';
         MenuComponent,
         IconComponent
     ],
-    hostDirectives: [...InvertibleComponent.directives],
     providers: [...InvertibleComponent.providers]
 })
 export class TabGroupComponent extends InvertibleComponent implements OnInit, AfterViewInit {
@@ -156,11 +155,7 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
 
     public ngAfterViewInit(): void {
         if (this.tabs && this.tabs.length > 0 && this.tabs.toArray().every(tab => !tab.active)) {
-            setTimeout(() => {
-                this.tabs?.forEach((tab, index) => {
-                    tab.changeState(index === (this.selectedIndex || 0));
-                });
-            });
+            setTimeout(() => this.tabs?.forEach((tab, index) => tab.changeState(index === (this.selectedIndex || 0))));
         }
         this.refreshTab();
     }
@@ -176,7 +171,8 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
             selectedTabName = selectedTabName.toLowerCase();
             found = this.tabs?.find((tab, index) => tab.name && tab.name.toLocaleLowerCase() === selectedTabName || !tab.name && this.toName(tab.label) === selectedTabName || selectedTabIndex === index);
 
-        } else {
+        }
+        else {
             found = this.tabs?.find((_, index) => index === selectedTabIndex) || this.tabs?.find((_, index) => index === 0);
         }
         if (found) {

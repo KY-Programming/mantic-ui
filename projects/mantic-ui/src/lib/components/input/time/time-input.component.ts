@@ -1,10 +1,10 @@
-import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InputBaseComponent } from '../input-base.component';
-import { DateHelper } from '../../../helpers/date-helper';
+import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IconComponent } from '../../icon/icon.component';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
+import { DateHelper } from '../../../helpers/date-helper';
+import { IconComponent } from '../../icon/icon.component';
+import { InputBaseComponent } from '../input-base.component';
 
 @Component({
     selector: 'm-time-input',
@@ -17,7 +17,6 @@ import { FallbackForDirective } from '../../../directives/fallback-for.directive
         IconComponent,
         FallbackForDirective
     ],
-    hostDirectives: [...InputBaseComponent.directives],
     providers: [...InputBaseComponent.providers]
 })
 export class TimeInputComponent extends InputBaseComponent implements OnInit {

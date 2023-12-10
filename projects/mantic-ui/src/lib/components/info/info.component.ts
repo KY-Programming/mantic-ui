@@ -7,7 +7,7 @@ import { IgnoredDirective } from '../../directives/ignored.directive';
     templateUrl: './info.component.html',
     styleUrls: ['./info.component.scss'],
     standalone: true,
-    hostDirectives: [...BaseComponent.directives, IgnoredDirective.default],
+    hostDirectives: [IgnoredDirective.default],
     providers: [...BaseComponent.providers]
 })
 export class InfoComponent extends BaseComponent {
