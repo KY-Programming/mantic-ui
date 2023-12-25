@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { FieldSize, ParsableFieldSize, parseFieldSize } from '../../models/field-size';
 
@@ -27,10 +27,10 @@ export class CellComponent extends BaseComponent {
     }
 
     @Input()
-    @HostBinding('class.wide')
     public set size(value: ParsableFieldSize | undefined) {
         this.sizeValue = parseFieldSize(value);
         this.classes.set('size', this.sizeValue);
+        this.classes.set('wide', !!this.sizeValue);
     }
 
     @Input()
@@ -55,7 +55,7 @@ export class CellComponent extends BaseComponent {
 
     public constructor() {
         super(false);
-        this.classes.register('size', 'float', 'align')
+        this.classes.register('size', 'wide', 'float', 'align')
             .registerFixed('column');
     }
 

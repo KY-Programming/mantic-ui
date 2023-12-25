@@ -15,7 +15,6 @@ export class RowComponent extends BaseComponent {
     private isStretched = false;
 
     @Input()
-    @HostBinding('class.column')
     public get columns(): FieldSize | undefined {
         return this.columnsValue;
     }
@@ -23,6 +22,7 @@ export class RowComponent extends BaseComponent {
     public set columns(value: ParsableFieldSize) {
         this.columnsValue = parseFieldSize(value);
         this.classes.set('columns', this.columnsValue);
+        this.classes.set('column', !!this.columnsValue);
     }
 
     @Input()
@@ -37,7 +37,7 @@ export class RowComponent extends BaseComponent {
 
     public constructor() {
         super(false);
-        this.classes.register('columns', 'stretched')
+        this.classes.register('columns', 'column', 'stretched')
             .registerFixed('row');
     }
 
