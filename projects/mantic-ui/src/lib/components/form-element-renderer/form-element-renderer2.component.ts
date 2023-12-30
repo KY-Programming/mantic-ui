@@ -1,8 +1,8 @@
-﻿import { Component, ComponentRef, HostBinding, Input, OnDestroy, Type, ViewContainerRef } from '@angular/core';
-import { formElements } from './form-element.decorator';
+﻿import { CommonModule } from '@angular/common';
+import { Component, ComponentRef, HostBinding, inject, Input, OnDestroy, Type, ViewContainerRef } from '@angular/core';
 import { FormElements } from '../form-renderer/form-layout';
+import { FormRendererService } from '../form-renderer/form-renderer.service';
 import { FormElementBase } from './form-element-base';
-import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'm-form-renderer2',
@@ -14,7 +14,9 @@ import { CommonModule } from '@angular/common';
     ]
 })
 export class FormElementRenderer2Component implements OnDestroy {
-    private elementType: Type<unknown> | undefined;
+    private readonly formRendererService = inject(FormRendererService);
+    private readonly viewContainerRef = inject(ViewContainerRef);
+    private elementType: Type<FormElementBase> | undefined;
     private elementValue: FormElements | undefined;
     private dataValue: unknown;
 
@@ -30,7 +32,7 @@ export class FormElementRenderer2Component implements OnDestroy {
     @Input()
     public set element(value: FormElements | undefined) {
         this.elementValue = value;
-        this.elementType = value ? formElements[value.elementType] : undefined;
+        this.elementType = this.formRendererService.get(value?.elementType);
         if (!this.elementType) {
             this.invalidType = value?.elementType;
         }
@@ -49,17 +51,12 @@ export class FormElementRenderer2Component implements OnDestroy {
         }
     }
 
-    public constructor(
-        private readonly viewContainerRef: ViewContainerRef
-    ) {
-    }
-
     public createComponent(): void {
         this.viewContainerRef.clear();
-        if (!this.elementType) {
+        if (!this.elementType || !this.element) {
             return;
         }
-        this.componentRef = this.viewContainerRef.createComponent(this.elementType) as ComponentRef<FormElementBase>;
+        this.componentRef = this.viewContainerRef.createComponent(this.elementType);
         this.componentRef.instance.element = this.element;
         this.componentRef.instance.data = this.data;
     }

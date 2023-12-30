@@ -67,6 +67,8 @@ export * from './lib/components/form-element-renderer/form-element-renderer.comp
 export * from './lib/components/form-element-renderer/form-element.decorator';
 export * from './lib/components/form-element-renderer/form-element-renderer2.component';
 export * from './lib/components/form-element-renderer/form-element-base';
+export * from './lib/components/form-renderer/form-renderer.service';
+export * from './lib/components/form-renderer/provide-form-element';
 export * from './lib/components/grid/grid.component';
 export * from './lib/components/header/header.component';
 export * from './lib/components/icon-button/icon-button.component';

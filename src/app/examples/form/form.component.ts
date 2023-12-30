@@ -356,6 +356,24 @@ export class MyValidationPipe implements ValidationPipe, PipeTransform {
 
     protected readonly autoSubmitCode = `<m-form autoSubmit />`;
     protected readonly inlineValidationCode = `<m-form inlineValidation />`;
+    protected readonly ownLabelCode = `<m-form>
+    <m-field label="Label defined on field">
+        <m-checkbox />
+    </m-field>
+    <m-field label="Field Label" ownLabel>
+        <m-checkbox>Checkbox Label</m-checkbox>
+    </m-field>
+</m-form>`;
+    protected readonly forceLabelCode = `<m-form>
+    <m-field-group>
+        <m-field label="A input">
+            <m-input />
+        </m-field>
+        <m-field label="Checkbox" forceLabel>
+            <m-checkbox />
+        </m-field>
+    </m-field-group>
+</m-form>`;
 
     public requestData(request: DataSourceRequest): void {
         if (request.key === 'status') {

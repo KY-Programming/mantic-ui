@@ -76,7 +76,6 @@ export class CheckboxComponent extends InvertibleComponent {
 
     public set name(value: string | undefined) {
         this.nameValue = value;
-        this.classes.set('name', value);
     }
 
     @Input()
@@ -86,7 +85,6 @@ export class CheckboxComponent extends InvertibleComponent {
 
     public set label(value: string | undefined) {
         this.labelValue = value;
-        this.classes.set('label', value);
     }
 
     @Input()

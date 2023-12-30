@@ -371,6 +371,30 @@
             </m-form>
         </m-example>
 
+        <m-example header="Checkbox with own label" description="A field can be configured to do not forward the label to a checkbox and use 'two' labels " [code]="ownLabelCode">
+            <m-form>
+                <m-field label="Label defined on field">
+                    <m-checkbox />
+                </m-field>
+                <m-field label="Field Label" ownLabel>
+                    <m-checkbox>Checkbox Label</m-checkbox>
+                </m-field>
+            </m-form>
+        </m-example>
+
+        <m-example header="Align Checkbox" description="A field can be configured to keep space to align with other form elements" [code]="ownLabelCode">
+            <m-form>
+                <m-field-group>
+                    <m-field label="A input">
+                        <m-input />
+                    </m-field>
+                    <m-field label="Checkbox" forceLabel>
+                        <m-checkbox />
+                    </m-field>
+                </m-field-group>
+            </m-form>
+        </m-example>
+
         <m-example header="Auto Submit" description="A from can be configured to automatically submit on changes" [code]="autoSubmitCode">
             <m-form autoSubmit (submit)="onAutoSubmit()">
                 <m-field-group>
@@ -391,12 +415,12 @@
         <m-segment>
             <h3 m-header>Layout (JSON)</h3>
             <m-textarea [value]="rendererLayout | json" (valueChange)="parseLayout($event)"></m-textarea>
-            <m-error *ngIf="rendererLayoutError">{{rendererLayoutError}}</m-error>
+            <m-error *ngIf="rendererLayoutError">{{ rendererLayoutError }}</m-error>
         </m-segment>
         <m-segment>
             <h3 m-header>Data (Object)</h3>
             <m-textarea [value]="rendererData | json" (valueChange)="parseData($event)"></m-textarea>
-            <m-error *ngIf="rendererDataError">{{rendererDataError}}</m-error>
+            <m-error *ngIf="rendererDataError">{{ rendererDataError }}</m-error>
         </m-segment>
         <m-segment style="min-height: 500px" m-flex="column">
             <m-form-renderer [layout]="rendererLayout" [data]="rendererData" m-fill>

@@ -1,6 +1,11 @@
-<label *ngIf="(label || hint) && !checkboxComponent && !sliderComponent && !toggleComponent && !radioComponent" [attr.for]="name" #labelElement>
-    {{label}}
-    <m-icon *ngIf="hint" [icon]="defaults.hintIcon" [size]="defaults.hintIconSize" [title]="hint" />
-    <m-icon *ngIf="inlineValidation && errors.length" [icon]="defaults.errorIcon" [size]="defaults.errorIconSize" [title]="errors | fieldFormatErrors" />
-</label>
+@if ((checkboxComponent || sliderComponent || toggleComponent || radioComponent) && !ownLabel && forceLabel) {
+    <label class="empty label">&nbsp;</label>
+} @else if (label || hint) {
+    <label *ngIf="(label || hint) && (!checkboxComponent && !sliderComponent && !toggleComponent && !radioComponent || ownLabel)" [attr.for]="name" #labelElement>
+        {{ label }}
+        <m-icon *ngIf="hint" [icon]="defaults.hintIcon" [size]="defaults.hintIconSize" [title]="hint" />
+        <m-icon *ngIf="inlineValidation && errors.length" [icon]="defaults.errorIcon" [size]="defaults.errorIconSize" [title]="errors | fieldFormatErrors" />
+    </label>
+}
+
 <ng-content />

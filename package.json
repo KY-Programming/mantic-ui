@@ -6,6 +6,7 @@
         "start": "ng serve",
         "prebuild": "license-to-json -output=./src/assets/3d-party-licenses.json",
         "build": "npm run mantic:build && npm run doc:build && npm run fomantic:build && npm run semantic:build && ng build",
+        "publish": "npm run mantic:publish && npm run doc:publish && npm run fomantic:publish && npm run semantic:publish",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
         "lint": "ng lint",

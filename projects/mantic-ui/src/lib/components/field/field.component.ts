@@ -63,6 +63,9 @@ export class FieldComponent extends BaseComponent {
     public readonly errors: FormError[] = [];
     protected readonly defaults = FieldComponent.defaults;
     private isInlineValidation = false;
+    private hasOwnLabel = false;
+    private isForceLabel = false;
+    private originalLabel?: string;
 
     @ContentChild('labelElement')
     protected get labelElement(): HTMLLabelElement | undefined {
@@ -133,7 +136,9 @@ export class FieldComponent extends BaseComponent {
         this.checkboxComponentValue = value;
         if (this.checkboxComponentValue) {
             this.checkboxComponentValue.name = this.name;
-            this.checkboxComponentValue.label = this.label;
+            if (!this.ownLabel) {
+                this.checkboxComponentValue.label = this.label;
+            }
             this.checkboxComponentValue.readonly = this.readonly;
             this.checkboxComponentValue.disabled = this.disabled;
             this.checkboxComponentValue.valueChange.pipe(takeUntil(this.destroy)).subscribe(() => this.change.next());
@@ -149,7 +154,9 @@ export class FieldComponent extends BaseComponent {
         this.sliderComponentValue = value;
         if (this.sliderComponentValue) {
             this.sliderComponentValue.name = this.name;
-            this.sliderComponentValue.label = this.label;
+            if (!this.ownLabel) {
+                this.sliderComponentValue.label = this.label;
+            }
             this.sliderComponentValue.readonly = this.readonly;
             this.sliderComponentValue.disabled = this.disabled;
             this.sliderComponentValue.valueChange.pipe(takeUntil(this.destroy)).subscribe(() => this.change.next());
@@ -165,7 +172,9 @@ export class FieldComponent extends BaseComponent {
         this.toggleComponentValue = value;
         if (this.toggleComponentValue) {
             this.toggleComponentValue.name = this.name;
-            this.toggleComponentValue.label = this.label;
+            if (!this.ownLabel) {
+                this.toggleComponentValue.label = this.label;
+            }
             this.toggleComponentValue.readonly = this.readonly;
             this.toggleComponentValue.disabled = this.disabled;
             this.toggleComponentValue.valueChange.pipe(takeUntil(this.destroy)).subscribe(() => this.change.next());
@@ -181,7 +190,9 @@ export class FieldComponent extends BaseComponent {
         this.radioComponentValue = value;
         if (this.radioComponentValue) {
             this.radioComponentValue.name = this.name;
-            this.radioComponentValue.label = this.label;
+            if (!this.ownLabel) {
+                this.radioComponentValue.label = this.label;
+            }
             this.radioComponentValue.readonly = this.readonly;
             this.radioComponentValue.disabled = this.disabled;
             this.radioComponentValue.valueChange.pipe(takeUntil(this.destroy)).subscribe(() => this.change.next());
@@ -268,22 +279,40 @@ export class FieldComponent extends BaseComponent {
     public set label(value: string | undefined) {
         this.labelValue = value;
         if (this.checkboxComponent) {
-            this.checkboxComponent.label = value;
+            if (!this.ownLabel) {
+                this.originalLabel = this.checkboxComponent.label;
+                this.checkboxComponent.label = value;
+            }
+            else if (this.originalLabel) {
+                this.checkboxComponent.label = this.originalLabel;
+            }
         }
         if (this.sliderComponent) {
-            this.sliderComponent.label = value;
+            if (!this.ownLabel) {
+                this.originalLabel = this.sliderComponent.label;
+                this.sliderComponent.label = value;
+            }
+            else if (this.originalLabel) {
+                this.sliderComponent.label = this.originalLabel;
+            }
         }
         if (this.toggleComponent) {
-            this.toggleComponent.label = value;
+            if (!this.ownLabel) {
+                this.originalLabel = this.toggleComponent.label;
+                this.toggleComponent.label = value;
+            }
+            else if (this.originalLabel) {
+                this.toggleComponent.label = this.originalLabel;
+            }
         }
         if (this.radioComponent) {
-            this.radioComponent.label = value;
-        }
-        if (this.textareaComponent) {
-            // this.textareaComponent.label = value;
-        }
-        if (this.dropDownComponent) {
-            // this.dropDownComponent.label = value;
+            if (!this.ownLabel) {
+                this.originalLabel = this.radioComponent.label;
+                this.radioComponent.label = value;
+            }
+            else if (this.originalLabel) {
+                this.radioComponent.label = this.originalLabel;
+            }
         }
     }
 
@@ -448,6 +477,24 @@ export class FieldComponent extends BaseComponent {
 
     public set inlineValidation(value: BooleanLike) {
         this.isInlineValidation = this.toBoolean(value);
+    }
+
+    @Input()
+    public get ownLabel(): boolean {
+        return this.hasOwnLabel;
+    }
+
+    public set ownLabel(value: BooleanLike) {
+        this.hasOwnLabel = this.toBoolean(value);
+    }
+
+    @Input()
+    public get forceLabel(): boolean {
+        return this.isForceLabel;
+    }
+
+    public set forceLabel(value: BooleanLike) {
+        this.isForceLabel = this.toBoolean(value);
     }
 
     @Output()

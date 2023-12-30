@@ -2,5 +2,5 @@
 
 export interface FormElementBase {
     element: FormDataElement | undefined;
-    data: unknown;
+    data: unknown | undefined;
 }
