@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../../components/header/header.component';
+import { Component } from '@angular/core';
 import { HeaderDirective, IconComponent, TabComponent, TabGroupComponent, TableComponent, WarningComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-table-example',
@@ -37,7 +37,8 @@ export class TableExampleComponent {
     </tr>
 </m-table>`;
 
-    public basicCode = `<m-table basic></m-table>`;
-    public collapsingCode = `<m-table collapsing></m-table>`;
+    public basicCode = `<m-table basic />`;
+    public veryBasicCode = `<m-table very basic />`;
+    public collapsingCode = `<m-table collapsing />`;
 
 }

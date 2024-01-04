@@ -14,9 +14,36 @@ export class SortedClassesService {
     private readonly entries = new Map<string, Entry>();
     private readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
 
+    /**
+     * Registers one or more keys. The keys will only registered if they are not already registered.
+     */
+    public registerFallback(...keys: string[]): SortedClassesService {
+        for (const key of keys) {
+            if (this.has(key)) {
+                continue;
+            }
+            this.registerEntry(key);
+        }
+        return this;
+    }
+
+    /**
+     * Registers one or more keys. If they are already registered, the order will be updated.
+     */
     public register(...keys: string[]): SortedClassesService {
         for (const key of keys) {
-            this.registerEntry(key);
+            const existingEntry = this.getEntry(key);
+            if (existingEntry) {
+                for (let [_, entry] of this.entries) {
+                    if (entry.order > existingEntry.order) {
+                        entry.order--;
+                    }
+                }
+                existingEntry.order = this.entries.size - 1;
+            }
+            else {
+                this.registerEntry(key);
+            }
         }
         return this;
     }
@@ -24,6 +51,13 @@ export class SortedClassesService {
     public registerFixed(...keys: string[]): SortedClassesService {
         for (const key of keys) {
             this.registerEntry(key, { fixed: true });
+        }
+        return this;
+    }
+
+    public unregister(...keys: string[]): SortedClassesService {
+        for (const key of keys) {
+            this.entries.delete(key.toLocaleLowerCase());
         }
         return this;
     }
@@ -71,9 +105,11 @@ export class SortedClassesService {
         }
         if (value === true) {
             entry.value = key;
-        } else if (value === false || value === undefined || value === null) {
+        }
+        else if (value === false || value === undefined || value === null) {
             entry.value = '';
-        } else {
+        }
+        else {
             entry.value = value.toString();
         }
         if (options?.refresh !== false) {

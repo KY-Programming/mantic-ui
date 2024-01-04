@@ -1,6 +1,6 @@
 ﻿import { Directive, inject, Input } from '@angular/core';
-import { BooleanLike } from '../models/boolean-like';
 import { toBoolean } from '../helpers/to-boolean';
+import { BooleanLike } from '../models/boolean-like';
 import { SortedClassesService } from '../services/sorted-classes.service';
 
 @Directive({
@@ -14,7 +14,7 @@ export class BasicDirective {
     private isBasic = false;
 
     public constructor() {
-        this.classes.register(BasicDirective.basic);
+        this.classes.registerFallback(BasicDirective.basic);
     }
 
     public get basic(): boolean {

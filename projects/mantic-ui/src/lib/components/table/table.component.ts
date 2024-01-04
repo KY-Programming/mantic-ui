@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
@@ -32,13 +32,13 @@ export class TableComponent extends InvertibleComponent implements OnInit {
     private isCollapsing = false;
 
     @Input()
-    @HostBinding('class.celled')
     public get celled(): boolean {
         return this.isCelled;
     }
 
     public set celled(value: BooleanLike) {
         this.isCelled = this.toBoolean(value);
+        this.classes.set('celled', this.isCelled);
     }
 
     @Input()
@@ -51,23 +51,23 @@ export class TableComponent extends InvertibleComponent implements OnInit {
     }
 
     @Input()
-    @HostBinding('class.very')
     public get very(): boolean {
         return this.isVery;
     }
 
     public set very(value: BooleanLike) {
         this.isVery = this.toBoolean(value);
+        this.classes.set('very', this.isVery);
     }
 
     @Input()
-    @HostBinding('class.unstackable')
     public get unstackable(): boolean {
         return this.isUnstackable;
     }
 
     public set unstackable(value: BooleanLike) {
         this.isUnstackable = this.toBoolean(value);
+        this.classes.set('unstackable', this.isUnstackable);
     }
 
     @Input()
@@ -81,28 +81,28 @@ export class TableComponent extends InvertibleComponent implements OnInit {
     }
 
     @Input()
-    @HostBinding('class.definition')
     public get definition(): boolean {
         return this.isDefinition;
     }
 
     public set definition(value: BooleanLike) {
         this.isDefinition = this.toBoolean(value);
+        this.classes.set('definition', this.isDefinition);
     }
 
     @Input()
-    @HostBinding('class.collapsing')
     public get collapsing(): boolean {
         return this.isCollapsing;
     }
 
     public set collapsing(value: BooleanLike) {
         this.isCollapsing = this.toBoolean(value);
+        this.classes.set('collapsing', this.isCollapsing);
     }
 
     public constructor() {
         super();
-        this.classes.register('celled', 'notCelled', 'very', 'unstackable', 'aligned', 'definition', 'collapsing')
+        this.classes.register('celled', 'notCelled', 'very', BasicDirective.basic, 'unstackable', 'aligned', 'definition', 'collapsing')
             .registerFixed('table');
         this.aligned ??= 'middle';
     }

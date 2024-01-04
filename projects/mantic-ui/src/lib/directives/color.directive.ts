@@ -13,7 +13,7 @@ export class ColorDirective {
     private colorValue: ColorName | undefined;
 
     public constructor() {
-        this.classes.register(ColorDirective.color);
+        this.classes.registerFallback(ColorDirective.color);
     }
 
     public get color(): ColorName | undefined {
