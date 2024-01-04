@@ -13,7 +13,7 @@ import { DropdownValue } from '../dropdown/dropdown-value';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { ErrorComponent } from '../error/error.component';
 import { FieldComponent } from '../field/field.component';
-import { FormAreaElement, FormButtonElement, FormCheckboxElement, FormDataElement, FormDropDownElement, FormElements, FormFieldGroupElement, FormGridElement, FormHeader, FormInputElement, FormLabelElement, FormMessage } from '../form-renderer/form-layout';
+import { FormAreaElement, FormButtonElement, FormCheckboxElement, FormDataElement, FormDropDownElement, FormElements, FormError, FormFieldGroupElement, FormGridElement, FormHeader, FormInfo, FormInputElement, FormLabelElement, FormMessage, FormWarning } from '../form-renderer/form-layout';
 import { GridComponent } from '../grid/grid.component';
 import { InfoComponent } from '../info/info.component';
 import { NumericInputComponent } from '../input/numeric/numeric-input.component';
@@ -248,8 +248,8 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
         throw new Error(`${element.elementType} can not be casted to 'grid'`);
     }
 
-    protected $message(element: FormElements): FormMessage {
-        if (element.elementType === 'message') {
+    protected $message(element: FormElements): FormMessage | FormWarning | FormInfo | FormError {
+        if (element.elementType === 'message' || element.elementType === 'warning' || element.elementType === 'info' || element.elementType === 'error') {
             return element;
         }
         throw new Error(`${element.elementType} can not be casted to 'message'`);
