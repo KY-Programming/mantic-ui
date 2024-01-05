@@ -1,13 +1,15 @@
+import { CommonModule, NgIfContext } from '@angular/common';
 import { Component, DoCheck, ElementRef, Input, IterableDiffer, IterableDiffers, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
+import { toBoolean } from '../../helpers/to-boolean';
+import { BooleanLike } from '../../models/boolean-like';
 import { ChatMessage } from '../../models/chat-message';
-import { InputComponent } from '../input/text/input.component';
-import { IconType } from '../icon/icon-type';
-import { IconSize } from '../icon/icon-size';
-import { CommonModule, NgIfContext } from '@angular/common';
-import { ChatMessageComponent } from '../chat-message/chat-message.component';
 import { ButtonComponent } from '../button/button.component';
+import { ChatMessageComponent } from '../chat-message/chat-message.component';
+import { IconSize } from '../icon/icon-size';
+import { IconType } from '../icon/icon-type';
 import { IconComponent } from '../icon/icon.component';
+import { InputComponent } from '../input/text/input.component';
 
 @Component({
     selector: 'm-chat',
@@ -27,6 +29,8 @@ export class ChatComponent implements DoCheck {
     private readonly sendSubject = new Subject<ChatMessage>();
     private readonly messagesDiffer: IterableDiffer<unknown>;
     protected readonly defaults = ChatComponent.defaults;
+    private canSendValue = true;
+    protected isSendIconVisible = false;
 
     @Input()
     public messages: ChatMessage[] = [];
@@ -34,7 +38,13 @@ export class ChatComponent implements DoCheck {
     public message: string | undefined;
 
     @Input()
-    public canSend = true;
+    public get canSend(): boolean {
+        return this.canSendValue;
+    }
+
+    public set canSend(value: BooleanLike) {
+        this.canSendValue = toBoolean(value);
+    }
 
     @Input()
     public sender: string | undefined;
@@ -48,6 +58,18 @@ export class ChatComponent implements DoCheck {
 
     @Input()
     public sendIconSize: IconSize;
+
+    @Input()
+    public get showSendIcon(): boolean {
+        return this.isSendIconVisible;
+    }
+
+    public set showSendIcon(value: BooleanLike) {
+        this.isSendIconVisible = toBoolean(value);
+    }
+
+    @Input()
+    public placeholder = 'Type a message and send with ENTER';
 
     @Output()
     public readonly send = this.sendSubject.asObservable();

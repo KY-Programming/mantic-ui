@@ -1,9 +1,9 @@
 <div class="chat" #chat>
-    <m-chat-message *ngFor="let message of messages" [message]="message"></m-chat-message>
+    <m-chat-message *ngFor="let message of messages" [message]="message" />
 </div>
 <div *ngIf="canSend" class="input-wrapper" [class.visible]="canSend">
-    <m-input autofocus [(value)]="message" (keydown)="onKeyDown($event)">
-        <m-button class="icon" (click)="sendMessage()">
+    <m-input autofocus [(value)]="message" [placeholder]="placeholder" (keydown)="onKeyDown($event)">
+        <m-button *ngIf="isSendIconVisible" class="icon" (click)="sendMessage()">
             <m-icon *ngIf="!sendIconTemplate else sendIconTemplate" [icon]="sendIcon ?? defaults.sendIcon" [size]="sendIconSize ?? defaults.sendIconSize"></m-icon>
         </m-button>
     </m-input>
