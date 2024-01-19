@@ -14,15 +14,15 @@ import { TemplateService } from '../../services/template.service';
 })
 export class TemplateOutletComponent extends Destroyable {
     private readonly templateService = inject(TemplateService);
-    private readonly nextIdSubject = new Subject<void>();
+    private readonly nextNameSubject = new Subject<void>();
     protected template: TemplateRef<unknown> | undefined;
     public readonly name = input.required<string | string[]>();
 
     public constructor() {
         super();
         effect(() => {
-            this.nextIdSubject.next();
-            this.templateService.get(this.name()).pipe(takeUntil(race(this.destroy, this.nextIdSubject))).subscribe(template => this.template = template);
+            this.nextNameSubject.next();
+            this.templateService.get(this.name()).pipe(takeUntil(race(this.destroy, this.nextNameSubject))).subscribe(template => this.template = template);
         });
     }
 }

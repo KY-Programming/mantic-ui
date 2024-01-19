@@ -142,6 +142,7 @@ export * from './lib/directives/disabled.directive';
 export * from './lib/directives/fallback-for.directive';
 export * from './lib/directives/fluid.directive';
 export * from './lib/directives/footer-link-template.directive';
+export * from './lib/directives/hide-on-empty-template.directive';
 export * from './lib/directives/ignored.directive';
 export * from './lib/directives/inline.directive';
 export * from './lib/directives/inverted.directive';

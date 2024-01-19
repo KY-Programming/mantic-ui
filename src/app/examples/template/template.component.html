@@ -1,4 +1,4 @@
-<app-header header="Template" subHeader="An component to project content" />
+<app-header header="Template" subHeader="An component to project content from anywhere in your app to somewhere else" />
 
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Examples">
@@ -10,8 +10,9 @@
                 <m-template-outlet name="my.template.id" />
                 to here
             </m-segment>
-            <m-example-code [code]="exampleCode" />
+            <m-example-code [code]="code1" />
         </m-example>
+
         <m-example header="Multiple Template for one outlet" description="Multiple templates can stack on one outlet. Only the last template is rendered">
             <m-button *ngIf="!showA" primary (click)="showA = true">Show A</m-button>
             <m-button *ngIf="showA" primary (click)="showA = false">Hide A</m-button>
@@ -27,7 +28,19 @@
                 <div>Result:</div>
                 <m-template-outlet name="stacked-templates" />
             </m-segment>
-            <m-example-code [code]="exampleCode" />
+            <m-example-code [code]="code2" />
+        </m-example>
+
+        <m-example header="Hide wrapper on empty template" description="It is possible to hide a wrapping element when the template is not set">
+            <m-button *ngIf="!visible" primary (click)="visible = true">Show</m-button>
+            <m-button *ngIf="visible" primary (click)="visible = false">Hide</m-button>
+            <m-template *ngIf="visible" name="onlyFilledTemplates">
+                This content is projected and also hides it wrapping m-segment
+            </m-template>
+            <m-segment *mHideOnEmptyTemplate="'onlyFilledTemplates'">
+                <m-template-outlet name="onlyFilledTemplates" />
+            </m-segment>
+            <m-example-code [code]="code3" />
         </m-example>
     </m-tab>
 </m-tab-group>
