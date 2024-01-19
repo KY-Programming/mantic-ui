@@ -1,51 +1,52 @@
 import { Route, Routes } from '@angular/router';
-import { FomanticStartComponent } from './fomantic/start/start.component';
+import { CreditsComponent } from './common/credits/credits.component';
+import { FeatureComponent } from './common/help/feature/feature.component';
+import { HelpComponent } from './common/help/help.component';
 import { IntroComponent } from './common/intro/intro.component';
+import { CommonLayoutComponent } from './common/layout.component';
+import { LicenseComponent } from './common/license/license.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 import { ButtonExampleComponent } from './examples/button/button.component';
+import { ChatExampleComponent } from './examples/chat/chat.component';
 import { CheckboxExampleComponent } from './examples/checkbox/checkbox.component';
+import { ComponentExamplesComponent } from './examples/components/components.component';
 import { ContainerExampleComponent } from './examples/container/container.component';
+import { ContextMenuExampleComponent } from './examples/context-menu/context-menu.component';
 import { DimmerExampleComponent } from './examples/dimmer/dimmer.component';
 import { DividerExampleComponent } from './examples/divider/divider.component';
 import { DropdownExampleComponent } from './examples/dropdown/dropdown.component';
+import { ElementExamplesComponent } from './examples/elements/elements.component';
+import { ExpanderExampleComponent } from './examples/expander/expander.component';
 import { FormExampleComponent } from './examples/form/form.component';
 import { GridExampleComponent } from './examples/grid/grid.component';
 import { HeaderExampleComponent } from './examples/header/header.component';
+import { IconExampleComponent } from './examples/icon/icon.component';
+import { SemanticIframeComponent } from './examples/iframe/iframe.component';
 import { InputExampleComponent } from './examples/input/input.component';
+import { SemanticLayoutIframeComponent } from './examples/layout/iframe/layout/layout.component';
+import { LayoutExampleComponent } from './examples/layout/layout.component';
+import { LayoutExamplesComponent } from './examples/layouts/layouts.component';
+import { MarkdownExampleComponent } from './examples/markdown/markdown.component';
+import { SemanticMenuIframeFixed1Component } from './examples/menu/iframe/fixed1/fixed1.component';
 import { MenuExampleComponent } from './examples/menu/menu.component';
+import { MessageExampleComponent } from './examples/message/message.component';
 import { ModalExampleComponent } from './examples/modal/modal.component';
+import { NotificationExampleComponent } from './examples/notification/notification.component';
 import { RadioExampleComponent } from './examples/radio/radio.component';
 import { SegmentExampleComponent } from './examples/segment/segment.component';
 import { SliderExampleComponent } from './examples/slider/slider.component';
-import { TabExampleComponent } from './examples/tab/tab.component';
-import { ToggleExampleComponent } from './examples/toggle/toggle.component';
-import { ExpanderExampleComponent } from './examples/expander/expander.component';
-import { ContextMenuExampleComponent } from './examples/context-menu/context-menu.component';
-import { MessageExampleComponent } from './examples/message/message.component';
-import { NotificationExampleComponent } from './examples/notification/notification.component';
-import { ChatExampleComponent } from './examples/chat/chat.component';
-import { HelpComponent } from './common/help/help.component';
-import { FeatureComponent } from './common/help/feature/feature.component';
-import { IconExampleComponent } from './examples/icon/icon.component';
-import { FomanticLayoutComponent } from './fomantic/layout.component';
-import { ComponentExamplesComponent } from './examples/components/components.component';
-import { ElementExamplesComponent } from './examples/elements/elements.component';
-import { LayoutExamplesComponent } from './examples/layouts/layouts.component';
 import { SpecialExamplesComponent } from './examples/specials/specials.component';
+import { TabExampleComponent } from './examples/tab/tab.component';
+import { TableExampleComponent } from './examples/table/table.component';
+import { TemplateExampleComponent } from './examples/template/template.component';
+import { TestExampleComponent } from './examples/test/test.component';
+import { TextareaExampleComponent } from './examples/textarea/textarea.component';
+import { ToggleExampleComponent } from './examples/toggle/toggle.component';
 import { UtilExamplesComponent } from './examples/utils/utils.component';
-import { LayoutExampleComponent } from './examples/layout/layout.component';
-import { LicenseComponent } from './common/license/license.component';
-import { CreditsComponent } from './common/credits/credits.component';
+import { FomanticLayoutComponent } from './fomantic/layout.component';
+import { FomanticStartComponent } from './fomantic/start/start.component';
 import { SemanticLayoutComponent } from './semantic/layout.component';
 import { SemanticStartComponent } from './semantic/start/start.component';
-import { SemanticIframeComponent } from './examples/iframe/iframe.component';
-import { SemanticMenuIframeFixed1Component } from './examples/menu/iframe/fixed1/fixed1.component';
-import { SemanticLayoutIframeComponent } from './examples/layout/iframe/layout/layout.component';
-import { CommonLayoutComponent } from './common/layout.component';
-import { NavigationComponent } from './components/navigation/navigation.component';
-import { TextareaExampleComponent } from './examples/textarea/textarea.component';
-import { TableExampleComponent } from './examples/table/table.component';
-import { TestExampleComponent } from './examples/test/test.component';
-import { MarkdownExampleComponent } from './examples/markdown/markdown.component';
 
 export const sharedRoutes: Route[] = [
     { path: 'help', redirectTo: 'help/', pathMatch: 'full' },
@@ -120,6 +121,8 @@ export const sharedRoutes: Route[] = [
     { path: 'textarea/:tab', title: 'Icon', component: TextareaExampleComponent },
     { path: 'table', redirectTo: 'table/', pathMatch: 'full' },
     { path: 'table/:tab', title: 'Icon', component: TableExampleComponent },
+    { path: 'template', redirectTo: 'template/', pathMatch: 'full' },
+    { path: 'template/:tab', title: 'Icon', component: TemplateExampleComponent },
     { path: 'test', title: 'Test', component: TestExampleComponent },
     { path: '**', redirectTo: 'components/' }
 ];

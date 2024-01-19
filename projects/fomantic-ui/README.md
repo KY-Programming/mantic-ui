@@ -107,4 +107,4 @@ If you have a issue, look in our [issue tracker on github](https://github.com/KY
 
 To support us fork our [github repository](https://github.com/KY-Programming/mantic-ui)
 
-[Direct contact](https://support.ky-programming.de/) (German, English) via [email](https://mail.support.ky-programming.de/), [WhatsApp](https://whatsapp.support.ky-programming.de/) or join our [Discord server](https://discord.mantic-ui.ky-programming.de/)
+[Direct contact](https://support.ky-programming.de/) (German, English) via [email](https://email.support.ky-programming.de/), [WhatsApp](https://whatsapp.support.ky-programming.de/) or join our [Discord server](https://discord.mantic-ui.ky-programming.de/)

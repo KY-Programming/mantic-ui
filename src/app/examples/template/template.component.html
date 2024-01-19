@@ -1,0 +1,33 @@
+<app-header header="Template" subHeader="An component to project content" />
+
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Examples">
+        <m-example header="Template" description="A default template projection with template and outlet">
+            <m-template name="my.template.id">
+                This content is projected
+            </m-template>
+            <m-segment>
+                <m-template-outlet name="my.template.id" />
+                to here
+            </m-segment>
+            <m-example-code [code]="exampleCode" />
+        </m-example>
+        <m-example header="Multiple Template for one outlet" description="Multiple templates can stack on one outlet. Only the last template is rendered">
+            <m-button *ngIf="!showA" primary (click)="showA = true">Show A</m-button>
+            <m-button *ngIf="showA" primary (click)="showA = false">Hide A</m-button>
+            <m-template *ngIf="showA" name="stacked-templates">A is the best.</m-template>
+            <m-button *ngIf="!showB" secondary (click)="showB = true">Show B</m-button>
+            <m-button *ngIf="showB" secondary (click)="showB = false">Hide B</m-button>
+            <m-template *ngIf="showB" name="stacked-templates">B is even better!</m-template>
+            <m-button *ngIf="!showC" positive (click)="showC = true">Show C</m-button>
+            <m-button *ngIf="showC" positive (click)="showC = false">Hide C</m-button>
+            <m-template *ngIf="showC" name="stacked-templates">C is the is the bestestestest!!1!!</m-template>
+            <m-template name="stacked-templates">No result available. Press a button</m-template>
+            <m-segment>
+                <div>Result:</div>
+                <m-template-outlet name="stacked-templates" />
+            </m-segment>
+            <m-example-code [code]="exampleCode" />
+        </m-example>
+    </m-tab>
+</m-tab-group>

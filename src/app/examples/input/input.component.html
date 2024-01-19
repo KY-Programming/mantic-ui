@@ -10,13 +10,13 @@
             <m-example-code [code]="textCode"></m-example-code>
         </m-example>
         <m-example description="A text area">
-            <m-textarea (valueChange)="textareaValue = $event ?? undefined" [value]="textareaValue" placeholder="Enter a text with line breaks..."></m-textarea>
+            <m-textarea [value]="textareaValue" placeholder="Enter a text with line breaks..." (valueChange)="textareaValue = $event ?? undefined"></m-textarea>
             <app-value *ngIf="textValue !== undefined" [value]="textareaValue"></app-value>
             <m-example-code [code]="textareaCode"></m-example-code>
         </m-example>
         <m-example description="A numeric input" header="Numeric">
             <m-flex alignItems="center">
-                <m-numeric-input [(value)]="numericValue" [max]="9" [min]="1" placeholder="Between 1 and 9"/>
+                <m-numeric-input [(value)]="numericValue" [max]="9" [min]="1" placeholder="Between 1 and 9" />
                 <app-value *ngIf="numericValue !== undefined" [value]="numericValue"></app-value>
             </m-flex>
             <m-example-code [code]="numberCode"></m-example-code>
@@ -44,16 +44,16 @@
     </m-tab>
     <m-tab label="Text">
         <m-example description="Bind to [value] to use a value of type string | undefined" header="value">
-            <m-input [(value)]="stringValue"/>
-            <app-value [value]="stringValue"/>
-            <m-example-code [code]="stringValueCode"/>
-            <m-example-code [code]="stringValueTypeScriptCode" [languages]="['ts']"/>
+            <m-input [(value)]="stringValue" />
+            <app-value [value]="stringValue" />
+            <m-example-code [code]="stringValueCode" />
+            <m-example-code [code]="stringValueTypeScriptCode" [languages]="['ts']" />
         </m-example>
         <m-example description="Bind to [text] to use a value of type string" header="text">
-            <m-input [(text)]="stringText"/>
-            <app-value [value]="stringText"/>
-            <m-example-code [code]="stringTextCode"/>
-            <m-example-code [code]="stringTextTypeScriptCode" [languages]="['ts']"/>
+            <m-input [(text)]="stringText" />
+            <app-value [value]="stringText" />
+            <m-example-code [code]="stringTextCode" />
+            <m-example-code [code]="stringTextTypeScriptCode" [languages]="['ts']" />
         </m-example>
         <m-example [code]="maxlengthCode" description="The text input has an additional property maxlength to limit the number of characters" header="maxlength">
             <m-input maxlength="3" type="text"></m-input>
@@ -61,16 +61,16 @@
     </m-tab>
     <m-tab label="Numeric">
         <m-example description="Bind to [value] to use a value of type number | undefined" header="value">
-            <m-numeric-input [(value)]="numericValue"/>
-            <app-value [value]="numericValue"/>
-            <m-example-code [code]="numericValueCode"/>
-            <m-example-code [code]="numericValueTypeScriptCode" [languages]="['ts']"/>
+            <m-numeric-input [(value)]="numericValue" />
+            <app-value [value]="numericValue" />
+            <m-example-code [code]="numericValueCode" />
+            <m-example-code [code]="numericValueTypeScriptCode" [languages]="['ts']" />
         </m-example>
         <m-example description="Bind to [number] to use a value of type number" header="number">
-            <m-numeric-input [(number)]="numericNumber"/>
-            <app-value [value]="numericNumber"/>
-            <m-example-code [code]="numericNumberCode"/>
-            <m-example-code [code]="numericNumberTypeScriptCode" [languages]="['ts']"/>
+            <m-numeric-input [(number)]="numericNumber" />
+            <app-value [value]="numericNumber" />
+            <m-example-code [code]="numericNumberCode" />
+            <m-example-code [code]="numericNumberTypeScriptCode" [languages]="['ts']" />
         </m-example>
         <m-example [code]="minCode" description="The numeric input has an additional property min to set the lowest possible number" header="min">
             <m-numeric-input [min]="1"></m-numeric-input>
@@ -93,19 +93,19 @@
     </m-tab>
     <m-tab label="Date">
         <m-example description="Bind to [value] to use a value of type Date | undefined" header="value">
-            <m-date-input [(value)]="dateValue"/>
-            <app-value [value]="dateValue"/>
-            <m-example-code [code]="dateValueCode"/>
-            <m-example-code [code]="dateValueTypeScriptCode" [languages]="['ts']"/>
+            <m-date-input [(value)]="dateValue" />
+            <app-value [value]="dateValue" />
+            <m-example-code [code]="dateValueCode" />
+            <m-example-code [code]="dateValueTypeScriptCode" [languages]="['ts']" />
         </m-example>
         <m-example description="Bind to [date] to use a value of type Date" header="date">
-            <m-date-input [(date)]="dateDate"/>
-            <app-value [value]="dateDate"/>
-            <m-example-code [code]="dateDateCode"/>
-            <m-example-code [code]="dateDateTypeScriptCode" [languages]="['ts']"/>
+            <m-date-input [(date)]="dateDate" />
+            <app-value [value]="dateDate" />
+            <m-example-code [code]="dateDateCode" />
+            <m-example-code [code]="dateDateTypeScriptCode" [languages]="['ts']" />
         </m-example>
         <m-example [code]="dateWithDayCode" header="Show day">
-            <m-date-input [value]="showDayValue" showDay/>
+            <m-date-input [value]="showDayValue" showDay />
         </m-example>
         <!--        <m-example header="min" description="The date input has an additional property min to set the oldest possible date" [code]="minDateCode">-->
         <!--            <m-date-input [min]="1"></m-date-input>-->
@@ -196,7 +196,7 @@
     <m-tab label="Binding">
         <m-example [code]="code2" description="A two-way bound input" header="Binding">
             <m-input [(value)]="inputValue" placeholder="Search..." type="text"></m-input>
-            <div>Current Value: {{inputValue}}</div>
+            <div>Current Value: {{ inputValue }}</div>
         </m-example>
         <m-example [code]="code3" description="All input states can be bound" header="Bind state">
             <div class="toolbar ui form">
@@ -252,8 +252,8 @@
     </m-tab>
     <m-tab label="Events">
         <m-example [code]="eventCode" description="A input with a subscribed change event. The event is triggered when focus is lost (click outside of the box)" header="Change event">
-            <m-input (valueChange)="valueChange($event)" placeholder="Search..." type="text"></m-input>
-            <div>{{inputMessage}}</div>
+            <m-input placeholder="Search..." type="text" (valueChange)="valueChange($event)"></m-input>
+            <div>{{ inputMessage }}</div>
         </m-example>
     </m-tab>
 </m-tab-group>

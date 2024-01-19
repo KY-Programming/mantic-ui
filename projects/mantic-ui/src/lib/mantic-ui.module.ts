@@ -95,6 +95,8 @@ import { TabGroupComponent } from './components/tab-group/tab-group.component';
 import { TabComponent } from './components/tab/tab.component';
 import { TableDefaultsComponent } from './components/table/table-defaults.component';
 import { TableComponent } from './components/table/table.component';
+import { TemplateOutletComponent } from './components/template-outlet/template-outlet.component';
+import { TemplateComponent } from './components/template/template.component';
 import { TextContainerComponent } from './components/text-container/text-container.component';
 import { TextareaDefaultsComponent } from './components/textarea/textarea-defaults.component';
 import { TextareaComponent } from './components/textarea/textarea.component';
@@ -124,8 +126,8 @@ import { CeilPipe } from './pipes/ceil.pipe';
 import { DebugPipe } from './pipes/debug.pipe';
 import { DebuggerPipe } from './pipes/debugger.pipe';
 import { FloorPipe } from './pipes/floor.pipe';
+import { IsEmailPipe } from './pipes/is-email.pipe';
 import { IsFilledPipe } from './pipes/is-filled.pipe';
-import { IsMailPipe } from './pipes/is-mail.pipe';
 import { LogPipe } from './pipes/log.pipe';
 import { PadEndPipe } from './pipes/pad-end.pipe';
 import { PadStartPipe } from './pipes/pad-start.pipe';
@@ -210,7 +212,7 @@ const standalone = [
     InvertedDirective,
     ImageUploadComponent,
     IsFilledPipe,
-    IsMailPipe,
+    IsEmailPipe,
     LabelComponent,
     LabelDropdownComponent,
     LabelDropdownDefaultsComponent,
@@ -257,6 +259,8 @@ const standalone = [
     TableComponent,
     TableDefaultsComponent,
     TabGroupComponent,
+    TemplateComponent,
+    TemplateOutletComponent,
     TextareaComponent,
     TextareaDefaultsComponent,
     TextContainerComponent,

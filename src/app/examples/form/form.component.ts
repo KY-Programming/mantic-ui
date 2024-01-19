@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, isDevMode } from '@angular/core';
-import { CheckboxComponent, DataSourceComponent, DataSourceRequest, DropdownComponent, DropdownItemComponent, ErrorComponent, FieldComponent, FieldGroupComponent, FormComponent, FormLayout, FormRendererComponent, HeaderDirective, IconComponent, InfoComponent, InputComponent, IsFilledPipe, IsMailPipe, MessageComponent, NotificationService, NumericInputComponent, SegmentComponent, SliderComponent, SubmitComponent, TabComponent, TabGroupComponent, TextareaComponent, TitlePipe, ToggleComponent } from '@mantic-ui/angular';
+import { CheckboxComponent, DataSourceComponent, DataSourceRequest, DropdownComponent, DropdownItemComponent, ErrorComponent, FieldComponent, FieldGroupComponent, FormComponent, FormLayout, FormRendererComponent, HeaderDirective, IconComponent, InfoComponent, InputComponent, IsEmailPipe, IsFilledPipe, LocalizeComponent, MessageComponent, NotificationService, NumericInputComponent, SegmentComponent, SliderComponent, SubmitComponent, TabComponent, TabGroupComponent, TextareaComponent, TitlePipe, ToggleComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
 import { DemoData } from '../../helpers/demo-data';
@@ -9,7 +9,7 @@ import { MyValidationPipe } from './my-validation.pipe';
 @Component({
     selector: 'app-form-example',
     standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, FormComponent, FieldComponent, InputComponent, CheckboxComponent, SubmitComponent, FieldGroupComponent, DropdownComponent, DropdownItemComponent, SegmentComponent, ToggleComponent, MessageComponent, SliderComponent, IsFilledPipe, IsMailPipe, TitlePipe, MyValidationPipe, TextareaComponent, ErrorComponent, FormRendererComponent, DataSourceComponent, InfoComponent, NumericInputComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, FormComponent, FieldComponent, InputComponent, CheckboxComponent, SubmitComponent, FieldGroupComponent, DropdownComponent, DropdownItemComponent, SegmentComponent, ToggleComponent, MessageComponent, SliderComponent, IsFilledPipe, IsEmailPipe, TitlePipe, MyValidationPipe, TextareaComponent, ErrorComponent, FormRendererComponent, DataSourceComponent, InfoComponent, NumericInputComponent, LocalizeComponent],
     templateUrl: './form.component.html',
     styleUrls: ['./form.component.scss']
 })
@@ -272,6 +272,13 @@ export class FormExampleComponent {
     </m-field>
 </m-form>`;
 
+    public readonly mandatory2b = `<m-localize [name]="mantic.pipes.isFilled">Empty values not allowed</m-localize>
+<m-form>
+    <m-field label="Name" [valid]="name | mIsFilled">
+        <m-input [(value)]="name"></m-input>
+    </m-field>
+</m-form>`;
+
     public readonly mandatory3 = `<m-form>
     <m-field label="Name" [valid]="name | mIsFilled | mTitle:'-Better title than Name-'">
         <m-input [(value)]="name"></m-input>
@@ -279,13 +286,13 @@ export class FormExampleComponent {
 </m-form>`;
 
     public readonly emailCode1 = `<m-form>
-    <m-field label="Email" [valid]="email | mIsMail">
+    <m-field label="Email" [valid]="email | mIsEmail">
         <m-input type="email" [(value)]="email"></m-input>
     </m-field>
 </m-form>`;
 
     public readonly emailCode2 = `<m-form>
-    <m-field label="Email" [valid]="email | mIsFilled | mIsMail">
+    <m-field label="Email" [valid]="email | mIsFilled | mIsEmail">
         <m-input type="email" [(value)]="email"></m-input>
     </m-field>
 </m-form>`;
@@ -409,4 +416,16 @@ export class MyValidationPipe implements ValidationPipe, PipeTransform {
         const asyncAction = this.notificationService.async('Submitting', 'Auto Submitted');
         setTimeout(() => asyncAction.done(), 1000);
     }
+
+    protected readonly localizeTs = `// Import mantic constant from @mantic-ui/angular
+import { mantic } from '@mantic-ui/angular'
+
+// make it in your component html available
+class MyComponent {
+    protected readonly mantic = mantic;
+}`;
+
+    protected readonly localizeHtml = `<m-localize [name]="mantic.pipes.isEmail.message" i18n>no valid email address</m-localize>
+<m-localize [name]="mantic.pipes.isFilled.message" i18n>has to be filled</m-localize>
+<m-localize [name]="mantic.pipes.allowedChars.message" i18n>forbidden characters found</m-localize>`;
 }

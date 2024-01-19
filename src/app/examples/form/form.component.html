@@ -285,7 +285,7 @@
 
         <m-example header="Validate field" description="Check if the field is a valid email">
             <m-form>
-                <m-field label="Email" [valid]="email1 | mIsMail">
+                <m-field label="Email" [valid]="email1 | mIsEmail">
                     <m-input type="email" [(value)]="email1"></m-input>
                 </m-field>
             </m-form>
@@ -294,7 +294,7 @@
 
         <m-example header="Multiple validations per field" description="Check if the field is filled and a valid email">
             <m-form>
-                <m-field label="Email" [valid]="email2 | mIsFilled | mIsMail">
+                <m-field label="Email" [valid]="email2 | mIsFilled | mIsEmail">
                     <m-input type="email" [(value)]="email2"></m-input>
                 </m-field>
             </m-form>
@@ -304,10 +304,13 @@
         <m-example header="Custom message" description="Replace the default message with your own">
             <m-form>
                 <m-field label="Name" [valid]="name2 | mIsFilled:'can not be empty. Sorry!'">
-                    <m-input [(value)]="name2"></m-input>
+                    <m-input [(value)]="name2" />
                 </m-field>
             </m-form>
-            <m-example-code [code]="mandatory2"></m-example-code>
+            <m-example-code [code]="mandatory2" />
+
+            <p>You can change the message <strong>global</strong> via localization</p>
+            <m-example-code [code]="mandatory2b" />
         </m-example>
 
         <m-example header="Custom title" description="Replace the default title of a field with your own">
@@ -347,6 +350,11 @@
                     <m-input [(value)]="inlineValidationValue" />
                 </m-field>
             </m-form>
+        </m-example>
+
+        <m-example header="Localization" description="Translate validation messages to your language. This example used @angular/localize" [code]="inlineValidationCode">
+            <m-example-code [code]="localizeTs" [languages]="['ts']" />
+            <m-example-code [code]="localizeHtml" />
         </m-example>
     </m-tab>
     <m-tab label="Variations">
