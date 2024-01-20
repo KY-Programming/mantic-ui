@@ -272,7 +272,7 @@ export class FormExampleComponent {
     </m-field>
 </m-form>`;
 
-    public readonly mandatory2b = `<m-localize [name]="mantic.pipes.isFilled">Empty values not allowed</m-localize>
+    public readonly mandatory2b = `<m-localize [key]="mantic.pipes.isFilled">Empty values not allowed</m-localize>
 <m-form>
     <m-field label="Name" [valid]="name | mIsFilled">
         <m-input [(value)]="name"></m-input>
@@ -425,7 +425,7 @@ class MyComponent {
     protected readonly mantic = mantic;
 }`;
 
-    protected readonly localizeHtml = `<m-localize [name]="mantic.pipes.isEmail.message" i18n>no valid email address</m-localize>
-<m-localize [name]="mantic.pipes.isFilled.message" i18n>has to be filled</m-localize>
-<m-localize [name]="mantic.pipes.allowedChars.message" i18n>forbidden characters found</m-localize>`;
+    protected readonly localizeHtml = `<m-localize [key]="mantic.pipes.isEmail.message" i18n>no valid email address</m-localize>
+<m-localize [key]="mantic.pipes.isFilled.message" i18n>has to be filled</m-localize>
+<m-localize [key]="mantic.pipes.allowedChars.message" i18n>forbidden characters found</m-localize>`;
 }
