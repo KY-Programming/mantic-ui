@@ -1,14 +1,14 @@
 import { Directive, HostBinding, Input } from '@angular/core';
-import { FlexAlignItems, FlexDirection, FlexJustifyContent } from './flex.types';
-import { BooleanLike } from '../../models/boolean-like';
 import { toBoolean } from '../../helpers/to-boolean';
+import { BooleanLike } from '../../models/boolean-like';
+import { FlexAlignItems, FlexDirection, FlexJustifyContent } from './flex.types';
 
 @Directive({
     selector: '[m-flex]',
     standalone: true
 })
 export class FlexDirective {
-    public static readonly default = { directive: FlexDirective, inputs: ['direction', 'alignItems', 'justifyContent'] };
+    public static readonly default = { directive: FlexDirective, inputs: ['direction', 'alignItems', 'justifyContent', 'row', 'column', 'gap'] };
 
     @HostBinding('style.display')
     protected display = 'flex';
@@ -52,4 +52,8 @@ export class FlexDirective {
     @Input()
     @HostBinding('style.justify-content')
     public justifyContent: FlexJustifyContent | undefined;
+
+    @Input()
+    @HostBinding('style.gap')
+    public gap: string | undefined;
 }

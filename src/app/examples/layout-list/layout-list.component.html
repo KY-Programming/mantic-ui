@@ -18,19 +18,34 @@
 </a>
 <a routerLink="/semantic/expander" m-flex class="element">
     <m-segment attached="top">
-        <m-expander (click)="prevent($event)" header="Header" expanded>Expandable content</m-expander>
+        <m-expander header="Header" expanded (click)="prevent($event)">Expandable content</m-expander>
     </m-segment>
     <m-segment attached="bottom" m-fill>
         <h3 m-header>Expander</h3>
         <p>Shows or hides content with a header</p>
     </m-segment>
 </a>
+<a routerLink="/semantic/flex" m-flex class="element">
+    <m-segment attached="top">
+        <m-flex direction="column">
+            <m-segment noMargin />
+            <m-flex>
+                <m-segment noMargin />
+                <m-segment noMargin />
+            </m-flex>
+        </m-flex>
+    </m-segment>
+    <m-segment attached="bottom" m-fill>
+        <h3 m-header>Flex</h3>
+        <p>Directives and components for default flex styles</p>
+    </m-segment>
+</a>
 <a routerLink="/semantic/form" m-flex class="element">
     <m-segment attached="top">
         <m-form (click)="prevent($event)">
-                <m-field label="Name">
-                    <m-input placeholder="Enter your name"></m-input>
-                </m-field>
+            <m-field label="Name">
+                <m-input placeholder="Enter your name"></m-input>
+            </m-field>
             <m-submit>Submit</m-submit>
         </m-form>
     </m-segment>

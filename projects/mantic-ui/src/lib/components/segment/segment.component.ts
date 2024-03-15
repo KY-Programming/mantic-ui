@@ -36,6 +36,7 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
     private isTertiary = false;
     private attachedValue: SegmentAttached | undefined;
     private isNoPadding = false;
+    private isNoMargin = false;
 
     @Input()
     public get raised(): boolean {
@@ -107,6 +108,16 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
     public set noPadding(value: BooleanLike) {
         this.isNoPadding = this.toBoolean(value);
         this.classes.set('noPadding', this.isNoPadding ? 'no-padding' : undefined);
+    }
+
+    @Input()
+    public get noMargin(): boolean {
+        return this.isNoMargin;
+    }
+
+    public set noMargin(value: BooleanLike) {
+        this.isNoMargin = this.toBoolean(value);
+        this.classes.set('noMargin', this.isNoMargin ? 'no-margin' : undefined);
     }
 
     public constructor() {

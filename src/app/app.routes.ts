@@ -17,6 +17,7 @@ import { DividerExampleComponent } from './examples/divider/divider.component';
 import { DropdownExampleComponent } from './examples/dropdown/dropdown.component';
 import { ElementExamplesComponent } from './examples/elements/elements.component';
 import { ExpanderExampleComponent } from './examples/expander/expander.component';
+import { FlexExampleComponent } from './examples/flex/flex.component';
 import { FormExampleComponent } from './examples/form/form.component';
 import { GridExampleComponent } from './examples/grid/grid.component';
 import { HeaderExampleComponent } from './examples/header/header.component';
@@ -105,6 +106,8 @@ export const sharedRoutes: Route[] = [
     { path: 'slider/:tab', title: 'Slider', component: SliderExampleComponent },
     { path: 'grid', redirectTo: 'grid/', pathMatch: 'full' },
     { path: 'grid/:tab', title: 'Grid', component: GridExampleComponent },
+    { path: 'flex', redirectTo: 'flex/', pathMatch: 'full' },
+    { path: 'flex/:tab', title: 'Flex', component: FlexExampleComponent },
     { path: 'form', redirectTo: 'form/', pathMatch: 'full' },
     { path: 'form/:tab', title: 'Form', component: FormExampleComponent },
     { path: 'expander', redirectTo: 'expander/', pathMatch: 'full' },

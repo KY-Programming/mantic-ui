@@ -1,5 +1,6 @@
 <div class="chat" #chat>
     <m-chat-message *ngFor="let message of messages" [message]="message" />
+    <ng-content />
 </div>
 <div *ngIf="canSend" class="input-wrapper" [class.visible]="canSend">
     <m-input autofocus [(value)]="message" [placeholder]="placeholder" (keydown)="onKeyDown($event)">

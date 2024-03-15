@@ -1,0 +1,32 @@
+<app-header header="Flex" subHeader="Directives and components for default flex styles" />
+
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Examples">
+        <m-example header="Flex" description="Some elements in a row">
+            <m-flex>
+                <m-segment noMargin>1</m-segment>
+                <m-segment noMargin>2</m-segment>
+                <m-segment noMargin>3</m-segment>
+            </m-flex>
+            <m-example-code [code]="code1" />
+        </m-example>
+        <m-example header="Flex Column" description="Some elements in a column">
+            <m-flex direction="column">
+                <m-segment noMargin>1</m-segment>
+                <m-segment noMargin>2</m-segment>
+                <m-segment noMargin>3</m-segment>
+            </m-flex>
+            <m-example-code [code]="code2" />
+        </m-example>
+    </m-tab>
+    <m-tab label="Variations">
+        <m-example header="Gap" description="A gap between all elements">
+            <m-flex gap="1rem">
+                <m-segment noMargin>1</m-segment>
+                <m-segment noMargin>2</m-segment>
+                <m-segment noMargin>3</m-segment>
+            </m-flex>
+            <m-example-code [code]="codeVariation1" />
+        </m-example>
+    </m-tab>
+</m-tab-group>
