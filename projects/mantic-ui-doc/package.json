@@ -1,6 +1,6 @@
 {
     "name": "@mantic-ui/angular-doc",
-    "version": "17.4.0",
+    "version": "17.4.1",
     "description": "mantic UI Components for Documentation for Angular",
     "author": "KY-Programming",
     "license": "MIT",
@@ -12,7 +12,7 @@
     "peerDependencies": {
         "@angular/common": "^17.1.0",
         "@angular/core": "^17.1.0",
-        "@mantic-ui/angular": "17.4.0",
+        "@mantic-ui/angular": "17.4.1",
         "ngx-highlightjs": "> 4",
         "highlight.js": "> 10"
     },
