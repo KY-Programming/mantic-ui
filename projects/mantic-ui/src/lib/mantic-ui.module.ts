@@ -52,6 +52,7 @@ import { FormRendererComponent } from './components/form-renderer/form-renderer.
 import { FormDefaultsComponent } from './components/form/form-defaults.component';
 import { FormComponent } from './components/form/form.component';
 import { GridComponent } from './components/grid/grid.component';
+import { HeaderDefaultsComponent } from './components/header/header-defaults.component';
 import { HeaderComponent } from './components/header/header.component';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { IconComponent } from './components/icon/icon.component';
@@ -203,6 +204,7 @@ const standalone = [
     GrowComponent,
     GrowDirective,
     HeaderComponent,
+    HeaderDefaultsComponent,
     HeaderDirective,
     IconButtonComponent,
     IconComponent,

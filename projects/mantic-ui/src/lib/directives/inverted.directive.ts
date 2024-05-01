@@ -11,19 +11,25 @@ export class InvertedDirective {
     public static readonly inverted = 'inverted';
     public static readonly default = { directive: InvertedDirective, inputs: [InvertedDirective.inverted] };
     private readonly classes = inject(SortedClassesService);
-    private isInverted = false;
+    private isInverted: boolean | undefined;
+    private isInvertedDefault = false;
+
+    @Input()
+    public get inverted(): boolean {
+        return this.isInverted ?? this.isInvertedDefault;
+    }
+
+    public set inverted(value: BooleanLike) {
+        this.isInverted = toBoolean(value);
+        this.classes.set(InvertedDirective.inverted, this.inverted);
+    }
 
     public constructor() {
         this.classes.registerFallback(InvertedDirective.inverted);
     }
 
-    public get inverted(): boolean {
-        return this.isInverted;
-    }
-
-    @Input()
-    public set inverted(value: BooleanLike) {
-        this.isInverted = toBoolean(value);
-        this.classes.set(InvertedDirective.inverted, this.isInverted);
+    public setInvertedDefault(value: boolean): void {
+        this.isInvertedDefault = value;
+        this.classes.set(InvertedDirective.inverted, this.inverted);
     }
 }

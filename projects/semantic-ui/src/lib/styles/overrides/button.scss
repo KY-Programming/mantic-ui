@@ -10,3 +10,15 @@
         background-color: transparent;
     }
 }
+
+/* Inverted */
+.ui.transparent.inverted.buttons .button,
+.ui.transparent.inverted.button {
+    text-shadow: none;
+    background-image: none;
+    box-shadow: none !important;
+
+    &:not(:hover) {
+        background-color: transparent;
+    }
+}

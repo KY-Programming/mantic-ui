@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonGroupComponent, HeaderComponent, IconButtonComponent, IconComponent, InfoComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { Component } from '@angular/core';
+import { ButtonGroupComponent, HeaderComponent, HeaderDefaultsComponent, HeaderDirective, IconButtonComponent, IconComponent, InfoComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent as AppHeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-header-example',
     standalone: true,
-    imports: [CommonModule, AppHeaderComponent, TabGroupComponent, TabComponent, IconComponent, ExampleComponent, ExampleCodeComponent, InfoComponent, ButtonGroupComponent, IconButtonComponent, SegmentComponent, HeaderComponent],
+    imports: [CommonModule, AppHeaderComponent, TabGroupComponent, TabComponent, IconComponent, ExampleComponent, ExampleCodeComponent, InfoComponent, ButtonGroupComponent, IconButtonComponent, SegmentComponent, HeaderComponent, HeaderDefaultsComponent, HeaderDirective],
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })

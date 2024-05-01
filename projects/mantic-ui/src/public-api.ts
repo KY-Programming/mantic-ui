@@ -71,6 +71,7 @@ export * from './lib/components/form-renderer/form-renderer.service';
 export * from './lib/components/form-renderer/provide-form-element';
 export * from './lib/components/grid/grid.component';
 export * from './lib/components/header/header.component';
+export * from './lib/components/header/header-defaults.component';
 export * from './lib/components/icon-button/icon-button.component';
 export * from './lib/components/icon/icon.component';
 export * from './lib/components/icon/icon-size';
