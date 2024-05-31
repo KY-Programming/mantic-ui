@@ -1,5 +1,5 @@
 import { provideHttpClient } from '@angular/common/http';
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { ButtonComponent, provideDynamicComponent, provideManticTitleStrategy } from '@mantic-ui/angular';
 import { provideHighlightJs } from '@mantic-ui/angular-doc';
@@ -7,6 +7,7 @@ import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
     providers: [
+        provideZoneChangeDetection({ eventCoalescing: true }),
         provideRouter(routes),
         provideHttpClient(),
         provideManticTitleStrategy({
