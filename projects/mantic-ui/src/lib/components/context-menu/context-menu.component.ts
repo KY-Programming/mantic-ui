@@ -123,8 +123,11 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
         this.close();
     }
 
-    private refreshPosition(): void {
+    private refreshPosition(tries = 3): void {
         if (!this.menu) {
+            if (tries > 0) {
+                animationFrameScheduler.schedule(() => this.refreshPosition(tries - 1));
+            }
             return;
         }
         const menuRect = this.menu.element.nativeElement.getBoundingClientRect();
@@ -147,7 +150,7 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
             this.top = leftOrEvent.clientY;
         }
         this.isVisible = true;
-        animationFrameScheduler.schedule(() => this.refreshPosition());
+        this.refreshPosition();
         this.onopen.emit();
     }
 
