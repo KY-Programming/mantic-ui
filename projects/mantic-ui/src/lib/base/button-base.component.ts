@@ -6,14 +6,14 @@ import { DisabledDirective } from '../directives/disabled.directive';
 import { InvertedDirective } from '../directives/inverted.directive';
 import { LoadingDirective } from '../directives/loading.directive';
 import { BooleanLike } from '../models/boolean-like';
-import { BaseComponent } from './base.component';
+import { InvertibleComponent } from './invertible.component';
 
 @Directive({
     hostDirectives: [ColorDirective.default, BasicDirective.default, InvertedDirective.default, DisabledDirective.default, LoadingDirective.default, ActiveDirective.default],
     providers: ButtonBaseComponent.providers
 })
-export abstract class ButtonBaseComponent extends BaseComponent {
-    protected static override readonly providers = [...BaseComponent.providers];
+export abstract class ButtonBaseComponent extends InvertibleComponent {
+    protected static override readonly providers = [...InvertibleComponent.providers];
     private sizeValue = '';
     private isPrimary = false;
     private isSecondary = false;

@@ -2,7 +2,7 @@
 
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Examples">
-        <m-example header="Flex" description="Some elements in a row">
+        <m-example header="Flex Row" description="Some elements in a row">
             <m-flex>
                 <m-segment noMargin>1</m-segment>
                 <m-segment noMargin>2</m-segment>
@@ -10,13 +10,30 @@
             </m-flex>
             <m-example-code [code]="code1" />
         </m-example>
+        <m-example description="As an alternative you can use m-flex as directive on any element">
+            <m-example-code [code]="code1Alt" />
+        </m-example>
         <m-example header="Flex Column" description="Some elements in a column">
-            <m-flex direction="column">
+            <m-flex column>
                 <m-segment noMargin>1</m-segment>
                 <m-segment noMargin>2</m-segment>
                 <m-segment noMargin>3</m-segment>
             </m-flex>
             <m-example-code [code]="code2" />
+        </m-example>
+        <m-example description="As an alternative you can use m-flex as directive on any element">
+            <m-example-code [code]="code2Alt" />
+        </m-example>
+        <m-example header="Fill a element" description="Use m-fill to activate flex: 1">
+            <m-flex>
+                <m-segment noMargin>1</m-segment>
+                <m-segment m-fill noMargin>2</m-segment>
+                <m-segment noMargin>3</m-segment>
+            </m-flex>
+            <m-example-code [code]="code3" />
+        </m-example>
+        <m-example description="HINT: You can replace div elements with m-fill">
+            <m-example-code [code]="code4" />
         </m-example>
     </m-tab>
     <m-tab label="Variations">

@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ContentChild, inject, Input } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ButtonBaseComponent } from '../../base/button-base.component';
 import { BasicDirective } from '../../directives/basic.directive';
 import { ColorDirective } from '../../directives/color.directive';
@@ -34,6 +36,10 @@ export declare type Pointing =
     providers: [...ButtonBaseComponent.providers]
 })
 export class ButtonComponent extends ButtonBaseComponent {
+    public static readonly defaults = {
+        inverted: false,
+        invertedChange: new ReplaySubject<boolean>(1)
+    };
     private readonly basicDirective = inject(BasicDirective, { self: true });
     private readonly colorDirective = inject(ColorDirective, { self: true });
     private animatedField?: AnimationComponent;
@@ -115,5 +121,10 @@ export class ButtonComponent extends ButtonBaseComponent {
     public constructor() {
         super();
         this.classes.register('animation', 'animated', 'labelPosition', 'iconPosition', 'label', 'labeled', 'iconLabeled', 'social', 'icon');
+    }
+
+    public override ngOnInit(): void {
+        super.ngOnInit();
+        ButtonComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
 }

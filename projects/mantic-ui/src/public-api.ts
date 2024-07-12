@@ -9,6 +9,7 @@ export * from './lib/components/animation/animation.component';
 export * from './lib/components/breadcrumb/breadcrumb.component';
 export * from './lib/components/button-group/button-group.component';
 export * from './lib/components/button/button.component';
+export * from './lib/components/button/button-defaults.component';
 export * from './lib/components/card/card.component';
 export * from './lib/components/card-group/card-group.component';
 export * from './lib/components/cell/cell.component';

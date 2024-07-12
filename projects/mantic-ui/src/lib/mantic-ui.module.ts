@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { AnimationComponent } from './components/animation/animation.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { ButtonGroupComponent } from './components/button-group/button-group.component';
+import { ButtonDefaultsComponent } from './components/button/button-defaults.component';
 import { ButtonComponent } from './components/button/button.component';
 import { CardGroupComponent } from './components/card-group/card-group.component';
 import { CardComponent } from './components/card/card.component';
@@ -145,6 +146,7 @@ const standalone = [
     BasicDirective,
     BreadcrumbComponent,
     ButtonComponent,
+    ButtonDefaultsComponent,
     ButtonDirective,
     ButtonGroupComponent,
     CardComponent,
