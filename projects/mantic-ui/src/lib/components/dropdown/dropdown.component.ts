@@ -434,7 +434,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         this.isSlidingIn = false;
         this.isSlidingOut = true;
         this.isActive = false;
-        if (this.isFreeTextAllowed && this.selectedIndex === -1 && this.filter) {
+        if (this.isFreeTextAllowed && (this.selectedIndex === -1 || this.selectedIndex === undefined) && this.filter) {
             this.value = this.filter;
             this.valueChange.emit(this.value);
         }
