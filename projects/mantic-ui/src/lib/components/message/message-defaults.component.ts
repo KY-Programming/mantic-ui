@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy } from '@angular/core';
+import { IconSize } from '../icon/icon-size';
 import { IconType } from '../icon/icon-type';
 import { MessageComponent } from './message.component';
-import { IconSize } from '../icon/icon-size';
 
 @Component({
     selector: 'm-message-defaults',
@@ -24,6 +24,12 @@ export class MessageDefaultsComponent implements OnDestroy {
     public set closeIconSize(value: IconSize) {
         this.currentCloseIconSize = value;
         MessageComponent.defaults.closeIconSize = value;
+    }
+
+    @Input()
+    public set inverted(value: boolean) {
+        MessageComponent.defaults.inverted = value;
+        MessageComponent.defaults.invertedChange.next(value);
     }
 
     public ngOnDestroy(): void {

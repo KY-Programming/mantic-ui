@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
-import { BaseComponent } from '../../base/base.component';
+import { Component, EventEmitter, HostBinding, HostListener, Input, OnInit, Output } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { InvertibleComponent } from '../../base/invertible.component';
 import { IgnoredDirective } from '../../directives/ignored.directive';
 import { BooleanLike } from '../../models/boolean-like';
 import { IconSize } from '../icon/icon-size';
@@ -21,10 +23,15 @@ export declare type MessageAttached = 'bottom' | 'top' | undefined;
         LoaderComponent
     ],
     hostDirectives: [IgnoredDirective.default],
-    providers: [...BaseComponent.providers]
+    providers: [...InvertibleComponent.providers]
 })
-export class MessageComponent extends BaseComponent {
-    public static readonly defaults = { closeIcon: <IconType>'close', closeIconSize: <IconSize>undefined };
+export class MessageComponent extends InvertibleComponent implements OnInit {
+    public static readonly defaults = {
+        closeIcon: <IconType>'close',
+        closeIconSize: <IconSize>undefined,
+        inverted: false,
+        invertedChange: new ReplaySubject<boolean>(1)
+    };
 
     private isPositive = false;
     private isSuccess = false;
@@ -156,6 +163,11 @@ export class MessageComponent extends BaseComponent {
         super();
         this.classes.register('positive', 'success', 'warning', 'error', 'attached', 'icon', 'closable')
             .registerFixed('visible', 'message');
+    }
+
+    public override ngOnInit(): void {
+        super.ngOnInit();
+        MessageComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
 
     @HostListener('click')

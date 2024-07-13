@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
-import { BaseComponent } from '../../base/base.component';
+import { takeUntil } from 'rxjs/operators';
+import { InvertibleComponent } from '../../base/invertible.component';
 import { IconComponent } from '../icon/icon.component';
 import { MessageComponent } from '../message/message.component';
 
@@ -13,9 +14,9 @@ import { MessageComponent } from '../message/message.component';
         CommonModule,
         IconComponent
     ],
-    providers: [...BaseComponent.providers]
+    providers: [...InvertibleComponent.providers]
 })
-export class WarningComponent extends BaseComponent {
+export class WarningComponent extends InvertibleComponent {
     protected readonly defaults = MessageComponent.defaults;
 
     @Input()
@@ -36,6 +37,11 @@ export class WarningComponent extends BaseComponent {
     public constructor() {
         super();
         this.classes.registerFixed('warning', 'message');
+    }
+
+    public override ngOnInit(): void {
+        super.ngOnInit();
+        MessageComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
 
     public onClose(): void {

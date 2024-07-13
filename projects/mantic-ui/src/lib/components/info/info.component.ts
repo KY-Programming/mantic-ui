@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { BaseComponent } from '../../base/base.component';
+import { Component, OnInit } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { InvertibleComponent } from '../../base/invertible.component';
 import { IgnoredDirective } from '../../directives/ignored.directive';
+import { MessageComponent } from '../message/message.component';
 
 @Component({
     selector: 'm-info',
@@ -8,11 +10,16 @@ import { IgnoredDirective } from '../../directives/ignored.directive';
     styleUrls: ['./info.component.scss'],
     standalone: true,
     hostDirectives: [IgnoredDirective.default],
-    providers: [...BaseComponent.providers]
+    providers: [...InvertibleComponent.providers]
 })
-export class InfoComponent extends BaseComponent {
+export class InfoComponent extends InvertibleComponent implements OnInit {
     public constructor() {
         super();
         this.classes.registerFixed('visible', 'info', 'message');
+    }
+
+    public override ngOnInit(): void {
+        super.ngOnInit();
+        MessageComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
 }
