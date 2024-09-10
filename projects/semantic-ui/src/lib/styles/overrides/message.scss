@@ -1,5 +1,18 @@
-﻿.ui.icon.message > m-loader.icon:not(.close) {
+﻿.ui.message {
+    word-break: break-word;
+}
+
+.ui.icon.message > m-loader.icon:not(.close) {
     font-size: 1rem;
     width: 3em;
     margin-right: 1.8em;
+}
+
+.ui.message > .icon.close {
+    top: 0;
+    right: 0;
+
+    i {
+        margin: 0.25rem;
+    }
 }

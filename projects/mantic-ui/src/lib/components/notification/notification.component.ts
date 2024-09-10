@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
-import { MessageComponent } from '../message/message.component';
+import { MessageAttached, MessageComponent } from '../message/message.component';
 import { Notification } from './notification';
 import { NotificationService } from './notification.service';
 
@@ -27,6 +27,9 @@ export class NotificationComponent extends BaseComponent {
 
     @Input()
     public mode: 'overlap' | 'stack' = 'stack';
+
+    @Input()
+    public attached: MessageAttached;
 
     public constructor(
         private readonly notificationService: NotificationService
