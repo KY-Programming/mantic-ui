@@ -1,6 +1,6 @@
 {
     "name": "@mantic-ui/semantic-ui-angular",
-    "version": "18.2.0",
+    "version": "18.2.1",
     "description": "Semantic UI theme for mantic UI Angular components. Requires @mantic-ui/angular",
     "scripts": {
         "postbuild": "npm run copy-styles",
@@ -45,7 +45,7 @@
     "peerDependencies": {
         "@angular/common": "^18.0.0",
         "@angular/core": "^18.0.0",
-        "@mantic-ui/angular": "18.2.0"
+        "@mantic-ui/angular": "18.2.1"
     },
     "dependencies": {
         "tslib": "^2.3.0"
