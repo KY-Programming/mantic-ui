@@ -10,4 +10,18 @@ export class ObjectHelper {
         const pathArray = typeof path === 'string' ? path.split('.') : path;
         return pathArray.length > 1 ? this.get<T>(object?.[pathArray[0]] as Record<string, unknown> | undefined, pathArray.slice(1)) : object?.[pathArray[0]] as T;
     }
+
+    /*
+     * Checks if the object has all specified keys
+     */
+    public static has<T>(value: unknown, ...keys: (keyof T)[]): value is T {
+        return !!value && keys.every(key => Object.prototype.hasOwnProperty.call(value, key));
+    }
+
+    /*
+     * Checks if the object has any of the specified keys
+     */
+    public static hasSome<T>(value: unknown, ...keys: (keyof T)[]): value is T {
+        return !!value && keys.some(key => Object.prototype.hasOwnProperty.call(value, key));
+    }
 }
