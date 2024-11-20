@@ -6,8 +6,7 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-checkbox-example',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, CheckboxComponent, SegmentComponent, InputComponent, ToggleComponent, DividerComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, CheckboxComponent, SegmentComponent, InputComponent, ToggleComponent, DividerComponent],
     templateUrl: './checkbox.component.html',
     styleUrls: ['./checkbox.component.scss']
 })

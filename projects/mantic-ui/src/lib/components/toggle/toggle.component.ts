@@ -8,7 +8,6 @@ import { CheckboxComponent } from '../checkbox/checkbox.component';
     selector: 'm-toggle',
     templateUrl: './toggle.component.html',
     styleUrls: ['./toggle.component.scss'],
-    standalone: true,
     imports: [
         FormsModule
     ],

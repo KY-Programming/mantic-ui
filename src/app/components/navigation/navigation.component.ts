@@ -7,7 +7,6 @@ import { faChevronLeft } from '@fortawesome/pro-solid-svg-icons';
 
 @Component({
     selector: 'app-navigation',
-    standalone: true,
     imports: [CommonModule, RouterLink, RouterLinkActive, FlexComponent, IconComponent, FillComponent, FlexDirective, RouterOutlet, ButtonComponent, ContextMenuComponent, ContextMenuItemComponent],
     templateUrl: './navigation.component.html',
     styleUrls: ['./navigation.component.scss']

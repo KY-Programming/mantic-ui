@@ -5,7 +5,6 @@ import { SegmentComponent } from '@mantic-ui/angular';
 
 @Component({
     selector: 'app-util-list',
-    standalone: true,
     imports: [CommonModule, RouterLink, SegmentComponent],
     templateUrl: './util-list.component.html',
     styleUrls: ['./util-list.component.scss']

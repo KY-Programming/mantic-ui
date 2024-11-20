@@ -3,8 +3,7 @@ import { LayoutService } from '../services/layout.service';
 
 @Directive({
     selector: '[m-footer-link-template]',
-    standalone: true
-})
+    })
 export class FooterLinkTemplateDirective {
     public constructor(
         private readonly menuService: LayoutService,

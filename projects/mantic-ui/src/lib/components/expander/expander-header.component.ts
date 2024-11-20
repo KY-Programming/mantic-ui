@@ -8,7 +8,6 @@ import { CommonModule, NgIfContext } from '@angular/common';
             <ng-content></ng-content>
         </ng-template>
     `,
-    standalone: true,
     imports: [CommonModule]
 })
 export class ExpanderHeaderComponent {

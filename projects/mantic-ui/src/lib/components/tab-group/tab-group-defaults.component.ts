@@ -4,8 +4,7 @@ import { TabGroupComponent } from './tab-group.component';
 @Component({
     selector: 'm-tab-group-defaults',
     template: '',
-    standalone: true
-})
+    })
 export class TabGroupDefaultsComponent {
     @Input()
     public set inverted(value: boolean) {

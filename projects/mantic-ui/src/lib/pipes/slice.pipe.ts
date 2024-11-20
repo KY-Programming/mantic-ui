@@ -11,8 +11,7 @@ import { Pipe, PipeTransform } from '@angular/core';
  */
 @Pipe({
     name: 'mSlice',
-    standalone: true
-})
+    })
 export class SlicePipe implements PipeTransform {
     public transform<T>(array: T[], from?: number, to?: number): T[] {
         return array.slice(from, to);

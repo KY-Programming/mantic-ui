@@ -20,7 +20,6 @@ import { isMarkdownList, MarkdownList, markdownListType } from './models/markdow
 
 @Component({
     selector: 'm-markdown-renderer',
-    standalone: true,
     imports: [CommonModule, DynamicComponentComponent],
     templateUrl: './markdown-renderer.component.html',
     styleUrls: ['./markdown-renderer.component.scss']

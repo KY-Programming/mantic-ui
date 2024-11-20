@@ -9,7 +9,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     selector: 'm-icon',
     templateUrl: './icon.component.html',
     styleUrls: ['./icon.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         FontAwesomeModule

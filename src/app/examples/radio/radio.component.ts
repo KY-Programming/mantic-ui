@@ -6,8 +6,7 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-radio-example',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, RadioComponent, FormComponent, FieldGroupComponent, FieldComponent, SegmentComponent, InputComponent, ToggleComponent, DividerComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, RadioComponent, FormComponent, FieldGroupComponent, FieldComponent, SegmentComponent, InputComponent, ToggleComponent, DividerComponent],
     templateUrl: './radio.component.html',
     styleUrls: ['./radio.component.scss']
 })

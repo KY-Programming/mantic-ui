@@ -11,7 +11,6 @@ import { IconComponent } from '../icon/icon.component';
     selector: 'm-icon-button',
     templateUrl: './icon-button.component.html',
     styleUrls: ['./icon-button.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         IconComponent

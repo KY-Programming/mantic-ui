@@ -9,7 +9,6 @@ import { MessageComponent } from '../message/message.component';
     selector: 'm-warning',
     templateUrl: './warning.component.html',
     styleUrls: ['./warning.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         IconComponent

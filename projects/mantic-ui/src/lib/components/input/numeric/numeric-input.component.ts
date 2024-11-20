@@ -11,7 +11,6 @@ import { InputBaseComponent } from '../input-base.component';
     selector: 'm-numeric-input',
     templateUrl: './numeric-input.component.html',
     styleUrls: ['./numeric-input.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         IconComponent,

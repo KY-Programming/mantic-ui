@@ -9,7 +9,6 @@ export declare type GridWidth = 'equal';
     selector: 'm-grid',
     templateUrl: './grid.component.html',
     styleUrls: ['./grid.component.scss'],
-    standalone: true,
     providers: [...BaseComponent.providers]
 })
 export class GridComponent extends BaseComponent {

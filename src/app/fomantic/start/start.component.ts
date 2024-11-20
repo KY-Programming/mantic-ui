@@ -6,8 +6,7 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-fomantic-start',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, SegmentComponent, InfoComponent],
+    imports: [CommonModule, HeaderComponent, HeaderDirective, SegmentComponent, InfoComponent],
     templateUrl: './start.component.html',
     styleUrls: ['./start.component.scss']
 })

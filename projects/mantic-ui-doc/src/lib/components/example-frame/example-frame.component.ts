@@ -5,7 +5,6 @@ import { SafePipe } from '@mantic-ui/angular';
     selector: 'm-example-frame',
     templateUrl: './example-frame.component.html',
     styleUrls: ['./example-frame.component.scss'],
-    standalone: true,
     imports: [
         SafePipe
     ]

@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
     selector: 'm-card',
     templateUrl: './card.component.html',
     styleUrls: ['./card.component.scss'],
-    standalone: true,
     imports: [CommonModule]
 })
 export class CardComponent {

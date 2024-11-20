@@ -15,7 +15,6 @@ import { ContextMenuMouseEvent } from './models/context-menu-mouse-event';
     selector: 'm-context-menu',
     templateUrl: './context-menu.component.html',
     styleUrls: ['./context-menu.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         MenuComponent,

@@ -9,7 +9,6 @@ import { ToggleButtonComponent } from '../toggle-button/toggle-button.component'
     selector: 'm-button-group',
     templateUrl: './button-group.component.html',
     styleUrls: ['./button-group.component.scss'],
-    standalone: true,
     hostDirectives: [ColorDirective.default],
     providers: [...BaseComponent.providers]
 })

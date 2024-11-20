@@ -6,8 +6,7 @@ import { IconSize } from '../icon/icon-size';
 @Component({
     selector: 'm-expander-defaults',
     template: '',
-    standalone: true
-})
+    })
 export class ExpanderDefaultsComponent implements OnDestroy {
     private readonly previousDropdownIcon = ExpanderComponent.defaults.dropdownIcon;
     private readonly previousDropdownIconSize = ExpanderComponent.defaults.dropdownIconSize;

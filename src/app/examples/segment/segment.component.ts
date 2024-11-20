@@ -6,8 +6,7 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-segment-example',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, SegmentComponent, ButtonComponent, SegmentGroupComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, ExampleComponent, ExampleCodeComponent, SegmentComponent, ButtonComponent, SegmentGroupComponent],
     templateUrl: './segment.component.html',
     styleUrls: ['./segment.component.scss']
 })

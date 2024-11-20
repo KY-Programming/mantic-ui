@@ -6,8 +6,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-expander-example',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, ExpanderComponent, ButtonComponent, ExpanderIconComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, ExpanderComponent, ButtonComponent, ExpanderIconComponent],
     templateUrl: './expander.component.html',
     styleUrls: ['./expander.component.scss']
 })

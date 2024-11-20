@@ -23,7 +23,6 @@ export declare type FieldsType =
     selector: 'm-field-group',
     templateUrl: './field-group.component.html',
     styleUrls: ['./field-group.component.scss'],
-    standalone: true,
     hostDirectives: [InlineDirective.default],
     providers: [...BaseComponent.providers]
 })

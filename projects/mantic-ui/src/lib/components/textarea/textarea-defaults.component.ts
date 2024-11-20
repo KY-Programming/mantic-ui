@@ -4,8 +4,7 @@ import { TextareaComponent } from './textarea.component';
 @Component({
     selector: 'm-textarea-defaults',
     template: '',
-    standalone: true
-})
+    })
 export class TextareaDefaultsComponent {
     @Input()
     public set inverted(value: boolean) {

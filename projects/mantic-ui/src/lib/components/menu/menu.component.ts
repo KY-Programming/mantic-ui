@@ -14,7 +14,6 @@ export declare type MenuPosition =
     selector: 'm-menu',
     templateUrl: './menu.component.html',
     styleUrls: ['./menu.component.scss'],
-    standalone: true,
     hostDirectives: [PointingDirective.default],
     providers: [...InvertibleComponent.providers]
 })

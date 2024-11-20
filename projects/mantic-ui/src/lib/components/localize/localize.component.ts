@@ -3,7 +3,6 @@ import { localizeDictionary } from './localize';
 
 @Component({
     selector: 'm-localize',
-    standalone: true,
     imports: [],
     templateUrl: './localize.component.html',
     styleUrl: './localize.component.scss',

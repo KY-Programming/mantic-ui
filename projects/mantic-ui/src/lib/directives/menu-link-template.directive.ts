@@ -3,8 +3,7 @@ import { LayoutService } from '../services/layout.service';
 
 @Directive({
     selector: '[m-menu-link-template]',
-    standalone: true
-})
+    })
 export class MenuLinkTemplateDirective {
     public constructor(
         private readonly menuService: LayoutService,

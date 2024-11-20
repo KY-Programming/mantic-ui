@@ -4,7 +4,6 @@ import { MenuComponent, MenuItemComponent, MenuItemDirective } from '@mantic-ui/
 
 @Component({
     selector: 'app-semantic-menu-iframe',
-    standalone: true,
     imports: [CommonModule, MenuComponent, MenuItemComponent, MenuItemDirective],
     templateUrl: './fixed1.component.html',
     styleUrls: ['./fixed1.component.scss']

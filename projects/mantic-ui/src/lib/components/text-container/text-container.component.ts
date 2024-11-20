@@ -6,7 +6,6 @@ import { FluidDirective } from '../../directives/fluid.directive';
     selector: 'm-text-container',
     templateUrl: './text-container.component.html',
     styleUrls: ['./text-container.component.scss'],
-    standalone: true,
     hostDirectives: [FluidDirective.default],
     providers: [...BaseComponent.providers]
 })

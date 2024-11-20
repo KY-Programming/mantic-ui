@@ -6,8 +6,7 @@ import { HeaderComponent as AppHeaderComponent } from '../../components/header/h
 
 @Component({
     selector: 'app-header-example',
-    standalone: true,
-    imports: [CommonModule, AppHeaderComponent, TabGroupComponent, TabComponent, IconComponent, ExampleComponent, ExampleCodeComponent, InfoComponent, ButtonGroupComponent, IconButtonComponent, SegmentComponent, HeaderComponent, HeaderDefaultsComponent, HeaderDirective],
+    imports: [CommonModule, AppHeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, InfoComponent, ButtonGroupComponent, IconButtonComponent, SegmentComponent, HeaderComponent, HeaderDirective],
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })

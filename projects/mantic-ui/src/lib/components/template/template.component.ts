@@ -3,7 +3,6 @@ import { TemplateService } from '../../services/template.service';
 
 @Component({
     selector: 'm-template',
-    standalone: true,
     imports: [],
     templateUrl: './template.component.html',
     styleUrl: './template.component.scss'

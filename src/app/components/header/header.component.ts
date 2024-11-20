@@ -4,7 +4,6 @@ import { HeaderDirective } from '@mantic-ui/angular';
 
 @Component({
     selector: 'app-header',
-    standalone: true,
     imports: [CommonModule, HeaderDirective],
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']

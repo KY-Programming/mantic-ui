@@ -3,8 +3,7 @@ import { ButtonComponent } from './button.component';
 
 @Component({
     selector: 'm-button-defaults',
-    template: '',
-    standalone: true
+    template: ''
 })
 export class ButtonDefaultsComponent {
     @Input()

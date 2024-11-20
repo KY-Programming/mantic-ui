@@ -10,7 +10,6 @@ import { IconComponent } from '../icon/icon.component';
     selector: 'm-expander-icon',
     templateUrl: './expander-icon.component.html',
     styleUrls: ['./expander-icon.component.scss'],
-    standalone: true,
     imports: [
         IconComponent
     ],

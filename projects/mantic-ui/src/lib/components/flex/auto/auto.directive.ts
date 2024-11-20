@@ -2,8 +2,7 @@ import { Directive, HostBinding } from '@angular/core';
 
 @Directive({
     selector: '[m-auto]',
-    standalone: true
-})
+    })
 export class AutoDirective {
 
     @HostBinding('style.flex')

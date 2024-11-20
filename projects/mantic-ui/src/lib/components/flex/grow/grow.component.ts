@@ -4,8 +4,7 @@ import { Component } from '@angular/core';
     selector: 'm-grow',
     templateUrl: './grow.component.html',
     styleUrls: ['./grow.component.scss'],
-    standalone: true
-})
+    })
 export class GrowComponent {
 
 }

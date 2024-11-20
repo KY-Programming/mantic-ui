@@ -7,7 +7,6 @@ import { TemplateService } from '../../services/template.service';
 
 @Component({
     selector: 'm-template-outlet',
-    standalone: true,
     imports: [CommonModule],
     templateUrl: './template-outlet.component.html',
     styleUrl: './template-outlet.component.scss'

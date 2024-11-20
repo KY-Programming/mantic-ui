@@ -6,8 +6,7 @@ import { LabelDropdownComponent } from './label-dropdown.component';
 @Component({
     selector: 'm-label-dropdown-defaults',
     template: '',
-    standalone: true
-})
+    })
 export class LabelDropdownDefaultsComponent implements OnDestroy {
     private readonly previousDropdownIcon = LabelDropdownComponent.defaults.dropdownIcon;
     private readonly previousDropdownIconSize = LabelDropdownComponent.defaults.dropdownIconSize;

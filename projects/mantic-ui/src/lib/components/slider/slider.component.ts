@@ -8,7 +8,6 @@ import { CheckboxComponent } from '../checkbox/checkbox.component';
     selector: 'm-slider',
     templateUrl: './slider.component.html',
     styleUrls: ['./slider.component.scss'],
-    standalone: true,
     imports: [
         FormsModule
     ],

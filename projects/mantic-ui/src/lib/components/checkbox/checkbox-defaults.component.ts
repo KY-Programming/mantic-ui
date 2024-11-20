@@ -5,8 +5,7 @@ import { CheckboxComponent } from './checkbox.component';
 
 @Component({
     selector: 'm-checkbox-defaults',
-    template: '',
-    standalone: true
+    template: ''
 })
 export class CheckboxDefaultsComponent implements OnDestroy {
     private readonly previousDropdownIcon = CheckboxComponent.defaults.checkIcon;

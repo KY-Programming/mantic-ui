@@ -14,7 +14,6 @@ export declare type CellAlign =
     selector: 'm-cell',
     templateUrl: './cell.component.html',
     styleUrls: ['./cell.component.scss'],
-    standalone: true,
     providers: [...BaseComponent.providers]
 })
 export class CellComponent extends BaseComponent {

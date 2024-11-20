@@ -3,8 +3,7 @@ import { TemplateTarget } from '../models/template-target';
 
 @Directive({
     selector: '[m-to-template]',
-    standalone: true
-})
+    })
 export class ToTemplateDirective {
     @Input('m-to-template')
     public set toTemplate(target: TemplateTarget) {

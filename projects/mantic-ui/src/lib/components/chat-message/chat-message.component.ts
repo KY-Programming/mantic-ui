@@ -14,8 +14,7 @@ import { RouterLink } from '@angular/router';
         ButtonComponent,
         ButtonDirective,
         RouterLink
-    ],
-    standalone: true
+    ]
 })
 export class ChatMessageComponent {
 

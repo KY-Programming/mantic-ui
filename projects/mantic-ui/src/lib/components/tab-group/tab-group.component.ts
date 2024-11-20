@@ -14,7 +14,6 @@ import { TabComponent } from '../tab/tab.component';
     selector: 'm-tab-group',
     templateUrl: './tab-group.component.html',
     styleUrls: ['./tab-group.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         SegmentComponent,

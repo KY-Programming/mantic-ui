@@ -6,8 +6,7 @@ import { ValidationPipe } from './validation.pipe';
 
 @Pipe({
     name: 'mAllowedChars',
-    standalone: true
-})
+    })
 export class AllowedCharsPipe implements ValidationPipe, PipeTransform {
 
     public transform(value: unknown | FormValidation, allowedChars: string, message?: string): FormValidation {

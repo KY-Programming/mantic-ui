@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
     selector: 'm-nuget',
     templateUrl: './nuget.component.html',
     styleUrls: ['./nuget.component.scss'],
-    standalone: true,
     imports: [
         CommonModule
     ]

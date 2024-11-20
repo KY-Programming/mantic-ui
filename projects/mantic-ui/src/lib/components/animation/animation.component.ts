@@ -6,7 +6,6 @@ import { AnimationDirection } from './animation-direction';
     selector: 'm-animation',
     templateUrl: './animation.component.html',
     styleUrls: ['./animation.component.scss'],
-    standalone: true,
     providers: [...BaseComponent.providers]
 })
 export class AnimationComponent extends BaseComponent {

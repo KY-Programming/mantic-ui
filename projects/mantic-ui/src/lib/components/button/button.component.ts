@@ -27,7 +27,6 @@ export declare type Pointing =
     selector: 'm-button',
     templateUrl: './button.component.html',
     styleUrls: ['./button.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         IconComponent

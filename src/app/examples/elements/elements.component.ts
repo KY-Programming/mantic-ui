@@ -7,8 +7,7 @@ import { ElementListExamplesComponent } from '../element-list/element-list.compo
 
 @Component({
     selector: 'app-elements',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, ElementListExamplesComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ElementListExamplesComponent],
     templateUrl: './elements.component.html',
     styleUrls: ['./elements.component.scss']
 })

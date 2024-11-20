@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
     selector: 'm-npm',
     templateUrl: './npm.component.html',
     styleUrls: ['./npm.component.scss'],
-    standalone: true,
     imports: [
         CommonModule
     ]

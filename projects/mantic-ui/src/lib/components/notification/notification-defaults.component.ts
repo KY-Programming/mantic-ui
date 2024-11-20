@@ -5,8 +5,7 @@ import { NotificationService } from './notification.service';
 @Component({
     selector: 'm-notification-defaults',
     template: '',
-    standalone: true
-})
+    })
 export class NotificationDefaultsComponent implements OnDestroy {
     private readonly previousSuccessIcon = NotificationService.defaults.successIcon;
     private currentSuccessIcon?: IconType;

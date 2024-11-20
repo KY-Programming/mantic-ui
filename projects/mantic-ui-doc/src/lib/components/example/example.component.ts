@@ -7,7 +7,6 @@ import { HighlightModule } from 'ngx-highlightjs';
     selector: 'm-example',
     templateUrl: './example.component.html',
     styleUrls: ['./example.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         HighlightModule,

@@ -3,8 +3,7 @@ import { ColorName } from '../models/color';
 import { SortedClassesService } from '../services/sorted-classes.service';
 
 @Directive({
-    selector: '[-m-color]',
-    standalone: true
+    selector: '[-m-color]'
 })
 export class ColorDirective {
     public static readonly color = 'color';

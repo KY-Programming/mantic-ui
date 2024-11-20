@@ -16,7 +16,6 @@ export declare type MessageAttached = 'bottom' | 'top' | undefined;
     selector: 'm-message',
     templateUrl: './message.component.html',
     styleUrls: ['./message.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         IconComponent,

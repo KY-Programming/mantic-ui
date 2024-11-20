@@ -5,7 +5,6 @@ import { BaseComponent } from '../../base/base.component';
     selector: 'm-breadcrumb',
     templateUrl: './breadcrumb.component.html',
     styleUrls: ['./breadcrumb.component.scss'],
-    standalone: true,
     providers: [...BaseComponent.providers]
 })
 export class BreadcrumbComponent extends BaseComponent {

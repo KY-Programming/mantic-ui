@@ -4,8 +4,7 @@ import { FormComponent } from './form.component';
 @Component({
     selector: 'm-form-defaults',
     template: '',
-    standalone: true
-})
+    })
 export class FormDefaultsComponent {
     @Input()
     public set inverted(value: boolean) {

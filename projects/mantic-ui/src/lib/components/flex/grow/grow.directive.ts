@@ -2,8 +2,7 @@ import { Directive, HostBinding } from '@angular/core';
 
 @Directive({
     selector: '[m-grow]',
-    standalone: true
-})
+    })
 export class GrowDirective {
 
     @HostBinding('style.flex')

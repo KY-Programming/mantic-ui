@@ -4,8 +4,7 @@ import { DataSourceRequest } from './data-source-request';
 
 @Component({
     selector: 'm-data-source',
-    template: '',
-    standalone: true
+    template: ''
 })
 export class DataSourceComponent {
     private readonly requestSubject = new Subject<DataSourceRequest>();

@@ -9,7 +9,6 @@ import { NotificationService } from './notification.service';
     selector: 'm-notification',
     templateUrl: './notification.component.html',
     styleUrls: ['./notification.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         MessageComponent

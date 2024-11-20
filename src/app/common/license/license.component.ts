@@ -7,8 +7,7 @@ import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-license',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, NpmInstallComponent, ExampleCodeComponent, NpmComponent, InfoComponent, TableComponent, RouterLink],
+    imports: [CommonModule, TabGroupComponent, TabComponent, HeaderDirective, NpmInstallComponent, ExampleCodeComponent, NpmComponent, InfoComponent, TableComponent, RouterLink],
     templateUrl: './license.component.html',
     styleUrls: ['./license.component.scss']
 })

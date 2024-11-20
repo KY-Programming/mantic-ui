@@ -8,7 +8,6 @@ import { FormElementBase } from './form-element-base';
     selector: 'm-form-renderer2',
     templateUrl: './form-element-renderer2.component.html',
     styleUrls: ['./form-element-renderer2.component.scss'],
-    standalone: true,
     imports: [
         CommonModule
     ]

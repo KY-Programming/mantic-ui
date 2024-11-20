@@ -5,8 +5,7 @@ import { SortedClassesService } from '../services/sorted-classes.service';
 
 @Directive({
     selector: '[-m-fluid]',
-    standalone: true
-})
+    })
 export class FluidDirective {
     public static readonly fluid = 'fluid';
     public static readonly default = { directive: FluidDirective, inputs: [FluidDirective.fluid] };

@@ -5,7 +5,6 @@ import { SortedClassesService } from '../services/sorted-classes.service';
 import { Destroyable } from './destroyable';
 
 @Directive({
-    standalone: true,
     providers: BaseComponent.providers
 })
 export abstract class BaseComponent extends Destroyable implements OnInit {

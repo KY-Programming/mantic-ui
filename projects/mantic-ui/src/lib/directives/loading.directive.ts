@@ -5,8 +5,7 @@ import { SortedClassesService } from '../services/sorted-classes.service';
 
 @Directive({
     selector: '[-m-loading]',
-    standalone: true
-})
+    })
 export class LoadingDirective {
     public static readonly loading = 'loading';
     public static readonly default = { directive: LoadingDirective, inputs: [LoadingDirective.loading] };

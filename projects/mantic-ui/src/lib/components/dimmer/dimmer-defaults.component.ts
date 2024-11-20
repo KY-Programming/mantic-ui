@@ -3,8 +3,7 @@ import { DimmerComponent } from './dimmer.component';
 
 @Component({
     selector: 'm-dimmer-defaults',
-    template: '',
-    standalone: true
+    template: ''
 })
 export class DimmerDefaultsComponent {
 

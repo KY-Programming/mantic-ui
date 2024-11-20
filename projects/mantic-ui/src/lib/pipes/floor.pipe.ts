@@ -2,8 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
     name: 'mFloor',
-    standalone: true
-})
+    })
 export class FloorPipe implements PipeTransform {
 
     public transform(value: number, decimals = 0): number {

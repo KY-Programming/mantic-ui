@@ -4,8 +4,7 @@ import { InputBaseComponent } from './input-base.component';
 @Component({
     selector: 'm-input-defaults',
     template: '',
-    standalone: true
-})
+    })
 export class InputDefaultsComponent {
 
     @Input()

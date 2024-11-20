@@ -14,7 +14,6 @@ export declare type Align =
     selector: 'm-table',
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.scss'],
-    standalone: true,
     hostDirectives: [BasicDirective.default],
     providers: [...InvertibleComponent.providers]
 })

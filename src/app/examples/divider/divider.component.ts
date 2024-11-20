@@ -6,8 +6,7 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-divider-example',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, DividerComponent, SegmentComponent, ButtonComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, DividerComponent, SegmentComponent, ButtonComponent],
     templateUrl: './divider.component.html',
     styleUrls: ['./divider.component.scss']
 })

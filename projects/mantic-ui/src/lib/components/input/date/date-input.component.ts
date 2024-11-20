@@ -13,7 +13,6 @@ import { InputBaseComponent } from '../input-base.component';
     selector: 'm-date-input',
     templateUrl: './date-input.component.html',
     styleUrls: ['./date-input.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         IconComponent,

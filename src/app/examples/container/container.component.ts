@@ -6,8 +6,7 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-container-example',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent],
     templateUrl: './container.component.html',
     styleUrls: ['./container.component.scss']
 })

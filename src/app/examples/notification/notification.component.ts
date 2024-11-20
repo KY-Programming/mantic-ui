@@ -6,8 +6,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-notification-example',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, FlexComponent, ButtonComponent, NotificationComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, FlexComponent, ButtonComponent],
     templateUrl: './notification.component.html',
     styleUrls: ['./notification.component.scss']
 })

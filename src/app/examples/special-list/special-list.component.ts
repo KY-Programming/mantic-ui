@@ -5,7 +5,6 @@ import { ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, Dimmer
 
 @Component({
     selector: 'app-special-list',
-    standalone: true,
     imports: [CommonModule, RouterLink, SegmentComponent, ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, DimmerComponent, HeaderDirective, FillDirective, ModalComponent, ModalFooterComponent, InfoComponent, WarningComponent, ErrorComponent, MessageComponent],
     templateUrl: './special-list.component.html',
     styleUrls: ['./special-list.component.scss']

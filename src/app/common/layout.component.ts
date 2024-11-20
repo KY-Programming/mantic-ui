@@ -6,7 +6,6 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-common-layout',
-    standalone: true,
     imports: [CommonModule, SemanticUiModule, FillDirective, FlexComponent, RouterOutlet],
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss']

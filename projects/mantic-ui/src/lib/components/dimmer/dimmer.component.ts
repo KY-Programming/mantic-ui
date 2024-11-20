@@ -10,7 +10,6 @@ import { BooleanLike } from '../../models/boolean-like';
     selector: 'm-dimmer',
     templateUrl: './dimmer.component.html',
     styleUrls: ['./dimmer.component.scss'],
-    standalone: true,
     providers: [...InvertibleComponent.providers]
 })
 export class DimmerComponent extends InvertibleComponent implements OnInit, OnDestroy {

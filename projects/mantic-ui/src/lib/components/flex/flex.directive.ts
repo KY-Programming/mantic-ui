@@ -5,8 +5,7 @@ import { FlexAlignItems, FlexDirection, FlexJustifyContent } from './flex.types'
 
 @Directive({
     selector: '[m-flex]',
-    standalone: true
-})
+    })
 export class FlexDirective {
     public static readonly default = { directive: FlexDirective, inputs: ['direction', 'alignItems', 'justifyContent', 'row', 'column', 'gap'] };
 

@@ -8,8 +8,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-icon-example',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, FontAwesomeModule, TableComponent, LabelComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, ExampleComponent, ExampleCodeComponent, FontAwesomeModule, TableComponent],
     templateUrl: './icon.component.html',
     styleUrls: ['./icon.component.scss']
 })

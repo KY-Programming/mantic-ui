@@ -4,8 +4,7 @@ import { ValidationPipe } from './validation.pipe';
 
 @Pipe({
     name: 'mTitle',
-    standalone: true
-})
+    })
 export class TitlePipe implements ValidationPipe, PipeTransform {
 
     public transform(value: unknown | FormValidation, label?: string): FormValidation {

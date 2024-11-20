@@ -2,10 +2,7 @@
 import { BooleanLike } from '../models/boolean-like';
 import { BaseComponent } from './base.component';
 
-@Directive({
-    // TODO: Use InvertedDirective
-    // hostDirectives: [InvertedDirective]
-})
+@Directive()
 export abstract class InvertibleComponent extends BaseComponent {
     protected static override readonly providers = [...BaseComponent.providers];
 

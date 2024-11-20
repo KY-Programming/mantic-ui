@@ -5,8 +5,7 @@ import { SortedClassesService } from '../services/sorted-classes.service';
 
 @Directive({
     selector: '[-m-read-only]',
-    standalone: true
-})
+    })
 export class ReadOnlyDirective {
     public static readonly readonly = 'readonly';
     private static readonly readOnly = 'read-only';

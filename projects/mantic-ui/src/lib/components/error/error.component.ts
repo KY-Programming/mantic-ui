@@ -8,7 +8,6 @@ import { MessageComponent } from '../message/message.component';
     selector: 'm-error',
     templateUrl: './error.component.html',
     styleUrls: ['./error.component.scss'],
-    standalone: true,
     hostDirectives: [IgnoredDirective.default],
     providers: [...InvertibleComponent.providers]
 })

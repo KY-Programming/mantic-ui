@@ -9,7 +9,6 @@ import { IconComponent } from '../icon/icon.component';
     selector: 'm-submit',
     templateUrl: './submit.component.html',
     styleUrls: ['./submit.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         IconComponent

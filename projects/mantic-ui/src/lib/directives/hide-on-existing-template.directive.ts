@@ -6,8 +6,7 @@ import { TemplateService } from '../services/template.service';
 
 @Directive({
     selector: '[mHideOnExistingTemplate]',
-    standalone: true
-})
+    })
 export class HideOnExistingTemplateDirective extends Destroyable {
     private readonly templateService = inject(TemplateService);
     private readonly template = inject(TemplateRef<unknown>);

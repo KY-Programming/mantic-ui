@@ -2,8 +2,7 @@ import { AfterViewInit, Directive, EmbeddedViewRef, OnDestroy, TemplateRef, View
 
 @Directive({
     selector: '[m-to-body]',
-    standalone: true
-})
+    })
 export class ToBodyDirective implements AfterViewInit, OnDestroy {
     private embeddedViewRef: EmbeddedViewRef<unknown> | undefined;
 

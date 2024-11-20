@@ -5,7 +5,6 @@ import { DividerComponent, ExpanderComponent, FieldComponent, FillDirective, Fle
 
 @Component({
     selector: 'app-layout-list',
-    standalone: true,
     imports: [CommonModule, RouterLink, SegmentComponent, DividerComponent, ExpanderComponent, FormComponent, HeaderDirective, FlexDirective, FillDirective, FieldComponent, InputComponent, SubmitComponent, MenuComponent, MenuItemComponent, IconComponent, TabGroupComponent, TabComponent, FlexComponent],
     templateUrl: './layout-list.component.html',
     styleUrls: ['./layout-list.component.scss']

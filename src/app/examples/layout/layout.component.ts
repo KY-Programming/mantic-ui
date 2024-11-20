@@ -6,8 +6,7 @@ import { ExampleCodeComponent, ExampleComponent, ExampleFrameComponent } from '@
 
 @Component({
     selector: 'app-layout-example',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, InfoComponent, ExampleFrameComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, InfoComponent, ExampleFrameComponent],
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss']
 })

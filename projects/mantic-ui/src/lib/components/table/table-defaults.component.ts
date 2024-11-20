@@ -4,8 +4,7 @@ import { TableComponent } from './table.component';
 @Component({
     selector: 'm-table-defaults',
     template: '',
-    standalone: true
-})
+    })
 export class TableDefaultsComponent {
     @Input()
     public set inverted(value: boolean) {

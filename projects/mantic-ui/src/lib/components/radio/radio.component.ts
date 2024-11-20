@@ -8,7 +8,6 @@ import { CheckboxComponent } from '../checkbox/checkbox.component';
     selector: 'm-radio',
     templateUrl: './radio.component.html',
     styleUrls: ['./radio.component.scss'],
-    standalone: true,
     imports: [
         FormsModule
     ],

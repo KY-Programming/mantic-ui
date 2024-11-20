@@ -7,8 +7,7 @@ import { Title } from '@angular/platform-browser';
 @Component({
     selector: 'm-document-title',
     templateUrl: './document-title.component.html',
-    styleUrls: ['./document-title.component.scss'],
-    standalone: true
+    styleUrls: ['./document-title.component.scss']
 })
 export class DocumentTitleComponent implements DoCheck, OnDestroy {
     public static globalPostfix = '';

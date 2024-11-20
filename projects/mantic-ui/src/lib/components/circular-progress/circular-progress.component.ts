@@ -7,7 +7,6 @@ import { ColorName } from '../../models/color';
 
 @Component({
     selector: 'm-circular-progress',
-    standalone: true,
     imports: [CommonModule],
     templateUrl: './circular-progress.component.html',
     styleUrls: ['./circular-progress.component.scss'],

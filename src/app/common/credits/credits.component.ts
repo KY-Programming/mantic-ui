@@ -7,8 +7,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-credits',
-    standalone: true,
-    imports: [CommonModule, TabGroupComponent, TabComponent, ExpanderComponent, ExpanderHeaderComponent, FlexDirective, HeaderDirective, LoaderComponent, HeaderComponent],
+    imports: [CommonModule, TabGroupComponent, TabComponent, ExpanderComponent, ExpanderHeaderComponent, FlexDirective, LoaderComponent, HeaderComponent],
     templateUrl: './credits.component.html',
     styleUrls: ['./credits.component.scss']
 })

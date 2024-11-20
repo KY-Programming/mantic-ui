@@ -5,7 +5,6 @@ import { BaseComponent } from '../../base/base.component';
     selector: 'm-divider',
     templateUrl: './divider.component.html',
     styleUrls: ['./divider.component.scss'],
-    standalone: true,
     providers: [...BaseComponent.providers]
 })
 export class DividerComponent extends BaseComponent {

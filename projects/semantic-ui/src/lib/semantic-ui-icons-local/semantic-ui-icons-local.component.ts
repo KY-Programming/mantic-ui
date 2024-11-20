@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'm-semantic-ui-icons-local',
-    standalone: true,
     template: ``,
     styleUrls: ['./semantic-ui-icons-local.component.css']
 })

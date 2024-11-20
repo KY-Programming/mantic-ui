@@ -5,7 +5,6 @@ import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-intro',
-    standalone: true,
     imports: [CommonModule, RouterLink],
     templateUrl: './intro.component.html',
     styleUrls: ['./intro.component.scss']

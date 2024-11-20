@@ -6,7 +6,6 @@ import { ExampleCodeComponent, NpmComponent, NpmInstallComponent } from '@mantic
 
 @Component({
     selector: 'app-semantic-start',
-    standalone: true,
     imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, NpmComponent, NpmInstallComponent, ExampleCodeComponent, InfoComponent],
     templateUrl: './start.component.html',
     styleUrls: ['./start.component.scss']

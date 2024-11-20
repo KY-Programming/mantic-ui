@@ -7,8 +7,7 @@ import { SemanticUiIconsLocalComponent, SemanticUiLatoLocalComponent, SemanticUi
     selector: 'app-test-example',
     templateUrl: './test.component.html',
     styleUrls: ['./test.component.scss'],
-    standalone: true,
-    imports: [ButtonComponent, SemanticUiModule, CommonModule, SemanticUiThemeComponent, SemanticUiSiteComponent, SemanticUiResetComponent, SemanticUiLatoLocalComponent, SemanticUiIconsLocalComponent]
+    imports: [SemanticUiModule, CommonModule, SemanticUiThemeComponent, SemanticUiSiteComponent, SemanticUiResetComponent, SemanticUiLatoLocalComponent, SemanticUiIconsLocalComponent]
 })
 export class TestExampleComponent {
 }

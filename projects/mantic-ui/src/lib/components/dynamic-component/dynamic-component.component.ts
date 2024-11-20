@@ -4,7 +4,6 @@ import { ComponentParser } from './component-parser';
 
 @Component({
     selector: 'm-dynamic-component',
-    standalone: true,
     imports: [CommonModule],
     template: '',
     styleUrls: []

@@ -8,7 +8,6 @@ import { MessageComponent } from '../message/message.component';
     selector: 'm-info',
     templateUrl: './info.component.html',
     styleUrls: ['./info.component.scss'],
-    standalone: true,
     hostDirectives: [IgnoredDirective.default],
     providers: [...InvertibleComponent.providers]
 })

@@ -12,7 +12,6 @@ import { FillDirective } from '../flex/fill/fill.directive';
     selector: 'm-form-renderer',
     templateUrl: './form-renderer.component.html',
     styleUrls: ['./form-renderer.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         FormComponent,

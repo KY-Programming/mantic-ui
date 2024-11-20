@@ -4,8 +4,7 @@ import { HeaderComponent } from './header.component';
 @Component({
     selector: 'm-header-defaults',
     template: '',
-    standalone: true
-})
+    })
 export class HeaderDefaultsComponent {
     @Input()
     public set inverted(value: boolean) {

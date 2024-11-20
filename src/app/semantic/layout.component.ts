@@ -6,7 +6,6 @@ import { SemanticUiIconsLocalComponent, SemanticUiLatoLocalComponent, SemanticUi
 
 @Component({
     selector: 'app-semantic-layout',
-    standalone: true,
     imports: [CommonModule, FlexComponent, FillDirective, RouterOutlet, SemanticUiThemeComponent, SemanticUiSiteComponent, SemanticUiResetComponent, SemanticUiLatoLocalComponent, SemanticUiIconsLocalComponent, NotificationComponent],
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss']

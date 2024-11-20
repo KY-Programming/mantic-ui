@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
     selector: 'm-npm-install',
     templateUrl: './npm-install.component.html',
     styleUrls: ['./npm-install.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         SegmentComponent

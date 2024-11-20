@@ -18,7 +18,6 @@ import { DropdownValue } from './dropdown-value';
     selector: 'm-dropdown',
     templateUrl: './dropdown.component.html',
     styleUrls: ['./dropdown.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         FormsModule,

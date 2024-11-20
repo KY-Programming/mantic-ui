@@ -7,8 +7,7 @@ import { faRocket } from '@fortawesome/pro-solid-svg-icons';
 
 @Component({
     selector: 'app-message-example',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, MessageComponent, WarningComponent, InfoComponent, ErrorComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, MessageComponent, WarningComponent, InfoComponent, ErrorComponent],
     templateUrl: './message.component.html',
     styleUrls: ['./message.component.scss']
 })

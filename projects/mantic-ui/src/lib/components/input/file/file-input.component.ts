@@ -5,7 +5,6 @@ import { ButtonDirective } from '../../../directives/button.directive';
     selector: 'm-file-input',
     templateUrl: './file-input.component.html',
     styleUrls: ['./file-input.component.scss'],
-    standalone: true,
     imports: [
         ButtonDirective
     ]

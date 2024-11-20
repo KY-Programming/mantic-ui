@@ -5,8 +5,7 @@ import { SortedClassesService } from '../services/sorted-classes.service';
 
 @Directive({
     selector: '[-m-pointing]',
-    standalone: true
-})
+    })
 export class PointingDirective {
     public static readonly pointing = 'pointing';
     public static readonly default = { directive: PointingDirective, inputs: [PointingDirective.pointing] };

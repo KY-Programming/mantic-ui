@@ -7,8 +7,7 @@ import { SpecialListExamplesComponent } from '../special-list/special-list.compo
 
 @Component({
     selector: 'app-specials',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, SpecialListExamplesComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, SpecialListExamplesComponent],
     templateUrl: './specials.component.html',
     styleUrls: ['./specials.component.scss']
 })

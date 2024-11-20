@@ -15,7 +15,6 @@ export declare type SegmentAttached =
     selector: 'm-segment',
     templateUrl: './segment.component.html',
     styleUrls: ['./segment.component.scss'],
-    standalone: true,
     hostDirectives: [BasicDirective.default, ColorDirective.default, LoadingDirective.default],
     providers: SegmentComponent.providers
 })

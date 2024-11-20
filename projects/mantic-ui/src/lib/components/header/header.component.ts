@@ -14,7 +14,6 @@ export declare type HeaderSize = 'huge' | 'large' | 'medium' | 'small' | 'tiny';
     selector: 'm-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         IconComponent

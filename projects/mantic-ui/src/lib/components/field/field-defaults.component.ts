@@ -6,8 +6,7 @@ import { FieldComponent } from './field.component';
 @Component({
     selector: 'm-field-defaults',
     template: '',
-    standalone: true
-})
+    })
 export class FieldDefaultsComponent implements OnDestroy {
     private readonly previousHintIcon = FieldComponent.defaults.hintIcon;
     private readonly previousHintIconSize = FieldComponent.defaults.hintIconSize;

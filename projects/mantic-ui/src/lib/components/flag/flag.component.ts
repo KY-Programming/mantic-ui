@@ -5,8 +5,7 @@ import { IconSize } from '../icon/icon-size';
     selector: 'm-flag',
     templateUrl: './flag.component.html',
     styleUrls: ['./flag.component.scss'],
-    standalone: true
-})
+    })
 export class FlagComponent {
     @Input()
     public flag: string | undefined;

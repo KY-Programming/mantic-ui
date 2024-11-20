@@ -8,8 +8,7 @@ import { MyValidationPipe } from './my-validation.pipe';
 
 @Component({
     selector: 'app-form-example',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, FormComponent, FieldComponent, InputComponent, CheckboxComponent, SubmitComponent, FieldGroupComponent, DropdownComponent, DropdownItemComponent, SegmentComponent, ToggleComponent, MessageComponent, SliderComponent, IsFilledPipe, IsEmailPipe, TitlePipe, MyValidationPipe, TextareaComponent, ErrorComponent, FormRendererComponent, DataSourceComponent, InfoComponent, NumericInputComponent, LocalizeComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, FormComponent, FieldComponent, InputComponent, CheckboxComponent, SubmitComponent, FieldGroupComponent, DropdownComponent, DropdownItemComponent, SegmentComponent, ToggleComponent, MessageComponent, SliderComponent, IsFilledPipe, IsEmailPipe, TitlePipe, MyValidationPipe, TextareaComponent, ErrorComponent, FormRendererComponent, DataSourceComponent, InfoComponent],
     templateUrl: './form.component.html',
     styleUrls: ['./form.component.scss']
 })

@@ -6,8 +6,7 @@ import { ValidationPipe } from './validation.pipe';
 
 @Pipe({
     name: 'mIsEmail',
-    standalone: true
-})
+    })
 export class IsEmailPipe implements ValidationPipe, PipeTransform {
 
     public transform(value: unknown | FormValidation, message?: string): FormValidation {

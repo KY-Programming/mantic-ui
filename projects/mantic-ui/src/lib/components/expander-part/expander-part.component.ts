@@ -11,7 +11,6 @@ import { IconType } from '../icon/icon-type';
     selector: 'm-expander-part',
     templateUrl: './expander-part.component.html',
     styleUrls: ['./expander-part.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         FillComponent,

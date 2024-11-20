@@ -7,7 +7,6 @@ import { SemanticUiIconsLocalComponent, SemanticUiLatoLocalComponent, SemanticUi
 
 @Component({
     selector: 'app-fomantic-layout',
-    standalone: true,
     imports: [CommonModule, FlexComponent, FillDirective, RouterOutlet, ModalComponent, ModalFooterComponent, ButtonComponent, ButtonDirective, FomanticUiThemeComponent, SemanticUiSiteComponent, SemanticUiResetComponent, SemanticUiLatoLocalComponent, SemanticUiIconsLocalComponent, NotificationComponent],
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss']

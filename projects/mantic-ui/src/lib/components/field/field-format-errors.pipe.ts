@@ -3,8 +3,7 @@ import { FormError } from '../../models/form-error';
 
 @Pipe({
     name: 'fieldFormatErrors',
-    standalone: true
-})
+    })
 export class FieldFormatErrorsPipe implements PipeTransform {
 
     public transform(errors: FormError[]): string {

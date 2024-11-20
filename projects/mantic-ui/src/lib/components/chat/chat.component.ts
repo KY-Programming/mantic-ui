@@ -15,7 +15,6 @@ import { InputComponent } from '../input/text/input.component';
     selector: 'm-chat',
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         ChatMessageComponent,

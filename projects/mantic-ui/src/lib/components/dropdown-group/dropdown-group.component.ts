@@ -13,8 +13,7 @@ import { CommonModule } from '@angular/common';
         CommonModule,
         HeaderComponent,
         DividerComponent
-    ],
-    standalone: true
+    ]
 })
 export class DropdownGroupComponent implements AfterViewInit {
     @Input()

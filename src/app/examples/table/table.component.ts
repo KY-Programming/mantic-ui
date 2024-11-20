@@ -6,8 +6,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-table-example',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, WarningComponent, TableComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, WarningComponent, TableComponent],
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.scss']
 })

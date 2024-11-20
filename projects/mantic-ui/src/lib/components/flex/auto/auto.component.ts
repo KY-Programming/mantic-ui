@@ -4,8 +4,7 @@ import { Component } from '@angular/core';
     selector: 'm-auto',
     templateUrl: './auto.component.html',
     styleUrls: ['./auto.component.scss'],
-    standalone: true
-})
+    })
 export class AutoComponent {
 
 }

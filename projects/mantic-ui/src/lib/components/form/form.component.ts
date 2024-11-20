@@ -16,7 +16,6 @@ import { FormValidationNotifier } from './form-validation-notifier';
     selector: 'm-form',
     templateUrl: './form.component.html',
     styleUrls: ['./form.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         FlexDirective,

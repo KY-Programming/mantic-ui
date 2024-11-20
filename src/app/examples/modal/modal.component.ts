@@ -7,7 +7,6 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-modal-example',
-    standalone: true,
     imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, ButtonComponent, ModalComponent, ModalHeaderComponent, ModalFooterComponent, ToBodyDirective, DropdownComponent, DropdownItemComponent, ModalDefaultsComponent],
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss']

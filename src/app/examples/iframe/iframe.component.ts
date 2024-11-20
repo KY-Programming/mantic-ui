@@ -4,7 +4,6 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-iframe',
-    standalone: true,
     imports: [CommonModule, RouterOutlet],
     templateUrl: './iframe.component.html',
     styleUrls: ['./iframe.component.scss']

@@ -8,7 +8,6 @@ import { BooleanLike } from '../../models/boolean-like';
     selector: 'm-image-upload',
     templateUrl: './image-upload.component.html',
     styleUrls: ['./image-upload.component.scss'],
-    standalone: true,
     imports: [
         CommonModule
     ],

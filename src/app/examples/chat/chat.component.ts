@@ -5,8 +5,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-chat',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ChatComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ChatComponent],
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.scss']
 })

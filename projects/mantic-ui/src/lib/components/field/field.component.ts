@@ -24,7 +24,6 @@ import { FieldFormatErrorsPipe } from './field-format-errors.pipe';
     selector: 'm-field',
     templateUrl: './field.component.html',
     styleUrls: ['./field.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         IconComponent,

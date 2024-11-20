@@ -7,7 +7,6 @@ import { FieldSize, ParsableFieldSize, parseFieldSize } from '../../models/field
     selector: 'm-row',
     templateUrl: './row.component.html',
     styleUrls: ['./row.component.scss'],
-    standalone: true,
     providers: [...BaseComponent.providers]
 })
 export class RowComponent extends BaseComponent {

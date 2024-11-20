@@ -6,8 +6,7 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-toggle-example',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, ToggleComponent, FormComponent, FieldGroupComponent, FieldComponent, SegmentComponent, InputComponent, DividerComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, ToggleComponent, FormComponent, FieldGroupComponent, FieldComponent, SegmentComponent, InputComponent, DividerComponent],
     templateUrl: './toggle.component.html',
     styleUrls: ['./toggle.component.scss']
 })

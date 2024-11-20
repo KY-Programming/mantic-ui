@@ -5,7 +5,6 @@ import { HeaderDirective, IconComponent, TabComponent, TabGroupComponent } from 
 
 @Component({
     selector: 'app-feature',
-    standalone: true,
     imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective],
     templateUrl: './feature.component.html',
     styleUrls: ['./feature.component.scss']

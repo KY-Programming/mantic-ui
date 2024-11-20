@@ -2,8 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { FormValidation, isFormValidation, ValidationPipe } from '@mantic-ui/angular';
 
 @Pipe({
-    name: 'myValidation',
-    standalone: true
+    name: 'myValidation'
 })
 export class MyValidationPipe implements ValidationPipe, PipeTransform {
     public transform(value: unknown, ...args: unknown[]): FormValidation {

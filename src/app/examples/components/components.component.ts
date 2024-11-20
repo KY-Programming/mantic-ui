@@ -11,8 +11,7 @@ import { UtilListExamplesComponent } from '../util-list/util-list.component';
 
 @Component({
     selector: 'app-components',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, ElementListExamplesComponent, RouterLink, LayoutListExamplesComponent, SpecialListExamplesComponent, UtilListExamplesComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, HeaderDirective, ElementListExamplesComponent, RouterLink, LayoutListExamplesComponent, SpecialListExamplesComponent, UtilListExamplesComponent],
     templateUrl: './components.component.html',
     styleUrls: ['./components.component.scss']
 })

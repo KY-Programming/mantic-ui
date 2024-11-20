@@ -17,7 +17,6 @@ export declare type LabelPointing =
     selector: 'm-label',
     templateUrl: './label.component.html',
     styleUrls: ['./label.component.scss'],
-    standalone: true,
     hostDirectives: [BasicDirective.default, ColorDirective.default],
     providers: [...BaseComponent.providers]
 })

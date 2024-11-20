@@ -12,7 +12,6 @@ import { IconComponent } from '../icon/icon.component';
     selector: 'm-label-dropdown',
     templateUrl: './label-dropdown.component.html',
     styleUrls: ['./label-dropdown.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         IconComponent

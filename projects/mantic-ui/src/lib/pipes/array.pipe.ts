@@ -1,8 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'mArray',
-    standalone: true
+    name: 'mArray'
 })
 export class ArrayPipe implements PipeTransform {
 

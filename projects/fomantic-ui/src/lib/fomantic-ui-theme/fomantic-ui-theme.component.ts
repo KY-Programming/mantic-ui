@@ -3,7 +3,6 @@ import { ThemeService } from '@mantic-ui/angular';
 
 @Component({
     selector: 'm-fomantic-ui-theme',
-    standalone: true,
     template: '',
     styleUrls: ['./fomantic-ui-theme.component.less'],
     encapsulation: ViewEncapsulation.None

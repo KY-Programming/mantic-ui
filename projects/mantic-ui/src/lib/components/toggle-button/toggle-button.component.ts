@@ -10,7 +10,6 @@ import { IconComponent } from '../icon/icon.component';
     selector: 'm-toggle-button',
     templateUrl: './toggle-button.component.html',
     styleUrls: ['./toggle-button.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         IconComponent

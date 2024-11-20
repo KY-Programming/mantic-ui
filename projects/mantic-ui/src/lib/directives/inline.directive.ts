@@ -5,8 +5,7 @@ import { SortedClassesService } from '../services/sorted-classes.service';
 
 @Directive({
     selector: '[-m-inline]',
-    standalone: true
-})
+    })
 export class InlineDirective {
     public static readonly inline = 'inline';
     public static readonly default = { directive: InlineDirective, inputs: [InlineDirective.inline] };

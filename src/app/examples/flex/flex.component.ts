@@ -5,23 +5,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-flex',
-    standalone: true,
-    imports: [
-        CheckboxComponent,
-        ExampleCodeComponent,
-        ExampleComponent,
-        FieldComponent,
-        FormComponent,
-        HeaderComponent,
-        InputComponent,
-        SubmitComponent,
-        TabComponent,
-        TabGroupComponent,
-        FlexComponent,
-        SegmentComponent,
-        FlexDirective,
-        FillDirective
-    ],
+    imports: [ExampleCodeComponent, ExampleComponent, HeaderComponent, TabComponent, TabGroupComponent, FlexComponent, SegmentComponent, FillDirective],
     templateUrl: './flex.component.html',
     styleUrl: './flex.component.scss'
 })

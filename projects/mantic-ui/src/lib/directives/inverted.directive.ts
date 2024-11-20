@@ -5,8 +5,7 @@ import { SortedClassesService } from '../services/sorted-classes.service';
 
 @Directive({
     selector: '[-m-inverted]',
-    standalone: true
-})
+    })
 export class InvertedDirective {
     public static readonly inverted = 'inverted';
     public static readonly default = { directive: InvertedDirective, inputs: [InvertedDirective.inverted] };

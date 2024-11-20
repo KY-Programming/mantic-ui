@@ -2,8 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
     selector: 'm-document-no-index',
-    template: '',
-    standalone: true
+    template: ''
 })
 export class DocumentNoIndexComponent implements OnInit, OnDestroy {
 

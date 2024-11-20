@@ -6,7 +6,6 @@ import { ButtonComponent, CheckboxComponent, DropdownComponent, DropdownItemComp
 
 @Component({
     selector: 'app-element-list',
-    standalone: true,
     imports: [CommonModule, RouterLink, SegmentComponent, ButtonComponent, CheckboxComponent, DropdownComponent, DropdownItemComponent, InputComponent, InfoComponent, WarningComponent, ErrorComponent, MessageComponent, RadioComponent, SliderComponent, ToggleComponent, HeaderDirective, FillDirective, FlexDirective],
     templateUrl: './element-list.component.html',
     styleUrls: ['./element-list.component.scss']

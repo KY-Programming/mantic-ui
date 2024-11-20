@@ -7,7 +7,6 @@ import { DropDownSelectionService } from '../dropdown/dropdown-selection.service
     selector: 'm-dropdown-item',
     templateUrl: './dropdown-item.component.html',
     styleUrls: ['./dropdown-item.component.scss'],
-    standalone: true,
     providers: [...BaseComponent.providers]
 })
 export class DropdownItemComponent extends BaseComponent {

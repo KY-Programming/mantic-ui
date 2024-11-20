@@ -5,8 +5,7 @@ import { SortedClassesService } from '../services/sorted-classes.service';
 
 @Directive({
     selector: '[-m-active]',
-    standalone: true
-})
+    })
 export class ActiveDirective {
     public static readonly active = 'active';
     public static readonly default = { directive: ActiveDirective, inputs: [ActiveDirective.active] };

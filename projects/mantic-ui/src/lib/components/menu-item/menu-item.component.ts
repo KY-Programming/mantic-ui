@@ -8,7 +8,6 @@ import { SortedClassesService } from '../../services/sorted-classes.service';
     selector: 'm-menu-item',
     templateUrl: './menu-item.component.html',
     styleUrls: ['./menu-item.component.scss'],
-    standalone: true,
     providers: [SortedClassesService],
     hostDirectives: [ActiveDirective.default]
 })

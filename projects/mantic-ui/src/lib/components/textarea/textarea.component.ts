@@ -10,7 +10,6 @@ import { BooleanLike } from '../../models/boolean-like';
     selector: 'm-textarea',
     templateUrl: './textarea.component.html',
     styleUrls: ['./textarea.component.scss'],
-    standalone: true,
     imports: [
         FormsModule,
         FallbackForDirective

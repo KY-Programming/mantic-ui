@@ -7,8 +7,7 @@ import { DemoData } from '../../helpers/demo-data';
 
 @Component({
     selector: 'app-dropdown-example',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, DropdownComponent, DropdownItemComponent, DropdownGroupComponent, HeaderComponent, SegmentComponent, DividerComponent, FillDirective],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, DropdownComponent, DropdownItemComponent, DropdownGroupComponent, HeaderComponent, SegmentComponent, DividerComponent, FillDirective],
     templateUrl: './dropdown.component.html',
     styleUrls: ['./dropdown.component.scss']
 })

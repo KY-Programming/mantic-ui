@@ -2,8 +2,7 @@ import { Directive, ElementRef, Input, TemplateRef, ViewContainerRef } from '@an
 
 @Directive({
     selector: '[m-fallback-for]',
-    standalone: true
-})
+    })
 export class FallbackForDirective {
 
     @Input('m-fallback-for')

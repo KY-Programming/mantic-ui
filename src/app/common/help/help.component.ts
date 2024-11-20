@@ -5,7 +5,6 @@ import { HeaderDirective, IconComponent, TabComponent, TabGroupComponent } from 
 
 @Component({
     selector: 'app-help',
-    standalone: true,
     imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective],
     templateUrl: './help.component.html',
     styleUrls: ['./help.component.scss']

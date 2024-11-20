@@ -5,7 +5,6 @@ import { BaseComponent } from '../../base/base.component';
     selector: 'm-footer',
     templateUrl: './footer.component.html',
     styleUrls: ['./footer.component.scss'],
-    standalone: true,
     providers: [...BaseComponent.providers]
 })
 export class FooterComponent extends BaseComponent {

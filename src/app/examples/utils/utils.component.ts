@@ -7,8 +7,7 @@ import { UtilListExamplesComponent } from '../util-list/util-list.component';
 
 @Component({
     selector: 'app-utils',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, UtilListExamplesComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, UtilListExamplesComponent],
     templateUrl: './utils.component.html',
     styleUrls: ['./utils.component.scss']
 })

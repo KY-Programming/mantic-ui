@@ -6,8 +6,7 @@ import { MessageComponent } from './message.component';
 @Component({
     selector: 'm-message-defaults',
     template: '',
-    standalone: true
-})
+    })
 export class MessageDefaultsComponent implements OnDestroy {
     private readonly previousCloseIcon = MessageComponent.defaults.closeIcon;
     private readonly previousCloseIconSize = MessageComponent.defaults.closeIconSize;

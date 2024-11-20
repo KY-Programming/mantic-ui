@@ -12,7 +12,6 @@ export declare type LoaderSize = 'mini' | 'tiny' | 'small' | 'large' | 'big' | '
     selector: 'm-loader',
     templateUrl: './loader.component.html',
     styleUrls: ['./loader.component.scss'],
-    standalone: true,
     imports: [
         CommonModule
     ],

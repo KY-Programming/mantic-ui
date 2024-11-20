@@ -7,21 +7,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-template',
-    standalone: true,
-    imports: [
-        ExampleCodeComponent,
-        ExampleComponent,
-        HeaderComponent,
-        SegmentComponent,
-        TabComponent,
-        TabGroupComponent,
-        TextareaComponent,
-        TemplateComponent,
-        TemplateOutletComponent,
-        ButtonComponent,
-        NgIf,
-        HideOnEmptyTemplateDirective
-    ],
+    imports: [ExampleCodeComponent, ExampleComponent, HeaderComponent, SegmentComponent, TabComponent, TabGroupComponent, TemplateComponent, TemplateOutletComponent, ButtonComponent, NgIf],
     templateUrl: './template.component.html',
     styleUrl: './template.component.scss'
 })

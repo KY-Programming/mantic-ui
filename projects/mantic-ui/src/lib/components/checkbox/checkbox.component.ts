@@ -16,7 +16,6 @@ import { IconComponent } from '../icon/icon.component';
     selector: 'm-checkbox',
     templateUrl: './checkbox.component.html',
     styleUrls: ['./checkbox.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         IconComponent,

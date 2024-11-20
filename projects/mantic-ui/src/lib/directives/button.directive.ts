@@ -5,7 +5,6 @@ import { ButtonComponent } from '../components/button/button.component';
 
 @Directive({
     selector: '[m-button]',
-    standalone: true,
     providers: [...ButtonBaseComponent.providers]
 })
 export class ButtonDirective extends ButtonBaseComponent implements OnInit {

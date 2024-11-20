@@ -6,7 +6,6 @@ import { FooterLinkTemplateDirective } from '../../directives/footer-link-templa
     selector: 'm-footer-link',
     templateUrl: './footer-link.component.html',
     styleUrls: ['./footer-link.component.scss'],
-    standalone: true,
     imports: [
         FooterLinkTemplateDirective
     ]

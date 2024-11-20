@@ -6,8 +6,7 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-dimmer-example',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, SegmentComponent, DimmerComponent, ButtonComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, SegmentComponent, DimmerComponent, ButtonComponent],
     templateUrl: './dimmer.component.html',
     styleUrls: ['./dimmer.component.scss']
 })
@@ -45,7 +44,7 @@ export class DimmerExampleComponent {
 
     public pageCode = `<m-dimmer *ngIf="showDimmer" (click)="showDimmer = false" page>
   <h2 m-header inverted icon>
-    <m-icon icon="mail"></m-icon>
+    <m-icon icon="envelope"></m-icon>
     Dimmer Message
     <div class="sub header">Dimmer sub-header</div>
   </h2>

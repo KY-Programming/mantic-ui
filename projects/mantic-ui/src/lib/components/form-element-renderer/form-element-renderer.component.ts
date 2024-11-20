@@ -27,7 +27,6 @@ import { FormElementRenderer2Component } from './form-element-renderer2.componen
     selector: 'm-form-element-renderer',
     templateUrl: './form-element-renderer.component.html',
     styleUrls: ['./form-element-renderer.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         FieldComponent,

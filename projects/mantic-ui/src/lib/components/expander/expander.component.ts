@@ -13,7 +13,6 @@ import { ExpanderHeaderComponent } from './expander-header.component';
     selector: 'm-expander',
     templateUrl: './expander.component.html',
     styleUrls: ['./expander.component.scss'],
-    standalone: true,
     imports: [CommonModule, IconComponent, FlexComponent, FillComponent],
     providers: [...BaseComponent.providers]
 })

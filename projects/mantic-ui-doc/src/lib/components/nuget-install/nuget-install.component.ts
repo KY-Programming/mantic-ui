@@ -7,7 +7,6 @@ import { TabComponent, TabGroupComponent } from '@mantic-ui/angular';
     selector: 'm-nuget-install',
     templateUrl: './nuget-install.component.html',
     styleUrls: ['./nuget-install.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         TabComponent,

@@ -6,8 +6,7 @@ import { LayoutComponent } from './layout.component';
 @Component({
     selector: 'm-layout-defaults',
     template: '',
-    standalone: true
-})
+    })
 export class LayoutDefaultsComponent implements OnDestroy {
     private readonly previousMenuIcon = LayoutComponent.defaults.menuIcon;
     private readonly previousMenuIconSize = LayoutComponent.defaults.menuIconSize;

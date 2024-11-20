@@ -5,8 +5,7 @@ import { SortedClassesService } from '../services/sorted-classes.service';
 
 @Directive({
     selector: '[-m-disabled]',
-    standalone: true
-})
+    })
 export class DisabledDirective {
     public static readonly disabled = 'disabled';
     public static readonly default = { directive: DisabledDirective, inputs: [DisabledDirective.disabled] };

@@ -6,8 +6,7 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-slider-example',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, SliderComponent, FormComponent, FieldGroupComponent, FieldComponent, SegmentComponent, InputComponent, ToggleComponent, DividerComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, SliderComponent, FormComponent, FieldGroupComponent, FieldComponent, SegmentComponent, InputComponent, ToggleComponent, DividerComponent],
     templateUrl: './slider.component.html',
     styleUrls: ['./slider.component.scss']
 })

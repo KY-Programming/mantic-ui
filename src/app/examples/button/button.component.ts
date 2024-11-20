@@ -9,7 +9,6 @@ import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-button-example',
-    standalone: true,
     imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ButtonComponent, ButtonDirective, ExampleCodeComponent, RouterLink, WarningComponent, IconButtonComponent, SegmentComponent, ToggleButtonComponent, ButtonGroupComponent, OrComponent, InputComponent, DividerComponent, ToggleComponent, LabelComponent, AnimationComponent],
     templateUrl: './button.component.html',
     styleUrls: ['./button.component.scss']

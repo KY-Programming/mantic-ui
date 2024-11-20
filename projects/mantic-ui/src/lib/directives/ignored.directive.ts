@@ -5,8 +5,7 @@ import { SortedClassesService } from '../services/sorted-classes.service';
 
 @Directive({
     selector: '[-m-ignored]',
-    standalone: true
-})
+    })
 export class IgnoredDirective {
     public static readonly ignored = 'ignored';
     public static readonly default = { directive: IgnoredDirective, inputs: [IgnoredDirective.ignored] };

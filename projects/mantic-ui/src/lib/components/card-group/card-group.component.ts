@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'm-card-group',
-    standalone: true,
     imports: [CommonModule],
     templateUrl: './card-group.component.html',
     styleUrls: ['./card-group.component.scss']

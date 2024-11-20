@@ -24,7 +24,6 @@ export type ModalSize =
     selector: 'm-modal',
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss'],
-    standalone: true,
     imports: [
         CommonModule,
         DimmerComponent,

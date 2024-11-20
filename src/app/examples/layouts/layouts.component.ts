@@ -7,8 +7,7 @@ import { LayoutListExamplesComponent } from '../layout-list/layout-list.componen
 
 @Component({
     selector: 'app-layouts-example',
-    standalone: true,
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, LayoutListExamplesComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, LayoutListExamplesComponent],
     templateUrl: './layouts.component.html',
     styleUrls: ['./layouts.component.scss']
 })

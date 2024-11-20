@@ -9,7 +9,6 @@ import { ContextMenuComponent } from '../context-menu.component';
     selector: 'm-context-menu-item',
     templateUrl: './context-menu-item.component.html',
     styleUrls: ['./context-menu-item.component.scss'],
-    standalone: true,
     imports: [
         IconComponent
     ],

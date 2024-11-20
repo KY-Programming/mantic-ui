@@ -18,8 +18,7 @@ import { CommonModule } from '@angular/common';
         MenuItemComponent,
         IconComponent,
         FooterComponent
-    ],
-    standalone: true
+    ]
 })
 export class LayoutComponent {
     public static readonly defaults = { menuIcon: <IconType>'bars', menuIconSize: <IconSize>undefined };
