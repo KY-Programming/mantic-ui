@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { AsyncAction, ButtonComponent, FlexComponent, HeaderDirective, IconComponent, NotificationComponent, NotificationService, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { AsyncAction, ButtonComponent, FlexComponent, NotificationService, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
+import { CustomNotificationComponent } from './custom-notification/custom-notification.component';
 
 @Component({
     selector: 'app-notification-example',
@@ -80,4 +81,35 @@ export class DemoComponent {
         this.asyncAction?.done();
         this.asyncAction = undefined;
     }
+
+    public showComponent(): void {
+        this.notificationService.error('Default error message', { component: CustomNotificationComponent });
+    }
+
+    public exampleComponent = `import { NotificationService } from '@mantic-ui/angular';
+
+this.notificationService.error('Default error message', {
+    component: CustomNotificationComponent
+});`;
+
+    public exampleComponentTs = `import { Component, inject } from '@angular/core';
+import { ButtonComponent, notificationToken } from '@mantic-ui/angular';
+
+@Component({
+    selector: 'app-custom-notification',
+    imports: [ButtonComponent],
+    template: \`
+{{ notification.text }}
+<m-button color="red" (click)="onClick($event)">Info</m-button>
+    \`
+})
+export class CustomNotificationComponent {
+    protected readonly notification = inject(notificationToken);
+
+    protected onClick(event: MouseEvent): void {
+        // Prevent default to avoid close of the message
+        event.preventDefault();
+        alert('You clicked the button!');
+    }
+}`;
 }

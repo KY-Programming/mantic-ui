@@ -12,16 +12,18 @@ export class ObjectHelper {
     }
 
     /*
-     * Checks if the object has all specified keys
+     * Checks if the object has all specified keys. This is like a typesafe version of the `in` operator
      */
     public static has<T>(value: unknown, ...keys: (keyof T)[]): value is T {
-        return !!value && keys.every(key => Object.prototype.hasOwnProperty.call(value, key));
+        // eslint-disable-next-line no-restricted-syntax
+        return !!value && typeof value === 'object' && keys.every(key => key in value);
     }
 
     /*
-     * Checks if the object has any of the specified keys
+     * Checks if the object has any of the specified keys. This is like a typesafe version of the `in` operator
      */
     public static hasSome<T>(value: unknown, ...keys: (keyof T)[]): value is T {
-        return !!value && keys.some(key => Object.prototype.hasOwnProperty.call(value, key));
+        // eslint-disable-next-line no-restricted-syntax
+        return !!value && typeof value === 'object' && keys.some(key => key in value);
     }
 }

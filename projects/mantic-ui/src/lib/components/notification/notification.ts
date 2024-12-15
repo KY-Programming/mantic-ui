@@ -1,4 +1,5 @@
-﻿import { IconType } from '../icon/icon-type';
+﻿import { Type } from '@angular/core';
+import { IconType } from '../icon/icon-type';
 
 export interface Notification {
     type: 'positive' | 'success' | 'warning' | 'error' | 'info' | 'none';
@@ -9,4 +10,5 @@ export interface Notification {
     group?: string;
     icon?: IconType;
     loading?: boolean;
+    component?: Type<unknown>
 }

@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { MessageAttached, MessageComponent } from '../message/message.component';
 import { Notification } from './notification';
+import { NotificationInjectorPipe } from './notification-injector.pipe';
 import { NotificationService } from './notification.service';
 
 @Component({
@@ -11,7 +12,8 @@ import { NotificationService } from './notification.service';
     styleUrls: ['./notification.component.scss'],
     imports: [
         CommonModule,
-        MessageComponent
+        MessageComponent,
+        NotificationInjectorPipe
     ],
     providers: [...BaseComponent.providers]
 })
@@ -37,7 +39,10 @@ export class NotificationComponent extends BaseComponent {
         this.classes.register('fromService', 'mode');
     }
 
-    public close(message: Notification): void {
+    public close(message: Notification, event: MouseEvent): void {
+        if (event.defaultPrevented) {
+            return;
+        }
         this.notificationService.remove(message);
     }
 

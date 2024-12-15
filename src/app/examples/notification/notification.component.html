@@ -11,8 +11,17 @@
                 <m-button *ngIf="!asyncAction" (click)="startAsync()">Start Async</m-button>
                 <m-button *ngIf="asyncAction" (click)="stopAsync()">Stop Async</m-button>
             </m-flex>
-            <m-example-code [code]="example1Html" [languages]="['html']"></m-example-code>
-            <m-example-code [code]="example1Ts" [languages]="['ts']"></m-example-code>
+            <m-example-code [code]="example1Html" [languages]="['html']" />
+            <m-example-code [code]="example1Ts" [languages]="['ts']" />
+        </m-example>
+    </m-tab>
+    <m-tab label="Variations">
+        <m-example header="Custom message component" description="Use a custom component as message">
+            <m-flex>
+                <m-button (click)="showComponent()">Show Component</m-button>
+            </m-flex>
+            <m-example-code [code]="exampleComponent" [languages]="['ts']" />
+            <m-example-code [code]="exampleComponentTs" [languages]="['ts']" label="custom-notification.component.ts" />
         </m-example>
     </m-tab>
 </m-tab-group>

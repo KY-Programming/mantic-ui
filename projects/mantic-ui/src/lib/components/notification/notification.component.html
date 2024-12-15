@@ -6,8 +6,12 @@
 <ng-template let-message #messageTemplate>
     <m-message *ngIf="$message(message) as message"
                [error]="message.type === 'error'" [warning]="message.type === 'warning'" [success]="message.type === 'success'" [positive]="message.type === 'positive'" [info]="message.type === 'info'"
-               [header]="message.title" [icon]="message.icon" closable [showClose]="message.type === 'error'" [attached]="attached" [loading]="message.loading" (close)="close(message)">
-        {{ message.text }}
+               [header]="message.title" [icon]="message.icon" closable [showClose]="message.type === 'error'" [attached]="attached" [loading]="message.loading" (close)="close(message, $event)">
+        @if (message.component) {
+            <ng-container *ngComponentOutlet="message.component; injector: message | notificationInjector" />
+        } @else {
+            {{ message.text }}
+        }
     </m-message>
 </ng-template>
 

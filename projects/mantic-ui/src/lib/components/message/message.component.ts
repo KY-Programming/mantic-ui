@@ -156,7 +156,7 @@ export class MessageComponent extends InvertibleComponent implements OnInit {
     public closeIconSize: IconSize;
 
     @Output()
-    public readonly close = new EventEmitter<void>();
+    public readonly close = new EventEmitter<MouseEvent>();
 
     public constructor() {
         super();
@@ -169,10 +169,14 @@ export class MessageComponent extends InvertibleComponent implements OnInit {
         MessageComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
 
-    @HostListener('click')
-    private onClick(): void {
+    @HostListener('click', ['$event'])
+    private onClick(event: MouseEvent): void {
+        const selection = window.getSelection();
+        if (selection && this.elementRef.nativeElement.contains(selection?.focusNode) && (selection.anchorNode !== selection.focusNode || selection.anchorOffset !== selection.focusOffset)) {
+            return;
+        }
         if (this.closable) {
-            this.close.next();
+            this.close.next(event);
         }
     }
 }
