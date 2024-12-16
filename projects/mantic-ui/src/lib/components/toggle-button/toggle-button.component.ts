@@ -4,16 +4,12 @@ import { ButtonBaseComponent } from '../../base/button-base.component';
 import { ActiveDirective } from '../../directives/active.directive';
 import { BooleanLike } from '../../models/boolean-like';
 import { Key } from '../../models/key';
-import { IconComponent } from '../icon/icon.component';
 
 @Component({
     selector: 'm-toggle-button',
     templateUrl: './toggle-button.component.html',
     styleUrls: ['./toggle-button.component.scss'],
-    imports: [
-        CommonModule,
-        IconComponent
-    ],
+    imports: [CommonModule],
     providers: [...ButtonBaseComponent.providers]
 })
 export class ToggleButtonComponent extends ButtonBaseComponent {

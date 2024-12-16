@@ -3,16 +3,12 @@ import { Component, HostListener, Optional } from '@angular/core';
 import { ButtonBaseComponent } from '../../base/button-base.component';
 import { Key } from '../../models/key';
 import { FormComponent } from '../form/form.component';
-import { IconComponent } from '../icon/icon.component';
 
 @Component({
     selector: 'm-submit',
     templateUrl: './submit.component.html',
     styleUrls: ['./submit.component.scss'],
-    imports: [
-        CommonModule,
-        IconComponent
-    ],
+    imports: [CommonModule],
     providers: [...ButtonBaseComponent.providers]
 })
 export class SubmitComponent extends ButtonBaseComponent {

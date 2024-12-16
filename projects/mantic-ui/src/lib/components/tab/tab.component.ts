@@ -9,7 +9,7 @@ import { MenuItemComponent } from '../menu-item/menu-item.component';
     selector: 'm-tab',
     templateUrl: './tab.component.html',
     styleUrls: ['./tab.component.scss'],
-    imports: [CommonModule, MenuItemComponent],
+    imports: [CommonModule],
     providers: [SortedClassesService]
 })
 export class TabComponent extends MenuItemComponent {

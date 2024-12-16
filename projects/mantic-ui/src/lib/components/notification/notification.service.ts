@@ -90,31 +90,51 @@ export class NotificationService {
         return action;
     }
 
-    public error(text: string, options?: { timeout: 0 } | Partial<Notification>): void {
+    public error(message: { timeout: 0 } | Partial<Notification>): void
+    public error(text: string, options?: { timeout: 0 } | Partial<Notification>): void
+    public error(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): void {
+        const options: Partial<Notification> = typeof textOrOptions === 'object' ? textOrOptions : optionsFallback ?? {};
+        const text = typeof textOrOptions === 'string' ? textOrOptions : options.text;
         const notification: Notification = { timeout: 0, ...options, type: 'error', text };
         this.add(notification);
         this.erroredSubject.next(notification);
     }
 
-    public warning(text: string, options?: { timeout: 2000 } | Partial<Notification>): void {
+    public warning(message: { timeout: 2000 } | Partial<Notification>): void
+    public warning(text: string, options?: { timeout: 2000 } | Partial<Notification>): void
+    public warning(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): void {
+        const options: Partial<Notification> = typeof textOrOptions === 'object' ? textOrOptions : optionsFallback ?? {};
+        const text = typeof textOrOptions === 'string' ? textOrOptions : options.text;
         const notification: Notification = { timeout: 2000, ...options, type: 'warning', text };
         this.add(notification);
         this.warnedSubject.next(notification);
     }
 
-    public success(text: string, options?: { timeout: 2000 } | Partial<Notification>): void {
+    public success(message: { timeout: 2000 } | Partial<Notification>): void
+    public success(text: string, options?: { timeout: 2000 } | Partial<Notification>): void
+    public success(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): void {
+        const options: Partial<Notification> = typeof textOrOptions === 'object' ? textOrOptions : optionsFallback ?? {};
+        const text = typeof textOrOptions === 'string' ? textOrOptions : options.text;
         const notification: Notification = { timeout: 2000, ...options, type: 'success', text };
         this.add(notification);
         this.succeededSubject.next(notification);
     }
 
-    public positive(text: string, options?: { timeout: 2000 } | Partial<Notification>): void {
+    public positive(message: { timeout: 2000 } | Partial<Notification>): void
+    public positive(text: string, options?: { timeout: 2000 } | Partial<Notification>): void
+    public positive(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): void {
+        const options: Partial<Notification> = typeof textOrOptions === 'object' ? textOrOptions : optionsFallback ?? {};
+        const text = typeof textOrOptions === 'string' ? textOrOptions : options.text;
         const notification: Notification = { timeout: 2000, ...options, type: 'positive', text };
         this.add(notification);
         this.positivedSubject.next(notification);
     }
 
-    public info(text: string, options?: { timeout: 2000 } | Partial<Notification>): void {
+    public info(message: { timeout: 2000 } | Partial<Notification>): void
+    public info(text: string, options?: { timeout: 2000 } | Partial<Notification>): void
+    public info(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): void {
+        const options: Partial<Notification> = typeof textOrOptions === 'object' ? textOrOptions : optionsFallback ?? {};
+        const text = typeof textOrOptions === 'string' ? textOrOptions : options.text;
         const notification: Notification = { timeout: 2000, ...options, type: 'info', text };
         this.add(notification);
         this.positivedSubject.next(notification);

@@ -11,7 +11,9 @@ export class NotificationInjectorPipe implements PipeTransform {
     public transform(message: Notification): Injector {
         return Injector.create({
             parent: this.injector,
-            providers: [{ provide: notificationToken, useValue: message }]
+            providers: [
+                { provide: notificationToken, useValue: message }
+            ]
         });
     }
 
