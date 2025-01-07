@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { AsyncAction, ButtonComponent, FlexComponent, NotificationService, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { AsyncAction, ButtonComponent, FlexComponent, NotificationRef, NotificationService, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
 import { CustomNotificationComponent } from './custom-notification/custom-notification.component';
@@ -56,6 +56,7 @@ export class DemoComponent {
         this.asyncAction = undefined;
     }
 }`;
+    protected manualNotification: NotificationRef | undefined;
 
     protected showError(): void {
         this.notificationService.error('Error Text');
@@ -112,4 +113,27 @@ export class CustomNotificationComponent {
         alert('You clicked the button!');
     }
 }`;
+
+    public showManual(): void {
+        this.manualNotification = this.notificationService.error('A error that can be closed manually by click on the hide button');
+    }
+
+    public hideManual(): void {
+        this.manualNotification?.close();
+        this.manualNotification = undefined;
+    }
+
+    public exampleManual = `import { NotificationService, NotificationRef } from '@mantic-ui/angular';
+
+notificationService = inject(NotificationService);
+manualNotification: NotificationRef | undefined;
+
+showManual(): void {
+    this.manualNotification = this.notificationService.error('A error...');
+}
+
+hideManual(): void {
+    this.manualNotification?.close();
+    this.manualNotification = undefined;
+}';`;
 }
