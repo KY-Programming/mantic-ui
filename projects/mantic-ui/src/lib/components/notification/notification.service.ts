@@ -3,11 +3,13 @@ import { Subject } from 'rxjs';
 import { IconType } from '../icon/icon-type';
 import { AsyncAction } from './async-action';
 import { Notification } from './notification';
+import { NotificationHandler } from './notification-handler';
+import { NotificationRef } from './notification-ref';
 
 @Injectable({
     providedIn: 'root'
 })
-export class NotificationService {
+export class NotificationService implements NotificationHandler {
     public static readonly defaults = {
         successIcon: <IconType>'check'
     };
@@ -39,38 +41,39 @@ export class NotificationService {
         return this.messages[group];
     }
 
-    public add(message: Notification): void {
-        this.messages['all'].push(message);
-        if (message.group) {
-            this.get(message.group).push(message);
+    public add(notification: Notification): NotificationRef {
+        this.messages['all'].push(notification);
+        if (notification.group) {
+            this.get(notification.group).push(notification);
         }
         else {
-            this.messages['empty'].push(message);
+            this.messages['empty'].push(notification);
         }
-        this.addedSubject.next(message);
-        if (message?.timeout && message.timeout > 0) {
-            setTimeout(() => this.remove(message), message.timeout);
+        this.addedSubject.next(notification);
+        if (notification?.timeout && notification.timeout > 0) {
+            setTimeout(() => this.remove(notification), notification.timeout);
         }
+        return new NotificationRef(notification, this);
     }
 
-    public remove(message: Notification): void {
-        const index = this.messages['all'].indexOf(message);
+    public remove(notification: Notification): void {
+        const index = this.messages['all'].indexOf(notification);
         if (index >= 0) {
             this.messages['all'].splice(index, 1);
         }
-        if (message.group) {
-            const groupIndex = this.messages[message.group].indexOf(message);
+        if (notification.group) {
+            const groupIndex = this.messages[notification.group].indexOf(notification);
             if (groupIndex >= 0) {
-                this.messages[message.group].splice(groupIndex, 1);
+                this.messages[notification.group].splice(groupIndex, 1);
             }
         }
         else {
-            const groupIndex = this.messages['empty'].indexOf(message);
+            const groupIndex = this.messages['empty'].indexOf(notification);
             if (groupIndex >= 0) {
                 this.messages['empty'].splice(groupIndex, 1);
             }
         }
-        this.removedSubject.next(message);
+        this.removedSubject.next(notification);
     }
 
     public async(processingText: string, doneText: string, errorText?: string): AsyncAction {
@@ -90,53 +93,58 @@ export class NotificationService {
         return action;
     }
 
-    public error(message: { timeout: 0 } | Partial<Notification>): void
-    public error(text: string, options?: { timeout: 0 } | Partial<Notification>): void
-    public error(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): void {
+    public error(message: { timeout: 0 } | Partial<Notification>): NotificationRef
+    public error(text: string, options?: { timeout: 0 } | Partial<Notification>): NotificationRef
+    public error(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): NotificationRef {
         const options: Partial<Notification> = typeof textOrOptions === 'object' ? textOrOptions : optionsFallback ?? {};
         const text = typeof textOrOptions === 'string' ? textOrOptions : options.text;
         const notification: Notification = { timeout: 0, ...options, type: 'error', text };
-        this.add(notification);
+        const ref = this.add(notification);
         this.erroredSubject.next(notification);
+        return ref;
     }
 
-    public warning(message: { timeout: 2000 } | Partial<Notification>): void
-    public warning(text: string, options?: { timeout: 2000 } | Partial<Notification>): void
-    public warning(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): void {
+    public warning(message: { timeout: 2000 } | Partial<Notification>): NotificationRef
+    public warning(text: string, options?: { timeout: 2000 } | Partial<Notification>): NotificationRef
+    public warning(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): NotificationRef {
         const options: Partial<Notification> = typeof textOrOptions === 'object' ? textOrOptions : optionsFallback ?? {};
         const text = typeof textOrOptions === 'string' ? textOrOptions : options.text;
         const notification: Notification = { timeout: 2000, ...options, type: 'warning', text };
-        this.add(notification);
+        const ref = this.add(notification);
         this.warnedSubject.next(notification);
+        return ref;
     }
 
-    public success(message: { timeout: 2000 } | Partial<Notification>): void
-    public success(text: string, options?: { timeout: 2000 } | Partial<Notification>): void
-    public success(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): void {
+    public success(message: { timeout: 2000 } | Partial<Notification>): NotificationRef
+    public success(text: string, options?: { timeout: 2000 } | Partial<Notification>): NotificationRef
+    public success(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): NotificationRef {
         const options: Partial<Notification> = typeof textOrOptions === 'object' ? textOrOptions : optionsFallback ?? {};
         const text = typeof textOrOptions === 'string' ? textOrOptions : options.text;
         const notification: Notification = { timeout: 2000, ...options, type: 'success', text };
-        this.add(notification);
+        const ref = this.add(notification);
         this.succeededSubject.next(notification);
+        return ref;
     }
 
-    public positive(message: { timeout: 2000 } | Partial<Notification>): void
-    public positive(text: string, options?: { timeout: 2000 } | Partial<Notification>): void
-    public positive(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): void {
+    public positive(message: { timeout: 2000 } | Partial<Notification>): NotificationRef
+    public positive(text: string, options?: { timeout: 2000 } | Partial<Notification>): NotificationRef
+    public positive(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): NotificationRef {
         const options: Partial<Notification> = typeof textOrOptions === 'object' ? textOrOptions : optionsFallback ?? {};
         const text = typeof textOrOptions === 'string' ? textOrOptions : options.text;
         const notification: Notification = { timeout: 2000, ...options, type: 'positive', text };
-        this.add(notification);
+        const ref = this.add(notification);
         this.positivedSubject.next(notification);
+        return ref;
     }
 
-    public info(message: { timeout: 2000 } | Partial<Notification>): void
-    public info(text: string, options?: { timeout: 2000 } | Partial<Notification>): void
-    public info(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): void {
+    public info(message: { timeout: 2000 } | Partial<Notification>): NotificationRef
+    public info(text: string, options?: { timeout: 2000 } | Partial<Notification>): NotificationRef
+    public info(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): NotificationRef {
         const options: Partial<Notification> = typeof textOrOptions === 'object' ? textOrOptions : optionsFallback ?? {};
         const text = typeof textOrOptions === 'string' ? textOrOptions : options.text;
         const notification: Notification = { timeout: 2000, ...options, type: 'info', text };
-        this.add(notification);
+        const ref = this.add(notification);
         this.positivedSubject.next(notification);
+        return ref;
     }
 }

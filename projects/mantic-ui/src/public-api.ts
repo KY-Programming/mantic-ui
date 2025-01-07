@@ -106,6 +106,8 @@ export * from './lib/components/modal/modal-header.component';
 export * from './lib/components/modal/modal.component';
 export * from './lib/components/notification/async-action';
 export * from './lib/components/notification/notification';
+export * from './lib/components/notification/notification-ref';
+export * from './lib/components/notification/notification-type';
 export * from './lib/components/notification/notification-defaults.component';
 export * from './lib/components/notification/notification-token';
 export * from './lib/components/notification/notification.component';

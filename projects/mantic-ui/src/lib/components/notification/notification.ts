@@ -1,8 +1,9 @@
 ﻿import { Type } from '@angular/core';
 import { IconType } from '../icon/icon-type';
+import { NotificationType } from './notification-type';
 
 export interface Notification<T = unknown> {
-    type: 'positive' | 'success' | 'warning' | 'error' | 'info' | 'none';
+    type: NotificationType;
     title?: string;
     text?: string;
     timeout?: number;
@@ -13,3 +14,4 @@ export interface Notification<T = unknown> {
     component?: Type<unknown>;
     details?: T;
 }
+
