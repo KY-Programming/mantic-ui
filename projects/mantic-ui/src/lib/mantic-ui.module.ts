@@ -113,6 +113,8 @@ import { FallbackForDirective } from './directives/fallback-for.directive';
 import { FluidDirective } from './directives/fluid.directive';
 import { FooterLinkTemplateDirective } from './directives/footer-link-template.directive';
 import { HeaderDirective } from './directives/header.directive';
+import { HideOnEmptyTemplateDirective } from './directives/hide-on-empty-template.directive';
+import { HideOnExistingTemplateDirective } from './directives/hide-on-existing-template.directive';
 import { InvertedDirective } from './directives/inverted.directive';
 import { LoadingDirective } from './directives/loading.directive';
 import { MenuItemDirective } from './directives/menu-item.directive';
@@ -208,6 +210,8 @@ const standalone = [
     HeaderComponent,
     HeaderDefaultsComponent,
     HeaderDirective,
+    HideOnEmptyTemplateDirective,
+    HideOnExistingTemplateDirective,
     IconButtonComponent,
     IconComponent,
     InfoComponent,

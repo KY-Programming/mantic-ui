@@ -1,11 +1,11 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { ModalComponent } from './modal.component';
 import { IconType } from '../icon/icon-type';
+import { ModalComponent } from './modal.component';
 
 @Component({
     selector: 'm-modal-defaults',
-    template: '',
-    })
+    template: ''
+})
 export class ModalDefaultsComponent implements OnDestroy {
     private readonly previousCloseIcon = ModalComponent.defaults.closeIcon;
     private currentCloseIcon?: IconType;

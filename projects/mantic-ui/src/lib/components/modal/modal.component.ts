@@ -24,16 +24,7 @@ export type ModalSize =
     selector: 'm-modal',
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss'],
-    imports: [
-        CommonModule,
-        DimmerComponent,
-        ModalHeaderComponent,
-        ModalFooterComponent,
-        IconComponent,
-        ButtonComponent,
-        LoaderComponent,
-        FallbackForDirective
-    ],
+    imports: [CommonModule, DimmerComponent, ModalHeaderComponent, ModalFooterComponent, IconComponent, ButtonComponent, LoaderComponent, FallbackForDirective],
     hostDirectives: [BasicDirective.default],
     providers: [...InvertibleComponent.providers]
 })
