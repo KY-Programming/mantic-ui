@@ -1,13 +1,12 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { ButtonComponent, SegmentComponent, TabComponent, TabGroupComponent, TemplateComponent, TemplateOutletComponent, TextareaComponent } from '@mantic-ui/angular';
+import { ButtonComponent, HideOnEmptyTemplateDirective, SegmentComponent, TabComponent, TabGroupComponent, TemplateComponent, TemplateOutletComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
-import { HideOnEmptyTemplateDirective } from '../../../../projects/mantic-ui/src/lib/directives/hide-on-empty-template.directive';
 import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-template',
-    imports: [ExampleCodeComponent, ExampleComponent, HeaderComponent, SegmentComponent, TabComponent, TabGroupComponent, TemplateComponent, TemplateOutletComponent, ButtonComponent, NgIf],
+    imports: [ExampleCodeComponent, ExampleComponent, HeaderComponent, SegmentComponent, TabComponent, TabGroupComponent, TemplateComponent, TemplateOutletComponent, ButtonComponent, NgIf, HideOnEmptyTemplateDirective],
     templateUrl: './template.component.html',
     styleUrl: './template.component.scss'
 })

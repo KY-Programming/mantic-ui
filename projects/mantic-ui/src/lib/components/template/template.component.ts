@@ -1,4 +1,5 @@
-import { Component, inject, input, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { Component, effect, inject, input, OnDestroy, TemplateRef, viewChild } from '@angular/core';
+import { Template } from '../../models/template';
 import { TemplateService } from '../../services/template.service';
 
 @Component({
@@ -9,18 +10,22 @@ import { TemplateService } from '../../services/template.service';
 })
 export class TemplateComponent implements OnDestroy {
     private readonly templateService = inject(TemplateService);
+    private template: Template | undefined;
+    protected readonly contentTemplate = viewChild<TemplateRef<unknown>>('contentTemplate');
     public readonly name = input.required<string | string[]>();
-    private template: TemplateRef<unknown> | undefined;
+    public readonly class = input<string>();
 
-    @ViewChild('contentTemplate')
-    protected set contentTemplate(value: TemplateRef<unknown> | undefined) {
-        if (this.template) {
-            this.templateService.hide(this.name(), this.template);
-        }
-        this.template = value;
-        if (this.template) {
-            this.templateService.show(this.name(), this.template);
-        }
+    public constructor() {
+        effect(() => {
+            const ref = this.contentTemplate();
+            if (this.template) {
+                this.templateService.hide(this.name(), this.template);
+            }
+            this.template = ref ? { ref, class: this.class() } : undefined;
+            if (this.template) {
+                this.templateService.show(this.name(), this.template);
+            }
+        });
     }
 
     public ngOnDestroy(): void {
