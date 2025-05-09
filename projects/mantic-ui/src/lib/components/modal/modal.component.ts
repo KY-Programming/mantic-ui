@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, HostBinding, inject, Input, Output } from '@angular/core';
+import { Component, effect, ElementRef, EventEmitter, HostBinding, inject, input, Input, Output, viewChild } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { BasicDirective } from '../../directives/basic.directive';
 import { FallbackForDirective } from '../../directives/fallback-for.directive';
+import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
 import { ButtonComponent } from '../button/button.component';
 import { DimmerComponent } from '../dimmer/dimmer.component';
@@ -45,9 +46,14 @@ export class ModalComponent extends InvertibleComponent {
     private isScrolling = true;
     private isNoPadding = false;
     private isLoading = false;
+    private readonly resizeObserver = new ResizeObserver(() => this.onResize());
+    protected minGrowOnlyContentHeight = 0;
 
     private readonly basicDirective = inject(BasicDirective, { self: true });
     protected readonly defaults = ModalComponent.defaults;
+
+    public readonly growOnly = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly contentElementRef = viewChild<ElementRef<HTMLElement>>('content');
 
     protected get basic(): boolean {
         return this.basicDirective.basic;
@@ -184,6 +190,22 @@ export class ModalComponent extends InvertibleComponent {
         super(false);
         this.classes.register('visible', 'fullscreen', 'size', 'scrolling', 'imageContent', 'header', 'footer', 'showHeader', 'hideHeader', 'showFooter', 'hideFooter', 'hideDimmer', 'showClose', 'minContentHeight', 'maxContentHeight');
         ModalComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
+
+        effect(() => {
+            const growOnly = this.growOnly();
+            const ref = this.contentElementRef();
+            if (!ref) {
+                return;
+            }
+            if (growOnly) {
+                this.resizeObserver.observe(ref.nativeElement);
+                this.onResize();
+            }
+            else {
+                this.minGrowOnlyContentHeight = 0;
+                this.resizeObserver.unobserve(ref.nativeElement);
+            }
+        });
     }
 
     protected onClose(): void {
@@ -198,5 +220,9 @@ export class ModalComponent extends InvertibleComponent {
         if (this.showClose || this.showClose === undefined) {
             this.onClose();
         }
+    }
+
+    private onResize(): void {
+        this.minGrowOnlyContentHeight = Math.max(this.minGrowOnlyContentHeight ?? 0, this.contentElementRef()?.nativeElement.clientHeight ?? 0);
     }
 }

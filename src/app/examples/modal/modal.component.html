@@ -4,7 +4,7 @@
     <m-tab label="Examples">
         <m-example header="Modal" description="A standard modal" [code]="standardCode">
             <m-button (click)="showModal = true">Open Modal</m-button>
-            {{showModal}}
+            {{ showModal }}
             <m-modal *ngIf="showModal" imageContent (close)="showModal = false">
                 <m-modal-header>
                     <m-icon icon="question"></m-icon>
@@ -106,7 +106,7 @@
     </m-tab>
     <m-tab label="Variations">
         <m-example header="Show close button" description="A modal can have a close button">
-            <m-example-code [code]="showCloseCode"/>
+            <m-example-code [code]="showCloseCode" />
             <ng-container>
                 <m-modal *ngIf="showWithClose" showClose hideFooter (close)="showWithClose = false">
                     Some content
@@ -116,7 +116,7 @@
         </m-example>
 
         <m-example header="Hide header" description="Show a modal without a header">
-            <m-example-code [code]="hideHeaderCode"/>
+            <m-example-code [code]="hideHeaderCode" />
             <ng-container>
                 <m-modal *ngIf="showWithoutHeader" hideHeader (close)="showWithoutHeader = false">
                     Some content
@@ -126,7 +126,7 @@
         </m-example>
 
         <m-example header="Hide footer" description="Show a modal without a footer">
-            <m-example-code [code]="hideFooterCode"/>
+            <m-example-code [code]="hideFooterCode" />
             <ng-container>
                 <m-modal *ngIf="showWithoutFooter" header="Header" hideFooter showClose (close)="showWithoutFooter = false">
                     Some content
@@ -136,7 +136,7 @@
         </m-example>
 
         <m-example header="Hide dimmer" description="Show a modal without a dimmer">
-            <m-example-code [code]="hideDimmerCode"/>
+            <m-example-code [code]="hideDimmerCode" />
             <ng-container>
                 <m-modal *ngIf="showWithoutDimmer" hideDimmer (close)="showWithoutDimmer = false">
                     Some content
@@ -164,7 +164,7 @@
         </m-example>
 
         <m-example header="Without content padding" description="Removes the padding of the modal content">
-            <m-example-code [code]="noPaddingCode"/>
+            <m-example-code [code]="noPaddingCode" />
             <m-modal *ngIf="showNoPadding" noPadding (close)="showNoPadding = false">
                 This modal has no content padding
             </m-modal>
@@ -172,7 +172,7 @@
         </m-example>
 
         <m-example header="Inverted" description="A modal can be displayed with inverted colors">
-            <m-example-code [code]="invertedCode"/>
+            <m-example-code [code]="invertedCode" />
             <ng-container>
                 <m-modal *ngIf="showInverted" header="Inverted" inverted (close)="showInverted = false">
                     The colors are inverted
@@ -182,7 +182,7 @@
         </m-example>
 
         <m-example header="Loading" description="A modal can have a spinner">
-            <m-example-code [code]="loadingCode"/>
+            <m-example-code [code]="loadingCode" />
             <ng-container>
                 <m-modal *ngIf="showLoading" header="Loading..." loading (close)="showLoading = false">
                     Some content
@@ -238,8 +238,20 @@
             </ng-container>
             <m-button (click)="showChangeIcon = true">Show with changed Item</m-button>
         </m-example>
+
+        <m-example header="Grow Only" description="The modal can grow based on its content but can not shrink" [code]="growOnlyCode">
+            <m-button (click)="showGrowOnly = true">Show</m-button>
+            <m-modal *ngIf="showGrowOnly" growOnly header="I grow only" (close)="showGrowOnly = false">
+                <m-flex gap="1rem">
+                    <m-button primary (click)="grow()">Grow</m-button>
+                    <m-button primary [disabled]="growOnlyRows <= 0" (click)="shrink()">Shrink</m-button>
+                </m-flex>
+                <p>Click button to grow modal!</p>
+                <p *ngFor="let number of growOnlyRows | mArray">BIGGER {{ number + 1 }}!</p>
+            </m-modal>
+        </m-example>
     </m-tab>
-    <m-tab label="Binding">
-        <!-- TODO -->
-    </m-tab>
+    <!--    <m-tab label="Binding">-->
+    <!-- TODO -->
+    <!--    </m-tab>-->
 </m-tab-group>

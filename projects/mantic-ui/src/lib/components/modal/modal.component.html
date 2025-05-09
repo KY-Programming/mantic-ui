@@ -3,13 +3,13 @@
         <div *ngIf="showHeader" [class.ui]="basic" [class.icon]="basic" class="header">
             <ng-content select="m-modal-header" />
             <m-modal-header *m-fallback-for="'m-modal-header'">
-                {{header}}
+                {{ header }}
             </m-modal-header>
             <ng-container *ngIf="basic && showClose === true || !basic && (showClose || showClose === undefined)">
                 <m-icon *ngIf="closeIcon || defaults.closeIcon" [icon]="closeIcon ?? defaults.closeIcon" class="close" (click)="onClose()" />
             </ng-container>
         </div>
-        <div [class.image]="imageContent" [class.scrolling]="scrolling" class="content" [class.no-padding]="noPadding" [style.min-height]="minContentHeight" [style.max-height]="maxContentHeight">
+        <div [class.image]="imageContent" [class.scrolling]="scrolling" class="content" [class.no-padding]="noPadding" [style.min-height]="minContentHeight" [style.min-height.px]="minGrowOnlyContentHeight" [style.max-height]="maxContentHeight" #content>
             <ng-content />
             <m-dimmer *ngIf="loading" inverted>
                 <m-loader />

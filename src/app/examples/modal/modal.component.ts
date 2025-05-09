@@ -1,13 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { faRocket } from '@fortawesome/pro-solid-svg-icons';
-import { ButtonComponent, DropdownComponent, DropdownItemComponent, HeaderDirective, IconComponent, ModalComponent, ModalDefaultsComponent, ModalFooterComponent, ModalHeaderComponent, ModalSize, TabComponent, TabGroupComponent, ToBodyDirective } from '@mantic-ui/angular';
-import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../../components/header/header.component';
+import { ArrayPipe, ButtonComponent, DropdownComponent, DropdownItemComponent, FlexComponent, HeaderDirective, IconComponent, ModalComponent, ModalDefaultsComponent, ModalFooterComponent, ModalHeaderComponent, ModalSize, TabComponent, TabGroupComponent, ToBodyDirective } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-modal-example',
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, ButtonComponent, ModalComponent, ModalHeaderComponent, ModalFooterComponent, ToBodyDirective, DropdownComponent, DropdownItemComponent, ModalDefaultsComponent],
+    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, ButtonComponent, ModalComponent, ModalHeaderComponent, ModalFooterComponent, ToBodyDirective, DropdownComponent, DropdownItemComponent, ModalDefaultsComponent, ArrayPipe, FlexComponent],
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss']
 })
@@ -29,6 +29,8 @@ export class ModalExampleComponent {
     public showWithoutFooter = false;
     public showWithoutDimmer = false;
     public showWithClose = false;
+    public showGrowOnly = false;
+    protected growOnlyRows = 0;
     protected readonly faRocket = faRocket;
 
     public standardCode = `<m-button (click)="showModal = true">Open</m-button>
@@ -109,5 +111,13 @@ public size: ModalSize = 'mini';`;
     protected hideFooterCode = `<m-modal hideFooter />`;
     protected hideDimmerCode = `<m-modal hideDimmer />`;
     protected showCloseCode = `<m-modal showClose />`;
+    protected growOnlyCode = `<m-modal growOnly />`;
 
+    protected grow(): void {
+        this.growOnlyRows++;
+    }
+
+    protected shrink(): void {
+        this.growOnlyRows--;
+    }
 }
