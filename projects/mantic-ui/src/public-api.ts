@@ -165,6 +165,7 @@ export * from './lib/directives/pointing.directive';
 export * from './lib/helpers/external-route-data';
 export * from './lib/helpers/external-route.component';
 export * from './lib/helpers/cast';
+export * from './lib/helpers/changes';
 export * from './lib/helpers/lower-case-url-serializer';
 export * from './lib/helpers/lower-case-url-serializer.module';
 export * from './lib/helpers/to-boolean';
