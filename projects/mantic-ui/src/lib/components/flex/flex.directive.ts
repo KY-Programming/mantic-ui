@@ -1,13 +1,13 @@
-import { Directive, HostBinding, Input } from '@angular/core';
+import { Directive, HostBinding, input, Input } from '@angular/core';
 import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
 import { FlexAlignItems, FlexDirection, FlexJustifyContent } from './flex.types';
 
 @Directive({
-    selector: '[m-flex]',
-    })
+    selector: '[m-flex]'
+})
 export class FlexDirective {
-    public static readonly default = { directive: FlexDirective, inputs: ['direction', 'alignItems', 'justifyContent', 'row', 'column', 'gap'] };
+    public static readonly default = { directive: FlexDirective, inputs: ['direction', 'alignItems', 'justifyContent', 'row', 'column', 'gap', 'wrap', 'wrapReverse'] };
 
     @HostBinding('style.display')
     protected display = 'flex';
@@ -55,4 +55,12 @@ export class FlexDirective {
     @Input()
     @HostBinding('style.gap')
     public gap: string | undefined;
+
+    public readonly wrap = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly wrapReverse = input<boolean, BooleanLike>(false, { transform: toBoolean });
+
+    @HostBinding('style.flex-wrap')
+    public get wrapStyle(): string {
+        return this.wrap() ? 'wrap' : this.wrapReverse() ? 'wrap-reverse' : '';
+    }
 }
