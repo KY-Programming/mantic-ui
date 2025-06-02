@@ -1,439 +1,445 @@
 <app-header header="Form" subHeader="A form displays a set of related user input fields in a structured way"></app-header>
 
 <m-tab-group secondary pointing class="page" selectByRoute>
-    <m-tab label="Examples">
-        <m-example header="Form" description="A form">
-            <m-form>
-                <m-field name="first-name" label="First Name">
-                    <m-input placeholder="First Name"></m-input>
-                </m-field>
-                <m-field name="last-name" label="Last Name">
-                    <m-input placeholder="Last Name"></m-input>
-                </m-field>
-                <m-field>
-                    <m-checkbox>I agree to the Terms and Conditions</m-checkbox>
-                </m-field>
-                <m-submit>Submit</m-submit>
-            </m-form>
-            <m-example-code [code]="code1"></m-example-code>
-        </m-example>
+  <m-tab label="Examples">
+    <m-example header="Form" description="A form">
+      <m-form>
+        <m-field name="first-name" label="First Name">
+          <m-input placeholder="First Name"></m-input>
+        </m-field>
+        <m-field name="last-name" label="Last Name">
+          <m-input placeholder="Last Name"></m-input>
+        </m-field>
+        <m-field>
+          <m-checkbox>I agree to the Terms and Conditions</m-checkbox>
+        </m-field>
+        <m-submit>Submit</m-submit>
+      </m-form>
+      <m-example-code [code]="code1"></m-example-code>
+    </m-example>
 
-        <m-example>
-            <m-form>
-                <h4 m-header dividing>Shipping Information</h4>
-                <m-field label="Name">
-                    <m-field-group>
-                        <m-field name="shipping[first-name]">
-                            <m-input placeholder="First Name"></m-input>
-                        </m-field>
-                        <m-field name="shipping[last-name]">
-                            <m-input placeholder="First Name"></m-input>
-                        </m-field>
-                    </m-field-group>
-                </m-field>
-                <m-field label="Billing Address">
-                    <m-field-group>
-                        <m-field [size]="12" name="shipping[address]">
-                            <m-input placeholder="Street Address"></m-input>
-                        </m-field>
-                        <m-field [size]="4" name="shipping[address-2]">
-                            <m-input placeholder="Apt #"></m-input>
-                        </m-field>
-                    </m-field-group>
-                </m-field>
-                <m-field-group>
-                    <m-field label="State">
-                        <m-dropdown fluid [items]="states" placeholder="State"></m-dropdown>
-                    </m-field>
-                    <m-field label="Country">
-                        <m-dropdown fluid search [items]="countries" placeholder="Select Country"></m-dropdown>
-                    </m-field>
-                </m-field-group>
-                <h4 m-header dividing>Billing Information</h4>
-                <m-field label="Card Type" name="card[type]">
-                    <m-dropdown placeholder="Type">
-                        <m-dropdown-item value="visa" icon="visa">Visa</m-dropdown-item>
-                        <m-dropdown-item value="amex" icon="amex">American Express</m-dropdown-item>
-                        <m-dropdown-item value="discover" icon="discover">Discover</m-dropdown-item>
-                    </m-dropdown>
-                </m-field>
-                <m-field-group>
-                    <m-field label="Card Number" name="card[number]" size="seven">
-                        <m-input placeholder="Card #" [maxlength]="16"></m-input>
-                    </m-field>
-                    <m-field [size]="3" name="card[cvc]" label="CVC">
-                        <m-input placeholder="CVC" [maxlength]="3"></m-input>
-                    </m-field>
-                    <m-field [size]="6" label="Expiration">
-                        <m-field-group>
-                            <m-field>
-                                <m-dropdown fluid search placeholder="Month">
-                                    <m-dropdown-item value="1">January</m-dropdown-item>
-                                    <m-dropdown-item value="2">February</m-dropdown-item>
-                                    <m-dropdown-item value="3">March</m-dropdown-item>
-                                    <m-dropdown-item value="4">April</m-dropdown-item>
-                                    <m-dropdown-item value="5">May</m-dropdown-item>
-                                    <m-dropdown-item value="6">June</m-dropdown-item>
-                                    <m-dropdown-item value="7">July</m-dropdown-item>
-                                    <m-dropdown-item value="8">August</m-dropdown-item>
-                                    <m-dropdown-item value="9">September</m-dropdown-item>
-                                    <m-dropdown-item value="10">October</m-dropdown-item>
-                                    <m-dropdown-item value="11">November</m-dropdown-item>
-                                    <m-dropdown-item value="12">December</m-dropdown-item>
-                                </m-dropdown>
-                            </m-field>
-                            <m-field name="card[expire-year]">
-                                <m-input [maxlength]="4" placeholder="Year"></m-input>
-                            </m-field>
-                        </m-field-group>
-                    </m-field>
-                </m-field-group>
-                <h4 m-header dividing>Receipt</h4>
-                <m-field label="Send Receipt To">
-                    <m-dropdown fluid multiple search placeholder="Saved Contacts"></m-dropdown>
-                </m-field>
-                <m-segment>
-                    <m-field name="gift">
-                        <m-toggle>Do not include a receipt in the package</m-toggle>
-                    </m-field>
-                </m-segment>
-                <m-submit>Submit Order</m-submit>
-            </m-form>
-            <m-example-code [code]="code2"></m-example-code>
-        </m-example>
-    </m-tab>
-    <m-tab label="Content">
-        <m-example header="Field" description="A field is a form element containing a label and an input" [code]="code3">
-            <m-form>
-                <m-field label="User Input">
-                    <m-input></m-input>
-                </m-field>
-            </m-form>
-        </m-example>
-        <m-example [code]="codeFieldHint">
-            <m-form>
-                <m-field label="User Input" hint="Show a hint with an icon">
-                    <m-input></m-input>
-                </m-field>
-            </m-form>
-        </m-example>
-
-        <m-example header="Fields" description="A set of fields can appear grouped together" [code]="code4">
-            <m-message positive ignored>
-                Field groups automatically receive responsive styling, swapping to one field per row on mobile devices.
-            </m-message>
-            <m-form>
-                <m-field-group>
-                    <m-field name="first-name" label="First name">
-                        <m-input placeholder="First Name"></m-input>
-                    </m-field>
-                    <m-field name="middle-name" label="Middle name">
-                        <m-input placeholder="Middle Name"></m-input>
-                    </m-field>
-                    <m-field name="last-name" label="Last name">
-                        <m-input placeholder="Last Name"></m-input>
-                    </m-field>
-                </m-field-group>
-            </m-form>
-        </m-example>
-
-        <m-example [code]="code5">
-            <m-form>
-                <m-field-group inline>
-                    <m-field name="first-name" label="Name" [size]="8">
-                        <m-input placeholder="First Name"></m-input>
-                    </m-field>
-                    <m-field name="middle-name" [size]="3">
-                        <m-input placeholder="Middle Name"></m-input>
-                    </m-field>
-                    <m-field name="last-name" [size]="5">
-                        <m-input placeholder="Last Name"></m-input>
-                    </m-field>
-                </m-field-group>
-            </m-form>
-        </m-example>
-
-        <m-example header="Text Area" description="A textarea can be used to allow for extended user input." [code]="code6">
-            <m-info>To specify an approximate text area size use the <code>rows</code> attribute.</m-info>
-            <m-form>
-                <m-field name="text" label="Text">
-                    <textarea></textarea>
-                </m-field>
-                <m-field name="short-text" label="Short Text">
-                    <textarea rows="2"></textarea>
-                </m-field>
-            </m-form>
-        </m-example>
-
-        <m-example header="Checkbox" description="A form can contain a checkbox" [code]="code7">
-            <m-form>
-                <m-field label="Checkbox">
-                    <m-checkbox></m-checkbox>
-                </m-field>
-                <m-field label="Slider">
-                    <m-slider></m-slider>
-                </m-field>
-                <m-field label="Toggle">
-                    <m-toggle></m-toggle>
-                </m-field>
-            </m-form>
-        </m-example>
-
-    </m-tab>
-    <m-tab label="States">
-        <m-example header="Loading" description="If a form is in loading state, it will automatically show a loading indicator." [code]="states1">
-            <m-form loading>
-                <m-field label="Email">
-                    <m-input type="email" placeholder="hello@ky-programming.de"></m-input>
-                </m-field>
-            </m-form>
-        </m-example>
-
-        <m-example header="Success" description="If a form is in an success state, it will automatically show any success message blocks." [code]="states2">
-            <m-form success>
-                <m-field label="Email">
-                    <m-input type="email" placeholder="hello@ky-programming.de"></m-input>
-                </m-field>
-                <m-message success header="Form Completed">
-                    <p>You're all signed up for the newsletter.</p>
-                </m-message>
-                <m-submit>Submit</m-submit>
-            </m-form>
-        </m-example>
-
-        <m-example header="Error" description="If a form is in an error state, it will automatically show any error message blocks." [code]="states3">
-            <m-form>
-                <m-field label="Email" [error]="true">
-                    <m-input type="email" placeholder="hello@ky-programming.de"></m-input>
-                </m-field>
-                <m-message error header="Action Forbidden">
-                    <p>You can only sign up for an account once with a given e-mail address.</p>
-                </m-message>
-                <m-submit>Submit</m-submit>
-            </m-form>
-        </m-example>
-
-        <m-example header="Warning" description="If a form is in warning state, it will automatically show any warning message block." [code]="states4">
-            <m-form warning>
-                <m-field label="Email">
-                    <m-input type="email" placeholder="hello@ky-programming.de"></m-input>
-                </m-field>
-                <m-message warning header="Could you check something!">
-                    <p>That e-mail has been subscribed, but you have not yet clicked the verification link in your e-mail.</p>
-                </m-message>
-                <m-submit>Submit</m-submit>
-            </m-form>
-        </m-example>
-
-        <m-example header="Field Error" description="Individual fields may display an error state." [code]="states5">
-            <m-form>
-                <m-field-group>
-                    <m-field label="First Name" error>
-                        <m-input placeholder="First Name"></m-input>
-                    </m-field>
-                    <m-field label="Last Name">
-                        <m-input placeholder="Last Name"></m-input>
-                    </m-field>
-                </m-field-group>
-                <m-field label="Gender" error>
-                    <m-dropdown placeholder="Select">
-                        <m-dropdown-item value="male">Male</m-dropdown-item>
-                        <m-dropdown-item value="female">Female</m-dropdown-item>
-                    </m-dropdown>
-                </m-field>
-                <m-field label="I agree to the Terms and Conditions" inline error>
-                    <m-checkbox></m-checkbox>
-                </m-field>
-            </m-form>
-        </m-example>
-
-        <m-example header="Disabled Field" description="Individual fields may be disabled" [code]="states6">
-            <m-form>
-                <m-field-group>
-                    <m-field label="First Name" disabled>
-                        <m-input placeholder="First Name"></m-input>
-                    </m-field>
-                    <m-field label="Last Name" disabled>
-                        <m-input placeholder="Last Name"></m-input>
-                    </m-field>
-                </m-field-group>
-            </m-form>
-        </m-example>
-
-        <m-example header="Read-Only Field" description="Individual fields may be read only" [code]="states7">
-            <m-form>
-                <m-field-group>
-                    <m-field label="First Name" readonly>
-                        <m-input placeholder="First Name"></m-input>
-                    </m-field>
-                    <m-field label="Last Name" readonly>
-                        <m-input placeholder="Last Name"></m-input>
-                    </m-field>
-                </m-field-group>
-            </m-form>
-        </m-example>
-    </m-tab>
-    <m-tab label="Validation">
-        <m-example header="Mandatory field" description="Check if a field is filled">
-            <m-form>
-                <m-field label="Name" [valid]="name1 | mIsFilled">
-                    <m-input [(value)]="name1"></m-input>
-                </m-field>
-            </m-form>
-            <m-example-code [code]="mandatory2"></m-example-code>
-        </m-example>
-
-        <m-example header="Validate field" description="Check if the field is a valid email">
-            <m-form>
-                <m-field label="Email" [valid]="email1 | mIsEmail">
-                    <m-input type="email" [(value)]="email1"></m-input>
-                </m-field>
-            </m-form>
-            <m-example-code [code]="emailCode1"></m-example-code>
-        </m-example>
-
-        <m-example header="Multiple validations per field" description="Check if the field is filled and a valid email">
-            <m-form>
-                <m-field label="Email" [valid]="email2 | mIsFilled | mIsEmail">
-                    <m-input type="email" [(value)]="email2"></m-input>
-                </m-field>
-            </m-form>
-            <m-example-code [code]="emailCode2"></m-example-code>
-        </m-example>
-
-        <m-example header="Custom message" description="Replace the default message with your own">
-            <m-form>
-                <m-field label="Name" [valid]="name2 | mIsFilled:'can not be empty. Sorry!'">
-                    <m-input [(value)]="name2" />
-                </m-field>
-            </m-form>
-            <m-example-code [code]="mandatory2" />
-
-            <p>You can change the message <strong>global</strong> via localization</p>
-            <m-example-code [code]="mandatory2b" />
-        </m-example>
-
-        <m-example header="Custom title" description="Replace the default title of a field with your own">
-            <m-form>
-                <m-field label="Name" [valid]="name6 | mIsFilled | mTitle:'-Better title than Name-'">
-                    <m-input [(value)]="name6"></m-input>
-                </m-field>
-            </m-form>
-            <m-example-code [code]="mandatory3"></m-example-code>
-        </m-example>
-
-        <m-example header="Custom validation" description="Implement your own validation pipe">
-            <m-form>
-                <m-field label="Name" [valid]="name3 | myValidation">
-                    <m-input [(value)]="name3"></m-input>
-                </m-field>
-            </m-form>
-            <m-example-code [code]="custom1"></m-example-code>
-            <m-example-code [code]="custom2" [languages]="['ts']"></m-example-code>
-        </m-example>
-
-        <!-- <m-example header="Show initial validation error" description="Marks the field red, until it is correct">
-            <m-form>
-                <m-field label="I stay initially white" [valid]="name4 | mIsFilled">
-                    <m-input [(value)]="name4"></m-input>
-                </m-field>
-                <m-field label="I am directly red" [valid]="name5 | mIsFilled" [hideInitialError]="false">
-                    <m-input [(value)]="name5"></m-input>
-                </m-field>
-            </m-form>
-            <m-example-code [code]="mandatory2"></m-example-code>
-        </m-example> -->
-
-        <m-example header="Inline validation" description="Adds an addition info icon with a error title" [code]="inlineValidationCode">
-            <m-form inlineValidation>
-                <m-field label="Validated input" [valid]="inlineValidationValue | mIsFilled">
-                    <m-input [(value)]="inlineValidationValue" />
-                </m-field>
-            </m-form>
-        </m-example>
-
-        <m-example header="Localization" description="Translate validation messages to your language. This example used @angular/localize" [code]="inlineValidationCode">
-            <m-example-code [code]="localizeTs" [languages]="['ts']" />
-            <m-example-code [code]="localizeHtml" />
-        </m-example>
-    </m-tab>
-    <m-tab label="Variations">
-        <m-example header="Inverted" description="A form can be displayed with inverted colors" [code]="inverted">
-            <m-segment inverted>
-                <m-form inverted>
-                    <m-field label="Also inverted input">
-                        <m-input></m-input>
-                    </m-field>
-                    <m-field label="Also inverted checkbox">
-                        <m-checkbox></m-checkbox>
-                    </m-field>
-                </m-form>
-            </m-segment>
-        </m-example>
-
-        <m-example header="Hint" description="A form field can have a hint" [code]="hintCode">
-            <m-form>
-                <m-field label="Input with hint" hint="This is a very helpful hint">
-                    <m-input />
-                </m-field>
-            </m-form>
-        </m-example>
-
-        <m-example header="Checkbox with own label" description="A field can be configured to do not forward the label to a checkbox and use 'two' labels " [code]="ownLabelCode">
-            <m-form>
-                <m-field label="Label defined on field">
-                    <m-checkbox />
-                </m-field>
-                <m-field label="Field Label" ownLabel>
-                    <m-checkbox>Checkbox Label</m-checkbox>
-                </m-field>
-            </m-form>
-        </m-example>
-
-        <m-example header="Align Checkbox" description="A field can be configured to keep space to align with other form elements" [code]="ownLabelCode">
-            <m-form>
-                <m-field-group>
-                    <m-field label="A input">
-                        <m-input />
-                    </m-field>
-                    <m-field label="Checkbox" forceLabel>
-                        <m-checkbox />
-                    </m-field>
-                </m-field-group>
-            </m-form>
-        </m-example>
-
-        <m-example header="Auto Submit" description="A from can be configured to automatically submit on changes" [code]="autoSubmitCode">
-            <m-form autoSubmit (submit)="onAutoSubmit()">
-                <m-field-group>
-                    <m-field label="Text" size="eight" [valid]="autoSubmitValue | mIsFilled">
-                        <m-input [(value)]="autoSubmitValue" />
-                    </m-field>
-                    <m-field label="DropDown" size="eight">
-                        <m-dropdown>
-                            <m-dropdown-item value="yes">Yes</m-dropdown-item>
-                            <m-dropdown-item value="no">No</m-dropdown-item>
-                        </m-dropdown>
-                    </m-field>
-                </m-field-group>
-            </m-form>
-        </m-example>
-    </m-tab>
-    <m-tab *ngIf="isDev" label="Renderer">
+    <m-example>
+      <m-form>
+        <h4 m-header dividing>Shipping Information</h4>
+        <m-field label="Name">
+          <m-field-group>
+            <m-field name="shipping[first-name]">
+              <m-input placeholder="First Name"></m-input>
+            </m-field>
+            <m-field name="shipping[last-name]">
+              <m-input placeholder="First Name"></m-input>
+            </m-field>
+          </m-field-group>
+        </m-field>
+        <m-field label="Billing Address">
+          <m-field-group>
+            <m-field [size]="12" name="shipping[address]">
+              <m-input placeholder="Street Address"></m-input>
+            </m-field>
+            <m-field [size]="4" name="shipping[address-2]">
+              <m-input placeholder="Apt #"></m-input>
+            </m-field>
+          </m-field-group>
+        </m-field>
+        <m-field-group>
+          <m-field label="State">
+            <m-dropdown fluid [items]="states" placeholder="State"></m-dropdown>
+          </m-field>
+          <m-field label="Country">
+            <m-dropdown fluid search [items]="countries" placeholder="Select Country"></m-dropdown>
+          </m-field>
+        </m-field-group>
+        <h4 m-header dividing>Billing Information</h4>
+        <m-field label="Card Type" name="card[type]">
+          <m-dropdown placeholder="Type">
+            <m-dropdown-item value="visa" icon="visa">Visa</m-dropdown-item>
+            <m-dropdown-item value="amex" icon="amex">American Express</m-dropdown-item>
+            <m-dropdown-item value="discover" icon="discover">Discover</m-dropdown-item>
+          </m-dropdown>
+        </m-field>
+        <m-field-group>
+          <m-field label="Card Number" name="card[number]" size="seven">
+            <m-input placeholder="Card #" [maxlength]="16"></m-input>
+          </m-field>
+          <m-field [size]="3" name="card[cvc]" label="CVC">
+            <m-input placeholder="CVC" [maxlength]="3"></m-input>
+          </m-field>
+          <m-field [size]="6" label="Expiration">
+            <m-field-group>
+              <m-field>
+                <m-dropdown fluid search placeholder="Month">
+                  <m-dropdown-item value="1">January</m-dropdown-item>
+                  <m-dropdown-item value="2">February</m-dropdown-item>
+                  <m-dropdown-item value="3">March</m-dropdown-item>
+                  <m-dropdown-item value="4">April</m-dropdown-item>
+                  <m-dropdown-item value="5">May</m-dropdown-item>
+                  <m-dropdown-item value="6">June</m-dropdown-item>
+                  <m-dropdown-item value="7">July</m-dropdown-item>
+                  <m-dropdown-item value="8">August</m-dropdown-item>
+                  <m-dropdown-item value="9">September</m-dropdown-item>
+                  <m-dropdown-item value="10">October</m-dropdown-item>
+                  <m-dropdown-item value="11">November</m-dropdown-item>
+                  <m-dropdown-item value="12">December</m-dropdown-item>
+                </m-dropdown>
+              </m-field>
+              <m-field name="card[expire-year]">
+                <m-input [maxlength]="4" placeholder="Year"></m-input>
+              </m-field>
+            </m-field-group>
+          </m-field>
+        </m-field-group>
+        <h4 m-header dividing>Receipt</h4>
+        <m-field label="Send Receipt To">
+          <m-dropdown fluid multiple search placeholder="Saved Contacts"></m-dropdown>
+        </m-field>
         <m-segment>
-            <h3 m-header>Layout (JSON)</h3>
-            <m-textarea [value]="rendererLayout | json" (valueChange)="parseLayout($event)"></m-textarea>
-            <m-error *ngIf="rendererLayoutError">{{ rendererLayoutError }}</m-error>
+          <m-field name="gift">
+            <m-toggle>Do not include a receipt in the package</m-toggle>
+          </m-field>
         </m-segment>
-        <m-segment>
-            <h3 m-header>Data (Object)</h3>
-            <m-textarea [value]="rendererData | json" (valueChange)="parseData($event)"></m-textarea>
-            <m-error *ngIf="rendererDataError">{{ rendererDataError }}</m-error>
-        </m-segment>
-        <m-segment style="min-height: 500px" m-flex="column">
-            <m-form-renderer [layout]="rendererLayout" [data]="rendererData" m-fill>
-                <m-data-source (request)="requestData($event)"></m-data-source>
-            </m-form-renderer>
-        </m-segment>
-    </m-tab>
+        <m-submit>Submit Order</m-submit>
+      </m-form>
+      <m-example-code [code]="code2"></m-example-code>
+    </m-example>
+  </m-tab>
+  <m-tab label="Content">
+    <m-example header="Field" description="A field is a form element containing a label and an input" [code]="code3">
+      <m-form>
+        <m-field label="User Input">
+          <m-input></m-input>
+        </m-field>
+      </m-form>
+    </m-example>
+    <m-example [code]="codeFieldHint">
+      <m-form>
+        <m-field label="User Input" hint="Show a hint with an icon">
+          <m-input></m-input>
+        </m-field>
+      </m-form>
+    </m-example>
+
+    <m-example header="Fields" description="A set of fields can appear grouped together" [code]="code4">
+      <m-message positive ignored>
+        Field groups automatically receive responsive styling, swapping to one field per row on mobile devices.
+      </m-message>
+      <m-form>
+        <m-field-group>
+          <m-field name="first-name" label="First name">
+            <m-input placeholder="First Name"></m-input>
+          </m-field>
+          <m-field name="middle-name" label="Middle name">
+            <m-input placeholder="Middle Name"></m-input>
+          </m-field>
+          <m-field name="last-name" label="Last name">
+            <m-input placeholder="Last Name"></m-input>
+          </m-field>
+        </m-field-group>
+      </m-form>
+    </m-example>
+
+    <m-example [code]="code5">
+      <m-form>
+        <m-field-group inline>
+          <m-field name="first-name" label="Name" [size]="8">
+            <m-input placeholder="First Name"></m-input>
+          </m-field>
+          <m-field name="middle-name" [size]="3">
+            <m-input placeholder="Middle Name"></m-input>
+          </m-field>
+          <m-field name="last-name" [size]="5">
+            <m-input placeholder="Last Name"></m-input>
+          </m-field>
+        </m-field-group>
+      </m-form>
+    </m-example>
+
+    <m-example header="Text Area" description="A textarea can be used to allow for extended user input." [code]="code6">
+      <m-info>To specify an approximate text area size use the <code>rows</code> attribute.</m-info>
+      <m-form>
+        <m-field name="text" label="Text">
+          <textarea></textarea>
+        </m-field>
+        <m-field name="short-text" label="Short Text">
+          <textarea rows="2"></textarea>
+        </m-field>
+      </m-form>
+    </m-example>
+
+    <m-example header="Checkbox" description="A form can contain a checkbox" [code]="code7">
+      <m-form>
+        <m-field label="Checkbox">
+          <m-checkbox></m-checkbox>
+        </m-field>
+        <m-field label="Slider">
+          <m-slider></m-slider>
+        </m-field>
+        <m-field label="Toggle">
+          <m-toggle></m-toggle>
+        </m-field>
+      </m-form>
+    </m-example>
+
+  </m-tab>
+  <m-tab label="States">
+    <m-example header="Loading" description="If a form is in loading state, it will automatically show a loading indicator." [code]="states1">
+      <m-form loading>
+        <m-field label="Email">
+          <m-input type="email" placeholder="hello@ky-programming.de"></m-input>
+        </m-field>
+      </m-form>
+    </m-example>
+
+    <m-example header="Success" description="If a form is in an success state, it will automatically show any success message blocks." [code]="states2">
+      <m-form success>
+        <m-field label="Email">
+          <m-input type="email" placeholder="hello@ky-programming.de"></m-input>
+        </m-field>
+        <m-message success header="Form Completed">
+          <p>You're all signed up for the newsletter.</p>
+        </m-message>
+        <m-submit>Submit</m-submit>
+      </m-form>
+    </m-example>
+
+    <m-example header="Error" description="If a form is in an error state, it will automatically show any error message blocks." [code]="states3">
+      <m-form>
+        <m-field label="Email" [error]="true">
+          <m-input type="email" placeholder="hello@ky-programming.de"></m-input>
+        </m-field>
+        <m-message error header="Action Forbidden">
+          <p>You can only sign up for an account once with a given e-mail address.</p>
+        </m-message>
+        <m-submit>Submit</m-submit>
+      </m-form>
+    </m-example>
+
+    <m-example header="Warning" description="If a form is in warning state, it will automatically show any warning message block." [code]="states4">
+      <m-form warning>
+        <m-field label="Email">
+          <m-input type="email" placeholder="hello@ky-programming.de"></m-input>
+        </m-field>
+        <m-message warning header="Could you check something!">
+          <p>That e-mail has been subscribed, but you have not yet clicked the verification link in your e-mail.</p>
+        </m-message>
+        <m-submit>Submit</m-submit>
+      </m-form>
+    </m-example>
+
+    <m-example header="Field Error" description="Individual fields may display an error state." [code]="states5">
+      <m-form>
+        <m-field-group>
+          <m-field label="First Name" error>
+            <m-input placeholder="First Name"></m-input>
+          </m-field>
+          <m-field label="Last Name">
+            <m-input placeholder="Last Name"></m-input>
+          </m-field>
+        </m-field-group>
+        <m-field label="Gender" error>
+          <m-dropdown placeholder="Select">
+            <m-dropdown-item value="male">Male</m-dropdown-item>
+            <m-dropdown-item value="female">Female</m-dropdown-item>
+          </m-dropdown>
+        </m-field>
+        <m-field label="I agree to the Terms and Conditions" inline error>
+          <m-checkbox></m-checkbox>
+        </m-field>
+      </m-form>
+    </m-example>
+
+    <m-example header="Disabled Field" description="Individual fields may be disabled" [code]="states6">
+      <m-form>
+        <m-field-group>
+          <m-field label="First Name" disabled>
+            <m-input placeholder="First Name"></m-input>
+          </m-field>
+          <m-field label="Last Name" disabled>
+            <m-input placeholder="Last Name"></m-input>
+          </m-field>
+        </m-field-group>
+      </m-form>
+    </m-example>
+
+    <m-example header="Read-Only Field" description="Individual fields may be read only" [code]="states7">
+      <m-form>
+        <m-field-group>
+          <m-field label="First Name" readonly>
+            <m-input placeholder="First Name"></m-input>
+          </m-field>
+          <m-field label="Last Name" readonly>
+            <m-input placeholder="Last Name"></m-input>
+          </m-field>
+        </m-field-group>
+      </m-form>
+    </m-example>
+  </m-tab>
+  <m-tab label="Validation">
+    <m-example header="Mandatory field" description="Check if a field is filled">
+      <m-form>
+        <m-field label="Name" [valid]="name1 | mIsFilled">
+          <m-input [(value)]="name1"></m-input>
+        </m-field>
+      </m-form>
+      <m-example-code [code]="mandatory2"></m-example-code>
+    </m-example>
+
+    <m-example header="Validate field" description="Check if the field is a valid email">
+      <m-form>
+        <m-field label="Email" [valid]="email1 | mIsEmail">
+          <m-input type="email" [(value)]="email1"></m-input>
+        </m-field>
+      </m-form>
+      <m-example-code [code]="emailCode1"></m-example-code>
+    </m-example>
+
+    <m-example header="Multiple validations per field" description="Check if the field is filled and a valid email">
+      <m-form>
+        <m-field label="Email" [valid]="email2 | mIsFilled | mIsEmail">
+          <m-input type="email" [(value)]="email2"></m-input>
+        </m-field>
+      </m-form>
+      <m-example-code [code]="emailCode2"></m-example-code>
+    </m-example>
+
+    <m-example header="Custom message" description="Replace the default message with your own">
+      <m-form>
+        <m-field label="Name" [valid]="name2 | mIsFilled:'can not be empty. Sorry!'">
+          <m-input [(value)]="name2" />
+        </m-field>
+      </m-form>
+      <m-example-code [code]="mandatory2" />
+
+      <p>You can change the message <strong>global</strong> via localization</p>
+      <m-example-code [code]="mandatory2b" />
+    </m-example>
+
+    <m-example header="Custom title" description="Replace the default title of a field with your own">
+      <m-form>
+        <m-field label="Name" [valid]="name6 | mIsFilled | mTitle:'-Better title than Name-'">
+          <m-input [(value)]="name6"></m-input>
+        </m-field>
+      </m-form>
+      <m-example-code [code]="mandatory3"></m-example-code>
+    </m-example>
+
+    <m-example header="Custom validation" description="Implement your own validation pipe">
+      <m-form>
+        <m-field label="Name" [valid]="name3 | myValidation">
+          <m-input [(value)]="name3"></m-input>
+        </m-field>
+      </m-form>
+      <m-example-code [code]="custom1"></m-example-code>
+      <m-example-code [code]="custom2" [languages]="['ts']"></m-example-code>
+    </m-example>
+
+    <!-- <m-example header="Show initial validation error" description="Marks the field red, until it is correct">
+    <m-form>
+      <m-field label="I stay initially white" [valid]="name4 | mIsFilled">
+        <m-input [(value)]="name4"></m-input>
+      </m-field>
+      <m-field label="I am directly red" [valid]="name5 | mIsFilled" [hideInitialError]="false">
+        <m-input [(value)]="name5"></m-input>
+      </m-field>
+    </m-form>
+    <m-example-code [code]="mandatory2"></m-example-code>
+  </m-example> -->
+
+  <m-example header="Inline validation" description="Adds an addition info icon with a error title" [code]="inlineValidationCode">
+    <m-form inlineValidation>
+      <m-field label="Validated input" [valid]="inlineValidationValue | mIsFilled">
+        <m-input [(value)]="inlineValidationValue" />
+      </m-field>
+    </m-form>
+  </m-example>
+
+  <m-example header="Localization" description="Translate validation messages to your language. This example used @angular/localize" [code]="inlineValidationCode">
+    <m-example-code [code]="localizeTs" [languages]="['ts']" />
+    <m-example-code [code]="localizeHtml" />
+  </m-example>
+</m-tab>
+<m-tab label="Variations">
+  <m-example header="Inverted" description="A form can be displayed with inverted colors" [code]="inverted">
+    <m-segment inverted>
+      <m-form inverted>
+        <m-field label="Also inverted input">
+          <m-input></m-input>
+        </m-field>
+        <m-field label="Also inverted checkbox">
+          <m-checkbox></m-checkbox>
+        </m-field>
+      </m-form>
+    </m-segment>
+  </m-example>
+
+  <m-example header="Hint" description="A form field can have a hint" [code]="hintCode">
+    <m-form>
+      <m-field label="Input with hint" hint="This is a very helpful hint">
+        <m-input />
+      </m-field>
+    </m-form>
+  </m-example>
+
+  <m-example header="Checkbox with own label" description="A field can be configured to do not forward the label to a checkbox and use 'two' labels " [code]="ownLabelCode">
+    <m-form>
+      <m-field label="Label defined on field">
+        <m-checkbox />
+      </m-field>
+      <m-field label="Field Label" ownLabel>
+        <m-checkbox>Checkbox Label</m-checkbox>
+      </m-field>
+    </m-form>
+  </m-example>
+
+  <m-example header="Align Checkbox" description="A field can be configured to keep space to align with other form elements" [code]="ownLabelCode">
+    <m-form>
+      <m-field-group>
+        <m-field label="A input">
+          <m-input />
+        </m-field>
+        <m-field label="Checkbox" forceLabel>
+          <m-checkbox />
+        </m-field>
+      </m-field-group>
+    </m-form>
+  </m-example>
+
+  <m-example header="Auto Submit" description="A from can be configured to automatically submit on changes" [code]="autoSubmitCode">
+    <m-form autoSubmit (submit)="onAutoSubmit()">
+      <m-field-group>
+        <m-field label="Text" size="eight" [valid]="autoSubmitValue | mIsFilled">
+          <m-input [(value)]="autoSubmitValue" />
+        </m-field>
+        <m-field label="DropDown" size="eight">
+          <m-dropdown>
+            <m-dropdown-item value="yes">Yes</m-dropdown-item>
+            <m-dropdown-item value="no">No</m-dropdown-item>
+          </m-dropdown>
+        </m-field>
+      </m-field-group>
+    </m-form>
+  </m-example>
+</m-tab>
+@if (isDev) {
+  <m-tab label="Renderer">
+    <m-segment>
+      <h3 m-header>Layout (JSON)</h3>
+      <m-textarea [value]="rendererLayout | json" (valueChange)="parseLayout($event)"></m-textarea>
+      @if (rendererLayoutError) {
+        <m-error>{{ rendererLayoutError }}</m-error>
+      }
+    </m-segment>
+    <m-segment>
+      <h3 m-header>Data (Object)</h3>
+      <m-textarea [value]="rendererData | json" (valueChange)="parseData($event)"></m-textarea>
+      @if (rendererDataError) {
+        <m-error>{{ rendererDataError }}</m-error>
+      }
+    </m-segment>
+    <m-segment style="min-height: 500px" m-flex="column">
+      <m-form-renderer [layout]="rendererLayout" [data]="rendererData" m-fill>
+        <m-data-source (request)="requestData($event)"></m-data-source>
+      </m-form-renderer>
+    </m-segment>
+  </m-tab>
+}
 </m-tab-group>

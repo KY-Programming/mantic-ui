@@ -1,9 +1,9 @@
 import { Component, HostBinding } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'm-card-group',
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './card-group.component.html',
     styleUrls: ['./card-group.component.scss']
 })

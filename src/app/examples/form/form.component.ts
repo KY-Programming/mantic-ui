@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { Component, inject, isDevMode } from '@angular/core';
-import { CheckboxComponent, DataSourceComponent, DataSourceRequest, DropdownComponent, DropdownItemComponent, ErrorComponent, FieldComponent, FieldGroupComponent, FormComponent, FormLayout, FormRendererComponent, HeaderDirective, IconComponent, InfoComponent, InputComponent, IsEmailPipe, IsFilledPipe, LocalizeComponent, MessageComponent, NotificationService, NumericInputComponent, SegmentComponent, SliderComponent, SubmitComponent, TabComponent, TabGroupComponent, TextareaComponent, TitlePipe, ToggleComponent } from '@mantic-ui/angular';
+import { CheckboxComponent, DataSourceComponent, DataSourceRequest, DropdownComponent, DropdownItemComponent, ErrorComponent, FieldComponent, FieldGroupComponent, FormComponent, FormLayout, FormRendererComponent, HeaderDirective, InfoComponent, InputComponent, IsEmailPipe, IsFilledPipe, MessageComponent, NotificationService, SegmentComponent, SliderComponent, SubmitComponent, TabComponent, TabGroupComponent, TextareaComponent, TitlePipe, ToggleComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
 import { DemoData } from '../../helpers/demo-data';
@@ -8,7 +8,7 @@ import { MyValidationPipe } from './my-validation.pipe';
 
 @Component({
     selector: 'app-form-example',
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, FormComponent, FieldComponent, InputComponent, CheckboxComponent, SubmitComponent, FieldGroupComponent, DropdownComponent, DropdownItemComponent, SegmentComponent, ToggleComponent, MessageComponent, SliderComponent, IsFilledPipe, IsEmailPipe, TitlePipe, MyValidationPipe, TextareaComponent, ErrorComponent, FormRendererComponent, DataSourceComponent, InfoComponent],
+    imports: [HeaderComponent, TabGroupComponent, TabComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, FormComponent, FieldComponent, InputComponent, CheckboxComponent, SubmitComponent, FieldGroupComponent, DropdownComponent, DropdownItemComponent, SegmentComponent, ToggleComponent, MessageComponent, SliderComponent, IsFilledPipe, IsEmailPipe, TitlePipe, MyValidationPipe, TextareaComponent, ErrorComponent, FormRendererComponent, DataSourceComponent, InfoComponent, JsonPipe],
     templateUrl: './form.component.html',
     styleUrls: ['./form.component.scss']
 })

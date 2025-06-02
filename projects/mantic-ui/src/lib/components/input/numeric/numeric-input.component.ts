@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
@@ -11,12 +11,7 @@ import { InputBaseComponent } from '../input-base.component';
     selector: 'm-numeric-input',
     templateUrl: './numeric-input.component.html',
     styleUrls: ['./numeric-input.component.scss'],
-    imports: [
-        CommonModule,
-        IconComponent,
-        FallbackForDirective,
-        FormsModule
-    ],
+    imports: [IconComponent, FallbackForDirective, FormsModule, NgTemplateOutlet],
     providers: [...InputBaseComponent.providers]
 })
 export class NumericInputComponent extends InputBaseComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { Component, ContentChild, inject, Input } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -27,10 +27,7 @@ export declare type Pointing =
     selector: 'm-button',
     templateUrl: './button.component.html',
     styleUrls: ['./button.component.scss'],
-    imports: [
-        CommonModule,
-        IconComponent
-    ],
+    imports: [IconComponent, NgTemplateOutlet, NgClass],
     hostDirectives: [FluidDirective.default, PointingDirective.default],
     providers: [...ButtonBaseComponent.providers]
 })

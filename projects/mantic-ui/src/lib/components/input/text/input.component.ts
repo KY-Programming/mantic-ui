@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, ContentChild, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
@@ -15,12 +15,7 @@ export declare type InputType = 'button' | 'checkbox' | 'color' | 'date' | 'date
     selector: 'm-input',
     templateUrl: './input.component.html',
     styleUrls: ['./input.component.scss'],
-    imports: [
-        CommonModule,
-        IconComponent,
-        FallbackForDirective,
-        FormsModule
-    ],
+    imports: [IconComponent, FallbackForDirective, FormsModule, NgTemplateOutlet],
     providers: [...InputBaseComponent.providers]
 })
 export class InputComponent extends InputBaseComponent {

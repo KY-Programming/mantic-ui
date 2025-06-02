@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, ContentChild, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '../../base/base.component';
@@ -25,10 +25,9 @@ import { FieldFormatErrorsPipe } from './field-format-errors.pipe';
     templateUrl: './field.component.html',
     styleUrls: ['./field.component.scss'],
     imports: [
-        CommonModule,
-        IconComponent,
-        FieldFormatErrorsPipe
-    ],
+    IconComponent,
+    FieldFormatErrorsPipe
+],
     providers: [...BaseComponent.providers]
 })
 export class FieldComponent extends BaseComponent {

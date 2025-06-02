@@ -1,38 +1,42 @@
 <app-header header="Notification" subHeader="A popup to inform the user"></app-header>
 
 <m-tab-group secondary pointing class="page" selectByRoute>
-    <m-tab label="Examples">
-        <m-example header="Error" description="Send a error">
-            <m-flex>
-                <m-button color="red" (click)="showError()">Error</m-button>
-                <m-button color="brown" (click)="showWarning()">Warning</m-button>
-                <m-button color="green" (click)="showSuccess()">Success</m-button>
-                <m-button color="blue" (click)="showInfo()">Info</m-button>
-                <m-button *ngIf="!asyncAction" (click)="startAsync()">Start Async</m-button>
-                <m-button *ngIf="asyncAction" (click)="stopAsync()">Stop Async</m-button>
-            </m-flex>
-            <m-example-code [code]="example1Html" [languages]="['html']" />
-            <m-example-code [code]="example1Ts" [languages]="['ts']" />
-        </m-example>
-    </m-tab>
-    <m-tab label="Variations">
-        <m-example header="Custom message component" description="Use a custom component as message">
-            <m-flex>
-                <m-button (click)="showComponent()">Show Component</m-button>
-            </m-flex>
-            <m-example-code [code]="exampleComponent" [languages]="['ts']" />
-            <m-example-code [code]="exampleComponentTs" [languages]="['ts']" label="custom-notification.component.ts" />
-        </m-example>
-        <m-example header="Hide a message" description="Use code to hide a message">
-            <m-flex>
-                @if (manualNotification) {
-                    <m-button (click)="hideManual()">Hide</m-button>
-                } @else {
-                    <m-button (click)="showManual()">Show</m-button>
-                }
-            </m-flex>
-            <m-example-code [code]="exampleManual" [languages]="['ts']" />
-        </m-example>
-    </m-tab>
+  <m-tab label="Examples">
+    <m-example header="Error" description="Send a error">
+      <m-flex>
+        <m-button color="red" (click)="showError()">Error</m-button>
+        <m-button color="brown" (click)="showWarning()">Warning</m-button>
+        <m-button color="green" (click)="showSuccess()">Success</m-button>
+        <m-button color="blue" (click)="showInfo()">Info</m-button>
+        @if (!asyncAction) {
+          <m-button (click)="startAsync()">Start Async</m-button>
+        }
+        @if (asyncAction) {
+          <m-button (click)="stopAsync()">Stop Async</m-button>
+        }
+      </m-flex>
+      <m-example-code [code]="example1Html" [languages]="['html']" />
+      <m-example-code [code]="example1Ts" [languages]="['ts']" />
+    </m-example>
+  </m-tab>
+  <m-tab label="Variations">
+    <m-example header="Custom message component" description="Use a custom component as message">
+      <m-flex>
+        <m-button (click)="showComponent()">Show Component</m-button>
+      </m-flex>
+      <m-example-code [code]="exampleComponent" [languages]="['ts']" />
+      <m-example-code [code]="exampleComponentTs" [languages]="['ts']" label="custom-notification.component.ts" />
+    </m-example>
+    <m-example header="Hide a message" description="Use code to hide a message">
+      <m-flex>
+        @if (manualNotification) {
+          <m-button (click)="hideManual()">Hide</m-button>
+        } @else {
+          <m-button (click)="showManual()">Show</m-button>
+        }
+      </m-flex>
+      <m-example-code [code]="exampleManual" [languages]="['ts']" />
+    </m-example>
+  </m-tab>
 </m-tab-group>
 

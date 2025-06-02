@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { HeaderComponent } from '../../components/header/header.component';
 import { ButtonComponent, DividerComponent, HeaderDirective, IconComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-divider-example',
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, DividerComponent, SegmentComponent, ButtonComponent],
+    imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, DividerComponent, SegmentComponent, ButtonComponent],
     templateUrl: './divider.component.html',
     styleUrls: ['./divider.component.scss']
 })

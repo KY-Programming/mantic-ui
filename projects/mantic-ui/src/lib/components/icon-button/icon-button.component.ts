@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { ButtonBaseComponent } from '../../base/button-base.component';
@@ -12,9 +12,8 @@ import { IconComponent } from '../icon/icon.component';
     templateUrl: './icon-button.component.html',
     styleUrls: ['./icon-button.component.scss'],
     imports: [
-        CommonModule,
-        IconComponent
-    ],
+    IconComponent
+],
     providers: [...ButtonBaseComponent.providers]
 })
 export class IconButtonComponent extends ButtonBaseComponent implements OnInit {

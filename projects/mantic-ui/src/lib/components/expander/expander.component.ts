@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, ContentChild, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
@@ -13,7 +13,7 @@ import { ExpanderHeaderComponent } from './expander-header.component';
     selector: 'm-expander',
     templateUrl: './expander.component.html',
     styleUrls: ['./expander.component.scss'],
-    imports: [CommonModule, IconComponent, FlexComponent, FillComponent],
+    imports: [IconComponent, FlexComponent, FillComponent, NgTemplateOutlet],
     providers: [...BaseComponent.providers]
 })
 export class ExpanderComponent extends BaseComponent {

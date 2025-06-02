@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faRocket } from '@fortawesome/pro-solid-svg-icons';
@@ -8,7 +8,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-icon-example',
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, ExampleComponent, ExampleCodeComponent, FontAwesomeModule, TableComponent],
+    imports: [HeaderComponent, TabGroupComponent, TabComponent, IconComponent, ExampleComponent, ExampleCodeComponent, FontAwesomeModule, TableComponent],
     templateUrl: './icon.component.html',
     styleUrls: ['./icon.component.scss']
 })

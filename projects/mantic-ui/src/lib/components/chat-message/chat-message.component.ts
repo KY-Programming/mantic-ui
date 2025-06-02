@@ -1,7 +1,7 @@
 import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { ChatMessage } from '../../models/chat-message';
 import { ButtonComponent } from '../button/button.component';
-import { CommonModule } from '@angular/common';
+
 import { ButtonDirective } from '../../directives/button.directive';
 import { RouterLink } from '@angular/router';
 
@@ -10,11 +10,10 @@ import { RouterLink } from '@angular/router';
     templateUrl: './chat-message.component.html',
     styleUrls: ['./chat-message.component.scss'],
     imports: [
-        CommonModule,
-        ButtonComponent,
-        ButtonDirective,
-        RouterLink
-    ]
+    ButtonComponent,
+    ButtonDirective,
+    RouterLink
+]
 })
 export class ChatMessageComponent {
 

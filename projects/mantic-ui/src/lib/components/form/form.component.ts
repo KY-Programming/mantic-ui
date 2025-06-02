@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, ContentChildren, EventEmitter, HostBinding, inject, Input, OnInit, Output, QueryList } from '@angular/core';
 import { delay, ReplaySubject, Subject, Subscription, throttleTime } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -17,10 +17,9 @@ import { FormValidationNotifier } from './form-validation-notifier';
     templateUrl: './form.component.html',
     styleUrls: ['./form.component.scss'],
     imports: [
-        CommonModule,
-        FlexDirective,
-        FillDirective
-    ],
+    FlexDirective,
+    FillDirective
+],
     hostDirectives: [LoadingDirective.default],
     providers: [...InvertibleComponent.providers]
 })

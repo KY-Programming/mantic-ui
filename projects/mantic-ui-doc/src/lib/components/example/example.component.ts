@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, HostBinding, Input } from '@angular/core';
 import { HeaderDirective } from '@mantic-ui/angular';
 import { HighlightModule } from 'ngx-highlightjs';
@@ -8,10 +8,9 @@ import { HighlightModule } from 'ngx-highlightjs';
     templateUrl: './example.component.html',
     styleUrls: ['./example.component.scss'],
     imports: [
-        CommonModule,
-        HighlightModule,
-        HeaderDirective
-    ]
+    HighlightModule,
+    HeaderDirective
+]
 })
 export class ExampleComponent {
     private headerField: string | undefined;

@@ -1,3 +1,7 @@
 <m-segment>
-    <pre><code><span class="ignore">&gt;</span> npm i {{package}}<ng-container *ngIf="version">&#64;{{version}}</ng-container><ng-container *ngIf="dev"> --save-dev</ng-container></code></pre>
+  <pre><code><span class="ignore">&gt;</span> npm i {{package}}@if (version) {
+  &#64;{{version}}
+  }@if (dev) {
+  --save-dev
+}</code></pre>
 </m-segment>

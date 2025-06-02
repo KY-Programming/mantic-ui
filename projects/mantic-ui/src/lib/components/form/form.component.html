@@ -1,19 +1,25 @@
 <form class="ui form" [class.loading]="loading" [class.success]="success" [class.error]="error" [class.warning]="warning" [class.inverted]="inverted" [attr.action]="action" [attr.autocomplete]="autocomplete" [attr.enctype]="enctype" [attr.method]="method" [attr.name]="name" [attr.novalidate]="novalidate ? 'novalidate' : undefined" [attr.target]="target" m-fill [m-flex]="flexDirection" (submit)="onSubmit($event)">
-    <ng-content />
-    <div *ngIf="error" class="ui error message">
-        <ul class="list">
-            <ng-container *ngFor="let field of fieldComponents">
-                <ng-container *ngIf="field.error">
-                    <li *ngFor="let error of field.errors">{{error.label}} {{error.message}}</li>
-                </ng-container>
-            </ng-container>
-            <ng-container *ngFor="let group of fieldGroupsComponents">
-                <ng-container *ngIf="group.error">
-                    <ng-container *ngFor="let field of group.fieldComponents">
-                        <li *ngFor="let error of field.errors">{{error.label}} {{error.message}}</li>
-                    </ng-container>
-                </ng-container>
-            </ng-container>
-        </ul>
+  <ng-content />
+  @if (error) {
+    <div class="ui error message">
+      <ul class="list">
+        @for (field of fieldComponents; track field) {
+          @if (field.error) {
+            @for (error of field.errors; track error) {
+              <li>{{error.label}} {{error.message}}</li>
+            }
+          }
+        }
+        @for (group of fieldGroupsComponents; track group) {
+          @if (group.error) {
+            @for (field of group.fieldComponents; track field) {
+              @for (error of field.errors; track error) {
+                <li>{{error.label}} {{error.message}}</li>
+              }
+            }
+          }
+        }
+      </ul>
     </div>
+  }
 </form>

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { DividerComponent, DropdownComponent, DropdownGroupComponent, DropdownItemComponent, FillDirective, HeaderDirective, IconComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
@@ -7,7 +7,7 @@ import { DemoData } from '../../helpers/demo-data';
 
 @Component({
     selector: 'app-dropdown-example',
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, DropdownComponent, DropdownItemComponent, DropdownGroupComponent, HeaderComponent, SegmentComponent, DividerComponent, FillDirective],
+    imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, DropdownComponent, DropdownItemComponent, DropdownGroupComponent, HeaderComponent, SegmentComponent, DividerComponent, FillDirective],
     templateUrl: './dropdown.component.html',
     styleUrls: ['./dropdown.component.scss']
 })

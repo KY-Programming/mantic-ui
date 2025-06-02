@@ -3,17 +3,16 @@ import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
 import { HeaderComponent } from '../header/header.component';
 import { DividerComponent } from '../divider/divider.component';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'm-dropdown-group',
     templateUrl: './dropdown-group.component.html',
     styleUrls: ['./dropdown-group.component.scss'],
     imports: [
-        CommonModule,
-        HeaderComponent,
-        DividerComponent
-    ]
+    HeaderComponent,
+    DividerComponent
+]
 })
 export class DropdownGroupComponent implements AfterViewInit {
     @Input()

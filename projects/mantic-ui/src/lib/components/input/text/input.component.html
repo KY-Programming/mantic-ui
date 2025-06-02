@@ -1,23 +1,33 @@
-<ng-container *ngIf="!isRight" [ngTemplateOutlet]="labelTemplate" />
-<ng-container *ngIf="buttonPosition === 'left'" [ngTemplateOutlet]="contentTemplate" />
+@if (!isRight) {
+  <ng-container [ngTemplateOutlet]="labelTemplate" />
+}
+@if (buttonPosition === 'left') {
+  <ng-container [ngTemplateOutlet]="contentTemplate" />
+}
 <ng-content />
-<ng-container *ngIf="type === 'color'">
-    <input type="text" [(ngModel)]="value" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onChange()">
-    <label class="ui label" [style.background-color]="value" [for]="for">
-        <input type="color" [(ngModel)]="value" [attr.name]="name" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onChange()">
-    </label>
-</ng-container>
+@if (type === 'color') {
+  <input type="text" [(ngModel)]="value" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onChange()">
+  <label class="ui label" [style.background-color]="value" [for]="for">
+    <input type="color" [(ngModel)]="value" [attr.name]="name" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onChange()">
+  </label>
+}
 <input *m-fallback-for="'input'" [type]="type || 'text'" [placeholder]="placeholder || ''" [(ngModel)]="value" [attr.name]="name" [attr.maxlength]="maxlength" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onChange()" #input>
-<m-icon *ngIf="icon" [icon]="icon" [size]="iconSize" class="link icon" />
-<ng-container *ngIf="isRight" [ngTemplateOutlet]="labelTemplate" />
-<ng-container *ngIf="buttonPosition === 'right'" [ngTemplateOutlet]="contentTemplate" />
+@if (icon) {
+  <m-icon [icon]="icon" [size]="iconSize" class="link icon" />
+}
+@if (isRight) {
+  <ng-container [ngTemplateOutlet]="labelTemplate" />
+}
+@if (buttonPosition === 'right') {
+  <ng-container [ngTemplateOutlet]="contentTemplate" />
+}
 
 <ng-template #labelTemplate>
-    <ng-content select="m-label" />
-    <ng-content select="m-label-dropdown" />
+  <ng-content select="m-label" />
+  <ng-content select="m-label-dropdown" />
 </ng-template>
 
 <ng-template #contentTemplate>
-    <ng-content select="m-button" />
-    <ng-content select="m-icon-button" />
+  <ng-content select="m-button" />
+  <ng-content select="m-icon-button" />
 </ng-template>

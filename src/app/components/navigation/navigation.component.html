@@ -1,196 +1,195 @@
 <div class="expander" [class.expanded]="isMenuExpanded" (click)="toggle()">
-    <m-icon [icon]="faChevronLeft" />
+  <m-icon [icon]="faChevronLeft" />
 </div>
 <!-- <m-menu position="left"> -->
 <m-flex class="ui vertical inverted menu" [class.expanded]="isMenuExpanded">
-    <a class="item" routerLink="/">
-        <span class="ui logo icon image">
-            <img src="/assets/mantic.png" alt="mantic">
-        </span>
-        <span><b>mantic UI</b></span>
-    </a>
-    <a class="item active">
-        <ng-container *ngIf="isSemantic else fomanticTemplate">
-            <span class="ui logo icon image">
-                <img src="/assets/semantic.png" alt="semantic">
-            </span>
-            <span><b>Semantic UI Angular</b></span>
-        </ng-container>
-        <ng-template #fomanticTemplate>
-            <span class="ui logo icon image">
-                <img src="/assets/fomantic.png" alt="fomantic">
-            </span>
-            <span><b>Fomantic UI Angular</b></span>
-        </ng-template>
-    </a>
-    <a class="item" [routerLink]="[prefix, 'start']" routerLinkActive="active">
-        <b>Getting Started</b>
-    </a>
+  <a class="item" routerLink="/">
+    <span class="ui logo icon image">
+      <img src="/assets/mantic.png" alt="mantic">
+    </span>
+    <span><b>mantic UI</b></span>
+  </a>
+  <a class="item active">
+    @if (isSemantic) {
+      <span class="ui logo icon image">
+        <img src="/assets/semantic.png" alt="semantic">
+      </span>
+      <span><b>Semantic UI Angular</b></span>
+    } @else {
+      <span class="ui logo icon image">
+        <img src="/assets/fomantic.png" alt="fomantic">
+      </span>
+      <span><b>Fomantic UI Angular</b></span>
+    }
+  </a>
+  <a class="item" [routerLink]="[prefix, 'start']" routerLinkActive="active">
+    <b>Getting Started</b>
+  </a>
+  <div class="item">
+    <div class="header">
+      <a [routerLink]="[prefix, 'help']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">How to get help?</a>
+    </div>
+    <div class="menu">
+      <a class="item" [routerLink]="[prefix, 'help', 'contact']" routerLinkActive="active">Contact Us</a>
+      <!--            <a class="item" routerLink="/help/overview/faq" routerLinkActive="active">FAQ</a>-->
+      <!--            <a class="item" routerLink="/help/errors" routerLinkActive="active">Common Errors</a>-->
+      <a class="item" href="https://github.com/KY-Programming/mantic-ui" target="_blank">
+        Github
+        <m-icon icon="external alternate" title="External Link"></m-icon>
+      </a>
+      <a class="item" href="https://discord.mantic-ui.ky-programming.de" target="_blank">
+        Discord
+        <m-icon icon="external alternate" title="External Link"></m-icon>
+      </a>
+    </div>
+  </div>
+  <a class="item" [routerLink]="[prefix, 'components']" routerLinkActive="active">
+    <b>All Components</b>
+  </a>
+  <div class="item">
+    <a class="header" [routerLink]="[prefix, 'elements']">Elements</a>
+    <div class="menu">
+      <a class="item" [routerLink]="[prefix, 'button']" routerLinkActive="active">
+        Button
+      </a>
+      <a class="item" [routerLink]="[prefix, 'checkbox']" routerLinkActive="active">
+        Checkbox
+      </a>
+      <a class="item" [routerLink]="[prefix, 'dropdown']" routerLinkActive="active">
+        Dropdown
+      </a>
+      <a class="item" [routerLink]="[prefix, 'header']" routerLinkActive="active">
+        Header
+      </a>
+      <a class="item" [routerLink]="[prefix, 'input']" routerLinkActive="active">
+        Input
+      </a>
+      <a class="item" [routerLink]="[prefix, 'icon']" routerLinkActive="active">
+        Icon
+      </a>
+      <a class="item" [routerLink]="[prefix, 'message']" routerLinkActive="active">
+        Message
+      </a>
+      <a class="item" [routerLink]="[prefix, 'radio']" routerLinkActive="active">
+        Radio
+      </a>
+      <a class="item" [routerLink]="[prefix, 'slider']" routerLinkActive="active">
+        Slider
+      </a>
+      <a class="item" [routerLink]="[prefix, 'textarea']" routerLinkActive="active">
+        Textarea
+      </a>
+      <a class="item" [routerLink]="[prefix, 'toggle']" routerLinkActive="active">
+        Toggle
+      </a>
+    </div>
+  </div>
+  <div class="item">
+    <a class="header" [routerLink]="[prefix, 'layouts']">Layout</a>
+    <div class="menu">
+      <a class="item" [routerLink]="[prefix, 'container']" routerLinkActive="active">
+        Container
+      </a>
+      <a class="item" [routerLink]="[prefix, 'divider']" routerLinkActive="active">
+        Divider
+      </a>
+      <a class="item" [routerLink]="[prefix, 'expander']" routerLinkActive="active">
+        Expander
+      </a>
+      <a class="item" [routerLink]="[prefix, 'flex']" routerLinkActive="active">
+        Flex
+      </a>
+      <a class="item" [routerLink]="[prefix, 'form']" routerLinkActive="active">
+        Form
+      </a>
+      <a class="item" [routerLink]="[prefix, 'grid']" routerLinkActive="active">
+        Grid
+      </a>
+      <a class="item" [routerLink]="[prefix, 'layout']" routerLinkActive="active">
+        Layout
+      </a>
+      <a class="item" [routerLink]="[prefix, 'menu']" routerLinkActive="active">
+        Menu
+      </a>
+      <a class="item" [routerLink]="[prefix, 'segment']" routerLinkActive="active">
+        Segment
+      </a>
+      <a class="item" [routerLink]="[prefix, 'tab']" routerLinkActive="active">
+        Tab
+      </a>
+      <a class="item" [routerLink]="[prefix, 'table']" routerLinkActive="active">
+        Table
+      </a>
+      <a class="item" [routerLink]="[prefix, 'template']" routerLinkActive="active">
+        Template
+      </a>
+    </div>
+  </div>
+  <div class="item">
+    <a class="header" [routerLink]="[prefix, 'specials']">Special</a>
+    <div class="menu">
+      <a class="item" [routerLink]="[prefix, 'context-menu']" routerLinkActive="active">
+        Context Menu
+      </a>
+      <a class="item" [routerLink]="[prefix, 'dimmer']" routerLinkActive="active">
+        Dimmer
+      </a>
+      <a class="item" [routerLink]="[prefix, 'markdown']" routerLinkActive="active">
+        Markdown
+      </a>
+      <a class="item" [routerLink]="[prefix, 'modal']" routerLinkActive="active">
+        Modal
+      </a>
+      <a class="item" [routerLink]="[prefix, 'notification']" routerLinkActive="active">
+        Notification
+      </a>
+    </div>
+  </div>
+  <div class="item">
+    <a class="header" [routerLink]="[prefix, 'utils']">Utils</a>
+    <div class="menu">
+      <a class="item" [routerLink]="[prefix, 'license']" routerLinkActive="active">
+        License-To-Json (l2j)
+      </a>
+      <a class="item" href="https://generator.ky-programming.de/angular/controller" target="_blank">
+        KY-Generator for Angular
+        <m-icon icon="external alternate" title="External Link"></m-icon>
+      </a>
+    </div>
+  </div>
+  <div class="item">
+    <div class="header">Missing a Feature?</div>
+    <div class="menu">
+      <a class="item" [routerLink]="[prefix, 'help', 'feature']" routerLinkActive="active">Contact us!</a>
+    </div>
+  </div>
+  <m-fill></m-fill>
+  <div class="menu footer">
     <div class="item">
-        <div class="header">
-            <a [routerLink]="[prefix, 'help']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">How to get help?</a>
-        </div>
-        <div class="menu">
-            <a class="item" [routerLink]="[prefix, 'help', 'contact']" routerLinkActive="active">Contact Us</a>
-            <!--            <a class="item" routerLink="/help/overview/faq" routerLinkActive="active">FAQ</a>-->
-            <!--            <a class="item" routerLink="/help/errors" routerLinkActive="active">Common Errors</a>-->
-            <a class="item" href="https://github.com/KY-Programming/mantic-ui" target="_blank">
-                Github
-                <m-icon icon="external alternate" title="External Link"></m-icon>
-            </a>
-            <a class="item" href="https://discord.mantic-ui.ky-programming.de" target="_blank">
-                Discord
-                <m-icon icon="external alternate" title="External Link"></m-icon>
-            </a>
-        </div>
+      <a href="https://ky-programming.de/legal-notice">Imprint</a>
+      <span>&nbsp;/&nbsp;</span>
+      <a href="https://ky-programming.de/legal-notice">Data Protection</a>
+      <span>&nbsp;/&nbsp;</span>
+      <a [routerLink]="[prefix, 'credits']">Credits</a>
     </div>
-    <a class="item" [routerLink]="[prefix, 'components']" routerLinkActive="active">
-        <b>All Components</b>
-    </a>
-    <div class="item">
-        <a class="header" [routerLink]="[prefix, 'elements']">Elements</a>
-        <div class="menu">
-            <a class="item" [routerLink]="[prefix, 'button']" routerLinkActive="active">
-                Button
-            </a>
-            <a class="item" [routerLink]="[prefix, 'checkbox']" routerLinkActive="active">
-                Checkbox
-            </a>
-            <a class="item" [routerLink]="[prefix, 'dropdown']" routerLinkActive="active">
-                Dropdown
-            </a>
-            <a class="item" [routerLink]="[prefix, 'header']" routerLinkActive="active">
-                Header
-            </a>
-            <a class="item" [routerLink]="[prefix, 'input']" routerLinkActive="active">
-                Input
-            </a>
-            <a class="item" [routerLink]="[prefix, 'icon']" routerLinkActive="active">
-                Icon
-            </a>
-            <a class="item" [routerLink]="[prefix, 'message']" routerLinkActive="active">
-                Message
-            </a>
-            <a class="item" [routerLink]="[prefix, 'radio']" routerLinkActive="active">
-                Radio
-            </a>
-            <a class="item" [routerLink]="[prefix, 'slider']" routerLinkActive="active">
-                Slider
-            </a>
-            <a class="item" [routerLink]="[prefix, 'textarea']" routerLinkActive="active">
-                Textarea
-            </a>
-            <a class="item" [routerLink]="[prefix, 'toggle']" routerLinkActive="active">
-                Toggle
-            </a>
-        </div>
-    </div>
-    <div class="item">
-        <a class="header" [routerLink]="[prefix, 'layouts']">Layout</a>
-        <div class="menu">
-            <a class="item" [routerLink]="[prefix, 'container']" routerLinkActive="active">
-                Container
-            </a>
-            <a class="item" [routerLink]="[prefix, 'divider']" routerLinkActive="active">
-                Divider
-            </a>
-            <a class="item" [routerLink]="[prefix, 'expander']" routerLinkActive="active">
-                Expander
-            </a>
-            <a class="item" [routerLink]="[prefix, 'flex']" routerLinkActive="active">
-                Flex
-            </a>
-            <a class="item" [routerLink]="[prefix, 'form']" routerLinkActive="active">
-                Form
-            </a>
-            <a class="item" [routerLink]="[prefix, 'grid']" routerLinkActive="active">
-                Grid
-            </a>
-            <a class="item" [routerLink]="[prefix, 'layout']" routerLinkActive="active">
-                Layout
-            </a>
-            <a class="item" [routerLink]="[prefix, 'menu']" routerLinkActive="active">
-                Menu
-            </a>
-            <a class="item" [routerLink]="[prefix, 'segment']" routerLinkActive="active">
-                Segment
-            </a>
-            <a class="item" [routerLink]="[prefix, 'tab']" routerLinkActive="active">
-                Tab
-            </a>
-            <a class="item" [routerLink]="[prefix, 'table']" routerLinkActive="active">
-                Table
-            </a>
-            <a class="item" [routerLink]="[prefix, 'template']" routerLinkActive="active">
-                Template
-            </a>
-        </div>
-    </div>
-    <div class="item">
-        <a class="header" [routerLink]="[prefix, 'specials']">Special</a>
-        <div class="menu">
-            <a class="item" [routerLink]="[prefix, 'context-menu']" routerLinkActive="active">
-                Context Menu
-            </a>
-            <a class="item" [routerLink]="[prefix, 'dimmer']" routerLinkActive="active">
-                Dimmer
-            </a>
-            <a class="item" [routerLink]="[prefix, 'markdown']" routerLinkActive="active">
-                Markdown
-            </a>
-            <a class="item" [routerLink]="[prefix, 'modal']" routerLinkActive="active">
-                Modal
-            </a>
-            <a class="item" [routerLink]="[prefix, 'notification']" routerLinkActive="active">
-                Notification
-            </a>
-        </div>
-    </div>
-    <div class="item">
-        <a class="header" [routerLink]="[prefix, 'utils']">Utils</a>
-        <div class="menu">
-            <a class="item" [routerLink]="[prefix, 'license']" routerLinkActive="active">
-                License-To-Json (l2j)
-            </a>
-            <a class="item" href="https://generator.ky-programming.de/angular/controller" target="_blank">
-                KY-Generator for Angular
-                <m-icon icon="external alternate" title="External Link"></m-icon>
-            </a>
-        </div>
-    </div>
-    <div class="item">
-        <div class="header">Missing a Feature?</div>
-        <div class="menu">
-            <a class="item" [routerLink]="[prefix, 'help', 'feature']" routerLinkActive="active">Contact us!</a>
-        </div>
-    </div>
-    <m-fill></m-fill>
-    <div class="menu footer">
-        <div class="item">
-            <a href="https://ky-programming.de/legal-notice">Imprint</a>
-            <span>&nbsp;/&nbsp;</span>
-            <a href="https://ky-programming.de/legal-notice">Data Protection</a>
-            <span>&nbsp;/&nbsp;</span>
-            <a [routerLink]="[prefix, 'credits']">Credits</a>
-        </div>
-    </div>
+  </div>
 </m-flex>
 <!-- </m-menu> -->
 <m-fill m-flex class="content">
-    <router-outlet></router-outlet>
-    <m-flex direction="column" class="actions">
-        <m-button icon="refresh">
-            Framework
-            <m-context-menu openOnLeftClick>
-                <m-context-menu-item [icon]="isSemantic ? '' : 'check'" (click)="toFomantic()">Fomantic UI</m-context-menu-item>
-                <m-context-menu-item [icon]="isSemantic ? 'check' : ''" (click)="toSemantic()">Semantic UI</m-context-menu-item>
-            </m-context-menu>
-        </m-button>
-        <m-button icon="refresh">
-            Theme
-            <m-context-menu openOnLeftClick>
-                <m-context-menu-item icon="check">Default</m-context-menu-item>
-            </m-context-menu>
-        </m-button>
-    </m-flex>
+  <router-outlet></router-outlet>
+  <m-flex direction="column" class="actions">
+    <m-button icon="refresh">
+      Framework
+      <m-context-menu openOnLeftClick>
+        <m-context-menu-item [icon]="isSemantic ? '' : 'check'" (click)="toFomantic()">Fomantic UI</m-context-menu-item>
+        <m-context-menu-item [icon]="isSemantic ? 'check' : ''" (click)="toSemantic()">Semantic UI</m-context-menu-item>
+      </m-context-menu>
+    </m-button>
+    <m-button icon="refresh">
+      Theme
+      <m-context-menu openOnLeftClick>
+        <m-context-menu-item icon="check">Default</m-context-menu-item>
+      </m-context-menu>
+    </m-button>
+  </m-flex>
 </m-fill>

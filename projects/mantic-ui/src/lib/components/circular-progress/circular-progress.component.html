@@ -4,10 +4,11 @@
             [attr.stroke-dasharray]="total + 'px'" [attr.stroke-dashoffset]="offset + 'px'" class="value"></circle>
 </svg>
 <div class="label" [style.width.px]="size - 2*strokeWidth" [style.height.px]="size - 2*strokeWidth" [style.margin.px]="strokeWidth">
-    <div *ngIf="centerContent else labelTemplate" class="label-centered">
-        <ng-container [ngTemplateOutlet]="labelTemplate" />
-    </div>
-    <ng-template #labelTemplate>
+    @if (centerContent) {
+        <div class="label-centered">
+            <!--      <ng-container [ngTemplateOutlet]="labelTemplate" />-->
+        </div>
+    } @else {
         <ng-content />
-    </ng-template>
+    }
 </div>

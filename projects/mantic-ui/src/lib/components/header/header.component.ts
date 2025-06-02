@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -15,9 +15,8 @@ export declare type HeaderSize = 'huge' | 'large' | 'medium' | 'small' | 'tiny';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
     imports: [
-        CommonModule,
-        IconComponent
-    ],
+    IconComponent
+],
     providers: [...BaseComponent.providers]
 })
 export class HeaderComponent extends InvertibleComponent implements OnInit {

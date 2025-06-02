@@ -1,2 +1,4 @@
 <ng-content />
-<ng-container *ngIf="template" [ngTemplateOutlet]="template.ref" />
+@if (template) {
+  <ng-container [ngTemplateOutlet]="template.ref" />
+}

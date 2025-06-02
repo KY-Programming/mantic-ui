@@ -1,2 +1,4 @@
-<m-icon *ngIf="showClose" [icon]="defaults.closeIcon" [size]="defaults.closeIconSize" class="close icon" (click)="onClose()"></m-icon>
+@if (showClose) {
+  <m-icon [icon]="defaults.closeIcon" [size]="defaults.closeIconSize" class="close icon" (click)="onClose()"></m-icon>
+}
 <ng-content></ng-content>

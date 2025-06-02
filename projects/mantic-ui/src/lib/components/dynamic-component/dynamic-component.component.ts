@@ -1,10 +1,10 @@
 import { Component, inject, Input, ViewContainerRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ComponentParser } from './component-parser';
 
 @Component({
     selector: 'm-dynamic-component',
-    imports: [CommonModule],
+    imports: [],
     template: '',
     styleUrls: []
 })

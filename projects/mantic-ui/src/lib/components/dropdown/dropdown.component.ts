@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, ContentChildren, ElementRef, EventEmitter, HostBinding, HostListener, Input, NgZone, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { fromEvent, ReplaySubject } from 'rxjs';
@@ -19,11 +19,10 @@ import { DropdownValue } from './dropdown-value';
     templateUrl: './dropdown.component.html',
     styleUrls: ['./dropdown.component.scss'],
     imports: [
-        CommonModule,
-        FormsModule,
-        IconComponent,
-        DropdownItemComponent
-    ],
+    FormsModule,
+    IconComponent,
+    DropdownItemComponent
+],
     hostDirectives: [FluidDirective.default, DisabledDirective.default],
     providers: [...InvertibleComponent.providers, DropDownSelectionService]
 })

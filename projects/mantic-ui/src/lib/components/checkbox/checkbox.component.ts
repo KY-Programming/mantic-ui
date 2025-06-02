@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, HostBinding, HostListener, inject, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
@@ -17,10 +17,9 @@ import { IconComponent } from '../icon/icon.component';
     templateUrl: './checkbox.component.html',
     styleUrls: ['./checkbox.component.scss'],
     imports: [
-        CommonModule,
-        IconComponent,
-        FormsModule
-    ],
+    IconComponent,
+    FormsModule
+],
     hostDirectives: [DisabledDirective.default, ReadOnlyDirective.default],
     providers: CheckboxComponent.providers
 })

@@ -1,4 +1,4 @@
-import { CommonModule, NgIfContext } from '@angular/common';
+import { NgIfContext, NgTemplateOutlet } from '@angular/common';
 import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { SortedClassesService } from '../../services/sorted-classes.service';
 import { IconSize } from '../icon/icon-size';
@@ -9,7 +9,9 @@ import { MenuItemComponent } from '../menu-item/menu-item.component';
     selector: 'm-tab',
     templateUrl: './tab.component.html',
     styleUrls: ['./tab.component.scss'],
-    imports: [CommonModule],
+    imports: [
+        NgTemplateOutlet
+    ],
     providers: [SortedClassesService]
 })
 export class TabComponent extends MenuItemComponent {

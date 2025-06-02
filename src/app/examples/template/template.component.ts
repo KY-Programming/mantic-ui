@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { ButtonComponent, HideOnEmptyTemplateDirective, SegmentComponent, TabComponent, TabGroupComponent, TemplateComponent, TemplateOutletComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
@@ -6,7 +6,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-template',
-    imports: [ExampleCodeComponent, ExampleComponent, HeaderComponent, SegmentComponent, TabComponent, TabGroupComponent, TemplateComponent, TemplateOutletComponent, ButtonComponent, NgIf, HideOnEmptyTemplateDirective],
+    imports: [ExampleCodeComponent, ExampleComponent, HeaderComponent, SegmentComponent, TabComponent, TabGroupComponent, TemplateComponent, TemplateOutletComponent, ButtonComponent, HideOnEmptyTemplateDirective],
     templateUrl: './template.component.html',
     styleUrl: './template.component.scss'
 })

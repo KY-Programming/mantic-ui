@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { ButtonComponent } from '@mantic-ui/angular';
 import { SemanticUiIconsLocalComponent, SemanticUiLatoLocalComponent, SemanticUiModule, SemanticUiResetComponent, SemanticUiSiteComponent, SemanticUiThemeComponent } from '@mantic-ui/semantic-ui-angular';
@@ -7,7 +7,7 @@ import { SemanticUiIconsLocalComponent, SemanticUiLatoLocalComponent, SemanticUi
     selector: 'app-test-example',
     templateUrl: './test.component.html',
     styleUrls: ['./test.component.scss'],
-    imports: [SemanticUiModule, CommonModule, SemanticUiThemeComponent, SemanticUiSiteComponent, SemanticUiResetComponent, SemanticUiLatoLocalComponent, SemanticUiIconsLocalComponent]
+    imports: [SemanticUiModule, SemanticUiThemeComponent, SemanticUiSiteComponent, SemanticUiResetComponent, SemanticUiLatoLocalComponent, SemanticUiIconsLocalComponent]
 })
 export class TestExampleComponent {
 }

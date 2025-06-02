@@ -1,11 +1,11 @@
 import { Component, HostBinding } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'm-card',
     templateUrl: './card.component.html',
     styleUrls: ['./card.component.scss'],
-    imports: [CommonModule]
+    imports: []
 })
 export class CardComponent {
 

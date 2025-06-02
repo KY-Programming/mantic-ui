@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, HostBinding, inject, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { ColorDirective } from '../../directives/color.directive';
@@ -7,10 +6,10 @@ import { ColorName } from '../../models/color';
 
 @Component({
     selector: 'm-circular-progress',
-    imports: [CommonModule],
     templateUrl: './circular-progress.component.html',
     styleUrls: ['./circular-progress.component.scss'],
     hostDirectives: [ColorDirective.default],
+    imports: [],
     providers: [...BaseComponent.providers]
 })
 export class CircularProgressComponent extends BaseComponent {

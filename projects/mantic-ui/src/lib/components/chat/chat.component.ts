@@ -1,4 +1,4 @@
-import { CommonModule, NgIfContext } from '@angular/common';
+import { NgIfContext } from '@angular/common';
 import { Component, DoCheck, ElementRef, Input, IterableDiffer, IterableDiffers, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { toBoolean } from '../../helpers/to-boolean';
@@ -16,12 +16,11 @@ import { InputComponent } from '../input/text/input.component';
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.scss'],
     imports: [
-        CommonModule,
-        ChatMessageComponent,
-        InputComponent,
-        ButtonComponent,
-        IconComponent
-    ]
+    ChatMessageComponent,
+    InputComponent,
+    ButtonComponent,
+    IconComponent
+]
 })
 export class ChatComponent implements DoCheck {
     public static readonly defaults = { sendIcon: <IconType>'caret right', sendIconSize: <IconSize>'big' };

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { HeaderComponent } from '../../components/header/header.component';
 import { ButtonComponent, HeaderDirective, IconComponent, SegmentComponent, SegmentGroupComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-segment-example',
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, IconComponent, ExampleComponent, ExampleCodeComponent, SegmentComponent, ButtonComponent, SegmentGroupComponent],
+    imports: [HeaderComponent, TabGroupComponent, TabComponent, IconComponent, ExampleComponent, ExampleCodeComponent, SegmentComponent, ButtonComponent, SegmentGroupComponent],
     templateUrl: './segment.component.html',
     styleUrls: ['./segment.component.scss']
 })

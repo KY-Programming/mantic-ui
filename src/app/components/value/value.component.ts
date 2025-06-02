@@ -1,9 +1,11 @@
+import { JsonPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-value',
-    imports: [CommonModule],
+    imports: [
+        JsonPipe
+    ],
     templateUrl: './value.component.html',
     styleUrls: ['./value.component.scss']
 })

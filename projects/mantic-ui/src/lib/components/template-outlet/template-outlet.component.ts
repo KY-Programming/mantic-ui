@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, effect, inject, input } from '@angular/core';
 import { race, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -8,7 +8,9 @@ import { TemplateService } from '../../services/template.service';
 
 @Component({
     selector: 'm-template-outlet',
-    imports: [CommonModule],
+    imports: [
+        NgTemplateOutlet
+    ],
     templateUrl: './template-outlet.component.html',
     styleUrl: './template-outlet.component.scss',
     host: {

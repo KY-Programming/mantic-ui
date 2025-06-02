@@ -1,7 +1,11 @@
 <h1 m-header>
   {{header}}
-  <div *ngIf="subHeader" class="sub header">
-    {{subHeader}}
-  </div>
+  @if (subHeader) {
+    <div class="sub header">
+      {{subHeader}}
+    </div>
+  }
 </h1>
-<div *ngIf="showPlaceholder" class="ui secondary pointing menu placeholder"></div>
+@if (showPlaceholder) {
+  <div class="ui secondary pointing menu placeholder"></div>
+}

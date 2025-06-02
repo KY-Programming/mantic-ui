@@ -2,7 +2,7 @@ import { Component, ContentChildren, Input, Output, QueryList } from '@angular/c
 import { FormLayout } from './form-layout';
 import { Subject } from 'rxjs';
 import { DataSourceComponent } from '../data-source/data-source.component';
-import { CommonModule } from '@angular/common';
+
 import { FormComponent } from '../form/form.component';
 import { FormElementRendererComponent } from '../form-element-renderer/form-element-renderer.component';
 import { FlexDirective } from '../flex/flex.directive';
@@ -13,12 +13,11 @@ import { FillDirective } from '../flex/fill/fill.directive';
     templateUrl: './form-renderer.component.html',
     styleUrls: ['./form-renderer.component.scss'],
     imports: [
-        CommonModule,
-        FormComponent,
-        FormElementRendererComponent,
-        FlexDirective,
-        FillDirective
-    ]
+    FormComponent,
+    FormElementRendererComponent,
+    FlexDirective,
+    FillDirective
+]
 })
 export class FormRendererComponent {
     private readonly dataChangeSubject = new Subject<unknown>();

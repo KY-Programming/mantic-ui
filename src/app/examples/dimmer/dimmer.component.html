@@ -1,61 +1,79 @@
 <app-header header="Dimmer" subHeader="A dimmer hides distractions to focus attention on particular content"></app-header>
 
 <m-tab-group secondary pointing class="page" selectByRoute>
-    <m-tab label="Examples">
-        <m-example header="Dimmer" description="A simple dimmer displays no content" [code]="simpleCode">
-            <m-segment dimmable>
-                <h3 m-header>Overlayable Section</h3>
-                <div class="ui small images">
-                    <img src="/assets/images/image.png">
-                    <img src="/assets/images/image.png">
-                    <img src="/assets/images/image.png">
-                </div>
-                <img src="/assets/images/media-paragraph.png">
-                <m-dimmer *ngIf="dim1" (click)="dim1 = false"></m-dimmer>
-            </m-segment>
-            <m-button *ngIf="!dim1" (click)="dim1 = true">Show Dimmer</m-button>
-            <m-button *ngIf="dim1" (click)="dim1 = false">Hide Dimmer</m-button>
-        </m-example>
+  <m-tab label="Examples">
+    <m-example header="Dimmer" description="A simple dimmer displays no content" [code]="simpleCode">
+      <m-segment dimmable>
+        <h3 m-header>Overlayable Section</h3>
+        <div class="ui small images">
+          <img src="/assets/images/image.png">
+          <img src="/assets/images/image.png">
+          <img src="/assets/images/image.png">
+        </div>
+        <img src="/assets/images/media-paragraph.png">
+        @if (dim1) {
+          <m-dimmer (click)="dim1 = false"></m-dimmer>
+        }
+      </m-segment>
+      @if (!dim1) {
+        <m-button (click)="dim1 = true">Show Dimmer</m-button>
+      }
+      @if (dim1) {
+        <m-button (click)="dim1 = false">Hide Dimmer</m-button>
+      }
+    </m-example>
 
-        <m-example header="Content Dimmer" description="A dimmer can display content" [code]="contentCode">
-            <m-segment>
-                <h3 m-header>Overlayable Section</h3>
-                <div class="ui small images">
-                    <img src="/assets/images/image.png">
-                    <img src="/assets/images/image.png">
-                    <img src="/assets/images/image.png">
-                </div>
-                <img src="/assets/images/media-paragraph.png">
-                <m-dimmer *ngIf="dim2" (click)="dim2 = false">
-                    <h2 m-header inverted icon>
-                        <m-icon icon="heart"></m-icon>
-                        Dimmed Message!
-                    </h2>
-                </m-dimmer>
-            </m-segment>
-            <m-button *ngIf="!dim2" (click)="dim2 = true">Show Dimmer</m-button>
-            <m-button *ngIf="dim2" (click)="dim2 = false">Hide Dimmer</m-button>
-        </m-example>
+    <m-example header="Content Dimmer" description="A dimmer can display content" [code]="contentCode">
+      <m-segment>
+        <h3 m-header>Overlayable Section</h3>
+        <div class="ui small images">
+          <img src="/assets/images/image.png">
+          <img src="/assets/images/image.png">
+          <img src="/assets/images/image.png">
+        </div>
+        <img src="/assets/images/media-paragraph.png">
+        @if (dim2) {
+          <m-dimmer (click)="dim2 = false">
+            <h2 m-header inverted icon>
+              <m-icon icon="heart"></m-icon>
+              Dimmed Message!
+            </h2>
+          </m-dimmer>
+        }
+      </m-segment>
+      @if (!dim2) {
+        <m-button (click)="dim2 = true">Show Dimmer</m-button>
+      }
+      @if (dim2) {
+        <m-button (click)="dim2 = false">Hide Dimmer</m-button>
+      }
+    </m-example>
 
-        <m-example header="Page Dimmer" description="A dimmer can be formatted to be fixed to the page" [code]="pageCode">
-            <m-dimmer *ngIf="dim3" page (click)="dim3 = false">
-                <h2 m-header inverted icon>
-                    <m-icon icon="envelope"></m-icon>
-                    Dimmer Message
-                    <div class="sub header">Dimmer sub-header</div>
-                </h2>
-            </m-dimmer>
-            <m-button *ngIf="!dim3" (click)="dim3 = true">Show Dimmer</m-button>
-            <m-button *ngIf="dim3" (click)="dim3 = false">Hide Dimmer</m-button>
-        </m-example>
-    </m-tab>
-    <m-tab label="States">
-        <m-example header="Active" description="An active dimmer will dim its parent container">
-            <m-segment>
-                <img src="/assets/images/paragraph.png">
-                <img src="/assets/images/paragraph.png">
-                <m-dimmer></m-dimmer>
-            </m-segment>
-        </m-example>
-    </m-tab>
+    <m-example header="Page Dimmer" description="A dimmer can be formatted to be fixed to the page" [code]="pageCode">
+      @if (dim3) {
+        <m-dimmer page (click)="dim3 = false">
+          <h2 m-header inverted icon>
+            <m-icon icon="envelope"></m-icon>
+            Dimmer Message
+            <div class="sub header">Dimmer sub-header</div>
+          </h2>
+        </m-dimmer>
+      }
+      @if (!dim3) {
+        <m-button (click)="dim3 = true">Show Dimmer</m-button>
+      }
+      @if (dim3) {
+        <m-button (click)="dim3 = false">Hide Dimmer</m-button>
+      }
+    </m-example>
+  </m-tab>
+  <m-tab label="States">
+    <m-example header="Active" description="An active dimmer will dim its parent container">
+      <m-segment>
+        <img src="/assets/images/paragraph.png">
+        <img src="/assets/images/paragraph.png">
+        <m-dimmer></m-dimmer>
+      </m-segment>
+    </m-example>
+  </m-tab>
 </m-tab-group>

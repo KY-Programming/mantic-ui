@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { AfterViewInit, Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { animationFrameScheduler, fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -16,10 +16,9 @@ import { ContextMenuMouseEvent } from './models/context-menu-mouse-event';
     templateUrl: './context-menu.component.html',
     styleUrls: ['./context-menu.component.scss'],
     imports: [
-        CommonModule,
-        MenuComponent,
-        ToBodyDirective
-    ],
+    MenuComponent,
+    ToBodyDirective
+],
     providers: [...BaseComponent.providers]
 })
 export class ContextMenuComponent extends BaseComponent implements AfterViewInit {

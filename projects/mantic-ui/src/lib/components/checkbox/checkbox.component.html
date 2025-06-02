@@ -1,7 +1,11 @@
 <input type="checkbox" [name]="name" [ngModel]="value" [indeterminate]="indeterminate" class="hidden">
 <label [attr.for]="name">
-    {{label}}
-    <ng-content></ng-content>
-    <m-icon *ngIf="checked" [icon]="checkIcon ?? defaults.checkIcon" [size]="checkIconSize ?? defaults.checkIconSize" class="icon"></m-icon>
-    <m-icon *ngIf="indeterminate" [icon]="indeterminateIcon ?? defaults.indeterminateIcon" [size]="indeterminateIconSize ?? defaults.indeterminateIconSize" class="icon"></m-icon>
+  {{label}}
+  <ng-content></ng-content>
+  @if (checked) {
+    <m-icon [icon]="checkIcon ?? defaults.checkIcon" [size]="checkIconSize ?? defaults.checkIconSize" class="icon"></m-icon>
+  }
+  @if (indeterminate) {
+    <m-icon [icon]="indeterminateIcon ?? defaults.indeterminateIcon" [size]="indeterminateIconSize ?? defaults.indeterminateIconSize" class="icon"></m-icon>
+  }
 </label>

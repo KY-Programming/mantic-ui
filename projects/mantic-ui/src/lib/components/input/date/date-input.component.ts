@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { DatePipe, NgTemplateOutlet } from '@angular/common';
 import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
@@ -13,13 +13,7 @@ import { InputBaseComponent } from '../input-base.component';
     selector: 'm-date-input',
     templateUrl: './date-input.component.html',
     styleUrls: ['./date-input.component.scss'],
-    imports: [
-        CommonModule,
-        IconComponent,
-        FallbackForDirective,
-        FormsModule,
-        LabelComponent
-    ],
+    imports: [IconComponent, FallbackForDirective, FormsModule, LabelComponent, NgTemplateOutlet, DatePipe],
     providers: [...InputBaseComponent.providers]
 })
 export class DateInputComponent extends InputBaseComponent implements OnInit {

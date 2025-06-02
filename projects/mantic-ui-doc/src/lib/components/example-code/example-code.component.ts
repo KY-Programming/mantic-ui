@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BooleanLike, ButtonComponent, SegmentComponent } from '@mantic-ui/angular';
 import { HighlightModule } from 'ngx-highlightjs';
@@ -8,10 +8,9 @@ import { HighlightModule } from 'ngx-highlightjs';
     templateUrl: './example-code.component.html',
     styleUrls: ['./example-code.component.scss'],
     imports: [
-        CommonModule,
-        HighlightModule,
-        ButtonComponent
-    ],
+    HighlightModule,
+    ButtonComponent
+],
     providers: [...SegmentComponent.providers]
 })
 export class ExampleCodeComponent extends SegmentComponent {

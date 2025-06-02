@@ -1,10 +1,16 @@
 <m-menu position="top" fixed>
-    <m-menu-item *ngIf="showHamburger">
-        <m-icon [icon]="menuIcon ?? defaults.menuIcon" [size]="menuIconSize ?? defaults.menuIconSize"></m-icon>
+  @if (showHamburger) {
+    <m-menu-item>
+      <m-icon [icon]="menuIcon ?? defaults.menuIcon" [size]="menuIconSize ?? defaults.menuIconSize"></m-icon>
     </m-menu-item>
-    <ng-container *ngFor="let template of menuTemplates" [ngTemplateOutlet]="template"></ng-container>
+  }
+  @for (template of menuTemplates; track template) {
+    <ng-container [ngTemplateOutlet]="template"></ng-container>
+  }
 </m-menu>
 <ng-content></ng-content>
 <m-footer>
-    <ng-container *ngFor="let template of footerTemplates" [ngTemplateOutlet]="template"></ng-container>
+  @for (template of footerTemplates; track template) {
+    <ng-container [ngTemplateOutlet]="template"></ng-container>
+  }
 </m-footer>

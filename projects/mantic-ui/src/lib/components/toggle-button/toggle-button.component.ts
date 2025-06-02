@@ -1,4 +1,4 @@
-import { CommonModule, NgIfContext } from '@angular/common';
+import { NgIfContext } from '@angular/common';
 import { Component, ContentChild, EventEmitter, HostBinding, HostListener, inject, Input, Output, TemplateRef } from '@angular/core';
 import { ButtonBaseComponent } from '../../base/button-base.component';
 import { ActiveDirective } from '../../directives/active.directive';
@@ -9,7 +9,7 @@ import { Key } from '../../models/key';
     selector: 'm-toggle-button',
     templateUrl: './toggle-button.component.html',
     styleUrls: ['./toggle-button.component.scss'],
-    imports: [CommonModule],
+    imports: [],
     providers: [...ButtonBaseComponent.providers]
 })
 export class ToggleButtonComponent extends ButtonBaseComponent {

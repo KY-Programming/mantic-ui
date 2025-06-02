@@ -1,14 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { NugetApiService } from '../../services/nuget-api.service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'm-nuget',
     templateUrl: './nuget.component.html',
     styleUrls: ['./nuget.component.scss'],
-    imports: [
-        CommonModule
-    ]
+    imports: []
 })
 export class NugetComponent {
     private packageValue: string | undefined;

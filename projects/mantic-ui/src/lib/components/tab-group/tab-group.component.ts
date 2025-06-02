@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, Component, ContentChildren, EventEmitter, HostBinding, Input, OnInit, Output, QueryList } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Route, Router, Routes, UrlSegment } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
@@ -14,12 +14,7 @@ import { TabComponent } from '../tab/tab.component';
     selector: 'm-tab-group',
     templateUrl: './tab-group.component.html',
     styleUrls: ['./tab-group.component.scss'],
-    imports: [
-        CommonModule,
-        SegmentComponent,
-        MenuComponent,
-        IconComponent
-    ],
+    imports: [SegmentComponent, MenuComponent, IconComponent, NgTemplateOutlet],
     providers: [...InvertibleComponent.providers]
 })
 export class TabGroupComponent extends InvertibleComponent implements OnInit, AfterViewInit {

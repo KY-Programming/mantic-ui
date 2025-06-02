@@ -1,18 +1,15 @@
+import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { IconType } from './icon-type';
-import { IconSize } from './icon-size';
-import { IconProp, SizeProp } from '@fortawesome/fontawesome-svg-core';
-import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { IconProp, SizeProp } from '@fortawesome/fontawesome-svg-core';
+import { IconSize } from './icon-size';
+import { IconType } from './icon-type';
 
 @Component({
     selector: 'm-icon',
     templateUrl: './icon.component.html',
     styleUrls: ['./icon.component.scss'],
-    imports: [
-        CommonModule,
-        FontAwesomeModule
-    ]
+    imports: [FontAwesomeModule, NgClass]
 })
 export class IconComponent {
     protected mIcon?: string;
@@ -28,7 +25,8 @@ export class IconComponent {
     public set icon(value: IconType | undefined) {
         if (typeof value === 'string') {
             this.mIcon = value;
-        } else {
+        }
+        else {
             this.faIcon = value;
         }
     }

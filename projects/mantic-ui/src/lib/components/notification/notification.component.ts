@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { MessageAttached, MessageComponent } from '../message/message.component';
@@ -10,11 +10,7 @@ import { NotificationService } from './notification.service';
     selector: 'm-notification',
     templateUrl: './notification.component.html',
     styleUrls: ['./notification.component.scss'],
-    imports: [
-        CommonModule,
-        MessageComponent,
-        NotificationInjectorPipe
-    ],
+    imports: [MessageComponent, NotificationInjectorPipe, NgTemplateOutlet, NgComponentOutlet],
     providers: [...BaseComponent.providers]
 })
 export class NotificationComponent extends BaseComponent {

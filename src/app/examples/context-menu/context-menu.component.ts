@@ -1,12 +1,12 @@
 import { Component, HostBinding } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { HeaderComponent } from '../../components/header/header.component';
 import { ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, FillComponent, FlexComponent, FlexDirective, HeaderDirective, IconComponent, InfoComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-context-menu',
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, FlexComponent, InfoComponent, FillComponent, FlexDirective],
+    imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, FlexComponent, InfoComponent, FillComponent, FlexDirective],
     templateUrl: './context-menu.component.html',
     styleUrls: ['./context-menu.component.scss']
 })

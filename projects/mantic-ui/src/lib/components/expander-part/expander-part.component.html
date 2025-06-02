@@ -1,4 +1,6 @@
 <m-fill>
-    <ng-content></ng-content>
+  <ng-content></ng-content>
 </m-fill>
-<m-expander-icon *ngIf="expandable" [(expanded)]="expanded" [dropdownIcon]="dropdownIcon" [dropdownIconSize]="dropdownIconSize" (expandedChange)="expandedChange.emit($event)"></m-expander-icon>
+@if (expandable) {
+  <m-expander-icon [(expanded)]="expanded" [dropdownIcon]="dropdownIcon" [dropdownIconSize]="dropdownIconSize" (expandedChange)="expandedChange.emit($event)"></m-expander-icon>
+}

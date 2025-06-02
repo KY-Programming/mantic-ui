@@ -1,27 +1,33 @@
-<ng-container *ngIf="animated">
-    <div class="visible content">
-        <ng-container [ngTemplateOutlet]="content"></ng-container>
-    </div>
-    <ng-content select="m-animation"></ng-content>
-</ng-container>
-<ng-container *ngIf="label">
-    <ng-container *ngIf="labelPosition === 'left'" [ngTemplateOutlet]="labelTemplate"></ng-container>
-    <div class="ui" [class.basic]="basic" [class.icon]="icon" [ngClass]="color" [class.button]="true">
-        <ng-container [ngTemplateOutlet]="content"></ng-container>
-    </div>
-    <ng-container *ngIf="labelPosition !== 'left'" [ngTemplateOutlet]="labelTemplate"></ng-container>
-    <ng-template #labelTemplate>
-        <ng-content select="m-label"></ng-content>
-    </ng-template>
-</ng-container>
-<ng-container *ngIf="social">
-    <m-icon [icon]="social.toLowerCase()" class="icon"></m-icon>
-    {{social}}
-</ng-container>
-<ng-container *ngIf="!animated && !label && !social">
+@if (animated) {
+  <div class="visible content">
     <ng-container [ngTemplateOutlet]="content"></ng-container>
-</ng-container>
+  </div>
+  <ng-content select="m-animation"></ng-content>
+}
+@if (label) {
+  @if (labelPosition === 'left') {
+    <ng-container [ngTemplateOutlet]="labelTemplate"></ng-container>
+  }
+  <div class="ui" [class.basic]="basic" [class.icon]="icon" [ngClass]="color" [class.button]="true">
+    <ng-container [ngTemplateOutlet]="content"></ng-container>
+  </div>
+  @if (labelPosition !== 'left') {
+    <ng-container [ngTemplateOutlet]="labelTemplate"></ng-container>
+  }
+  <ng-template #labelTemplate>
+    <ng-content select="m-label"></ng-content>
+  </ng-template>
+}
+@if (social) {
+  <m-icon [icon]="social.toLowerCase()" class="icon"></m-icon>
+  {{social}}
+}
+@if (!animated && !label && !social) {
+  <ng-container [ngTemplateOutlet]="content"></ng-container>
+}
 <ng-template #content>
-    <m-icon *ngIf="icon" [icon]="icon" [size]="iconSize"></m-icon>
-    <ng-content></ng-content>
+  @if (icon) {
+    <m-icon [icon]="icon" [size]="iconSize"></m-icon>
+  }
+  <ng-content></ng-content>
 </ng-template>

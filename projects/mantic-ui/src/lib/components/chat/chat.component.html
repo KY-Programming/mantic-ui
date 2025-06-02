@@ -1,11 +1,21 @@
 <div class="chat" #chat>
-    <m-chat-message *ngFor="let message of messages" [message]="message" />
-    <ng-content />
+  @for (message of messages; track message) {
+    <m-chat-message [message]="message" />
+  }
+  <ng-content />
 </div>
-<div *ngIf="canSend" class="input-wrapper" [class.visible]="canSend">
+@if (canSend) {
+  <div class="input-wrapper" [class.visible]="canSend">
     <m-input autofocus [(value)]="message" [placeholder]="placeholder" (keydown)="onKeyDown($event)">
-        <m-button *ngIf="isSendIconVisible" class="icon" (click)="sendMessage()">
-            <m-icon *ngIf="!sendIconTemplate else sendIconTemplate" [icon]="sendIcon ?? defaults.sendIcon" [size]="sendIconSize ?? defaults.sendIconSize"></m-icon>
+      @if (isSendIconVisible) {
+        <m-button class="icon" (click)="sendMessage()">
+          @if (!sendIconTemplate) {
+            <m-icon [icon]="sendIcon ?? defaults.sendIcon" [size]="sendIconSize ?? defaults.sendIconSize"></m-icon>
+          } @else {
+            <ng-template [ngTemplateOutlet]="sendIconTemplate"></ng-template>
+          }
         </m-button>
+      }
     </m-input>
-</div>
+  </div>
+}

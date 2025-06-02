@@ -1,1 +1,3 @@
-﻿<div *ngIf="invalidType">{{invalidType}} is not a known component type</div>
+﻿@if (invalidType) {
+  <div>{{invalidType}} is not a known component type</div>
+}

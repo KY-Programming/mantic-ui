@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject } from '@angular/core';
 import { AsyncAction, ButtonComponent, FlexComponent, NotificationRef, NotificationService, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
@@ -7,7 +7,7 @@ import { CustomNotificationComponent } from './custom-notification/custom-notifi
 
 @Component({
     selector: 'app-notification-example',
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, FlexComponent, ButtonComponent],
+    imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, FlexComponent, ButtonComponent],
     templateUrl: './notification.component.html',
     styleUrls: ['./notification.component.scss']
 })

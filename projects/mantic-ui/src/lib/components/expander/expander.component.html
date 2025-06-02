@@ -1,12 +1,13 @@
 <m-flex class="title" [direction]="iconPosition === 'left' ? 'row' : 'row-reverse'" [class.active]="expanded" (click)="toggle()">
-    <m-icon [icon]="dropdownIcon ?? defaults.dropdownIcon" [size]="dropdownIconSize ?? defaults.dropdownIconSize" iconClass="dropdown icon" />
-    <m-fill>
-        <ng-container *ngIf="headerTemplate else defaultTitle" [ngTemplateOutlet]="headerTemplate.template" />
-        <ng-template #defaultTitle>
-            {{header}}
-        </ng-template>
-    </m-fill>
+  <m-icon [icon]="dropdownIcon ?? defaults.dropdownIcon" [size]="dropdownIconSize ?? defaults.dropdownIconSize" iconClass="dropdown icon" />
+  <m-fill>
+    @if (headerTemplate) {
+      <ng-container [ngTemplateOutlet]="headerTemplate.template" />
+    } @else {
+      {{header}}
+    }
+  </m-fill>
 </m-flex>
 <div class="content" [class.active]="expanded">
-    <ng-content />
+  <ng-content />
 </div>

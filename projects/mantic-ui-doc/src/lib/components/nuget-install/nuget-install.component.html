@@ -1,8 +1,12 @@
 <m-tab-group>
-    <m-tab label="Package Manager">
-        <pre><code><span class="ignore">PM&gt;</span> Install-Package {{package}}<ng-container *ngIf="version"> -Version {{version}}</ng-container></code></pre>
-    </m-tab>
-    <m-tab label=".NET CLI">
-        <pre><code><span class="ignore">&gt;</span> dotnet add package {{package}}<ng-container *ngIf="version"> -version {{version}}</ng-container></code></pre>
-    </m-tab>
+  <m-tab label="Package Manager">
+    <pre><code><span class="ignore">PM&gt;</span> Install-Package {{package}}@if (version) {
+    -Version {{version}}
+  }</code></pre>
+</m-tab>
+<m-tab label=".NET CLI">
+  <pre><code><span class="ignore">&gt;</span> dotnet add package {{package}}@if (version) {
+  -version {{version}}
+}</code></pre>
+</m-tab>
 </m-tab-group>

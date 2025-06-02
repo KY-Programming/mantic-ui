@@ -1,24 +1,18 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, Input, TemplateRef } from '@angular/core';
 import { LayoutService } from '../../services/layout.service';
-import { IconType } from '../icon/icon-type';
-import { IconSize } from '../icon/icon-size';
-import { MenuComponent } from '../menu/menu.component';
-import { MenuItemComponent } from '../menu-item/menu-item.component';
-import { IconComponent } from '../icon/icon.component';
 import { FooterComponent } from '../footer/footer.component';
-import { CommonModule } from '@angular/common';
+import { IconSize } from '../icon/icon-size';
+import { IconType } from '../icon/icon-type';
+import { IconComponent } from '../icon/icon.component';
+import { MenuItemComponent } from '../menu-item/menu-item.component';
+import { MenuComponent } from '../menu/menu.component';
 
 @Component({
     selector: 'm-layout',
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss'],
-    imports: [
-        CommonModule,
-        MenuComponent,
-        MenuItemComponent,
-        IconComponent,
-        FooterComponent
-    ]
+    imports: [MenuComponent, MenuItemComponent, IconComponent, FooterComponent, NgTemplateOutlet]
 })
 export class LayoutComponent {
     public static readonly defaults = { menuIcon: <IconType>'bars', menuIconSize: <IconSize>undefined };

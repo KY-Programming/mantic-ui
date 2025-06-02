@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FillDirective, FlexComponent, NotificationComponent } from '@mantic-ui/angular';
@@ -6,7 +6,7 @@ import { SemanticUiIconsLocalComponent, SemanticUiLatoLocalComponent, SemanticUi
 
 @Component({
     selector: 'app-semantic-layout',
-    imports: [CommonModule, FlexComponent, FillDirective, RouterOutlet, SemanticUiThemeComponent, SemanticUiSiteComponent, SemanticUiResetComponent, SemanticUiLatoLocalComponent, SemanticUiIconsLocalComponent, NotificationComponent],
+    imports: [FlexComponent, FillDirective, RouterOutlet, SemanticUiThemeComponent, SemanticUiSiteComponent, SemanticUiResetComponent, SemanticUiLatoLocalComponent, SemanticUiIconsLocalComponent, NotificationComponent],
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss']
 })

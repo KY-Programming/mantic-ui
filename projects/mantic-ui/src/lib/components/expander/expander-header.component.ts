@@ -1,5 +1,5 @@
 import { Component, TemplateRef, ViewChild } from '@angular/core';
-import { CommonModule, NgIfContext } from '@angular/common';
+import { NgIfContext } from '@angular/common';
 
 @Component({
     selector: 'm-expander-header',
@@ -8,7 +8,7 @@ import { CommonModule, NgIfContext } from '@angular/common';
             <ng-content></ng-content>
         </ng-template>
     `,
-    imports: [CommonModule]
+    imports: []
 })
 export class ExpanderHeaderComponent {
 

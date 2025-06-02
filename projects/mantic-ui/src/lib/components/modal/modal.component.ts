@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, effect, ElementRef, EventEmitter, HostBinding, inject, input, Input, Output, viewChild } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -25,7 +25,7 @@ export type ModalSize =
     selector: 'm-modal',
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss'],
-    imports: [CommonModule, DimmerComponent, ModalHeaderComponent, ModalFooterComponent, IconComponent, ButtonComponent, LoaderComponent, FallbackForDirective],
+    imports: [DimmerComponent, ModalHeaderComponent, ModalFooterComponent, IconComponent, ButtonComponent, LoaderComponent, FallbackForDirective],
     hostDirectives: [BasicDirective.default],
     providers: [...InvertibleComponent.providers]
 })

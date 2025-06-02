@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, HostBinding, HostListener, Input, OnInit, Output } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -17,10 +17,9 @@ export declare type MessageAttached = 'bottom' | 'top' | undefined;
     templateUrl: './message.component.html',
     styleUrls: ['./message.component.scss'],
     imports: [
-        CommonModule,
-        IconComponent,
-        LoaderComponent
-    ],
+    IconComponent,
+    LoaderComponent
+],
     hostDirectives: [IgnoredDirective.default],
     providers: [...InvertibleComponent.providers]
 })

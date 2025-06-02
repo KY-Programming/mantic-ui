@@ -1,162 +1,168 @@
 <app-header header="Context Menu" subHeader="A menu opened by right click"></app-header>
 
 <m-tab-group secondary pointing class="page" selectByRoute>
-    <m-tab label="Examples">
-        <m-example header="Context Menu" description="A simple context menu">
-            <m-button>
-                Click Me Right
-                <m-context-menu>
-                    <m-context-menu-item icon="trash" (click)="show('Sorry...')">Delete</m-context-menu-item>
-                </m-context-menu>
-            </m-button>
-            <m-example-code [code]="example1Code"></m-example-code>
-        </m-example>
-        <m-example description="Open on left click">
-            <m-button>
-                Click Me Left
-                <m-context-menu openOnLeftClick>
-                    <m-context-menu-item icon="trash" (click)="show('Sorry...')">Delete</m-context-menu-item>
-                </m-context-menu>
-            </m-button>
-            <m-example-code [code]="example2Code"></m-example-code>
-        </m-example>
-        <m-example description="Keep open after click">
-            <m-button>
-                Click Me
-                <m-context-menu openOnLeftClick>
-                    <m-context-menu-item keepOpen (click)="show('Keep open')">I stay here</m-context-menu-item>
-                </m-context-menu>
-            </m-button>
-            <m-example-code [code]="example3Code"></m-example-code>
-        </m-example>
-        <m-example description="Hierarchical Menus">
-            <!--            TODO: Implement-->
-            Coming soon
-        </m-example>
-        <m-example header="Shared context menu" description="Open the same context menu for multiple targets">
-            <m-flex>
-                <m-button (contextmenu)="contextMenu.open($event)">One</m-button>
-                <m-button (contextmenu)="contextMenu.open($event)">Two</m-button>
-                <m-button (contextmenu)="contextMenu.open($event)">Three</m-button>
-                <m-button (contextmenu)="contextMenu.open($event)">Four</m-button>
-                <m-button (contextmenu)="contextMenu.open($event)">Five</m-button>
-            </m-flex>
-            <m-context-menu shared #contextMenu>
-                <m-context-menu-item>One for all</m-context-menu-item>
+  <m-tab label="Examples">
+    <m-example header="Context Menu" description="A simple context menu">
+      <m-button>
+        Click Me Right
+        <m-context-menu>
+          <m-context-menu-item icon="trash" (click)="show('Sorry...')">Delete</m-context-menu-item>
+        </m-context-menu>
+      </m-button>
+      <m-example-code [code]="example1Code"></m-example-code>
+    </m-example>
+    <m-example description="Open on left click">
+      <m-button>
+        Click Me Left
+        <m-context-menu openOnLeftClick>
+          <m-context-menu-item icon="trash" (click)="show('Sorry...')">Delete</m-context-menu-item>
+        </m-context-menu>
+      </m-button>
+      <m-example-code [code]="example2Code"></m-example-code>
+    </m-example>
+    <m-example description="Keep open after click">
+      <m-button>
+        Click Me
+        <m-context-menu openOnLeftClick>
+          <m-context-menu-item keepOpen (click)="show('Keep open')">I stay here</m-context-menu-item>
+        </m-context-menu>
+      </m-button>
+      <m-example-code [code]="example3Code"></m-example-code>
+    </m-example>
+    <m-example description="Hierarchical Menus">
+      <!--            TODO: Implement-->
+      Coming soon
+    </m-example>
+    <m-example header="Shared context menu" description="Open the same context menu for multiple targets">
+      <m-flex>
+        <m-button (contextmenu)="contextMenu.open($event)">One</m-button>
+        <m-button (contextmenu)="contextMenu.open($event)">Two</m-button>
+        <m-button (contextmenu)="contextMenu.open($event)">Three</m-button>
+        <m-button (contextmenu)="contextMenu.open($event)">Four</m-button>
+        <m-button (contextmenu)="contextMenu.open($event)">Five</m-button>
+      </m-flex>
+      <m-context-menu shared #contextMenu>
+        <m-context-menu-item>One for all</m-context-menu-item>
+      </m-context-menu>
+      <m-example-code [code]="exampleSharedCode"></m-example-code>
+      <m-info>It is importend to set the <code>shared</code> flag on <code>m-context-menu</code>. Else the context menu is set for the whole parent element of the <code>m-context-menu</code>!</m-info>
+    </m-example>
+    <m-example description="Open by code">
+      <m-example-code [code]="exampleOpenByCodeHtmlCode"></m-example-code>
+      <m-example-code [code]="exampleOpenByCodeTsCode" [languages]="['ts']"></m-example-code>
+      <m-info>It is importend to set the <code>shared</code> flag on <code>m-context-menu</code>. Else the context menu is set for the whole parent element of the <code>m-context-menu</code>!</m-info>
+    </m-example>
+  </m-tab>
+  <m-tab label="Variations" class="relative">
+    <m-flex direction="column" m-fill style="height: calc(100vh - 220px);">
+      <m-flex>
+        <m-button>
+          Top-Left
+          <m-context-menu openOnLeftClick>
+            <m-context-menu-item (click)="show('Top-Left')">Top-Left</m-context-menu-item>
+            <m-context-menu-item icon="lock" keepOpen (click)="show('Keep open')">Keep open</m-context-menu-item>
+            @if (!isScrolling) {
+              <m-context-menu-item icon="angle double down" (click)="isScrolling = true">Activate Scrolling</m-context-menu-item>
+            }
+            @if (isScrolling) {
+              <m-context-menu-item icon="angle double up" (click)="isScrolling = false">Deactivate Scrolling</m-context-menu-item>
+            }
+          </m-context-menu>
+        </m-button>
+        <m-fill>
+          <m-button>
+            Top
+            <m-context-menu openOnLeftClick>
+              <m-context-menu-item (click)="show('Top Item 1')">Top Item 1</m-context-menu-item>
+              <m-context-menu-item (click)="show('Top Item 2')">Top Item 2</m-context-menu-item>
+              <m-context-menu-item (click)="show('Top Item 3')">Top Item 3</m-context-menu-item>
             </m-context-menu>
-            <m-example-code [code]="exampleSharedCode"></m-example-code>
-            <m-info>It is importend to set the <code>shared</code> flag on <code>m-context-menu</code>. Else the context menu is set for the whole parent element of the <code>m-context-menu</code>!</m-info>
-        </m-example>
-        <m-example description="Open by code">
-            <m-example-code [code]="exampleOpenByCodeHtmlCode"></m-example-code>
-            <m-example-code [code]="exampleOpenByCodeTsCode" [languages]="['ts']"></m-example-code>
-            <m-info>It is importend to set the <code>shared</code> flag on <code>m-context-menu</code>. Else the context menu is set for the whole parent element of the <code>m-context-menu</code>!</m-info>
-        </m-example>
-    </m-tab>
-    <m-tab label="Variations" class="relative">
-        <m-flex direction="column" m-fill style="height: calc(100vh - 220px);">
-            <m-flex>
-                <m-button>
-                    Top-Left
-                    <m-context-menu openOnLeftClick>
-                        <m-context-menu-item (click)="show('Top-Left')">Top-Left</m-context-menu-item>
-                        <m-context-menu-item icon="lock" keepOpen (click)="show('Keep open')">Keep open</m-context-menu-item>
-                        <m-context-menu-item *ngIf="!isScrolling" icon="angle double down" (click)="isScrolling = true">Activate Scrolling</m-context-menu-item>
-                        <m-context-menu-item *ngIf="isScrolling" icon="angle double up" (click)="isScrolling = false">Deactivate Scrolling</m-context-menu-item>
-                    </m-context-menu>
-                </m-button>
-                <m-fill>
-                    <m-button>
-                        Top
-                        <m-context-menu openOnLeftClick>
-                            <m-context-menu-item (click)="show('Top Item 1')">Top Item 1</m-context-menu-item>
-                            <m-context-menu-item (click)="show('Top Item 2')">Top Item 2</m-context-menu-item>
-                            <m-context-menu-item (click)="show('Top Item 3')">Top Item 3</m-context-menu-item>
-                        </m-context-menu>
-                    </m-button>
-                </m-fill>
-                <m-button>
-                    Top-Right
-                    <m-context-menu openOnLeftClick>
-                        <m-context-menu-item (click)="show('Top-Right Item 1')">Top-Right Item 1</m-context-menu-item>
-                        <m-context-menu-item (click)="show('Top-Right Item 2')">Top-Right Item 2</m-context-menu-item>
-                        <m-context-menu-item (click)="show('Top-Right Item 3')">Top-Right Item 3</m-context-menu-item>
-                    </m-context-menu>
-                </m-button>
-            </m-flex>
-            <m-fill m-flex>
-                <m-button>
-                    Middle-Left
-                    <m-context-menu openOnLeftClick>
-                        <m-context-menu-item (click)="show('Middle-Left Item 1')">Middle-Left Item 1</m-context-menu-item>
-                        <m-context-menu-item (click)="show('Middle-Left Item 2')">Middle-Left Item 2</m-context-menu-item>
-                        <m-context-menu-item (click)="show('Middle-Left Item 3')">Middle-Left Item 3</m-context-menu-item>
-                    </m-context-menu>
-                </m-button>
-                <m-fill>
-                    <m-button>
-                        Middle
-                        <m-context-menu openOnLeftClick>
-                            <m-context-menu-item (click)="show('Middle Item 1')">Middle Item 1</m-context-menu-item>
-                            <m-context-menu-item (click)="show('Middle Item 2')">Middle Item 2</m-context-menu-item>
-                            <m-context-menu-item (click)="show('Middle Item 3')">Middle Item 3</m-context-menu-item>
-                        </m-context-menu>
-                    </m-button>
-                </m-fill>
-                <m-button>
-                    Middle-Right
-                    <m-context-menu openOnLeftClick>
-                        <m-context-menu-item (click)="show('Middle-Right Item 1')">Middle-Right Item 1</m-context-menu-item>
-                        <m-context-menu-item (click)="show('Middle-Right Item 2')">Middle-Right Item 2</m-context-menu-item>
-                        <m-context-menu-item (click)="show('Middle-Right Item 3')">Middle-Right Item 3</m-context-menu-item>
-                    </m-context-menu>
-                </m-button>
-            </m-fill>
-            <m-flex>
-                <m-button>
-                    Bottom-Left
-                    <m-context-menu openOnLeftClick>
-                        <m-context-menu-item (click)="show('Bottom-Left Item 1')">Bottom-Left Item 1</m-context-menu-item>
-                        <m-context-menu-item (click)="show('Bottom-Left Item 2')">Bottom-Left Item 2</m-context-menu-item>
-                        <m-context-menu-item (click)="show('Bottom-Left Item 3')">Bottom-Left Item 3</m-context-menu-item>
-                    </m-context-menu>
-                </m-button>
-                <m-fill>
-                    <m-button>
-                        Bottom
-                        <m-context-menu openOnLeftClick>
-                            <m-context-menu-item (click)="show('Bottom Item 1')">Bottom Item 1</m-context-menu-item>
-                            <m-context-menu-item (click)="show('Bottom Item 2')">Bottom Item 2</m-context-menu-item>
-                            <m-context-menu-item (click)="show('Bottom Item 3')">Bottom Item 3</m-context-menu-item>
-                        </m-context-menu>
-                    </m-button>
-                </m-fill>
-                <m-button>
-                    Bottom-Right
-                    <m-context-menu openOnLeftClick>
-                        <m-context-menu-item (click)="show('Bottom-Right Item 1')">Bottom-Right Item 1</m-context-menu-item>
-                        <m-context-menu-item (click)="show('Bottom-Right Item 2')">Bottom-Right Item 2</m-context-menu-item>
-                        <m-context-menu-item (click)="show('Bottom-Right Item 3')">Bottom-Right Item 3</m-context-menu-item>
-                    </m-context-menu>
-                </m-button>
-            </m-flex>
-        </m-flex>
-    </m-tab>
-    <m-tab label="Events">
-        <m-example header="Open event" description="Occurs when the context menu opens">
-            <m-button>
-                Context Menu
-                <m-context-menu (open)="log('open')"></m-context-menu>
-            </m-button>
-            <m-example-code [code]="openEventCode"></m-example-code>
-        </m-example>
-        <m-example header="Close event" description="Occurs when the context menu closes">
-            <m-button>
-                Context Menu
-                <m-context-menu (close)="log('close')"></m-context-menu>
-            </m-button>
-            <m-example-code [code]="closeEventCode"></m-example-code>
-        </m-example>
-        <pre><ng-container *ngFor="let entry of logEntries">{{entry + '\n'}}</ng-container></pre>
-    </m-tab>
+          </m-button>
+        </m-fill>
+        <m-button>
+          Top-Right
+          <m-context-menu openOnLeftClick>
+            <m-context-menu-item (click)="show('Top-Right Item 1')">Top-Right Item 1</m-context-menu-item>
+            <m-context-menu-item (click)="show('Top-Right Item 2')">Top-Right Item 2</m-context-menu-item>
+            <m-context-menu-item (click)="show('Top-Right Item 3')">Top-Right Item 3</m-context-menu-item>
+          </m-context-menu>
+        </m-button>
+      </m-flex>
+      <m-fill m-flex>
+        <m-button>
+          Middle-Left
+          <m-context-menu openOnLeftClick>
+            <m-context-menu-item (click)="show('Middle-Left Item 1')">Middle-Left Item 1</m-context-menu-item>
+            <m-context-menu-item (click)="show('Middle-Left Item 2')">Middle-Left Item 2</m-context-menu-item>
+            <m-context-menu-item (click)="show('Middle-Left Item 3')">Middle-Left Item 3</m-context-menu-item>
+          </m-context-menu>
+        </m-button>
+        <m-fill>
+          <m-button>
+            Middle
+            <m-context-menu openOnLeftClick>
+              <m-context-menu-item (click)="show('Middle Item 1')">Middle Item 1</m-context-menu-item>
+              <m-context-menu-item (click)="show('Middle Item 2')">Middle Item 2</m-context-menu-item>
+              <m-context-menu-item (click)="show('Middle Item 3')">Middle Item 3</m-context-menu-item>
+            </m-context-menu>
+          </m-button>
+        </m-fill>
+        <m-button>
+          Middle-Right
+          <m-context-menu openOnLeftClick>
+            <m-context-menu-item (click)="show('Middle-Right Item 1')">Middle-Right Item 1</m-context-menu-item>
+            <m-context-menu-item (click)="show('Middle-Right Item 2')">Middle-Right Item 2</m-context-menu-item>
+            <m-context-menu-item (click)="show('Middle-Right Item 3')">Middle-Right Item 3</m-context-menu-item>
+          </m-context-menu>
+        </m-button>
+      </m-fill>
+      <m-flex>
+        <m-button>
+          Bottom-Left
+          <m-context-menu openOnLeftClick>
+            <m-context-menu-item (click)="show('Bottom-Left Item 1')">Bottom-Left Item 1</m-context-menu-item>
+            <m-context-menu-item (click)="show('Bottom-Left Item 2')">Bottom-Left Item 2</m-context-menu-item>
+            <m-context-menu-item (click)="show('Bottom-Left Item 3')">Bottom-Left Item 3</m-context-menu-item>
+          </m-context-menu>
+        </m-button>
+        <m-fill>
+          <m-button>
+            Bottom
+            <m-context-menu openOnLeftClick>
+              <m-context-menu-item (click)="show('Bottom Item 1')">Bottom Item 1</m-context-menu-item>
+              <m-context-menu-item (click)="show('Bottom Item 2')">Bottom Item 2</m-context-menu-item>
+              <m-context-menu-item (click)="show('Bottom Item 3')">Bottom Item 3</m-context-menu-item>
+            </m-context-menu>
+          </m-button>
+        </m-fill>
+        <m-button>
+          Bottom-Right
+          <m-context-menu openOnLeftClick>
+            <m-context-menu-item (click)="show('Bottom-Right Item 1')">Bottom-Right Item 1</m-context-menu-item>
+            <m-context-menu-item (click)="show('Bottom-Right Item 2')">Bottom-Right Item 2</m-context-menu-item>
+            <m-context-menu-item (click)="show('Bottom-Right Item 3')">Bottom-Right Item 3</m-context-menu-item>
+          </m-context-menu>
+        </m-button>
+      </m-flex>
+    </m-flex>
+  </m-tab>
+  <m-tab label="Events">
+    <m-example header="Open event" description="Occurs when the context menu opens">
+      <m-button>
+        Context Menu
+        <m-context-menu (open)="log('open')"></m-context-menu>
+      </m-button>
+      <m-example-code [code]="openEventCode"></m-example-code>
+    </m-example>
+    <m-example header="Close event" description="Occurs when the context menu closes">
+      <m-button>
+        Context Menu
+        <m-context-menu (close)="log('close')"></m-context-menu>
+      </m-button>
+      <m-example-code [code]="closeEventCode"></m-example-code>
+    </m-example>
+    <pre>@for (entry of logEntries; track entry) {
+      {{entry + '\n'}}
+    }</pre>
+  </m-tab>
 </m-tab-group>

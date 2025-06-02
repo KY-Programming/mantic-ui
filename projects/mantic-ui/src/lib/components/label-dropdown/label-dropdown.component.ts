@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, HostListener, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { LabelPosition } from '../../models/label-position';
@@ -13,9 +13,8 @@ import { IconComponent } from '../icon/icon.component';
     templateUrl: './label-dropdown.component.html',
     styleUrls: ['./label-dropdown.component.scss'],
     imports: [
-        CommonModule,
-        IconComponent
-    ],
+    IconComponent
+],
     providers: [...BaseComponent.providers]
 })
 export class LabelDropdownComponent extends BaseComponent {

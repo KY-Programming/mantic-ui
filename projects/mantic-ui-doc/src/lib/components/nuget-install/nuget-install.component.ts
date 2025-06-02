@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NugetApiService } from '../../services/nuget-api.service';
-import { CommonModule } from '@angular/common';
+
 import { TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 
 @Component({
@@ -8,10 +8,9 @@ import { TabComponent, TabGroupComponent } from '@mantic-ui/angular';
     templateUrl: './nuget-install.component.html',
     styleUrls: ['./nuget-install.component.scss'],
     imports: [
-        CommonModule,
-        TabComponent,
-        TabGroupComponent
-    ]
+    TabComponent,
+    TabGroupComponent
+]
 })
 export class NugetInstallComponent {
     private packageValue: string | undefined;

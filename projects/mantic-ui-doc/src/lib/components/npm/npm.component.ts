@@ -1,14 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { NpmApiService } from '../../services/npm-api.service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'm-npm',
     templateUrl: './npm.component.html',
     styleUrls: ['./npm.component.scss'],
-    imports: [
-        CommonModule
-    ]
+    imports: []
 })
 export class NpmComponent {
     private packageValue: string | undefined;

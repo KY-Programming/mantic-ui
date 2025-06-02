@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IterableLicenses, Licenses } from 'license-to-json';
-import { CommonModule } from '@angular/common';
+
 import { ExpanderComponent, ExpanderHeaderComponent, FlexDirective, HeaderDirective, LoaderComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-credits',
-    imports: [CommonModule, TabGroupComponent, TabComponent, ExpanderComponent, ExpanderHeaderComponent, FlexDirective, LoaderComponent, HeaderComponent],
+    imports: [TabGroupComponent, TabComponent, ExpanderComponent, ExpanderHeaderComponent, FlexDirective, LoaderComponent, HeaderComponent],
     templateUrl: './credits.component.html',
     styleUrls: ['./credits.component.scss']
 })

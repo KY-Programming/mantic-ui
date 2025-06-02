@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, HostListener, Optional } from '@angular/core';
 import { ButtonBaseComponent } from '../../base/button-base.component';
 import { Key } from '../../models/key';
@@ -8,7 +8,7 @@ import { FormComponent } from '../form/form.component';
     selector: 'm-submit',
     templateUrl: './submit.component.html',
     styleUrls: ['./submit.component.scss'],
-    imports: [CommonModule],
+    imports: [],
     providers: [...ButtonBaseComponent.providers]
 })
 export class SubmitComponent extends ButtonBaseComponent {

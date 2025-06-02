@@ -1,18 +1,30 @@
 <div class="description">
-    <h4 *ngIf="header" m-header>
-        {{header}}
-        <span *ngIf="hint && !hintLink" class="ui {{hintClass}} label">{{hint}}</span>
-        <a *ngIf="hint && hintLink" [href]="hintLink" class="ui {{hintClass}} label" [target]="hintTarget">{{hint}}</a>
+  @if (header) {
+    <h4 m-header>
+      {{header}}
+      @if (hint && !hintLink) {
+        <span class="ui {{hintClass}} label">{{hint}}</span>
+      }
+      @if (hint && hintLink) {
+        <a [href]="hintLink" class="ui {{hintClass}} label" [target]="hintTarget">{{hint}}</a>
+      }
     </h4>
-    <p *ngIf="description">{{description}}</p>
-    <button *ngIf="code" class="show-code" (click)="toggleCode()">
-        <i class="icon code"></i>
+  }
+  @if (description) {
+    <p>{{description}}</p>
+  }
+  @if (code) {
+    <button class="show-code" (click)="toggleCode()">
+      <i class="icon code"></i>
     </button>
+  }
 </div>
 <div class="example-box" [class.hide-code]="!showCode">
-    <div class="header">Example</div>
-    <div class="live">
-        <ng-content></ng-content>
-    </div>
-    <code *ngIf="code" [highlight]="code" [languages]="languages"></code>
+  <div class="header">Example</div>
+  <div class="live">
+    <ng-content></ng-content>
+  </div>
+  @if (code) {
+    <code [highlight]="code" [languages]="languages"></code>
+  }
 </div>

@@ -1,36 +1,51 @@
 <input type="hidden">
-<m-icon *ngIf="icon" [icon]="icon" [size]="iconSize" class="icon"></m-icon>
-<m-icon *ngIf="!allowFreeText && hasItems" [icon]="dropdownIcon ?? defaults.dropdownIcon" [size]="dropdownIconSize ?? defaults.dropdownIconSize" class="dropdown icon"></m-icon>
-<a *ngFor="let selectedItem of selectedItems" class="ui label transition visible">
-    <m-icon *ngIf="selectedItem.icon" [icon]="selectedItem.icon" [size]="selectedItem.iconSize"></m-icon>
+@if (icon) {
+  <m-icon [icon]="icon" [size]="iconSize" class="icon"></m-icon>
+}
+@if (!allowFreeText && hasItems) {
+  <m-icon [icon]="dropdownIcon ?? defaults.dropdownIcon" [size]="dropdownIconSize ?? defaults.dropdownIconSize" class="dropdown icon"></m-icon>
+}
+@for (selectedItem of selectedItems; track selectedItem) {
+  <a class="ui label transition visible">
+    @if (selectedItem.icon) {
+      <m-icon [icon]="selectedItem.icon" [size]="selectedItem.iconSize"></m-icon>
+    }
     {{selectedItem.text === undefined ? selectedItem.value : selectedItem.text}}
     <m-icon [icon]="deleteIcon ?? defaults.deleteIcon" [size]="deleteIconSize ?? defaults.deleteIconSize" class="icon" (click)="deleteClick(selectedItem, $event)"></m-icon>
-</a>
-<input *ngIf="search || allowFreeText" [(ngModel)]="filter" class="search" autocomplete="off" tabindex="0" (input)="onFilter()" (keydown)="onKeyDown($event)" #inputElement>
+  </a>
+}
+@if (search || allowFreeText) {
+  <input [(ngModel)]="filter" class="search" autocomplete="off" tabindex="0" (input)="onFilter()" (keydown)="onKeyDown($event)" #inputElement>
+}
 <div [class.default]="isDefault" [class.filtered]="isFiltered" class="text">
-    <ng-container *ngIf="!selectedItem">{{value || placeholder}}</ng-container>
-    <span #htmlElement></span>
+  @if (!selectedItem) {
+    {{value || placeholder}}
+  }
+  <span #htmlElement></span>
 </div>
 <div class="menu" #menuElement
-     [class.visible]="isMenuVisible"
-     [style.display]="isMenuVisible ? 'block' : ''"
-     [style.animation-duration.ms]="animationDuration"
-     [class.transition]="isSlidingIn || isSlidingOut"
-     [class.hidden]="isHidden"
-     [class.animating]="isSlidingIn || isSlidingOut"
-     [class.slide]="isSlidingIn || isSlidingOut"
-     [class.down]="(isSlidingIn || isSlidingOut) && !isUpwardClass"
-     [class.up]="(isSlidingIn || isSlidingOut) && isUpwardClass"
-     [class.in]="isSlidingIn"
-     [class.out]="isSlidingOut"
-     [class.loading]="isLoading">
-    <ng-container *ngIf="items else contentTemplate">
-        <m-dropdown-item *ngFor="let item of items; let index = index" [value]="item.value" [filteredOut]="item.filtered" [selected]="index === selectedIndex" (mousedown)="itemMouseDown(item)" (mouseup)="itemMouseUp(item)">
-            <m-icon *ngIf="item.icon" [icon]="item.icon" [size]="item.iconSize"></m-icon>
-            {{item.text === undefined ? item.value : item.text}}
-        </m-dropdown-item>
-    </ng-container>
-    <ng-template #contentTemplate>
-        <ng-content></ng-content>
-    </ng-template>
+  [class.visible]="isMenuVisible"
+  [style.display]="isMenuVisible ? 'block' : ''"
+  [style.animation-duration.ms]="animationDuration"
+  [class.transition]="isSlidingIn || isSlidingOut"
+  [class.hidden]="isHidden"
+  [class.animating]="isSlidingIn || isSlidingOut"
+  [class.slide]="isSlidingIn || isSlidingOut"
+  [class.down]="(isSlidingIn || isSlidingOut) && !isUpwardClass"
+  [class.up]="(isSlidingIn || isSlidingOut) && isUpwardClass"
+  [class.in]="isSlidingIn"
+  [class.out]="isSlidingOut"
+  [class.loading]="isLoading">
+  @if (items) {
+    @for (item of items; track item; let index = $index) {
+      <m-dropdown-item [value]="item.value" [filteredOut]="item.filtered" [selected]="index === selectedIndex" (mousedown)="itemMouseDown(item)" (mouseup)="itemMouseUp(item)">
+        @if (item.icon) {
+          <m-icon [icon]="item.icon" [size]="item.iconSize"></m-icon>
+        }
+        {{item.text === undefined ? item.value : item.text}}
+      </m-dropdown-item>
+    }
+  } @else {
+    <ng-content></ng-content>
+  }
 </div>

@@ -1,257 +1,289 @@
 <app-header header="Modal" subHeader="A modal displays content that temporarily blocks interactions with the main view of a site"></app-header>
 
 <m-tab-group secondary pointing class="page" selectByRoute>
-    <m-tab label="Examples">
-        <m-example header="Modal" description="A standard modal" [code]="standardCode">
-            <m-button (click)="showModal = true">Open Modal</m-button>
-            {{ showModal }}
-            <m-modal *ngIf="showModal" imageContent (close)="showModal = false">
-                <m-modal-header>
-                    <m-icon icon="question"></m-icon>
-                    Profile Picture
-                </m-modal-header>
-                <div class="ui medium image">
-                    <img src="/assets/images/avatar/large/rachel.png">
-                </div>
-                <div class="description">
-                    <div class="ui header">We've auto-chosen a profile image for you.</div>
-                    <p>We've grabbed the following image from the
-                        <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.
-                    </p>
-                    <p>Is it okay to use this photo?</p>
-                </div>
-                <m-modal-footer>
-                    <m-button color="black" (click)="showModal = false">Nope</m-button>
-                    <m-button icon="checkmark" iconPosition="right" primary (click)="showModal = false">Yep, that's me</m-button>
-                </m-modal-footer>
-            </m-modal>
-        </m-example>
+  <m-tab label="Examples">
+    <m-example header="Modal" description="A standard modal" [code]="standardCode">
+      <m-button (click)="showModal = true">Open Modal</m-button>
+      {{ showModal }}
+      @if (showModal) {
+        <m-modal imageContent (close)="showModal = false">
+          <m-modal-header>
+            <m-icon icon="question"></m-icon>
+            Profile Picture
+          </m-modal-header>
+          <div class="ui medium image">
+            <img src="/assets/images/avatar/large/rachel.png">
+          </div>
+          <div class="description">
+            <div class="ui header">We've auto-chosen a profile image for you.</div>
+            <p>We've grabbed the following image from the
+              <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.
+            </p>
+            <p>Is it okay to use this photo?</p>
+          </div>
+          <m-modal-footer>
+            <m-button color="black" (click)="showModal = false">Nope</m-button>
+            <m-button icon="checkmark" iconPosition="right" primary (click)="showModal = false">Yep, that's me</m-button>
+          </m-modal-footer>
+        </m-modal>
+      }
+    </m-example>
 
-        <m-example description="The default modal behaviour" [code]="defaultCode">
-            <m-button (click)="showDefault = true">Open Modal</m-button>
-            <m-modal *ngIf="showDefault" header="Some header" (close)="showDefault = false">
-                Some content
-            </m-modal>
-        </m-example>
+    <m-example description="The default modal behaviour" [code]="defaultCode">
+      <m-button (click)="showDefault = true">Open Modal</m-button>
+      @if (showDefault) {
+        <m-modal header="Some header" (close)="showDefault = false">
+          Some content
+        </m-modal>
+      }
+    </m-example>
 
-        <m-example header="Basic" description="A modal can reduce its complexity">
-            <m-button (click)="showBasic = true">Open Basic</m-button>
-            <m-modal *ngIf="showBasic" basic (close)="showBasic = false">
-                <m-modal-header>
-                    <i class="archive icon"></i>
-                    Archive Old Messages
-                </m-modal-header>
-                <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
-                <m-modal-footer>
-                    <m-button color="red" basic inverted (click)="showBasic = false">
-                        <m-icon icon="remove"></m-icon>
-                        No
-                    </m-button>
-                    <m-button color="green" inverted (click)="showBasic = false">
-                        <m-icon icon="checkmark"></m-icon>
-                        Yes
-                    </m-button>
-                </m-modal-footer>
-            </m-modal>
+    <m-example header="Basic" description="A modal can reduce its complexity">
+      <m-button (click)="showBasic = true">Open Basic</m-button>
+      @if (showBasic) {
+        <m-modal basic (close)="showBasic = false">
+          <m-modal-header>
+            <i class="archive icon"></i>
+            Archive Old Messages
+          </m-modal-header>
+          <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
+          <m-modal-footer>
+            <m-button color="red" basic inverted (click)="showBasic = false">
+              <m-icon icon="remove"></m-icon>
+              No
+            </m-button>
+            <m-button color="green" inverted (click)="showBasic = false">
+              <m-icon icon="checkmark"></m-icon>
+              Yes
+            </m-button>
+          </m-modal-footer>
+        </m-modal>
+      }
 
-            <!-- TODO: Implement -->
-            <div class="ui basic modal">
-                <div class="ui icon header">
-                    <i class="archive icon"></i>
-                    Archive Old Messages
-                </div>
-                <div class="content">
-                </div>
-                <div class="actions">
-                    <div class="ui red basic cancel inverted button">
-                        <i class="remove icon"></i>
-                        No
-                    </div>
-                    <div class="ui green ok inverted button">
-                        <i class="checkmark icon"></i>
-                        Yes
-                    </div>
-                </div>
-            </div>
-        </m-example>
+      <!-- TODO: Implement -->
+      <div class="ui basic modal">
+        <div class="ui icon header">
+          <i class="archive icon"></i>
+          Archive Old Messages
+        </div>
+        <div class="content">
+        </div>
+        <div class="actions">
+          <div class="ui red basic cancel inverted button">
+            <i class="remove icon"></i>
+            No
+          </div>
+          <div class="ui green ok inverted button">
+            <i class="checkmark icon"></i>
+            Yes
+          </div>
+        </div>
+      </div>
+    </m-example>
 
 
-        <h2 m-header dividing>Content</h2>
-        <m-example header="Header" description="A modal can have a text header">
-            <m-example-code [code]="textHeaderCode"></m-example-code>
-            <m-button (click)="showDefault = true">Open Modal</m-button>
-        </m-example>
-        <m-example description="A modal can have a templated header">
-            <m-example-code [code]="templatedHeaderCode"></m-example-code>
-            <m-button (click)="showModal = true">Open Modal</m-button>
-        </m-example>
-        <m-example description="A modals 'X' button can be removed. This also disables the click on the background">
-            <m-button (click)="showHiddenClose = true">Open without 'X'</m-button>
-            <m-modal *ngIf="showHiddenClose" header="Some header" [showClose]="false" (close)="showHiddenClose = false">
-                Some content
-            </m-modal>
-        </m-example>
+    <h2 m-header dividing>Content</h2>
+    <m-example header="Header" description="A modal can have a text header">
+      <m-example-code [code]="textHeaderCode"></m-example-code>
+      <m-button (click)="showDefault = true">Open Modal</m-button>
+    </m-example>
+    <m-example description="A modal can have a templated header">
+      <m-example-code [code]="templatedHeaderCode"></m-example-code>
+      <m-button (click)="showModal = true">Open Modal</m-button>
+    </m-example>
+    <m-example description="A modals 'X' button can be removed. This also disables the click on the background">
+      <m-button (click)="showHiddenClose = true">Open without 'X'</m-button>
+      @if (showHiddenClose) {
+        <m-modal header="Some header" [showClose]="false" (close)="showHiddenClose = false">
+          Some content
+        </m-modal>
+      }
+    </m-example>
 
-        <m-example header="Content" description="A modal can contain content">
-            <m-example-code [code]="contentCode"></m-example-code>
-        </m-example>
+    <m-example header="Content" description="A modal can contain content">
+      <m-example-code [code]="contentCode"></m-example-code>
+    </m-example>
 
-        <m-example header="Image Content" description="A modal can contain image content">
-            <m-example-code [code]="imageContentCode"></m-example-code>
-        </m-example>
+    <m-example header="Image Content" description="A modal can contain image content">
+      <m-example-code [code]="imageContentCode"></m-example-code>
+    </m-example>
 
-        <m-example header="Actions" description="A modal can contain a row of actions">
-            <m-example-code [code]="actionsCode"></m-example-code>
-        </m-example>
-    </m-tab>
-    <m-tab label="Variations">
-        <m-example header="Show close button" description="A modal can have a close button">
-            <m-example-code [code]="showCloseCode" />
-            <ng-container>
-                <m-modal *ngIf="showWithClose" showClose hideFooter (close)="showWithClose = false">
-                    Some content
-                </m-modal>
-            </ng-container>
-            <m-button (click)="showWithClose = true">Open with close</m-button>
-        </m-example>
+    <m-example header="Actions" description="A modal can contain a row of actions">
+      <m-example-code [code]="actionsCode"></m-example-code>
+    </m-example>
+  </m-tab>
+  <m-tab label="Variations">
+    <m-example header="Show close button" description="A modal can have a close button">
+      <m-example-code [code]="showCloseCode" />
+      <ng-container>
+        @if (showWithClose) {
+          <m-modal showClose hideFooter (close)="showWithClose = false">
+            Some content
+          </m-modal>
+        }
+      </ng-container>
+      <m-button (click)="showWithClose = true">Open with close</m-button>
+    </m-example>
 
-        <m-example header="Hide header" description="Show a modal without a header">
-            <m-example-code [code]="hideHeaderCode" />
-            <ng-container>
-                <m-modal *ngIf="showWithoutHeader" hideHeader (close)="showWithoutHeader = false">
-                    Some content
-                </m-modal>
-            </ng-container>
-            <m-button (click)="showWithoutHeader = true">Open without header</m-button>
-        </m-example>
+    <m-example header="Hide header" description="Show a modal without a header">
+      <m-example-code [code]="hideHeaderCode" />
+      <ng-container>
+        @if (showWithoutHeader) {
+          <m-modal hideHeader (close)="showWithoutHeader = false">
+            Some content
+          </m-modal>
+        }
+      </ng-container>
+      <m-button (click)="showWithoutHeader = true">Open without header</m-button>
+    </m-example>
 
-        <m-example header="Hide footer" description="Show a modal without a footer">
-            <m-example-code [code]="hideFooterCode" />
-            <ng-container>
-                <m-modal *ngIf="showWithoutFooter" header="Header" hideFooter showClose (close)="showWithoutFooter = false">
-                    Some content
-                </m-modal>
-            </ng-container>
-            <m-button (click)="showWithoutFooter = true">Open without footer</m-button>
-        </m-example>
+    <m-example header="Hide footer" description="Show a modal without a footer">
+      <m-example-code [code]="hideFooterCode" />
+      <ng-container>
+        @if (showWithoutFooter) {
+          <m-modal header="Header" hideFooter showClose (close)="showWithoutFooter = false">
+            Some content
+          </m-modal>
+        }
+      </ng-container>
+      <m-button (click)="showWithoutFooter = true">Open without footer</m-button>
+    </m-example>
 
-        <m-example header="Hide dimmer" description="Show a modal without a dimmer">
-            <m-example-code [code]="hideDimmerCode" />
-            <ng-container>
-                <m-modal *ngIf="showWithoutDimmer" hideDimmer (close)="showWithoutDimmer = false">
-                    Some content
-                </m-modal>
-            </ng-container>
-            <m-button (click)="showWithoutDimmer = true">Open without dimmer</m-button>
-        </m-example>
+    <m-example header="Hide dimmer" description="Show a modal without a dimmer">
+      <m-example-code [code]="hideDimmerCode" />
+      <ng-container>
+        @if (showWithoutDimmer) {
+          <m-modal hideDimmer (close)="showWithoutDimmer = false">
+            Some content
+          </m-modal>
+        }
+      </ng-container>
+      <m-button (click)="showWithoutDimmer = true">Open without dimmer</m-button>
+    </m-example>
 
-        <m-example header="Full Screen" description="A modal can use the entire size of the screen">
-            <m-example-code [code]="fullscreenCode"></m-example-code>
-            <m-modal *ngIf="showFullscreen" fullscreen (close)="showFullscreen = false">
-                This modal uses the full screen
-            </m-modal>
-            <m-button (click)="showFullscreen = true">Open Fullscreen</m-button>
-        </m-example>
+    <m-example header="Full Screen" description="A modal can use the entire size of the screen">
+      <m-example-code [code]="fullscreenCode"></m-example-code>
+      @if (showFullscreen) {
+        <m-modal fullscreen (close)="showFullscreen = false">
+          This modal uses the full screen
+        </m-modal>
+      }
+      <m-button (click)="showFullscreen = true">Open Fullscreen</m-button>
+    </m-example>
 
-        <m-example header="On Body" description="Moves the modal element to body">
-            <m-example-code [code]="bodyCode"></m-example-code>
-            <ng-container *ngIf="showBody">
-                <m-modal *m-to-body (close)="showBody = false">
-                    This modal is placed on the body
-                </m-modal>
-            </ng-container>
-            <m-button (click)="showBody = true">Open on Body</m-button>
-        </m-example>
+    <m-example header="On Body" description="Moves the modal element to body">
+      <m-example-code [code]="bodyCode"></m-example-code>
+      @if (showBody) {
+        <m-modal *m-to-body (close)="showBody = false">
+          This modal is placed on the body
+        </m-modal>
+      }
+      <m-button (click)="showBody = true">Open on Body</m-button>
+    </m-example>
 
-        <m-example header="Without content padding" description="Removes the padding of the modal content">
-            <m-example-code [code]="noPaddingCode" />
-            <m-modal *ngIf="showNoPadding" noPadding (close)="showNoPadding = false">
-                This modal has no content padding
-            </m-modal>
-            <m-button (click)="showNoPadding = true">Open without padding</m-button>
-        </m-example>
+    <m-example header="Without content padding" description="Removes the padding of the modal content">
+      <m-example-code [code]="noPaddingCode" />
+      @if (showNoPadding) {
+        <m-modal noPadding (close)="showNoPadding = false">
+          This modal has no content padding
+        </m-modal>
+      }
+      <m-button (click)="showNoPadding = true">Open without padding</m-button>
+    </m-example>
 
-        <m-example header="Inverted" description="A modal can be displayed with inverted colors">
-            <m-example-code [code]="invertedCode" />
-            <ng-container>
-                <m-modal *ngIf="showInverted" header="Inverted" inverted (close)="showInverted = false">
-                    The colors are inverted
-                </m-modal>
-            </ng-container>
-            <m-button (click)="showInverted = true">Show with inverted colors</m-button>
-        </m-example>
+    <m-example header="Inverted" description="A modal can be displayed with inverted colors">
+      <m-example-code [code]="invertedCode" />
+      <ng-container>
+        @if (showInverted) {
+          <m-modal header="Inverted" inverted (close)="showInverted = false">
+            The colors are inverted
+          </m-modal>
+        }
+      </ng-container>
+      <m-button (click)="showInverted = true">Show with inverted colors</m-button>
+    </m-example>
 
-        <m-example header="Loading" description="A modal can have a spinner">
-            <m-example-code [code]="loadingCode" />
-            <ng-container>
-                <m-modal *ngIf="showLoading" header="Loading..." loading (close)="showLoading = false">
-                    Some content
-                </m-modal>
-            </ng-container>
-            <m-button (click)="showLoading = true">Show loading</m-button>
-        </m-example>
+    <m-example header="Loading" description="A modal can have a spinner">
+      <m-example-code [code]="loadingCode" />
+      <ng-container>
+        @if (showLoading) {
+          <m-modal header="Loading..." loading (close)="showLoading = false">
+            Some content
+          </m-modal>
+        }
+      </ng-container>
+      <m-button (click)="showLoading = true">Show loading</m-button>
+    </m-example>
 
-        <m-example header="Size" description="A modal can vary in size" [code]="sizeCode">
-            <m-modal *ngIf="showSize" header="You can change my size!" [size]="size" (close)="showSize = false">
-                <m-dropdown [(value)]="size">
-                    <m-dropdown-item [value]="undefined">Default</m-dropdown-item>
-                    <m-dropdown-item value="mini">Mini</m-dropdown-item>
-                    <m-dropdown-item value="tiny">Tiny</m-dropdown-item>
-                    <m-dropdown-item value="small">Small</m-dropdown-item>
-                    <m-dropdown-item value="large">Large</m-dropdown-item>
-                </m-dropdown>
-            </m-modal>
-            <m-button (click)="showSize = true">Open Modal</m-button>
-        </m-example>
+    <m-example header="Size" description="A modal can vary in size" [code]="sizeCode">
+      @if (showSize) {
+        <m-modal header="You can change my size!" [size]="size" (close)="showSize = false">
+          <m-dropdown [(value)]="size">
+            <m-dropdown-item [value]="undefined">Default</m-dropdown-item>
+            <m-dropdown-item value="mini">Mini</m-dropdown-item>
+            <m-dropdown-item value="tiny">Tiny</m-dropdown-item>
+            <m-dropdown-item value="small">Small</m-dropdown-item>
+            <m-dropdown-item value="large">Large</m-dropdown-item>
+          </m-dropdown>
+        </m-modal>
+      }
+      <m-button (click)="showSize = true">Open Modal</m-button>
+    </m-example>
 
-        <m-example header="Scrolling Content" description="A modal can use the entire size of the screen. Scrolling is per default enabled.">
-            <m-modal *ngIf="showScrolling" header="Profile Picture" imageContent (close)="showScrolling = false">
-                <div class="ui medium image">
-                    <img src="/assets/images/image.png">
-                </div>
-                <div class="description">
-                    <div class="ui header">Modal Header</div>
-                    <p>This is an example of expanded content that will cause the modal's dimmer to scroll</p>
-                    <img src="/assets/images/paragraph.png">
-                    <img src="/assets/images/paragraph.png">
-                    <img src="/assets/images/paragraph.png">
-                    <img src="/assets/images/paragraph.png">
-                    <img src="/assets/images/paragraph.png">
-                    <img src="/assets/images/paragraph.png">
-                </div>
-                <m-modal-footer>
-                    <m-button primary (click)="showScrolling = false">
-                        Proceed
-                        <m-icon icon="right chevron"></m-icon>
-                    </m-button>
-                </m-modal-footer>
-            </m-modal>
-            <m-button (click)="showScrolling = true">Open Scrolling Modal</m-button>
-        </m-example>
+    <m-example header="Scrolling Content" description="A modal can use the entire size of the screen. Scrolling is per default enabled.">
+      @if (showScrolling) {
+        <m-modal header="Profile Picture" imageContent (close)="showScrolling = false">
+          <div class="ui medium image">
+            <img src="/assets/images/image.png">
+          </div>
+          <div class="description">
+            <div class="ui header">Modal Header</div>
+            <p>This is an example of expanded content that will cause the modal's dimmer to scroll</p>
+            <img src="/assets/images/paragraph.png">
+            <img src="/assets/images/paragraph.png">
+            <img src="/assets/images/paragraph.png">
+            <img src="/assets/images/paragraph.png">
+            <img src="/assets/images/paragraph.png">
+            <img src="/assets/images/paragraph.png">
+          </div>
+          <m-modal-footer>
+            <m-button primary (click)="showScrolling = false">
+              Proceed
+              <m-icon icon="right chevron"></m-icon>
+            </m-button>
+          </m-modal-footer>
+        </m-modal>
+      }
+      <m-button (click)="showScrolling = true">Open Scrolling Modal</m-button>
+    </m-example>
 
-        <m-example header="Change Icons" description="The close icon can be globally changed" [code]="changeIconCode">
-            <ng-container *ngIf="showChangeIcon">
-                <m-modal-defaults [closeIcon]="faRocket"></m-modal-defaults>
-                <m-modal (close)="showChangeIcon = false">
-                    The close icon should be a rocket
-                </m-modal>
-            </ng-container>
-            <m-button (click)="showChangeIcon = true">Show with changed Item</m-button>
-        </m-example>
+    <m-example header="Change Icons" description="The close icon can be globally changed" [code]="changeIconCode">
+      @if (showChangeIcon) {
+        <m-modal-defaults [closeIcon]="faRocket"></m-modal-defaults>
+        <m-modal (close)="showChangeIcon = false">
+          The close icon should be a rocket
+        </m-modal>
+      }
+      <m-button (click)="showChangeIcon = true">Show with changed Item</m-button>
+    </m-example>
 
-        <m-example header="Grow Only" description="The modal can grow based on its content but can not shrink" [code]="growOnlyCode">
-            <m-button (click)="showGrowOnly = true">Show</m-button>
-            <m-modal *ngIf="showGrowOnly" growOnly header="I grow only" (close)="showGrowOnly = false">
-                <m-flex gap="1rem">
-                    <m-button primary (click)="grow()">Grow</m-button>
-                    <m-button primary [disabled]="growOnlyRows <= 0" (click)="shrink()">Shrink</m-button>
-                </m-flex>
-                <p>Click button to grow modal!</p>
-                <p *ngFor="let number of growOnlyRows | mArray">BIGGER {{ number + 1 }}!</p>
-            </m-modal>
-        </m-example>
-    </m-tab>
-    <!--    <m-tab label="Binding">-->
-    <!-- TODO -->
-    <!--    </m-tab>-->
+    <m-example header="Grow Only" description="The modal can grow based on its content but can not shrink" [code]="growOnlyCode">
+      <m-button (click)="showGrowOnly = true">Show</m-button>
+      @if (showGrowOnly) {
+        <m-modal growOnly header="I grow only" (close)="showGrowOnly = false">
+          <m-flex gap="1rem">
+            <m-button primary (click)="grow()">Grow</m-button>
+            <m-button primary [disabled]="growOnlyRows <= 0" (click)="shrink()">Shrink</m-button>
+          </m-flex>
+          <p>Click button to grow modal!</p>
+          @for (number of growOnlyRows | mArray; track number) {
+            <p>BIGGER {{ number + 1 }}!</p>
+          }
+        </m-modal>
+      }
+    </m-example>
+  </m-tab>
+  <!--    <m-tab label="Binding">-->
+  <!-- TODO -->
+<!--    </m-tab>-->
 </m-tab-group>

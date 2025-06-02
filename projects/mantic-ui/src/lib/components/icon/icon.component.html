@@ -1,3 +1,7 @@
-<i *ngIf="mIcon" class="{{icon}} {{size}}" [ngClass]="iconClass"></i>
-<fa-icon *ngIf="faIcon" [icon]="faIcon" [size]="faSize" [ngClass]="iconClass"></fa-icon>
+@if (mIcon) {
+    <i class="{{icon}} {{size}}" [ngClass]="iconClass"></i>
+}
+@if (faIcon) {
+    <fa-icon [icon]="faIcon" [size]="faSize ?? '1x'" [ngClass]="iconClass" />
+}
 

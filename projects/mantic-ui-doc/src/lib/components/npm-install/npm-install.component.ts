@@ -1,16 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { BooleanLike, SegmentComponent, toBoolean } from '@mantic-ui/angular';
 import { NpmApiService } from '../../services/npm-api.service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'm-npm-install',
     templateUrl: './npm-install.component.html',
     styleUrls: ['./npm-install.component.scss'],
     imports: [
-        CommonModule,
-        SegmentComponent
-    ]
+    SegmentComponent
+]
 })
 export class NpmInstallComponent {
     private packageValue: string | undefined;

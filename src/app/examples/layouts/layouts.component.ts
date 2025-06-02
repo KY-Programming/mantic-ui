@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { HeaderComponent } from '../../components/header/header.component';
 import { HeaderDirective, IconComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
@@ -7,7 +7,7 @@ import { LayoutListExamplesComponent } from '../layout-list/layout-list.componen
 
 @Component({
     selector: 'app-layouts-example',
-    imports: [CommonModule, HeaderComponent, TabGroupComponent, TabComponent, LayoutListExamplesComponent],
+    imports: [HeaderComponent, TabGroupComponent, TabComponent, LayoutListExamplesComponent],
     templateUrl: './layouts.component.html',
     styleUrls: ['./layouts.component.scss']
 })

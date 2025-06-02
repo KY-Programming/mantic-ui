@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
@@ -10,9 +10,8 @@ import { MessageComponent } from '../message/message.component';
     templateUrl: './warning.component.html',
     styleUrls: ['./warning.component.scss'],
     imports: [
-        CommonModule,
-        IconComponent
-    ],
+    IconComponent
+],
     providers: [...InvertibleComponent.providers]
 })
 export class WarningComponent extends InvertibleComponent {

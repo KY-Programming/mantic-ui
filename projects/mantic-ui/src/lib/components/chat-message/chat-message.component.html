@@ -1,17 +1,31 @@
 <div class="wrapper">
-    <div *ngIf="message && !message.grouped" class="header">{{message.sender}}</div>
-    {{message?.text}}
-    <div *ngIf="message?.options" class="options">
-        <ng-container *ngFor="let option of message?.options">
-            <ng-container *ngIf="option.url">
-                <ng-container *ngIf="!option.hideUrl">
-                    <a *ngIf="option.url.indexOf('http') === 0" m-button [attr.href]="option.url" class="option">{{option.text}}</a>
-                    <a *ngIf="option.url.indexOf('http') !== 0" m-button [routerLink]="[option.url]" class="option">{{option.text}}</a>
-                </ng-container>
-                <a *ngIf="option.hideUrl" m-button class="option" (click)="open(option.url)">{{option.text}}</a>
-            </ng-container>
-            <m-button *ngIf="option.action" class="option" (click)="onExecute(option.action)">{{option.text}}</m-button>
-            <span *ngIf="!option.url && !option.action" class="option">{{option.text}}</span>
-        </ng-container>
+  @if (message && !message.grouped) {
+    <div class="header">{{message.sender}}</div>
+  }
+  {{message?.text}}
+  @if (message?.options) {
+    <div class="options">
+      @for (option of message?.options; track option) {
+        @if (option.url) {
+          @if (!option.hideUrl) {
+            @if (option.url.indexOf('http') === 0) {
+              <a m-button [attr.href]="option.url" class="option">{{option.text}}</a>
+            }
+            @if (option.url.indexOf('http') !== 0) {
+              <a m-button [routerLink]="[option.url]" class="option">{{option.text}}</a>
+            }
+          }
+          @if (option.hideUrl) {
+            <a m-button class="option" (click)="open(option.url)">{{option.text}}</a>
+          }
+        }
+        @if (option.action) {
+          <m-button class="option" (click)="onExecute(option.action)">{{option.text}}</m-button>
+        }
+        @if (!option.url && !option.action) {
+          <span class="option">{{option.text}}</span>
+        }
+      }
     </div>
+  }
 </div>

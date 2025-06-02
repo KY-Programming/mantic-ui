@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component, DoCheck, HostBinding, Input, IterableDiffer, IterableDiffers, Output } from '@angular/core';
 import { merge, Observable, ReplaySubject, Subject } from 'rxjs';
 import { BaseComponent } from '../../base/base.component';
@@ -27,25 +27,7 @@ import { FormElementRenderer2Component } from './form-element-renderer2.componen
     selector: 'm-form-element-renderer',
     templateUrl: './form-element-renderer.component.html',
     styleUrls: ['./form-element-renderer.component.scss'],
-    imports: [
-        CommonModule,
-        FieldComponent,
-        InputComponent,
-        NumericInputComponent,
-        CheckboxComponent,
-        TextareaComponent,
-        DropdownComponent,
-        ButtonComponent,
-        GridComponent,
-        CellComponent,
-        MessageComponent,
-        WarningComponent,
-        InfoComponent,
-        ErrorComponent,
-        DividerComponent,
-        FormElementRenderer2Component,
-        HeaderDirective
-    ],
+    imports: [FieldComponent, InputComponent, NumericInputComponent, CheckboxComponent, TextareaComponent, DropdownComponent, ButtonComponent, GridComponent, CellComponent, MessageComponent, WarningComponent, InfoComponent, ErrorComponent, DividerComponent, FormElementRenderer2Component, HeaderDirective, AsyncPipe],
     providers: [...BaseComponent.providers]
 })
 export class FormElementRendererComponent extends BaseComponent implements DoCheck {

@@ -1,16 +1,24 @@
 <app-header header="Credits" subHeader="We use these 3d party software"></app-header>
 
 <m-tab-group secondary pointing class="page" selectByRoute>
-    <m-tab m-flex="column" label="3d party software">
-        <m-expander *ngFor="let entry of licenses">
-            <m-expander-header>
-                {{entry.name}}
-                <ng-container *ngIf="entry.licenses.length === 1"> - <span class="hint">{{entry.licenses[0].type}}</span></ng-container>
-            </m-expander-header>
-            <div *ngFor="let license of entry.licenses">
-                <pre>{{license.text}}</pre>
-            </div>
-        </m-expander>
-        <m-loader *ngIf="isLoading"></m-loader>
-    </m-tab>
+  <m-tab m-flex="column" label="3d party software">
+    @for (entry of licenses; track entry) {
+      <m-expander>
+        <m-expander-header>
+          {{entry.name}}
+          @if (entry.licenses.length === 1) {
+            - <span class="hint">{{entry.licenses[0].type}}</span>
+          }
+        </m-expander-header>
+        @for (license of entry.licenses; track license) {
+          <div>
+            <pre>{{license.text}}</pre>
+          </div>
+        }
+      </m-expander>
+    }
+    @if (isLoading) {
+      <m-loader></m-loader>
+    }
+  </m-tab>
 </m-tab-group>

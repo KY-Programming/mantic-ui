@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
@@ -10,12 +10,7 @@ import { InputBaseComponent } from '../input-base.component';
     selector: 'm-time-input',
     templateUrl: './time-input.component.html',
     styleUrls: ['./time-input.component.scss'],
-    imports: [
-        CommonModule,
-        FormsModule,
-        IconComponent,
-        FallbackForDirective
-    ],
+    imports: [FormsModule, IconComponent, FallbackForDirective, NgTemplateOutlet],
     providers: [...InputBaseComponent.providers]
 })
 export class TimeInputComponent extends InputBaseComponent implements OnInit {

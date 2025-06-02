@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, HostBinding, inject, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { ActiveDirective } from '../../directives/active.directive';
@@ -12,9 +12,7 @@ export declare type LoaderSize = 'mini' | 'tiny' | 'small' | 'large' | 'big' | '
     selector: 'm-loader',
     templateUrl: './loader.component.html',
     styleUrls: ['./loader.component.scss'],
-    imports: [
-        CommonModule
-    ],
+    imports: [],
     hostDirectives: [InvertedDirective.default, ActiveDirective.default, InlineDirective.default],
     providers: [...BaseComponent.providers]
 })

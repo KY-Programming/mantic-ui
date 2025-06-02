@@ -1,4 +1,4 @@
-﻿import { CommonModule } from '@angular/common';
+﻿
 import { Component, ComponentRef, HostBinding, inject, Input, OnDestroy, Type, ViewContainerRef } from '@angular/core';
 import { FormElements } from '../form-renderer/form-layout';
 import { FormRendererService } from '../form-renderer/form-renderer.service';
@@ -8,9 +8,7 @@ import { FormElementBase } from './form-element-base';
     selector: 'm-form-renderer2',
     templateUrl: './form-element-renderer2.component.html',
     styleUrls: ['./form-element-renderer2.component.scss'],
-    imports: [
-        CommonModule
-    ]
+    imports: []
 })
 export class FormElementRenderer2Component implements OnDestroy {
     private readonly formRendererService = inject(FormRendererService);

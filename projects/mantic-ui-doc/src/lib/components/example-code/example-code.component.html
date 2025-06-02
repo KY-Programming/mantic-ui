@@ -1,6 +1,12 @@
-<div *ngIf="label" class="label">{{label}}</div>
-<m-button *ngIf="live" class="live" basic color="red" m-flex alignItems="center" title="See this example Live in action" (click)="liveClick.emit($event)">
+@if (label) {
+  <div class="label">{{label}}</div>
+}
+@if (live) {
+  <m-button class="live" basic color="red" m-flex alignItems="center" title="See this example Live in action" (click)="liveClick.emit($event)">
     <div class="circle"></div>
     Live
-</m-button>
-<pre *ngIf="code"><code [highlight]="code" [languages]="languages"><ng-content></ng-content></code></pre>
+  </m-button>
+}
+@if (code) {
+  <pre><code [highlight]="code" [languages]="languages"><ng-content></ng-content></code></pre>
+}

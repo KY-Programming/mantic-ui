@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ButtonBaseComponent } from '../../base/button-base.component';
@@ -8,9 +8,7 @@ import { BooleanLike } from '../../models/boolean-like';
     selector: 'm-image-upload',
     templateUrl: './image-upload.component.html',
     styleUrls: ['./image-upload.component.scss'],
-    imports: [
-        CommonModule
-    ],
+    imports: [],
     providers: [...ButtonBaseComponent.providers]
 })
 export class ImageUploadComponent extends ButtonBaseComponent {
