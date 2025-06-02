@@ -1,6 +1,6 @@
 {
     "name": "@mantic-ui/semantic-ui-angular",
-    "version": "19.7.0",
+    "version": "20.0.0",
     "description": "Semantic UI theme for mantic UI Angular components. Requires @mantic-ui/angular",
     "scripts": {
         "postbuild": "npm run copy-styles",
@@ -43,9 +43,9 @@
         "url": "https://github.com/KY-Programming/mantic-ui.git"
     },
     "peerDependencies": {
-        "@angular/common": "^19.0.0",
-        "@angular/core": "^19.0.0",
-        "@mantic-ui/angular": "19.7.0"
+        "@angular/common": "^20.0.0",
+        "@angular/core": "^20.0.0",
+        "@mantic-ui/angular": "20.0.0"
     },
     "dependencies": {
         "tslib": "^2.3.0"

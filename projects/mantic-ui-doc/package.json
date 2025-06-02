@@ -1,6 +1,6 @@
 {
     "name": "@mantic-ui/angular-doc",
-    "version": "19.7.0",
+    "version": "20.0.0",
     "description": "mantic UI Components for Documentation for Angular",
     "author": "KY-Programming",
     "license": "MIT",
@@ -10,9 +10,9 @@
         "Angular"
     ],
     "peerDependencies": {
-        "@angular/common": "^19.0.0",
-        "@angular/core": "^19.0.0",
-        "@mantic-ui/angular": "19.7.0",
+        "@angular/common": "^20.0.0",
+        "@angular/core": "^20.0.0",
+        "@mantic-ui/angular": "20.0.0",
         "ngx-highlightjs": "> 4",
         "highlight.js": "> 10"
     },

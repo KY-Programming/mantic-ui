@@ -1,6 +1,6 @@
 {
     "name": "@mantic-ui/angular",
-    "version": "19.7.0",
+    "version": "20.0.0",
     "description": "mantic UI for Angular",
     "keywords": [
         "mantic-ui",
@@ -37,11 +37,11 @@
         "url": "https://github.com/KY-Programming/mantic-ui.git"
     },
     "peerDependencies": {
-        "@angular/common": "^19.0.0",
-        "@angular/core": "^19.0.0",
-        "@angular/forms": "^19.0.0",
-        "@angular/platform-browser": "^19.0.0",
-        "@angular/router": "^19.0.0",
+        "@angular/common": "^20.0.0",
+        "@angular/core": "^20.0.0",
+        "@angular/forms": "^20.0.0",
+        "@angular/platform-browser": "^20.0.0",
+        "@angular/router": "^20.0.0",
         "rxjs": "^7.0.0"
     },
     "optionalDependencies": {
