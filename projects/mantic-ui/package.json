@@ -1,6 +1,6 @@
 {
     "name": "@mantic-ui/angular",
-    "version": "20.0.0",
+    "version": "20.0.1",
     "description": "mantic UI for Angular",
     "keywords": [
         "mantic-ui",
@@ -45,7 +45,7 @@
         "rxjs": "^7.0.0"
     },
     "optionalDependencies": {
-        "@fortawesome/angular-fontawesome": "~1.0.0"
+        "@fortawesome/angular-fontawesome": "~2.0.0"
     },
     "dependencies": {
         "tslib": "^2.3.0"
