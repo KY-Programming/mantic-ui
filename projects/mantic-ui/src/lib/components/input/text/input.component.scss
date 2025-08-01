@@ -1,0 +1,10 @@
+.color-label {
+    position: relative;
+    min-width: 4.75rem;
+
+    input {
+        position: absolute;
+        left: -1px;
+        bottom: 0;
+    }
+}

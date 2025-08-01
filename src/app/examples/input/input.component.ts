@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { DateInputComponent, DividerComponent, DropdownComponent, DropdownItemComponent, FileInputComponent, FlexComponent, HeaderDirective, IconComponent, InputComponent, InputIconPosition, InputType, LabelComponent, LabelDropdownComponent, NumericInputComponent, SegmentComponent, TabComponent, TabGroupComponent, TextareaComponent, TimeInputComponent, ToggleComponent, WarningComponent } from '@mantic-ui/angular';
+import { DateInputComponent, DividerComponent, DropdownComponent, DropdownItemComponent, FileInputComponent, FlexComponent, IconComponent, InputComponent, InputIconPosition, InputType, LabelComponent, LabelDropdownComponent, NumericInputComponent, SegmentComponent, TabComponent, TabGroupComponent, TextareaComponent, TimeInputComponent, ToggleComponent, WarningComponent } from '@mantic-ui/angular';
+import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 import { HeaderComponent } from '../../components/header/header.component';
-import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { ValueComponent } from '../../components/value/value.component';
 
 @Component({
@@ -31,6 +31,8 @@ export class InputExampleComponent {
     protected dateValue?: Date;
     protected dateDate = new Date();
     protected showDayValue = new Date();
+    protected colorValue?: string;
+    protected colorText = '#000000';
 
     public get focus(): boolean {
         return this.focusValue;
@@ -108,6 +110,10 @@ export class InputExampleComponent {
     protected readonly dateValueTypeScriptCode = `protected value: Date | undefined;`;
     protected readonly dateDateCode = `<m-date-input [(date)]="value"/>`;
     protected readonly dateDateTypeScriptCode = `protected value: Date = new Date();`;
+    protected readonly colorValueCode = `<m-input type="color" [(value)]="value"/>`;
+    protected readonly colorValueTypeScriptCode = `protected value: string | undefined;`;
+    protected readonly colorTextCode = `<m-input type="color" [(text)]="value"/>`;
+    protected readonly colorTextTypeScriptCode = `protected value: string = '';`;
     public readonly minCode = `<m-numeric-input [min]="1"/>`;
     public readonly maxCode = `<m-numeric-input [max]="9"/>`;
     public readonly zeroCode = `<m-numeric-input zeroText="Zero"/>`;

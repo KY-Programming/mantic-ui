@@ -1,269 +1,283 @@
 <app-header header="Input" subHeader="An input is a field used to elicit a response from a user"></app-header>
 
 <m-tab-group class="page" pointing secondary selectByRoute>
-  <m-tab label="Examples">
-    <m-example description="A text input" header="Text">
-      <m-flex alignItems="center">
-        <m-input [(value)]="textValue" placeholder="Search..." type="text"></m-input>
-        @if (textValue !== undefined) {
-          <app-value [value]="textValue"></app-value>
-        }
-      </m-flex>
-      <m-example-code [code]="textCode"></m-example-code>
-    </m-example>
-    <m-example description="A text area">
-      <m-textarea [value]="textareaValue" placeholder="Enter a text with line breaks..." (valueChange)="textareaValue = $event ?? undefined"></m-textarea>
-      @if (textValue !== undefined) {
-        <app-value [value]="textareaValue"></app-value>
-      }
-      <m-example-code [code]="textareaCode"></m-example-code>
-    </m-example>
-    <m-example description="A numeric input" header="Numeric">
-      <m-flex alignItems="center">
-        <m-numeric-input [(value)]="numericValue" [max]="9" [min]="1" placeholder="Between 1 and 9" />
-        @if (numericValue !== undefined) {
-          <app-value [value]="numericValue"></app-value>
-        }
-      </m-flex>
-      <m-example-code [code]="numberCode"></m-example-code>
-    </m-example>
-    <m-example description="A date input" header="Date">
-      <m-flex alignItems="center">
-        <m-date-input [(value)]="dateValue"></m-date-input>
-        @if (dateValue !== undefined) {
-          <app-value [value]="dateValue"></app-value>
-        }
-      </m-flex>
-      <m-example-code [code]="dateCode"></m-example-code>
-    </m-example>
-    <m-example description="A time input" header="Time">
-      <m-flex alignItems="center">
-        <m-time-input [(value)]="dateValue"></m-time-input>
-        @if (dateValue !== undefined) {
-          <app-value [value]="dateValue"></app-value>
-        }
-      </m-flex>
-      <m-example-code [code]="dateCode"></m-example-code>
-    </m-example>
-    <m-example description="Use a standard input for missing features" header="Standard Input">
-      <m-input>
-        <input maxlength="3" placeholder="Search..." type="text">
-      </m-input>
-      <m-example-code [code]="standardCode"></m-example-code>
-    </m-example>
-  </m-tab>
-  <m-tab label="Text">
-    <m-example description="Bind to [value] to use a value of type string | undefined" header="value">
-      <m-input [(value)]="stringValue" />
-      <app-value [value]="stringValue" />
-      <m-example-code [code]="stringValueCode" />
-      <m-example-code [code]="stringValueTypeScriptCode" [languages]="['ts']" />
-    </m-example>
-    <m-example description="Bind to [text] to use a value of type string" header="text">
-      <m-input [(text)]="stringText" />
-      <app-value [value]="stringText" />
-      <m-example-code [code]="stringTextCode" />
-      <m-example-code [code]="stringTextTypeScriptCode" [languages]="['ts']" />
-    </m-example>
-    <m-example [code]="maxlengthCode" description="The text input has an additional property maxlength to limit the number of characters" header="maxlength">
-      <m-input maxlength="3" type="text"></m-input>
-    </m-example>
-  </m-tab>
-  <m-tab label="Numeric">
-    <m-example description="Bind to [value] to use a value of type number | undefined" header="value">
-      <m-numeric-input [(value)]="numericValue" />
-      <app-value [value]="numericValue" />
-      <m-example-code [code]="numericValueCode" />
-      <m-example-code [code]="numericValueTypeScriptCode" [languages]="['ts']" />
-    </m-example>
-    <m-example description="Bind to [number] to use a value of type number" header="number">
-      <m-numeric-input [(number)]="numericNumber" />
-      <app-value [value]="numericNumber" />
-      <m-example-code [code]="numericNumberCode" />
-      <m-example-code [code]="numericNumberTypeScriptCode" [languages]="['ts']" />
-    </m-example>
-    <m-example [code]="minCode" description="The numeric input has an additional property min to set the lowest possible number" header="min">
-      <m-numeric-input [min]="1"></m-numeric-input>
-    </m-example>
-    <m-example [code]="maxCode" description="The numeric input has an additional property max to set the highest possible number" header="max">
-      <m-numeric-input [max]="9"></m-numeric-input>
-    </m-example>
-    <m-example [code]="zeroCode" description="The numeric input dispays a special text if the value is zero" header="zeroText">
-      <m-numeric-input [value]="0" zeroText="Zero"></m-numeric-input>
-    </m-example>
-    <m-example [code]="rangeCode" description="Shows the input as a range control" header="range">
-      <m-warning>Requires
-        <code>[min]</code>
-        and
-        <code>[max]</code>
-        property
-      </m-warning>
-      <m-numeric-input [max]="9" [min]="0" range></m-numeric-input>
-    </m-example>
-  </m-tab>
-  <m-tab label="Date">
-    <m-example description="Bind to [value] to use a value of type Date | undefined" header="value">
-      <m-date-input [(value)]="dateValue" />
-      <app-value [value]="dateValue" />
-      <m-example-code [code]="dateValueCode" />
-      <m-example-code [code]="dateValueTypeScriptCode" [languages]="['ts']" />
-    </m-example>
-    <m-example description="Bind to [date] to use a value of type Date" header="date">
-      <m-date-input [(date)]="dateDate" />
-      <app-value [value]="dateDate" />
-      <m-example-code [code]="dateDateCode" />
-      <m-example-code [code]="dateDateTypeScriptCode" [languages]="['ts']" />
-    </m-example>
-    <m-example [code]="dateWithDayCode" header="Show day">
-      <m-date-input [value]="showDayValue" showDay />
-    </m-example>
-    <!--        <m-example header="min" description="The date input has an additional property min to set the oldest possible date" [code]="minDateCode">-->
-    <!--            <m-date-input [min]="1"></m-date-input>-->
-  <!--        </m-example>-->
-  <!--        <m-example header="max" description="The date input has an additional property max to set the newest possible date" [code]="maxDateCode">-->
-  <!--            <m-date-input [max]="9"></m-date-input>-->
-<!--        </m-example>-->
-</m-tab>
-<m-tab label="File">
-  <m-example [code]="file">
-    <m-file-input>Upload</m-file-input>
-  </m-example>
-</m-tab>
-<m-tab label="States">
-  <m-example [code]="states1" description="An input field can show a user is currently interacting with it" header="Focus">
-    <m-input focused placeholder="Search..." type="text"></m-input>
-  </m-example>
-  <m-example [code]="states2" description="An icon input field can show that it is currently loading data" header="Loading">
-    <m-input icon="search" iconPosition="left" loading placeholder="Search..." type="text"></m-input>
-  </m-example>
-  <m-example [code]="states3">
-    <m-input icon="search" loading placeholder="Search..." type="text"></m-input>
-  </m-example>
-  <m-example [code]="states4" description="An input field can show that it is disabled" header="Disabled">
-    <m-input disabled placeholder="Search..." type="text"></m-input>
-  </m-example>
-  <m-example [code]="states5">
-    <m-input disabled icon="search" placeholder="Search..." type="text"></m-input>
-  </m-example>
-  <m-example [code]="states6" description="An input field can show the data contains errors" header="Error">
-    <m-input hasError placeholder="Search..." type="text"></m-input>
-  </m-example>
-</m-tab>
-<m-tab label="Variations">
-  <m-example [code]="variations1" description="An input can be formatted with an icon" header="Icon">
-    <m-input icon="search" placeholder="Search..." type="text"></m-input>
-  </m-example>
-  <m-example [code]="variations2">
-    <m-input icon="users" iconPosition="left" placeholder="Search..." type="text"></m-input>
-  </m-example>
-  <m-example [code]="variations3">
-    <m-input icon="circular search" placeholder="Search..." type="text"></m-input>
-  </m-example>
-  <m-example [code]="variations4">
-    <m-input icon="inverted circular search" placeholder="Search..." type="text"></m-input>
-  </m-example>
-  <m-example [code]="variations5" description="An input can be formatted with a label" header="Labeled">
-    <m-input placeholder="mysite.com" type="text">
-      <m-label>http://</m-label>
-    </m-input>
-  </m-example>
-  <m-example [code]="variations6">
-    <m-input placeholder="Find domain" type="text">
-      <m-label-dropdown [items]="['.com', '.net', '.org']" position="right" value=".com"></m-label-dropdown>
-    </m-input>
-  </m-example>
-  <m-example [code]="variations7">
-    <m-input placeholder="Enter weight.." type="number">
-      <m-label class="basic" position="right">kg</m-label>
-    </m-input>
-  </m-example>
-  <m-example [code]="variations8">
-    <p>TODO: This exapmle is currently not supported. Use the default behaviour</p>
-    <div class="ui right labeled input">
-      <label class="ui label" for="amount">$</label>
-      <input id="amount" placeholder="Amount" type="text">
-      <div class="ui basic label">.00</div>
-    </div>
-  </m-example>
-  <m-example [code]="variations9">
-    <m-input icon="tags" iconPosition="left" placeholder="Enter tags">
-      <m-label class="tag" position="right">Add Tag</m-label>
-    </m-input>
-  </m-example>
-  <m-example [code]="variations10">
-    <m-input class="corner" placeholder="Search..." type="text">
-      <m-label class="left corner" position="left">
-        <m-icon icon="asterisk"></m-icon>
-      </m-label>
-    </m-input>
-  </m-example>
-  <m-example [code]="inverted" description="An input can be displayed with inverted colors" header="Inverted">
-    <m-segment inverted>
-      <m-input inverted placeholder="Inverted"></m-input>
-    </m-segment>
-  </m-example>
-</m-tab>
-<m-tab label="Binding">
-  <m-example [code]="code2" description="A two-way bound input" header="Binding">
-    <m-input [(value)]="inputValue" placeholder="Search..." type="text"></m-input>
-    <div>Current Value: {{ inputValue }}</div>
-  </m-example>
-  <m-example [code]="code3" description="All input states can be bound" header="Bind state">
-    <div class="toolbar ui form">
-      <div class="three fields">
-        <div class="field">
-          <label>
-            Type
-          </label>
-          <m-dropdown [(value)]="type">
-            <m-dropdown-item value="text">Text</m-dropdown-item>
-            <m-dropdown-item value="number">Number</m-dropdown-item>
-          </m-dropdown>
-        </div>
-        <div class="field">
-          <label>
-            Icon
-          </label>
-          <m-dropdown [(value)]="icon">
-            <m-dropdown-item value="">None</m-dropdown-item>
-            <m-dropdown-item value="search">Search</m-dropdown-item>
-            <m-dropdown-item value="users">Users</m-dropdown-item>
-          </m-dropdown>
-        </div>
-        <div clasS="field">
-          <label>&nbsp;</label>
-          <m-dropdown [(value)]="iconPosition">
-            <m-dropdown-item value="left">Left</m-dropdown-item>
-            <m-dropdown-item value="right">Right</m-dropdown-item>
-          </m-dropdown>
-        </div>
-      </div>
-      <div class="four fields">
-        <div class="field">
-          <m-toggle [(checked)]="focus">Focus</m-toggle>
-        </div>
-        <div class="field">
-          <m-toggle [(checked)]="loading">Loading</m-toggle>
-        </div>
-        <div class="field">
-          <m-toggle [(checked)]="disabled">Disabled</m-toggle>
-        </div>
-        <div class="field">
-          <m-toggle [(checked)]="error">Error</m-toggle>
-        </div>
-        <div class="field">
-          <m-toggle [(checked)]="fluid">Fluid</m-toggle>
-        </div>
-      </div>
-    </div>
-    <m-divider></m-divider>
-    <m-input [autofocus]="focus" [disabled]="disabled" [fluid]="fluid" [hasError]="error" [iconPosition]="iconPosition" [icon]="icon" [loading]="loading" [type]="type" placeholder="Search..."></m-input>
-  </m-example>
-</m-tab>
-<m-tab label="Events">
-  <m-example [code]="eventCode" description="A input with a subscribed change event. The event is triggered when focus is lost (click outside of the box)" header="Change event">
-    <m-input placeholder="Search..." type="text" (valueChange)="valueChange($event)"></m-input>
-    <div>{{ inputMessage }}</div>
-  </m-example>
-</m-tab>
+    <m-tab label="Examples">
+        <m-example description="A text input" header="Text">
+            <m-flex alignItems="center">
+                <m-input [(value)]="textValue" placeholder="Search..." type="text"></m-input>
+                @if (textValue !== undefined) {
+                    <app-value [value]="textValue"></app-value>
+                }
+            </m-flex>
+            <m-example-code [code]="textCode"></m-example-code>
+        </m-example>
+        <m-example description="A text area">
+            <m-textarea [value]="textareaValue" placeholder="Enter a text with line breaks..." (valueChange)="textareaValue = $event ?? undefined"></m-textarea>
+            @if (textValue !== undefined) {
+                <app-value [value]="textareaValue"></app-value>
+            }
+            <m-example-code [code]="textareaCode"></m-example-code>
+        </m-example>
+        <m-example description="A numeric input" header="Numeric">
+            <m-flex alignItems="center">
+                <m-numeric-input [(value)]="numericValue" [max]="9" [min]="1" placeholder="Between 1 and 9" />
+                @if (numericValue !== undefined) {
+                    <app-value [value]="numericValue"></app-value>
+                }
+            </m-flex>
+            <m-example-code [code]="numberCode"></m-example-code>
+        </m-example>
+        <m-example description="A date input" header="Date">
+            <m-flex alignItems="center">
+                <m-date-input [(value)]="dateValue"></m-date-input>
+                @if (dateValue !== undefined) {
+                    <app-value [value]="dateValue"></app-value>
+                }
+            </m-flex>
+            <m-example-code [code]="dateCode"></m-example-code>
+        </m-example>
+        <m-example description="A time input" header="Time">
+            <m-flex alignItems="center">
+                <m-time-input [(value)]="dateValue"></m-time-input>
+                @if (dateValue !== undefined) {
+                    <app-value [value]="dateValue"></app-value>
+                }
+            </m-flex>
+            <m-example-code [code]="dateCode"></m-example-code>
+        </m-example>
+        <m-example description="Use a standard input for missing features" header="Standard Input">
+            <m-input>
+                <input maxlength="3" placeholder="Search..." type="text">
+            </m-input>
+            <m-example-code [code]="standardCode"></m-example-code>
+        </m-example>
+    </m-tab>
+    <m-tab label="Text">
+        <m-example description="Bind to [value] to use a value of type string | undefined" header="value">
+            <m-input [(value)]="stringValue" />
+            <app-value [value]="stringValue" />
+            <m-example-code [code]="stringValueCode" />
+            <m-example-code [code]="stringValueTypeScriptCode" [languages]="['ts']" />
+        </m-example>
+        <m-example description="Bind to [text] to use a value of type string" header="text">
+            <m-input [(text)]="stringText" />
+            <app-value [value]="stringText" />
+            <m-example-code [code]="stringTextCode" />
+            <m-example-code [code]="stringTextTypeScriptCode" [languages]="['ts']" />
+        </m-example>
+        <m-example [code]="maxlengthCode" description="The text input has an additional property maxlength to limit the number of characters" header="maxlength">
+            <m-input maxlength="3" type="text"></m-input>
+        </m-example>
+    </m-tab>
+    <m-tab label="Numeric">
+        <m-example description="Bind to [value] to use a value of type number | undefined" header="value">
+            <m-numeric-input [(value)]="numericValue" />
+            <app-value [value]="numericValue" />
+            <m-example-code [code]="numericValueCode" />
+            <m-example-code [code]="numericValueTypeScriptCode" [languages]="['ts']" />
+        </m-example>
+        <m-example description="Bind to [number] to use a value of type number" header="number">
+            <m-numeric-input [(number)]="numericNumber" />
+            <app-value [value]="numericNumber" />
+            <m-example-code [code]="numericNumberCode" />
+            <m-example-code [code]="numericNumberTypeScriptCode" [languages]="['ts']" />
+        </m-example>
+        <m-example [code]="minCode" description="The numeric input has an additional property min to set the lowest possible number" header="min">
+            <m-numeric-input [min]="1"></m-numeric-input>
+        </m-example>
+        <m-example [code]="maxCode" description="The numeric input has an additional property max to set the highest possible number" header="max">
+            <m-numeric-input [max]="9"></m-numeric-input>
+        </m-example>
+        <m-example [code]="zeroCode" description="The numeric input dispays a special text if the value is zero" header="zeroText">
+            <m-numeric-input [value]="0" zeroText="Zero"></m-numeric-input>
+        </m-example>
+        <m-example [code]="rangeCode" description="Shows the input as a range control" header="range">
+            <m-warning>Requires
+                <code>[min]</code>
+                and
+                <code>[max]</code>
+                property
+            </m-warning>
+            <m-numeric-input [max]="9" [min]="0" range></m-numeric-input>
+        </m-example>
+    </m-tab>
+    <m-tab label="Date">
+        <m-example description="Bind to [value] to use a value of type Date | undefined" header="value">
+            <m-date-input [(value)]="dateValue" />
+            <app-value [value]="dateValue" />
+            <m-example-code [code]="dateValueCode" />
+            <m-example-code [code]="dateValueTypeScriptCode" [languages]="['ts']" />
+        </m-example>
+        <m-example description="Bind to [date] to use a value of type Date" header="date">
+            <m-date-input [(date)]="dateDate" />
+            <app-value [value]="dateDate" />
+            <m-example-code [code]="dateDateCode" />
+            <m-example-code [code]="dateDateTypeScriptCode" [languages]="['ts']" />
+        </m-example>
+        <m-example [code]="dateWithDayCode" header="Show day">
+            <m-date-input [value]="showDayValue" showDay />
+        </m-example>
+        <!--        <m-example header="min" description="The date input has an additional property min to set the oldest possible date" [code]="minDateCode">-->
+        <!--            <m-date-input [min]="1"></m-date-input>-->
+        <!--        </m-example>-->
+        <!--        <m-example header="max" description="The date input has an additional property max to set the newest possible date" [code]="maxDateCode">-->
+        <!--            <m-date-input [max]="9"></m-date-input>-->
+        <!--        </m-example>-->
+    </m-tab>
+    <m-tab label="Color">
+        <m-example description="Bind to [value] to use a color value of type string | undefined" header="value">
+            <m-input type="color" [(value)]="colorValue" />
+            <app-value [value]="colorValue" />
+            <m-example-code [code]="colorValueCode" />
+            <m-example-code [code]="colorValueTypeScriptCode" [languages]="['ts']" />
+        </m-example>
+        <m-example description="Bind to [text] to use a color value of type string" header="text">
+            <m-input type="color" [(text)]="colorText" />
+            <app-value [value]="colorText" />
+            <m-example-code [code]="colorTextCode" />
+            <m-example-code [code]="colorTextTypeScriptCode" [languages]="['ts']" />
+        </m-example>
+    </m-tab>
+    <m-tab label="File">
+        <m-example [code]="file">
+            <m-file-input>Upload</m-file-input>
+        </m-example>
+    </m-tab>
+    <m-tab label="States">
+        <m-example [code]="states1" description="An input field can show a user is currently interacting with it" header="Focus">
+            <m-input focused placeholder="Search..." type="text"></m-input>
+        </m-example>
+        <m-example [code]="states2" description="An icon input field can show that it is currently loading data" header="Loading">
+            <m-input icon="search" iconPosition="left" loading placeholder="Search..." type="text"></m-input>
+        </m-example>
+        <m-example [code]="states3">
+            <m-input icon="search" loading placeholder="Search..." type="text"></m-input>
+        </m-example>
+        <m-example [code]="states4" description="An input field can show that it is disabled" header="Disabled">
+            <m-input disabled placeholder="Search..." type="text"></m-input>
+        </m-example>
+        <m-example [code]="states5">
+            <m-input disabled icon="search" placeholder="Search..." type="text"></m-input>
+        </m-example>
+        <m-example [code]="states6" description="An input field can show the data contains errors" header="Error">
+            <m-input hasError placeholder="Search..." type="text"></m-input>
+        </m-example>
+    </m-tab>
+    <m-tab label="Variations">
+        <m-example [code]="variations1" description="An input can be formatted with an icon" header="Icon">
+            <m-input icon="search" placeholder="Search..." type="text"></m-input>
+        </m-example>
+        <m-example [code]="variations2">
+            <m-input icon="users" iconPosition="left" placeholder="Search..." type="text"></m-input>
+        </m-example>
+        <m-example [code]="variations3">
+            <m-input icon="circular search" placeholder="Search..." type="text"></m-input>
+        </m-example>
+        <m-example [code]="variations4">
+            <m-input icon="inverted circular search" placeholder="Search..." type="text"></m-input>
+        </m-example>
+        <m-example [code]="variations5" description="An input can be formatted with a label" header="Labeled">
+            <m-input placeholder="mysite.com" type="text">
+                <m-label>http://</m-label>
+            </m-input>
+        </m-example>
+        <m-example [code]="variations6">
+            <m-input placeholder="Find domain" type="text">
+                <m-label-dropdown [items]="['.com', '.net', '.org']" position="right" value=".com"></m-label-dropdown>
+            </m-input>
+        </m-example>
+        <m-example [code]="variations7">
+            <m-input placeholder="Enter weight.." type="number">
+                <m-label class="basic" position="right">kg</m-label>
+            </m-input>
+        </m-example>
+        <m-example [code]="variations8">
+            <p>TODO: This exapmle is currently not supported. Use the default behaviour</p>
+            <div class="ui right labeled input">
+                <label class="ui label" for="amount">$</label>
+                <input id="amount" placeholder="Amount" type="text">
+                <div class="ui basic label">.00</div>
+            </div>
+        </m-example>
+        <m-example [code]="variations9">
+            <m-input icon="tags" iconPosition="left" placeholder="Enter tags">
+                <m-label class="tag" position="right">Add Tag</m-label>
+            </m-input>
+        </m-example>
+        <m-example [code]="variations10">
+            <m-input class="corner" placeholder="Search..." type="text">
+                <m-label class="left corner" position="left">
+                    <m-icon icon="asterisk"></m-icon>
+                </m-label>
+            </m-input>
+        </m-example>
+        <m-example [code]="inverted" description="An input can be displayed with inverted colors" header="Inverted">
+            <m-segment inverted>
+                <m-input inverted placeholder="Inverted"></m-input>
+            </m-segment>
+        </m-example>
+    </m-tab>
+    <m-tab label="Binding">
+        <m-example [code]="code2" description="A two-way bound input" header="Binding">
+            <m-input [(value)]="inputValue" placeholder="Search..." type="text"></m-input>
+            <div>Current Value: {{ inputValue }}</div>
+        </m-example>
+        <m-example [code]="code3" description="All input states can be bound" header="Bind state">
+            <div class="toolbar ui form">
+                <div class="three fields">
+                    <div class="field">
+                        <label>
+                            Type
+                        </label>
+                        <m-dropdown [(value)]="type">
+                            <m-dropdown-item value="text">Text</m-dropdown-item>
+                            <m-dropdown-item value="number">Number</m-dropdown-item>
+                        </m-dropdown>
+                    </div>
+                    <div class="field">
+                        <label>
+                            Icon
+                        </label>
+                        <m-dropdown [(value)]="icon">
+                            <m-dropdown-item value="">None</m-dropdown-item>
+                            <m-dropdown-item value="search">Search</m-dropdown-item>
+                            <m-dropdown-item value="users">Users</m-dropdown-item>
+                        </m-dropdown>
+                    </div>
+                    <div clasS="field">
+                        <label>&nbsp;</label>
+                        <m-dropdown [(value)]="iconPosition">
+                            <m-dropdown-item value="left">Left</m-dropdown-item>
+                            <m-dropdown-item value="right">Right</m-dropdown-item>
+                        </m-dropdown>
+                    </div>
+                </div>
+                <div class="four fields">
+                    <div class="field">
+                        <m-toggle [(checked)]="focus">Focus</m-toggle>
+                    </div>
+                    <div class="field">
+                        <m-toggle [(checked)]="loading">Loading</m-toggle>
+                    </div>
+                    <div class="field">
+                        <m-toggle [(checked)]="disabled">Disabled</m-toggle>
+                    </div>
+                    <div class="field">
+                        <m-toggle [(checked)]="error">Error</m-toggle>
+                    </div>
+                    <div class="field">
+                        <m-toggle [(checked)]="fluid">Fluid</m-toggle>
+                    </div>
+                </div>
+            </div>
+            <m-divider></m-divider>
+            <m-input [autofocus]="focus" [disabled]="disabled" [fluid]="fluid" [hasError]="error" [iconPosition]="iconPosition" [icon]="icon" [loading]="loading" [type]="type" placeholder="Search..."></m-input>
+        </m-example>
+    </m-tab>
+    <m-tab label="Events">
+        <m-example [code]="eventCode" description="A input with a subscribed change event. The event is triggered when focus is lost (click outside of the box)" header="Change event">
+            <m-input placeholder="Search..." type="text" (valueChange)="valueChange($event)"></m-input>
+            <div>{{ inputMessage }}</div>
+        </m-example>
+    </m-tab>
 </m-tab-group>

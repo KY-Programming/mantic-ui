@@ -14,6 +14,7 @@ import { InputIconPosition } from './text/input.component';
     providers: InputBaseComponent.providers
 })
 export abstract class InputBaseComponent extends LabeledBaseComponent implements OnDestroy {
+    protected readonly colorForId = Date.now().toString() + Math.random();
     public static readonly defaults = {
         inverted: false,
         invertedChange: new ReplaySubject<boolean>(1)
