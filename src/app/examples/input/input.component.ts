@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { DateInputComponent, DividerComponent, DropdownComponent, DropdownItemComponent, FileInputComponent, FlexComponent, IconComponent, InputComponent, InputIconPosition, InputType, LabelComponent, LabelDropdownComponent, NumericInputComponent, SegmentComponent, TabComponent, TabGroupComponent, TextareaComponent, TimeInputComponent, ToggleComponent, WarningComponent } from '@mantic-ui/angular';
-import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { ExampleCodeComponent, ExampleComponent, ExampleDescriptionComponent } from '@mantic-ui/angular-doc';
 
 import { HeaderComponent } from '../../components/header/header.component';
 import { ValueComponent } from '../../components/value/value.component';
 
 @Component({
     selector: 'app-input-example',
-    imports: [HeaderComponent, TabGroupComponent, TabComponent, IconComponent, ExampleComponent, ExampleCodeComponent, FlexComponent, InputComponent, ValueComponent, TextareaComponent, NumericInputComponent, DateInputComponent, TimeInputComponent, ToggleComponent, DropdownItemComponent, DropdownComponent, DividerComponent, SegmentComponent, FileInputComponent, WarningComponent, LabelComponent, LabelDropdownComponent],
+    imports: [HeaderComponent, TabGroupComponent, TabComponent, IconComponent, ExampleComponent, ExampleCodeComponent, FlexComponent, InputComponent, ValueComponent, TextareaComponent, NumericInputComponent, DateInputComponent, TimeInputComponent, ToggleComponent, DropdownItemComponent, DropdownComponent, DividerComponent, SegmentComponent, FileInputComponent, WarningComponent, LabelComponent, LabelDropdownComponent, RouterLink, ExampleDescriptionComponent],
     templateUrl: './input.component.html',
     styleUrls: ['./input.component.scss']
 })
@@ -30,6 +31,8 @@ export class InputExampleComponent {
     protected numericNumber = 0;
     protected dateValue?: Date;
     protected dateDate = new Date();
+    protected timeValue?: Date;
+    protected timeDate = new Date();
     protected showDayValue = new Date();
     protected colorValue?: string;
     protected colorText = '#000000';
@@ -86,50 +89,53 @@ export class InputExampleComponent {
         setTimeout(() => this.inputMessage = undefined, 2000);
     }
 
-    public textCode = `<m-input type="text" placeholder="Search..." [(value)]="value"></m-input>`;
-    public textareaCode = `<m-textarea placeholder="Enter a text with line breaks..." [(value)]="value"></m-textarea>`;
-    public code2 = `<m-input type="text" placeholder="Search..." [(value)]="inputValue"></m-input>`;
-    public code3 = `<m-input [type]="type" placeholder="Search..." [icon]="icon" [iconPosition]="iconPosition" [focused]="focus" [loading]="loading" [disabled]="disabled" [hasError]="error" [fluid]="fluid"></m-input>`;
-    public eventCode = `<m-input (valueChange)="valueChange($event)"></m-input>`;
-    public numberCode = `<m-numeric-input [(value)]="numericValue"></m-numeric-input>`;
-    public dateCode = `<m-date-input [(value)]="dateValue"></m-date-input>`;
+    public textCode = `<m-input type="text" placeholder="Search..." [(value)]="value" />`;
+    public textareaCode = `<m-textarea placeholder="Enter a text with line breaks..." [(value)]="value" />`;
+    public code2 = `<m-input type="text" placeholder="Search..." [(value)]="inputValue" />`;
+    public code3 = `<m-input [type]="type" placeholder="Search..." [icon]="icon" [iconPosition]="iconPosition" [focused]="focus" [loading]="loading" [disabled]="disabled" [hasError]="error" [fluid]="fluid" />`;
+    public eventCode = `<m-input (valueChange)="valueChange($event)" />`;
+    public numberCode = `<m-numeric-input [(value)]="numericValue" />`;
+    public dateCode = `<m-date-input [(value)]="dateValue" />`;
+    public timeCode = `<m-time-input [(value)]="timeValue" />`;
     public standardCode = `<m-input>
   <input type="text" placeholder="Search..." maxlength="3">
 </m-input>`;
 
-    public readonly maxlengthCode = `<m-input type="text" maxlength="3"/>`;
-    protected readonly stringValueCode = `<m-input [(value)]="value"/>`;
+    public readonly maxlengthCode = `<m-input type="text" maxlength="3" />`;
+    protected readonly stringValueCode = `<m-input [(value)]="value" />`;
     protected readonly stringValueTypeScriptCode = `protected value: string | undefined;`;
-    protected readonly stringTextCode = `<m-input [(text)]="value"/>`;
+    protected readonly stringTextCode = `<m-input [(text)]="value" />`;
     protected readonly stringTextTypeScriptCode = `protected value: string = '';`;
-    protected readonly numericValueCode = `<m-numeric-input [(value)]="value"/>`;
+    protected readonly numericValueCode = `<m-numeric-input [(value)]="value" />`;
     protected readonly numericValueTypeScriptCode = `protected value: number | undefined;`;
-    protected readonly numericNumberCode = `<m-numeric-input [(number)]="value"/>`;
+    protected readonly numericNumberCode = `<m-numeric-input [(number)]="value" />`;
     protected readonly numericNumberTypeScriptCode = `protected value: number = 0;`;
-    protected readonly dateValueCode = `<m-date-input [(value)]="value"/>`;
+    protected readonly dateValueCode = `<m-date-input [(value)]="value" />`;
     protected readonly dateValueTypeScriptCode = `protected value: Date | undefined;`;
-    protected readonly dateDateCode = `<m-date-input [(date)]="value"/>`;
+    protected readonly dateDateCode = `<m-date-input [(date)]="value" />`;
     protected readonly dateDateTypeScriptCode = `protected value: Date = new Date();`;
-    protected readonly colorValueCode = `<m-input type="color" [(value)]="value"/>`;
+    protected readonly timeValueCode = `<m-time-input [(value)]="value" />`;
+    protected readonly timeValueTypeScriptCode = `protected value: Date | number | string | undefined;`;
+    protected readonly colorValueCode = `<m-input type="color" [(value)]="value" />`;
     protected readonly colorValueTypeScriptCode = `protected value: string | undefined;`;
-    protected readonly colorTextCode = `<m-input type="color" [(text)]="value"/>`;
+    protected readonly colorTextCode = `<m-input type="color" [(text)]="value" />`;
     protected readonly colorTextTypeScriptCode = `protected value: string = '';`;
-    public readonly minCode = `<m-numeric-input [min]="1"/>`;
-    public readonly maxCode = `<m-numeric-input [max]="9"/>`;
-    public readonly zeroCode = `<m-numeric-input zeroText="Zero"/>`;
-    public readonly rangeCode = `<m-numeric-input range [min]="0" [max]="9"/>`;
+    public readonly minCode = `<m-numeric-input [min]="1" />`;
+    public readonly maxCode = `<m-numeric-input [max]="9" />`;
+    public readonly zeroCode = `<m-numeric-input zeroText="Zero" />`;
+    public readonly rangeCode = `<m-numeric-input range [min]="0" [max]="9" />`;
 
-    public readonly states1 = `<m-input type="text" placeholder="Search..." focused></m-input>`;
-    public readonly states2 = `<m-input type="text" placeholder="Search..." icon="search" iconPosition="left" loading></m-input>`;
-    public readonly states3 = `<m-input type="text" placeholder="Search..." icon="search" loading></m-input>`;
-    public readonly states4 = `<m-input type="text" placeholder="Search..." disabled></m-input>`;
-    public readonly states5 = `<m-input type="text" placeholder="Search..." icon="search" disabled></m-input>`;
-    public readonly states6 = `<m-input type="text" placeholder="Search..." hasError></m-input>`;
+    public readonly states1 = `<m-input type="text" placeholder="Search..." focused />`;
+    public readonly states2 = `<m-input type="text" placeholder="Search..." icon="search" iconPosition="left" loading />`;
+    public readonly states3 = `<m-input type="text" placeholder="Search..." icon="search" loading />`;
+    public readonly states4 = `<m-input type="text" placeholder="Search..." disabled />`;
+    public readonly states5 = `<m-input type="text" placeholder="Search..." icon="search" disabled />`;
+    public readonly states6 = `<m-input type="text" placeholder="Search..." hasError />`;
 
-    public readonly variations1 = `<m-input type="text" placeholder="Search..." icon="search"></m-input>`;
-    public readonly variations2 = `<m-input type="text" placeholder="Search..." icon="users" iconPosition="left"></m-input>`;
-    public readonly variations3 = `<m-input type="text" placeholder="Search..." icon="circular search"></m-input>`;
-    public readonly variations4 = `<m-input type="text" placeholder="Search..." icon="inverted circular search"></m-input>`;
+    public readonly variations1 = `<m-input type="text" placeholder="Search..." icon="search" />`;
+    public readonly variations2 = `<m-input type="text" placeholder="Search..." icon="users" iconPosition="left" />`;
+    public readonly variations3 = `<m-input type="text" placeholder="Search..." icon="circular search" />`;
+    public readonly variations4 = `<m-input type="text" placeholder="Search..." icon="inverted circular search" />`;
     public readonly variations5 = `<m-input type="text" placeholder="mysite.com">
   <m-label>http://</m-label>
 </m-input>`;
@@ -149,14 +155,14 @@ export class InputExampleComponent {
 </m-input>`;
     public readonly variations10 = `<m-input type="text" class="corner" placeholder="Search...">
   <m-label position="left" class="left corner">
-      <m-icon icon="asterisk"></m-icon>
+      <m-icon icon="asterisk" />
   </m-label>
 </m-input>`;
     public readonly file = `<m-file-input (change)="upload($event)">Upload</m-file-input>`;
 
-    public readonly inverted = `<m-input inverted></m-input>`;
+    public readonly inverted = `<m-input inverted />`;
 
-    public readonly dateWithDayCode = `<m-date-input showDay></m-date-input>`;
+    public readonly dateWithDayCode = `<m-date-input showDay />`;
 
     public getType(value: unknown): string {
         return typeof value;

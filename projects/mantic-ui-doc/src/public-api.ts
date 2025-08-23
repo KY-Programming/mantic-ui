@@ -1,4 +1,5 @@
 export * from './lib/components/example-code/example-code.component';
+export * from './lib/components/example-description/example-description.component';
 export * from './lib/components/example-frame/example-frame.component';
 export * from './lib/components/example/example.component';
 export * from './lib/components/nuget-install/nuget-install.component';

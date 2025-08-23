@@ -1,30 +1,32 @@
 <div class="description">
-  @if (header) {
-    <h4 m-header>
-      {{header}}
-      @if (hint && !hintLink) {
-        <span class="ui {{hintClass}} label">{{hint}}</span>
-      }
-      @if (hint && hintLink) {
-        <a [href]="hintLink" class="ui {{hintClass}} label" [target]="hintTarget">{{hint}}</a>
-      }
-    </h4>
-  }
-  @if (description) {
-    <p>{{description}}</p>
-  }
-  @if (code) {
-    <button class="show-code" (click)="toggleCode()">
-      <i class="icon code"></i>
-    </button>
-  }
+    @if (header) {
+        <h4 m-header>
+            {{ header }}
+            @if (hint && !hintLink) {
+                <span class="ui {{hintClass}} label">{{ hint }}</span>
+            }
+            @if (hint && hintLink) {
+                <a [href]="hintLink" class="ui {{hintClass}} label" [target]="hintTarget">{{ hint }}</a>
+            }
+        </h4>
+    }
+    <ng-content select="m-example-description">
+        @if (description) {
+            <p>{{ description }}</p>
+        }
+    </ng-content>
+    @if (code) {
+        <button class="show-code" (click)="toggleCode()">
+            <i class="icon code"></i>
+        </button>
+    }
 </div>
 <div class="example-box" [class.hide-code]="!showCode">
-  <div class="header">Example</div>
-  <div class="live">
-    <ng-content></ng-content>
-  </div>
-  @if (code) {
-    <code [highlight]="code" [languages]="languages"></code>
-  }
+    <div class="header">Example</div>
+    <div class="live">
+        <ng-content />
+    </div>
+    @if (code) {
+        <code [highlight]="code" [languages]="languages"></code>
+    }
 </div>

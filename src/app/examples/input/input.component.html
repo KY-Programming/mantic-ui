@@ -2,7 +2,8 @@
 
 <m-tab-group class="page" pointing secondary selectByRoute>
     <m-tab label="Examples">
-        <m-example description="A text input" header="Text">
+        <m-example header="Text">
+            <m-example-description>A text input <a routerLink="../text">(see more)</a></m-example-description>
             <m-flex alignItems="center">
                 <m-input [(value)]="textValue" placeholder="Search..." type="text"></m-input>
                 @if (textValue !== undefined) {
@@ -18,7 +19,8 @@
             }
             <m-example-code [code]="textareaCode"></m-example-code>
         </m-example>
-        <m-example description="A numeric input" header="Numeric">
+        <m-example header="Numeric">
+            <m-example-description>A numeric input <a routerLink="../numeric">(see more)</a></m-example-description>
             <m-flex alignItems="center">
                 <m-numeric-input [(value)]="numericValue" [max]="9" [min]="1" placeholder="Between 1 and 9" />
                 @if (numericValue !== undefined) {
@@ -27,7 +29,8 @@
             </m-flex>
             <m-example-code [code]="numberCode"></m-example-code>
         </m-example>
-        <m-example description="A date input" header="Date">
+        <m-example header="Date">
+            <m-example-description>A date input <a routerLink="../date">(see more)</a></m-example-description>
             <m-flex alignItems="center">
                 <m-date-input [(value)]="dateValue"></m-date-input>
                 @if (dateValue !== undefined) {
@@ -36,14 +39,15 @@
             </m-flex>
             <m-example-code [code]="dateCode"></m-example-code>
         </m-example>
-        <m-example description="A time input" header="Time">
+        <m-example header="Time">
+            <m-example-description>A time input <a routerLink="../time">(see more)</a></m-example-description>
             <m-flex alignItems="center">
-                <m-time-input [(value)]="dateValue"></m-time-input>
-                @if (dateValue !== undefined) {
-                    <app-value [value]="dateValue"></app-value>
+                <m-time-input [(value)]="timeValue"></m-time-input>
+                @if (timeValue !== undefined) {
+                    <app-value [value]="timeValue"></app-value>
                 }
             </m-flex>
-            <m-example-code [code]="dateCode"></m-example-code>
+            <m-example-code [code]="timeCode"></m-example-code>
         </m-example>
         <m-example description="Use a standard input for missing features" header="Standard Input">
             <m-input>
@@ -122,6 +126,20 @@
         <!--        </m-example>-->
         <!--        <m-example header="max" description="The date input has an additional property max to set the newest possible date" [code]="maxDateCode">-->
         <!--            <m-date-input [max]="9"></m-date-input>-->
+        <!--        </m-example>-->
+    </m-tab>
+    <m-tab label="Time">
+        <m-example description="Bind to [value] to use a value of type Date | number | string | undefined" header="value">
+            <m-time-input [(value)]="timeValue" />
+            <app-value [value]="timeValue" />
+            <m-example-code [code]="timeValueCode" />
+            <m-example-code [code]="timeValueTypeScriptCode" [languages]="['ts']" />
+        </m-example>
+        <!--        <m-example description="Bind to [time] to use a value of type Time" header="time">-->
+        <!--            <m-time-input [(time)]="timeDate" />-->
+        <!--            <app-value [value]="timeDate" />-->
+        <!--            <m-example-code [code]="timeDateCode" />-->
+        <!--            <m-example-code [code]="timeDateTypeScriptCode" [languages]="['ts']" />-->
         <!--        </m-example>-->
     </m-tab>
     <m-tab label="Color">
