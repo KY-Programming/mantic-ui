@@ -1,0 +1,56 @@
+{
+  "name": "@mantic-ui/eslint-config",
+  "version": "20.0.2",
+  "description": "eslint Config for mantic UI",
+  "keywords": [
+    "mantic-ui",
+    "mantic UI",
+    "Angular"
+  ],
+  "homepage": "https://mantic-ui.ky-programming.de",
+  "bugs": {
+    "url": "https://github.com/KY-Programming/mantic-ui",
+    "email": "support@ky-programming.de"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "KY-Programming",
+    "email": "hi@ky-programming.de",
+    "url": "https://ky-programming.de"
+  },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/KY-Programming"
+    },
+    {
+      "type": "patreon",
+      "url": "https://www.patreon.com/kylst"
+    },
+    {
+      "type": "paypal",
+      "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VFPAP4MKV654A&source=url"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KY-Programming/mantic-ui.git"
+  },
+  "peerDependencies": {
+    "angular-eslint": "^20.4.0",
+    "eslint": ">= 9",
+    "eslint-plugin-import": ">= 2",
+    "eslint-plugin-prefer-arrow": ">= 1",
+    "eslint-plugin-rxjs-updated": ">= 1",
+    "eslint-plugin-unicorn": ">= 61",
+    "typescript-eslint": ">= 8.46.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.dist.json",
+    "postbuild": "copy package.json ..\\..\\dist\\eslint-config\\"
+  }
+}

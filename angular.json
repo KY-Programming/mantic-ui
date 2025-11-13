@@ -351,6 +351,36 @@
                     }
                 }
             }
+        },
+        "eslint-config": {
+          "projectType": "library",
+          "root": "projects/eslint-config",
+          "sourceRoot": "projects/eslint-config/src",
+          "prefix": "lib",
+          "architect": {
+            "build": {
+              "builder": "@angular/build:ng-packagr",
+              "configurations": {
+                "production": {
+                  "tsConfig": "projects/eslint-config/tsconfig.lib.prod.json"
+                },
+                "development": {
+                  "tsConfig": "projects/eslint-config/tsconfig.lib.json"
+                }
+              },
+              "defaultConfiguration": "production"
+            },
+            "test": {
+              "builder": "@angular/build:karma",
+              "options": {
+                "tsConfig": "projects/eslint-config/tsconfig.spec.json",
+                "polyfills": [
+                  "zone.js",
+                  "zone.js/testing"
+                ]
+              }
+            }
+          }
         }
     },
     "schematics": {
@@ -378,5 +408,8 @@
       "@schematics/angular:resolver": {
         "typeSeparator": "."
       }
+    },
+    "cli": {
+      "analytics": false
     }
 }

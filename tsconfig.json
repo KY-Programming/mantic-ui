@@ -18,6 +18,9 @@
             ],
             "@mantic-ui/semantic-ui-angular": [
                 "./dist/semantic-ui"
+            ],
+            "eslint-config": [
+              "./dist/eslint-config"
             ]
         },
         "noImplicitOverride": true,
@@ -43,5 +46,13 @@
         "strictInjectionParameters": true,
         "strictInputAccessModifiers": true,
         "strictTemplates": true
-    }
+    },
+    "references": [
+      {
+        "path": "./projects/eslint-config/tsconfig.lib.json"
+      },
+      {
+        "path": "./projects/eslint-config/tsconfig.spec.json"
+      }
+    ]
 }
