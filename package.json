@@ -11,7 +11,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "eslint:build": "ng build eslint-config",
-    "eslint:publish": "cd projects\\eslint-config && npm publish --access public && cd ..\\..",
+    "eslint:publish": "cd dist\\eslint-config && npm publish --access public && cd ..\\..",
     "eslint:publish-local": "cd ./dist/eslint-config && npm pack && copy *.tgz ..\\..\\ && cd ../..",
     "eslint:bpl": "npm run eslint:build && npm run eslint:publish-local",
     "eslint:bpli-ng": "npm run eslint:build && cd ./dist/eslint-config && npm pack && cd ../.. && node scripts/install-eslint-config-local.js",
