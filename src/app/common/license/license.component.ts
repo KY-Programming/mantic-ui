@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-
-import { HeaderComponent } from '../../components/header/header.component';
-import { HeaderDirective, IconComponent, InfoComponent, TabComponent, TabGroupComponent, TableComponent } from '@mantic-ui/angular';
-import { ExampleCodeComponent, NpmComponent, NpmInstallComponent } from '@mantic-ui/angular-doc';
 import { RouterLink } from '@angular/router';
+import { InfoComponent, TabComponent, TabGroupComponent, TableComponent } from '@mantic-ui/angular';
+import { ExampleCodeComponent, NpmComponent, NpmInstallComponent } from '@mantic-ui/angular-doc';
+import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-license',
-    imports: [TabGroupComponent, TabComponent, HeaderDirective, NpmInstallComponent, ExampleCodeComponent, NpmComponent, InfoComponent, TableComponent, RouterLink],
+    imports: [TabGroupComponent, TabComponent, NpmInstallComponent, ExampleCodeComponent, NpmComponent, InfoComponent, TableComponent, RouterLink, HeaderComponent],
     templateUrl: './license.component.html',
     styleUrls: ['./license.component.scss']
 })

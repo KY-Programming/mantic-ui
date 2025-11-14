@@ -1,0 +1,17 @@
+<app-header header="ESLint rules" subHeader="Our set of ESLint rules for strict TypeScript and Angular projects" />
+
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="How to use?">
+        <p>We have packed all our used rules to one eslint package. It combines some common rulesets and adds some of our extensions.</p>
+        <p>To use it, install
+            <m-npm package="@mantic-ui/eslint-config"></m-npm>
+            package
+        </p>
+        <p>
+            <m-npm-install package="@mantic-ui/eslint-config" dev></m-npm-install>
+        </p>
+        <p>Edit your eslint.config.js with our import and one extend for ts files and one extend for angular files:</p>
+        <m-example-code label="eslint.config.js" [code]="eslintConfigJs" [languages]="['js']" />
+
+    </m-tab>
+</m-tab-group>

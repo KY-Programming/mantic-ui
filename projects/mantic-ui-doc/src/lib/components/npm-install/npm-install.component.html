@@ -1,7 +1,3 @@
 <m-segment>
-  <pre><code><span class="ignore">&gt;</span> npm i {{package}}@if (version) {
-  &#64;{{version}}
-  }@if (dev) {
-  --save-dev
-}</code></pre>
+    <pre><code><span class="ignore">&gt;</span> npm i {{ package }}{{ version ? '@' + version : '' }} {{ dev ? '--save-dev' : '' }}</code></pre>
 </m-segment>

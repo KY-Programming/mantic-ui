@@ -1,5 +1,6 @@
 import { Route, Routes } from '@angular/router';
 import { CreditsComponent } from './common/credits/credits.component';
+import { EslintComponent } from './common/eslint/eslint.component';
 import { FeatureComponent } from './common/help/feature/feature.component';
 import { HelpComponent } from './common/help/help.component';
 import { IntroComponent } from './common/intro/intro.component';
@@ -55,6 +56,8 @@ export const sharedRoutes: Route[] = [
     { path: 'help/:tab', title: 'How to get help?', component: HelpComponent },
     { path: 'license', redirectTo: 'license/', pathMatch: 'full' },
     { path: 'license/:tab', title: 'License', component: LicenseComponent },
+    { path: 'eslint', redirectTo: 'eslint/', pathMatch: 'full' },
+    { path: 'eslint/:tab', title: 'ESLint rules', component: EslintComponent },
     { path: 'credits', redirectTo: 'credits/', pathMatch: 'full' },
     { path: 'credits/:tab', title: 'Credits', component: CreditsComponent },
 

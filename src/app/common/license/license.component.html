@@ -1,9 +1,5 @@
-<h1 m-header>
-    License
-    <div class="sub header">
-        Generate license information from your project
-    </div>
-</h1>
+<app-header header="License" subHeader="Generate license information from your project" />
+
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Use license-to-json">
         <p><code>license-to-json</code> or <code>l2j</code> is a nodejs script to extract license information from all used packages into a single json file. As an alternative to <code>ng build --extract-licenses</code> not only the plain text is extracted an concated together, it collect missing license information like the license text automatically from the npm package, git repository or spdx (a list of common licenses) and put into a readable json file. Some helper classes prepare everything to use it as easy and beautiful as possible in your frontend</p>
