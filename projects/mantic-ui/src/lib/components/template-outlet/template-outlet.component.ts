@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, effect, inject, input } from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import { race, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Destroyable } from '../../base/destroyable';
@@ -14,20 +14,20 @@ import { TemplateService } from '../../services/template.service';
     templateUrl: './template-outlet.component.html',
     styleUrl: './template-outlet.component.scss',
     host: {
-        '[class]': 'template?.class'
+        '[class]': 'template()?.class'
     }
 })
 export class TemplateOutletComponent extends Destroyable {
     private readonly templateService = inject(TemplateService);
     private readonly nextNameSubject = new Subject<void>();
-    protected template: Template | undefined;
+    protected readonly template = signal<Template | undefined>(undefined);
     public readonly name = input.required<string | string[]>();
 
     public constructor() {
         super();
         effect(() => {
             this.nextNameSubject.next();
-            this.templateService.get(this.name()).pipe(takeUntil(race(this.destroy, this.nextNameSubject))).subscribe(template => this.template = template);
+            this.templateService.get(this.name()).pipe(takeUntil(race(this.destroy, this.nextNameSubject))).subscribe(template => this.template.set(template));
         });
     }
 }
