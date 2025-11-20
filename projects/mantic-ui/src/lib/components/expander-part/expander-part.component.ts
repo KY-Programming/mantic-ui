@@ -1,4 +1,3 @@
-
 import { Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
@@ -12,9 +11,9 @@ import { IconType } from '../icon/icon-type';
     templateUrl: './expander-part.component.html',
     styleUrls: ['./expander-part.component.scss'],
     imports: [
-    FillComponent,
-    ExpanderIconComponent
-],
+        FillComponent,
+        ExpanderIconComponent
+    ],
     providers: [...BaseComponent.providers]
 })
 export class ExpanderPartComponent extends BaseComponent {
@@ -52,7 +51,7 @@ export class ExpanderPartComponent extends BaseComponent {
     }
 
     @HostListener('click')
-    private onClick(): void {
+    protected onClick(): void {
         if (this.expandable === false) {
             return;
         }

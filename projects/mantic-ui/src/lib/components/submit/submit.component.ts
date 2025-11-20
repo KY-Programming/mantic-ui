@@ -1,4 +1,3 @@
-
 import { Component, HostListener, Optional } from '@angular/core';
 import { ButtonBaseComponent } from '../../base/button-base.component';
 import { Key } from '../../models/key';
@@ -20,12 +19,12 @@ export class SubmitComponent extends ButtonBaseComponent {
     }
 
     @HostListener('click')
-    private onClick(): void {
+    protected onClick(): void {
         this.submit();
     }
 
     @HostListener('keydown', ['$event'])
-    private onKeyDown(event: KeyboardEvent): void {
+    protected onKeyDown(event: KeyboardEvent): void {
         if (Key.is(event, Key.space, Key.enter)) {
             this.submit();
             event.preventDefault();

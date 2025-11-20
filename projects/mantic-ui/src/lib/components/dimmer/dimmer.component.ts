@@ -89,7 +89,7 @@ export class DimmerComponent extends InvertibleComponent implements OnInit, OnDe
     }
 
     @HostListener('click')
-    private onClick(): void {
+    protected onClick(): void {
         if (this.hideOnClick) {
             this.hide();
         }

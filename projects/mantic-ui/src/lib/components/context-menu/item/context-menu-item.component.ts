@@ -41,7 +41,7 @@ export class ContextMenuItemComponent extends MenuItemComponent {
     }
 
     @HostListener('click')
-    private onClick(): void {
+    protected onClick(): void {
         if (this.keepOpen) {
             return;
         }

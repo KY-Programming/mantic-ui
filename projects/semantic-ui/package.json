@@ -1,54 +1,54 @@
 {
-    "name": "@mantic-ui/semantic-ui-angular",
-    "version": "20.0.2",
-    "description": "Semantic UI theme for mantic UI Angular components. Requires @mantic-ui/angular",
-    "scripts": {
-        "postbuild": "npm run copy-styles",
-        "copy-styles": "xcopy /Y /S  src\\lib\\styles\\ ..\\..\\dist\\semantic-ui\\styles\\"
+  "name": "@mantic-ui/semantic-ui-angular",
+  "version": "21.0.0",
+  "description": "Semantic UI theme for mantic UI Angular components. Requires @mantic-ui/angular",
+  "scripts": {
+    "postbuild": "npm run copy-styles",
+    "copy-styles": "xcopy /Y /S  src\\lib\\styles\\ ..\\..\\dist\\semantic-ui\\styles\\"
+  },
+  "keywords": [
+    "mantic-ui",
+    "mantic UI",
+    "Angular",
+    "Semantic-UI",
+    "theme"
+  ],
+  "homepage": "https://mantic-ui.ky-programming.de/semantic",
+  "bugs": {
+    "url": "https://github.com/KY-Programming/mantic-ui",
+    "email": "support@ky-programming.de"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "KY-Programming",
+    "email": "hi@ky-programming.de",
+    "url": "https://ky-programming.de"
+  },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/KY-Programming"
     },
-    "keywords": [
-        "mantic-ui",
-        "mantic UI",
-        "Angular",
-        "Semantic-UI",
-        "theme"
-    ],
-    "homepage": "https://mantic-ui.ky-programming.de/semantic",
-    "bugs": {
-        "url": "https://github.com/KY-Programming/mantic-ui",
-        "email": "support@ky-programming.de"
+    {
+      "type": "patreon",
+      "url": "https://www.patreon.com/kylst"
     },
-    "license": "MIT",
-    "author": {
-        "name": "KY-Programming",
-        "email": "hi@ky-programming.de",
-        "url": "https://ky-programming.de"
-    },
-    "funding": [
-        {
-            "type": "github",
-            "url": "https://github.com/sponsors/KY-Programming"
-        },
-        {
-            "type": "patreon",
-            "url": "https://www.patreon.com/kylst"
-        },
-        {
-            "type": "paypal",
-            "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VFPAP4MKV654A&source=url"
-        }
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/KY-Programming/mantic-ui.git"
-    },
-    "peerDependencies": {
-        "@angular/common": "^20.0.0",
-        "@angular/core": "^20.0.0",
-        "@mantic-ui/angular": "20.0.2"
-    },
-    "dependencies": {
-        "tslib": "^2.3.0"
-    },
-    "sideEffects": false
+    {
+      "type": "paypal",
+      "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VFPAP4MKV654A&source=url"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KY-Programming/mantic-ui.git"
+  },
+  "peerDependencies": {
+    "@angular/common": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@mantic-ui/angular": "21.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
 }

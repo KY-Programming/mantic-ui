@@ -1,4 +1,3 @@
-
 import { Component, HostListener, Input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { LabelPosition } from '../../models/label-position';
@@ -13,8 +12,8 @@ import { IconComponent } from '../icon/icon.component';
     templateUrl: './label-dropdown.component.html',
     styleUrls: ['./label-dropdown.component.scss'],
     imports: [
-    IconComponent
-],
+        IconComponent
+    ],
     providers: [...BaseComponent.providers]
 })
 export class LabelDropdownComponent extends BaseComponent {
@@ -46,7 +45,7 @@ export class LabelDropdownComponent extends BaseComponent {
     private readonly onOutsideClickHandler = () => this.close();
 
     @HostListener('click', ['$event'])
-    private onClick(event: MouseEvent): void {
+    protected onClick(event: MouseEvent): void {
         // TODO: Replace prevent
         event.preventDefault();
         event.stopPropagation();

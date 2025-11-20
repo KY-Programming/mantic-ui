@@ -1,54 +1,54 @@
 {
-    "name": "@mantic-ui/angular",
-    "version": "20.0.2",
-    "description": "mantic UI for Angular",
-    "keywords": [
-        "mantic-ui",
-        "mantic UI",
-        "Angular"
-    ],
-    "homepage": "https://mantic-ui.ky-programming.de",
-    "bugs": {
-        "url": "https://github.com/KY-Programming/mantic-ui",
-        "email": "support@ky-programming.de"
+  "name": "@mantic-ui/angular",
+  "version": "21.0.0",
+  "description": "mantic UI for Angular",
+  "keywords": [
+    "mantic-ui",
+    "mantic UI",
+    "Angular"
+  ],
+  "homepage": "https://mantic-ui.ky-programming.de",
+  "bugs": {
+    "url": "https://github.com/KY-Programming/mantic-ui",
+    "email": "support@ky-programming.de"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "KY-Programming",
+    "email": "hi@ky-programming.de",
+    "url": "https://ky-programming.de"
+  },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/KY-Programming"
     },
-    "license": "MIT",
-    "author": {
-        "name": "KY-Programming",
-        "email": "hi@ky-programming.de",
-        "url": "https://ky-programming.de"
+    {
+      "type": "patreon",
+      "url": "https://www.patreon.com/kylst"
     },
-    "funding": [
-        {
-            "type": "github",
-            "url": "https://github.com/sponsors/KY-Programming"
-        },
-        {
-            "type": "patreon",
-            "url": "https://www.patreon.com/kylst"
-        },
-        {
-            "type": "paypal",
-            "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VFPAP4MKV654A&source=url"
-        }
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/KY-Programming/mantic-ui.git"
-    },
-    "peerDependencies": {
-        "@angular/common": "^20.0.0",
-        "@angular/core": "^20.0.0",
-        "@angular/forms": "^20.0.0",
-        "@angular/platform-browser": "^20.0.0",
-        "@angular/router": "^20.0.0",
-        "rxjs": "^7.0.0"
-    },
-    "optionalDependencies": {
-        "@fortawesome/angular-fontawesome": "~2.0.0"
-    },
-    "dependencies": {
-        "tslib": "^2.3.0"
-    },
-    "sideEffects": false
+    {
+      "type": "paypal",
+      "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VFPAP4MKV654A&source=url"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KY-Programming/mantic-ui.git"
+  },
+  "peerDependencies": {
+    "@angular/common": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/forms": "^21.0.0",
+    "@angular/platform-browser": "^21.0.0",
+    "@angular/router": "^21.0.0",
+    "rxjs": "^7.0.0"
+  },
+  "optionalDependencies": {
+    "@fortawesome/angular-fontawesome": "~2.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
 }

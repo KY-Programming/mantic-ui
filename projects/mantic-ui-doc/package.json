@@ -1,23 +1,23 @@
 {
-    "name": "@mantic-ui/angular-doc",
-    "version": "20.0.2",
-    "description": "mantic UI Components for Documentation for Angular",
-    "author": "KY-Programming",
-    "license": "MIT",
-    "keywords": [
-        "mantic-ui",
-        "mantic UI",
-        "Angular"
-    ],
-    "peerDependencies": {
-        "@angular/common": "^20.0.0",
-        "@angular/core": "^20.0.0",
-        "@mantic-ui/angular": "20.0.2",
-        "ngx-highlightjs": "> 4",
-        "highlight.js": "> 10"
-    },
-    "dependencies": {
-        "tslib": "^2.3.0"
-    },
-    "sideEffects": false
+  "name": "@mantic-ui/angular-doc",
+  "version": "21.0.0",
+  "description": "mantic UI Components for Documentation for Angular",
+  "author": "KY-Programming",
+  "license": "MIT",
+  "keywords": [
+    "mantic-ui",
+    "mantic UI",
+    "Angular"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@mantic-ui/angular": "21.0.2",
+    "ngx-highlightjs": "> 4",
+    "highlight.js": "> 10"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
 }

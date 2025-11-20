@@ -1,6 +1,6 @@
 {
   "name": "@mantic-ui/eslint-config",
-  "version": "20.0.3",
+  "version": "21.0.0",
   "description": "eslint Config for mantic UI",
   "keywords": [
     "mantic-ui",
@@ -37,7 +37,7 @@
     "url": "https://github.com/KY-Programming/mantic-ui.git"
   },
   "peerDependencies": {
-    "angular-eslint": "^20.4.0",
+    "angular-eslint": "^21.0.0",
     "eslint": ">= 9",
     "eslint-plugin-import": ">= 2",
     "eslint-plugin-prefer-arrow": ">= 1",

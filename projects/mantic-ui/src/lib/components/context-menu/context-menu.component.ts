@@ -1,4 +1,3 @@
-
 import { AfterViewInit, Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { animationFrameScheduler, fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -16,9 +15,9 @@ import { ContextMenuMouseEvent } from './models/context-menu-mouse-event';
     templateUrl: './context-menu.component.html',
     styleUrls: ['./context-menu.component.scss'],
     imports: [
-    MenuComponent,
-    ToBodyDirective
-],
+        MenuComponent,
+        ToBodyDirective
+    ],
     providers: [...BaseComponent.providers]
 })
 export class ContextMenuComponent extends BaseComponent implements AfterViewInit {
@@ -108,7 +107,7 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
 
     @HostListener('document:mousedown', ['$event'])
     @HostListener('document:keydown', ['$event'])
-    private onOutsideAction(event: ContextMenuEvent): void {
+    protected onOutsideAction(event: ContextMenuEvent): void {
         if (!this.isVisible) {
             return;
         }

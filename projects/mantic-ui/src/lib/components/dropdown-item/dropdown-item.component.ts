@@ -51,7 +51,7 @@ export class DropdownItemComponent extends BaseComponent {
     }
 
     @HostListener('click', ['$event'])
-    private click(event: MouseEvent): void {
+    protected click(event: MouseEvent): void {
         event.preventDefault();
         event.stopPropagation();
         this.dropDownSelectionService.select(this.value);

@@ -47,7 +47,7 @@ export class ToggleButtonComponent extends ButtonBaseComponent {
     }
 
     @HostListener('click')
-    private toggle(): void {
+    protected toggle(): void {
         if (this.checked) {
             this.uncheck();
         }
@@ -57,7 +57,7 @@ export class ToggleButtonComponent extends ButtonBaseComponent {
     }
 
     @HostListener('keydown', ['$event'])
-    private onKeyDown(event: KeyboardEvent): void {
+    protected onKeyDown(event: KeyboardEvent): void {
         if (Key.is(event, Key.space, Key.enter)) {
             this.toggle();
             event.preventDefault();
