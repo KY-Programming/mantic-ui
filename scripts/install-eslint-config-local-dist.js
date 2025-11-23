@@ -19,5 +19,5 @@ fs.readdirSync(packageDir)
     });
 
 // Install dependencies
-execSync(`npm install ${packageFile}`, {stdio: 'inherit', cwd: rootDir});
+execSync(`npm install ${packageFile} --force`, {stdio: 'inherit', cwd: rootDir});
 console.log(`Installed ${packageName}`);
