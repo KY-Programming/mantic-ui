@@ -121,7 +121,7 @@ export class SegmentComponent extends InvertibleComponent implements OnInit {
 
     public constructor() {
         super();
-        this.classes.register('raised', 'vertical', 'placeholder', 'secondary', 'tertiary', 'attached', 'attachedValue', 'noPadding')
+        this.classes.register('raised', 'vertical', 'placeholder', 'secondary', 'tertiary', 'attached', 'attachedValue', 'noPadding', 'noMargin')
             .registerFixed('segment');
     }
 

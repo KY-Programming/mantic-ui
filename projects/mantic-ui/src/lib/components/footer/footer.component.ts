@@ -11,7 +11,7 @@ export class FooterComponent extends BaseComponent {
 
     public constructor() {
         super();
-        this.classes.registerFixed('footer ui segment vertical');
+        this.classes.registerFixed('footer ui segment vertical no-border');
     }
 
 }

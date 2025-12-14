@@ -33,12 +33,17 @@ const config: TSESLint.FlatConfig.ConfigArray = [
             'unicorn/no-nested-ternary': 'off',
             // Has to be disabled because `signal<string | undefined>(undefined)` would not be allowed
             'unicorn/no-useless-undefined': 'off',
+            'unicorn/prefer-string-raw': 'off',
+            'unicorn/switch-case-braces': 'off',
+            // Has to be disabled because `computed(() => ...)` would not be allowed
+            'unicorn/consistent-function-scoping': 'off',
 
             // typescript-eslint
             '@typescript-eslint/no-explicit-any': ['warn', { 'fixToUnknown': true }],
             '@typescript-eslint/prefer-readonly': 'warn',
             '@typescript-eslint/explicit-member-accessibility': 'warn',
             '@typescript-eslint/explicit-function-return-type': 'error',
+            '@typescript-eslint/no-confusing-void-expression': ['error', { ignoreArrowShorthand: true }],
             '@typescript-eslint/no-unused-vars': 'warn',
             '@typescript-eslint/no-use-before-define': 'error',
             '@typescript-eslint/naming-convention': [
@@ -53,15 +58,23 @@ const config: TSESLint.FlatConfig.ConfigArray = [
                     format: ['camelCase', 'PascalCase']
                 },
                 {
-                    'selector': 'property',
-                    'format': [
+                    selector: 'property',
+                    format: [
                         'camelCase',
                         'PascalCase'
                     ],
-                    'filter': {
-                        'regex': '^\\[(class|style|attr)(\\..*\\\\)?\\]$',
-                        'match': false
+                    filter: {
+                        regex: '^\\[(class|style|attr)(\\..*)?\\]$',
+                        match: false
                     }
+                },
+                {
+                    selector: 'property',
+                    custom: {
+                        regex: '^\\[(class|style|attr)(\\..*)?\\]$',
+                        match: true
+                    },
+                    format: []
                 },
                 {
                     selector: 'variable',
