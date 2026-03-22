@@ -199,6 +199,7 @@ export * from './lib/pipes/round.pipe';
 export * from './lib/pipes/safe.pipe';
 export * from './lib/pipes/slice.pipe';
 export * from './lib/pipes/title.pipe';
+export * from './lib/pipes/to-boolean.pipe';
 export * from './lib/pipes/validation.pipe';
 export * from './lib/services/base-href.service';
 export * from './lib/services/environment.service';
