@@ -57,6 +57,8 @@ export * from './lib/components/flex/shrink/shrink.directive';
 export * from './lib/components/flex/grow/grow.component';
 export * from './lib/components/flex/grow/grow.directive';
 export * from './lib/components/flex/flex.types';
+export * from './lib/components/overflow/overflow.directive';
+export * from './lib/components/overflow/overflow.types';
 export * from './lib/components/footer/footer.component';
 export * from './lib/components/footer-link/footer-link.component';
 export * from './lib/components/form/form.component';
