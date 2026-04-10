@@ -18,11 +18,22 @@ export class TemplateService {
                 list = [];
                 this.templates.set(name, list);
             }
-            const index = list.indexOf(template);
+            let index = list.indexOf(template);
             if (index >= 0) {
                 list.splice(index, 1);
             }
+            for (const entry of list.slice()) {
+                if (!entry.autoHide) {
+                    continue;
+                }
+                entry.visible.set(false);
+                index = list.indexOf(entry);
+                if (index >= 0) {
+                    list.splice(index, 1);
+                }
+            }
             list.push(template);
+            template.visible.set(true);
             this.notify(name, template, subscriptionSubject);
         }
     }
@@ -36,9 +47,26 @@ export class TemplateService {
             }
             const index = list.indexOf(template);
             if (index >= 0) {
-                list.splice(index, 1);
+                const template = list.splice(index, 1)[0];
+                template.visible.set(false);
             }
-            this.notify(name, list[list.length - 1]);
+            const lastTemplate = list[list.length - 1];
+            lastTemplate?.visible.set(true);
+            this.notify(name, lastTemplate);
+        }
+    }
+
+    public toggle(names: string | string[], template: Template): void {
+        names = typeof names === 'string' ? [names] : names ?? [];
+        for (const name of names) {
+            const list = this.templates.get(name);
+            const index = list?.indexOf(template);
+            if (list && index !== undefined && index >= 0) {
+                this.hide(name, template);
+            }
+            else {
+                this.show(name, template);
+            }
         }
     }
 
