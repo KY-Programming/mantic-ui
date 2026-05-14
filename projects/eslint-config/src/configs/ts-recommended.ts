@@ -26,6 +26,15 @@ const config: TSESLint.FlatConfig.ConfigArray = [
         },
         rules: {
             // Unicorn
+            'unicorn/prevent-abbreviations': [
+                'warn',
+                {
+                    'allowList': {
+                        // The type from angular is also named ElementRef, so it would be confusing to rename it to ElementReference or similar
+                        'elementRef': true
+                    }
+                }
+            ],
             'unicorn/better-regex': 'warn',
             'unicorn/consistent-destructuring': 'warn',
             'unicorn/custom-error-definition': 'error',
@@ -64,14 +73,14 @@ const config: TSESLint.FlatConfig.ConfigArray = [
                         'PascalCase'
                     ],
                     filter: {
-                        regex: '^\\[(class|style|attr)(\\..*)?\\]$',
+                        regex: String.raw`^\[(class|style|attr)(\..*)?\]$`,
                         match: false
                     }
                 },
                 {
                     selector: 'property',
                     custom: {
-                        regex: '^\\[(class|style|attr)(\\..*)?\\]$',
+                        regex: String.raw`^\[(class|style|attr)(\..*)?\]$`,
                         match: true
                     },
                     format: []
@@ -81,6 +90,11 @@ const config: TSESLint.FlatConfig.ConfigArray = [
                     format: ['camelCase', 'UPPER_CASE'],
                     leadingUnderscore: 'forbid',
                     trailingUnderscore: 'forbid'
+                },
+                {
+                    selector: ['variable', 'parameter'],
+                    filter: { regex: '^_$', match: true },
+                    format: null
                 },
                 {
                     selector: 'typeLike',

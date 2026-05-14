@@ -11,7 +11,7 @@ if (!fs.existsSync(outputPath)) {
     const packageJson = require(packageJsonPath);
     const shortVersions = {
         name: 'mantic-ui',
-        version: packageJson.version ?? ''
+        frontendVersion: packageJson.version ?? ''
     };
     const appVersionsJson = JSON.stringify(shortVersions, null, 4);
     const appVersionsDistPath = path.join(outputPath, 'app.versions.json');
