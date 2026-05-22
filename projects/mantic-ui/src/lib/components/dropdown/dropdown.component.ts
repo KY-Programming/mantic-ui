@@ -411,8 +411,9 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         // Wait for rendering complete
         setTimeout(() => {
             const hostBounds = this.elementRef.nativeElement.getBoundingClientRect();
-            const spaceBelow = window.innerHeight - hostBounds.bottom;
-            const spaceAbove = hostBounds.top;
+            const clip = this.getClippingBounds(this.elementRef.nativeElement);
+            const spaceBelow = clip.bottom - hostBounds.bottom;
+            const spaceAbove = hostBounds.top - clip.top;
             this.isSystemUpward = spaceBelow < DropdownComponent.upwardThreshold && spaceAbove > spaceBelow;
             const available = (this.isSystemUpward ? spaceAbove : spaceBelow) - DropdownComponent.viewportMargin;
             const menu = this.menuElement?.nativeElement;
@@ -578,5 +579,31 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
 
     protected itemMouseUp(item: DropdownValue): void {
         this.keepOpen = false;
+    }
+
+    /**
+     * Intersects the viewport with every scrolling/clipping ancestor so the dropdown
+     * fits inside the visible area even when an outer container clips it.
+     */
+    private getClippingBounds(element: HTMLElement): { top: number; bottom: number } {
+        let top = 0;
+        let bottom = window.innerHeight;
+        let node: HTMLElement | null = element.parentElement;
+        while (node && node !== document.body && node !== document.documentElement) {
+            const style = window.getComputedStyle(node);
+            const overflowY = style.overflowY;
+            const clipsY = overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'hidden' || overflowY === 'clip';
+            if (clipsY) {
+                const rect = node.getBoundingClientRect();
+                if (rect.top > top) {
+                    top = rect.top;
+                }
+                if (rect.bottom < bottom) {
+                    bottom = rect.bottom;
+                }
+            }
+            node = node.parentElement;
+        }
+        return { top, bottom };
     }
 }
