@@ -49,6 +49,7 @@ const config: TSESLint.FlatConfig.ConfigArray = [
 
             // typescript-eslint
             '@typescript-eslint/no-explicit-any': ['warn', { 'fixToUnknown': true }],
+            '@typescript-eslint/prefer-nullish-coalescing': 'off',
             '@typescript-eslint/prefer-readonly': 'warn',
             '@typescript-eslint/explicit-member-accessibility': 'warn',
             '@typescript-eslint/explicit-function-return-type': 'error',

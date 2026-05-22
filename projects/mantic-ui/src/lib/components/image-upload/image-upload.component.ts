@@ -1,8 +1,9 @@
-
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ButtonBaseComponent } from '../../base/button-base.component';
 import { BooleanLike } from '../../models/boolean-like';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
     selector: 'm-image-upload',
@@ -11,11 +12,16 @@ import { BooleanLike } from '../../models/boolean-like';
     imports: [],
     providers: [...ButtonBaseComponent.providers]
 })
-export class ImageUploadComponent extends ButtonBaseComponent {
+export class ImageUploadComponent extends ButtonBaseComponent implements OnInit {
     private readonly previewImageChangeSubject = new Subject<string>();
     private readonly uploadSubject = new Subject<FileList>();
     public isPreviewVisible = true;
     private isPreviewImageChangeForced = false;
+
+    public override ngOnInit(): void {
+        super.ngOnInit();
+        ButtonComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
+    }
 
     @Input()
     public previewImage?: string;
