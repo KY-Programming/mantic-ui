@@ -43,8 +43,8 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     private isAttachedRight = false;
     private isAttachedBottom = false;
     private isFreeTextAllowed = false;
-    private isUserUpward = false;
     private isSystemUpward = false;
+    private menuMaxHeight: number | undefined;
     private isDisabled = false;
     private isReadonly = false;
     protected readonly defaults = DropdownComponent.defaults;
@@ -231,15 +231,6 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     @HostBinding('class.active')
     public isActive = false;
 
-    @Input()
-    public get upwards(): boolean {
-        return this.isUserUpward;
-    }
-
-    public set upwards(value: BooleanLike) {
-        this.isUserUpward = this.toBoolean(value);
-    }
-
     public set disabled(value: BooleanLike) {
         this.isDisabled = this.toBoolean(value);
     }
@@ -256,8 +247,15 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
 
     @HostBinding('class.upward')
     public get isUpwardClass(): boolean {
-        return this.isUserUpward ?? this.isSystemUpward;
+        return this.isSystemUpward;
     }
+
+    public get menuMaxHeightPx(): number | undefined {
+        return this.menuMaxHeight;
+    }
+
+    private static readonly upwardThreshold = 120;
+    private static readonly viewportMargin = 8;
 
     public isDefault = true;
     public isMenuVisible = false;
@@ -408,11 +406,21 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         this.isHidden = true;
         this.isLoading = true;
         this.isSystemUpward = false;
+        this.menuMaxHeight = undefined;
         // this.refreshClasses();
         // Wait for rendering complete
         setTimeout(() => {
-            const bounds = this.menuElement?.nativeElement.getBoundingClientRect();
-            this.isSystemUpward = !!bounds && bounds.bottom >= window.innerHeight;
+            const hostBounds = this.elementRef.nativeElement.getBoundingClientRect();
+            const spaceBelow = window.innerHeight - hostBounds.bottom;
+            const spaceAbove = hostBounds.top;
+            this.isSystemUpward = spaceBelow < DropdownComponent.upwardThreshold && spaceAbove > spaceBelow;
+            const available = (this.isSystemUpward ? spaceAbove : spaceBelow) - DropdownComponent.viewportMargin;
+            const menu = this.menuElement?.nativeElement;
+            const defaultMaxHeight = menu ? parseFloat(window.getComputedStyle(menu).maxHeight) : NaN;
+            // Only override the stylesheet default when our viewport-fit cap is stricter.
+            this.menuMaxHeight = isFinite(defaultMaxHeight) && defaultMaxHeight > 0 && defaultMaxHeight <= available
+                ? undefined
+                : Math.max(0, available);
 
             this.isLoading = false;
             this.isHidden = false;

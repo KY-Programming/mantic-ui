@@ -26,6 +26,7 @@
 <div class="menu" #menuElement
   [class.visible]="isMenuVisible"
   [style.display]="isMenuVisible ? 'block' : ''"
+  [style.max-height.px]="menuMaxHeightPx"
   [style.animation-duration.ms]="animationDuration"
   [class.transition]="isSlidingIn || isSlidingOut"
   [class.hidden]="isHidden"
