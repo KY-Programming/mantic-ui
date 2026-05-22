@@ -1,0 +1,163 @@
+const path = require('path');
+const fs = require('fs');
+const readline = require('readline');
+
+const rootDir = path.join(__dirname, '..');
+
+const groups = {
+    mantic: {
+        label: 'mantic  (mantic-ui, mantic-ui-doc, fomantic-ui, semantic-ui)',
+        files: [
+            'projects/mantic-ui/package.json',
+            'projects/mantic-ui-doc/package.json',
+            'projects/fomantic-ui/package.json',
+            'projects/semantic-ui/package.json'
+        ]
+    },
+    eslint: {
+        label: 'eslint  (eslint-config)',
+        files: [
+            'projects/eslint-config/package.json'
+        ]
+    }
+};
+
+const parts = [
+    { key: 'revision', label: 'revision  (x.x.X)', index: 2 },
+    { key: 'minor', label: 'minor     (x.X.0)', index: 1 },
+    { key: 'major', label: 'major     (X.0.0)', index: 0 }
+];
+
+function readPackage(relativePath) {
+    const fullPath = path.join(rootDir, relativePath);
+    const json = JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+    return { fullPath, json };
+}
+
+function bumpVersion(version, partIndex) {
+    const segments = version.split('.').map(s => parseInt(s, 10));
+    while (segments.length < 3) segments.push(0);
+    segments[partIndex] = segments[partIndex] + 1;
+    for (let i = partIndex + 1; i < segments.length; i++) segments[i] = 0;
+    return segments.join('.');
+}
+
+function select(question, options, formatter) {
+    return new Promise((resolve, reject) => {
+        if (!process.stdin.isTTY) {
+            reject(new Error('Interactive selection requires a TTY.'));
+            return;
+        }
+
+        let index = 0;
+        let drawnLines = 0;
+
+        const render = (initial) => {
+            if (!initial) {
+                readline.moveCursor(process.stdout, 0, -drawnLines);
+                readline.clearScreenDown(process.stdout);
+            }
+            const lines = [];
+            lines.push('\x1b[36m?\x1b[0m \x1b[1m' + question + '\x1b[0m');
+            lines.push('  \x1b[2m(use ↑/↓ arrows, enter to confirm, esc to cancel)\x1b[0m');
+            options.forEach((opt, i) => {
+                const text = formatter ? formatter(opt, i) : opt;
+                if (i === index) {
+                    lines.push('\x1b[32m❯ ' + text + '\x1b[0m');
+                } else {
+                    lines.push('  ' + text);
+                }
+            });
+            const out = lines.join('\n') + '\n';
+            process.stdout.write(out);
+            drawnLines = lines.length;
+        };
+
+        readline.emitKeypressEvents(process.stdin);
+        process.stdin.setRawMode(true);
+        process.stdin.resume();
+
+        const onKey = (_str, key) => {
+            if (!key) return;
+            if (key.ctrl && key.name === 'c') {
+                cleanup();
+                process.stdout.write('\n');
+                process.exit(130);
+            }
+            if (key.name === 'escape') {
+                cleanup();
+                process.stdout.write('\n');
+                process.exit(0);
+            }
+            if (key.name === 'up' || (key.name === 'k' && !key.ctrl)) {
+                index = (index - 1 + options.length) % options.length;
+                render(false);
+            } else if (key.name === 'down' || (key.name === 'j' && !key.ctrl)) {
+                index = (index + 1) % options.length;
+                render(false);
+            } else if (key.name === 'return') {
+                cleanup();
+                resolve(index);
+            }
+        };
+
+        const cleanup = () => {
+            process.stdin.removeListener('keypress', onKey);
+            process.stdin.setRawMode(false);
+            process.stdin.pause();
+        };
+
+        process.stdin.on('keypress', onKey);
+        render(true);
+    });
+}
+
+function clearScreen() {
+    process.stdout.write('\x1b[2J\x1b[3J\x1b[H');
+}
+
+async function main() {
+    const groupKeys = Object.keys(groups);
+    const groupOptions = groupKeys.map(k => groups[k]);
+
+    clearScreen();
+    const groupIndex = await select(
+        'Which package group?',
+        groupOptions,
+        (opt) => opt.label
+    );
+    const group = groupOptions[groupIndex];
+
+    const packages = group.files.map(file => {
+        const pkg = readPackage(file);
+        return { file, fullPath: pkg.fullPath, json: pkg.json, currentVersion: pkg.json.version };
+    });
+
+    const previewVersion = packages[0].currentVersion;
+
+    clearScreen();
+    const partIndex = await select(
+        'Which part to bump? (current: ' + previewVersion + ')',
+        parts,
+        (opt) => {
+            const next = bumpVersion(previewVersion, opt.index);
+            return opt.label.padEnd(20) + '  \x1b[2m→\x1b[0m  \x1b[33m' + next + '\x1b[0m';
+        }
+    );
+    const part = parts[partIndex];
+
+    clearScreen();
+    packages.forEach(pkg => {
+        const next = bumpVersion(pkg.currentVersion, part.index);
+        pkg.json.version = next;
+        const text = JSON.stringify(pkg.json, null, 2) + '\n';
+        fs.writeFileSync(pkg.fullPath, text);
+        const rel = path.relative(rootDir, pkg.fullPath);
+        console.log('\x1b[32m√\x1b[0m  ' + rel.padEnd(40) + '  \x1b[2m' + pkg.currentVersion + '\x1b[0m  \x1b[2m→\x1b[0m  \x1b[33m' + next + '\x1b[0m');
+    });
+}
+
+main().catch(err => {
+    console.error('\x1b[31m' + (err && err.message ? err.message : err) + '\x1b[0m');
+    process.exit(1);
+});
