@@ -1,6 +1,6 @@
 {
   "name": "@mantic-ui/semantic-ui-angular",
-  "version": "21.3.2",
+  "version": "21.4.0",
   "description": "Semantic UI theme for mantic UI Angular components. Requires @mantic-ui/angular",
   "scripts": {
     "postbuild": "npm run copy-styles",
