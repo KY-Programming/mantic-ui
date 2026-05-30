@@ -421,6 +421,16 @@
 </m-tab>
 @if (isDev) {
   <m-tab label="Renderer">
+    <m-example header="Cascading dropdown filter" description="A dropdown can narrow its items by another field's value via the 'filter' config. Pick a City to limit Streets, then a Street to limit Objects. Clearing a field removes its filter.">
+      <m-segment style="min-height: 320px" m-flex="column">
+        <m-form-renderer [layout]="cascadingLayout" [data]="cascadingData" m-fill>
+          <m-data-source (request)="requestCascadingData($event)"></m-data-source>
+        </m-form-renderer>
+      </m-segment>
+      <m-info>Current selection — City: <strong>{{ cascadingData.city || '—' }}</strong>, Street: <strong>{{ cascadingData.street || '—' }}</strong>, Object: <strong>{{ cascadingData.object || '—' }}</strong></m-info>
+      <m-example-code [code]="cascadingLayout | json"></m-example-code>
+    </m-example>
+
     <m-segment>
       <h3 m-header>Layout (JSON)</h3>
       <m-textarea [value]="rendererLayout | json" (valueChange)="parseLayout($event)"></m-textarea>

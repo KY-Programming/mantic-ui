@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, DoCheck, HostBinding, Input, IterableDiffer, IterableDiffers, Output } from '@angular/core';
-import { merge, Observable, ReplaySubject, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 import { BaseComponent } from '../../base/base.component';
 import { HeaderDirective } from '../../directives/header.directive';
 import { BooleanLike } from '../../models/boolean-like';
@@ -13,7 +14,7 @@ import { DropdownValue } from '../dropdown/dropdown-value';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { ErrorComponent } from '../error/error.component';
 import { FieldComponent } from '../field/field.component';
-import { FormAreaElement, FormButtonElement, FormCheckboxElement, FormDataElement, FormDropDownElement, FormElements, FormError, FormFieldGroupElement, FormGridElement, FormHeader, FormInfo, FormInputElement, FormLabelElement, FormMessage, FormWarning } from '../form-renderer/form-layout';
+import { FormAreaElement, FormButtonElement, FormCheckboxElement, FormDataElement, FormDropDownElement, FormDropDownFilter, FormElements, FormError, FormFieldGroupElement, FormGridElement, FormHeader, FormInfo, FormInputElement, FormLabelElement, FormMessage, FormWarning } from '../form-renderer/form-layout';
 import { GridComponent } from '../grid/grid.component';
 import { InfoComponent } from '../info/info.component';
 import { NumericInputComponent } from '../input/numeric/numeric-input.component';
@@ -36,6 +37,9 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
     private readonly fieldClasses = ['', '', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
     private readonly dataCache = new Map<string, Observable<Record<string, unknown>[]>>();
     private readonly dropDownCache = new Map<string, Observable<DropdownValue[]>>();
+    private readonly filterTick = new BehaviorSubject<void>(undefined);
+    private readonly filterFields = new Set<string>();
+    private readonly lastFilterValues = new Map<string, unknown>();
     private readonly executeSubject = new Subject<string>();
     private elementsValue: FormElements[] = [];
     private dataValue: Record<string, unknown> = {};
@@ -48,6 +52,7 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
     public set elements(value: FormElements[]) {
         this.elementsValue = value;
         this.applyDefaults();
+        this.collectFilterFields();
     }
 
     @Output()
@@ -75,6 +80,9 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
     public set data(value: Record<string, unknown>) {
         this.dataValue = value;
         this.applyDefaults();
+        this.dropDownCache.clear();
+        this.lastFilterValues.clear();
+        this.filterTick.next();
     }
 
     @Input()
@@ -92,6 +100,7 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
         if (this.isFields && this.elementsDiffer.diff(this.elements)) {
             this.classes.set('elements', this.fieldClasses[this.elements.length]);
         }
+        this.checkFilterValues();
     }
 
     protected getData(dataSource: string): Observable<Record<string, unknown>[]> {
@@ -109,28 +118,72 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
     }
 
     protected getItems(dropdown: FormDropDownElement): Observable<DropdownValue[]> {
-        const cachedObservable = this.dropDownCache.get(dropdown.dataSource);
+        const filters = this.normalizeFilters(dropdown.filter);
+        const cacheKey = `${dropdown.dataSource}|${filters.map(dropdownFilter => `${dropdownFilter.formField}=${dropdownFilter.dataField}`).join(',')}`;
+        const cachedObservable = this.dropDownCache.get(cacheKey);
         if (cachedObservable) {
             return cachedObservable;
         }
-        const subject = new ReplaySubject<DropdownValue[]>(1);
-        this.dropDownCache.set(dropdown.dataSource, subject.asObservable());
-        this.getData(dropdown.dataSource).subscribe({
-            next: data => {
-                const values = data?.map(entry => new DropdownValue<unknown>(entry[dropdown.valueField], this.format(entry, dropdown.textField, dropdown.textFieldFormatter)));
-                subject.next([
+        const stream = combineLatest([this.getData(dropdown.dataSource), this.filterTick]).pipe(
+            map(([data]) => {
+                const filtered = data.filter(entry => filters.every(dropdownFilter => {
+                    const formValue = this.data[dropdownFilter.formField];
+                    if (formValue === undefined || formValue === null || formValue === '') {
+                        return true;
+                    }
+                    return entry[dropdownFilter.dataField] === formValue;
+                }));
+                const values = filtered.map(entry => new DropdownValue<unknown>(entry[dropdown.valueField], this.format(entry, dropdown.textField, dropdown.textFieldFormatter)));
+                return [
                     ...this.upgradeItems(dropdown.prefixItems),
                     ...values,
                     ...this.upgradeItems(dropdown.postfixItems)
-                ]);
-            },
-            error: error => subject.next(error)
-        });
-        return subject.asObservable();
+                ];
+            }),
+            shareReplay({ bufferSize: 1, refCount: true })
+        );
+        this.dropDownCache.set(cacheKey, stream);
+        return stream;
     }
 
     protected onExecute(action: string): void {
         this.executeSubject.next(action);
+    }
+
+    private normalizeFilters(filter: FormDropDownElement['filter']): FormDropDownFilter[] {
+        if (!filter) {
+            return [];
+        }
+        return Array.isArray(filter) ? filter : [filter];
+    }
+
+    private collectFilterFields(): void {
+        this.filterFields.clear();
+        this.lastFilterValues.clear();
+        for (const element of this.elements) {
+            if (element.elementType === 'dropdown') {
+                for (const dropdownFilter of this.normalizeFilters(element.filter)) {
+                    this.filterFields.add(dropdownFilter.formField);
+                }
+            }
+        }
+    }
+
+    private checkFilterValues(): void {
+        if (this.filterFields.size === 0) {
+            return;
+        }
+        let changed = false;
+        for (const field of this.filterFields) {
+            const value = this.data[field];
+            if (this.lastFilterValues.get(field) !== value) {
+                this.lastFilterValues.set(field, value);
+                changed = true;
+            }
+        }
+        if (changed) {
+            this.filterTick.next();
+        }
     }
 
     private applyDefaults(): void {

@@ -56,6 +56,12 @@ export interface FormDropDownElement extends FormDataElement {
     allowFreeText?: boolean;
     prefixItems?: DropdownValue[];
     postfixItems?: DropdownValue[];
+    filter?: FormDropDownFilter | FormDropDownFilter[];
+}
+
+export interface FormDropDownFilter {
+    formField: string;
+    dataField: string;
 }
 
 export interface FormButtonElement extends FormDataElement {

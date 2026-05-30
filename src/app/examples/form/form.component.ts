@@ -352,6 +352,45 @@ export class MyValidationPipe implements ValidationPipe, PipeTransform {
     };
     public rendererData = {};
     public rendererDataError?: string;
+
+    protected readonly cascadingLayout: FormLayout = {
+        elements: [
+            {
+                elementType: 'dropdown',
+                label: 'City',
+                field: 'city',
+                dataSource: 'city',
+                valueField: 'name',
+                textField: 'name',
+                allowFreeText: true
+            },
+            {
+                elementType: 'dropdown',
+                label: 'Street',
+                field: 'street',
+                dataSource: 'street',
+                valueField: 'name',
+                textField: 'name',
+                allowFreeText: true,
+                filter: { formField: 'city', dataField: 'city' }
+            },
+            {
+                elementType: 'dropdown',
+                label: 'Object',
+                field: 'object',
+                dataSource: 'object',
+                valueField: 'name',
+                textField: 'name',
+                allowFreeText: true,
+                filter: [
+                    { formField: 'city', dataField: 'city' },
+                    { formField: 'street', dataField: 'street' }
+                ]
+            }
+        ]
+    };
+    protected cascadingData: { city?: string; street?: string; object?: string } = {};
+
     public readonly inverted = `<m-form inverted></m-form>`;
 
     protected readonly hintCode = `<m-form>
@@ -388,6 +427,42 @@ export class MyValidationPipe implements ValidationPipe, PipeTransform {
                 { uid: 1, name: '1', description: 'One' },
                 { uid: 2, name: '2', description: 'Two' }
             ]);
+        }
+    }
+
+    protected requestCascadingData(request: DataSourceRequest): void {
+        switch (request.key) {
+            case 'city': {
+                request.resolve([
+                    { name: 'Berlin' },
+                    { name: 'Hamburg' },
+                    { name: 'München' }
+                ]);
+                break;
+            }
+            case 'street': {
+                request.resolve([
+                    { name: 'Unter den Linden', city: 'Berlin' },
+                    { name: 'Alexanderplatz', city: 'Berlin' },
+                    { name: 'Reeperbahn', city: 'Hamburg' },
+                    { name: 'Jungfernstieg', city: 'Hamburg' },
+                    { name: 'Marienplatz', city: 'München' },
+                    { name: 'Leopoldstraße', city: 'München' }
+                ]);
+                break;
+            }
+            case 'object': {
+                request.resolve([
+                    { name: 'Brandenburger Tor', city: 'Berlin', street: 'Unter den Linden' },
+                    { name: 'Humboldt-Universität', city: 'Berlin', street: 'Unter den Linden' },
+                    { name: 'Fernsehturm', city: 'Berlin', street: 'Alexanderplatz' },
+                    { name: 'Operettenhaus', city: 'Hamburg', street: 'Reeperbahn' },
+                    { name: 'Alsterhaus', city: 'Hamburg', street: 'Jungfernstieg' },
+                    { name: 'Neues Rathaus', city: 'München', street: 'Marienplatz' },
+                    { name: 'Wohnhaus 12', city: 'München', street: 'Leopoldstraße' }
+                ]);
+                break;
+            }
         }
     }
 

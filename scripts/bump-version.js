@@ -1,23 +1,24 @@
 const path = require('path');
 const fs = require('fs');
 const readline = require('readline');
+const { spawnSync } = require('child_process');
 
 const rootDir = path.join(__dirname, '..');
 
 const groups = {
     mantic: {
         label: 'mantic  (mantic-ui, mantic-ui-doc, fomantic-ui, semantic-ui)',
-        files: [
-            'projects/mantic-ui/package.json',
-            'projects/mantic-ui-doc/package.json',
-            'projects/fomantic-ui/package.json',
-            'projects/semantic-ui/package.json'
+        packages: [
+            { file: 'projects/mantic-ui/package.json', build: 'mantic:build' },
+            { file: 'projects/mantic-ui-doc/package.json', build: 'doc:build' },
+            { file: 'projects/fomantic-ui/package.json', build: 'fomantic:build' },
+            { file: 'projects/semantic-ui/package.json', build: 'semantic:build' }
         ]
     },
     eslint: {
         label: 'eslint  (eslint-config)',
-        files: [
-            'projects/eslint-config/package.json'
+        packages: [
+            { file: 'projects/eslint-config/package.json', build: 'eslint:build' }
         ]
     }
 };
@@ -128,9 +129,15 @@ async function main() {
     );
     const group = groupOptions[groupIndex];
 
-    const packages = group.files.map(file => {
-        const pkg = readPackage(file);
-        return { file, fullPath: pkg.fullPath, json: pkg.json, currentVersion: pkg.json.version };
+    const packages = group.packages.map(entry => {
+        const pkg = readPackage(entry.file);
+        return {
+            file: entry.file,
+            build: entry.build,
+            fullPath: pkg.fullPath,
+            json: pkg.json,
+            currentVersion: pkg.json.version
+        };
     });
 
     const previewVersion = packages[0].currentVersion;
@@ -150,11 +157,26 @@ async function main() {
     packages.forEach(pkg => {
         const next = bumpVersion(pkg.currentVersion, part.index);
         pkg.json.version = next;
+        pkg.nextVersion = next;
         const text = JSON.stringify(pkg.json, null, 2) + '\n';
         fs.writeFileSync(pkg.fullPath, text);
         const rel = path.relative(rootDir, pkg.fullPath);
         console.log('\x1b[32m√\x1b[0m  ' + rel.padEnd(40) + '  \x1b[2m' + pkg.currentVersion + '\x1b[0m  \x1b[2m→\x1b[0m  \x1b[33m' + next + '\x1b[0m');
     });
+
+    console.log('');
+    for (const pkg of packages) {
+        console.log('\x1b[36m▶\x1b[0m  npm run ' + pkg.build);
+        const result = spawnSync('npm', ['run', pkg.build], {
+            cwd: rootDir,
+            stdio: 'inherit',
+            shell: true
+        });
+        if (result.status !== 0) {
+            console.error('\x1b[31m✗  Build failed for ' + pkg.build + ' (exit ' + result.status + ')\x1b[0m');
+            process.exit(result.status || 1);
+        }
+    }
 }
 
 main().catch(err => {
