@@ -1,6 +1,6 @@
 {
   "name": "@mantic-ui/eslint-config",
-  "version": "21.2.2",
+  "version": "22.0.0",
   "description": "eslint Config for mantic UI",
   "keywords": [
     "mantic-ui",
@@ -37,13 +37,13 @@
     "url": "https://github.com/KY-Programming/mantic-ui.git"
   },
   "peerDependencies": {
-    "angular-eslint": "^21.0.0",
-    "eslint": ">= 9",
+    "angular-eslint": "^22.0.0",
+    "eslint": ">= 10",
     "eslint-plugin-import": ">= 2",
     "eslint-plugin-prefer-arrow": ">= 1",
     "eslint-plugin-rxjs-updated": ">= 1",
     "eslint-plugin-unicorn": ">= 61",
-    "typescript-eslint": ">= 8.46.0"
+    "typescript-eslint": ">= 8.61.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
