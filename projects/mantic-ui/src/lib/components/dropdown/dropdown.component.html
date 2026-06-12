@@ -1,9 +1,9 @@
 <input type="hidden">
-@if (icon) {
-  <m-icon [icon]="icon" [size]="iconSize" class="icon"></m-icon>
+@if (icon()) {
+  <m-icon [icon]="icon()" [size]="iconSize()" class="icon"></m-icon>
 }
 @if (!allowFreeText && hasItems) {
-  <m-icon [icon]="dropdownIcon ?? defaults.dropdownIcon" [size]="dropdownIconSize ?? defaults.dropdownIconSize" class="dropdown icon"></m-icon>
+  <m-icon [icon]="dropdownIcon() ?? defaults.dropdownIcon" [size]="dropdownIconSize() ?? defaults.dropdownIconSize" class="dropdown icon"></m-icon>
 }
 @for (selectedItem of selectedItems; track selectedItem) {
   <a class="ui label transition visible">
@@ -11,15 +11,15 @@
       <m-icon [icon]="selectedItem.icon" [size]="selectedItem.iconSize"></m-icon>
     }
     {{selectedItem.text === undefined ? selectedItem.value : selectedItem.text}}
-    <m-icon [icon]="deleteIcon ?? defaults.deleteIcon" [size]="deleteIconSize ?? defaults.deleteIconSize" class="icon" (click)="deleteClick(selectedItem, $event)"></m-icon>
+    <m-icon [icon]="deleteIcon() ?? defaults.deleteIcon" [size]="deleteIconSize() ?? defaults.deleteIconSize" class="icon" (click)="deleteClick(selectedItem, $event)"></m-icon>
   </a>
 }
 @if (search || allowFreeText) {
-  <input [(ngModel)]="filter" class="search" autocomplete="off" tabindex="0" (input)="onFilter()" (keydown)="onKeyDown($event)" #inputElement>
+  <input [(ngModel)]="filter()" class="search" autocomplete="off" tabindex="0" (input)="onFilter()" (keydown)="onKeyDown($event)" #inputElement>
 }
 <div [class.default]="isDefault" [class.filtered]="isFiltered" class="text">
   @if (!selectedItem) {
-    {{value || placeholder}}
+    {{value || placeholder()}}
   }
   <span #htmlElement></span>
 </div>
@@ -27,7 +27,7 @@
   [class.visible]="isMenuVisible"
   [style.display]="isMenuVisible ? 'block' : ''"
   [style.max-height.px]="menuMaxHeightPx"
-  [style.animation-duration.ms]="animationDuration"
+  [style.animation-duration.ms]="animationDuration()"
   [class.transition]="isSlidingIn || isSlidingOut"
   [class.hidden]="isHidden"
   [class.animating]="isSlidingIn || isSlidingOut"

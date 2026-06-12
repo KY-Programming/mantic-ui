@@ -1,11 +1,11 @@
 @if ((checkboxComponent || sliderComponent || toggleComponent || radioComponent) && !ownLabel && forceLabel) {
   <label class="empty label">&nbsp;</label>
-} @else if (label || hint) {
-  @if ((label || hint) && (!checkboxComponent && !sliderComponent && !toggleComponent && !radioComponent || ownLabel)) {
+} @else if (label || hint()) {
+  @if ((label || hint()) && (!checkboxComponent && !sliderComponent && !toggleComponent && !radioComponent || ownLabel)) {
     <label [attr.for]="name" #labelElement>
       {{ label }}
-      @if (hint) {
-        <m-icon [icon]="defaults.hintIcon" [size]="defaults.hintIconSize" [title]="hint" />
+      @if (hint()) {
+        <m-icon [icon]="defaults.hintIcon" [size]="defaults.hintIconSize" [title]="hint()" />
       }
       @if (inlineValidation && errors.length) {
         <m-icon [icon]="defaults.errorIcon" [size]="defaults.errorIconSize" [title]="errors | fieldFormatErrors" />

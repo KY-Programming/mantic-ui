@@ -1,4 +1,4 @@
-import { ContentChild, Directive, HostBinding, Input } from '@angular/core';
+import { ContentChild, Directive, HostBinding, input, contentChild } from '@angular/core';
 import { ButtonComponent } from '../components/button/button.component';
 import { IconButtonComponent } from '../components/icon-button/icon-button.component';
 import { LabelDropdownComponent } from '../components/label-dropdown/label-dropdown.component';
@@ -33,26 +33,23 @@ export abstract class LabeledBaseComponent extends InvertibleComponent {
     public set labelDropdown(value: LabelDropdownComponent | undefined) {
         this.labelDropdownValue = value;
         if (value) {
-            this.classes.set('labeled', (value.position ?? '') + ' labeled');
+            this.classes.set('labeled', (value.position() ?? '') + ' labeled');
         }
     }
 
-    @ContentChild(IconButtonComponent)
-    protected iconButton: IconButtonComponent | undefined;
+    protected readonly iconButton = contentChild(IconButtonComponent);
 
-    @ContentChild(ButtonComponent)
-    protected button: ButtonComponent | undefined;
+    protected readonly button = contentChild(ButtonComponent);
 
     public get isRight(): boolean {
-        return !!this.label && this.label.position === 'right' || !!this.labelDropdown && this.labelDropdown.position === 'right';
+        return !!this.label && this.label.position === 'right' || !!this.labelDropdown && this.labelDropdown.position() === 'right';
     }
 
-    @Input()
-    public buttonPosition: 'left' | 'right' = 'right';
+    public readonly buttonPosition = input<'left' | 'right'>('right');
 
     @HostBinding('class.action')
     public get isAction(): boolean {
-        return !!this.button || !!this.iconButton;
+        return !!this.button() || !!this.iconButton();
     }
 
     protected constructor() {

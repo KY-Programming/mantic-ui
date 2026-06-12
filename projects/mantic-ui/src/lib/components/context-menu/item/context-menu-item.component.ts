@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, Optional, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostListener, Input, Optional, ChangeDetectionStrategy, input } from '@angular/core';
 import { BooleanLike } from '../../../models/boolean-like';
 import { IconType } from '../../icon/icon-type';
 import { IconComponent } from '../../icon/icon.component';
@@ -18,12 +18,12 @@ import { ContextMenuComponent } from '../context-menu.component';
 export class ContextMenuItemComponent extends MenuItemComponent {
     private keepOpenValue = false;
 
-    @Input()
-    public icon: IconType | undefined;
+    public readonly icon = input<IconType>();
 
-    @Input()
-    public iconColor: string | undefined;
+    public readonly iconColor = input<string>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get keepOpen(): boolean {
         return this.keepOpenValue;

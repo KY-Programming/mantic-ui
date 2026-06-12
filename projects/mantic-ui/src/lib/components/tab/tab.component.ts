@@ -1,5 +1,5 @@
 import { NgIfContext, NgTemplateOutlet } from '@angular/common';
-import { Component, EventEmitter, Input, Output, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Output, TemplateRef, ChangeDetectionStrategy, input } from '@angular/core';
 import { SortedClassesService } from '../../services/sorted-classes.service';
 import { IconSize } from '../icon/icon-size';
 import { IconType } from '../icon/icon-type';
@@ -17,21 +17,16 @@ import { MenuItemComponent } from '../menu-item/menu-item.component';
 })
 export class TabComponent extends MenuItemComponent {
 
-    @Input()
-    public name: string | undefined;
+    public readonly name = input<string>();
 
-    @Input()
-    public label: string | undefined;
+    public readonly label = input<string>();
 
-    @Input()
-    public icon: IconType | undefined;
+    public readonly icon = input<IconType>();
 
-    @Input()
-    public iconSize: IconSize;
+    public readonly iconSize = input<IconSize>();
 
-    @Input()
     // eslint-disable-next-line no-null/no-null
-    public template: TemplateRef<NgIfContext<boolean>> | null = null;
+public readonly template = input<TemplateRef<NgIfContext<boolean>> | null>(null);
 
     @Output()
     public readonly activate = new EventEmitter<void>();

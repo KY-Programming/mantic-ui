@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, HostBinding, HostListener, inject, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, HostBinding, HostListener, inject, Input, Output, ChangeDetectionStrategy, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -59,6 +59,8 @@ export class CheckboxComponent extends InvertibleComponent {
         this.disabledDirective.disabled = value;
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get value(): boolean | undefined {
         return this.isChecked;
@@ -68,6 +70,8 @@ export class CheckboxComponent extends InvertibleComponent {
         this.isChecked = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get name(): string {
         return this.nameValue ?? '';
@@ -77,6 +81,8 @@ export class CheckboxComponent extends InvertibleComponent {
         this.nameValue = value;
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get label(): string | undefined {
         return this.labelValue;
@@ -86,6 +92,8 @@ export class CheckboxComponent extends InvertibleComponent {
         this.labelValue = value;
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.checked')
     public get checked(): boolean {
@@ -102,6 +110,8 @@ export class CheckboxComponent extends InvertibleComponent {
     @Output()
     public readonly checkedChange = new EventEmitter<boolean>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.indeterminate')
     public get indeterminate(): boolean {
@@ -115,20 +125,15 @@ export class CheckboxComponent extends InvertibleComponent {
     @Output()
     public readonly indeterminateChange = this.valueChange;
 
-    @Input()
-    public canUncheck = true;
+    public readonly canUncheck = input(true);
 
-    @Input()
-    public checkIcon?: IconType;
+    public readonly checkIcon = input<IconType>();
 
-    @Input()
-    public checkIconSize?: IconSize;
+    public readonly checkIconSize = input<IconSize>();
 
-    @Input()
-    public indeterminateIcon?: IconType;
+    public readonly indeterminateIcon = input<IconType>();
 
-    @Input()
-    public indeterminateIconSize?: IconSize;
+    public readonly indeterminateIconSize = input<IconSize>();
 
     @HostBinding('class.checkbox')
     public readonly checkbox = true;
@@ -157,7 +162,7 @@ export class CheckboxComponent extends InvertibleComponent {
     }
 
     protected set(value: boolean): void {
-        if (!value && !this.canUncheck) {
+        if (!value && !this.canUncheck()) {
             return;
         }
         this.indeterminate = false;

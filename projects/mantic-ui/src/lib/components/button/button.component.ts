@@ -1,5 +1,5 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, inject, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ContentChild, inject, Input, ChangeDetectionStrategy, input } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ButtonBaseComponent } from '../../base/button-base.component';
@@ -64,7 +64,7 @@ export class ButtonComponent extends ButtonBaseComponent {
     }
 
     public get animation(): AnimationDirection {
-        return this.animated ? this.animated.direction : undefined;
+        return this.animated ? this.animated.direction() : undefined;
     }
 
     @ContentChild(LabelComponent)
@@ -81,6 +81,8 @@ export class ButtonComponent extends ButtonBaseComponent {
         return this.label ? this.label.position : undefined;
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get icon(): IconType | undefined {
         return this.icoValue;
@@ -92,9 +94,10 @@ export class ButtonComponent extends ButtonBaseComponent {
         this.classes.set('iconLabeled', value ? 'labeled' : undefined);
     }
 
-    @Input()
-    public iconSize: IconSize;
+    public readonly iconSize = input<IconSize>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get iconPosition(): LabelPosition {
         return this.iconPositionValue;
@@ -105,6 +108,8 @@ export class ButtonComponent extends ButtonBaseComponent {
         this.classes.set('iconPosition', value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get social(): string | undefined {
         return this.socialValue;

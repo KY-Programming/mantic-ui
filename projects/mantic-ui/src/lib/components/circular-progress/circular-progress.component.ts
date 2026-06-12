@@ -1,4 +1,4 @@
-import { Component, HostBinding, inject, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostBinding, inject, Input, ChangeDetectionStrategy, input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { ColorDirective } from '../../directives/color.directive';
 import { BooleanLike } from '../../models/boolean-like';
@@ -19,29 +19,25 @@ export class CircularProgressComponent extends BaseComponent {
     private isWarning = false;
     private isError = false;
 
-    @Input({ required: true })
-    public value = 0;
+    public readonly value = input.required<number>();
 
-    @Input()
-    public min = 0;
+    public readonly min = input(0);
 
-    @Input()
-    public max = 100;
+    public readonly max = input(100);
 
-    @Input()
-    public size = 160;
+    public readonly size = input(160);
 
-    @Input()
-    public strokeWidth = 12;
+    public readonly strokeWidth = input(12);
 
-    @Input()
-    public centerContent = true;
+    public readonly centerContent = input(true);
 
     @HostBinding('class.ui')
     @HostBinding('class.progress')
     @HostBinding('class.circular')
     protected readonly host = true;
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.success')
     public get success(): boolean {
@@ -52,6 +48,8 @@ export class CircularProgressComponent extends BaseComponent {
         this.isSuccess = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.error')
     public get error(): boolean {
@@ -62,6 +60,8 @@ export class CircularProgressComponent extends BaseComponent {
         this.isError = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.warning')
     public get warning(): boolean {
@@ -78,7 +78,7 @@ export class CircularProgressComponent extends BaseComponent {
     }
 
     protected get radius(): number {
-        return this.size / 2 - this.strokeWidth / 2;
+        return this.size() / 2 - this.strokeWidth() / 2;
     }
 
     protected get total(): number {
@@ -86,7 +86,7 @@ export class CircularProgressComponent extends BaseComponent {
     }
 
     protected get offset(): number {
-        const valueOffset = (this.value - this.min) / (this.max - this.min);
+        const valueOffset = (this.value() - this.min()) / (this.max() - this.min());
         return this.total * (1 - valueOffset);
     }
 

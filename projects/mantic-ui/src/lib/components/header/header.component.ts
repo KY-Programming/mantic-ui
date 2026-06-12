@@ -1,5 +1,4 @@
-
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, input } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '../../base/base.component';
@@ -27,12 +26,12 @@ export class HeaderComponent extends InvertibleComponent implements OnInit {
     };
     private sizeValue: HeaderSize | undefined;
 
-    @Input()
-    public icon: IconType | undefined;
+    public readonly icon = input<IconType>();
 
-    @Input()
-    public iconSize: IconSize;
+    public readonly iconSize = input<IconSize>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get size(): HeaderSize | undefined {
         return this.sizeValue;

@@ -12,13 +12,12 @@ export class FlexDirective {
     @HostBinding('style.display')
     protected display = 'flex';
 
-    @Input()
     @HostBinding('style.flex-direction')
-    public direction: FlexDirection | '' | undefined;
+    public readonly direction = input<FlexDirection | ''>();
 
     @Input()
     public get 'm-flex'(): FlexDirection | '' | undefined {
-        return this.direction;
+        return this.direction();
     }
 
     public set 'm-flex'(value: FlexDirection | '' | undefined | null) {
@@ -26,35 +25,36 @@ export class FlexDirective {
         this.display = value || value === '' ? 'flex' : '';
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get column(): boolean {
-        return this.direction === 'column';
+        return this.direction() === 'column';
     }
 
     public set column(value: BooleanLike) {
         this.direction = toBoolean(value) ? 'column' : 'row';
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get row(): boolean {
-        return this.direction === 'row';
+        return this.direction() === 'row';
     }
 
     public set row(value: BooleanLike) {
         this.direction = toBoolean(value) ? 'row' : 'column';
     }
 
-    @Input()
     @HostBinding('style.align-items')
-    public alignItems: FlexAlignItems | undefined;
+public readonly alignItems = input<FlexAlignItems>();
 
-    @Input()
     @HostBinding('style.justify-content')
-    public justifyContent: FlexJustifyContent | undefined;
+public readonly justifyContent = input<FlexJustifyContent>();
 
-    @Input()
     @HostBinding('style.gap')
-    public gap: string | undefined;
+public readonly gap = input<string>();
 
     public readonly wrap = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly wrapReverse = input<boolean, BooleanLike>(false, { transform: toBoolean });

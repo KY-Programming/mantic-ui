@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { IconSize } from '../icon/icon-size';
 
 @Component({
@@ -8,9 +8,7 @@ import { IconSize } from '../icon/icon-size';
     styleUrls: ['./flag.component.scss'],
     })
 export class FlagComponent {
-    @Input()
-    public flag: string | undefined;
+    public readonly flag = input<string>();
 
-    @Input()
-    public size: IconSize;
+    public readonly size = input<IconSize>();
 }

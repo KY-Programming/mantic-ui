@@ -1,7 +1,7 @@
 <m-menu position="top" fixed>
-  @if (showHamburger) {
+  @if (showHamburger()) {
     <m-menu-item>
-      <m-icon [icon]="menuIcon ?? defaults.menuIcon" [size]="menuIconSize ?? defaults.menuIconSize"></m-icon>
+      <m-icon [icon]="menuIcon() ?? defaults.menuIcon" [size]="menuIconSize() ?? defaults.menuIconSize"></m-icon>
     </m-menu-item>
   }
   @for (template of menuTemplates; track template) {

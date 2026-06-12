@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ChangeDetectionStrategy, input, viewChild } from '@angular/core';
 import { ButtonDirective } from '../../../directives/button.directive';
 
 @Component({
@@ -13,15 +13,13 @@ import { ButtonDirective } from '../../../directives/button.directive';
 export class FileInputComponent {
     public readonly id = `file_input_${Date.now()}_${Math.floor(Math.random() * 1000000)}`;
 
-    @ViewChild('input')
-    public input: ElementRef<HTMLInputElement> | undefined;
+    public readonly input = viewChild<ElementRef<HTMLInputElement>>('input');
 
     public get files(): FileList | undefined {
-        return this.input?.nativeElement.files ?? undefined;
+        return this.input()?.nativeElement.files ?? undefined;
     }
 
-    @Input()
-    public accept: string | undefined;
+    public readonly accept = input<string>();
 
     @Output()
     public readonly change = new EventEmitter<Event>();

@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 
 import { HeaderDirective } from '@mantic-ui/angular';
 
@@ -11,13 +11,10 @@ import { HeaderDirective } from '@mantic-ui/angular';
 })
 export class HeaderComponent {
 
-    @Input()
-    public header?: string;
+    public readonly header = input<string>();
 
-    @Input()
-    public subHeader?: string;
+    public readonly subHeader = input<string>();
 
-    @Input()
-    public showPlaceholder?: boolean;
+    public readonly showPlaceholder = input<boolean>();
 
 }

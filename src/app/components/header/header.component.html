@@ -1,11 +1,11 @@
 <h1 m-header>
-  {{header}}
-  @if (subHeader) {
+  {{header()}}
+  @if (subHeader()) {
     <div class="sub header">
-      {{subHeader}}
+      {{subHeader()}}
     </div>
   }
 </h1>
-@if (showPlaceholder) {
+@if (showPlaceholder()) {
   <div class="ui secondary pointing menu placeholder"></div>
 }

@@ -1,24 +1,24 @@
 @if (!isRight) {
     <ng-container [ngTemplateOutlet]="labelTemplate" />
 }
-@if (buttonPosition === 'left') {
+@if (buttonPosition() === 'left') {
     <ng-container [ngTemplateOutlet]="contentTemplate" />
 }
 <ng-content />
 @if (type === 'color') {
-    <input type="text" [(ngModel)]="value" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onChange()">
-    <label class="ui label color-label" [style.background-color]="value" [for]="colorForId">
-        <input type="color" [id]="colorForId" [(ngModel)]="value" [attr.name]="name" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onChange()" #colorInput>
+    <input type="text" [(ngModel)]="value()" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onChange()">
+    <label class="ui label color-label" [style.background-color]="value()" [for]="colorForId">
+        <input type="color" [id]="colorForId" [(ngModel)]="value()" [attr.name]="name()" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onChange()" #colorInput>
     </label>
 }
-<input *m-fallback-for="'input'" [type]="type || 'text'" [placeholder]="placeholder || ''" [(ngModel)]="value" [attr.name]="name" [attr.maxlength]="maxlength" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onChange()" #input>
-@if (icon) {
-    <m-icon [icon]="icon" [size]="iconSize" class="link icon" />
+<input *m-fallback-for="'input'" [type]="type || 'text'" [placeholder]="placeholder() || ''" [(ngModel)]="value()" [attr.name]="name()" [attr.maxlength]="maxlength()" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onChange()" #input>
+@if (icon()) {
+    <m-icon [icon]="icon()" [size]="iconSize()" class="link icon" />
 }
 @if (isRight) {
     <ng-container [ngTemplateOutlet]="labelTemplate" />
 }
-@if (buttonPosition === 'right') {
+@if (buttonPosition() === 'right') {
     <ng-container [ngTemplateOutlet]="contentTemplate" />
 }
 

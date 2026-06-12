@@ -1,7 +1,7 @@
-<div class="text">{{value}}</div>
-<m-icon [icon]="dropdownIcon ?? defaults.dropdownIcon" [size]="dropdownIconSize ?? defaults.dropdownIconSize"></m-icon>
+<div class="text">{{value()}}</div>
+<m-icon [icon]="dropdownIcon() ?? defaults.dropdownIcon" [size]="dropdownIconSize() ?? defaults.dropdownIconSize"></m-icon>
 <div class="menu" [class.visible]="isOpen">
-  @for (item of items; track item) {
+  @for (item of items(); track item) {
     <div class="item" (click)="select(item)">{{item}}</div>
   }
 </div>

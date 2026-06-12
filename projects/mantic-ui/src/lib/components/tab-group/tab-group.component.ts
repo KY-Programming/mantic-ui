@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { AfterViewInit, Component, ContentChildren, EventEmitter, HostBinding, Input, OnInit, Output, QueryList, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, EventEmitter, HostBinding, Input, OnInit, Output, QueryList, ChangeDetectionStrategy, input } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Route, Router, Routes, UrlSegment } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -35,12 +35,13 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
     private isLoading = false;
     private routes: NamedRoute[] = [];
 
-    @Input()
-    public menu: MenuPosition = 'top';
+    public readonly menu = input<MenuPosition>('top');
 
     @Output()
     public readonly selectedIndexChange = new EventEmitter<number>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get pointing(): boolean {
         return this.isPointing;
@@ -50,6 +51,8 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
         this.isPointing = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get secondary(): boolean {
         return this.isSecondary;
@@ -59,6 +62,8 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
         this.isSecondary = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get loading(): boolean {
         return this.isLoading;
@@ -70,14 +75,17 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
 
     @HostBinding('class')
     protected get menuPosition(): string {
-        return 'menu-' + this.menu;
+        return 'menu-' + this.menu();
     }
 
     @HostBinding('class.horizontal')
     protected get horizontal(): boolean {
-        return this.menu === 'left' || this.menu === 'right';
+        const menu = this.menu();
+        return menu === 'left' || menu === 'right';
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get selectByRoute(): string {
         return this.routeParameterName;
@@ -92,6 +100,8 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
         return this.selectedIndexField;
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public set selectedIndex(value: number | undefined) {
         this.selectedIndexField = value;
@@ -100,6 +110,8 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
         }
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get noPadding(): boolean {
         return this.isNoPadding;
@@ -109,6 +121,8 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
         this.isNoPadding = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get scrollable(): boolean {
         return this.isScrollable;
@@ -164,7 +178,8 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
         let found: TabComponent | undefined;
         if (selectedTabName) {
             selectedTabName = selectedTabName.toLowerCase();
-            found = this.tabs?.find((tab, index) => tab.name && tab.name.toLocaleLowerCase() === selectedTabName || !tab.name && this.toName(tab.label) === selectedTabName || selectedTabIndex === index);
+            found = this.tabs?.find((tab, index) =>name && name.toLocaleLowerCase() === selectedTabName || !name && this.toName(tab.label()) === selectedTabName || selectedTabIndex === index;
+            });
 
         }
         else {
@@ -184,7 +199,7 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
         this.selectedIndex = this.tabs?.toArray().indexOf(tab);
         this.selectedIndexChange.emit(this.selectedIndex);
         if (this.isSelectByRoute) {
-            const name = tab.name || this.toName(tab.label);
+            const name = tab.name() || this.toName(tab.label());
             const urlSegments = this.getActiveRouteSegments();
             const segment = urlSegments.find(s => s.name === ':' + this.routeParameterName);
             if (segment?.path === name) {

@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy, input } from '@angular/core';
 import { BooleanLike, ButtonComponent, SegmentComponent } from '@mantic-ui/angular';
 import { HighlightModule } from 'ngx-highlightjs';
 
@@ -17,15 +17,14 @@ import { HighlightModule } from 'ngx-highlightjs';
 export class ExampleCodeComponent extends SegmentComponent {
     private isLive = false;
 
-    @Input()
-    public label: string | undefined;
+    public readonly label = input<string>();
 
-    @Input()
-    public code: string | undefined;
+    public readonly code = input<string>();
 
-    @Input()
-    public languages = ['html'];
+    public readonly languages = input(['html']);
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get live(): boolean {
         return this.isLive;

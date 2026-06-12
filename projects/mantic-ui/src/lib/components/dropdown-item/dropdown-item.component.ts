@@ -1,4 +1,4 @@
-import { Component, HostBinding, HostListener, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostBinding, HostListener, Input, ChangeDetectionStrategy, input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
 import { DropDownSelectionService } from '../dropdown/dropdown-selection.service';
@@ -14,9 +14,10 @@ export class DropdownItemComponent extends BaseComponent {
     private isFilteredOut = false;
     private isSelected = false;
 
-    @Input()
-    public value: unknown;
+    public readonly value = input<unknown>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.filtered')
     public get filteredOut(): boolean {
@@ -27,6 +28,8 @@ export class DropdownItemComponent extends BaseComponent {
         this.isFilteredOut = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.active')
     @HostBinding('class.selected')
@@ -38,8 +41,7 @@ export class DropdownItemComponent extends BaseComponent {
         this.isSelected = this.toBoolean(value);
     }
 
-    @Input()
-    public icon: string | undefined;
+    public readonly icon = input<string>();
 
     public readonly element = this.elementRef;
 
@@ -55,7 +57,7 @@ export class DropdownItemComponent extends BaseComponent {
     protected click(event: MouseEvent): void {
         event.preventDefault();
         event.stopPropagation();
-        this.dropDownSelectionService.select(this.value);
+        this.dropDownSelectionService.select(this.value());
     }
 
     public select(value = true): void {

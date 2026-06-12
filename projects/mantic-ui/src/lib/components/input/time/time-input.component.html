@@ -1,18 +1,18 @@
 @if (!isRight) {
   <ng-container [ngTemplateOutlet]="labelTemplate"></ng-container>
 }
-@if (buttonPosition === 'left') {
+@if (buttonPosition() === 'left') {
   <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
 }
 <ng-content></ng-content>
-<input *m-fallback-for="'input'" type="time" [placeholder]="placeholder || ''" [ngModel]="internalValue" [min]="min || ''" [max]="max || ''" [attr.name]="name" [attr.for]="for" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onInternalChange($event)" #input>
-@if (icon) {
-  <m-icon [icon]="icon" [size]="iconSize" class="link icon"></m-icon>
+<input *m-fallback-for="'input'" type="time" [placeholder]="placeholder() || ''" [ngModel]="internalValue" [min]="min() || ''" [max]="max() || ''" [attr.name]="name()" [attr.for]="for()" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onInternalChange($event)" #input>
+@if (icon()) {
+  <m-icon [icon]="icon()" [size]="iconSize()" class="link icon"></m-icon>
 }
 @if (isRight) {
   <ng-container [ngTemplateOutlet]="labelTemplate"></ng-container>
 }
-@if (buttonPosition === 'right') {
+@if (buttonPosition() === 'right') {
   <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
 }
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Output, ChangeDetectionStrategy, input } from '@angular/core';
 import { ChatMessage } from '../../models/chat-message';
 import { ButtonComponent } from '../button/button.component';
 
@@ -18,22 +18,21 @@ import { RouterLink } from '@angular/router';
 })
 export class ChatMessageComponent {
 
-    @Input({ required: true })
-    public message: ChatMessage | undefined;
+    public readonly message = input.required<ChatMessage | undefined>();
 
     @HostBinding('class.in')
     public get in(): boolean {
-        return this.message?.direction === 'in';
+        return this.message()?.direction === 'in';
     }
 
     @HostBinding('class.out')
     public get out(): boolean {
-        return this.message?.direction === 'out';
+        return this.message()?.direction === 'out';
     }
 
     @HostBinding('class.grouped')
     public get grouped(): boolean {
-        return this.message?.grouped ?? false;
+        return this.message()?.grouped ?? false;
     }
 
     @Output()

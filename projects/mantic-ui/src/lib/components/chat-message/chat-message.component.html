@@ -1,11 +1,11 @@
 <div class="wrapper">
-  @if (message && !message.grouped) {
-    <div class="header">{{message.sender}}</div>
+  @if (message() && !message().grouped) {
+    <div class="header">{{message().sender}}</div>
   }
-  {{message?.text}}
-  @if (message?.options) {
+  {{message()?.text}}
+  @if (message()?.options) {
     <div class="options">
-      @for (option of message?.options; track option) {
+      @for (option of message()?.options; track option) {
         @if (option.url) {
           @if (!option.hideUrl) {
             @if (option.url.indexOf('http') === 0) {

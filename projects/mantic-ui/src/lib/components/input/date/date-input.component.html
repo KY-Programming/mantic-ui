@@ -1,24 +1,24 @@
 @if (!isRight) {
   <ng-container [ngTemplateOutlet]="labelTemplate"></ng-container>
 }
-@if (buttonPosition === 'left') {
+@if (buttonPosition() === 'left') {
   <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
 }
 <ng-content></ng-content>
-<input *m-fallback-for="'input'" type="date" [placeholder]="placeholder || ''" [ngModel]="internalValue" [min]="min || ''" [max]="max || ''" [attr.name]="name" [attr.for]="for" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onInternalChange($event)" #input>
-@if (icon) {
-  <m-icon [icon]="icon" [size]="iconSize" class="link icon"></m-icon>
+<input *m-fallback-for="'input'" type="date" [placeholder]="placeholder() || ''" [ngModel]="internalValue" [min]="min() || ''" [max]="max() || ''" [attr.name]="name()" [attr.for]="for()" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onInternalChange($event)" #input>
+@if (icon()) {
+  <m-icon [icon]="icon()" [size]="iconSize()" class="link icon"></m-icon>
 }
 @if (isRight) {
   <ng-container [ngTemplateOutlet]="labelTemplate"></ng-container>
 }
-@if (buttonPosition === 'right') {
+@if (buttonPosition() === 'right') {
   <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
 }
 
 <ng-template #labelTemplate>
   @if (showDay) {
-    <m-label [color]="value?.getDay() === 0 || value?.getDay() === 6 ? weekendColor : undefined">{{value | date: 'E'}}</m-label>
+    <m-label [color]="value?.getDay() === 0 || value?.getDay() === 6 ? weekendColor() : undefined">{{value | date: 'E'}}</m-label>
   }
   <ng-content select="m-label"></ng-content>
   <ng-content select="m-label-dropdown"></ng-content>

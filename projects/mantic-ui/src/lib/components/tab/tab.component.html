@@ -1,6 +1,6 @@
 @if (activate) {
-    @if (template) {
-        <ng-container [ngTemplateOutlet]="template" />
+    @if (template()) {
+        <ng-container [ngTemplateOutlet]="template()" />
     } @else {
         <ng-content />
     }

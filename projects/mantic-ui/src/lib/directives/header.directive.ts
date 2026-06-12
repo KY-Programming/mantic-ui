@@ -1,4 +1,4 @@
-import { Directive, HostBinding, inject, Input, OnInit } from '@angular/core';
+import { Directive, HostBinding, inject, Input, OnInit, input } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { BaseDirective } from '../base/base.directive';
 import { HeaderComponent } from '../components/header/header.component';
@@ -23,6 +23,8 @@ export class HeaderDirective extends BaseDirective implements OnInit {
         this.invertedDirective.inverted = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.dividing')
     public get dividing(): boolean {
@@ -33,6 +35,8 @@ export class HeaderDirective extends BaseDirective implements OnInit {
         this.isDividing = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.icon')
     public get icon(): boolean {
@@ -43,9 +47,8 @@ export class HeaderDirective extends BaseDirective implements OnInit {
         this.isIcon = this.toBoolean(value);
     }
 
-    @Input()
     @HostBinding('class.sub')
-    public sub = false;
+public readonly sub = input(false);
 
     public constructor() {
         super();

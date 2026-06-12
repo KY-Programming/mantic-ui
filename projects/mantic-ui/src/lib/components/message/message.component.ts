@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, HostListener, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, HostBinding, HostListener, Input, OnInit, Output, ChangeDetectionStrategy, input } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
@@ -44,6 +44,8 @@ export class MessageComponent extends InvertibleComponent implements OnInit {
 
     protected readonly defaults = MessageComponent.defaults;
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.positive')
     public get positive(): boolean {
@@ -54,6 +56,8 @@ export class MessageComponent extends InvertibleComponent implements OnInit {
         this.isPositive = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.info')
     public get info(): boolean {
@@ -64,6 +68,8 @@ export class MessageComponent extends InvertibleComponent implements OnInit {
         this.isInfo = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.success')
     public get success(): boolean {
@@ -74,6 +80,8 @@ export class MessageComponent extends InvertibleComponent implements OnInit {
         this.isSuccess = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.warning')
     public get warning(): boolean {
@@ -84,6 +92,8 @@ export class MessageComponent extends InvertibleComponent implements OnInit {
         this.isWarning = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.error')
     public get error(): boolean {
@@ -94,6 +104,8 @@ export class MessageComponent extends InvertibleComponent implements OnInit {
         this.isError = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get closable(): boolean {
         return this.isClosable;
@@ -103,6 +115,8 @@ export class MessageComponent extends InvertibleComponent implements OnInit {
         this.isClosable = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get showClose(): boolean {
         return this.isCloseVisible;
@@ -112,6 +126,8 @@ export class MessageComponent extends InvertibleComponent implements OnInit {
         this.isCloseVisible = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get loading(): boolean {
         return this.isLoading;
@@ -122,6 +138,8 @@ export class MessageComponent extends InvertibleComponent implements OnInit {
         this.classes.set('icon', this.isLoading || !!this.iconValue);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get attached(): MessageAttached {
         return this.attachedValue;
@@ -132,9 +150,10 @@ export class MessageComponent extends InvertibleComponent implements OnInit {
         this.classes.set('attached', value ? value + ' attached' : undefined);
     }
 
-    @Input()
-    public header: string | undefined;
+    public readonly header = input<string>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get icon(): IconType | undefined {
         return this.iconValue;
@@ -145,14 +164,11 @@ export class MessageComponent extends InvertibleComponent implements OnInit {
         this.classes.set('icon', !!value);
     }
 
-    @Input()
-    public iconSize: IconSize;
+    public readonly iconSize = input<IconSize>();
 
-    @Input()
-    public closeIcon: IconType | undefined;
+    public readonly closeIcon = input<IconType>();
 
-    @Input()
-    public closeIconSize: IconSize;
+    public readonly closeIconSize = input<IconSize>();
 
     @Output()
     public readonly close = new EventEmitter<MouseEvent>();

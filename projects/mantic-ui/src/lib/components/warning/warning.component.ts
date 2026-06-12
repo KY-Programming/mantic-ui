@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, HostBinding, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Output, ChangeDetectionStrategy, input } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { IconComponent } from '../icon/icon.component';
@@ -18,16 +18,14 @@ import { MessageComponent } from '../message/message.component';
 export class WarningComponent extends InvertibleComponent {
     protected readonly defaults = MessageComponent.defaults;
 
-    @Input()
-    public showClose = true;
+    public readonly showClose = input(true);
 
-    @Input()
     @HostBinding('class.closed')
-    public closed = false;
+public readonly closed = input(false);
 
     @HostBinding('class.visible')
     public get visible(): boolean {
-        return !this.closed;
+        return !this.closed();
     }
 
     @Output()

@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { AnimationDirection } from './animation-direction';
 
@@ -11,12 +11,10 @@ import { AnimationDirection } from './animation-direction';
 })
 export class AnimationComponent extends BaseComponent {
 
-    @Input()
     @HostBinding('class.hidden')
-    public hidden = true;
+    public readonly hidden = input(true);
 
-    @Input()
-    public direction: AnimationDirection;
+    public readonly direction = input<AnimationDirection>();
 
     public constructor() {
         super(false);

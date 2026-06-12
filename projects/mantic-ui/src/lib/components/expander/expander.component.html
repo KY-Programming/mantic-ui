@@ -1,10 +1,10 @@
-<m-flex class="title" [direction]="iconPosition === 'left' ? 'row' : 'row-reverse'" [class.active]="expanded" (click)="toggle()">
-  <m-icon [icon]="dropdownIcon ?? defaults.dropdownIcon" [size]="dropdownIconSize ?? defaults.dropdownIconSize" iconClass="dropdown icon" />
+<m-flex class="title" [direction]="iconPosition() === 'left' ? 'row' : 'row-reverse'" [class.active]="expanded" (click)="toggle()">
+  <m-icon [icon]="dropdownIcon() ?? defaults.dropdownIcon" [size]="dropdownIconSize() ?? defaults.dropdownIconSize" iconClass="dropdown icon" />
   <m-fill>
-    @if (headerTemplate) {
-      <ng-container [ngTemplateOutlet]="headerTemplate.template" />
+    @if (headerTemplate()) {
+      <ng-container [ngTemplateOutlet]="headerTemplate().template()" />
     } @else {
-      {{header}}
+      {{header()}}
     }
   </m-fill>
 </m-flex>

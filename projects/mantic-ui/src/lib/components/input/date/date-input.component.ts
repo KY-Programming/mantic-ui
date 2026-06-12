@@ -1,5 +1,5 @@
 import { DatePipe, NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 import { DateHelper } from '../../../helpers/date-helper';
@@ -24,6 +24,8 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
     // eslint-disable-next-line no-null/no-null
     protected internalValue: string | null = null;
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get value(): Date | undefined {
         return this.valueField;
@@ -38,24 +40,25 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
         this.valueField = value;
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get date(): Date {
-        return this.value ?? this.default;
+        return this.value ?? this.default();
     }
 
     public set date(value: Date | number | string | undefined) {
         this.value = value;
     }
 
-    @Input()
-    public default = new Date(0);
+    public readonly default = input(new Date(0));
 
-    @Input()
-    public min: Date | undefined;
+    public readonly min = input<Date>();
 
-    @Input()
-    public max: Date | undefined;
+    public readonly max = input<Date>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get showDay(): boolean {
         return this.showDayValue;
@@ -66,8 +69,7 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
         this.classes.set('labeled', this.showDayValue);
     }
 
-    @Input()
-    public weekendColor: ColorName | undefined = 'red';
+    public readonly weekendColor = input<ColorName | undefined>('red');
 
     @Output()
     public readonly valueChange = new EventEmitter<Date | undefined>();
@@ -108,7 +110,7 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
         if (value) {
             this.setInternalValue(value);
         }
-        value = DateHelper.keepInRange(this.min, value, this.max);
+        value = DateHelper.keepInRange(this.min(), value, this.max());
         if (value !== this.value) {
             this.valueField = value;
             this.valueChange.emit(this.value);

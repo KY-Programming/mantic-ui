@@ -1,5 +1,4 @@
-
-import { Component, ContentChildren, EventEmitter, HostBinding, inject, Input, OnInit, Output, QueryList, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ContentChildren, EventEmitter, HostBinding, inject, Input, OnInit, Output, QueryList, ChangeDetectionStrategy, input } from '@angular/core';
 import { delay, ReplaySubject, Subject, Subscription, throttleTime } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
@@ -51,7 +50,7 @@ export class FormComponent extends InvertibleComponent implements OnInit {
     }
 
     protected get flexDirection(): FlexDirection | '' | undefined {
-        return this.flexDirective?.direction;
+        return this.flexDirective?.direction();
     }
 
     @ContentChildren(FieldComponent)
@@ -94,24 +93,20 @@ export class FormComponent extends InvertibleComponent implements OnInit {
         }
     }
 
-    @Input()
-    public action?: string;
+    public readonly action = input<string>();
 
-    @Input()
-    public autocomplete?: 'on' | 'off';
+    public readonly autocomplete = input<'on' | 'off'>();
 
-    @Input()
-    public enctype?: 'application/x-www-form-urlencoded' | 'multipart/form-data' | 'text/plain';
+    public readonly enctype = input<'application/x-www-form-urlencoded' | 'multipart/form-data' | 'text/plain'>();
 
-    @Input()
-    public method?: 'get' | 'post';
+    public readonly method = input<'get' | 'post'>();
 
-    @Input()
-    public name?: string;
+    public readonly name = input<string>();
 
-    @Input()
-    public novalidate = false;
+    public readonly novalidate = input(false);
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.success')
     public get success(): boolean {
@@ -122,6 +117,8 @@ export class FormComponent extends InvertibleComponent implements OnInit {
         this.isSuccess = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.error')
     public get error(): boolean {
@@ -132,6 +129,8 @@ export class FormComponent extends InvertibleComponent implements OnInit {
         this.isError = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.warning')
     public get warning(): boolean {
@@ -142,9 +141,10 @@ export class FormComponent extends InvertibleComponent implements OnInit {
         this.isWarning = this.toBoolean(value);
     }
 
-    @Input()
-    public target?: '_blank' | '_self' | '_parent' | '_top';
+    public readonly target = input<'_blank' | '_self' | '_parent' | '_top'>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get isValid(): boolean {
         return this.isValidValue;
@@ -154,6 +154,8 @@ export class FormComponent extends InvertibleComponent implements OnInit {
         // Ignore the value from the binding
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get autoSubmit(): boolean {
         return this.isAutoSubmit;
@@ -163,6 +165,8 @@ export class FormComponent extends InvertibleComponent implements OnInit {
         this.isAutoSubmit = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get autoSubmitThrottle(): number {
         return this.autoSubmitThrottleValue;
@@ -173,6 +177,8 @@ export class FormComponent extends InvertibleComponent implements OnInit {
         this.refreshAutoSubmitSubscription();
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get inlineValidation(): boolean {
         return this.isInlineValidation;

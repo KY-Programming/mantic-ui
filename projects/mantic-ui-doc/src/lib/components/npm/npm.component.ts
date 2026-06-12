@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, input } from '@angular/core';
 import { NpmApiService } from '../../services/npm-api.service';
 
 
@@ -13,6 +13,8 @@ export class NpmComponent {
     private packageValue: string | undefined;
     private searchVersionValue: string | undefined;
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get package(): string | undefined {
         return this.packageValue;
@@ -23,9 +25,10 @@ export class NpmComponent {
         this.refreshVersion();
     }
 
-    @Input()
-    public version: string | undefined;
+    public readonly version = input<string>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get searchVersion(): string | undefined {
         return this.searchVersionValue;
@@ -37,7 +40,8 @@ export class NpmComponent {
     }
 
     public get npmLink(): string {
-        return this.version ? `https://www.npmjs.com/package/${this.package}/v/${this.version}` : `https://www.npmjs.com/package/${this.package}`;
+        const version = this.version();
+        return version ? `https://www.npmjs.com/package/${this.package}/v/${version}` : `https://www.npmjs.com/package/${this.package}`;
     }
 
     public constructor(

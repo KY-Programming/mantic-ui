@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IconProp, SizeProp } from '@fortawesome/fontawesome-svg-core';
 import { IconSize } from './icon-size';
@@ -18,6 +18,8 @@ export class IconComponent {
     protected faIcon?: IconProp;
     protected faSize?: SizeProp;
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get icon(): IconType | undefined {
         return this.mIcon ?? this.faIcon;
@@ -32,6 +34,8 @@ export class IconComponent {
         }
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get size(): IconSize {
         return this.mSize ?? this.faSize;
@@ -89,6 +93,5 @@ export class IconComponent {
         }
     }
 
-    @Input()
-    public iconClass?: string = 'icon';
+    public readonly iconClass = input<string | undefined>('icon');
 }

@@ -1,8 +1,8 @@
-@if (messages.length && mode === 'overlap') {
-    <ng-container [ngTemplateOutlet]="messageTemplate" [ngTemplateOutletContext]="{ $implicit: messages[0] }" />
+@if (messages().length && mode() === 'overlap') {
+    <ng-container [ngTemplateOutlet]="messageTemplate" [ngTemplateOutletContext]="{ $implicit: messages()[0] }" />
 }
-@if (mode === 'stack') {
-    @for (message of messages; track message) {
+@if (mode() === 'stack') {
+    @for (message of messages(); track message) {
         <ng-container [ngTemplateOutlet]="messageTemplate" [ngTemplateOutletContext]="{ $implicit: message }" />
     }
 }
@@ -11,7 +11,7 @@
     @if ($message(message); as message) {
         <m-message
             [error]="message.type === 'error'" [warning]="message.type === 'warning'" [success]="message.type === 'success'" [positive]="message.type === 'positive'" [info]="message.type === 'info'"
-            [header]="message.title" [icon]="message.icon" closable [showClose]="message.type === 'error'" [attached]="attached" [loading]="message.loading" (close)="close(message, $event)">
+            [header]="message.title" [icon]="message.icon" closable [showClose]="message.type === 'error'" [attached]="attached()" [loading]="message.loading" (close)="close(message, $event)">
             @if (message.component) {
                 <ng-container *ngComponentOutlet="message.component; injector: message | notificationInjector" />
             } @else {

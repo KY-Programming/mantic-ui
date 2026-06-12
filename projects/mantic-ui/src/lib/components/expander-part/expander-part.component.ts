@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, HostBinding, HostListener, Input, Output, ChangeDetectionStrategy, input, viewChild } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
 import { ExpanderIconComponent } from '../expander-icon/expander-icon.component';
@@ -20,31 +20,29 @@ import { IconType } from '../icon/icon-type';
 export class ExpanderPartComponent extends BaseComponent {
     private isExpanded = false;
 
-    @Input()
     @HostBinding('class.expandable')
-    public expandable: boolean | undefined = true;
+public readonly expandable = input<boolean | undefined>(true);
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.expanded')
     public get expanded(): boolean {
-        return this.isExpanded && this.expandable !== false;
+        return this.isExpanded && this.expandable() !== false;
     }
 
     public set expanded(value: BooleanLike) {
         this.isExpanded = this.toBoolean(value);
     }
 
-    @Input()
-    public dropdownIcon: IconType | undefined;
+    public readonly dropdownIcon = input<IconType>();
 
-    @Input()
-    public dropdownIconSize: IconSize;
+    public readonly dropdownIconSize = input<IconSize>();
 
     @Output()
     public readonly expandedChange = new EventEmitter<boolean>();
 
-    @ViewChild(ExpanderIconComponent)
-    protected icon: ExpanderIconComponent | undefined;
+    protected readonly icon = viewChild(ExpanderIconComponent);
 
     public constructor() {
         super(false);
@@ -53,9 +51,9 @@ export class ExpanderPartComponent extends BaseComponent {
 
     @HostListener('click')
     protected onClick(): void {
-        if (this.expandable === false) {
+        if (this.expandable() === false) {
             return;
         }
-        this.icon?.toggle();
+        this.icon()?.toggle();
     }
 }

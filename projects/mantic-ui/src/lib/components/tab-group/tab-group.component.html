@@ -1,4 +1,4 @@
-@if (menu === 'top' || menu === 'left') {
+@if (menu() === 'top' || menu() === 'left') {
   <ng-container [ngTemplateOutlet]="menuTemplate"></ng-container>
 }
 
@@ -6,18 +6,18 @@
   <ng-content></ng-content>
 </m-segment>
 
-@if (menu === 'bottom' || menu === 'right') {
+@if (menu() === 'bottom' || menu() === 'right') {
   <ng-container [ngTemplateOutlet]="menuTemplate"></ng-container>
 }
 
 <ng-template #menuTemplate>
-  <m-menu [pointing]="pointing" [secondary]="secondary" [attached]="menu" tabular [vertical]="horizontal" [inverted]="inverted">
+  <m-menu [pointing]="pointing" [secondary]="secondary" [attached]="menu()" tabular [vertical]="horizontal" [inverted]="inverted">
     @for (tab of tabs; track tab) {
       <a class="item" [class.active]="tab.active" (click)="activate(tab)">
-        @if (tab.icon) {
-          <m-icon [icon]="tab.icon" [size]="tab.iconSize"></m-icon>
+        @if (tab.icon()) {
+          <m-icon [icon]="tab.icon()" [size]="tab.iconSize()"></m-icon>
         }
-        {{tab.label}}
+        {{tab.label()}}
       </a>
     }
   </m-menu>

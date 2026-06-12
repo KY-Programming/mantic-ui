@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, Output, ChangeDetectionStrategy, input } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ButtonBaseComponent } from '../../base/button-base.component';
@@ -24,29 +24,27 @@ export class ImageUploadComponent extends ButtonBaseComponent implements OnInit 
         ButtonComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
     }
 
-    @Input()
-    public previewImage?: string;
+    public readonly previewImage = input<string>();
 
-    @Input()
-    public radius?: number;
+    public readonly radius = input<number>();
 
-    @Input()
-    public previewWidth?: number;
+    public readonly previewWidth = input<number>();
 
-    @Input()
-    public previewHeight?: number;
+    public readonly previewHeight = input<number>();
 
-    @Input()
-    public width?: number;
+    public readonly width = input<number>();
 
-    @Input()
-    public height?: number;
+    public readonly height = input<number>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public set hidePreview(value: BooleanLike) {
         this.isPreviewVisible = !this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public set forcePreviewImageChange(value: BooleanLike) {
         this.isPreviewImageChangeForced = this.toBoolean(value);
@@ -76,15 +74,15 @@ export class ImageUploadComponent extends ButtonBaseComponent implements OnInit 
             image.src = reader.result?.toString() ?? '';
         };
         image.onload = () => {
-            let width = this.width || image.width;
-            let height = this.height || image.height;
+            let width = this.width() || image.width;
+            let height = this.height() || image.height;
             const widthRatio = image.width / width;
             const heightRatio = image.height / height;
             const ratio = Math.max(widthRatio, heightRatio);
-            if (!this.width) {
+            if (!this.width()) {
                 width = image.width / ratio;
             }
-            if (!this.height) {
+            if (!this.height()) {
                 height = image.height / ratio;
             }
             const imageWidth = image.width / ratio;
@@ -97,7 +95,7 @@ export class ImageUploadComponent extends ButtonBaseComponent implements OnInit 
             const context = canvas.getContext('2d');
             context?.drawImage(image, left, top, imageWidth, imageHeight);
             this.previewImage = canvas.toDataURL('image/png', 1);
-            this.previewImageChangeSubject.next(this.previewImage);
+            this.previewImageChangeSubject.next(this.previewImage());
         };
         reader.readAsDataURL(file);
     }

@@ -1,6 +1,6 @@
 <ng-template #contentTemplate>
-  @if (icon || label) {
-    <m-header [icon]="icon" [iconSize]="iconSize">{{label}}</m-header>
+  @if (icon() || label()) {
+    <m-header [icon]="icon()" [iconSize]="iconSize()">{{label()}}</m-header>
   }
   <m-divider></m-divider>
   <ng-content></ng-content>

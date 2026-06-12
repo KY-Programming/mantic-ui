@@ -1,5 +1,4 @@
-
-import { Component, ContentChild, EventEmitter, HostBinding, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ContentChild, EventEmitter, HostBinding, Input, Output, ChangeDetectionStrategy, input } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
@@ -228,6 +227,8 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get name(): string | undefined {
         return this.nameValue;
@@ -270,6 +271,8 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get label(): string | undefined {
         return this.labelValue;
@@ -315,9 +318,10 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
-    @Input()
-    public hint: string | undefined;
+    public readonly hint = input<string>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.wide')
     public get size(): FieldSize {
@@ -329,6 +333,8 @@ export class FieldComponent extends BaseComponent {
         this.classes.set('size', this.sizeValue);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get error(): boolean {
         return this.errorValue;
@@ -347,6 +353,8 @@ export class FieldComponent extends BaseComponent {
     @HostBinding('class.error')
     protected visibleError = false;
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public set valid(value: boolean | FormValidation) {
         const oldError = this.error;
@@ -369,6 +377,8 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.disabled')
     public get disabled(): boolean {
@@ -406,6 +416,8 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.readonly')
     public get readonly(): boolean {
@@ -440,6 +452,8 @@ export class FieldComponent extends BaseComponent {
         }
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.inline')
     public get inline(): boolean {
@@ -450,6 +464,8 @@ export class FieldComponent extends BaseComponent {
         this.isInline = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get hideInitialError(): boolean {
         return this.hideInitialErrorValue;
@@ -459,6 +475,8 @@ export class FieldComponent extends BaseComponent {
         this.hideInitialErrorValue = value;
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.fill')
     public get fill(): boolean {
@@ -469,6 +487,8 @@ export class FieldComponent extends BaseComponent {
         this.isFill = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get inlineValidation(): boolean {
         return this.isInlineValidation;
@@ -478,6 +498,8 @@ export class FieldComponent extends BaseComponent {
         this.isInlineValidation = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get ownLabel(): boolean {
         return this.hasOwnLabel;
@@ -487,6 +509,8 @@ export class FieldComponent extends BaseComponent {
         this.hasOwnLabel = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get forceLabel(): boolean {
         return this.isForceLabel;

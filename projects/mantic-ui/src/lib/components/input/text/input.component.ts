@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, ElementRef, EventEmitter, Input, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, Input, Output, ViewChild, ChangeDetectionStrategy, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 import { IconComponent } from '../../icon/icon.component';
@@ -22,21 +22,23 @@ export declare type InputType = 'button' | 'checkbox' | 'color' | 'date' | 'date
 export class InputComponent extends InputBaseComponent {
     private typeValue?: InputType;
 
-    @Input()
-    public value: string | undefined;
+    public readonly value = input<string>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get text(): string {
-        return this.value ?? this.default;
+        return this.value() ?? this.default();
     }
 
     public set text(value: string | undefined) {
         this.value = value;
     }
 
-    @Input()
-    public default = '';
+    public readonly default = input('');
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get type(): InputType | undefined {
         return this.typeValue;
@@ -50,8 +52,7 @@ export class InputComponent extends InputBaseComponent {
         }
     }
 
-    @Input()
-    public maxlength: string | number | undefined;
+    public readonly maxlength = input<string | number>();
 
     @Output()
     public readonly valueChange = new EventEmitter<string | undefined>();
@@ -82,8 +83,8 @@ export class InputComponent extends InputBaseComponent {
     }
 
     protected onChange(): void {
-        this.value ??= this.default;
-        this.valueChange.emit(this.value);
+        value ??= this.default();
+        this.valueChange.emit(value);
         this.textChange.emit(this.text);
     }
 }

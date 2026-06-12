@@ -1,5 +1,5 @@
 import { NgIfContext } from '@angular/common';
-import { Component, DoCheck, ElementRef, Input, IterableDiffer, IterableDiffers, Output, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DoCheck, ElementRef, Input, IterableDiffer, IterableDiffers, Output, TemplateRef, ChangeDetectionStrategy, input, viewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
@@ -31,11 +31,12 @@ export class ChatComponent implements DoCheck {
     private canSendValue = true;
     protected isSendIconVisible = false;
 
-    @Input()
-    public messages: ChatMessage[] = [];
+    public readonly messages = input<ChatMessage[]>([]);
 
     public message: string | undefined;
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get canSend(): boolean {
         return this.canSendValue;
@@ -45,19 +46,17 @@ export class ChatComponent implements DoCheck {
         this.canSendValue = toBoolean(value);
     }
 
-    @Input()
-    public sender: string | undefined;
+    public readonly sender = input<string>();
 
-    @Input()
     // eslint-disable-next-line no-null/no-null
-    public sendIconTemplate: TemplateRef<NgIfContext<boolean>> | null = null;
+public readonly sendIconTemplate = input<TemplateRef<NgIfContext<boolean>> | null>(null);
 
-    @Input()
-    public sendIcon: IconType | undefined;
+    public readonly sendIcon = input<IconType>();
 
-    @Input()
-    public sendIconSize: IconSize;
+    public readonly sendIconSize = input<IconSize>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get showSendIcon(): boolean {
         return this.isSendIconVisible;
@@ -67,17 +66,14 @@ export class ChatComponent implements DoCheck {
         this.isSendIconVisible = toBoolean(value);
     }
 
-    @Input()
-    public placeholder = 'Type a message and send with ENTER';
+    public readonly placeholder = input('Type a message and send with ENTER');
 
     @Output()
     public readonly send = this.sendSubject.asObservable();
 
-    @ViewChild('chat')
-    protected chat: ElementRef<HTMLElement> | undefined;
+    protected readonly chat = viewChild<ElementRef<HTMLElement>>('chat');
 
-    @ViewChild(InputComponent)
-    protected input: InputComponent | undefined;
+    protected readonly input = viewChild(InputComponent);
 
     public constructor(
         iterableDiffers: IterableDiffers
@@ -86,17 +82,17 @@ export class ChatComponent implements DoCheck {
     }
 
     public ngDoCheck(): void {
-        if (this.messagesDiffer.diff(this.messages)) {
+        if (this.messagesDiffer.diff(this.messages())) {
             this.scrollDown();
         }
     }
 
     protected sendMessage(): void {
         if (this.message) {
-            this.sendSubject.next({ direction: 'out', text: this.message, sender: this.sender ?? 'Unknown', timestamp: Date.now() });
+            this.sendSubject.next({ direction: 'out', text: this.message, sender: this.sender() ?? 'Unknown', timestamp: Date.now() });
         }
         this.message = undefined;
-        this.input?.setFocus();
+        this.input()?.setFocus();
     }
 
     protected onKeyDown(event: KeyboardEvent): void {
@@ -106,6 +102,6 @@ export class ChatComponent implements DoCheck {
     }
 
     private scrollDown(): void {
-        setTimeout(() => this.chat?.nativeElement.scrollTo(0, 999999));
+        setTimeout(() => this.chat()?.nativeElement.scrollTo(0, 999999));
     }
 }

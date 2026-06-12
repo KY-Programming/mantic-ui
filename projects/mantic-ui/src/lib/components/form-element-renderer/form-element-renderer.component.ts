@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, DoCheck, HostBinding, Input, IterableDiffer, IterableDiffers, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DoCheck, HostBinding, Input, IterableDiffer, IterableDiffers, Output, ChangeDetectionStrategy, input } from '@angular/core';
 import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { BaseComponent } from '../../base/base.component';
@@ -45,6 +45,8 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
     private elementsValue: FormElements[] = [];
     private dataValue: Record<string, unknown> = {};
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get elements(): FormElements[] {
         return this.elementsValue;
@@ -63,6 +65,8 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
         return this.isFields;
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.fields')
     public set fields(value: BooleanLike) {
@@ -73,6 +77,8 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
         return this.data;
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get data(): Record<string, unknown> {
         return this.dataValue ?? {};
@@ -86,8 +92,7 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
         this.filterTick.next();
     }
 
-    @Input()
-    public dataSources: DataSourceComponent[] = [];
+    public readonly dataSources = input<DataSourceComponent[]>([]);
 
     public constructor(
         iterableDiffers: IterableDiffers
@@ -111,7 +116,7 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
         }
         const subject = new ReplaySubject<Record<string, unknown>[]>(1);
         this.dataCache.set(dataSource, subject.asObservable());
-        merge(...this.dataSources.map(x => x.get(dataSource)).filter(x => x)).subscribe({
+        merge(...this.dataSources().map(x => x.get(dataSource)).filter(x => x)).subscribe({
             next: data => subject.next(data),
             error: error => subject.next(error)
         });

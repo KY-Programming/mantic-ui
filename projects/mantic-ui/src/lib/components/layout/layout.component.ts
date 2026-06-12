@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, Input, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, TemplateRef, ChangeDetectionStrategy, input } from '@angular/core';
 import { LayoutService } from '../../services/layout.service';
 import { FooterComponent } from '../footer/footer.component';
 import { IconSize } from '../icon/icon-size';
@@ -19,14 +19,11 @@ export class LayoutComponent {
     public static readonly defaults = { menuIcon: <IconType>'bars', menuIconSize: <IconSize>undefined };
     protected readonly defaults = LayoutComponent.defaults;
 
-    @Input()
-    public showHamburger = false;
+    public readonly showHamburger = input(false);
 
-    @Input()
-    public menuIcon: IconType | undefined;
+    public readonly menuIcon = input<IconType>();
 
-    @Input()
-    public menuIconSize: IconSize;
+    public readonly menuIconSize = input<IconSize>();
 
     public get menuTemplates(): TemplateRef<unknown>[] {
         return this.layoutService.menuTemplates;

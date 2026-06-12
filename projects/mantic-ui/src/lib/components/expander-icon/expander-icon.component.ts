@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, Output, ChangeDetectionStrategy, input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
 import { ExpanderComponent } from '../expander/expander.component';
@@ -20,6 +20,8 @@ export class ExpanderIconComponent extends BaseComponent {
     private isExpanded = false;
     protected readonly defaults = ExpanderComponent.defaults;
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.expanded')
     public get expanded(): boolean {
@@ -30,11 +32,9 @@ export class ExpanderIconComponent extends BaseComponent {
         this.isExpanded = this.toBoolean(value);
     }
 
-    @Input()
-    public dropdownIcon: IconType | undefined;
+    public readonly dropdownIcon = input<IconType>();
 
-    @Input()
-    public dropdownIconSize: IconSize;
+    public readonly dropdownIconSize = input<IconSize>();
 
     @Output()
     public readonly expandedChange = new EventEmitter<boolean>();

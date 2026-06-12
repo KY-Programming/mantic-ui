@@ -1,4 +1,4 @@
-import { ApplicationRef, Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { ApplicationRef, Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, Output, ViewChild, ChangeDetectionStrategy, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -28,9 +28,10 @@ export class TextareaComponent extends InvertibleComponent {
 
     public textareaElement?: ElementRef<HTMLTextAreaElement>;
 
-    @Input()
-    public name?: string;
+    public readonly name = input<string>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.disabled')
     public get disabled(): boolean {
@@ -42,6 +43,8 @@ export class TextareaComponent extends InvertibleComponent {
         this.refreshTextarea();
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.disabled')
     public get readonly(): boolean {
@@ -53,30 +56,27 @@ export class TextareaComponent extends InvertibleComponent {
         this.refreshTextarea();
     }
 
-    @Input()
     @HostBinding('class.error')
-    public hasError = false;
+public readonly hasError = input(false);
 
-    @Input()
-    public placeholder: string | undefined;
+    public readonly placeholder = input<string>();
 
-    @Input()
-    public value: string | undefined;
+    public readonly value = input<string>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get text(): string {
-        return this.value ?? this.default;
+        return this.value() ?? this.default();
     }
 
     public set text(value: string | undefined) {
         this.value = value;
     }
 
-    @Input()
-    public default = '';
+    public readonly default = input('');
 
-    @Input()
-    public inputId: string | undefined;
+    public readonly inputId = input<string>();
 
     @Output()
     public readonly valueChange = new EventEmitter<string | undefined>();
@@ -131,8 +131,8 @@ export class TextareaComponent extends InvertibleComponent {
     }
 
     protected onChange(): void {
-        this.value ??= this.default;
-        this.valueChange.emit(this.value);
+        value ??= this.default();
+        this.valueChange.emit(value);
         this.textChange.emit(this.text);
     }
 

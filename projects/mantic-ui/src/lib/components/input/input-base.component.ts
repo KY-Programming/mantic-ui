@@ -1,4 +1,4 @@
-﻿import { Directive, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, Output } from '@angular/core';
+﻿import { Directive, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, Output, input } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LabeledBaseComponent } from '../../base/labeled-base.component';
@@ -34,22 +34,24 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
         return this.iconPositionValue;
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public set iconPosition(value: InputIconPosition | undefined) {
         this.iconPositionValue = value;
         this.classes.set('iconPosition', value);
     }
 
-    @Input()
     @HostBinding('class.icon')
-    public icon: IconType | undefined;
+public readonly icon = input<IconType>();
 
-    @Input()
-    public iconSize: IconSize;
+    public readonly iconSize = input<IconSize>();
 
     @HostBinding('class.focus')
     public focused = false;
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.disabled')
     public get disabled(): boolean {
@@ -61,6 +63,8 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
         this.refreshInput();
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.readonly')
     public get readonly(): boolean {
@@ -72,6 +76,8 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
         this.refreshInput();
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.error')
     public get hasError(): boolean {
@@ -82,6 +88,8 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
         this.hasErrorValue = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.transparent')
     public get transparent(): boolean {
@@ -92,6 +100,8 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
         this.transparentValue = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get autofocus(): boolean {
         return this.isAutoFocused;
@@ -102,14 +112,11 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
         this.refreshFocus();
     }
 
-    @Input()
-    public placeholder: string | undefined;
+    public readonly placeholder = input<string>();
 
-    @Input()
-    public name: string | undefined;
+    public readonly name = input<string>();
 
-    @Input()
-    public for: string | undefined;
+    public readonly for = input<string>();
 
     @Output()
     public readonly keyDown = new EventEmitter<KeyboardEvent>();

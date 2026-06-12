@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 import { Math2 } from '../../../helpers/math2';
@@ -22,22 +22,21 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     protected internalValue: number | null = null;
     public type: 'number' | 'range' = 'number';
 
-    @Input()
-    public default = 0;
+    public readonly default = input(0);
 
-    @Input()
-    public min: number | undefined;
+    public readonly min = input<number>();
 
-    @Input()
-    public max: number | undefined;
+    public readonly max = input<number>();
 
-    @Input()
-    public zeroText: string | undefined;
+    public readonly zeroText = input<string>();
 
     protected get placeholderInternal(): string {
-        return this.value === 0 && this.zeroText ? this.zeroText : this.placeholder ?? '';
+        const zeroText = this.zeroText();
+        return this.value === 0 && zeroText ? zeroText : this.placeholder() ?? '';
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get value(): number | undefined {
         return this.valueField;
@@ -50,15 +49,19 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
         this.valueField = value;
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get number(): number {
-        return this.value ?? this.default;
+        return this.value ?? this.default();
     }
 
     public set number(value: number | undefined) {
         this.value = value;
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get range(): boolean {
         return this.rangeValue;
@@ -106,7 +109,7 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     protected onInternalChange(rawValue: string | null | undefined): void {
         let value = typeof rawValue === 'string' ? rawValue !== '' ? parseFloat(rawValue) : undefined : rawValue ?? undefined;
         this.setInternalValue(value);
-        value = value == undefined || Number.isNaN(value) ? undefined : Math2.keepInRange(this.min, value, this.max);
+        value = value == undefined || Number.isNaN(value) ? undefined : Math2.keepInRange(this.min(), value, this.max());
         if (value !== this.value) {
             this.valueField = value;
             this.valueChange.emit(this.value);
@@ -115,7 +118,7 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     }
 
     private setInternalValue(value: number | null | undefined): void {
-        if (value === 0 && this.zeroText) {
+        if (value === 0 && this.zeroText()) {
             // Use null to avoid strange input behaviour with undefined values (e.g. input of negative values requires two minus signs to work)
             // eslint-disable-next-line no-null/no-null
             this.internalValue = null;

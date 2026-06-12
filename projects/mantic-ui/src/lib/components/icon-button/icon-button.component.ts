@@ -1,5 +1,5 @@
 
-import { Component, HostBinding, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostBinding, OnInit, ChangeDetectionStrategy, input } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { ButtonBaseComponent } from '../../base/button-base.component';
 import { ButtonComponent } from '../button/button.component';
@@ -19,15 +19,12 @@ import { IconComponent } from '../icon/icon.component';
 })
 export class IconButtonComponent extends ButtonBaseComponent implements OnInit {
 
-    @Input()
-    public icon: IconType | undefined;
+    public readonly icon = input<IconType>();
 
-    @Input()
-    public iconSize: IconSize;
+    public readonly iconSize = input<IconSize>();
 
-    @Input()
     @HostBinding('class.social')
-    public social: string | undefined;
+public readonly social = input<string>();
 
     public constructor() {
         super();

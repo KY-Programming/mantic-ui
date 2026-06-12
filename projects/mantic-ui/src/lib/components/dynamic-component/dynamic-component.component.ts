@@ -1,4 +1,4 @@
-import { Component, inject, Input, ViewContainerRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, Input, ViewContainerRef, ChangeDetectionStrategy, input } from '@angular/core';
 
 import { ComponentParser } from './component-parser';
 
@@ -13,6 +13,8 @@ export class DynamicComponentComponent {
     private readonly viewContainerRef = inject(ViewContainerRef);
     private codeValue: string | undefined;
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input({ required: true })
     public get code(): string | undefined {
         return this.codeValue;
@@ -20,9 +22,8 @@ export class DynamicComponentComponent {
 
     public set code(value: string | undefined) {
         this.codeValue = value;
-        ComponentParser.parse(value, this.viewContainerRef, this.data);
+        ComponentParser.parse(value, this.viewContainerRef, this.data());
     }
 
-    @Input()
-    public data: Record<string, unknown> | undefined;
+    public readonly data = input<Record<string, unknown>>();
 }

@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, input } from '@angular/core';
 import { BooleanLike, SegmentComponent, toBoolean } from '@mantic-ui/angular';
 import { NpmApiService } from '../../services/npm-api.service';
 
@@ -17,6 +17,8 @@ export class NpmInstallComponent {
     private searchVersionValue: string | undefined;
     private isDev = false;
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get package(): string | undefined {
         return this.packageValue;
@@ -27,9 +29,10 @@ export class NpmInstallComponent {
         this.refreshVersion();
     }
 
-    @Input()
-    public version: string | undefined;
+    public readonly version = input<string>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get searchVersion(): string | undefined {
         return this.searchVersionValue;
@@ -40,6 +43,8 @@ export class NpmInstallComponent {
         this.refreshVersion();
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get dev(): boolean {
         return this.isDev;

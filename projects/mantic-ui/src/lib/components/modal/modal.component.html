@@ -1,19 +1,19 @@
 <m-dimmer page (mousedown)="onDimmerClick($event)">
-  <div class="ui" [class.basic]="basic" [class.active]="visible" [class.fullscreen]="fullscreen" [class.modal]="true" [class.mini]="size === 'mini'" [class.tiny]="size === 'tiny'" [class.small]="size === 'small'" [class.large]="size === 'large'" [class.inverted]="inverted">
+  <div class="ui" [class.basic]="basic" [class.active]="visible" [class.fullscreen]="fullscreen" [class.modal]="true" [class.mini]="size() === 'mini'" [class.tiny]="size() === 'tiny'" [class.small]="size() === 'small'" [class.large]="size() === 'large'" [class.inverted]="inverted">
     @if (showHeader) {
       <div [class.ui]="basic" [class.icon]="basic" class="header">
         <ng-content select="m-modal-header" />
         <m-modal-header *m-fallback-for="'m-modal-header'">
-          {{ header }}
+          {{ header() }}
         </m-modal-header>
         @if (basic && showClose === true || !basic && (showClose || showClose === undefined)) {
-          @if (closeIcon || defaults.closeIcon) {
-            <m-icon [icon]="closeIcon ?? defaults.closeIcon" class="close" (click)="onClose()" />
+          @if (closeIcon() || defaults.closeIcon) {
+            <m-icon [icon]="closeIcon() ?? defaults.closeIcon" class="close" (click)="onClose()" />
           }
         }
       </div>
     }
-    <div [class.image]="imageContent" [class.scrolling]="scrolling" class="content" [class.no-padding]="noPadding" [style.min-height]="minContentHeight" [style.min-height.px]="minGrowOnlyContentHeight" [style.max-height]="maxContentHeight" #content>
+    <div [class.image]="imageContent" [class.scrolling]="scrolling" class="content" [class.no-padding]="noPadding" [style.min-height]="minContentHeight()" [style.min-height.px]="minGrowOnlyContentHeight" [style.max-height]="maxContentHeight()" #content>
       <ng-content />
       @if (loading) {
         <m-dimmer inverted>

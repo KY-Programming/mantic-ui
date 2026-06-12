@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, input, contentChild } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
 import { FillComponent } from '../flex/fill/fill.component';
@@ -26,9 +26,10 @@ export class ExpanderComponent extends BaseComponent {
     private isBasic = false;
     protected readonly defaults = ExpanderComponent.defaults;
 
-    @Input()
-    public header: string | undefined;
+    public readonly header = input<string>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get expanded(): boolean {
         return this.isExpanded;
@@ -38,12 +39,12 @@ export class ExpanderComponent extends BaseComponent {
         this.isExpanded = this.toBoolean(value);
     }
 
-    @Input()
-    public dropdownIcon: IconType | undefined;
+    public readonly dropdownIcon = input<IconType>();
 
-    @Input()
-    public dropdownIconSize: IconSize;
+    public readonly dropdownIconSize = input<IconSize>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get basic(): boolean {
         return this.isBasic;
@@ -54,11 +55,9 @@ export class ExpanderComponent extends BaseComponent {
         this.classes.set('styled', !this.isBasic);
     }
 
-    @Input()
-    public iconPosition: 'left' | 'right' = 'left';
+    public readonly iconPosition = input<'left' | 'right'>('left');
 
-    @ContentChild(ExpanderHeaderComponent)
-    protected headerTemplate: ExpanderHeaderComponent | undefined;
+    protected readonly headerTemplate = contentChild(ExpanderHeaderComponent);
 
     public constructor() {
         super();

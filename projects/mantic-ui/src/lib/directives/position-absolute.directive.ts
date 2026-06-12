@@ -1,4 +1,4 @@
-import { AfterViewInit, Directive, ElementRef, Input, OnDestroy } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, OnDestroy, input } from '@angular/core';
 
 @Directive({
     selector: '[m-position-absolute]',
@@ -7,17 +7,13 @@ export class PositionAbsoluteDirective implements AfterViewInit, OnDestroy {
     private readonly observer = new MutationObserver(() => this.refresh());
     private parent: HTMLElement | undefined;
 
-    @Input('m-position-absolute')
-    public position: 'top-left' | 'top-center' | 'top-right' | 'middle-left' | 'middle-center' | 'middle-right' | 'bottom-left' | 'bottom-center' | 'bottom-right' | undefined;
+    public readonly position = input<'top-left' | 'top-center' | 'top-right' | 'middle-left' | 'middle-center' | 'middle-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'>(undefined, { alias: "m-position-absolute" });
 
-    @Input()
-    public attach: 'left' | 'middle' | 'right' = 'left';
+    public readonly attach = input<'left' | 'middle' | 'right'>('left');
 
-    @Input()
-    public parentWidth: 'none' | 'exact' | 'min' | 'max' = 'none';
+    public readonly parentWidth = input<'none' | 'exact' | 'min' | 'max'>('none');
 
-    @Input()
-    public minLeft: number | 'parent-left' | 'parent-center' | 'parent-right' | undefined;
+    public readonly minLeft = input<number | 'parent-left' | 'parent-center' | 'parent-right'>();
 
     public constructor(
         private readonly elementRef: ElementRef<HTMLElement>
@@ -42,7 +38,7 @@ export class PositionAbsoluteDirective implements AfterViewInit, OnDestroy {
         }
 
         const rect = this.parent?.getBoundingClientRect();
-        switch (this.parentWidth) {
+        switch (this.parentWidth()) {
             case 'min':
                 this.setMinWidth(rect?.width ?? 0);
                 break;
@@ -53,7 +49,8 @@ export class PositionAbsoluteDirective implements AfterViewInit, OnDestroy {
                 this.setWidth(rect?.width ?? 0);
                 break;
         }
-        switch (this.position) {
+        const position = this.position();
+        switch (position) {
             case 'top-left':
             case 'top-center':
             case 'top-right':
@@ -70,7 +67,7 @@ export class PositionAbsoluteDirective implements AfterViewInit, OnDestroy {
                 this.setTop(rect?.bottom);
                 break;
         }
-        switch (this.position) {
+        switch (position) {
             case 'top-left':
             case 'middle-left':
             case 'bottom-left':
@@ -102,21 +99,23 @@ export class PositionAbsoluteDirective implements AfterViewInit, OnDestroy {
         style.right = '';
         style.right = '';
         if (left !== undefined && parentRect !== undefined) {
-            if (this.attach === 'middle') {
+            const attach = this.attach();
+            if (attach === 'middle') {
                 left -= rect.width / 2;
             }
-            if (this.attach === 'right') {
+            if (attach === 'right') {
                 left -= rect.width;
             }
             left = Math.max(0, left);
-            if (this.minLeft === 'parent-left') {
+            const minLeft = this.minLeft();
+            if (minLeft === 'parent-left') {
                 left = Math.max(left, parentRect.left);
-            } else if (this.minLeft === 'parent-center') {
+            } else if (minLeft === 'parent-center') {
                 left = Math.max(left, parentRect.left + parentRect.width / 2);
-            } else if (this.minLeft === 'parent-right') {
+            } else if (minLeft === 'parent-right') {
                 left = Math.max(left, parentRect.right);
-            } else if (typeof this.minLeft === 'number') {
-                left = Math.max(left, this.minLeft);
+            } else if (typeof minLeft === 'number') {
+                left = Math.max(left, minLeft);
             }
         }
         if (left && rect.width > 0 && left + rect.width > window.innerWidth) {

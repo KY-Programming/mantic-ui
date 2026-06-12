@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 import { DateHelper } from '../../../helpers/date-helper';
@@ -20,6 +20,8 @@ export class TimeInputComponent extends InputBaseComponent implements OnInit {
     // eslint-disable-next-line no-null/no-null
     protected internalValue: string | null = null;
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get value(): Date | undefined {
         return this.valueField;
@@ -34,23 +36,22 @@ export class TimeInputComponent extends InputBaseComponent implements OnInit {
         this.valueField = value;
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get time(): Date {
-        return this.value ?? this.default;
+        return this.value ?? this.default();
     }
 
     public set time(value: Date | number | string | undefined) {
         this.value = value;
     }
 
-    @Input()
-    public default = new Date(0);
+    public readonly default = input(new Date(0));
 
-    @Input()
-    public min: Date | undefined;
+    public readonly min = input<Date>();
 
-    @Input()
-    public max: Date | undefined;
+    public readonly max = input<Date>();
 
     @Output()
     public readonly valueChange = new EventEmitter<Date | undefined>();
@@ -91,7 +92,7 @@ export class TimeInputComponent extends InputBaseComponent implements OnInit {
         let value = this.valueField ?? new Date();
         const chunks = rawValue.split(':');
         value.setHours(parseInt(chunks[0]) || 0, parseInt(chunks[1]) || 0, 0, 0);
-        value = DateHelper.keepInRange(this.min, value, this.max);
+        value = DateHelper.keepInRange(this.min(), value, this.max());
         if (value !== this.valueField || oldValue !== value) {
             this.valueField = value;
             this.valueChange.emit(this.value);

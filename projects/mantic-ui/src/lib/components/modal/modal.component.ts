@@ -60,9 +60,10 @@ export class ModalComponent extends InvertibleComponent {
         return this.basicDirective.basic;
     }
 
-    @Input()
-    public header: string | undefined;
+    public readonly header = input<string>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get showClose(): boolean {
         return this.isShowClose;
@@ -72,6 +73,8 @@ export class ModalComponent extends InvertibleComponent {
         this.isShowClose = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get showHeader(): boolean {
         return this.isShowHeader;
@@ -81,6 +84,8 @@ export class ModalComponent extends InvertibleComponent {
         this.isShowHeader = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get hideHeader(): boolean {
         return !this.isShowHeader;
@@ -90,6 +95,8 @@ export class ModalComponent extends InvertibleComponent {
         this.isShowHeader = !this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get showFooter(): boolean {
         return this.isShowFooter;
@@ -99,6 +106,8 @@ export class ModalComponent extends InvertibleComponent {
         this.isShowFooter = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get hideFooter(): boolean {
         return !this.isShowFooter;
@@ -108,6 +117,8 @@ export class ModalComponent extends InvertibleComponent {
         this.isShowFooter = !this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.hide-dimmer')
     public get hideDimmer(): boolean {
@@ -118,6 +129,8 @@ export class ModalComponent extends InvertibleComponent {
         this.isHideDimmer = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get visible(): boolean {
         return this.isVisible;
@@ -127,6 +140,8 @@ export class ModalComponent extends InvertibleComponent {
         this.isVisible = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get imageContent(): boolean {
         return this.isImageContent;
@@ -136,6 +151,8 @@ export class ModalComponent extends InvertibleComponent {
         this.isImageContent = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get fullscreen(): boolean {
         return this.isFullscreen;
@@ -145,9 +162,10 @@ export class ModalComponent extends InvertibleComponent {
         this.isFullscreen = this.toBoolean(value);
     }
 
-    @Input()
-    public size: ModalSize | undefined;
+    public readonly size = input<ModalSize>();
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get scrolling(): boolean {
         return this.isScrolling;
@@ -157,6 +175,8 @@ export class ModalComponent extends InvertibleComponent {
         this.isScrolling = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get noPadding(): boolean {
         return this.isNoPadding;
@@ -166,6 +186,8 @@ export class ModalComponent extends InvertibleComponent {
         this.isNoPadding = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get loading(): boolean {
         return this.isLoading;
@@ -175,14 +197,11 @@ export class ModalComponent extends InvertibleComponent {
         this.isLoading = this.toBoolean(value);
     }
 
-    @Input()
-    public minContentHeight: string | undefined;
+    public readonly minContentHeight = input<string>();
 
-    @Input()
-    public maxContentHeight: string | undefined;
+    public readonly maxContentHeight = input<string>();
 
-    @Input()
-    public closeIcon: IconType | undefined;
+    public readonly closeIcon = input<IconType>();
 
     @Output()
     public readonly close = new EventEmitter<void>();

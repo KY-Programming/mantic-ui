@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, TemplateRef, ViewChild, ViewContainerRef, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, Component, TemplateRef, ViewContainerRef, ChangeDetectionStrategy, input, viewChild } from '@angular/core';
 import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
 import { HeaderComponent } from '../header/header.component';
@@ -16,17 +16,13 @@ import { DividerComponent } from '../divider/divider.component';
 ]
 })
 export class DropdownGroupComponent implements AfterViewInit {
-    @Input()
-    public label: string | undefined;
+    public readonly label = input<string>();
 
-    @Input()
-    public icon: IconType | undefined;
+    public readonly icon = input<IconType>();
 
-    @Input()
-    public iconSize: IconSize;
+    public readonly iconSize = input<IconSize>();
 
-    @ViewChild('contentTemplate')
-    protected contentTemplate: TemplateRef<unknown> | undefined;
+    protected readonly contentTemplate = viewChild<TemplateRef<unknown>>('contentTemplate');
 
     public constructor(
         private readonly viewContainerRef: ViewContainerRef
@@ -34,8 +30,9 @@ export class DropdownGroupComponent implements AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
-        if (this.contentTemplate) {
-            this.viewContainerRef.createEmbeddedView(this.contentTemplate);
+        const contentTemplate = this.contentTemplate();
+        if (contentTemplate) {
+            this.viewContainerRef.createEmbeddedView(contentTemplate);
         } else {
             this.viewContainerRef.clear();
         }

@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { SafePipe } from '@mantic-ui/angular';
 
 @Component({
@@ -12,7 +12,6 @@ import { SafePipe } from '@mantic-ui/angular';
 })
 export class ExampleFrameComponent {
 
-    @Input({ required: true })
-    public src = '';
+    public readonly src = input.required<string>();
 
 }

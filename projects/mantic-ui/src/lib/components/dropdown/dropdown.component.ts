@@ -1,5 +1,5 @@
 
-import { Component, ContentChildren, ElementRef, EventEmitter, HostBinding, HostListener, Input, NgZone, OnInit, Output, QueryList, ViewChild, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ContentChildren, ElementRef, EventEmitter, HostBinding, HostListener, Input, NgZone, OnInit, Output, QueryList, ViewChildren, ChangeDetectionStrategy, input, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { fromEvent, ReplaySubject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -50,14 +50,11 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     private isReadonly = false;
     protected readonly defaults = DropdownComponent.defaults;
 
-    @ViewChild('htmlElement')
-    protected textElement: ElementRef<HTMLDivElement> | undefined;
+    protected readonly textElement = viewChild<ElementRef<HTMLDivElement>>('htmlElement');
 
-    @ViewChild('menuElement')
-    protected menuElement: ElementRef<HTMLDivElement> | undefined;
+    protected readonly menuElement = viewChild<ElementRef<HTMLDivElement>>('menuElement');
 
-    @ViewChild('inputElement')
-    protected inputElement: ElementRef<HTMLInputElement> | undefined;
+    protected readonly inputElement = viewChild<ElementRef<HTMLInputElement>>('inputElement');
 
     @ContentChildren(DropdownItemComponent)
     protected set contentItemComponentsQuery(query: QueryList<DropdownItemComponent>) {
@@ -75,6 +72,8 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         query.changes.subscribe(() => this.refreshItems(query));
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.multiple')
     public get multiple(): boolean {
@@ -85,6 +84,8 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         this.isMultiple = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get search(): boolean {
         return this.isSearch;
@@ -94,6 +95,8 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         this.isSearch = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.attached-left')
     public get attachedLeft(): boolean {
@@ -104,6 +107,8 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         this.isAttachedLeft = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.attached-top')
     public get attachedTop(): boolean {
@@ -114,6 +119,8 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         this.isAttachedTop = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.attached-right')
     public get attachedRight(): boolean {
@@ -124,6 +131,8 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         this.isAttachedRight = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.attached-bottom')
     public get attachedBottom(): boolean {
@@ -134,13 +143,14 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         this.isAttachedBottom = this.toBoolean(value);
     }
 
-    @Input()
-    public placeholder: string | undefined;
+    public readonly placeholder = input<string>();
 
     public get value(): unknown {
         return this.valueField;
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public set value(value: unknown) {
         value ??= undefined;
@@ -151,16 +161,16 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         this.select(value);
     }
 
-    @Input()
-    public filter: string | undefined;
+    public readonly filter = input<string>();
 
-    @Input()
-    public animationDuration = 200;
+    public readonly animationDuration = input(200);
 
     public get items(): DropdownValue[] | undefined {
         return this.itemsField;
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public set items(value: DropdownValue[] | null | undefined) {
         value ??= undefined;
@@ -171,36 +181,28 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         this.select(this.value);
     }
 
-    @Input()
-    public name?: string;
+    public readonly name = input<string>();
 
-    @Input()
-    public filterValue = true;
+    public readonly filterValue = input(true);
 
-    @Input()
-    public filterText = true;
+    public readonly filterText = input(true);
 
-    @Input()
-    public icon: IconType | undefined;
+    public readonly icon = input<IconType>();
 
-    @Input()
-    public iconSize: IconSize;
+    public readonly iconSize = input<IconSize>();
 
-    @Input()
-    public dropdownIcon: IconType | undefined;
+    public readonly dropdownIcon = input<IconType>();
 
-    @Input()
-    public dropdownIconSize: IconSize;
+    public readonly dropdownIconSize = input<IconSize>();
 
-    @Input()
-    public deleteIcon: IconType | undefined;
+    public readonly deleteIcon = input<IconType>();
 
-    @Input()
-    public deleteIconSize: IconSize;
+    public readonly deleteIconSize = input<IconSize>();
 
-    @Input()
-    public filterType: 'startsWith' | 'contains' = 'startsWith';
+    public readonly filterType = input<'startsWith' | 'contains'>('startsWith');
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get selectFirst(): boolean {
         return this.isSelectFirst;
@@ -210,6 +212,8 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         this.isSelectFirst = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get allowFreeText(): boolean {
         return this.isFreeTextAllowed;
@@ -236,6 +240,8 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         this.isDisabled = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     @HostBinding('class.disabled')
     public get readonly(): boolean {
@@ -309,13 +315,14 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
             return;
         }
         this.open();
-        setTimeout(() => this.isFocused = true, this.animationDuration);
+        setTimeout(() => this.isFocused = true, this.animationDuration());
     }
 
     @HostListener('focusout')
     public blur(): void {
         // Ignore focus/blur of window
-        if (document.activeElement === this.elementRef.nativeElement || this.inputElement && document.activeElement === this.inputElement.nativeElement || this.keepOpen) {
+        const inputElement = this.inputElement();
+        if (document.activeElement === this.elementRef.nativeElement || inputElement && document.activeElement === inputElement.nativeElement || this.keepOpen) {
             return;
         }
         this.isFocused = false;
@@ -351,7 +358,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
                 event.preventDefault();
                 event.stopPropagation();
                 const component = this.itemComponents[this.selectedIndex];
-                this.select(component.value);
+                this.select(component.value());
                 this.close();
             }
             else {
@@ -359,7 +366,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
                 if (filteredComponents.length === 1) {
                     event.preventDefault();
                     event.stopPropagation();
-                    this.select(filteredComponents[0].value);
+                    this.select(filteredComponents[0].value());
                     this.close();
                 }
             }
@@ -381,12 +388,12 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         else if (event.code === 'Tab') {
             if (this.selectedIndex !== undefined && this.selectedIndex >= 0) {
                 const component = this.itemComponents[this.selectedIndex];
-                this.select(component.value);
+                this.select(component.value());
             }
             else {
                 const filteredComponents = this.itemComponents.filter(component => !component.filteredOut);
                 if (filteredComponents.length === 1) {
-                    this.select(filteredComponents[0].value);
+                    this.select(filteredComponents[0].value());
                 }
             }
         }
@@ -402,7 +409,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
             return;
         }
         if (this.search) {
-            this.inputElement?.nativeElement.focus();
+            this.inputElement()?.nativeElement.focus();
         }
         this.isHidden = true;
         this.isLoading = true;
@@ -417,7 +424,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
             const spaceAbove = hostBounds.top - clip.top;
             this.isSystemUpward = spaceBelow < DropdownComponent.upwardThreshold && spaceAbove > spaceBelow;
             const available = (this.isSystemUpward ? spaceAbove : spaceBelow) - DropdownComponent.viewportMargin;
-            const menu = this.menuElement?.nativeElement;
+            const menu = this.menuElement()?.nativeElement;
             const defaultMaxHeight = menu ? parseFloat(window.getComputedStyle(menu).maxHeight) : NaN;
             // Only override the stylesheet default when our viewport-fit cap is stricter.
             this.menuMaxHeight = isFinite(defaultMaxHeight) && defaultMaxHeight > 0 && defaultMaxHeight <= available
@@ -442,8 +449,9 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         this.isSlidingIn = false;
         this.isSlidingOut = true;
         this.isActive = false;
-        if (this.isFreeTextAllowed && (this.selectedIndex === -1 || this.selectedIndex === undefined) && this.filter) {
-            this.value = this.filter;
+        const filterValue = this.filter();
+        if (this.isFreeTextAllowed && (this.selectedIndex === -1 || this.selectedIndex === undefined) && filterValue) {
+            this.value = filterValue;
             this.valueChange.emit(this.value);
         }
         this.filter = undefined;
@@ -453,7 +461,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
             this.isMenuVisible = false;
             this.isSlidingOut = false;
             // this.refreshClasses();
-        }, this.animationDuration);
+        }, this.animationDuration());
         // this.refreshClasses();
     }
 
@@ -470,20 +478,20 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
             this.filter = undefined;
             return;
         }
-        let component = this.itemComponents.find(x => x.value === value);
+        let component = this.itemComponents.find(x => x.value() === value);
         if (this.isSelectFirst) {
             component ??= this.itemComponents[0];
         }
         if (this.isFreeTextAllowed) {
-            this.value = component?.value ?? value;
+            this.value = component?.value() ?? value;
         }
-        else if (this.isSearch && this.filter) {
+        else if (this.isSearch && this.filter()) {
             this.filter = undefined;
             this.onFilter();
-            this.value = component?.value;
+            this.value = component?.value();
         }
         else {
-            this.value = component?.value;
+            this.value = component?.value();
         }
         if (isChanged) {
             this.valueChange.emit(this.value);
@@ -503,10 +511,11 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         }
         // HACK: This is a dirty hack, but currently i found no other solution. If you have a solution please create an issue
         setTimeout(() => {
-            if (!this.textElement) {
+            const textElement = this.textElement();
+            if (!textElement) {
                 return;
             }
-            this.textElement.nativeElement.innerHTML = component?.element.nativeElement.innerHTML ?? '';
+            textElement.nativeElement.innerHTML = component?.element.nativeElement.innerHTML ?? '';
         });
         // HACK-END
     }
@@ -541,26 +550,28 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         else if (this.selectedIndex !== undefined && !filteredItems.includes(this.itemComponents[this.selectedIndex])) {
             this.selectedIndex = this.itemComponents.indexOf(filteredItems[0]);
         }
-        this.isFiltered = !!this.filter;
+        this.isFiltered = !!this.filter();
         // TODO: Filter content children
     }
 
     private isItemFilteredOut(item: DropdownItemComponent): boolean {
-        if (!this.filter) {
+        const filterValue = this.filter();
+        if (!filterValue) {
             return false;
         }
-        const caseInsensitiveFilter = this.filter.toLowerCase();
-        const filterAction: (value: string | undefined) => boolean = this.filterType === 'contains'
+        const caseInsensitiveFilter = filterValue.toLowerCase();
+        const filterAction: (value: string | undefined) => boolean = this.filterType() === 'contains'
             ? value => !!value && value.toLowerCase().indexOf(caseInsensitiveFilter) === -1
             : value => !!value && value.toLowerCase().indexOf(caseInsensitiveFilter) !== 0;
-        const textContainsFilter = !this.filterText || filterAction(item.element.nativeElement.innerText);
-        const valueContainsFilter = !this.filterValue || filterAction(item.value && typeof item.value.toString === 'function' ? item.value.toString() : undefined);
+        const textContainsFilter = !this.filterText() || filterAction(item.element.nativeElement.innerText);
+        const valueValue = item.value();
+        const valueContainsFilter = !this.filterValue() || filterAction(valueValue && typeof valueValue.toString === 'function' ? valueValue.toString() : undefined);
         return textContainsFilter && valueContainsFilter;
     }
 
     private refreshItems(query: QueryList<DropdownItemComponent>): void {
         this.itemComponents = query.toArray();
-        if (this.selectedIndex === undefined || this.itemComponents?.[this.selectedIndex]?.value !== this.value) {
+        if (this.selectedIndex === undefined || this.itemComponents?.[this.selectedIndex]?.value() !== this.value) {
             setTimeout(() => this.select(this.value));
         }
     }
@@ -570,7 +581,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         // this.select(item);
         setTimeout(() => {
             if (this.search) {
-                this.inputElement?.nativeElement.focus();
+                this.inputElement()?.nativeElement.focus();
             }
             else {
                 this.elementRef.nativeElement.focus();

@@ -1,5 +1,5 @@
 import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { MessageAttached, MessageComponent } from '../message/message.component';
 import { Notification } from './notification';
@@ -15,19 +15,18 @@ import { NotificationService } from './notification.service';
     providers: [...BaseComponent.providers]
 })
 export class NotificationComponent extends BaseComponent {
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public set fromService(value: string) {
         this.messages = this.notificationService.get(value);
     }
 
-    @Input()
-    public messages: Notification[] = [];
+    public readonly messages = input<Notification[]>([]);
 
-    @Input()
-    public mode: 'overlap' | 'stack' = 'stack';
+    public readonly mode = input<'overlap' | 'stack'>('stack');
 
-    @Input()
-    public attached: MessageAttached;
+    public readonly attached = input<MessageAttached>();
 
     public constructor(
         private readonly notificationService: NotificationService

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostBinding, HostListener, Input, Output, ChangeDetectionStrategy, input, viewChild } from '@angular/core';
 import { animationFrameScheduler, fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '../../base/base.component';
@@ -33,6 +33,8 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
     @HostBinding('class.visible')
     public isVisible = false;
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get openOnLeftClick(): boolean {
         return this.isOpenOnLeftClick;
@@ -42,6 +44,8 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
         this.isOpenOnLeftClick = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get openOnRightClick(): boolean {
         return this.isOpenOnRightClick;
@@ -51,6 +55,8 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
         this.isOpenOnRightClick = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get vertical(): boolean {
         return this.isVertical;
@@ -60,6 +66,8 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
         this.isVertical = this.toBoolean(value);
     }
 
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get shared(): boolean {
         return this.isShared;
@@ -69,8 +77,7 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
         this.isShared = this.toBoolean(value);
     }
 
-    @Input()
-    public margin = 5;
+    public readonly margin = input(5);
 
     // eslint-disable-next-line @angular-eslint/no-output-rename
     @Output('close')
@@ -80,8 +87,7 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
     @Output('open')
     public readonly onopen = new EventEmitter<void>();
 
-    @ViewChild(MenuComponent)
-    protected menu: MenuComponent | undefined;
+    protected readonly menu = viewChild(MenuComponent);
 
     public constructor() {
         super();
@@ -122,16 +128,17 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
     }
 
     private refreshPosition(tries = 3): void {
-        if (!this.menu) {
+        const menu = this.menu();
+        if (!menu) {
             if (tries > 0) {
                 animationFrameScheduler.schedule(() => this.refreshPosition(tries - 1));
             }
             return;
         }
-        const menuRect = this.menu.element.nativeElement.getBoundingClientRect();
+        const menuRect = menu.element.nativeElement.getBoundingClientRect();
         const clipRect = document.documentElement.getBoundingClientRect();
-        this.left = Math2.keepInRange(clipRect.left + this.margin, this.left, clipRect.right - this.margin - menuRect.width);
-        this.top = Math2.keepInRange(clipRect.top + this.margin, this.top, clipRect.bottom - this.margin - menuRect.height);
+        this.left = Math2.keepInRange(clipRect.left + this.margin(), this.left, clipRect.right - this.margin() - menuRect.width);
+        this.top = Math2.keepInRange(clipRect.top + this.margin(), this.top, clipRect.bottom - this.margin() - menuRect.height);
     }
 
     public open(left?: number, top?: number): void

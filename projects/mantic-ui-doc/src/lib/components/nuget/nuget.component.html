@@ -1,9 +1,9 @@
-<a href="https://www.nuget.org/packages/{{package}}/{{version}}" target="_blank">
+<a href="https://www.nuget.org/packages/{{package}}/{{version()}}" target="_blank">
   {{package}}
-  @if (!version) {
+  @if (!version()) {
     <img src="https://img.shields.io/nuget/v/{{package}}.svg?style=flat">
   }
-  @if (version) {
-    <img src="https://img.shields.io/badge/nuget-v{{version}}-blue">
+  @if (version()) {
+    <img src="https://img.shields.io/badge/nuget-v{{version()}}-blue">
   }
 </a>

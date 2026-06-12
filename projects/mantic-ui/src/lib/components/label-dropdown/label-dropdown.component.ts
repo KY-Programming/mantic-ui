@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostListener, ChangeDetectionStrategy, input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { LabelPosition } from '../../models/label-position';
 import { IconSize } from '../icon/icon-size';
@@ -23,20 +23,15 @@ export class LabelDropdownComponent extends BaseComponent {
 
     public isOpen = false;
 
-    @Input()
-    public position: LabelPosition;
+    public readonly position = input<LabelPosition>();
 
-    @Input()
-    public dropdownIcon: IconType | undefined;
+    public readonly dropdownIcon = input<IconType>();
 
-    @Input()
-    public dropdownIconSize: IconSize;
+    public readonly dropdownIconSize = input<IconSize>();
 
-    @Input()
-    public value: string | undefined;
+    public readonly value = input<string>();
 
-    @Input()
-    public items: string[] | undefined;
+    public readonly items = input<string[]>();
 
     public constructor() {
         super();
