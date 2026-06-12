@@ -1,4 +1,4 @@
-import { Component, DoCheck, ElementRef, Input, OnDestroy } from '@angular/core';
+import { Component, DoCheck, ElementRef, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 /**
@@ -7,6 +7,7 @@ import { Title } from '@angular/platform-browser';
 @Component({
     selector: 'm-document-title',
     templateUrl: './document-title.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./document-title.component.scss']
 })
 export class DocumentTitleComponent implements DoCheck, OnDestroy {

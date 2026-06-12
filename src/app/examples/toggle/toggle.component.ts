@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { HeaderComponent } from '../../components/header/header.component';
 import { DividerComponent, FieldComponent, FieldGroupComponent, FormComponent, HeaderDirective, IconComponent, InputComponent, SegmentComponent, TabComponent, TabGroupComponent, ToggleComponent } from '@mantic-ui/angular';
@@ -8,6 +8,7 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
     selector: 'app-toggle-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, ToggleComponent, FormComponent, FieldGroupComponent, FieldComponent, SegmentComponent, InputComponent, DividerComponent],
     templateUrl: './toggle.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./toggle.component.scss']
 })
 export class ToggleExampleComponent {

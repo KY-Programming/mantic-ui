@@ -1,4 +1,4 @@
-import { Component, ContentChildren, HostBinding, Input, QueryList } from '@angular/core';
+import { Component, ContentChildren, HostBinding, Input, QueryList, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { BaseComponent } from '../../base/base.component';
 import { ColorDirective } from '../../directives/color.directive';
@@ -10,6 +10,7 @@ import { ToggleButtonComponent } from '../toggle-button/toggle-button.component'
     templateUrl: './button-group.component.html',
     styleUrls: ['./button-group.component.scss'],
     hostDirectives: [ColorDirective.default],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class ButtonGroupComponent extends BaseComponent {

@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { TabGroupComponent } from './tab-group.component';
 
 @Component({
     selector: 'm-tab-group-defaults',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: '',
     })
 export class TabGroupDefaultsComponent {

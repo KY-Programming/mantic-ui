@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { LabelPosition } from '../../models/label-position';
 import { IconSize } from '../icon/icon-size';
@@ -14,6 +14,7 @@ import { IconComponent } from '../icon/icon.component';
     imports: [
         IconComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class LabelDropdownComponent extends BaseComponent {

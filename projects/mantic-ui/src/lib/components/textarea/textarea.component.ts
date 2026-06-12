@@ -1,4 +1,4 @@
-import { ApplicationRef, Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, Output, ViewChild } from '@angular/core';
+import { ApplicationRef, Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -14,6 +14,7 @@ import { BooleanLike } from '../../models/boolean-like';
         FormsModule,
         FallbackForDirective
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InvertibleComponent.providers]
 })
 export class TextareaComponent extends InvertibleComponent {

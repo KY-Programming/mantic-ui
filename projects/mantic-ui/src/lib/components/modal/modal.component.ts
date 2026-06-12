@@ -1,5 +1,5 @@
 
-import { Component, effect, ElementRef, EventEmitter, HostBinding, inject, input, Input, Output, viewChild } from '@angular/core';
+import { Component, effect, ElementRef, EventEmitter, HostBinding, inject, input, Input, Output, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
@@ -27,6 +27,7 @@ export type ModalSize =
     styleUrls: ['./modal.component.scss'],
     imports: [DimmerComponent, ModalHeaderComponent, ModalFooterComponent, IconComponent, ButtonComponent, LoaderComponent, FallbackForDirective],
     hostDirectives: [BasicDirective.default],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InvertibleComponent.providers]
 })
 export class ModalComponent extends InvertibleComponent {

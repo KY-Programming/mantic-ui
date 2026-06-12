@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, HostListener, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
@@ -20,6 +20,7 @@ export declare type MessageAttached = 'bottom' | 'top' | undefined;
         LoaderComponent
     ],
     hostDirectives: [IgnoredDirective.default],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InvertibleComponent.providers]
 })
 export class MessageComponent extends InvertibleComponent implements OnInit {

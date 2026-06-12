@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { IgnoredDirective } from '../../directives/ignored.directive';
@@ -9,6 +9,7 @@ import { MessageComponent } from '../message/message.component';
     templateUrl: './info.component.html',
     styleUrls: ['./info.component.scss'],
     hostDirectives: [IgnoredDirective.default],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InvertibleComponent.providers]
 })
 export class InfoComponent extends InvertibleComponent implements OnInit {

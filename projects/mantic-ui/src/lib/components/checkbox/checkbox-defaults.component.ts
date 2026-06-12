@@ -1,10 +1,11 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
 import { CheckboxComponent } from './checkbox.component';
 
 @Component({
     selector: 'm-checkbox-defaults',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: ''
 })
 export class CheckboxDefaultsComponent implements OnDestroy {

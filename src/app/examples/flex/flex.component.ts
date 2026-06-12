@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CheckboxComponent, FieldComponent, FillDirective, FlexComponent, FlexDirective, FormComponent, InputComponent, SegmentComponent, SubmitComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
@@ -7,6 +7,7 @@ import { HeaderComponent } from '../../components/header/header.component';
     selector: 'app-flex',
     imports: [ExampleCodeComponent, ExampleComponent, HeaderComponent, TabComponent, TabGroupComponent, FlexComponent, SegmentComponent, FillDirective],
     templateUrl: './flex.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './flex.component.scss'
 })
 export class FlexExampleComponent {

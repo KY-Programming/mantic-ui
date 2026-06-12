@@ -1,9 +1,10 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { IconType } from '../icon/icon-type';
 import { NotificationService } from './notification.service';
 
 @Component({
     selector: 'm-notification-defaults',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: '',
     })
 export class NotificationDefaultsComponent implements OnDestroy {

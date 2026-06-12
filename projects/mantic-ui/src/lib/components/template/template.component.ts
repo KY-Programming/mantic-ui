@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, model, OnDestroy, TemplateRef, untracked, viewChild } from '@angular/core';
+import { Component, effect, inject, input, model, OnDestroy, TemplateRef, untracked, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
 import { Template } from '../../models/template';
@@ -8,6 +8,7 @@ import { TemplateService } from '../../services/template.service';
     selector: 'm-template',
     imports: [],
     templateUrl: './template.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './template.component.scss'
 })
 export class TemplateComponent implements OnDestroy {

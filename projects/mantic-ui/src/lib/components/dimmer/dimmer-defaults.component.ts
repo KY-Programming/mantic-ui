@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { DimmerComponent } from './dimmer.component';
 
 @Component({
     selector: 'm-dimmer-defaults',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: ''
 })
 export class DimmerDefaultsComponent {

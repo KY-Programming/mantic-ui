@@ -1,5 +1,5 @@
 
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { ButtonBaseComponent } from '../../base/button-base.component';
 import { ButtonComponent } from '../button/button.component';
@@ -14,6 +14,7 @@ import { IconComponent } from '../icon/icon.component';
     imports: [
     IconComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...ButtonBaseComponent.providers]
 })
 export class IconButtonComponent extends ButtonBaseComponent implements OnInit {

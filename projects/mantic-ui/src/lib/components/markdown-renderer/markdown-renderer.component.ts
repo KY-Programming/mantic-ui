@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, ChangeDetectionStrategy } from '@angular/core';
 import { DynamicComponentComponent } from '../dynamic-component/dynamic-component.component';
 import { MarkdownParser } from './markdown-parser';
 import { isMarkdownBold, MarkdownBold, markdownBoldType } from './models/markdown-bold';
@@ -22,6 +22,7 @@ import { isMarkdownText, MarkdownText, markdownTextType } from './models/markdow
     selector: 'm-markdown-renderer',
     imports: [CommonModule, DynamicComponentComponent],
     templateUrl: './markdown-renderer.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./markdown-renderer.component.scss']
 })
 export class MarkdownRendererComponent {

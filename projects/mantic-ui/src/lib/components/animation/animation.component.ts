@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { AnimationDirection } from './animation-direction';
 
@@ -6,6 +6,7 @@ import { AnimationDirection } from './animation-direction';
     selector: 'm-animation',
     templateUrl: './animation.component.html',
     styleUrls: ['./animation.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class AnimationComponent extends BaseComponent {

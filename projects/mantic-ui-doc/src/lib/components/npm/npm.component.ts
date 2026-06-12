@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { NpmApiService } from '../../services/npm-api.service';
 
 
@@ -6,6 +6,7 @@ import { NpmApiService } from '../../services/npm-api.service';
     selector: 'm-npm',
     templateUrl: './npm.component.html',
     styleUrls: ['./npm.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: []
 })
 export class NpmComponent {

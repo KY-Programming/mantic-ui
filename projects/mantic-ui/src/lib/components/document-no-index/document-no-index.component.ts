@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'm-document-no-index',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: ''
 })
 export class DocumentNoIndexComponent implements OnInit, OnDestroy {

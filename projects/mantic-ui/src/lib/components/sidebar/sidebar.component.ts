@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { FluidDirective } from '../../directives/fluid.directive';
 import { InvertedDirective } from '../../directives/inverted.directive';
@@ -22,6 +22,7 @@ export declare type SidebarPosition =
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.scss'],
     hostDirectives: [InvertedDirective.default, FluidDirective.default],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class SidebarComponent extends BaseComponent {

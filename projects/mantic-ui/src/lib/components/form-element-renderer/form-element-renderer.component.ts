@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, DoCheck, HostBinding, Input, IterableDiffer, IterableDiffers, Output } from '@angular/core';
+import { Component, DoCheck, HostBinding, Input, IterableDiffer, IterableDiffers, Output, ChangeDetectionStrategy } from '@angular/core';
 import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { BaseComponent } from '../../base/base.component';
@@ -29,6 +29,7 @@ import { FormElementRenderer2Component } from './form-element-renderer2.componen
     templateUrl: './form-element-renderer.component.html',
     styleUrls: ['./form-element-renderer.component.scss'],
     imports: [FieldComponent, InputComponent, NumericInputComponent, CheckboxComponent, TextareaComponent, DropdownComponent, ButtonComponent, GridComponent, CellComponent, MessageComponent, WarningComponent, InfoComponent, ErrorComponent, DividerComponent, FormElementRenderer2Component, HeaderDirective, AsyncPipe],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class FormElementRendererComponent extends BaseComponent implements DoCheck {

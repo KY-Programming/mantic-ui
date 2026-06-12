@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { NugetApiService } from '../../services/nuget-api.service';
 
 import { TabComponent, TabGroupComponent } from '@mantic-ui/angular';
@@ -7,6 +7,7 @@ import { TabComponent, TabGroupComponent } from '@mantic-ui/angular';
     selector: 'm-nuget-install',
     templateUrl: './nuget-install.component.html',
     styleUrls: ['./nuget-install.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     TabComponent,
     TabGroupComponent

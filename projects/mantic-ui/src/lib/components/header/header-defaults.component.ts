@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { HeaderComponent } from './header.component';
 
 @Component({
     selector: 'm-header-defaults',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: '',
     })
 export class HeaderDefaultsComponent {

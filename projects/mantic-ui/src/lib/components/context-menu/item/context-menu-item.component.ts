@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, Optional } from '@angular/core';
+import { Component, HostListener, Input, Optional, ChangeDetectionStrategy } from '@angular/core';
 import { BooleanLike } from '../../../models/boolean-like';
 import { IconType } from '../../icon/icon-type';
 import { IconComponent } from '../../icon/icon.component';
@@ -12,6 +12,7 @@ import { ContextMenuComponent } from '../context-menu.component';
     imports: [
         IconComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...MenuItemComponent.providers]
 })
 export class ContextMenuItemComponent extends MenuItemComponent {

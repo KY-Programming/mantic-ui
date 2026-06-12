@@ -1,4 +1,4 @@
-import { Component, ContentChildren, Input, Output, QueryList } from '@angular/core';
+import { Component, ContentChildren, Input, Output, QueryList, ChangeDetectionStrategy } from '@angular/core';
 import { FormLayout } from './form-layout';
 import { Subject } from 'rxjs';
 import { DataSourceComponent } from '../data-source/data-source.component';
@@ -12,6 +12,7 @@ import { FillDirective } from '../flex/fill/fill.directive';
     selector: 'm-form-renderer',
     templateUrl: './form-renderer.component.html',
     styleUrls: ['./form-renderer.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     FormComponent,
     FormElementRendererComponent,

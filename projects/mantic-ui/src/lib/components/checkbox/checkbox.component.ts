@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, HostBinding, HostListener, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, HostListener, inject, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -21,6 +21,7 @@ import { IconComponent } from '../icon/icon.component';
     FormsModule
 ],
     hostDirectives: [DisabledDirective.default, ReadOnlyDirective.default],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: CheckboxComponent.providers
 })
 export class CheckboxComponent extends InvertibleComponent {

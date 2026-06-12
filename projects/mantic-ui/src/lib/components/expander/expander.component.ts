@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, Input } from '@angular/core';
+import { Component, ContentChild, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
 import { FillComponent } from '../flex/fill/fill.component';
@@ -14,6 +14,7 @@ import { ExpanderHeaderComponent } from './expander-header.component';
     templateUrl: './expander.component.html',
     styleUrls: ['./expander.component.scss'],
     imports: [IconComponent, FlexComponent, FillComponent, NgTemplateOutlet],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class ExpanderComponent extends BaseComponent {

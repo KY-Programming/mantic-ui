@@ -1,10 +1,11 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
 import { LayoutComponent } from './layout.component';
 
 @Component({
     selector: 'm-layout-defaults',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: '',
     })
 export class LayoutDefaultsComponent implements OnDestroy {

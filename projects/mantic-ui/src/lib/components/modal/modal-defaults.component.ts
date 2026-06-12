@@ -1,9 +1,10 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { IconType } from '../icon/icon-type';
 import { ModalComponent } from './modal.component';
 
 @Component({
     selector: 'm-modal-defaults',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: ''
 })
 export class ModalDefaultsComponent implements OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
@@ -16,6 +16,7 @@ export declare type SegmentAttached =
     templateUrl: './segment.component.html',
     styleUrls: ['./segment.component.scss'],
     hostDirectives: [BasicDirective.default, ColorDirective.default, LoadingDirective.default],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: SegmentComponent.providers
 })
 export class SegmentComponent extends InvertibleComponent implements OnInit {

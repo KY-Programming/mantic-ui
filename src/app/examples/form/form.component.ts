@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, inject, isDevMode } from '@angular/core';
+import { Component, inject, isDevMode, ChangeDetectionStrategy } from '@angular/core';
 import { CheckboxComponent, DataSourceComponent, DataSourceRequest, DropdownComponent, DropdownItemComponent, ErrorComponent, FieldComponent, FieldGroupComponent, FormComponent, FormLayout, FormRendererComponent, HeaderDirective, InfoComponent, InputComponent, IsEmailPipe, IsFilledPipe, MessageComponent, NotificationService, SegmentComponent, SliderComponent, SubmitComponent, TabComponent, TabGroupComponent, TextareaComponent, TitlePipe, ToggleComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
@@ -10,6 +10,7 @@ import { MyValidationPipe } from './my-validation.pipe';
     selector: 'app-form-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, FormComponent, FieldComponent, InputComponent, CheckboxComponent, SubmitComponent, FieldGroupComponent, DropdownComponent, DropdownItemComponent, SegmentComponent, ToggleComponent, MessageComponent, SliderComponent, IsFilledPipe, IsEmailPipe, TitlePipe, MyValidationPipe, TextareaComponent, ErrorComponent, FormRendererComponent, DataSourceComponent, InfoComponent, JsonPipe],
     templateUrl: './form.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./form.component.scss']
 })
 export class FormExampleComponent {

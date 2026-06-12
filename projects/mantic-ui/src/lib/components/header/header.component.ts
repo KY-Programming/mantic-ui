@@ -1,5 +1,5 @@
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '../../base/base.component';
@@ -17,6 +17,7 @@ export declare type HeaderSize = 'huge' | 'large' | 'medium' | 'small' | 'tiny';
     imports: [
     IconComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class HeaderComponent extends InvertibleComponent implements OnInit {

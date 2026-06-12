@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { TableComponent } from './table.component';
 
 @Component({
     selector: 'm-table-defaults',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: '',
     })
 export class TableDefaultsComponent {

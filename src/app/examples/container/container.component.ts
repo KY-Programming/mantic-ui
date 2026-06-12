@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { HeaderComponent } from '../../components/header/header.component';
 import { HeaderDirective, IconComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
@@ -8,6 +8,7 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
     selector: 'app-container-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent],
     templateUrl: './container.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./container.component.scss']
 })
 export class ContainerExampleComponent {

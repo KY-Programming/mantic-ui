@@ -1,5 +1,5 @@
 
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
 import { HeaderDirective } from '@mantic-ui/angular';
 import { HighlightModule } from 'ngx-highlightjs';
 
@@ -7,6 +7,7 @@ import { HighlightModule } from 'ngx-highlightjs';
     selector: 'm-example',
     templateUrl: './example.component.html',
     styleUrls: ['./example.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     HighlightModule,
     HeaderDirective

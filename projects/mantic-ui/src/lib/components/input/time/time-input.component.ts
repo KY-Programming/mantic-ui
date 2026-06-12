@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 import { DateHelper } from '../../../helpers/date-helper';
@@ -11,6 +11,7 @@ import { InputBaseComponent } from '../input-base.component';
     templateUrl: './time-input.component.html',
     styleUrls: ['./time-input.component.scss'],
     imports: [FormsModule, IconComponent, FallbackForDirective, NgTemplateOutlet],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InputBaseComponent.providers]
 })
 export class TimeInputComponent extends InputBaseComponent implements OnInit {

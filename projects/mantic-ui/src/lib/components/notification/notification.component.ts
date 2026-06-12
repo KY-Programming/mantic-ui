@@ -1,5 +1,5 @@
 import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { MessageAttached, MessageComponent } from '../message/message.component';
 import { Notification } from './notification';
@@ -11,6 +11,7 @@ import { NotificationService } from './notification.service';
     templateUrl: './notification.component.html',
     styleUrls: ['./notification.component.scss'],
     imports: [MessageComponent, NotificationInjectorPipe, NgTemplateOutlet, NgComponentOutlet],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class NotificationComponent extends BaseComponent {

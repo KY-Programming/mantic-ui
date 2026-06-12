@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { TextareaComponent } from './textarea.component';
 
 @Component({
     selector: 'm-textarea-defaults',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: '',
     })
 export class TextareaDefaultsComponent {

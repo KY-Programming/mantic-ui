@@ -1,10 +1,11 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { IconSize } from '../icon/icon-size';
 import { IconType } from '../icon/icon-type';
 import { MessageComponent } from './message.component';
 
 @Component({
     selector: 'm-message-defaults',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: '',
     })
 export class MessageDefaultsComponent implements OnDestroy {

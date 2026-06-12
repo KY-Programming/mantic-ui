@@ -1,5 +1,5 @@
 
-import { Component, ContentChildren, EventEmitter, HostBinding, inject, Input, OnInit, Output, QueryList } from '@angular/core';
+import { Component, ContentChildren, EventEmitter, HostBinding, inject, Input, OnInit, Output, QueryList, ChangeDetectionStrategy } from '@angular/core';
 import { delay, ReplaySubject, Subject, Subscription, throttleTime } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
@@ -21,6 +21,7 @@ import { FormValidationNotifier } from './form-validation-notifier';
     FillDirective
 ],
     hostDirectives: [LoadingDirective.default],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InvertibleComponent.providers]
 })
 export class FormComponent extends InvertibleComponent implements OnInit {

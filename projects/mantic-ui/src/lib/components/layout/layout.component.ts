@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, Input, TemplateRef } from '@angular/core';
+import { Component, Input, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
 import { LayoutService } from '../../services/layout.service';
 import { FooterComponent } from '../footer/footer.component';
 import { IconSize } from '../icon/icon-size';
@@ -12,6 +12,7 @@ import { MenuComponent } from '../menu/menu.component';
     selector: 'm-layout',
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [MenuComponent, MenuItemComponent, IconComponent, FooterComponent, NgTemplateOutlet]
 })
 export class LayoutComponent {

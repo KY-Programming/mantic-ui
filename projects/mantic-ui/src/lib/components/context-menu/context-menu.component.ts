@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { animationFrameScheduler, fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '../../base/base.component';
@@ -18,6 +18,7 @@ import { ContextMenuMouseEvent } from './models/context-menu-mouse-event';
         MenuComponent,
         ToBodyDirective
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class ContextMenuComponent extends BaseComponent implements AfterViewInit {

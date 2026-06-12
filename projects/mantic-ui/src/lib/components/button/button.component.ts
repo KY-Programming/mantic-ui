@@ -1,5 +1,5 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, inject, Input } from '@angular/core';
+import { Component, ContentChild, inject, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ButtonBaseComponent } from '../../base/button-base.component';
@@ -29,6 +29,7 @@ export declare type Pointing =
     styleUrls: ['./button.component.scss'],
     imports: [IconComponent, NgTemplateOutlet, NgClass],
     hostDirectives: [FluidDirective.default, PointingDirective.default],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...ButtonBaseComponent.providers]
 })
 export class ButtonComponent extends ButtonBaseComponent {

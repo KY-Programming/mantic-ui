@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IconProp, SizeProp } from '@fortawesome/fontawesome-svg-core';
 import { IconSize } from './icon-size';
@@ -9,6 +9,7 @@ import { IconType } from './icon-type';
     selector: 'm-icon',
     templateUrl: './icon.component.html',
     styleUrls: ['./icon.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FontAwesomeModule, NgClass]
 })
 export class IconComponent {

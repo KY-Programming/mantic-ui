@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { HeaderComponent } from '../../components/header/header.component';
 import { ButtonComponent, HeaderDirective, IconComponent, SegmentComponent, SegmentGroupComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
@@ -8,6 +8,7 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
     selector: 'app-segment-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, IconComponent, ExampleComponent, ExampleCodeComponent, SegmentComponent, ButtonComponent, SegmentGroupComponent],
     templateUrl: './segment.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./segment.component.scss']
 })
 export class SegmentExampleComponent {

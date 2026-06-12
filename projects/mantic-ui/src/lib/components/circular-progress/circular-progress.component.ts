@@ -1,4 +1,4 @@
-import { Component, HostBinding, inject, Input } from '@angular/core';
+import { Component, HostBinding, inject, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { ColorDirective } from '../../directives/color.directive';
 import { BooleanLike } from '../../models/boolean-like';
@@ -10,6 +10,7 @@ import { ColorName } from '../../models/color';
     styleUrls: ['./circular-progress.component.scss'],
     hostDirectives: [ColorDirective.default],
     imports: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class CircularProgressComponent extends BaseComponent {

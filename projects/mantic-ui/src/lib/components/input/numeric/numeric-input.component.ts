@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 import { Math2 } from '../../../helpers/math2';
@@ -12,6 +12,7 @@ import { InputBaseComponent } from '../input-base.component';
     templateUrl: './numeric-input.component.html',
     styleUrls: ['./numeric-input.component.scss'],
     imports: [IconComponent, FallbackForDirective, FormsModule, NgTemplateOutlet],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InputBaseComponent.providers]
 })
 export class NumericInputComponent extends InputBaseComponent implements OnInit {

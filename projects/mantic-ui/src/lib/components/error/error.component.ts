@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { IgnoredDirective } from '../../directives/ignored.directive';
@@ -9,6 +9,7 @@ import { MessageComponent } from '../message/message.component';
     templateUrl: './error.component.html',
     styleUrls: ['./error.component.scss'],
     hostDirectives: [IgnoredDirective.default],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InvertibleComponent.providers]
 })
 export class ErrorComponent extends InvertibleComponent {

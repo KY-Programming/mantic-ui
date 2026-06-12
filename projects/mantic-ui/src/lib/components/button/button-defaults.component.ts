@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ButtonComponent } from './button.component';
 
 @Component({
     selector: 'm-button-defaults',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: ''
 })
 export class ButtonDefaultsComponent {

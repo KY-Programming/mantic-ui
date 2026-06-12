@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
 import { HeaderDirective } from '../../../../projects/mantic-ui/src/lib/directives/header.directive';
 import { RouterLink } from '@angular/router';
@@ -8,6 +8,7 @@ import { ButtonComponent, CheckboxComponent, DropdownComponent, DropdownItemComp
     selector: 'app-element-list',
     imports: [RouterLink, SegmentComponent, ButtonComponent, CheckboxComponent, DropdownComponent, DropdownItemComponent, InputComponent, InfoComponent, WarningComponent, ErrorComponent, MessageComponent, RadioComponent, SliderComponent, ToggleComponent, HeaderDirective, FillDirective, FlexDirective],
     templateUrl: './element-list.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./element-list.component.scss']
 })
 export class ElementListExamplesComponent {

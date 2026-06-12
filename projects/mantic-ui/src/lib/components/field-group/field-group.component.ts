@@ -1,4 +1,4 @@
-import { Component, ContentChildren, EventEmitter, HostBinding, Input, Output, QueryList } from '@angular/core';
+import { Component, ContentChildren, EventEmitter, HostBinding, Input, Output, QueryList, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '../../base/base.component';
@@ -24,6 +24,7 @@ export declare type FieldsType =
     templateUrl: './field-group.component.html',
     styleUrls: ['./field-group.component.scss'],
     hostDirectives: [InlineDirective.default],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class FieldGroupComponent extends BaseComponent {

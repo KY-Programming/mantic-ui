@@ -1,5 +1,5 @@
 
-import { Component, HostBinding, inject, Input } from '@angular/core';
+import { Component, HostBinding, inject, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { ActiveDirective } from '../../directives/active.directive';
 import { InlineDirective } from '../../directives/inline.directive';
@@ -14,6 +14,7 @@ export declare type LoaderSize = 'mini' | 'tiny' | 'small' | 'large' | 'big' | '
     styleUrls: ['./loader.component.scss'],
     imports: [],
     hostDirectives: [InvertedDirective.default, ActiveDirective.default, InlineDirective.default],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class LoaderComponent extends BaseComponent {

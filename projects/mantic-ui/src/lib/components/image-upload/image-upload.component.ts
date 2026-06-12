@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ButtonBaseComponent } from '../../base/button-base.component';
@@ -10,6 +10,7 @@ import { ButtonComponent } from '../button/button.component';
     templateUrl: './image-upload.component.html',
     styleUrls: ['./image-upload.component.scss'],
     imports: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...ButtonBaseComponent.providers]
 })
 export class ImageUploadComponent extends ButtonBaseComponent implements OnInit {

@@ -1,5 +1,5 @@
 
-import { Component, ContentChildren, ElementRef, EventEmitter, HostBinding, HostListener, Input, NgZone, OnInit, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ContentChildren, ElementRef, EventEmitter, HostBinding, HostListener, Input, NgZone, OnInit, Output, QueryList, ViewChild, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { fromEvent, ReplaySubject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -24,6 +24,7 @@ import { DropdownValue } from './dropdown-value';
     DropdownItemComponent
 ],
     hostDirectives: [FluidDirective.default, DisabledDirective.default],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InvertibleComponent.providers, DropDownSelectionService]
 })
 export class DropdownComponent extends InvertibleComponent implements OnInit {

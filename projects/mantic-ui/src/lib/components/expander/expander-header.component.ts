@@ -1,4 +1,4 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NgIfContext } from '@angular/common';
 
 @Component({
@@ -8,6 +8,7 @@ import { NgIfContext } from '@angular/common';
             <ng-content></ng-content>
         </ng-template>
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: []
 })
 export class ExpanderHeaderComponent {

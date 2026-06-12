@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TemplateTarget } from '../../models/template-target';
 import { MenuLinkTemplateDirective } from '../../directives/menu-link-template.directive';
 
@@ -6,6 +6,7 @@ import { MenuLinkTemplateDirective } from '../../directives/menu-link-template.d
     selector: 'm-menu-link',
     templateUrl: './menu-link.component.html',
     styleUrls: ['./menu-link.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         MenuLinkTemplateDirective
     ]

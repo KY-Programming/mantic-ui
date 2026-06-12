@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { HeaderComponent } from '../../components/header/header.component';
 import { HeaderDirective, IconComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
@@ -9,6 +9,7 @@ import { LayoutListExamplesComponent } from '../layout-list/layout-list.componen
     selector: 'app-layouts-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, LayoutListExamplesComponent],
     templateUrl: './layouts.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./layouts.component.scss']
 })
 export class LayoutExamplesComponent {

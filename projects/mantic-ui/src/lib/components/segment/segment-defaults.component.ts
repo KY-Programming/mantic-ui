@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { SegmentComponent } from './segment.component';
 
 @Component({
     selector: 'm-segment-defaults',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: '',
     })
 export class SegmentDefaultsComponent {

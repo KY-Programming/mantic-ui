@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { faArrowRight, faCloud, faPause } from '@fortawesome/pro-solid-svg-icons';
 import { AnimationComponent, ButtonComponent, ButtonDirective, ButtonGroupComponent, DividerComponent, HeaderDirective, IconButtonComponent, IconComponent, InputComponent, LabelComponent, OrComponent, SegmentComponent, TabComponent, TabGroupComponent, ToggleButtonComponent, ToggleComponent, WarningComponent } from '@mantic-ui/angular';
@@ -11,6 +11,7 @@ import { HeaderComponent } from '../../components/header/header.component';
     selector: 'app-button-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ButtonComponent, ButtonDirective, ExampleCodeComponent, RouterLink, WarningComponent, IconButtonComponent, SegmentComponent, ToggleButtonComponent, ButtonGroupComponent, OrComponent, InputComponent, DividerComponent, ToggleComponent, LabelComponent, AnimationComponent],
     templateUrl: './button.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./button.component.scss']
 })
 export class ButtonExampleComponent {

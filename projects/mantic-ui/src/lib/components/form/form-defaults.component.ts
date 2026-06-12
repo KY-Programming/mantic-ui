@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormComponent } from './form.component';
 
 @Component({
     selector: 'm-form-defaults',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: '',
     })
 export class FormDefaultsComponent {

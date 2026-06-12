@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { FluidDirective } from '../../directives/fluid.directive';
 
@@ -7,6 +7,7 @@ import { FluidDirective } from '../../directives/fluid.directive';
     templateUrl: './text-container.component.html',
     styleUrls: ['./text-container.component.scss'],
     hostDirectives: [FluidDirective.default],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class TextContainerComponent extends BaseComponent {

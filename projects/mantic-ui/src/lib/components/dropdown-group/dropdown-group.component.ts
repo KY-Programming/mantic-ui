@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, Input, TemplateRef, ViewChild, ViewContainerRef, ChangeDetectionStrategy } from '@angular/core';
 import { IconType } from '../icon/icon-type';
 import { IconSize } from '../icon/icon-size';
 import { HeaderComponent } from '../header/header.component';
@@ -9,6 +9,7 @@ import { DividerComponent } from '../divider/divider.component';
     selector: 'm-dropdown-group',
     templateUrl: './dropdown-group.component.html',
     styleUrls: ['./dropdown-group.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     HeaderComponent,
     DividerComponent

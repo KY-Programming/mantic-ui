@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { HeaderDirective } from '@mantic-ui/angular';
 
@@ -6,6 +6,7 @@ import { HeaderDirective } from '@mantic-ui/angular';
     selector: 'app-header',
     imports: [HeaderDirective],
     templateUrl: './header.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {

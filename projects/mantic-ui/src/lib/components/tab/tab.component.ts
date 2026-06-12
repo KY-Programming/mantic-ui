@@ -1,5 +1,5 @@
 import { NgIfContext, NgTemplateOutlet } from '@angular/common';
-import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
 import { SortedClassesService } from '../../services/sorted-classes.service';
 import { IconSize } from '../icon/icon-size';
 import { IconType } from '../icon/icon-type';
@@ -12,6 +12,7 @@ import { MenuItemComponent } from '../menu-item/menu-item.component';
     imports: [
         NgTemplateOutlet
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [SortedClassesService]
 })
 export class TabComponent extends MenuItemComponent {

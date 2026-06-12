@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { RouterLink } from '@angular/router';
 
@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
     selector: 'app-intro',
     imports: [RouterLink],
     templateUrl: './intro.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./intro.component.scss']
 })
 export class IntroComponent implements OnInit {

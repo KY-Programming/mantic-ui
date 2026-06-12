@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { IconComponent } from '../icon/icon.component';
@@ -12,6 +12,7 @@ import { MessageComponent } from '../message/message.component';
     imports: [
     IconComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InvertibleComponent.providers]
 })
 export class WarningComponent extends InvertibleComponent {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { RouterOutlet } from '@angular/router';
 
@@ -6,6 +6,7 @@ import { RouterOutlet } from '@angular/router';
     selector: 'app-iframe',
     imports: [RouterOutlet],
     templateUrl: './iframe.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./iframe.component.scss']
 })
 export class SemanticIframeComponent {

@@ -1,4 +1,4 @@
-import { Component, HostBinding, HostListener, Input } from '@angular/core';
+import { Component, HostBinding, HostListener, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
 import { DropDownSelectionService } from '../dropdown/dropdown-selection.service';
@@ -7,6 +7,7 @@ import { DropDownSelectionService } from '../dropdown/dropdown-selection.service
     selector: 'm-dropdown-item',
     templateUrl: './dropdown-item.component.html',
     styleUrls: ['./dropdown-item.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class DropdownItemComponent extends BaseComponent {

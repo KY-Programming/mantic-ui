@@ -1,9 +1,10 @@
-import { Component, Output } from '@angular/core';
+import { Component, Output, ChangeDetectionStrategy } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { DataSourceRequest } from './data-source-request';
 
 @Component({
     selector: 'm-data-source',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: ''
 })
 export class DataSourceComponent {

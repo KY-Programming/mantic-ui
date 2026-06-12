@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
@@ -9,6 +9,7 @@ import { faChevronLeft } from '@fortawesome/pro-solid-svg-icons';
     selector: 'app-navigation',
     imports: [RouterLink, RouterLinkActive, FlexComponent, IconComponent, FillComponent, FlexDirective, RouterOutlet, ButtonComponent, ContextMenuComponent, ContextMenuItemComponent],
     templateUrl: './navigation.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {

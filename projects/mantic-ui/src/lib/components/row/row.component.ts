@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
 import { FieldSize, ParsableFieldSize, parseFieldSize } from '../../models/field-size';
@@ -7,6 +7,7 @@ import { FieldSize, ParsableFieldSize, parseFieldSize } from '../../models/field
     selector: 'm-row',
     templateUrl: './row.component.html',
     styleUrls: ['./row.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class RowComponent extends BaseComponent {

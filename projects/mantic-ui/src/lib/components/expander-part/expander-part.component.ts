@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostBinding, HostListener, Input, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
 import { ExpanderIconComponent } from '../expander-icon/expander-icon.component';
@@ -14,6 +14,7 @@ import { IconType } from '../icon/icon-type';
         FillComponent,
         ExpanderIconComponent
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class ExpanderPartComponent extends BaseComponent {

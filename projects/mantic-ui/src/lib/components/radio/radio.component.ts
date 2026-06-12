@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { filter, takeUntil } from 'rxjs/operators';
 import { RadioService } from '../../services/radio.service';
@@ -11,6 +11,7 @@ import { CheckboxComponent } from '../checkbox/checkbox.component';
     imports: [
         FormsModule
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...CheckboxComponent.providers]
 })
 export class RadioComponent extends CheckboxComponent {

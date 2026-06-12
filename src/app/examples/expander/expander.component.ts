@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ButtonComponent, ExpanderComponent, ExpanderIconComponent, HeaderDirective, IconComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
@@ -8,6 +8,7 @@ import { HeaderComponent } from '../../components/header/header.component';
     selector: 'app-expander-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, ExpanderComponent, ButtonComponent, ExpanderIconComponent],
     templateUrl: './expander.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./expander.component.scss']
 })
 export class ExpanderExampleComponent {

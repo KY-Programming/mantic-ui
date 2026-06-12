@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { NugetApiService } from '../../services/nuget-api.service';
 
 
@@ -6,6 +6,7 @@ import { NugetApiService } from '../../services/nuget-api.service';
     selector: 'm-nuget',
     templateUrl: './nuget.component.html',
     styleUrls: ['./nuget.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: []
 })
 export class NugetComponent {

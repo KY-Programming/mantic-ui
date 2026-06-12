@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, NpmComponent, NpmInstallComponent } from '@mantic-ui/angular-doc';
 
@@ -8,6 +8,7 @@ import { HeaderComponent } from '../../components/header/header.component';
     selector: 'app-eslint',
     imports: [TabGroupComponent, TabComponent, NpmInstallComponent, ExampleCodeComponent, NpmComponent, HeaderComponent],
     templateUrl: './eslint.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./eslint.component.scss']
 })
 export class EslintComponent {

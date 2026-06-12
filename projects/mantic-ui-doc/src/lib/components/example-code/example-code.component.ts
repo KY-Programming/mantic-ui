@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { BooleanLike, ButtonComponent, SegmentComponent } from '@mantic-ui/angular';
 import { HighlightModule } from 'ngx-highlightjs';
 
@@ -11,6 +11,7 @@ import { HighlightModule } from 'ngx-highlightjs';
     HighlightModule,
     ButtonComponent
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...SegmentComponent.providers]
 })
 export class ExampleCodeComponent extends SegmentComponent {

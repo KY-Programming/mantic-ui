@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, Optional, SkipSelf } from '@angular/core';
+import { Component, HostBinding, Input, Optional, SkipSelf, ChangeDetectionStrategy } from '@angular/core';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { PointingDirective } from '../../directives/pointing.directive';
 import { BooleanLike } from '../../models/boolean-like';
@@ -15,6 +15,7 @@ export declare type MenuPosition =
     templateUrl: './menu.component.html',
     styleUrls: ['./menu.component.scss'],
     hostDirectives: [PointingDirective.default],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InvertibleComponent.providers]
 })
 export class MenuComponent extends InvertibleComponent {

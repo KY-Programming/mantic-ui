@@ -1,10 +1,11 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { IconType } from '../icon/icon-type';
 import { ChatComponent } from './chat.component';
 import { IconSize } from '../icon/icon-size';
 
 @Component({
     selector: 'm-chat-defaults',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: ''
 })
 export class ChatDefaultsComponent implements OnDestroy {

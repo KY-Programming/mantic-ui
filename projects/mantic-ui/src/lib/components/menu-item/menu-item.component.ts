@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, inject, Inject, Input, Optional, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, inject, Inject, Input, Optional, Output, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { ActiveDirective } from '../../directives/active.directive';
 import { BooleanLike } from '../../models/boolean-like';
@@ -9,6 +9,7 @@ import { SortedClassesService } from '../../services/sorted-classes.service';
     templateUrl: './menu-item.component.html',
     styleUrls: ['./menu-item.component.scss'],
     providers: [SortedClassesService],
+    changeDetection: ChangeDetectionStrategy.Eager,
     hostDirectives: [ActiveDirective.default]
 })
 export class MenuItemComponent extends BaseComponent {

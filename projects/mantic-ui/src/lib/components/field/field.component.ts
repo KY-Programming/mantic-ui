@@ -1,5 +1,5 @@
 
-import { Component, ContentChild, EventEmitter, HostBinding, Input, Output } from '@angular/core';
+import { Component, ContentChild, EventEmitter, HostBinding, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
@@ -28,6 +28,7 @@ import { FieldFormatErrorsPipe } from './field-format-errors.pipe';
     IconComponent,
     FieldFormatErrorsPipe
 ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class FieldComponent extends BaseComponent {

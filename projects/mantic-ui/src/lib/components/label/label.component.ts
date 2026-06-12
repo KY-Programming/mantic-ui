@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BasicDirective } from '../../directives/basic.directive';
 import { ColorDirective } from '../../directives/color.directive';
@@ -18,6 +18,7 @@ export declare type LabelPointing =
     templateUrl: './label.component.html',
     styleUrls: ['./label.component.scss'],
     hostDirectives: [BasicDirective.default, ColorDirective.default],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class LabelComponent extends BaseComponent implements LabelOptions {

@@ -1,5 +1,5 @@
 import { DatePipe, NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 import { DateHelper } from '../../../helpers/date-helper';
@@ -14,6 +14,7 @@ import { InputBaseComponent } from '../input-base.component';
     templateUrl: './date-input.component.html',
     styleUrls: ['./date-input.component.scss'],
     imports: [IconComponent, FallbackForDirective, FormsModule, LabelComponent, NgTemplateOutlet, DatePipe],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InputBaseComponent.providers]
 })
 export class DateInputComponent extends InputBaseComponent implements OnInit {

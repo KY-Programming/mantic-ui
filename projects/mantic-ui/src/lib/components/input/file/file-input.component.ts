@@ -1,10 +1,11 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ButtonDirective } from '../../../directives/button.directive';
 
 @Component({
     selector: 'm-file-input',
     templateUrl: './file-input.component.html',
     styleUrls: ['./file-input.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ButtonDirective
     ]

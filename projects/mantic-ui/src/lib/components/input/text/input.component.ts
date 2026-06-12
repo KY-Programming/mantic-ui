@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, Input, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 import { IconComponent } from '../../icon/icon.component';
@@ -16,6 +16,7 @@ export declare type InputType = 'button' | 'checkbox' | 'color' | 'date' | 'date
     templateUrl: './input.component.html',
     styleUrls: ['./input.component.scss'],
     imports: [IconComponent, FallbackForDirective, FormsModule, NgTemplateOutlet],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InputBaseComponent.providers]
 })
 export class InputComponent extends InputBaseComponent {

@@ -1,5 +1,5 @@
 import { NgIfContext } from '@angular/common';
-import { Component, ContentChild, EventEmitter, HostBinding, HostListener, inject, Input, Output, TemplateRef } from '@angular/core';
+import { Component, ContentChild, EventEmitter, HostBinding, HostListener, inject, Input, Output, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
 import { ButtonBaseComponent } from '../../base/button-base.component';
 import { ActiveDirective } from '../../directives/active.directive';
 import { BooleanLike } from '../../models/boolean-like';
@@ -10,6 +10,7 @@ import { Key } from '../../models/key';
     templateUrl: './toggle-button.component.html',
     styleUrls: ['./toggle-button.component.scss'],
     imports: [],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...ButtonBaseComponent.providers]
 })
 export class ToggleButtonComponent extends ButtonBaseComponent {

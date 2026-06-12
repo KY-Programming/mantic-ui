@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { HeaderComponent } from '../../components/header/header.component';
 import { InfoComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
@@ -8,6 +8,7 @@ import { ExampleCodeComponent, NpmComponent, NpmInstallComponent } from '@mantic
     selector: 'app-semantic-start',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, NpmComponent, NpmInstallComponent, ExampleCodeComponent, InfoComponent],
     templateUrl: './start.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./start.component.scss']
 })
 export class SemanticStartComponent {

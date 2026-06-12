@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
@@ -15,6 +15,7 @@ export declare type Align =
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.scss'],
     hostDirectives: [BasicDirective.default],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InvertibleComponent.providers]
 })
 export class TableComponent extends InvertibleComponent implements OnInit {

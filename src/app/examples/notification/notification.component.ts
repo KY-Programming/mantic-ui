@@ -1,5 +1,5 @@
 
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { AsyncAction, ButtonComponent, FlexComponent, NotificationRef, NotificationService, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
@@ -9,6 +9,7 @@ import { CustomNotificationComponent } from './custom-notification/custom-notifi
     selector: 'app-notification-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, FlexComponent, ButtonComponent],
     templateUrl: './notification.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./notification.component.scss']
 })
 export class NotificationExampleComponent {

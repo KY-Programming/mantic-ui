@@ -1,5 +1,5 @@
 import { NgIfContext } from '@angular/common';
-import { Component, DoCheck, ElementRef, Input, IterableDiffer, IterableDiffers, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DoCheck, ElementRef, Input, IterableDiffer, IterableDiffers, Output, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
@@ -15,6 +15,7 @@ import { InputComponent } from '../input/text/input.component';
     selector: 'm-chat',
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     ChatMessageComponent,
     InputComponent,

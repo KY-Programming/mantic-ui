@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { HeaderComponent } from '../../components/header/header.component';
 import { CellComponent, GridComponent, HeaderDirective, IconComponent, RowComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
@@ -8,6 +8,7 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
     selector: 'app-grid-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, GridComponent, CellComponent, RowComponent, SegmentComponent],
     templateUrl: './grid.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./grid.component.scss']
 })
 export class GridExampleComponent {

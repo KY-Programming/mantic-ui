@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 
 @Component({
     selector: 'm-divider',
     templateUrl: './divider.component.html',
     styleUrls: ['./divider.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class DividerComponent extends BaseComponent {

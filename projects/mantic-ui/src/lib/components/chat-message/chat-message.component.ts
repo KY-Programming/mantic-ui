@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { ChatMessage } from '../../models/chat-message';
 import { ButtonComponent } from '../button/button.component';
 
@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
     selector: 'm-chat-message',
     templateUrl: './chat-message.component.html',
     styleUrls: ['./chat-message.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     ButtonComponent,
     ButtonDirective,

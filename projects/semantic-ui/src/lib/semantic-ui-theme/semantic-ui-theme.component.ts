@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { BooleanLike, ButtonDefaultsComponent, CheckboxDefaultsComponent, DropdownDefaultsComponent, FormDefaultsComponent, InputDefaultsComponent, MessageDefaultsComponent, ModalDefaultsComponent, SegmentDefaultsComponent, TabGroupDefaultsComponent, TableDefaultsComponent, TextareaDefaultsComponent, ThemeService, toBoolean } from '@mantic-ui/angular';
 
 @Component({
@@ -6,6 +6,7 @@ import { BooleanLike, ButtonDefaultsComponent, CheckboxDefaultsComponent, Dropdo
     imports: [SegmentDefaultsComponent, TableDefaultsComponent, FormDefaultsComponent, InputDefaultsComponent, CheckboxDefaultsComponent, DropdownDefaultsComponent, TextareaDefaultsComponent, TabGroupDefaultsComponent, ModalDefaultsComponent, ButtonDefaultsComponent, MessageDefaultsComponent],
     templateUrl: './semantic-ui-theme.component.html',
     styleUrls: ['./semantic-ui-theme.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     encapsulation: ViewEncapsulation.None
 })
 export class SemanticUiThemeComponent {

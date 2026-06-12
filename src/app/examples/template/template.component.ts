@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ButtonComponent, HideOnEmptyTemplateDirective, SegmentComponent, TabComponent, TabGroupComponent, TemplateComponent, TemplateOutletComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
@@ -7,6 +7,7 @@ import { HeaderComponent } from '../../components/header/header.component';
     selector: 'app-template',
     imports: [ExampleCodeComponent, ExampleComponent, HeaderComponent, SegmentComponent, TabComponent, TabGroupComponent, TemplateComponent, TemplateOutletComponent, ButtonComponent, HideOnEmptyTemplateDirective],
     templateUrl: './template.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './template.component.scss'
 })
 export class TemplateExampleComponent {

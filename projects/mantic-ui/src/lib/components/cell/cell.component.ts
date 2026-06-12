@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { FieldSize, ParsableFieldSize, parseFieldSize } from '../../models/field-size';
 
@@ -14,6 +14,7 @@ export declare type CellAlign =
     selector: 'm-cell',
     templateUrl: './cell.component.html',
     styleUrls: ['./cell.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class CellComponent extends BaseComponent {

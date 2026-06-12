@@ -1,4 +1,4 @@
-import { Component, HostBinding, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostBinding, HostListener, Input, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
@@ -10,6 +10,7 @@ import { BooleanLike } from '../../models/boolean-like';
     selector: 'm-dimmer',
     templateUrl: './dimmer.component.html',
     styleUrls: ['./dimmer.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InvertibleComponent.providers]
 })
 export class DimmerComponent extends InvertibleComponent implements OnInit, OnDestroy {

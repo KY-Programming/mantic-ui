@@ -1,10 +1,11 @@
-import { Component, HostBinding } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
 
 @Component({
     selector: 'm-card',
     templateUrl: './card.component.html',
     styleUrls: ['./card.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: []
 })
 export class CardComponent {

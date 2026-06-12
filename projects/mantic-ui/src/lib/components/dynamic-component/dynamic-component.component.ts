@@ -1,4 +1,4 @@
-import { Component, inject, Input, ViewContainerRef } from '@angular/core';
+import { Component, inject, Input, ViewContainerRef, ChangeDetectionStrategy } from '@angular/core';
 
 import { ComponentParser } from './component-parser';
 
@@ -6,6 +6,7 @@ import { ComponentParser } from './component-parser';
     selector: 'm-dynamic-component',
     imports: [],
     template: '',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: []
 })
 export class DynamicComponentComponent {

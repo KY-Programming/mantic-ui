@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IterableLicenses, Licenses } from 'license-to-json';
 
@@ -9,6 +9,7 @@ import { HeaderComponent } from '../../components/header/header.component';
     selector: 'app-credits',
     imports: [TabGroupComponent, TabComponent, ExpanderComponent, ExpanderHeaderComponent, FlexDirective, LoaderComponent, HeaderComponent],
     templateUrl: './credits.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./credits.component.scss']
 })
 export class CreditsComponent implements OnInit {

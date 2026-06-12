@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
 
@@ -6,6 +6,7 @@ import { BooleanLike } from '../../models/boolean-like';
     selector: 'm-segment-group',
     templateUrl: './segment-group.component.html',
     styleUrls: ['./segment-group.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class SegmentGroupComponent extends BaseComponent {

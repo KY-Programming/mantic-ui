@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { BooleanLike, SegmentComponent, toBoolean } from '@mantic-ui/angular';
 import { NpmApiService } from '../../services/npm-api.service';
 
@@ -7,6 +7,7 @@ import { NpmApiService } from '../../services/npm-api.service';
     selector: 'm-npm-install',
     templateUrl: './npm-install.component.html',
     styleUrls: ['./npm-install.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
     SegmentComponent
 ]
