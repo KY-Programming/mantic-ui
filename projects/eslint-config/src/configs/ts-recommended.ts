@@ -20,9 +20,6 @@ const config: TSESLint.FlatConfig.ConfigArray = [
     },
     {
         name: '@mantic-ui/eslint-config/ts-recommended',
-        plugins: {
-            'rxjs-x': rxjsX
-        },
         rules: {
             // Unicorn
             'unicorn/prevent-abbreviations': [
