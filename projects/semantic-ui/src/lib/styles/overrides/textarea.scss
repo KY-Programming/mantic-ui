@@ -1,4 +1,4 @@
-﻿@import "../colors";
+﻿@use "../colors";
 
 /*******************************
             States
@@ -23,6 +23,6 @@
         Inverted
 ---------------------*/
 .ui.inverted.textarea > textarea {
-    background-color: $tenthLighter;
+    background-color: colors.$tenthLighter;
     color: white;
 }

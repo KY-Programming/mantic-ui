@@ -1,2 +1,2 @@
-@import '../styles/all';
-@import '../styles/overrides/all';
+@use '../styles/all' as styles;
+@use '../styles/overrides/all' as overrides;

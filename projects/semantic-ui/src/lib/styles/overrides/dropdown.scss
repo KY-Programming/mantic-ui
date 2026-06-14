@@ -1,4 +1,4 @@
-﻿@import "../colors";
+﻿@use "../colors";
 
 /* Top / Bottom */
 .ui.attached-top.dropdown {
@@ -31,7 +31,7 @@ m-dropdown.ui.dropdown > .dropdown.icon:before {
 ---------------------*/
 .ui.inverted.selection.dropdown {
     color: white;
-    background-color: $tenthLighter;
+    background-color: colors.$tenthLighter;
 }
 
 .ui.inverted.dropdown .menu {

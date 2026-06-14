@@ -1,4 +1,4 @@
-﻿@import "../colors";
+﻿@use "../colors";
 
 .ui.checkbox label > .icon {
     i:before {
@@ -26,7 +26,7 @@
 .ui.inverted.checkbox label:before,
 .ui.inverted.radio.checkbox input:checked ~ .box:before,
 .ui.inverted.radio.checkbox input:checked ~ label:before, {
-    background-color: $tenthLighter;
+    background-color: colors.$tenthLighter;
 }
 
 .ui.inverted.radio.checkbox input:checked ~ .box:after,

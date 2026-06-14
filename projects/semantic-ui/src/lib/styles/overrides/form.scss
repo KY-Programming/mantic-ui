@@ -1,4 +1,4 @@
-﻿@import "../colors";
+﻿@use "../colors";
 
 .ui.form .fields > .field.fill {
     flex-grow: 1;
@@ -19,6 +19,6 @@
 .ui.inverted.form input[type=text],
 .ui.inverted.form input[type=file],
 .ui.inverted.form input[type=url] {
-    background-color: $tenthLighter;
+    background-color: colors.$tenthLighter;
     color: white;
 }
