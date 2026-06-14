@@ -1,69 +1,44 @@
-import { Component, ContentChildren, Input, Output, QueryList, ChangeDetectionStrategy } from '@angular/core';
-import { FormLayout } from './form-layout';
-import { Subject } from 'rxjs';
+import { Component, computed, contentChildren, effect, input, output, signal, untracked } from '@angular/core';
 import { DataSourceComponent } from '../data-source/data-source.component';
-
-import { FormComponent } from '../form/form.component';
-import { FormElementRendererComponent } from '../form-element-renderer/form-element-renderer.component';
-import { FlexDirective } from '../flex/flex.directive';
 import { FillDirective } from '../flex/fill/fill.directive';
+import { FlexDirective } from '../flex/flex.directive';
+import { FormElementRendererComponent } from '../form-element-renderer/form-element-renderer.component';
+import { FormComponent } from '../form/form.component';
+import { FormLayout } from './form-layout';
 
 @Component({
     selector: 'm-form-renderer',
     templateUrl: './form-renderer.component.html',
     styleUrls: ['./form-renderer.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-    FormComponent,
-    FormElementRendererComponent,
-    FlexDirective,
-    FillDirective
-]
+    imports: [FormComponent, FormElementRendererComponent, FlexDirective, FillDirective]
 })
 export class FormRendererComponent {
-    private readonly dataChangeSubject = new Subject<unknown>();
-    private readonly executeSubject = new Subject<string>();
-    private layoutValue: FormLayout = { elements: [] };
-    private dataValue: Record<string, unknown> = {};
-    public dataSources: DataSourceComponent[] = [];
+    public readonly layout = input<FormLayout>({ elements: [] });
+    private readonly dataSourceElements = contentChildren(DataSourceComponent);
+    public readonly dataSources = computed(() => [...this.dataSourceElements()]);
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly dataInput = input<Record<string, unknown>>({}, { alias: 'data' });
+    private readonly dataState = signal<Record<string, unknown>>({});
+    public readonly data = this.dataState.asReadonly();
+    public readonly dataChange = output<unknown>();
+    public readonly execute = output<string>();
 
-    @Input()
-    public get layout(): FormLayout {
-        return this.layoutValue;
-    }
-
-    public set layout(value: FormLayout | undefined) {
-        this.layoutValue = value ?? { elements: [] };
-    }
-
-    public get data(): Record<string, unknown> {
-        return this.dataValue;
-    }
-
-    @Input()
-    public set data(value: Record<string, unknown> | any) {
-        this.dataValue = value;
-        if (!value) {
-            setTimeout(() => {
-                this.dataValue = {};
-                this.dataChangeSubject.next(this.dataValue);
+    public constructor() {
+        effect(() => {
+            const value = this.dataInput();
+            untracked(() => {
+                this.dataState.set(value);
+                if (!value) {
+                    setTimeout(() => {
+                        this.dataState.set({});
+                        this.dataChange.emit(this.dataState());
+                    });
+                }
             });
-        }
-    }
-
-    @Output()
-    public readonly dataChange = this.dataChangeSubject.asObservable();
-
-    @Output()
-    public readonly execute = this.executeSubject.asObservable();
-
-    @ContentChildren(DataSourceComponent)
-    protected set dataSourceElements(query: QueryList<DataSourceComponent>) {
-        this.dataSources = Array.from(query);
-        query.changes.subscribe(() => this.dataSources = Array.from(query));
+        });
     }
 
     protected onExecute(action: string): void {
-        this.executeSubject.next(action);
+        this.execute.emit(action);
     }
 }

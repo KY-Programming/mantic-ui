@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, Output, ChangeDetectionStrategy, input } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Component, effect, input, model, output } from '@angular/core';
 import { ButtonBaseComponent } from '../../base/button-base.component';
+import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
 import { ButtonComponent } from '../button/button.component';
 
@@ -9,60 +8,31 @@ import { ButtonComponent } from '../button/button.component';
     selector: 'm-image-upload',
     templateUrl: './image-upload.component.html',
     styleUrls: ['./image-upload.component.scss'],
-    imports: [],
-    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...ButtonBaseComponent.providers]
 })
-export class ImageUploadComponent extends ButtonBaseComponent implements OnInit {
-    private readonly previewImageChangeSubject = new Subject<string>();
-    private readonly uploadSubject = new Subject<FileList>();
-    public isPreviewVisible = true;
-    private isPreviewImageChangeForced = false;
-
-    public override ngOnInit(): void {
-        super.ngOnInit();
-        ButtonComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
-    }
-
-    public readonly previewImage = input<string>();
-
+export class ImageUploadComponent extends ButtonBaseComponent {
+    public readonly previewImage = model<string>();
     public readonly radius = input<number>();
-
     public readonly previewWidth = input<number>();
-
     public readonly previewHeight = input<number>();
-
     public readonly width = input<number>();
-
     public readonly height = input<number>();
+    public readonly hidePreview = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly forcePreviewImageChange = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly upload = output<FileList>();
 
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public set hidePreview(value: BooleanLike) {
-        this.isPreviewVisible = !this.toBoolean(value);
+    public constructor() {
+        super();
+        effect(() => this.refreshInverted(ButtonComponent.defaults.inverted()));
     }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public set forcePreviewImageChange(value: BooleanLike) {
-        this.isPreviewImageChangeForced = this.toBoolean(value);
-    }
-
-    @Output()
-    public readonly previewImageChange = this.previewImageChangeSubject.asObservable();
-
-    @Output()
-    public readonly upload = this.uploadSubject.asObservable();
 
     protected onUpload(fileList: FileList | null): void {
         if (!fileList?.length) {
             return;
         }
-        this.uploadSubject.next(fileList);
-        const files = Array.from(fileList);
-        if (this.isPreviewVisible || this.isPreviewImageChangeForced) {
+        this.upload.emit(fileList);
+        const files = [...fileList];
+        if (!this.hidePreview() || this.forcePreviewImageChange()) {
             this.showPreview(files[0]);
         }
     }
@@ -94,8 +64,8 @@ export class ImageUploadComponent extends ButtonBaseComponent implements OnInit 
             const top = (height - imageHeight) / 2;
             const context = canvas.getContext('2d');
             context?.drawImage(image, left, top, imageWidth, imageHeight);
-            this.previewImage = canvas.toDataURL('image/png', 1);
-            this.previewImageChangeSubject.next(this.previewImage());
+            const dataUrl = canvas.toDataURL('image/png', 1);
+            this.previewImage.set(dataUrl);
         };
         reader.readAsDataURL(file);
     }

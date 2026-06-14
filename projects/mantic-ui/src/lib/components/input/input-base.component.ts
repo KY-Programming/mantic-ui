@@ -1,152 +1,79 @@
-﻿import { Directive, ElementRef, EventEmitter, HostBinding, Input, OnDestroy, Output, input } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Directive, effect, ElementRef, input, model, OnDestroy, output, signal } from '@angular/core';
 import { LabeledBaseComponent } from '../../base/labeled-base.component';
-import { FluidDirective } from '../../directives/fluid.directive';
-import { LoadingDirective } from '../../directives/loading.directive';
+import { toBoolean } from '../../helpers/to-boolean';
+import { transformableModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
-import { IconSize } from '../icon/icon-size';
-import { IconType } from '../icon/icon-type';
+import { IconSize } from '../icon/models/icon-size';
+import { IconType } from '../icon/models/icon-type';
 import { InputIconPosition } from './text/input.component';
 
 @Directive({
-    hostDirectives: [LoadingDirective.default, FluidDirective.default],
-    providers: InputBaseComponent.providers
+    providers: InputBaseComponent.providers,
+    host: {
+        '[class.icon]': 'icon()',
+        '[class.focus]': 'focused()',
+        '[class.disabled]': 'disabled()',
+        '[class.readonly]': 'readonly()',
+        '[class.error]': 'hasError()',
+        '[class.transparent]': 'transparent()',
+        '[class.color]': 'isColor()'
+    }
 })
 export abstract class InputBaseComponent extends LabeledBaseComponent implements OnDestroy {
-    protected readonly colorForId = Date.now().toString() + Math.random();
     public static readonly defaults = {
-        inverted: false,
-        invertedChange: new ReplaySubject<boolean>(1)
+        inverted: signal(false)
     };
     protected static override readonly providers = [...LabeledBaseComponent.providers];
-
-    private iconPositionValue: InputIconPosition | undefined;
-    private transparentValue = false;
-    private hasErrorValue = false;
-    private readonlyValue = false;
-    private disabledValue = false;
-    private isAutoFocused = false;
-
+    protected readonly colorForId = Date.now().toString() + Math.random().toString();
     public inputElement: ElementRef<HTMLInputElement> | undefined;
-
-    public get iconPosition(): InputIconPosition | undefined {
-        return this.iconPositionValue;
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public set iconPosition(value: InputIconPosition | undefined) {
-        this.iconPositionValue = value;
-        this.classes.set('iconPosition', value);
-    }
-
-    @HostBinding('class.icon')
-public readonly icon = input<IconType>();
-
+    public readonly iconPosition = input<InputIconPosition>();
+    public readonly icon = input<IconType>();
     public readonly iconSize = input<IconSize>();
-
-    @HostBinding('class.focus')
-    public focused = false;
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.disabled')
-    public get disabled(): boolean {
-        return this.disabledValue;
-    }
-
-    public set disabled(value: BooleanLike) {
-        this.disabledValue = this.toBoolean(value);
-        this.refreshInput();
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.readonly')
-    public get readonly(): boolean {
-        return this.readonlyValue;
-    }
-
-    public set readonly(value: BooleanLike) {
-        this.readonlyValue = this.toBoolean(value);
-        this.refreshInput();
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.error')
-    public get hasError(): boolean {
-        return this.hasErrorValue;
-    }
-
-    public set hasError(value: BooleanLike) {
-        this.hasErrorValue = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.transparent')
-    public get transparent(): boolean {
-        return this.transparentValue;
-    }
-
-    public set transparent(value: BooleanLike) {
-        this.transparentValue = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get autofocus(): boolean {
-        return this.isAutoFocused;
-    }
-
-    public set autofocus(value: BooleanLike) {
-        this.isAutoFocused = this.toBoolean(value);
-        this.refreshFocus();
-    }
-
+    public readonly loading = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly fluid = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly focused = signal(false);
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly disabledInput = input<boolean, BooleanLike>(false, { alias: 'disabled', transform: toBoolean });
+    public readonly disabledChange = output<boolean>();
+    public readonly disabled = transformableModel(this.disabledInput, this.disabledChange, toBoolean);
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly readonlyInput = input<boolean, BooleanLike>(false, { alias: 'readonly', transform: toBoolean });
+    public readonly readonlyChange = output<boolean>();
+    public readonly readonly = transformableModel(this.readonlyInput, this.readonlyChange, toBoolean);
+    public readonly hasError = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly transparent = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly autofocus = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly placeholder = input<string>();
-
-    public readonly name = input<string>();
-
-    public readonly for = input<string>();
-
-    @Output()
-    public readonly keyDown = new EventEmitter<KeyboardEvent>();
-
-    @Output()
-    public readonly keyUp = new EventEmitter<KeyboardEvent>();
-
-    @Output()
-    public readonly keyPress = new EventEmitter<Event>();
-
-    @Output()
-    public readonly blur = new EventEmitter<FocusEvent>();
-
-    @Output()
-    public readonly focus = new EventEmitter<FocusEvent>();
-
-    @Output()
-    public readonly focusin = new EventEmitter<FocusEvent>();
-
-    @Output()
-    public readonly focusout = new EventEmitter<FocusEvent>();
-
-    @HostBinding('class.color')
-    protected isColor = false;
+    public readonly name = model<string>();
+    public readonly for = model<string>();
+    public readonly keyDown = output<KeyboardEvent>();
+    public readonly keyUp = output<KeyboardEvent>();
+    public readonly keyPress = output<Event>();
+    // eslint-disable-next-line @angular-eslint/no-output-native
+    public readonly blur = output<FocusEvent>();
+    // eslint-disable-next-line @angular-eslint/no-output-native
+    public readonly focus = output<FocusEvent>();
+    // eslint-disable-next-line @angular-eslint/no-output-native
+    public readonly focusin = output<FocusEvent>();
+    // eslint-disable-next-line @angular-eslint/no-output-native
+    public readonly focusout = output<FocusEvent>();
+    protected readonly isColor = signal(false);
 
     protected constructor() {
         super();
-        InputBaseComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
+        effect(() => this.refreshInverted(InputBaseComponent.defaults.inverted()));
         this.classes.registerFixed('input');
-        this.classes.register('icon', 'focused', 'disabled', 'readonly', 'transparent', 'hasError', 'autofocus', 'placeholder', 'iconPosition');
+        this.classes.register('loading', 'fluid', 'icon', 'focused', 'disabled', 'readonly', 'transparent', 'hasError', 'autofocus', 'placeholder', 'iconPosition');
+        effect(() => this.classes.set('loading', this.loading()));
+        effect(() => this.classes.set('fluid', this.fluid()));
+        effect(() => this.classes.set('iconPosition', this.iconPosition()));
+        // Push disabled/readonly onto the native element, and (re)focus, whenever they change.
+        effect(() => {
+            this.disabled();
+            this.readonly();
+            this.refreshInput();
+        });
+        effect(() => this.refreshFocus());
     }
 
     public override ngOnDestroy(): void {
@@ -158,17 +85,17 @@ public readonly icon = input<IconType>();
         if (!this.inputElement) {
             return;
         }
-        this.inputElement.nativeElement.disabled = this.disabledValue;
-        this.inputElement.nativeElement.readOnly = this.readonlyValue;
+        this.inputElement.nativeElement.disabled = this.disabled();
+        this.inputElement.nativeElement.readOnly = this.readonly();
     }
 
-    private readonly keyDownEventHandler = (event: KeyboardEvent) => this.keyDown.next(event);
-    private readonly keyUpEventHandler = (event: KeyboardEvent) => this.keyUp.next(event);
-    private readonly keyPressEventHandler = (event: Event) => this.keyPress.next(event);
-    private readonly blurEventHandler = (event: FocusEvent) => this.blur.next(event);
-    private readonly focusEventHandler = (event: FocusEvent) => this.focus.next(event);
-    private readonly focusinEventHandler = (event: FocusEvent) => this.focusin.next(event);
-    private readonly focusoutEventHandler = (event: FocusEvent) => this.focusout.next(event);
+    private readonly keyDownEventHandler = (event: KeyboardEvent): void => this.keyDown.emit(event);
+    private readonly keyUpEventHandler = (event: KeyboardEvent): void => this.keyUp.emit(event);
+    private readonly keyPressEventHandler = (event: Event): void => this.keyPress.emit(event);
+    private readonly blurEventHandler = (event: FocusEvent): void => this.blur.emit(event);
+    private readonly focusEventHandler = (event: FocusEvent): void => this.focus.emit(event);
+    private readonly focusinEventHandler = (event: FocusEvent): void => this.focusin.emit(event);
+    private readonly focusoutEventHandler = (event: FocusEvent): void => this.focusout.emit(event);
 
     protected bindEvents(): void {
         if (!this.inputElement) {
@@ -198,7 +125,7 @@ public readonly icon = input<IconType>();
     }
 
     protected refreshFocus(): void {
-        if (this.isAutoFocused && this.inputElement) {
+        if (this.autofocus() && this.inputElement) {
             setTimeout(() => this.setFocus());
         }
     }

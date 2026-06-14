@@ -1,64 +1,34 @@
-import { Component, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
-import { BasicDirective } from '../../directives/basic.directive';
-import { ColorDirective } from '../../directives/color.directive';
+import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
+import { ColorName } from '../../models/color';
 import { LabelOptions } from '../../models/label-options';
 import { LabelPosition } from '../../models/label-position';
-
-export declare type LabelPointing =
-    'left'
-    | 'right'
-    | 'top'
-    | 'bottom'
-    | undefined;
+import { LabelPointing } from './models/label-pointing';
 
 @Component({
     selector: 'm-label',
     templateUrl: './label.component.html',
     styleUrls: ['./label.component.scss'],
-    hostDirectives: [BasicDirective.default, ColorDirective.default],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...BaseComponent.providers]
+    providers: [...BaseComponent.providers],
+    host: {
+        '[class.horizontal]': 'horizontal()'
+    }
 })
 export class LabelComponent extends BaseComponent implements LabelOptions {
-    private positionValue: LabelPosition;
-    private pointingValue: LabelPointing;
-    private isHorizontal = false;
-
-    @Input()
-    public get position(): LabelPosition {
-        return this.positionValue;
-    }
-
-    public set position(value: LabelPosition) {
-        this.positionValue = value;
-        this.classes.set('position', value);
-    }
-
-    @Input()
-    public get pointing(): LabelPointing {
-        return this.pointingValue;
-    }
-
-    public set pointing(value: LabelPointing) {
-        this.pointingValue = value;
-        this.classes.set('pointing', value);
-    }
-
-    @Input()
-    @HostBinding('class.horizontal')
-    public get horizontal(): boolean {
-        return this.isHorizontal;
-    }
-
-    public set horizontal(value: BooleanLike) {
-        this.isHorizontal = this.toBoolean(value);
-    }
+    public readonly position = input<LabelPosition>();
+    public readonly pointing = input<LabelPointing>();
+    public readonly horizontal = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly basic = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly color = input<ColorName | undefined>(undefined);
 
     public constructor() {
         super();
-        this.classes.register('pointing', 'position', 'horizontal')
+        this.classes.register('basic', 'color', 'pointing', 'position', 'horizontal')
             .registerFixed('label');
+        effect(() => this.classes.set('basic', this.basic()));
+        effect(() => this.classes.set('color', this.color()));
+        effect(() => this.classes.set('pointing', this.pointing()));
     }
 }

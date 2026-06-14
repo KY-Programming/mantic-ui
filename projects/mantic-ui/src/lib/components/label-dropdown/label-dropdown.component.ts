@@ -1,9 +1,9 @@
-import { Component, HostListener, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, input, model, signal } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { LabelPosition } from '../../models/label-position';
-import { IconSize } from '../icon/icon-size';
-import { IconType } from '../icon/icon-type';
 import { IconComponent } from '../icon/icon.component';
+import { IconSize } from '../icon/models/icon-size';
+import { IconType } from '../icon/models/icon-type';
 
 // TODO: Enable animation
 // TODO: Enable active state
@@ -11,26 +11,20 @@ import { IconComponent } from '../icon/icon.component';
     selector: 'm-label-dropdown',
     templateUrl: './label-dropdown.component.html',
     styleUrls: ['./label-dropdown.component.scss'],
-    imports: [
-        IconComponent
-    ],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...BaseComponent.providers]
+    imports: [IconComponent],
+    providers: [...BaseComponent.providers],
+    host: {
+        '(click)': 'onClick($event)'
+    }
 })
 export class LabelDropdownComponent extends BaseComponent {
-    public static readonly defaults = { dropdownIcon: <IconType>'dropdown', dropdownIconSize: <IconSize>undefined };
+    public static readonly defaults = { dropdownIcon: signal<IconType>('dropdown'), dropdownIconSize: signal<IconSize>(undefined) };
     protected readonly defaults = LabelDropdownComponent.defaults;
-
-    public isOpen = false;
-
+    public readonly isOpen = signal(false);
     public readonly position = input<LabelPosition>();
-
     public readonly dropdownIcon = input<IconType>();
-
     public readonly dropdownIconSize = input<IconSize>();
-
-    public readonly value = input<string>();
-
+    public readonly value = model<string>();
     public readonly items = input<string[]>();
 
     public constructor() {
@@ -38,28 +32,27 @@ export class LabelDropdownComponent extends BaseComponent {
         this.classes.registerFixed('dropdown', 'label');
     }
 
-    private readonly onOutsideClickHandler = () => this.close();
+    private readonly onOutsideClickHandler = (): void => this.close();
 
-    @HostListener('click', ['$event'])
     protected onClick(event: MouseEvent): void {
         // TODO: Replace prevent
         event.preventDefault();
         event.stopPropagation();
-        if (this.isOpen) {
+        if (this.isOpen()) {
             this.close();
         }
         else {
-            this.isOpen = true;
-            window.addEventListener('click', this.onOutsideClickHandler);
+            this.isOpen.set(true);
+            globalThis.addEventListener('click', this.onOutsideClickHandler);
         }
     }
 
     private close(): void {
-        window.removeEventListener('click', this.onOutsideClickHandler);
-        this.isOpen = false;
+        globalThis.removeEventListener('click', this.onOutsideClickHandler);
+        this.isOpen.set(false);
     }
 
     public select(value: string): void {
-        this.value = value;
+        this.value.set(value);
     }
 }

@@ -1,7 +1,6 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, Input, ChangeDetectionStrategy } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { Component, computed, inject, input } from '@angular/core';
 import { DynamicComponentComponent } from '../dynamic-component/dynamic-component.component';
-import { MarkdownParser } from './markdown-parser';
 import { isMarkdownBold, MarkdownBold, markdownBoldType } from './models/markdown-bold';
 import { isMarkdownCode, MarkdownCode, markdownCodeType } from './models/markdown-code';
 import { isMarkdownCodeBlock, MarkdownCodeBlock, markdownCodeBlockType } from './models/markdown-code-block';
@@ -17,18 +16,22 @@ import { isMarkdownParagraph, MarkdownParagraph, markdownParagraphType } from '.
 import { markdownSeparatorType } from './models/markdown-separator';
 import { isMarkdownStrikethrough, MarkdownStrikethrough, markdownStrikethroughType } from './models/markdown-strikethrough';
 import { isMarkdownText, MarkdownText, markdownTextType } from './models/markdown-text';
+import { MarkdownParser } from './services/markdown-parser';
 
 @Component({
     selector: 'm-markdown-renderer',
-    imports: [CommonModule, DynamicComponentComponent],
+    imports: [NgTemplateOutlet, DynamicComponentComponent],
     templateUrl: './markdown-renderer.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./markdown-renderer.component.scss']
 })
 export class MarkdownRendererComponent {
     private readonly parser = inject(MarkdownParser);
-    private rawValue = '';
-    protected elements: MarkdownElement[] = [];
+    public readonly value = input<string, string | undefined>('', { transform: value => value ?? '' });
+    // Derived from value via the parser; replaces the former value setter's side effect of rebuilding the array.
+    protected readonly elements = computed<MarkdownElement[]>(() => {
+        const value = this.value();
+        return value ? this.parser.parse(value) : [];
+    });
     protected readonly markdownParagraphType = markdownParagraphType;
     protected readonly markdownHeader1Type = markdownHeader1Type;
     protected readonly markdownHeader2Type = markdownHeader2Type;
@@ -48,20 +51,6 @@ export class MarkdownRendererComponent {
     protected readonly markdownTextType = markdownTextType;
     protected readonly markdownEmptyType = markdownEmptyType;
     protected readonly markdownListType = markdownListType;
-
-    @Input()
-    public get value(): string {
-        return this.rawValue;
-    }
-
-    public set value(value: string | undefined) {
-        this.rawValue = value ?? '';
-        this.elements.length = 0;
-        if (!value) {
-            return;
-        }
-        this.elements = this.parser.parse(value);
-    }
 
     protected $elements(elements: []): MarkdownElement[] {
         return elements;

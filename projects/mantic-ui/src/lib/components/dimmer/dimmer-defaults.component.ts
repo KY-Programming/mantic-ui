@@ -1,17 +1,19 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, input } from '@angular/core';
 import { DimmerComponent } from './dimmer.component';
 
 @Component({
     selector: 'm-dimmer-defaults',
-    changeDetection: ChangeDetectionStrategy.Eager,
     template: ''
 })
 export class DimmerDefaultsComponent {
+    public readonly inverted = input<boolean>();
 
-    @Input()
-    public set inverted(value: boolean) {
-        DimmerComponent.defaults.inverted = value;
-        DimmerComponent.defaults.invertedChange.next(value);
+    public constructor() {
+        effect(() => {
+            const value = this.inverted();
+            if (value !== undefined) {
+                DimmerComponent.defaults.inverted.set(value);
+            }
+        });
     }
-
 }

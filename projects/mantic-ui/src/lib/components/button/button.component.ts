@@ -1,132 +1,51 @@
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { Component, ContentChild, inject, Input, ChangeDetectionStrategy, input } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Component, computed, contentChild, effect, input, signal } from '@angular/core';
 import { ButtonBaseComponent } from '../../base/button-base.component';
-import { BasicDirective } from '../../directives/basic.directive';
-import { ColorDirective } from '../../directives/color.directive';
-import { FluidDirective } from '../../directives/fluid.directive';
-import { PointingDirective } from '../../directives/pointing.directive';
-import { ColorName } from '../../models/color';
+import { toBoolean } from '../../helpers/to-boolean';
+import { BooleanLike } from '../../models/boolean-like';
 import { LabelPosition } from '../../models/label-position';
-import { AnimationDirection } from '../animation/animation-direction';
 import { AnimationComponent } from '../animation/animation.component';
-import { IconSize } from '../icon/icon-size';
-import { IconType } from '../icon/icon-type';
+import { AnimationDirection } from '../animation/models/animation-direction';
 import { IconComponent } from '../icon/icon.component';
+import { IconSize } from '../icon/models/icon-size';
+import { IconType } from '../icon/models/icon-type';
 import { LabelComponent } from '../label/label.component';
-
-export declare type Pointing =
-    'left'
-    | 'right'
-    | 'top'
-    | 'bottom'
-    | undefined;
 
 @Component({
     selector: 'm-button',
     templateUrl: './button.component.html',
     styleUrls: ['./button.component.scss'],
     imports: [IconComponent, NgTemplateOutlet, NgClass],
-    hostDirectives: [FluidDirective.default, PointingDirective.default],
-    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...ButtonBaseComponent.providers]
 })
 export class ButtonComponent extends ButtonBaseComponent {
     public static readonly defaults = {
-        inverted: false,
-        invertedChange: new ReplaySubject<boolean>(1)
+        inverted: signal(false)
     };
-    private readonly basicDirective = inject(BasicDirective, { self: true });
-    private readonly colorDirective = inject(ColorDirective, { self: true });
-    private animatedField?: AnimationComponent;
-    private labelField?: LabelComponent;
-    private socialValue?: string;
-    private iconPositionValue: LabelPosition;
-    private icoValue?: IconType;
-
-    protected get basic(): boolean {
-        return this.basicDirective.basic;
-    }
-
-    protected get color(): ColorName | undefined {
-        return this.colorDirective.color;
-    }
-
-    public get animated(): AnimationComponent | undefined {
-        return this.animatedField;
-    }
-
-    @ContentChild(AnimationComponent)
-    public set animated(value: AnimationComponent | undefined) {
-        this.animatedField = value;
-        this.refreshClasses();
-    }
-
-    public get animation(): AnimationDirection {
-        return this.animated ? this.animated.direction() : undefined;
-    }
-
-    @ContentChild(LabelComponent)
-    public get label(): LabelComponent | undefined {
-        return this.labelField;
-    }
-
-    public set label(value: LabelComponent | undefined) {
-        this.labelField = value;
-        this.classes.set('labeled', !!value);
-    }
-
-    public get labelPosition(): LabelPosition {
-        return this.label ? this.label.position : undefined;
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get icon(): IconType | undefined {
-        return this.icoValue;
-    }
-
-    public set icon(value: IconType | undefined) {
-        this.icoValue = value;
-        this.classes.set('icon', !!value);
-        this.classes.set('iconLabeled', value ? 'labeled' : undefined);
-    }
-
+    public readonly animated = contentChild(AnimationComponent);
+    public readonly animation = computed<AnimationDirection>(() => this.animated()?.direction());
+    public readonly label = contentChild(LabelComponent);
+    public readonly labelPosition = computed<LabelPosition>(() => this.label()?.position());
+    public readonly icon = input<IconType>();
     public readonly iconSize = input<IconSize>();
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get iconPosition(): LabelPosition {
-        return this.iconPositionValue;
-    }
-
-    public set iconPosition(value: LabelPosition) {
-        this.iconPositionValue = value;
-        this.classes.set('iconPosition', value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get social(): string | undefined {
-        return this.socialValue;
-    }
-
-    public set social(value: string | undefined) {
-        this.socialValue = value;
-        this.classes.set('social', value);
-    }
+    public readonly iconPosition = input<LabelPosition>();
+    public readonly social = input<string>();
+    public readonly fluid = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly pointing = input<boolean, BooleanLike>(false, { transform: toBoolean });
 
     public constructor() {
         super();
-        this.classes.register('animation', 'animated', 'labelPosition', 'iconPosition', 'label', 'labeled', 'iconLabeled', 'social', 'icon');
-    }
-
-    public override ngOnInit(): void {
-        super.ngOnInit();
-        ButtonComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
+        this.classes.register('fluid', 'pointing', 'animation', 'animated', 'labelPosition', 'iconPosition', 'label', 'labeled', 'iconLabeled', 'social', 'icon');
+        effect(() => this.classes.set('fluid', this.fluid()));
+        effect(() => this.classes.set('pointing', this.pointing()));
+        effect(() => {
+            const value = this.icon();
+            this.classes.set('icon', !!value);
+            this.classes.set('iconLabeled', value ? 'labeled' : undefined);
+        });
+        effect(() => this.classes.set('iconPosition', this.iconPosition()));
+        effect(() => this.classes.set('social', this.social()));
+        effect(() => this.classes.set('labeled', !!this.label()));
+        effect(() => this.refreshInverted(ButtonComponent.defaults.inverted()));
     }
 }

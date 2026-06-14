@@ -1,11 +1,10 @@
-import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'm-or',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    templateUrl: './or.component.html',
-    })
-export class OrComponent {
-    @HostBinding('class.or')
-    public readonly ui = true;
-}
+    template: '',
+    host: {
+        class: 'or'
+    }
+})
+export class OrComponent {}

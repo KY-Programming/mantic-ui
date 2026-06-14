@@ -1,15 +1,19 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, input } from '@angular/core';
 import { FormComponent } from './form.component';
 
 @Component({
     selector: 'm-form-defaults',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    template: '',
-    })
+    template: ''
+})
 export class FormDefaultsComponent {
-    @Input()
-    public set inverted(value: boolean) {
-        FormComponent.defaults.inverted = value;
-        FormComponent.defaults.invertedChange.next(value);
+    public readonly inverted = input<boolean>();
+
+    public constructor() {
+        effect(() => {
+            const value = this.inverted();
+            if (value !== undefined) {
+                FormComponent.defaults.inverted.set(value);
+            }
+        });
     }
 }

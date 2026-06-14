@@ -27,6 +27,6 @@
         <ng-content />
     </div>
     @if (code()) {
-        <code [highlight]="code()" [languages]="languages()"></code>
+        <code [highlight]="code() ?? ''" [languages]="languages()"></code>
     }
 </div>

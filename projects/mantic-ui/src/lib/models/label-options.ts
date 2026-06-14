@@ -1,5 +1,6 @@
-﻿import { LabelPosition } from './label-position';
+﻿import { Signal } from '@angular/core';
+import { LabelPosition } from './label-position';
 
 export interface LabelOptions {
-    position: LabelPosition;
+    position: Signal<LabelPosition>;
 }

@@ -1,5 +1,5 @@
-import { IconType } from '../icon/icon-type';
-import { IconSize } from '../icon/icon-size';
+import { IconSize } from '../icon/models/icon-size';
+import { IconType } from '../icon/models/icon-type';
 
 export class DropdownValue<T = unknown> {
     public filtered?: boolean;
@@ -9,7 +9,5 @@ export class DropdownValue<T = unknown> {
         public text?: string,
         public icon?: IconType,
         public iconSize?: IconSize
-    ) {
-
-    }
+    ) { }
 }

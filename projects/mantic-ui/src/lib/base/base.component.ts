@@ -9,13 +9,11 @@ import { Destroyable } from './destroyable';
 })
 export abstract class BaseComponent extends Destroyable implements OnInit {
     protected static readonly providers = [SortedClassesService];
-
     protected readonly classes = inject(SortedClassesService, { self: true });
+    protected readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
     private noClassesValue = false;
     private initialized = false;
-    protected readonly elementRef: ElementRef<HTMLElement> = inject(ElementRef);
-
-    protected tag: string;
+    protected readonly tag = this.elementRef.nativeElement.tagName.toLowerCase();
     protected validateAttributes = true;
 
     protected get noClasses(): boolean {
@@ -28,10 +26,10 @@ export abstract class BaseComponent extends Destroyable implements OnInit {
     }
 
     protected constructor(
+        // eslint-disable-next-line @angular-eslint/prefer-inject
         @Optional() @Inject('none') useUiClass = true
     ) {
         super();
-        this.tag = this.elementRef.nativeElement.tagName.toLowerCase();
         if (useUiClass) {
             this.classes.registerFixed('ui');
         }
@@ -40,19 +38,16 @@ export abstract class BaseComponent extends Destroyable implements OnInit {
 
     public ngOnInit(): void {
         this.initialized = true;
-        if (this.classes) {
-            this.readPropertiesFromAttributes();
-            this.refreshClasses();
-        }
+        this.readPropertiesFromAttributes();
+        this.refreshClasses();
     }
 
     private readPropertiesFromAttributes(): void {
         if (!this.validateAttributes) {
             return;
         }
-        for (let index = 0; index < this.elementRef.nativeElement.attributes.length; index++) {
-            const attribute = this.elementRef.nativeElement.attributes[index];
-            if (attribute.name.indexOf('_ng') === 0 || attribute.name.indexOf('ng-') === 0 || attribute.name.indexOf('m-') === 0 || attribute.name === 'class' || attribute.name === 'title') {
+        for (const attribute of this.elementRef.nativeElement.attributes) {
+            if (attribute.name.startsWith('_ng') || attribute.name.startsWith('ng-') || attribute.name.startsWith('m-') || attribute.name === 'class' || attribute.name === 'title') {
                 continue;
             }
             if (!this.classes.has(attribute.name)) {

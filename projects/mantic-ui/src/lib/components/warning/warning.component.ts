@@ -1,6 +1,4 @@
-
-import { Component, EventEmitter, HostBinding, Output, ChangeDetectionStrategy, input } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { Component, computed, effect, input, model, output } from '@angular/core';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { IconComponent } from '../icon/icon.component';
 import { MessageComponent } from '../message/message.component';
@@ -9,40 +7,28 @@ import { MessageComponent } from '../message/message.component';
     selector: 'm-warning',
     templateUrl: './warning.component.html',
     styleUrls: ['./warning.component.scss'],
-    imports: [
-    IconComponent
-],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...InvertibleComponent.providers]
+    imports: [IconComponent],
+    providers: [...InvertibleComponent.providers],
+    host: {
+        '[class.closed]': 'closed()',
+        '[class.visible]': 'visible()'
+    }
 })
 export class WarningComponent extends InvertibleComponent {
     protected readonly defaults = MessageComponent.defaults;
-
     public readonly showClose = input(true);
-
-    @HostBinding('class.closed')
-public readonly closed = input(false);
-
-    @HostBinding('class.visible')
-    public get visible(): boolean {
-        return !this.closed();
-    }
-
-    @Output()
-    public readonly close = new EventEmitter<void>();
+    public readonly closed = model(false);
+    public readonly visible = computed(() => !this.closed());
+    public readonly close = output();
 
     public constructor() {
         super();
         this.classes.registerFixed('warning', 'message');
-    }
-
-    public override ngOnInit(): void {
-        super.ngOnInit();
-        MessageComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
+        effect(() => this.refreshInverted(MessageComponent.defaults.inverted()));
     }
 
     public onClose(): void {
-        this.closed = true;
+        this.closed.set(true);
         this.close.emit();
     }
 }

@@ -1,7 +1,8 @@
-import { Component, HostListener, Input, Optional, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
+import { toBoolean } from '../../../helpers/to-boolean';
 import { BooleanLike } from '../../../models/boolean-like';
-import { IconType } from '../../icon/icon-type';
 import { IconComponent } from '../../icon/icon.component';
+import { IconType } from '../../icon/models/icon-type';
 import { MenuItemComponent } from '../../menu-item/menu-item.component';
 import { ContextMenuComponent } from '../context-menu.component';
 
@@ -9,43 +10,29 @@ import { ContextMenuComponent } from '../context-menu.component';
     selector: 'm-context-menu-item',
     templateUrl: './context-menu-item.component.html',
     styleUrls: ['./context-menu-item.component.scss'],
-    imports: [
-        IconComponent
-    ],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...MenuItemComponent.providers]
+    imports: [IconComponent],
+    providers: [...MenuItemComponent.providers],
+    host: {
+        '(click)': 'onClick()'
+    }
 })
 export class ContextMenuItemComponent extends MenuItemComponent {
-    private keepOpenValue = false;
-
+    private readonly contextMenu = inject(ContextMenuComponent, { optional: true });
     public readonly icon = input<IconType>();
-
     public readonly iconColor = input<string>();
+    public readonly keepOpen = input<boolean, BooleanLike>(false, { transform: toBoolean });
 
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get keepOpen(): boolean {
-        return this.keepOpenValue;
-    }
-
-    public set keepOpen(value: BooleanLike) {
-        this.keepOpenValue = this.toBoolean(value);
-    }
-
-    public constructor(
-        @Optional() private readonly contextMenu: ContextMenuComponent
-    ) {
+    public constructor() {
         super();
         this.classes.register('keepOpen', 'icon');
-        this.link = true;
+        this.link.set(true);
+        effect(() => this.classes.set('keepOpen', this.keepOpen()));
     }
 
-    @HostListener('click')
     protected onClick(): void {
-        if (this.keepOpen) {
+        if (this.keepOpen()) {
             return;
         }
-        this.contextMenu.close();
+        this.contextMenu?.close();
     }
 }

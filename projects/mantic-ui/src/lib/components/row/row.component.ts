@@ -1,5 +1,6 @@
-import { Component, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
+import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
 import { FieldSize, ParsableFieldSize, parseFieldSize } from '../../models/field-size';
 
@@ -7,38 +8,24 @@ import { FieldSize, ParsableFieldSize, parseFieldSize } from '../../models/field
     selector: 'm-row',
     templateUrl: './row.component.html',
     styleUrls: ['./row.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...BaseComponent.providers]
+    providers: [...BaseComponent.providers],
+    host: {
+        '[class.stretched]': 'stretched()'
+    }
 })
 export class RowComponent extends BaseComponent {
-    private columnsValue: FieldSize | undefined;
-    private isStretched = false;
-
-    @Input()
-    public get columns(): FieldSize | undefined {
-        return this.columnsValue;
-    }
-
-    public set columns(value: ParsableFieldSize) {
-        this.columnsValue = parseFieldSize(value);
-        this.classes.set('columns', this.columnsValue);
-        this.classes.set('column', !!this.columnsValue);
-    }
-
-    @Input()
-    @HostBinding('class.stretched')
-    public get stretched(): boolean {
-        return this.isStretched;
-    }
-
-    public set stretched(value: BooleanLike) {
-        this.isStretched = this.toBoolean(value);
-    }
+    public readonly columns = input<FieldSize | undefined, ParsableFieldSize>(undefined, { transform: parseFieldSize });
+    public readonly stretched = input<boolean, BooleanLike>(false, { transform: toBoolean });
 
     public constructor() {
         super(false);
         this.classes.register('columns', 'column', 'stretched')
             .registerFixed('row');
+        effect(() => {
+            const columns = this.columns();
+            this.classes.set('columns', columns);
+            this.classes.set('column', !!columns);
+        });
     }
 
 }

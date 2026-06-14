@@ -1,17 +1,15 @@
-import { Component, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { Observable, Subject } from 'rxjs';
 import { DataSourceRequest } from './data-source-request';
 
 @Component({
     selector: 'm-data-source',
-    changeDetection: ChangeDetectionStrategy.Eager,
     template: ''
 })
 export class DataSourceComponent {
     private readonly requestSubject = new Subject<DataSourceRequest>();
-
-    @Output()
-    public readonly request = this.requestSubject.asObservable();
+    public readonly request = outputFromObservable(this.requestSubject);
 
     public get(key: string): Observable<Record<string, unknown>[]> {
         const request = new DataSourceRequest(key);

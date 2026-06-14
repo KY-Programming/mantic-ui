@@ -1,63 +1,38 @@
-
-import { Component, HostBinding, inject, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, input, output } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
-import { ActiveDirective } from '../../directives/active.directive';
-import { InlineDirective } from '../../directives/inline.directive';
-import { InvertedDirective } from '../../directives/inverted.directive';
+import { toBoolean } from '../../helpers/to-boolean';
+import { transformableModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
-
-export declare type LoaderSize = 'mini' | 'tiny' | 'small' | 'large' | 'big' | 'huge' | 'massive';
+import { LoaderSize } from './models/loader-size';
 
 @Component({
     selector: 'm-loader',
     templateUrl: './loader.component.html',
     styleUrls: ['./loader.component.scss'],
-    imports: [],
-    hostDirectives: [InvertedDirective.default, ActiveDirective.default, InlineDirective.default],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...BaseComponent.providers]
+    providers: [...BaseComponent.providers],
+    host: {
+        '[class.inline]': 'inline()'
+    }
 })
 export class LoaderComponent extends BaseComponent {
-    private readonly activeDirective = inject(ActiveDirective);
-    private textValue: string | undefined;
-    private sizeValue: LoaderSize | undefined;
-    private isInline = false;
-
-    @Input()
-    public get text(): string | undefined {
-        return this.textValue;
-    }
-
-    public set text(value: string | undefined) {
-        this.textValue = value;
-        this.classes.set('text', value || value === '');
-    }
-
-    @Input()
-    public get size(): LoaderSize | undefined {
-        return this.sizeValue;
-    }
-
-    public set size(value: LoaderSize | undefined) {
-        this.sizeValue = value;
-        this.classes.set('size', value);
-    }
-
-    @Input()
-    @HostBinding('class.inline')
-    public get inline(): boolean {
-        return this.isInline;
-    }
-
-    public set inline(value: BooleanLike) {
-        this.isInline = this.toBoolean(value);
-    }
+    public readonly text = input<string>();
+    public readonly size = input<LoaderSize>();
+    public readonly inline = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly inverted = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly activeInput = input<boolean, BooleanLike>(false, { alias: 'active', transform: toBoolean });
+    public readonly activeChange = output<boolean>();
+    public readonly active = transformableModel(this.activeInput, this.activeChange, toBoolean);
 
     public constructor() {
         super();
-        this.activeDirective.active = true;
-        this.classes.register('text', 'size')
+        this.active.set(true);
+        this.classes.register('inverted', 'active', 'text', 'size')
             .registerFixed('loader');
+        effect(() => this.classes.set('inverted', this.inverted()));
+        effect(() => this.classes.set('active', this.active()));
+        effect(() => this.classes.set('text', this.text() || this.text() === ''));
+        effect(() => this.classes.set('size', this.size()));
     }
 
 }

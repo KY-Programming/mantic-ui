@@ -1,11 +1,9 @@
-import { Injectable, Type } from '@angular/core';
+import { Service, Type } from '@angular/core';
 import { FormElementBase } from '../form-element-renderer/form-element-base';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Service()
 export class FormRendererService {
-    public static readonly formElements: { [key: string]: Type<FormElementBase> } = {};
+    public static readonly formElements: Record<string, Type<FormElementBase>> = {};
 
     public register(type: Type<FormElementBase>, name: string): void {
         if (!name) {

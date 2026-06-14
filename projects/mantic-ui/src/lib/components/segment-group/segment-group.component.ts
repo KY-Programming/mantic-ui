@@ -1,26 +1,19 @@
-import { Component, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { BooleanLike } from '../../models/boolean-like';
+import { toBoolean } from '../../helpers/to-boolean';
 
 @Component({
     selector: 'm-segment-group',
     templateUrl: './segment-group.component.html',
     styleUrls: ['./segment-group.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...BaseComponent.providers]
+    providers: [...BaseComponent.providers],
+    host: {
+        '[class.horizontal]': 'horizontal()'
+    }
 })
 export class SegmentGroupComponent extends BaseComponent {
-    private isHorizontal = false;
-
-    @Input()
-    @HostBinding('class.horizontal')
-    public get horizontal(): boolean {
-        return this.isHorizontal;
-    }
-
-    public set horizontal(value: BooleanLike) {
-        this.isHorizontal = this.toBoolean(value);
-    }
+    public readonly horizontal = input<boolean, BooleanLike>(false, { transform: toBoolean });
 
     public constructor() {
         super();

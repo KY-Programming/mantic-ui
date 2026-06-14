@@ -1,20 +1,13 @@
-import { Component, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { NgIfContext } from '@angular/common';
+import { Component, TemplateRef, viewChild } from '@angular/core';
 
 @Component({
     selector: 'm-expander-header',
     template: `
         <ng-template>
-            <ng-content></ng-content>
+            <ng-content />
         </ng-template>
-    `,
-    changeDetection: ChangeDetectionStrategy.Eager,
-    imports: []
+    `
 })
 export class ExpanderHeaderComponent {
-
-    @ViewChild(TemplateRef)
-    // eslint-disable-next-line no-null/no-null
-    public template: TemplateRef<NgIfContext<boolean>> | null = null;
-
+    public readonly template = viewChild(TemplateRef);
 }

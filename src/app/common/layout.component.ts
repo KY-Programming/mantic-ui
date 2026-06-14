@@ -1,14 +1,12 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-
-import { FillDirective, FlexComponent } from '@mantic-ui/angular';
-import { SemanticUiModule } from '@mantic-ui/semantic-ui-angular';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { FillDirective, FlexComponent } from '@mantic-ui/angular';
+import { SemanticUiIconsLocalComponent, SemanticUiLatoLocalComponent, SemanticUiResetComponent, SemanticUiSiteComponent, SemanticUiThemeComponent } from '@mantic-ui/semantic-ui-angular';
 
 @Component({
     selector: 'app-common-layout',
-    imports: [SemanticUiModule, FillDirective, FlexComponent, RouterOutlet],
+    imports: [FillDirective, FlexComponent, RouterOutlet, SemanticUiThemeComponent, SemanticUiSiteComponent, SemanticUiResetComponent, SemanticUiLatoLocalComponent, SemanticUiIconsLocalComponent],
     templateUrl: './layout.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./layout.component.scss']
 })
 export class CommonLayoutComponent {

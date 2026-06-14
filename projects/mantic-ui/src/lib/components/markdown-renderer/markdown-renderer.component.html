@@ -1,95 +1,134 @@
-<ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': elements }"></ng-container>
+<ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': elements() }"></ng-container>
 
 <ng-template let-elements #elementsTemplate>
-    <ng-container *ngFor="let element of $elements(elements)" [ngSwitch]="element.type">
-        <ng-container *ngSwitchCase="markdownParagraphType">
-            <p *ngIf="$paragraph(element) as paragraph">
-                <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': paragraph.elements }"></ng-container>
-            </p>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownHeader1Type">
-            <h1 *ngIf="$header1(element) as header1">
-                <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': header1.elements }"></ng-container>
-            </h1>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownHeader2Type">
-            <h2 *ngIf="$header2(element) as header2">
-                <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': header2.elements }"></ng-container>
-            </h2>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownHeader3Type">
-            <h3 *ngIf="$header3(element) as header3">
-                <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': header3.elements }"></ng-container>
-            </h3>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownHeader4Type">
-            <h4 *ngIf="$header4(element) as header4">
-                <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': header4.elements }"></ng-container>
-            </h4>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownHeader5Type">
-            <h5 *ngIf="$header5(element) as header5">
-                <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': header5.elements }"></ng-container>
-            </h5>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownHeader6Type">
-            <h6 *ngIf="$header6(element) as header6">
-                <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': header6.elements }"></ng-container>
-            </h6>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownCodeBlockType">
-            <pre><code *ngIf="$codeBlock(element) as codeBlock">
-                {{codeBlock.code}}
-            </code></pre>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownSeparatorType">
-            <hr/>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownCustomElementType">
-            <m-dynamic-component *ngIf="$customElement(element) as customElement" [code]="customElement.code"/>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownCodeType">
-            <code *ngIf="$code(element) as code">
-                {{code.code}}
-            </code>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownListType">
-            <ng-container *ngIf="$list(element) as list">
-                <ul *ngIf="list.style === 'unordered'">
-                    <li *ngFor="let item of list.items">
-                        <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': item.elements }"></ng-container>
-                    </li>
-                </ul>
-            </ng-container>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownImageType">
-            <img *ngIf="$image(element) as image" [src]="image.url" [alt]="image.alt"/>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownLinkType">
-            <a *ngIf="$link(element) as link" [href]="link.url">
-                <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': link.elements }"></ng-container>
-            </a>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownItalicType">
-            <i *ngIf="$italic(element) as italic">
-                <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': italic.elements }"></ng-container>
-            </i>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownBoldType">
-            <b *ngIf="$bold(element) as bold">
-                <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': bold.elements }"></ng-container>
-            </b>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownStrikethroughType">
-            <s *ngIf="$strikethrough(element) as strikethrough">
-                <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': strikethrough.elements }"></ng-container>
-            </s>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownTextType">
-            <span *ngIf="$text(element) as text">{{text.text}}</span>
-        </ng-container>
-        <ng-container *ngSwitchCase="markdownEmptyType"></ng-container>
-        <span *ngSwitchDefault>Unknown element '{{element.type}}'</span>
-        <br *ngIf="element.breakLine && !element.isBlock">
-    </ng-container>
+    @for (element of $elements(elements); track element) {
+        @switch (element.type) {
+            @case (markdownParagraphType) {
+                @if ($paragraph(element); as paragraph) {
+                    <p>
+                        <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': paragraph.elements }"></ng-container>
+                    </p>
+                }
+            }
+            @case (markdownHeader1Type) {
+                @if ($header1(element); as header1) {
+                    <h1>
+                        <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': header1.elements }"></ng-container>
+                    </h1>
+                }
+            }
+            @case (markdownHeader2Type) {
+                @if ($header2(element); as header2) {
+                    <h2>
+                        <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': header2.elements }"></ng-container>
+                    </h2>
+                }
+            }
+            @case (markdownHeader3Type) {
+                @if ($header3(element); as header3) {
+                    <h3>
+                        <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': header3.elements }"></ng-container>
+                    </h3>
+                }
+            }
+            @case (markdownHeader4Type) {
+                @if ($header4(element); as header4) {
+                    <h4>
+                        <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': header4.elements }"></ng-container>
+                    </h4>
+                }
+            }
+            @case (markdownHeader5Type) {
+                @if ($header5(element); as header5) {
+                    <h5>
+                        <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': header5.elements }"></ng-container>
+                    </h5>
+                }
+            }
+            @case (markdownHeader6Type) {
+                @if ($header6(element); as header6) {
+                    <h6>
+                        <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': header6.elements }"></ng-container>
+                    </h6>
+                }
+            }
+            @case (markdownCodeBlockType) {
+                <pre>@if ($codeBlock(element); as codeBlock) {
+                    <code>{{ codeBlock.code }}</code>
+                }</pre>
+            }
+            @case (markdownSeparatorType) {
+                <hr />
+            }
+            @case (markdownCustomElementType) {
+                @if ($customElement(element); as customElement) {
+                    <m-dynamic-component [code]="customElement.code" />
+                }
+            }
+            @case (markdownCodeType) {
+                @if ($code(element); as code) {
+                    <code>{{ code.code }}</code>
+                }
+            }
+            @case (markdownListType) {
+                @if ($list(element); as list) {
+                    @if (list.style === 'unordered') {
+                        <ul>
+                            @for (item of list.items; track item) {
+                                <li>
+                                    <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': item.elements }"></ng-container>
+                                </li>
+                            }
+                        </ul>
+                    }
+                }
+            }
+            @case (markdownImageType) {
+                @if ($image(element); as image) {
+                    <img [src]="image.url" [alt]="image.alt" />
+                }
+            }
+            @case (markdownLinkType) {
+                @if ($link(element); as link) {
+                    <a [href]="link.url">
+                        <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': link.elements }"></ng-container>
+                    </a>
+                }
+            }
+            @case (markdownItalicType) {
+                @if ($italic(element); as italic) {
+                    <i>
+                        <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': italic.elements }"></ng-container>
+                    </i>
+                }
+            }
+            @case (markdownBoldType) {
+                @if ($bold(element); as bold) {
+                    <b>
+                        <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': bold.elements }"></ng-container>
+                    </b>
+                }
+            }
+            @case (markdownStrikethroughType) {
+                @if ($strikethrough(element); as strikethrough) {
+                    <s>
+                        <ng-container [ngTemplateOutlet]="elementsTemplate" [ngTemplateOutletContext]="{ '$implicit': strikethrough.elements }"></ng-container>
+                    </s>
+                }
+            }
+            @case (markdownTextType) {
+                @if ($text(element); as text) {
+                    <span>{{ text.text }}</span>
+                }
+            }
+            @case (markdownEmptyType) {
+            }
+            @default {
+                <span>Unknown element '{{ element.type }}'</span>
+            }
+        }
+        @if (element.breakLine && !element.isBlock) {
+            <br>
+        }
+    }
 </ng-template>

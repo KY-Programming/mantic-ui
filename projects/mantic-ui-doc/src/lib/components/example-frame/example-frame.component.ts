@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { SafePipe } from '@mantic-ui/angular';
 
 @Component({
@@ -6,12 +6,8 @@ import { SafePipe } from '@mantic-ui/angular';
     templateUrl: './example-frame.component.html',
     styleUrls: ['./example-frame.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-        SafePipe
-    ]
+    imports: [SafePipe]
 })
 export class ExampleFrameComponent {
-
     public readonly src = input.required<string>();
-
 }

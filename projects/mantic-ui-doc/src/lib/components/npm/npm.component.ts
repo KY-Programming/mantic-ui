@@ -1,20 +1,16 @@
-import { Component, Input, ChangeDetectionStrategy, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, model } from '@angular/core';
 import { NpmApiService } from '../../services/npm-api.service';
-
 
 @Component({
     selector: 'm-npm',
     templateUrl: './npm.component.html',
     styleUrls: ['./npm.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    imports: []
+    changeDetection: ChangeDetectionStrategy.Eager
 })
 export class NpmComponent {
     private packageValue: string | undefined;
     private searchVersionValue: string | undefined;
 
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get package(): string | undefined {
         return this.packageValue;
@@ -25,10 +21,8 @@ export class NpmComponent {
         this.refreshVersion();
     }
 
-    public readonly version = input<string>();
+    public readonly version = model<string>();
 
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get searchVersion(): string | undefined {
         return this.searchVersionValue;
@@ -53,7 +47,7 @@ export class NpmComponent {
         if (!this.searchVersion || !this.package) {
             return;
         }
-        this.npmApiService.find(this.package, this.searchVersion).subscribe(versions => this.version = versions[0]);
+        this.npmApiService.find(this.package, this.searchVersion).subscribe(versions => this.version.set(versions[0]));
     }
 
 }

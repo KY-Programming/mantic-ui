@@ -1,12 +1,10 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, input, OnInit } from '@angular/core';
 import { localizeDictionary } from './localize';
 
 @Component({
     selector: 'm-localize',
-    imports: [],
     templateUrl: './localize.component.html',
-    styleUrl: './localize.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrl: './localize.component.scss'
 })
 export class LocalizeComponent implements AfterViewInit, OnInit {
     private readonly elementRef = inject(ElementRef);

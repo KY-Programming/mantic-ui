@@ -1,15 +1,28 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, input, OnDestroy } from '@angular/core';
 import { HeaderComponent } from './header.component';
 
 @Component({
     selector: 'm-header-defaults',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    template: '',
-    })
-export class HeaderDefaultsComponent {
-    @Input()
-    public set inverted(value: boolean) {
-        HeaderComponent.defaults.inverted = value;
-        HeaderComponent.defaults.invertedChange.next(value);
+    template: ''
+})
+export class HeaderDefaultsComponent implements OnDestroy {
+    private readonly previousInverted = HeaderComponent.defaults.inverted();
+    private currentInverted?: boolean;
+    public readonly inverted = input<boolean>();
+
+    public constructor() {
+        effect(() => {
+            const value = this.inverted();
+            if (value !== undefined) {
+                this.currentInverted = value;
+                HeaderComponent.defaults.inverted.set(value);
+            }
+        });
+    }
+
+    public ngOnDestroy(): void {
+        if (this.currentInverted === HeaderComponent.defaults.inverted()) {
+            HeaderComponent.defaults.inverted.set(this.previousInverted);
+        }
     }
 }

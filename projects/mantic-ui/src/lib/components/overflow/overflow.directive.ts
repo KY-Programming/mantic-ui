@@ -5,7 +5,7 @@ import { OverflowValue } from './overflow.types';
     selector: '[m-overflow]',
     host: {
         '[style.overflow-x]': 'effectiveOverflowX()',
-        '[style.overflow-y]': 'effectiveOverflowY()',
+        '[style.overflow-y]': 'effectiveOverflowY()'
     }
 })
 export class OverflowDirective {

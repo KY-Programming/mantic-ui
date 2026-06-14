@@ -1,50 +1,36 @@
-import { Component, EventEmitter, HostBinding, inject, Inject, Input, Optional, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Inject, input, Optional, output } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
-import { ActiveDirective } from '../../directives/active.directive';
+import { toBoolean } from '../../helpers/to-boolean';
+import { transformableModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
-import { SortedClassesService } from '../../services/sorted-classes.service';
 
 @Component({
     selector: 'm-menu-item',
     templateUrl: './menu-item.component.html',
     styleUrls: ['./menu-item.component.scss'],
-    providers: [SortedClassesService],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    hostDirectives: [ActiveDirective.default]
+    providers: [...MenuItemComponent.providers],
+    host: {
+        '[class.active]': 'active()',
+        '[class.link]': 'link()'
+    }
 })
 export class MenuItemComponent extends BaseComponent {
     protected static override readonly providers = [...BaseComponent.providers];
-    protected readonly activeDirective = inject(ActiveDirective, { self: true });
-    private isLink = false;
-
-    // TODO: Remove HostBinding
-    @HostBinding('class.active')
-    public get active(): boolean {
-        return this.activeDirective.active;
-    }
-
-    protected set active(value: BooleanLike) {
-        this.activeDirective.active = value;
-    }
-
-    @Input()
-    @HostBinding('class.link')
-    public get link(): boolean {
-        return this.isLink;
-    }
-
-    public set link(value: BooleanLike) {
-        this.isLink = this.toBoolean(value);
-    }
-
-    @Output()
-    public readonly activeChange = new EventEmitter<boolean>();
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly activeInput = input<boolean, BooleanLike>(false, { alias: 'active', transform: toBoolean });
+    public readonly activeChange = output<boolean>();
+    public readonly active = transformableModel(this.activeInput, this.activeChange, toBoolean);
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly linkInput = input<boolean, BooleanLike>(false, { alias: 'link', transform: toBoolean });
+    public readonly linkChange = output<boolean>();
+    public readonly link = transformableModel(this.linkInput, this.linkChange, toBoolean);
 
     public constructor(
+        // eslint-disable-next-line @angular-eslint/prefer-inject
         @Optional() @Inject('none') useUiClass = true
     ) {
         super(useUiClass);
-        this.classes.register('link')
+        this.classes.register('active', 'link')
             .registerFixed('item');
     }
 }

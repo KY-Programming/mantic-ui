@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'app-value',
@@ -11,20 +11,11 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
     styleUrls: ['./value.component.scss']
 })
 export class ValueComponent {
-    private valueField: unknown;
-    public type?: string;
+    public readonly value = input<unknown>();
 
-    @Input()
-    public get value(): unknown {
-        return this.valueField;
-    }
-
-    public set value(value: unknown) {
-        this.valueField = value;
-        this.type = typeof value;
-        if (this.type === 'object') {
-            this.type = (value as any).constructor.name;
-        }
-    }
-
+    protected readonly type = computed(() => {
+        const value = this.value();
+        const type = typeof value;
+        return type === 'object' && value ? (value as { constructor: { name: string } }).constructor.name : type;
+    });
 }

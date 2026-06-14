@@ -1,11 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'm-fill',
     templateUrl: './fill.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrls: ['./fill.component.scss'],
-    })
-export class FillComponent {
-
-}
+    styleUrls: ['./fill.component.scss']
+})
+export class FillComponent {}

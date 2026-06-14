@@ -1,30 +1,30 @@
-@if (!isRight) {
-  <ng-container [ngTemplateOutlet]="labelTemplate"></ng-container>
+@if (!isRight()) {
+    <ng-container [ngTemplateOutlet]="labelTemplate" />
 }
 @if (buttonPosition() === 'left') {
-  <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
+    <ng-container [ngTemplateOutlet]="contentTemplate" />
 }
-<ng-content></ng-content>
-<input *m-fallback-for="'input'" type="date" [placeholder]="placeholder() || ''" [ngModel]="internalValue" [min]="min() || ''" [max]="max() || ''" [attr.name]="name()" [attr.for]="for()" [attr.readOnly]="readonly || undefined" [attr.disabled]="disabled || undefined" (ngModelChange)="onInternalChange($event)" #input>
+<ng-content />
+<input *m-fallback-for="'input'" type="date" [placeholder]="placeholder() || ''" [ngModel]="internalValue()" [min]="min() || ''" [max]="max() || ''" [attr.name]="name()" [attr.for]="for()" [attr.readOnly]="readonly() || undefined" [attr.disabled]="disabled() || undefined" (ngModelChange)="onInternalChange($event)" #input>
 @if (icon()) {
-  <m-icon [icon]="icon()" [size]="iconSize()" class="link icon"></m-icon>
+    <m-icon [icon]="icon()" [size]="iconSize()" class="link icon" />
 }
-@if (isRight) {
-  <ng-container [ngTemplateOutlet]="labelTemplate"></ng-container>
+@if (isRight()) {
+    <ng-container [ngTemplateOutlet]="labelTemplate" />
 }
 @if (buttonPosition() === 'right') {
-  <ng-container [ngTemplateOutlet]="contentTemplate"></ng-container>
+    <ng-container [ngTemplateOutlet]="contentTemplate" />
 }
 
 <ng-template #labelTemplate>
-  @if (showDay) {
-    <m-label [color]="value?.getDay() === 0 || value?.getDay() === 6 ? weekendColor() : undefined">{{value | date: 'E'}}</m-label>
-  }
-  <ng-content select="m-label"></ng-content>
-  <ng-content select="m-label-dropdown"></ng-content>
+    @if (showDay()) {
+        <m-label [color]="value()?.getDay() === 0 || value()?.getDay() === 6 ? weekendColor() : undefined">{{ value() | date: 'E' }}</m-label>
+    }
+    <ng-content select="m-label" />
+    <ng-content select="m-label-dropdown" />
 </ng-template>
 
 <ng-template #contentTemplate>
-  <ng-content select="m-button"></ng-content>
-  <ng-content select="m-icon-button"></ng-content>
+    <ng-content select="m-button" />
+    <ng-content select="m-icon-button" />
 </ng-template>

@@ -1,109 +1,60 @@
-import { ApplicationRef, Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, Output, ViewChild, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, computed, ContentChild, effect, ElementRef, input, model, output, signal, untracked, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ReplaySubject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { FallbackForDirective } from '../../directives/fallback-for.directive';
+import { toBoolean } from '../../helpers/to-boolean';
+import { transformableModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
 
 @Component({
     selector: 'm-textarea',
     templateUrl: './textarea.component.html',
     styleUrls: ['./textarea.component.scss'],
-    imports: [
-        FormsModule,
-        FallbackForDirective
-    ],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...InvertibleComponent.providers]
+    imports: [FormsModule, FallbackForDirective],
+    providers: [...InvertibleComponent.providers],
+    host: {
+        '[class.disabled]': 'disabled() || readonly()',
+        '[class.error]': 'hasError()'
+    }
 })
 export class TextareaComponent extends InvertibleComponent {
     public static readonly defaults = {
-        inverted: false,
-        invertedChange: new ReplaySubject<boolean>(1)
+        inverted: signal(false)
     };
-
-    private readonlyValue = false;
-    private disabledValue = false;
-
+    protected readonly valueState = signal<string | undefined>(undefined);
     public textareaElement?: ElementRef<HTMLTextAreaElement>;
-
-    public readonly name = input<string>();
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.disabled')
-    public get disabled(): boolean {
-        return this.disabledValue;
-    }
-
-    public set disabled(value: BooleanLike) {
-        this.disabledValue = this.toBoolean(value);
-        this.refreshTextarea();
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.disabled')
-    public get readonly(): boolean {
-        return this.readonlyValue;
-    }
-
-    public set readonly(value: BooleanLike) {
-        this.readonlyValue = this.toBoolean(value);
-        this.refreshTextarea();
-    }
-
-    @HostBinding('class.error')
-public readonly hasError = input(false);
-
+    public readonly name = model<string>();
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly disabledInput = input<boolean, BooleanLike>(false, { alias: 'disabled', transform: toBoolean });
+    public readonly disabledChange = output<boolean>();
+    public readonly disabled = transformableModel(this.disabledInput, this.disabledChange, toBoolean);
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly readonlyInput = input<boolean, BooleanLike>(false, { alias: 'readonly', transform: toBoolean });
+    public readonly readonlyChange = output<boolean>();
+    public readonly readonly = transformableModel(this.readonlyInput, this.readonlyChange, toBoolean);
+    public readonly hasError = input(false);
     public readonly placeholder = input<string>();
-
-    public readonly value = input<string>();
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get text(): string {
-        return this.value() ?? this.default();
-    }
-
-    public set text(value: string | undefined) {
-        this.value = value;
-    }
-
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly valueInput = input<string | undefined>(undefined, { alias: 'value' });
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly textInput = input<string | undefined>(undefined, { alias: 'text' });
     public readonly default = input('');
-
     public readonly inputId = input<string>();
-
-    @Output()
-    public readonly valueChange = new EventEmitter<string | undefined>();
-
-    @Output()
-    public readonly textChange = new EventEmitter<string>();
-
-    @Output()
-    public readonly keyDown = new EventEmitter<KeyboardEvent>();
-
-    @Output()
-    public readonly keyUp = new EventEmitter<KeyboardEvent>();
-
-    @Output()
-    public readonly keyPress = new EventEmitter<Event>();
-
-    @Output()
-    public readonly blur = new EventEmitter<FocusEvent>();
-
-    @Output()
-    public readonly focus = new EventEmitter<FocusEvent>();
-
-    @Output()
-    public readonly focusin = new EventEmitter<FocusEvent>();
-
-    @Output()
-    public readonly focusout = new EventEmitter<FocusEvent>();
+    public readonly value = computed(() => this.valueState());
+    public readonly text = computed(() => this.valueState() ?? this.default());
+    public readonly valueChange = output<string | undefined>();
+    public readonly textChange = output<string>();
+    public readonly keyDown = output<KeyboardEvent>();
+    public readonly keyUp = output<KeyboardEvent>();
+    public readonly keyPress = output<Event>();
+    // eslint-disable-next-line @angular-eslint/no-output-native
+    public readonly blur = output<FocusEvent>();
+    // eslint-disable-next-line @angular-eslint/no-output-native
+    public readonly focus = output<FocusEvent>();
+    // eslint-disable-next-line @angular-eslint/no-output-native
+    public readonly focusin = output<FocusEvent>();
+    // eslint-disable-next-line @angular-eslint/no-output-native
+    public readonly focusout = output<FocusEvent>();
 
     @ContentChild('textarea')
     protected set contentTextareaElement(textarea: ElementRef<HTMLTextAreaElement>) {
@@ -120,37 +71,58 @@ public readonly hasError = input(false);
         this.bindEvents();
     }
 
-    public constructor(
-        private readonly applicationRef: ApplicationRef
-    ) {
+    public constructor() {
         super();
         this.classes.register('disabled', 'readonly', 'hasError', 'fluid', 'value', 'text', 'default', 'placeholder')
             // HACK: Currently I do not know a other way to style a textarea with semantic ui, so I have to use form class here
             .registerFixed('form', 'textarea');
-        TextareaComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
+        effect(() => this.refreshInverted(TextareaComponent.defaults.inverted()));
+        // Push disabled/readonly onto the native element whenever they change.
+        effect(() => {
+            this.disabled();
+            this.readonly();
+            this.refreshTextarea();
+        });
+        // [value] flows into the shared state; [text] is guarded so an unbound alias can't clobber [value].
+        effect(() => {
+            const value = this.valueInput();
+            untracked(() => this.valueState.set(value));
+        });
+        effect(() => {
+            const value = this.textInput();
+            untracked(() => {
+                if (value !== undefined) {
+                    this.valueState.set(value);
+                }
+            });
+        });
+    }
+
+    protected setValue(value: string | undefined): void {
+        this.valueState.set(value);
+        this.onChange();
     }
 
     protected onChange(): void {
-        value ??= this.default();
-        this.valueChange.emit(value);
-        this.textChange.emit(this.text);
+        this.valueChange.emit(this.value() ?? this.default());
+        this.textChange.emit(this.text());
     }
 
     private refreshTextarea(): void {
         if (!this.textareaElement) {
             return;
         }
-        this.textareaElement.nativeElement.disabled = this.disabledValue;
-        this.textareaElement.nativeElement.readOnly = this.readonlyValue;
+        this.textareaElement.nativeElement.disabled = this.disabled();
+        this.textareaElement.nativeElement.readOnly = this.readonly();
     }
 
-    private readonly keyDownEventHandler = (event: KeyboardEvent) => this.keyDown.next(event);
-    private readonly keyUpEventHandler = (event: KeyboardEvent) => this.keyUp.next(event);
-    private readonly keyPressEventHandler = (event: Event) => this.keyPress.next(event);
-    private readonly blurEventHandler = (event: FocusEvent) => this.blur.next(event);
-    private readonly focusEventHandler = (event: FocusEvent) => this.focus.next(event);
-    private readonly focusinEventHandler = (event: FocusEvent) => this.focusin.next(event);
-    private readonly focusoutEventHandler = (event: FocusEvent) => this.focusout.next(event);
+    private readonly keyDownEventHandler = (event: KeyboardEvent): void => this.keyDown.emit(event);
+    private readonly keyUpEventHandler = (event: KeyboardEvent): void => this.keyUp.emit(event);
+    private readonly keyPressEventHandler = (event: Event): void => this.keyPress.emit(event);
+    private readonly blurEventHandler = (event: FocusEvent): void => this.blur.emit(event);
+    private readonly focusEventHandler = (event: FocusEvent): void => this.focus.emit(event);
+    private readonly focusinEventHandler = (event: FocusEvent): void => this.focusin.emit(event);
+    private readonly focusoutEventHandler = (event: FocusEvent): void => this.focusout.emit(event);
 
     protected bindEvents(): void {
         if (!this.textareaElement) {

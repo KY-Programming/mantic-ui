@@ -1,38 +1,35 @@
 import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
-import { Component, Input, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, effect, inject, input, model } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
-import { MessageAttached, MessageComponent } from '../message/message.component';
-import { Notification } from './notification';
+import { MessageComponent } from '../message/message.component';
+import { MessageAttached } from '../message/models/message-attached';
+import { Notification } from './models/notification';
 import { NotificationInjectorPipe } from './notification-injector.pipe';
-import { NotificationService } from './notification.service';
+import { NotificationService } from './services/notification.service';
 
 @Component({
     selector: 'm-notification',
     templateUrl: './notification.component.html',
     styleUrls: ['./notification.component.scss'],
     imports: [MessageComponent, NotificationInjectorPipe, NgTemplateOutlet, NgComponentOutlet],
-    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class NotificationComponent extends BaseComponent {
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public set fromService(value: string) {
-        this.messages = this.notificationService.get(value);
-    }
-
-    public readonly messages = input<Notification[]>([]);
-
+    private readonly notificationService = inject(NotificationService);
+    public readonly fromService = input<string>();
+    public readonly messages = model<Notification[]>([]);
     public readonly mode = input<'overlap' | 'stack'>('stack');
-
     public readonly attached = input<MessageAttached>();
 
-    public constructor(
-        private readonly notificationService: NotificationService
-    ) {
+    public constructor() {
         super();
         this.classes.register('fromService', 'mode');
+        effect(() => {
+            const value = this.fromService();
+            if (value) {
+                this.messages.set(this.notificationService.get(value));
+            }
+        });
     }
 
     public close(message: Notification, event: MouseEvent): void {

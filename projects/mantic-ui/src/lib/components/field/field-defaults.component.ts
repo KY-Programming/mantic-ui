@@ -1,59 +1,69 @@
-import { Component, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { IconSize } from '../icon/icon-size';
-import { IconType } from '../icon/icon-type';
+import { Component, effect, input, OnDestroy } from '@angular/core';
+import { IconSize } from '../icon/models/icon-size';
+import { IconType } from '../icon/models/icon-type';
 import { FieldComponent } from './field.component';
 
 @Component({
     selector: 'm-field-defaults',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    template: '',
-    })
+    template: ''
+})
 export class FieldDefaultsComponent implements OnDestroy {
-    private readonly previousHintIcon = FieldComponent.defaults.hintIcon;
-    private readonly previousHintIconSize = FieldComponent.defaults.hintIconSize;
-    private readonly previousErrorIcon = FieldComponent.defaults.errorIcon;
-    private readonly previousErrorIconSize = FieldComponent.defaults.errorIconSize;
+    private readonly previousHintIcon = FieldComponent.defaults.hintIcon();
+    private readonly previousHintIconSize = FieldComponent.defaults.hintIconSize();
+    private readonly previousErrorIcon = FieldComponent.defaults.errorIcon();
+    private readonly previousErrorIconSize = FieldComponent.defaults.errorIconSize();
     private currentHintIcon?: IconType;
-    private currentHintIconSize?: IconType;
+    private currentHintIconSize?: IconSize;
     private currentErrorIcon?: IconType;
-    private currentErrorIconSize?: IconType;
+    private currentErrorIconSize?: IconSize;
+    public readonly hintIcon = input<IconType>();
+    public readonly hintIconSize = input<IconSize>();
+    public readonly errorIcon = input<IconType>();
+    public readonly errorIconSize = input<IconSize>();
 
-    @Input()
-    public set hintIcon(value: IconType) {
-        this.currentHintIcon = value;
-        FieldComponent.defaults.hintIcon = value;
-    }
-
-    @Input()
-    public set hintIconSize(value: IconSize) {
-        this.currentHintIconSize = value;
-        FieldComponent.defaults.hintIconSize = value;
-    }
-
-    @Input()
-    public set errorIcon(value: IconType) {
-        this.currentErrorIcon = value;
-        FieldComponent.defaults.errorIcon = value;
-    }
-
-    @Input()
-    public set errorIconSize(value: IconSize) {
-        this.currentErrorIconSize = value;
-        FieldComponent.defaults.errorIconSize = value;
+    public constructor() {
+        effect(() => {
+            const value = this.hintIcon();
+            if (value !== undefined) {
+                this.currentHintIcon = value;
+                FieldComponent.defaults.hintIcon.set(value);
+            }
+        });
+        effect(() => {
+            const value = this.hintIconSize();
+            if (value !== undefined) {
+                this.currentHintIconSize = value;
+                FieldComponent.defaults.hintIconSize.set(value);
+            }
+        });
+        effect(() => {
+            const value = this.errorIcon();
+            if (value !== undefined) {
+                this.currentErrorIcon = value;
+                FieldComponent.defaults.errorIcon.set(value);
+            }
+        });
+        effect(() => {
+            const value = this.errorIconSize();
+            if (value !== undefined) {
+                this.currentErrorIconSize = value;
+                FieldComponent.defaults.errorIconSize.set(value);
+            }
+        });
     }
 
     public ngOnDestroy(): void {
-        if (this.currentHintIcon === FieldComponent.defaults.hintIcon) {
-            FieldComponent.defaults.hintIcon = this.previousHintIcon;
+        if (this.currentHintIcon === FieldComponent.defaults.hintIcon()) {
+            FieldComponent.defaults.hintIcon.set(this.previousHintIcon);
         }
-        if (this.currentHintIconSize === FieldComponent.defaults.hintIconSize) {
-            FieldComponent.defaults.hintIconSize = this.previousHintIconSize;
+        if (this.currentHintIconSize === FieldComponent.defaults.hintIconSize()) {
+            FieldComponent.defaults.hintIconSize.set(this.previousHintIconSize);
         }
-        if (this.currentErrorIcon === FieldComponent.defaults.errorIcon) {
-            FieldComponent.defaults.errorIcon = this.previousErrorIcon;
+        if (this.currentErrorIcon === FieldComponent.defaults.errorIcon()) {
+            FieldComponent.defaults.errorIcon.set(this.previousErrorIcon);
         }
-        if (this.currentErrorIconSize === FieldComponent.defaults.errorIconSize) {
-            FieldComponent.defaults.errorIconSize = this.previousErrorIconSize;
+        if (this.currentErrorIconSize === FieldComponent.defaults.errorIconSize()) {
+            FieldComponent.defaults.errorIconSize.set(this.previousErrorIconSize);
         }
     }
 }

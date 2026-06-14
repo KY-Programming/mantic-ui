@@ -1,19 +1,16 @@
-import { ChangeDetectionStrategy, Component, HostBinding, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
-import { AnimationDirection } from './animation-direction';
+import { AnimationDirection } from './models/animation-direction';
 
 @Component({
     selector: 'm-animation',
     templateUrl: './animation.component.html',
     styleUrls: ['./animation.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
+    host: { '[class.hidden]': 'hidden()' },
     providers: [...BaseComponent.providers]
 })
 export class AnimationComponent extends BaseComponent {
-
-    @HostBinding('class.hidden')
     public readonly hidden = input(true);
-
     public readonly direction = input<AnimationDirection>();
 
     public constructor() {

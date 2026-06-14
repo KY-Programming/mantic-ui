@@ -1,5 +1,5 @@
-@if (!active || !activeTemplate) {
+@if (!active() || !activeTemplate()) {
   <ng-content></ng-content>
 } @else {
-  <ng-template [ngTemplateOutlet]="activeTemplate"></ng-template>
+  <ng-template [ngTemplateOutlet]="activeTemplate()"></ng-template>
 }

@@ -1,25 +1,29 @@
-import { Component, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { IconType } from '../icon/icon-type';
-import { NotificationService } from './notification.service';
+import { Component, effect, input, OnDestroy } from '@angular/core';
+import { IconType } from '../icon/models/icon-type';
+import { NotificationService } from './services/notification.service';
 
 @Component({
     selector: 'm-notification-defaults',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    template: '',
-    })
+    template: ''
+})
 export class NotificationDefaultsComponent implements OnDestroy {
-    private readonly previousSuccessIcon = NotificationService.defaults.successIcon;
+    private readonly previousSuccessIcon = NotificationService.defaults.successIcon();
     private currentSuccessIcon?: IconType;
+    public readonly successIcon = input<IconType>();
 
-    @Input()
-    public set successIcon(value: IconType) {
-        this.currentSuccessIcon = value;
-        NotificationService.defaults.successIcon = value;
+    public constructor() {
+        effect(() => {
+            const value = this.successIcon();
+            if (value !== undefined) {
+                this.currentSuccessIcon = value;
+                NotificationService.defaults.successIcon.set(value);
+            }
+        });
     }
 
     public ngOnDestroy(): void {
-        if (this.currentSuccessIcon === NotificationService.defaults.successIcon) {
-            NotificationService.defaults.successIcon = this.previousSuccessIcon;
+        if (this.currentSuccessIcon === NotificationService.defaults.successIcon()) {
+            NotificationService.defaults.successIcon.set(this.previousSuccessIcon);
         }
     }
 }

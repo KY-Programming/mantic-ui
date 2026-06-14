@@ -1,50 +1,39 @@
-import { Component, EventEmitter, HostBinding, Input, Output, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
+import { toBoolean } from '../../helpers/to-boolean';
+import { transformableModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
 import { ExpanderComponent } from '../expander/expander.component';
-import { IconSize } from '../icon/icon-size';
-import { IconType } from '../icon/icon-type';
 import { IconComponent } from '../icon/icon.component';
+import { IconSize } from '../icon/models/icon-size';
+import { IconType } from '../icon/models/icon-type';
 
 @Component({
     selector: 'm-expander-icon',
     templateUrl: './expander-icon.component.html',
     styleUrls: ['./expander-icon.component.scss'],
-    imports: [
-        IconComponent
-    ],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...BaseComponent.providers]
+    imports: [IconComponent],
+    providers: [...BaseComponent.providers],
+    host: {
+        '[class.expanded]': 'expanded()'
+    }
 })
 export class ExpanderIconComponent extends BaseComponent {
-    private isExpanded = false;
     protected readonly defaults = ExpanderComponent.defaults;
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.expanded')
-    public get expanded(): boolean {
-        return this.isExpanded;
-    }
-
-    public set expanded(value: BooleanLike) {
-        this.isExpanded = this.toBoolean(value);
-    }
-
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly expandedInput = input<boolean, BooleanLike>(false, { alias: 'expanded', transform: toBoolean });
+    public readonly expandedChange = output<boolean>();
+    public readonly expanded = transformableModel(this.expandedInput, this.expandedChange, toBoolean);
     public readonly dropdownIcon = input<IconType>();
-
     public readonly dropdownIconSize = input<IconSize>();
-
-    @Output()
-    public readonly expandedChange = new EventEmitter<boolean>();
 
     public constructor() {
         super();
+        this.classes.register('expanded');
     }
 
     public toggle(): void {
-        if (this.isExpanded) {
+        if (this.expanded()) {
             this.collapse();
         }
         else {
@@ -53,12 +42,10 @@ export class ExpanderIconComponent extends BaseComponent {
     }
 
     public collapse(): void {
-        this.isExpanded = false;
-        this.expandedChange.emit(this.isExpanded);
+        this.expanded.set(false);
     }
 
     public expand(): void {
-        this.isExpanded = true;
-        this.expandedChange.emit(this.isExpanded);
+        this.expanded.set(true);
     }
 }

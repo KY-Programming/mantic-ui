@@ -1,4 +1,4 @@
-import { Component, HostListener, Optional, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonBaseComponent } from '../../base/button-base.component';
 import { Key } from '../../models/key';
 import { FormComponent } from '../form/form.component';
@@ -8,23 +8,23 @@ import { FormComponent } from '../form/form.component';
     templateUrl: './submit.component.html',
     styleUrls: ['./submit.component.scss'],
     imports: [],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...ButtonBaseComponent.providers]
+    providers: [...ButtonBaseComponent.providers],
+    host: {
+        '(click)': 'onClick()',
+        '(keydown)': 'onKeyDown($event)'
+    }
 })
 export class SubmitComponent extends ButtonBaseComponent {
+    private readonly form = inject(FormComponent, { optional: true });
 
-    public constructor(
-        @Optional() private readonly form: FormComponent
-    ) {
+    public constructor() {
         super();
     }
 
-    @HostListener('click')
     protected onClick(): void {
         this.submit();
     }
 
-    @HostListener('keydown', ['$event'])
     protected onKeyDown(event: KeyboardEvent): void {
         if (Key.is(event, Key.space, Key.enter)) {
             this.submit();

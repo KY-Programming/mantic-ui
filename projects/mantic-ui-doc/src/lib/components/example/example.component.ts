@@ -1,5 +1,4 @@
-
-import { Component, HostBinding, Input, ChangeDetectionStrategy, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, input, model } from '@angular/core';
 import { HeaderDirective } from '@mantic-ui/angular';
 import { HighlightModule } from 'ngx-highlightjs';
 
@@ -8,10 +7,10 @@ import { HighlightModule } from 'ngx-highlightjs';
     templateUrl: './example.component.html',
     styleUrls: ['./example.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-    HighlightModule,
-    HeaderDirective
-]
+    host: {
+        '[id]': 'id'
+    },
+    imports: [HighlightModule, HeaderDirective]
 })
 export class ExampleComponent {
     private headerField: string | undefined;
@@ -20,8 +19,6 @@ export class ExampleComponent {
         return this.headerField;
     }
 
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public set header(value: string | undefined) {
         this.headerField = value;
@@ -29,26 +26,17 @@ export class ExampleComponent {
     }
 
     public readonly description = input<string>();
-
     public readonly code = input<string>();
-
-    public readonly showCode = input(false);
-
+    public readonly showCode = model(false);
     public readonly languages = input(['html']);
-
-    @HostBinding('id')
     public id: string | undefined;
-
     public readonly hint = input<string>();
-
     public readonly hintClass = input('black');
-
     public readonly hintLink = input<string>();
-
     public readonly hintTarget = input('_blank');
 
     public toggleCode(): void {
-        this.showCode = !this.showCode();
+        this.showCode.set(!this.showCode());
     }
 
     private refreshId(): void {

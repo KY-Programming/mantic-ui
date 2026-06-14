@@ -1,62 +1,28 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { FieldSize, ParsableFieldSize, parseFieldSize } from '../../models/field-size';
-
-export declare type CellFloat =
-    'left'
-    | 'right';
-
-export declare type CellAlign =
-    'left'
-    | 'right';
+import { CellAlign } from './models/cell-align';
+import { CellFloat } from './models/cell-float';
 
 @Component({
     selector: 'm-cell',
     templateUrl: './cell.component.html',
     styleUrls: ['./cell.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class CellComponent extends BaseComponent {
-    private sizeValue?: FieldSize;
-    private floatValue?: CellFloat;
-    private alignValue?: CellAlign;
-
-    public get size(): FieldSize | undefined {
-        return this.sizeValue;
-    }
-
-    @Input()
-    public set size(value: ParsableFieldSize | undefined) {
-        this.sizeValue = parseFieldSize(value);
-        this.classes.set('size', this.sizeValue);
-        this.classes.set('wide', !!this.sizeValue);
-    }
-
-    @Input()
-    public get float(): CellFloat | undefined {
-        return this.floatValue;
-    }
-
-    public set float(value: CellFloat | undefined) {
-        this.floatValue = value;
-        this.classes.set('float', value ? `${value} floated` : undefined);
-    }
-
-    @Input()
-    public get align(): CellAlign | undefined {
-        return this.alignValue;
-    }
-
-    public set align(value: CellAlign | undefined) {
-        this.alignValue = value;
-        this.classes.set('align', value ? `${value} aligned` : undefined);
-    }
+    public readonly size = input<FieldSize | undefined, ParsableFieldSize>(undefined, { transform: parseFieldSize });
+    public readonly float = input<CellFloat | undefined>();
+    public readonly align = input<CellAlign | undefined>();
 
     public constructor() {
         super(false);
         this.classes.register('size', 'wide', 'float', 'align')
             .registerFixed('column');
+        effect(() => this.classes.set('size', this.size()));
+        effect(() => this.classes.set('wide', !!this.size()));
+        effect(() => this.classes.set('float', this.float() ? `${this.float() ?? ''} floated` : undefined));
+        effect(() => this.classes.set('align', this.align() ? `${this.align() ?? ''} aligned` : undefined));
     }
 
 }

@@ -1,15 +1,12 @@
-import { Component, EventEmitter, HostBinding, HostListener, Input, OnInit, Output, ChangeDetectionStrategy, input } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Component, effect, input, output, signal } from '@angular/core';
 import { InvertibleComponent } from '../../base/invertible.component';
-import { IgnoredDirective } from '../../directives/ignored.directive';
+import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
-import { IconSize } from '../icon/icon-size';
-import { IconType } from '../icon/icon-type';
 import { IconComponent } from '../icon/icon.component';
+import { IconSize } from '../icon/models/icon-size';
+import { IconType } from '../icon/models/icon-type';
 import { LoaderComponent } from '../loader/loader.component';
-
-export declare type MessageAttached = 'bottom' | 'top' | undefined;
+import { MessageAttached } from './models/message-attached';
 
 @Component({
     selector: 'm-message',
@@ -19,179 +16,57 @@ export declare type MessageAttached = 'bottom' | 'top' | undefined;
         IconComponent,
         LoaderComponent
     ],
-    hostDirectives: [IgnoredDirective.default],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...InvertibleComponent.providers]
+    providers: [...InvertibleComponent.providers],
+    host: {
+        '[class.positive]': 'positive()',
+        '[class.info]': 'info()',
+        '[class.success]': 'success()',
+        '[class.warning]': 'warning()',
+        '[class.error]': 'error()',
+        '(click)': 'onClick($event)'
+    }
 })
-export class MessageComponent extends InvertibleComponent implements OnInit {
+export class MessageComponent extends InvertibleComponent {
     public static readonly defaults = {
-        closeIcon: <IconType>'close',
-        closeIconSize: <IconSize>undefined,
-        inverted: false,
-        invertedChange: new ReplaySubject<boolean>(1)
+        closeIcon: signal<IconType>('close'),
+        closeIconSize: signal<IconSize>(undefined),
+        inverted: signal(false)
     };
-
-    private isPositive = false;
-    private isSuccess = false;
-    private isWarning = false;
-    private isError = false;
-    private isInfo = false;
-    private isClosable = false;
-    private isCloseVisible = true;
-    private isLoading = false;
-    private attachedValue: MessageAttached;
-    private iconValue: IconType | undefined;
-
     protected readonly defaults = MessageComponent.defaults;
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.positive')
-    public get positive(): boolean {
-        return this.isPositive;
-    }
-
-    public set positive(value: BooleanLike) {
-        this.isPositive = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.info')
-    public get info(): boolean {
-        return this.isInfo;
-    }
-
-    public set info(value: BooleanLike) {
-        this.isInfo = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.success')
-    public get success(): boolean {
-        return this.isSuccess;
-    }
-
-    public set success(value: BooleanLike) {
-        this.isSuccess = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.warning')
-    public get warning(): boolean {
-        return this.isWarning;
-    }
-
-    public set warning(value: BooleanLike) {
-        this.isWarning = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.error')
-    public get error(): boolean {
-        return this.isError;
-    }
-
-    public set error(value: BooleanLike) {
-        this.isError = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get closable(): boolean {
-        return this.isClosable;
-    }
-
-    public set closable(value: BooleanLike) {
-        this.isClosable = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get showClose(): boolean {
-        return this.isCloseVisible;
-    }
-
-    public set showClose(value: BooleanLike) {
-        this.isCloseVisible = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get loading(): boolean {
-        return this.isLoading;
-    }
-
-    public set loading(value: BooleanLike) {
-        this.isLoading = this.toBoolean(value);
-        this.classes.set('icon', this.isLoading || !!this.iconValue);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get attached(): MessageAttached {
-        return this.attachedValue;
-    }
-
-    public set attached(value: MessageAttached) {
-        this.attachedValue = value;
-        this.classes.set('attached', value ? value + ' attached' : undefined);
-    }
-
+    public readonly positive = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly info = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly success = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly warning = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly error = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly closable = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly showClose = input<boolean, BooleanLike>(true, { transform: toBoolean });
+    public readonly loading = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly attached = input<MessageAttached>();
     public readonly header = input<string>();
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get icon(): IconType | undefined {
-        return this.iconValue;
-    }
-
-    public set icon(value: IconType | undefined) {
-        this.iconValue = value;
-        this.classes.set('icon', !!value);
-    }
-
+    public readonly icon = input<IconType | undefined>();
     public readonly iconSize = input<IconSize>();
-
     public readonly closeIcon = input<IconType>();
-
     public readonly closeIconSize = input<IconSize>();
-
-    @Output()
-    public readonly close = new EventEmitter<MouseEvent>();
+    public readonly ignored = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly close = output<MouseEvent>();
 
     public constructor() {
         super();
-        this.classes.register('positive', 'success', 'warning', 'error', 'attached', 'icon', 'closable')
+        this.classes.register('ignored', 'positive', 'success', 'warning', 'error', 'attached', 'icon', 'closable')
             .registerFixed('visible', 'message');
+        effect(() => this.classes.set('ignored', this.ignored()));
+        effect(() => this.classes.set('icon', this.loading() || !!this.icon()));
+        effect(() => this.classes.set('attached', this.attached() ? (this.attached() ?? '') + ' attached' : undefined));
+        effect(() => this.refreshInverted(MessageComponent.defaults.inverted()));
     }
 
-    public override ngOnInit(): void {
-        super.ngOnInit();
-        MessageComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
-    }
-
-    @HostListener('click', ['$event'])
     protected onClick(event: MouseEvent): void {
-        const selection = window.getSelection();
-        if (selection && this.elementRef.nativeElement.contains(selection?.focusNode) && (selection.anchorNode !== selection.focusNode || selection.anchorOffset !== selection.focusOffset)) {
+        const selection = globalThis.getSelection();
+        if (selection && this.elementRef.nativeElement.contains(selection.focusNode) && (selection.anchorNode !== selection.focusNode || selection.anchorOffset !== selection.focusOffset)) {
             return;
         }
-        if (this.closable) {
-            this.close.next(event);
+        if (this.closable()) {
+            this.close.emit(event);
         }
     }
 }

@@ -1,18 +1,21 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
-import { FluidDirective } from '../../directives/fluid.directive';
+import { toBoolean } from '../../helpers/to-boolean';
+import { BooleanLike } from '../../models/boolean-like';
 
 @Component({
     selector: 'm-text-container',
     templateUrl: './text-container.component.html',
     styleUrls: ['./text-container.component.scss'],
-    hostDirectives: [FluidDirective.default],
-    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class TextContainerComponent extends BaseComponent {
+    public readonly fluid = input<boolean, BooleanLike>(false, { transform: toBoolean });
+
     public constructor() {
         super();
-        this.classes.registerFixed('text', 'container');
+        this.classes.register('fluid')
+            .registerFixed('text', 'container');
+        effect(() => this.classes.set('fluid', this.fluid()));
     }
 }

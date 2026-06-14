@@ -2,7 +2,7 @@
     <m-icon [icon]="faChevronLeft" />
 </div>
 <!-- <m-menu position="left"> -->
-<m-flex class="ui vertical inverted menu" [class.expanded]="isMenuExpanded">
+<m-flex column class="ui vertical inverted menu" [class.expanded]="isMenuExpanded">
     <a class="item" routerLink="/">
     <span class="ui logo icon image">
       <img src="/assets/mantic.png" alt="mantic">
@@ -178,7 +178,7 @@
 <!-- </m-menu> -->
 <m-fill m-flex class="content">
     <router-outlet></router-outlet>
-    <m-flex direction="column" class="actions">
+    <m-flex column class="actions">
         <m-button icon="refresh">
             Framework
             <m-context-menu openOnLeftClick>

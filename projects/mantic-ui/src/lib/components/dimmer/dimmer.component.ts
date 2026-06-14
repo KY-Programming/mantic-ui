@@ -1,77 +1,47 @@
-import { Component, HostBinding, HostListener, Input, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Component, effect, input, OnDestroy, signal } from '@angular/core';
 import { InvertibleComponent } from '../../base/invertible.component';
+import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
-
-// TODO: Enable animation
 
 @Component({
     selector: 'm-dimmer',
     templateUrl: './dimmer.component.html',
     styleUrls: ['./dimmer.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...InvertibleComponent.providers]
+    providers: [...InvertibleComponent.providers],
+    host: {
+        '[class.page]': 'page()',
+        '[class.visible]': 'visible()',
+        '[class.active]': 'visible()',
+        '(click)': 'onClick()'
+    }
 })
-export class DimmerComponent extends InvertibleComponent implements OnInit, OnDestroy {
+export class DimmerComponent extends InvertibleComponent implements OnDestroy {
     public static readonly defaults = {
-        inverted: false,
-        invertedChange: new ReplaySubject<boolean>(1)
+        inverted: signal(false)
     };
-    private visibleValue = true;
-    private isPage = false;
-    private isHideOnClick = false;
-
-    @Input()
-    @HostBinding('class.page')
-    public get page(): boolean {
-        return this.isPage;
-    }
-
-    public set page(value: BooleanLike) {
-        this.isPage = this.toBoolean(value);
-    }
-
-    // @Input()
-    // public useContent = true;
-
-    @Input()
-    public get hideOnClick(): boolean {
-        return this.isHideOnClick;
-    }
-
-    public set hideOnClick(value: BooleanLike) {
-        this.isHideOnClick = this.toBoolean(value);
-    }
-
-    @Input()
-    @HostBinding('class.visible')
-    @HostBinding('class.active')
-    public get visible(): boolean {
-        return this.visibleValue;
-    }
-
-    public set visible(value: BooleanLike) {
-        if (this.toBoolean(value)) {
-            this.show();
-        }
-        else {
-            this.hide();
-        }
-    }
+    public readonly page = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly hideOnClick = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly visibleInput = input<boolean | undefined, BooleanLike>(undefined, { alias: 'visible', transform: toBoolean });
+    private readonly visibleState = signal(true);
+    public readonly visible = this.visibleState.asReadonly();
 
     public constructor() {
         super();
         this.classes.register('page', 'visible')
             .registerFixed('dimmer');
-        DimmerComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
-    }
-
-    public override ngOnInit(): void {
-        super.ngOnInit();
-        if (this.visible === undefined) {
-            this.show();
-        }
+        effect(() => this.refreshInverted(DimmerComponent.defaults.inverted()));
+        effect(() => {
+            const value = this.visibleInput();
+            if (value !== undefined) {
+                if (value) {
+                    this.show();
+                }
+                else {
+                    this.hide();
+                }
+            }
+        });
     }
 
     public override ngOnDestroy(): void {
@@ -80,18 +50,17 @@ export class DimmerComponent extends InvertibleComponent implements OnInit, OnDe
     }
 
     public show(): void {
-        this.visibleValue = true;
+        this.visibleState.set(true);
         this.refreshClasses();
     }
 
     public hide(): void {
-        this.visibleValue = false;
+        this.visibleState.set(false);
         this.refreshClasses();
     }
 
-    @HostListener('click')
     protected onClick(): void {
-        if (this.hideOnClick) {
+        if (this.hideOnClick()) {
             this.hide();
         }
     }

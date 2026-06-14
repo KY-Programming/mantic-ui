@@ -1,6 +1,6 @@
-import { Component, HostBinding, inject, Input, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
-import { ColorDirective } from '../../directives/color.directive';
+import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
 import { ColorName } from '../../models/color';
 
@@ -8,90 +8,36 @@ import { ColorName } from '../../models/color';
     selector: 'm-circular-progress',
     templateUrl: './circular-progress.component.html',
     styleUrls: ['./circular-progress.component.scss'],
-    hostDirectives: [ColorDirective.default],
-    imports: [],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...BaseComponent.providers]
+    providers: [...BaseComponent.providers],
+    host: {
+        '[class.success]': 'success()',
+        '[class.error]': 'error()',
+        '[class.warning]': 'warning()',
+        '[class]': 'color()'
+    }
 })
 export class CircularProgressComponent extends BaseComponent {
-    private readonly colorDirective = inject(ColorDirective, { self: true });
-    private isSuccess = false;
-    private isWarning = false;
-    private isError = false;
-
     public readonly value = input.required<number>();
-
     public readonly min = input(0);
-
     public readonly max = input(100);
-
     public readonly size = input(160);
-
     public readonly strokeWidth = input(12);
-
     public readonly centerContent = input(true);
-
-    @HostBinding('class.ui')
-    @HostBinding('class.progress')
-    @HostBinding('class.circular')
-    protected readonly host = true;
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.success')
-    public get success(): boolean {
-        return this.isSuccess;
-    }
-
-    public set success(value: BooleanLike) {
-        this.isSuccess = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.error')
-    public get error(): boolean {
-        return this.isError;
-    }
-
-    public set error(value: BooleanLike) {
-        this.isError = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.warning')
-    public get warning(): boolean {
-        return this.isWarning;
-    }
-
-    public set warning(value: BooleanLike) {
-        this.isWarning = this.toBoolean(value);
-    }
-
-    @HostBinding('class')
-    protected get color(): ColorName | undefined {
-        return this.colorDirective.color;
-    }
-
-    protected get radius(): number {
-        return this.size() / 2 - this.strokeWidth() / 2;
-    }
-
-    protected get total(): number {
-        return 2 * Math.PI * this.radius;
-    }
-
-    protected get offset(): number {
+    public readonly success = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly error = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly warning = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly color = input<ColorName | undefined>(undefined);
+    protected readonly radius = computed(() => this.size() / 2 - this.strokeWidth() / 2);
+    protected readonly total = computed(() => 2 * Math.PI * this.radius());
+    protected readonly offset = computed(() => {
         const valueOffset = (this.value() - this.min()) / (this.max() - this.min());
-        return this.total * (1 - valueOffset);
-    }
+        return this.total() * (1 - valueOffset);
+    });
 
     public constructor() {
         super();
+        this.classes.register('success', 'error', 'warning')
+            .registerFixed('circular', 'progress');
     }
 
 }

@@ -1,0 +1,1 @@
+export declare type MessageAttached = 'bottom' | 'top' | undefined;

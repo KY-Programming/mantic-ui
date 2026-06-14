@@ -1,9 +1,9 @@
-@if (isPreviewVisible) {
-  <div class="preview" [style.width.px]="previewWidth() || width()" [style.height.px]="previewHeight() || height()" [style.border-radius.px]="radius()">
-    <img [src]="previewImage()" alt="">
-  </div>
+@if (!hidePreview()) {
+    <div class="preview" [style.width.px]="previewWidth() || width()" [style.height.px]="previewHeight() || height()" [style.border-radius.px]="radius()">
+        <img [src]="previewImage()" alt="">
+    </div>
 }
 <div class="content">
-  <ng-content></ng-content>
+    <ng-content />
 </div>
-<input type="file" accept="image/jpeg,image/png,image/gif" multiple (change)="onUpload(file.files)" #file/>
+<input type="file" accept="image/jpeg,image/png,image/gif" multiple (change)="onUpload(file.files)" #file />

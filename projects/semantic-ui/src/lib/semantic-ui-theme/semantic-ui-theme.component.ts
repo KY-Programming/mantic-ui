@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, inject, input, ViewEncapsulation } from '@angular/core';
 import { BooleanLike, ButtonDefaultsComponent, CheckboxDefaultsComponent, DropdownDefaultsComponent, FormDefaultsComponent, InputDefaultsComponent, MessageDefaultsComponent, ModalDefaultsComponent, SegmentDefaultsComponent, TabGroupDefaultsComponent, TableDefaultsComponent, TextareaDefaultsComponent, ThemeService, toBoolean } from '@mantic-ui/angular';
 
 @Component({
@@ -6,37 +6,16 @@ import { BooleanLike, ButtonDefaultsComponent, CheckboxDefaultsComponent, Dropdo
     imports: [SegmentDefaultsComponent, TableDefaultsComponent, FormDefaultsComponent, InputDefaultsComponent, CheckboxDefaultsComponent, DropdownDefaultsComponent, TextareaDefaultsComponent, TabGroupDefaultsComponent, ModalDefaultsComponent, ButtonDefaultsComponent, MessageDefaultsComponent],
     templateUrl: './semantic-ui-theme.component.html',
     styleUrls: ['./semantic-ui-theme.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     encapsulation: ViewEncapsulation.None
 })
 export class SemanticUiThemeComponent {
-    private isDark = false;
-    private isAuto = false;
+    private readonly themeService = inject(ThemeService);
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly darkInput = input<boolean, BooleanLike>(false, { alias: 'dark', transform: toBoolean });
+    public readonly auto = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly dark = computed(() => this.auto() ? this.themeService.prefersDark() : this.darkInput());
 
-    @Input()
-    public get dark(): boolean {
-        return this.isDark;
-    }
-
-    public set dark(value: BooleanLike) {
-        this.isDark = toBoolean(value);
-    }
-
-    @Input()
-    public get auto(): boolean {
-        return this.isAuto;
-    }
-
-    public set auto(value: BooleanLike) {
-        this.isAuto = toBoolean(value);
-        if (this.isAuto) {
-            this.isDark = this.themeService.prefersDark();
-        }
-    }
-
-    public constructor(
-        private readonly themeService: ThemeService
-    ) {
-        themeService.setVersion('2.4.2');
+    public constructor() {
+        this.themeService.setVersion('2.4.2');
     }
 }

@@ -1,16 +1,15 @@
-
-import { Component, ContentChildren, ElementRef, EventEmitter, HostBinding, HostListener, Input, NgZone, OnInit, Output, QueryList, ViewChildren, ChangeDetectionStrategy, input, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, contentChildren, effect, ElementRef, inject, input, model, NgZone, OnInit, output, signal, untracked, viewChild, viewChildren } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { fromEvent, ReplaySubject } from 'rxjs';
+import { fromEvent } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
-import { DisabledDirective } from '../../directives/disabled.directive';
-import { FluidDirective } from '../../directives/fluid.directive';
+import { toBoolean } from '../../helpers/to-boolean';
+import { transformableModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
 import { DropdownItemComponent } from '../dropdown-item/dropdown-item.component';
-import { IconSize } from '../icon/icon-size';
-import { IconType } from '../icon/icon-type';
 import { IconComponent } from '../icon/icon.component';
+import { IconSize } from '../icon/models/icon-size';
+import { IconType } from '../icon/models/icon-type';
 import { DropDownSelectionService } from './dropdown-selection.service';
 import { DropdownValue } from './dropdown-value';
 
@@ -18,320 +17,159 @@ import { DropdownValue } from './dropdown-value';
     selector: 'm-dropdown',
     templateUrl: './dropdown.component.html',
     styleUrls: ['./dropdown.component.scss'],
-    imports: [
-    FormsModule,
-    IconComponent,
-    DropdownItemComponent
-],
-    hostDirectives: [FluidDirective.default, DisabledDirective.default],
+    imports: [FormsModule, IconComponent, DropdownItemComponent],
     changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...InvertibleComponent.providers, DropDownSelectionService]
+    providers: [...InvertibleComponent.providers, DropDownSelectionService],
+    host: {
+        '[class.multiple]': 'multiple()',
+        '[class.attached-left]': 'attachedLeft()',
+        '[class.attached-top]': 'attachedTop()',
+        '[class.attached-right]': 'attachedRight()',
+        '[class.attached-bottom]': 'attachedBottom()',
+        '[attr.tabindex]': 'tabIndex()',
+        '[class.search]': 'searchClass()',
+        '[class.active]': 'isActive()',
+        '[class.disabled]': 'readonly()',
+        '[class.upward]': 'isUpwardClass()',
+        '(focusin)': 'focus()',
+        '(focusout)': 'blur()',
+        '(click)': 'toggle()',
+        '(keydown)': 'onKeyDown($event)'
+    }
 })
 export class DropdownComponent extends InvertibleComponent implements OnInit {
     public static readonly defaults = {
-        dropdownIcon: <IconType>'dropdown',
-        dropdownIconSize: <IconSize>undefined,
-        deleteIcon: <IconType>'delete',
-        deleteIconSize: <IconSize>undefined,
-        inverted: false,
-        invertedChange: new ReplaySubject<boolean>(1)
+        dropdownIcon: signal<IconType>('dropdown'),
+        dropdownIconSize: signal<IconSize>(undefined),
+        deleteIcon: signal<IconType>('delete'),
+        deleteIconSize: signal<IconSize>(undefined),
+        inverted: signal(false)
     };
-    private isMultiple = false;
-    private isSearch = false;
-    private isSelectFirst = false;
-    private isAttachedLeft = false;
-    private isAttachedTop = false;
-    private isAttachedRight = false;
-    private isAttachedBottom = false;
-    private isFreeTextAllowed = false;
-    private isSystemUpward = false;
-    private menuMaxHeight: number | undefined;
-    private isDisabled = false;
-    private isReadonly = false;
-    protected readonly defaults = DropdownComponent.defaults;
-
-    protected readonly textElement = viewChild<ElementRef<HTMLDivElement>>('htmlElement');
-
-    protected readonly menuElement = viewChild<ElementRef<HTMLDivElement>>('menuElement');
-
-    protected readonly inputElement = viewChild<ElementRef<HTMLInputElement>>('inputElement');
-
-    @ContentChildren(DropdownItemComponent)
-    protected set contentItemComponentsQuery(query: QueryList<DropdownItemComponent>) {
-        if (query.length > 0) {
-            this.refreshItems(query);
-        }
-        query.changes.subscribe(() => this.refreshItems(query));
-    }
-
-    @ViewChildren(DropdownItemComponent)
-    protected set viewItemComponentsQuery(query: QueryList<DropdownItemComponent>) {
-        if (query.length > 0) {
-            this.refreshItems(query);
-        }
-        query.changes.subscribe(() => this.refreshItems(query));
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.multiple')
-    public get multiple(): boolean {
-        return this.isMultiple;
-    }
-
-    public set multiple(value: BooleanLike) {
-        this.isMultiple = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get search(): boolean {
-        return this.isSearch;
-    }
-
-    public set search(value: BooleanLike) {
-        this.isSearch = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.attached-left')
-    public get attachedLeft(): boolean {
-        return this.isAttachedLeft;
-    }
-
-    public set attachedLeft(value: BooleanLike) {
-        this.isAttachedLeft = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.attached-top')
-    public get attachedTop(): boolean {
-        return this.isAttachedTop;
-    }
-
-    public set attachedTop(value: BooleanLike) {
-        this.isAttachedTop = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.attached-right')
-    public get attachedRight(): boolean {
-        return this.isAttachedRight;
-    }
-
-    public set attachedRight(value: BooleanLike) {
-        this.isAttachedRight = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.attached-bottom')
-    public get attachedBottom(): boolean {
-        return this.isAttachedBottom;
-    }
-
-    public set attachedBottom(value: BooleanLike) {
-        this.isAttachedBottom = this.toBoolean(value);
-    }
-
-    public readonly placeholder = input<string>();
-
-    public get value(): unknown {
-        return this.valueField;
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public set value(value: unknown) {
-        value ??= undefined;
-        if (this.valueField === value) {
-            return;
-        }
-        this.valueField = value;
-        this.select(value);
-    }
-
-    public readonly filter = input<string>();
-
-    public readonly animationDuration = input(200);
-
-    public get items(): DropdownValue[] | undefined {
-        return this.itemsField;
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public set items(value: DropdownValue[] | null | undefined) {
-        value ??= undefined;
-        if (this.itemsField === value) {
-            return;
-        }
-        this.itemsField = value;
-        this.select(this.value);
-    }
-
-    public readonly name = input<string>();
-
-    public readonly filterValue = input(true);
-
-    public readonly filterText = input(true);
-
-    public readonly icon = input<IconType>();
-
-    public readonly iconSize = input<IconSize>();
-
-    public readonly dropdownIcon = input<IconType>();
-
-    public readonly dropdownIconSize = input<IconSize>();
-
-    public readonly deleteIcon = input<IconType>();
-
-    public readonly deleteIconSize = input<IconSize>();
-
-    public readonly filterType = input<'startsWith' | 'contains'>('startsWith');
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get selectFirst(): boolean {
-        return this.isSelectFirst;
-    }
-
-    public set selectFirst(value: BooleanLike) {
-        this.isSelectFirst = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get allowFreeText(): boolean {
-        return this.isFreeTextAllowed;
-    }
-
-    public set allowFreeText(value: BooleanLike) {
-        this.isFreeTextAllowed = this.toBoolean(value);
-    }
-
-    @HostBinding('attr.tabindex')
-    public get tabIndex(): number {
-        return (this.search ? undefined : 0) as any;
-    }
-
-    @HostBinding('class.search')
-    public get searchClass(): boolean {
-        return this.isSearch || this.isFreeTextAllowed;
-    }
-
-    @HostBinding('class.active')
-    public isActive = false;
-
-    public set disabled(value: BooleanLike) {
-        this.isDisabled = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.disabled')
-    public get readonly(): boolean {
-        return this.isReadonly;
-    }
-
-    public set readonly(value: BooleanLike) {
-        this.isReadonly = this.toBoolean(value);
-    }
-
-    @HostBinding('class.upward')
-    public get isUpwardClass(): boolean {
-        return this.isSystemUpward;
-    }
-
-    public get menuMaxHeightPx(): number | undefined {
-        return this.menuMaxHeight;
-    }
-
     private static readonly upwardThreshold = 120;
     private static readonly viewportMargin = 8;
+    private readonly dropDownSelectionService = inject(DropDownSelectionService);
+    private readonly zone = inject(NgZone);
+    protected readonly defaults = DropdownComponent.defaults;
+    protected readonly textElement = viewChild<ElementRef<HTMLDivElement>>('htmlElement');
+    protected readonly menuElement = viewChild<ElementRef<HTMLDivElement>>('menuElement');
+    protected readonly inputElement = viewChild<ElementRef<HTMLInputElement>>('inputElement');
+    private readonly contentItems = contentChildren(DropdownItemComponent);
+    private readonly viewItems = viewChildren(DropdownItemComponent);
+    protected readonly itemComponents = computed(() => [...this.contentItems(), ...this.viewItems()]);
+    public readonly multiple = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly search = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly attachedLeft = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly attachedTop = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly attachedRight = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly attachedBottom = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly placeholder = input<string>();
+    public readonly fluid = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly animationDuration = input(200);
+    public readonly filter = model<string>();
+    public readonly name = model<string>();
+    public readonly filterValue = input(true);
+    public readonly filterText = input(true);
+    public readonly icon = input<IconType>();
+    public readonly iconSize = input<IconSize>();
+    public readonly dropdownIcon = input<IconType>();
+    public readonly dropdownIconSize = input<IconSize>();
+    public readonly deleteIcon = input<IconType>();
+    public readonly deleteIconSize = input<IconSize>();
+    public readonly filterType = input<'startsWith' | 'contains'>('startsWith');
+    public readonly selectFirst = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly allowFreeText = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly valueInput = input<unknown>(undefined, { alias: 'value' });
+    private readonly valueState = signal<unknown>(undefined);
+    public readonly value = this.valueState.asReadonly();
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly itemsInput = input<DropdownValue[] | null | undefined>(undefined, { alias: 'items' });
+    private readonly itemsState = signal<DropdownValue[] | undefined>(undefined);
+    public readonly items = this.itemsState.asReadonly();
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly disabledInput = input<boolean, BooleanLike>(false, { alias: 'disabled', transform: toBoolean });
+    public readonly disabledChange = output<boolean>();
+    public readonly disabled = transformableModel(this.disabledInput, this.disabledChange, toBoolean);
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly readonlyInput = input<boolean, BooleanLike>(false, { alias: 'readonly', transform: toBoolean });
+    public readonly readonlyChange = output<boolean>();
+    public readonly readonly = transformableModel(this.readonlyInput, this.readonlyChange, toBoolean);
+    public readonly tabIndex = computed(() => this.search() ? undefined : 0);
+    public readonly searchClass = computed(() => this.search() || this.allowFreeText());
+    public readonly isActive = signal(false);
+    public readonly isDefault = signal(true);
+    public readonly isMenuVisible = signal(false);
+    public readonly isHidden = signal(false);
+    public readonly isSlidingIn = signal(false);
+    public readonly isSlidingOut = signal(false);
+    public readonly isFiltered = signal(false);
+    public readonly isLoading = signal(false);
+    public readonly selectedIndex = signal<number | undefined>(undefined);
+    public readonly selectedItem = signal<DropdownValue | undefined>(undefined);
+    public readonly selectedItems = signal<DropdownValue[]>([]);
+    private readonly isSystemUpward = signal(false);
+    private readonly menuMaxHeight = signal<number | undefined>(undefined);
+    public readonly isUpwardClass = computed(() => this.isSystemUpward());
+    public readonly menuMaxHeightPx = computed(() => this.menuMaxHeight());
+    private readonly isFocused = signal(false);
+    private readonly keepOpen = signal(false);
+    public readonly hasItems = computed(() => this.itemComponents().length > 0);
+    public readonly valueChange = output<unknown>();
 
-    public isDefault = true;
-    public isMenuVisible = false;
-    public isHidden = false;
-    public isSlidingIn = false;
-    public isSlidingOut = false;
-    public isFiltered = false;
-    public isLoading = false;
-    public selectedIndex: number | undefined;
-    public selectedItem: DropdownValue | undefined;
-    public selectedItems: DropdownValue[] = [];
-
-    private isFocused = false;
-    private keepOpen = false;
-    private itemComponents: DropdownItemComponent[] = [];
-    private valueField: unknown;
-    private itemsField: DropdownValue[] | undefined;
-
-    public get hasItems(): boolean {
-        return !!this.itemComponents?.length;
-    }
-
-    @Output()
-    public readonly valueChange = new EventEmitter();
-
-    public constructor(
-        private readonly dropDownSelectionService: DropDownSelectionService,
-        private readonly zone: NgZone
-    ) {
+    public constructor() {
         super();
-        this.classes.register('multiple', 'search', 'active', 'visible', 'upward', 'selectFirst', 'placeholder', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom', 'filterType', 'allowFreetext')
+        this.classes.register('fluid', 'disabled', 'multiple', 'search', 'active', 'visible', 'upward', 'selectFirst', 'placeholder', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom', 'filterType', 'allowFreetext')
             .registerFixed('selection', 'dropdown');
+        effect(() => this.classes.set('fluid', this.fluid()));
+        effect(() => this.classes.set('disabled', this.disabled()));
+        effect(() => this.refreshInverted(DropdownComponent.defaults.inverted()));
         this.dropDownSelectionService.selected.pipe(takeUntil(this.destroy)).subscribe(event => this.select(event));
-        DropdownComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
+        // External [value]/[items] changes drive the same selection logic the old setters did.
+        // untracked() keeps select()'s many signal reads/writes from registering as effect dependencies.
+        effect(() => {
+            const value = this.valueInput();
+            untracked(() => this.setValue(value));
+        });
+        effect(() => {
+            const items = this.itemsInput();
+            untracked(() => this.setItems(items));
+        });
+        effect(() => {
+            const items = this.itemComponents();
+            untracked(() => this.refreshItems(items));
+        });
     }
 
     public override ngOnInit(): void {
         super.ngOnInit();
         this.zone.runOutsideAngular(() =>
             fromEvent(window, 'scroll', { capture: true }).pipe(
-                filter(event => this.isActive && event.target instanceof HTMLElement && this.elementRef.nativeElement !== event.target && !this.elementRef.nativeElement.contains(event.target)),
+                filter(event => this.isActive() && event.target instanceof HTMLElement && this.elementRef.nativeElement !== event.target && !this.elementRef.nativeElement.contains(event.target)),
                 takeUntil(this.destroy)
             ).subscribe(() => this.zone.run(() => this.close())));
     }
 
-    @HostListener('focusin')
     public focus(): void {
         // Ignore focus/blur of window
-        if (this.isFocused) {
+        if (this.isFocused()) {
             return;
         }
         this.open();
-        setTimeout(() => this.isFocused = true, this.animationDuration());
+        setTimeout(() => this.isFocused.set(true), this.animationDuration());
     }
 
-    @HostListener('focusout')
     public blur(): void {
         // Ignore focus/blur of window
         const inputElement = this.inputElement();
-        if (document.activeElement === this.elementRef.nativeElement || inputElement && document.activeElement === inputElement.nativeElement || this.keepOpen) {
+        if (document.activeElement === this.elementRef.nativeElement || inputElement && document.activeElement === inputElement.nativeElement || this.keepOpen()) {
             return;
         }
-        this.isFocused = false;
+        this.isFocused.set(false);
         this.close();
     }
 
-    @HostListener('click')
     public toggle(): void {
-        if (this.isFocused && this.isMenuVisible && !this.search) {
+        if (this.isFocused() && this.isMenuVisible() && !this.search()) {
             this.close();
         }
         else {
@@ -339,30 +177,32 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         }
     }
 
-    @HostListener('keydown', ['$event'])
     protected onKeyDown(event: KeyboardEvent): void {
         if (event.code === 'ArrowUp') {
             event.preventDefault();
             event.stopPropagation();
-            this.selectIndex(this.selectedIndex === undefined ? 0 : this.selectedIndex - 1);
+            const index = this.selectedIndex();
+            this.selectIndex(index === undefined ? 0 : index - 1);
             this.open();
         }
         else if (event.code === 'ArrowDown') {
             event.preventDefault();
             event.stopPropagation();
-            this.selectIndex(this.selectedIndex === undefined ? 0 : this.selectedIndex + 1);
+            const index = this.selectedIndex();
+            this.selectIndex(index === undefined ? 0 : index + 1);
             this.open();
         }
         else if (event.code === 'Enter' || event.code === 'Space') {
-            if (this.selectedIndex !== undefined && this.selectedIndex >= 0) {
+            const index = this.selectedIndex();
+            if (index !== undefined && index >= 0) {
                 event.preventDefault();
                 event.stopPropagation();
-                const component = this.itemComponents[this.selectedIndex];
+                const component = this.itemComponents()[index];
                 this.select(component.value());
                 this.close();
             }
             else {
-                const filteredComponents = this.itemComponents.filter(component => !component.filteredOut);
+                const filteredComponents = this.itemComponents().filter(component => !component.filteredOut());
                 if (filteredComponents.length === 1) {
                     event.preventDefault();
                     event.stopPropagation();
@@ -372,26 +212,28 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
             }
         }
         else if (event.code === 'Backspace') {
-            if (this.multiple && this.selectedItems.length > 0) {
+            const selectedItems = this.selectedItems();
+            if (this.multiple() && selectedItems.length > 0) {
                 event.preventDefault();
                 event.stopPropagation();
-                this.deselect(this.selectedItems[this.selectedItems.length - 1]);
+                this.deselect(selectedItems[selectedItems.length - 1]);
             }
         }
         else if (event.code === 'Escape') {
             event.preventDefault();
             event.stopPropagation();
-            this.filter = undefined;
+            this.filter.set(undefined);
             this.onFilter();
             this.close();
         }
         else if (event.code === 'Tab') {
-            if (this.selectedIndex !== undefined && this.selectedIndex >= 0) {
-                const component = this.itemComponents[this.selectedIndex];
+            const index = this.selectedIndex();
+            if (index !== undefined && index >= 0) {
+                const component = this.itemComponents()[index];
                 this.select(component.value());
             }
             else {
-                const filteredComponents = this.itemComponents.filter(component => !component.filteredOut);
+                const filteredComponents = this.itemComponents().filter(component => !component.filteredOut());
                 if (filteredComponents.length === 1) {
                     this.select(filteredComponents[0].value());
                 }
@@ -405,108 +247,127 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     }
 
     public open(): void {
-        if (this.isMenuVisible) {
+        if (this.isMenuVisible()) {
             return;
         }
-        if (this.search) {
+        if (this.search()) {
             this.inputElement()?.nativeElement.focus();
         }
-        this.isHidden = true;
-        this.isLoading = true;
-        this.isSystemUpward = false;
-        this.menuMaxHeight = undefined;
-        // this.refreshClasses();
+        this.isHidden.set(true);
+        this.isLoading.set(true);
+        this.isSystemUpward.set(false);
+        this.menuMaxHeight.set(undefined);
         // Wait for rendering complete
         setTimeout(() => {
             const hostBounds = this.elementRef.nativeElement.getBoundingClientRect();
             const clip = this.getClippingBounds(this.elementRef.nativeElement);
             const spaceBelow = clip.bottom - hostBounds.bottom;
             const spaceAbove = hostBounds.top - clip.top;
-            this.isSystemUpward = spaceBelow < DropdownComponent.upwardThreshold && spaceAbove > spaceBelow;
-            const available = (this.isSystemUpward ? spaceAbove : spaceBelow) - DropdownComponent.viewportMargin;
+            const isUpward = spaceBelow < DropdownComponent.upwardThreshold && spaceAbove > spaceBelow;
+            this.isSystemUpward.set(isUpward);
+            const available = (isUpward ? spaceAbove : spaceBelow) - DropdownComponent.viewportMargin;
             const menu = this.menuElement()?.nativeElement;
             const defaultMaxHeight = menu ? parseFloat(window.getComputedStyle(menu).maxHeight) : NaN;
             // Only override the stylesheet default when our viewport-fit cap is stricter.
-            this.menuMaxHeight = isFinite(defaultMaxHeight) && defaultMaxHeight > 0 && defaultMaxHeight <= available
+            this.menuMaxHeight.set(isFinite(defaultMaxHeight) && defaultMaxHeight > 0 && defaultMaxHeight <= available
                 ? undefined
-                : Math.max(0, available);
+                : Math.max(0, available));
 
-            this.isLoading = false;
-            this.isHidden = false;
+            this.isLoading.set(false);
+            this.isHidden.set(false);
 
             // Wait for rendering complete
             setTimeout(() => {
-                this.isActive = true;
-                this.isMenuVisible = true;
-                this.isSlidingIn = true;
-                this.isSlidingOut = false;
-                // this.refreshClasses();
+                this.isActive.set(true);
+                this.isMenuVisible.set(true);
+                this.isSlidingIn.set(true);
+                this.isSlidingOut.set(false);
             });
         });
     }
 
     public close(): void {
-        this.isSlidingIn = false;
-        this.isSlidingOut = true;
-        this.isActive = false;
+        this.isSlidingIn.set(false);
+        this.isSlidingOut.set(true);
+        this.isActive.set(false);
         const filterValue = this.filter();
-        if (this.isFreeTextAllowed && (this.selectedIndex === -1 || this.selectedIndex === undefined) && filterValue) {
-            this.value = filterValue;
-            this.valueChange.emit(this.value);
+        if (this.allowFreeText() && (this.selectedIndex() === -1 || this.selectedIndex() === undefined) && filterValue) {
+            this.setValue(filterValue);
+            this.valueChange.emit(this.value());
         }
-        this.filter = undefined;
+        this.filter.set(undefined);
         this.onFilter();
-        this.keepOpen = false;
+        this.keepOpen.set(false);
         setTimeout(() => {
-            this.isMenuVisible = false;
-            this.isSlidingOut = false;
-            // this.refreshClasses();
+            this.isMenuVisible.set(false);
+            this.isSlidingOut.set(false);
         }, this.animationDuration());
-        // this.refreshClasses();
+    }
+
+    // Mirrors the former `value` setter: dedupe against the current value, then run selection.
+    private setValue(value: unknown): void {
+        value ??= undefined;
+        if (this.valueState() === value) {
+            return;
+        }
+        this.valueState.set(value);
+        this.select(value);
+    }
+
+    // Mirrors the former `items` setter.
+    private setItems(value: DropdownValue[] | null | undefined): void {
+        value ??= undefined;
+        if (this.itemsState() === value) {
+            return;
+        }
+        this.itemsState.set(value);
+        this.select(this.value());
     }
 
     protected select(value: unknown): void {
-        const isChanged = this.valueField !== value;
-        if (this.items?.length && !this.itemComponents?.length) {
+        const isChanged = this.valueState() !== value;
+        const components = this.itemComponents();
+        if (this.items()?.length && !components.length) {
             return;
         }
-        this.isDefault = false;
-        if (!this.itemComponents?.length) {
-            this.selectedItem = undefined;
-            this.selectedItems.length = 0;
-            this.value = value;
-            this.filter = undefined;
+        this.isDefault.set(false);
+        if (!components.length) {
+            this.selectedItem.set(undefined);
+            this.selectedItems.set([]);
+            this.setValue(value);
+            this.filter.set(undefined);
             return;
         }
-        let component = this.itemComponents.find(x => x.value() === value);
-        if (this.isSelectFirst) {
-            component ??= this.itemComponents[0];
+        let component = components.find(x => x.value() === value);
+        if (this.selectFirst()) {
+            component ??= components[0];
         }
-        if (this.isFreeTextAllowed) {
-            this.value = component?.value() ?? value;
+        if (this.allowFreeText()) {
+            this.setValue(component?.value() ?? value);
         }
-        else if (this.isSearch && this.filter()) {
-            this.filter = undefined;
+        else if (this.search() && this.filter()) {
+            this.filter.set(undefined);
             this.onFilter();
-            this.value = component?.value();
+            this.setValue(component?.value());
         }
         else {
-            this.value = component?.value();
+            this.setValue(component?.value());
         }
         if (isChanged) {
-            this.valueChange.emit(this.value);
+            this.valueChange.emit(this.value());
         }
-        this.selectedIndex = component ? this.itemComponents.indexOf(component) : undefined;
-        if (this.multiple && component) {
-            this.selectedItem = undefined;
+        this.selectedIndex.set(component ? components.indexOf(component) : undefined);
+        if (this.multiple() && component) {
+            this.selectedItem.set(undefined);
             // TODO: Implement
             // this.selectedItems.push(item);
             // item.filtered = true;
         }
         else {
-            this.selectedItem = this.items ? this.items.find(item => item.value === value) : { value };
+            const items = this.items();
+            this.selectedItem.set(items ? items.find(item => item.value === value) : { value });
         }
-        if (!this.multiple) {
+        if (!this.multiple()) {
             this.close();
         }
         // HACK: This is a dirty hack, but currently i found no other solution. If you have a solution please create an issue
@@ -521,36 +382,33 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     }
 
     protected deselect(item: DropdownValue): void {
-        const index = this.selectedItems.indexOf(item);
+        const items = this.selectedItems();
+        const index = items.indexOf(item);
         if (index >= 0) {
-            this.selectedItems.splice(index, 1);
+            this.selectedItems.set(items.filter((_, itemIndex) => itemIndex !== index));
         }
-        if (this.selectedItems.length === 0) {
-            this.isDefault = true;
+        if (this.selectedItems().length === 0) {
+            this.isDefault.set(true);
         }
     }
 
     protected selectIndex(index: number): void {
-        this.selectedIndex = Math.max(0, Math.min(index, this.itemComponents.length - 1));
-        this.itemComponents.forEach((item, itemIndex) => item.select(itemIndex === this.selectedIndex));
+        const components = this.itemComponents();
+        this.selectedIndex.set(Math.max(0, Math.min(index, components.length - 1)));
+        components.forEach((item, itemIndex) => item.select(itemIndex === this.selectedIndex()));
     }
 
     protected onFilter(): void {
-        if (this.itemComponents) {
-            this.itemComponents.forEach(item => item.filteredOut = this.isItemFilteredOut(item));
-            // this.isFiltered = this.itemComponents.some(item => item.filtered);
-        }
-        else {
-            // this.isFiltered = false;
-        }
-        const filteredItems = this.itemComponents.filter(item => !item.filteredOut);
+        const components = this.itemComponents();
+        components.forEach(item => item.filteredOut.set(this.isItemFilteredOut(item)));
+        const filteredItems = components.filter(item => !item.filteredOut());
         if (filteredItems.length === 1) {
-            this.selectedIndex = this.itemComponents.indexOf(filteredItems[0]);
+            this.selectedIndex.set(components.indexOf(filteredItems[0]));
         }
-        else if (this.selectedIndex !== undefined && !filteredItems.includes(this.itemComponents[this.selectedIndex])) {
-            this.selectedIndex = this.itemComponents.indexOf(filteredItems[0]);
+        else if (this.selectedIndex() !== undefined && !filteredItems.includes(components[this.selectedIndex()!])) {
+            this.selectedIndex.set(components.indexOf(filteredItems[0]));
         }
-        this.isFiltered = !!this.filter();
+        this.isFiltered.set(!!this.filter());
         // TODO: Filter content children
     }
 
@@ -569,18 +427,18 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         return textContainsFilter && valueContainsFilter;
     }
 
-    private refreshItems(query: QueryList<DropdownItemComponent>): void {
-        this.itemComponents = query.toArray();
-        if (this.selectedIndex === undefined || this.itemComponents?.[this.selectedIndex]?.value() !== this.value) {
-            setTimeout(() => this.select(this.value));
+    private refreshItems(items: DropdownItemComponent[]): void {
+        const selectedIndex = this.selectedIndex();
+        if (selectedIndex === undefined || items[selectedIndex]?.value() !== this.value()) {
+            setTimeout(() => this.select(this.value()));
         }
     }
 
     protected itemMouseDown(item: DropdownValue): void {
-        this.keepOpen = true;
+        this.keepOpen.set(true);
         // this.select(item);
         setTimeout(() => {
-            if (this.search) {
+            if (this.search()) {
                 this.inputElement()?.nativeElement.focus();
             }
             else {
@@ -590,7 +448,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     }
 
     protected itemMouseUp(item: DropdownValue): void {
-        this.keepOpen = false;
+        this.keepOpen.set(false);
     }
 
     /**

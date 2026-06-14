@@ -1,5 +1,4 @@
-﻿
-import { Component, ComponentRef, HostBinding, inject, Input, OnDestroy, Type, ViewContainerRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ComponentRef, effect, inject, input, OnDestroy, signal, Type, untracked, ViewContainerRef } from '@angular/core';
 import { FormElements } from '../form-renderer/form-layout';
 import { FormRendererService } from '../form-renderer/form-renderer.service';
 import { FormElementBase } from './form-element-base';
@@ -8,55 +7,49 @@ import { FormElementBase } from './form-element-base';
     selector: 'm-form-renderer2',
     templateUrl: './form-element-renderer2.component.html',
     styleUrls: ['./form-element-renderer2.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    imports: []
+    host: {
+        '[class.visible]': 'invalidType()'
+    }
 })
 export class FormElementRenderer2Component implements OnDestroy {
     private readonly formRendererService = inject(FormRendererService);
     private readonly viewContainerRef = inject(ViewContainerRef);
     private elementType: Type<FormElementBase> | undefined;
-    private elementValue: FormElements | undefined;
-    private dataValue: unknown;
-
     public componentRef: ComponentRef<FormElementBase> | undefined;
+    public readonly invalidType = signal<string | undefined>(undefined);
+    public readonly element = input<FormElements>();
+    public readonly data = input<unknown>();
 
-    @HostBinding('class.visible')
-    public invalidType: string | undefined;
-
-    public get element(): FormElements | undefined {
-        return this.elementValue;
-    }
-
-    @Input()
-    public set element(value: FormElements | undefined) {
-        this.elementValue = value;
-        this.elementType = this.formRendererService.get(value?.elementType);
-        if (!this.elementType) {
-            this.invalidType = value?.elementType;
-        }
-        this.createComponent();
-    }
-
-    public get data(): unknown {
-        return this.dataValue;
-    }
-
-    @Input()
-    public set data(value: unknown) {
-        this.dataValue = value;
-        if (this.componentRef?.instance) {
-            this.componentRef.instance.data = value;
-        }
+    public constructor() {
+        // Resolve the element type and (re)create the child component when the element changes.
+        effect(() => {
+            const element = this.element();
+            untracked(() => {
+                this.elementType = this.formRendererService.get(element?.elementType);
+                this.invalidType.set(this.elementType ? undefined : element?.elementType);
+                this.createComponent();
+            });
+        });
+        // Push data changes onto the already-created child instance.
+        effect(() => {
+            const data = this.data();
+            untracked(() => {
+                if (this.componentRef?.instance) {
+                    this.componentRef.instance.data = data;
+                }
+            });
+        });
     }
 
     public createComponent(): void {
         this.viewContainerRef.clear();
-        if (!this.elementType || !this.element) {
+        const element = this.element();
+        if (!this.elementType || !element) {
             return;
         }
         this.componentRef = this.viewContainerRef.createComponent(this.elementType);
-        this.componentRef.instance.element = this.element;
-        this.componentRef.instance.data = this.data;
+        this.componentRef.instance.element = element;
+        this.componentRef.instance.data = this.data();
     }
 
     public ngOnDestroy(): void {

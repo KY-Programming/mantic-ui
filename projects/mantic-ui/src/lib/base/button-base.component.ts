@@ -1,141 +1,59 @@
-﻿import { Directive, HostBinding, Input } from '@angular/core';
-import { ActiveDirective } from '../directives/active.directive';
-import { BasicDirective } from '../directives/basic.directive';
-import { ColorDirective } from '../directives/color.directive';
-import { DisabledDirective } from '../directives/disabled.directive';
-import { InvertedDirective } from '../directives/inverted.directive';
-import { LoadingDirective } from '../directives/loading.directive';
+import { Directive, effect, input, output } from '@angular/core';
+import { toBoolean } from '../helpers/to-boolean';
+import { transformableModel } from '../helpers/transformable-model';
 import { BooleanLike } from '../models/boolean-like';
+import { ColorName } from '../models/color';
 import { InvertibleComponent } from './invertible.component';
 
 @Directive({
-    hostDirectives: [ColorDirective.default, BasicDirective.default, InvertedDirective.default, DisabledDirective.default, LoadingDirective.default, ActiveDirective.default],
-    providers: ButtonBaseComponent.providers
+    providers: ButtonBaseComponent.providers,
+    host: {
+        '[class.primary]': 'primary()',
+        '[class.secondary]': 'secondary()',
+        '[class.positive]': 'positive()',
+        '[class.negative]': 'negative()',
+        '[class.circular]': 'circular()',
+        '[class.left]': 'attachedLeft()',
+        '[class.top]': 'attachedTop()',
+        '[class.right]': 'attachedRight()',
+        '[class.bottom]': 'attachedBottom()',
+        '[class.attached]': 'attached'
+    }
 })
 export abstract class ButtonBaseComponent extends InvertibleComponent {
     protected static override readonly providers = [...InvertibleComponent.providers];
-    private sizeValue = '';
-    private isPrimary = false;
-    private isSecondary = false;
-    private isPositive = false;
-    private isNegative = false;
-    private isCircular = false;
-    private isAttachedLeft = false;
-    private isAttachedTop = false;
-    private isAttachedRight = false;
-    private isAttachedBottom = false;
+    public readonly primary = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly secondary = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly positive = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly negative = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly size = input('');
+    public readonly circular = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly attachedLeft = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly attachedTop = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly attachedRight = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly attachedBottom = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly color = input<ColorName | undefined>(undefined);
+    public readonly basic = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly disabled = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly loading = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly activeInput = input<boolean, BooleanLike>(false, { alias: 'active', transform: toBoolean });
+    public readonly activeChange = output<boolean>();
+    public readonly active = transformableModel(this.activeInput, this.activeChange, toBoolean);
 
-    @Input()
-    @HostBinding('class.primary')
-    public get primary(): boolean {
-        return this.isPrimary;
-    }
-
-    public set primary(value: BooleanLike) {
-        this.isPrimary = this.toBoolean(value);
-    }
-
-    @Input()
-    @HostBinding('class.secondary')
-    public get secondary(): boolean {
-        return this.isSecondary;
-    }
-
-    public set secondary(value: BooleanLike) {
-        this.isSecondary = this.toBoolean(value);
-    }
-
-    @Input()
-    @HostBinding('class.positive')
-    public get positive(): boolean {
-        return this.isPositive;
-    }
-
-    public set positive(value: BooleanLike) {
-        this.isPositive = this.toBoolean(value);
-    }
-
-    @Input()
-    @HostBinding('class.negative')
-    public get negative(): boolean {
-        return this.isNegative;
-    }
-
-    public set negative(value: BooleanLike) {
-        this.isNegative = this.toBoolean(value);
-    }
-
-    public get size(): string {
-        return this.sizeValue;
-    }
-
-    @Input()
-    public set size(value: string) {
-        this.sizeValue = value;
-        this.classes.set('size', value);
-    }
-
-    @Input()
-    @HostBinding('class.circular')
-    public get circular(): boolean {
-        return this.isCircular;
-    }
-
-    public set circular(value: BooleanLike) {
-        this.isCircular = this.toBoolean(value);
-    }
-
-    @Input()
-    @HostBinding('class.left')
-    public get attachedLeft(): boolean {
-        return this.isAttachedLeft;
-    }
-
-    public set attachedLeft(value: BooleanLike) {
-        this.isAttachedLeft = this.toBoolean(value);
-    }
-
-    @Input()
-    @HostBinding('class.top')
-    public get attachedTop(): boolean {
-        return this.isAttachedTop;
-    }
-
-    public set attachedTop(value: BooleanLike) {
-        this.isAttachedTop = this.toBoolean(value);
-    }
-
-    @Input()
-    @HostBinding('class.right')
-    public get attachedRight(): boolean {
-        return this.isAttachedRight;
-    }
-
-    public set attachedRight(value: BooleanLike) {
-        this.isAttachedRight = this.toBoolean(value);
-    }
-
-    @Input()
-    @HostBinding('class.bottom')
-    public get attachedBottom(): boolean {
-        return this.isAttachedBottom;
-    }
-
-    public set attachedBottom(value: BooleanLike) {
-        this.isAttachedBottom = this.toBoolean(value);
-    }
-
-    @HostBinding('class.attached')
     protected get attached(): boolean {
-        return this.isAttachedTop || this.attachedBottom || this.attachedLeft || this.attachedRight;
+        return this.attachedTop() || this.attachedBottom() || this.attachedLeft() || this.attachedRight();
     }
-
-    @HostBinding('class.button')
-    protected readonly button = true;
 
     protected constructor() {
         super();
         this.elementRef.nativeElement.setAttribute('tabindex', '0');
-        this.classes.register('size', 'primary', 'secondary', 'positive', 'negative', 'circular', 'tabindex', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom');
+        this.classes.register('color', 'basic', 'disabled', 'loading', 'active', 'size', 'primary', 'secondary', 'positive', 'negative', 'circular', 'tabindex', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom')
+            .registerFixed('button');
+        effect(() => this.classes.set('color', this.color()));
+        effect(() => this.classes.set('basic', this.basic()));
+        effect(() => this.classes.set('disabled', this.disabled()));
+        effect(() => this.classes.set('loading', this.loading()));
+        effect(() => this.classes.set('active', this.active()));
+        effect(() => this.classes.set('size', this.size()));
     }
 }

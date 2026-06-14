@@ -1,7 +1,6 @@
 import { NgIfContext } from '@angular/common';
-import { Component, ContentChild, EventEmitter, HostBinding, HostListener, inject, Input, Output, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, contentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { ButtonBaseComponent } from '../../base/button-base.component';
-import { ActiveDirective } from '../../directives/active.directive';
 import { BooleanLike } from '../../models/boolean-like';
 import { Key } from '../../models/key';
 
@@ -10,32 +9,24 @@ import { Key } from '../../models/key';
     templateUrl: './toggle-button.component.html',
     styleUrls: ['./toggle-button.component.scss'],
     imports: [],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...ButtonBaseComponent.providers]
+    providers: [...ButtonBaseComponent.providers],
+    host: {
+        '[class.checked]': 'checked',
+        '(click)': 'toggle()',
+        '(keydown)': 'onKeyDown($event)'
+    }
 })
 export class ToggleButtonComponent extends ButtonBaseComponent {
-    private readonly activeDirective = inject(ActiveDirective, { self: true });
-
-    @ContentChild('active')
-    // eslint-disable-next-line no-null/no-null
-    public activeTemplate: TemplateRef<NgIfContext<boolean>> | null = null;
-
-    protected get active(): boolean {
-        return this.activeDirective.active;
-    }
-
-    protected set active(value: BooleanLike) {
-        this.activeDirective.active = value;
-    }
+    public readonly activeTemplate = contentChild<TemplateRef<NgIfContext<boolean>> | null>('active');
 
     public get checked(): boolean {
-        return this.active;
+        return this.active();
     }
 
+    // Kept as accessor: assigned imperatively inside the class (check()/uncheck()) and has a paired checkedChange output; signal inputs are read-only.
     @Input()
-    @HostBinding('class.checked')
     public set checked(value: BooleanLike) {
-        this.active = value;
+        this.active.set(value);
     }
 
     @Output()
@@ -47,7 +38,6 @@ export class ToggleButtonComponent extends ButtonBaseComponent {
             .registerFixed('toggle');
     }
 
-    @HostListener('click')
     protected toggle(): void {
         if (this.checked) {
             this.uncheck();
@@ -57,7 +47,6 @@ export class ToggleButtonComponent extends ButtonBaseComponent {
         }
     }
 
-    @HostListener('keydown', ['$event'])
     protected onKeyDown(event: KeyboardEvent): void {
         if (Key.is(event, Key.space, Key.enter)) {
             this.toggle();

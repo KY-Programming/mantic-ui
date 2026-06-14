@@ -1,13 +1,13 @@
-@for (element of elements; track element) {
+@for (element of elements(); track element) {
     @switch (element.elementType) {
         @case ('input') {
             @if ($input(element); as input) {
                 <m-field [label]="input.label" [readonly]="input.readonly" [class.fill]="element.fill">
                     @if (input.type !== 'number' && input.type !== 'range') {
-                        <m-input [type]="input.type" [(value)]="anyData[input.field]"></m-input>
+                        <m-input [type]="input.type" [(value)]="anyData()[input.field]"></m-input>
                     }
                     @if (input.type === 'number' || input.type === 'range') {
-                        <m-numeric-input [range]="input.type === 'range'" [(value)]="anyData[input.field]" [min]="input.min" [max]="input.max" [zeroText]="input.zeroText"></m-numeric-input>
+                        <m-numeric-input [range]="input.type === 'range'" [(value)]="anyData()[input.field]" [min]="input.min" [max]="input.max" [zeroText]="input.zeroText"></m-numeric-input>
                     }
                 </m-field>
             }
@@ -15,21 +15,21 @@
         @case ('checkbox') {
             @if ($checkbox(element); as checkbox) {
                 <m-field [label]="checkbox.label" [readonly]="checkbox.readonly" [class.fill]="element.fill">
-                    <m-checkbox [(value)]="anyData[checkbox.field]"></m-checkbox>
+                    <m-checkbox [(value)]="anyData()[checkbox.field]"></m-checkbox>
                 </m-field>
             }
         }
         @case ('area') {
             @if ($area(element); as area) {
                 <m-field [label]="area.label" [readonly]="area.readonly" [class.fill]="element.fill">
-                    <m-textarea [(value)]="anyData[area.field]"></m-textarea>
+                    <m-textarea [(value)]="anyData()[area.field]"></m-textarea>
                 </m-field>
             }
         }
         @case ('dropdown') {
             @if ($dropdown(element); as dropdown) {
                 <m-field [label]="dropdown.label" [disabled]="dropdown.readonly" [class.fill]="element.fill">
-                    <m-dropdown [(value)]="anyData[dropdown.field]" [items]="getItems(dropdown) | async" [allowFreeText]="dropdown.allowFreeText" search></m-dropdown>
+                    <m-dropdown [(value)]="anyData()[dropdown.field]" [items]="getItems(dropdown) | async" [allowFreeText]="dropdown.allowFreeText" search></m-dropdown>
                 </m-field>
             }
         }
@@ -45,7 +45,7 @@
         }
         @case ('fields') {
             @if ($fields(element); as fields) {
-                <m-form-element-renderer [elements]="fields.elements" [data]="data" [class.fill]="element.fill" fields (execute)="onExecute($event)"></m-form-element-renderer>
+                <m-form-element-renderer [elements]="fields.elements" [data]="data()" [class.fill]="element.fill" fields (execute)="onExecute($event)"></m-form-element-renderer>
             }
         }
         @case ('grid') {
@@ -53,7 +53,7 @@
                 <m-grid [width]="grid.width" [class.fill]="element.fill">
                     @for (cell of grid.cells; track cell) {
                         <m-cell [float]="cell.float" [align]="cell.align" [size]="cell.size">
-                            <m-form-element-renderer [elements]="cell.elements" [data]="data" (execute)="onExecute($event)"></m-form-element-renderer>
+                            <m-form-element-renderer [elements]="cell.elements" [data]="data()" (execute)="onExecute($event)"></m-form-element-renderer>
                         </m-cell>
                     }
                 </m-grid>
@@ -113,10 +113,10 @@
             }
         }
         @default {
-            <m-form-renderer2 [element]="element" [data]="data"></m-form-renderer2>
+            <m-form-renderer2 [element]="element" [data]="data()"></m-form-renderer2>
         }
     }
 }
-@if (!elements.length) {
+@if (!elements().length) {
     <div>No elements configured</div>
 }

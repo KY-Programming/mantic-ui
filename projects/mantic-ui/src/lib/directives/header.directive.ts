@@ -1,63 +1,48 @@
-import { Directive, HostBinding, inject, Input, OnInit, input } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { Directive, effect, Input, input } from '@angular/core';
 import { BaseDirective } from '../base/base.directive';
 import { HeaderComponent } from '../components/header/header.component';
+import { toBoolean } from '../helpers/to-boolean';
 import { BooleanLike } from '../models/boolean-like';
-import { InvertedDirective } from './inverted.directive';
 
 @Directive({
     selector: '[m-header]',
-    hostDirectives: [InvertedDirective.default],
-    providers: [...BaseDirective.providers]
+    providers: [...BaseDirective.providers],
+    host: {
+        '[class.dividing]': 'dividing()',
+        '[class.icon]': 'icon()',
+        '[class.sub]': 'sub()'
+    }
 })
-export class HeaderDirective extends BaseDirective implements OnInit {
-    private readonly invertedDirective = inject(InvertedDirective);
-    private isDividing = false;
-    private isIcon = false;
+export class HeaderDirective extends BaseDirective {
+    private isInverted: boolean | undefined;
+    private isInvertedDefault = false;
 
+    @Input()
     public get inverted(): boolean {
-        return this.invertedDirective.inverted;
+        return this.isInverted ?? this.isInvertedDefault;
     }
 
     public set inverted(value: BooleanLike) {
-        this.invertedDirective.inverted = this.toBoolean(value);
+        this.isInverted = this.toBoolean(value);
+        this.classes.set('inverted', this.inverted);
     }
 
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.dividing')
-    public get dividing(): boolean {
-        return this.isDividing;
-    }
+    public readonly dividing = input<boolean, BooleanLike>(false, { transform: toBoolean });
 
-    public set dividing(value: BooleanLike) {
-        this.isDividing = this.toBoolean(value);
-    }
+    public readonly icon = input<boolean, BooleanLike>(false, { transform: toBoolean });
 
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.icon')
-    public get icon(): boolean {
-        return this.isIcon;
-    }
-
-    public set icon(value: BooleanLike) {
-        this.isIcon = this.toBoolean(value);
-    }
-
-    @HostBinding('class.sub')
-public readonly sub = input(false);
+    public readonly sub = input(false);
 
     public constructor() {
         super();
-        this.classes.registerFixed('header');
+        this.classes.register('inverted')
+            .registerFixed('header');
         this.validateAttributes = false;
+        effect(() => this.setInvertedDefault(HeaderComponent.defaults.inverted()));
     }
 
-    public override ngOnInit(): void {
-        super.ngOnInit();
-        HeaderComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.invertedDirective.setInvertedDefault(value));
+    private setInvertedDefault(value: boolean): void {
+        this.isInvertedDefault = value;
+        this.classes.set('inverted', this.inverted);
     }
 }

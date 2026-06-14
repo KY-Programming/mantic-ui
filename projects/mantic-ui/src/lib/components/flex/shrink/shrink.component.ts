@@ -1,11 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'm-shrink',
     templateUrl: './shrink.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    styleUrls: ['./shrink.component.scss'],
-    })
-export class ShrinkComponent {
-
-}
+    styleUrls: ['./shrink.component.scss']
+})
+export class ShrinkComponent {}

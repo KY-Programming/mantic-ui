@@ -1,114 +1,38 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Component, effect, input, signal } from '@angular/core';
 import { InvertibleComponent } from '../../base/invertible.component';
-import { BasicDirective } from '../../directives/basic.directive';
+import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
-
-export declare type Align =
-    | 'top'
-    | 'bottom'
-    | 'middle';
+import { Align } from './models/align';
 
 @Component({
     selector: 'm-table',
     templateUrl: './table.component.html',
     styleUrls: ['./table.component.scss'],
-    hostDirectives: [BasicDirective.default],
-    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InvertibleComponent.providers]
 })
-export class TableComponent extends InvertibleComponent implements OnInit {
+export class TableComponent extends InvertibleComponent {
     public static readonly defaults = {
-        inverted: false,
-        invertedChange: new ReplaySubject<boolean>(1)
+        inverted: signal(false)
     };
-
-    private isCelled = true;
-    private isUnstackable = false;
-    private isVery = false;
-    private alignedValue: Align | undefined;
-    private isDefinition = false;
-    private isCollapsing = false;
-
-    @Input()
-    public get celled(): boolean {
-        return this.isCelled;
-    }
-
-    public set celled(value: BooleanLike) {
-        this.isCelled = this.toBoolean(value);
-        this.classes.set('celled', this.isCelled);
-    }
-
-    @Input()
-    public get notCelled(): boolean {
-        return !this.celled;
-    }
-
-    public set notCelled(value: BooleanLike) {
-        this.celled = !this.toBoolean(value);
-    }
-
-    @Input()
-    public get very(): boolean {
-        return this.isVery;
-    }
-
-    public set very(value: BooleanLike) {
-        this.isVery = this.toBoolean(value);
-        this.classes.set('very', this.isVery);
-    }
-
-    @Input()
-    public get unstackable(): boolean {
-        return this.isUnstackable;
-    }
-
-    public set unstackable(value: BooleanLike) {
-        this.isUnstackable = this.toBoolean(value);
-        this.classes.set('unstackable', this.isUnstackable);
-    }
-
-    @Input()
-    public get aligned(): Align | undefined {
-        return this.alignedValue;
-    }
-
-    public set aligned(value: Align | undefined) {
-        this.alignedValue = value;
-        this.classes.set('aligned', value ? value + ' aligned' : undefined);
-    }
-
-    @Input()
-    public get definition(): boolean {
-        return this.isDefinition;
-    }
-
-    public set definition(value: BooleanLike) {
-        this.isDefinition = this.toBoolean(value);
-        this.classes.set('definition', this.isDefinition);
-    }
-
-    @Input()
-    public get collapsing(): boolean {
-        return this.isCollapsing;
-    }
-
-    public set collapsing(value: BooleanLike) {
-        this.isCollapsing = this.toBoolean(value);
-        this.classes.set('collapsing', this.isCollapsing);
-    }
+    public readonly notCelled = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly very = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly unstackable = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly aligned = input<Align>('middle');
+    public readonly definition = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly collapsing = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly basic = input<boolean, BooleanLike>(false, { transform: toBoolean });
 
     public constructor() {
         super();
-        this.classes.register('celled', 'notCelled', 'very', BasicDirective.basic, 'unstackable', 'aligned', 'definition', 'collapsing')
+        this.classes.register('celled', 'notCelled', 'very', 'basic', 'unstackable', 'aligned', 'definition', 'collapsing')
             .registerFixed('table');
-        this.aligned ??= 'middle';
-    }
-
-    public override ngOnInit(): void {
-        super.ngOnInit();
-        TableComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
+        effect(() => this.classes.set('aligned', this.aligned()));
+        effect(() => this.classes.set('basic', this.basic()));
+        effect(() => this.classes.set('celled', !this.notCelled()));
+        effect(() => this.classes.set('very', this.very()));
+        effect(() => this.classes.set('unstackable', this.unstackable()));
+        effect(() => this.classes.set('definition', this.definition()));
+        effect(() => this.classes.set('collapsing', this.collapsing()));
+        effect(() => this.refreshInverted(TableComponent.defaults.inverted()));
     }
 }

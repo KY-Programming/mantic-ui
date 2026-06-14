@@ -1,142 +1,107 @@
-import { Component, ContentChildren, EventEmitter, HostBinding, Input, Output, QueryList, ChangeDetectionStrategy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Component, computed, contentChildren, effect, input, OnDestroy, output, OutputRefSubscription, signal, untracked } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
-import { InlineDirective } from '../../directives/inline.directive';
+import { toBoolean } from '../../helpers/to-boolean';
+import { transformableModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
 import { FieldComponent } from '../field/field.component';
-
-export declare type FieldsType =
-    ''
-    | 'two'
-    | 'three'
-    | 'four'
-    | 'five'
-    | 'six'
-    | 'seven'
-    | 'eight'
-    | 'nine'
-    | 'ten'
-    | number;
+import { FieldsType } from './models/fields-type';
 
 @Component({
     selector: 'm-field-group',
     templateUrl: './field-group.component.html',
     styleUrls: ['./field-group.component.scss'],
-    hostDirectives: [InlineDirective.default],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...BaseComponent.providers]
+    providers: [...BaseComponent.providers],
+    host: {
+        '[class.grouped]': 'grouped()'
+    }
 })
-export class FieldGroupComponent extends BaseComponent {
-    private readonly fieldClasses: FieldsType[] = ['', '', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
-    private fieldsValue: FieldsType | undefined;
-    private fieldsAutoValue: FieldsType | undefined;
-    private isGrouped = false;
-    private isInlineValidation = false;
-    private errorValue = false;
-    private changeSubscriptions: Subscription[] = [];
-    private fieldComponentsValue?: QueryList<FieldComponent>;
-
-    @Input()
-    public get fields(): FieldsType | undefined {
-        return this.fieldsValue || this.fieldsAutoValue;
-    }
-
-    public set fields(value: FieldsType | undefined) {
-        // TODO: Parse number as string e.g. '2'
-        if (typeof value === 'number') {
-            this.fieldsValue = this.fieldClasses[value];
-        }
-        else {
-            this.fieldsValue = value;
-        }
-    }
-
-    @ContentChildren(FieldComponent)
-    public get fieldComponents(): QueryList<FieldComponent> | undefined {
-        return this.fieldComponentsValue;
-    }
-
-    public set fieldComponents(value: QueryList<FieldComponent> | undefined) {
-        this.fieldComponentsValue = value;
-        this.refreshInlineValidation();
-        this.refreshChangeSubscriptions();
-        this.refreshIsValid();
-        if (this.fieldComponentsValue) {
-            this.refreshFields(this.fieldComponentsValue.length);
-            this.fieldComponentsValue.changes.subscribe(() => {
-                this.refreshFields(this.fieldComponentsValue?.length ?? 0);
-                this.refreshInlineValidation();
-                this.refreshChangeSubscriptions();
-                this.refreshIsValid();
-            });
-        }
-    }
-
-    @Input()
-    @HostBinding('class.grouped')
-    public get grouped(): boolean {
-        return this.isGrouped;
-    }
-
-    public set grouped(value: BooleanLike) {
-        this.isGrouped = this.toBoolean(value);
-    }
-
-    @Input()
-    public get inlineValidation(): boolean {
-        return this.isInlineValidation;
-    }
-
-    public set inlineValidation(value: BooleanLike) {
-        this.isInlineValidation = this.toBoolean(value);
-        this.refreshInlineValidation();
-    }
-
-    @Input()
-    public get error(): boolean {
-        return this.errorValue;
-    }
-
-    public set error(value: BooleanLike) {
-        value = this.toBoolean(value);
-        if (this.errorValue === value) {
-            return;
-        }
-        this.errorValue = value;
-        this.errorChange.emit(value);
-    }
-
-    @Output()
-    public readonly errorChange = new EventEmitter<boolean>();
-
-    @Output()
-    public readonly change = new EventEmitter<void>();
+export class FieldGroupComponent extends BaseComponent implements OnDestroy {
+    private static readonly fieldClasses: FieldsType[] = ['', '', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+    private readonly changeSubscriptions: OutputRefSubscription[] = [];
+    public readonly fieldComponents = contentChildren(FieldComponent);
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly fieldsInput = input<FieldsType | undefined, FieldsType>(undefined, { alias: 'fields', transform: value => typeof value === 'number' ? FieldGroupComponent.fieldClasses[value] : value });
+    private readonly fieldsAutoValue = signal<FieldsType | undefined>(undefined);
+    public readonly fields = computed(() => this.fieldsInput() || this.fieldsAutoValue());
+    public readonly grouped = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly inline = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly inlineValidationInput = input<boolean, BooleanLike>(false, { alias: 'inlineValidation', transform: toBoolean });
+    public readonly inlineValidationChange = output<boolean>();
+    public readonly inlineValidation = transformableModel(this.inlineValidationInput, this.inlineValidationChange, toBoolean);
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly errorInput = input<boolean, BooleanLike>(false, { alias: 'error', transform: toBoolean });
+    private readonly errorState = signal(false);
+    public readonly error = this.errorState.asReadonly();
+    public readonly errorChange = output<boolean>();
+    // eslint-disable-next-line @angular-eslint/no-output-native
+    public readonly change = output();
 
     public constructor() {
         super(false);
-        this.classes.register('grouped')
+        this.classes.register('inline', 'grouped')
             .registerFixed('fields');
+        effect(() => this.classes.set('inline', this.inline()));
+
+        // React to the projected fields: derive the column-count class, re-wire change/error subscriptions, recheck validity.
+        effect(() => {
+            const fields = this.fieldComponents();
+            untracked(() => {
+                this.fieldsAutoValue.set(FieldGroupComponent.fieldClasses[fields.length]);
+                this.refreshChangeSubscriptions(fields);
+                this.refreshIsValid();
+            });
+        });
+
+        // Propagate inlineValidation to child fields when it or the field set changes.
+        effect(() => {
+            const inlineValidation = this.inlineValidation();
+            const fields = this.fieldComponents();
+            untracked(() => {
+                for (const field of fields) {
+                    field.inlineValidation.set(inlineValidation);
+                }
+            });
+        });
+
+        // External [error] binding flows through the same dedupe/emit the old setter did.
+        effect(() => {
+            const value = this.errorInput();
+            untracked(() => this.setError(value));
+        });
     }
 
-    private refreshFields(count: number): void {
-        this.fieldsAutoValue = this.fieldClasses[count];
+    public override ngOnDestroy(): void {
+        super.ngOnDestroy();
+        this.unsubscribeAllChanges();
     }
 
-    private refreshInlineValidation(): void {
-        this.fieldComponents?.forEach(field => field.inlineValidation = this.inlineValidation);
-    }
-
-    private refreshChangeSubscriptions(): void {
-        this.changeSubscriptions.forEach(subscription => subscription.unsubscribe());
-        this.fieldComponents?.forEach(field =>
+    private refreshChangeSubscriptions(fields: readonly FieldComponent[]): void {
+        this.unsubscribeAllChanges();
+        for (const field of fields) {
             this.changeSubscriptions.push(
-                field.change.pipe(takeUntil(this.destroy)).subscribe(() => this.change.emit()),
-                field.errorChange.pipe(takeUntil(this.destroy)).subscribe(() => this.refreshIsValid())
-            ));
+                field.change.subscribe(() => this.change.emit()),
+                field.errorChange.subscribe(() => this.refreshIsValid())
+            );
+        }
+    }
+
+    private unsubscribeAllChanges(): void {
+        for (const subscription of this.changeSubscriptions) {
+            subscription.unsubscribe();
+        }
+        this.changeSubscriptions.length = 0;
     }
 
     private refreshIsValid(): void {
-        this.error = this.fieldComponents?.some(component => component.error);
+        this.setError(this.fieldComponents().some(component => component.error()));
+    }
+
+    private setError(value: boolean): void {
+        if (this.errorState() === value) {
+            return;
+        }
+        this.errorState.set(value);
+        this.errorChange.emit(value);
     }
 }

@@ -1,16 +1,19 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, input } from '@angular/core';
 import { InputBaseComponent } from './input-base.component';
 
 @Component({
     selector: 'm-input-defaults',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    template: '',
-    })
+    template: ''
+})
 export class InputDefaultsComponent {
+    public readonly inverted = input<boolean>();
 
-    @Input()
-    public set inverted(value: boolean) {
-        InputBaseComponent.defaults.inverted = value;
-        InputBaseComponent.defaults.invertedChange.next(value);
+    public constructor() {
+        effect(() => {
+            const value = this.inverted();
+            if (value !== undefined) {
+                InputBaseComponent.defaults.inverted.set(value);
+            }
+        });
     }
 }

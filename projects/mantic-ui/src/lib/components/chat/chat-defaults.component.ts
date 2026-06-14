@@ -1,37 +1,43 @@
-import { Component, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { IconType } from '../icon/icon-type';
+import { Component, effect, input, OnDestroy } from '@angular/core';
+import { IconSize } from '../icon/models/icon-size';
+import { IconType } from '../icon/models/icon-type';
 import { ChatComponent } from './chat.component';
-import { IconSize } from '../icon/icon-size';
 
 @Component({
     selector: 'm-chat-defaults',
-    changeDetection: ChangeDetectionStrategy.Eager,
     template: ''
 })
 export class ChatDefaultsComponent implements OnDestroy {
-    private readonly previousSendIcon = ChatComponent.defaults.sendIcon;
-    private readonly previousSendIconSize = ChatComponent.defaults.sendIconSize;
+    private readonly previousSendIcon = ChatComponent.defaults.sendIcon();
+    private readonly previousSendIconSize = ChatComponent.defaults.sendIconSize();
     private currentSendIcon?: IconType;
     private currentSendIconSize?: IconSize;
+    public readonly sendIcon = input<IconType>();
+    public readonly sendIconSize = input<IconSize>();
 
-    @Input()
-    public set sendIcon(value: IconType) {
-        this.currentSendIcon = value;
-        ChatComponent.defaults.sendIcon = value;
-    }
-
-    @Input()
-    public set sendIconSize(value: IconSize) {
-        this.currentSendIconSize = value;
-        ChatComponent.defaults.sendIconSize = value;
+    public constructor() {
+        effect(() => {
+            const value = this.sendIcon();
+            if (value !== undefined) {
+                this.currentSendIcon = value;
+                ChatComponent.defaults.sendIcon.set(value);
+            }
+        });
+        effect(() => {
+            const value = this.sendIconSize();
+            if (value !== undefined) {
+                this.currentSendIconSize = value;
+                ChatComponent.defaults.sendIconSize.set(value);
+            }
+        });
     }
 
     public ngOnDestroy(): void {
-        if (this.currentSendIcon === ChatComponent.defaults.sendIcon) {
-            ChatComponent.defaults.sendIcon = this.previousSendIcon;
+        if (this.currentSendIcon === ChatComponent.defaults.sendIcon()) {
+            ChatComponent.defaults.sendIcon.set(this.previousSendIcon);
         }
-        if (this.currentSendIconSize === ChatComponent.defaults.sendIconSize) {
-            ChatComponent.defaults.sendIconSize = this.previousSendIconSize;
+        if (this.currentSendIconSize === ChatComponent.defaults.sendIconSize()) {
+            ChatComponent.defaults.sendIconSize.set(this.previousSendIconSize);
         }
     }
 }

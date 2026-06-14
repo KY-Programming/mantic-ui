@@ -13,4 +13,4 @@ export interface MarkdownListItem extends MarkdownElement {
 }
 
 export const markdownListType = 'list';
-export const isMarkdownList = (element: MarkdownElement): element is MarkdownList => element?.type === markdownListType;
+export const isMarkdownList = (element: MarkdownElement | undefined): element is MarkdownList => element?.type === markdownListType;

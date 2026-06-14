@@ -1,271 +1,111 @@
-import { Component, ContentChildren, EventEmitter, HostBinding, inject, Input, OnInit, Output, QueryList, ChangeDetectionStrategy, input } from '@angular/core';
-import { delay, ReplaySubject, Subject, Subscription, throttleTime } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Component, contentChildren, effect, inject, input, output, OutputRefSubscription, signal, untracked } from '@angular/core';
+import { delay, Subject, Subscription, throttleTime } from 'rxjs';
 import { InvertibleComponent } from '../../base/invertible.component';
-import { LoadingDirective } from '../../directives/loading.directive';
+import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
 import { FieldGroupComponent } from '../field-group/field-group.component';
 import { FieldComponent } from '../field/field.component';
 import { FillDirective } from '../flex/fill/fill.directive';
 import { FlexDirective } from '../flex/flex.directive';
-import { FlexDirection } from '../flex/flex.types';
 import { FormValidationNotifier } from './form-validation-notifier';
 
 @Component({
     selector: 'm-form',
     templateUrl: './form.component.html',
     styleUrls: ['./form.component.scss'],
-    imports: [
-    FlexDirective,
-    FillDirective
-],
-    hostDirectives: [LoadingDirective.default],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...InvertibleComponent.providers]
+    imports: [FlexDirective, FillDirective],
+    providers: [...InvertibleComponent.providers],
+    host: {
+        '[class.success]': 'success()',
+        '[class.error]': 'error()',
+        '[class.warning]': 'warning()'
+    }
 })
-export class FormComponent extends InvertibleComponent implements OnInit {
+export class FormComponent extends InvertibleComponent {
     public static readonly defaults = {
-        inverted: false,
-        invertedChange: new ReplaySubject<boolean>(1)
+        inverted: signal(false)
     };
-    private readonly loadingDirective = inject(LoadingDirective, { self: true });
-    private readonly flexDirective = inject(FlexDirective, { self: true, optional: true });
+    protected readonly flexDirective = inject(FlexDirective, { self: true, optional: true });
     private readonly formValidationNotifier = inject(FormValidationNotifier, { optional: true });
-    private fieldComponentsValue?: QueryList<FieldComponent>;
-    private fieldGroupsComponentsValue?: QueryList<FieldGroupComponent>;
-    private fieldSubscriptions?: Subscription[];
-    private groupSubscriptions?: Subscription[];
-    private isValidValue = false;
-    private isSuccess = false;
-    private isWarning = false;
-    private isError = false;
-    private isAutoSubmit = false;
+    private readonly fieldSubscriptions: OutputRefSubscription[] = [];
+    private readonly groupSubscriptions: OutputRefSubscription[] = [];
     private readonly autoSubmitSubject = new Subject<void>();
-    private autoSubmitThrottleValue = 1000;
     private autoSubmitSubscription: Subscription | undefined;
-    private isInlineValidation = false;
-
-    protected get loading(): boolean {
-        return this.loadingDirective.loading;
-    }
-
-    protected get flexDirection(): FlexDirection | '' | undefined {
-        return this.flexDirective?.direction();
-    }
-
-    @ContentChildren(FieldComponent)
-    public get fieldComponents(): QueryList<FieldComponent> | undefined {
-        return this.fieldComponentsValue;
-    }
-
-    protected set fieldComponents(value: QueryList<FieldComponent> | undefined) {
-        this.releaseFields();
-        this.fieldComponentsValue = value;
-        this.subscribeFields();
-        this.refreshIsValid();
-        this.refreshInlineValidation();
-        if (this.fieldComponentsValue) {
-            this.fieldComponentsValue.changes.subscribe(() => {
-                this.releaseFields();
-                this.subscribeFields();
-                this.refreshInlineValidation();
-            });
-        }
-    }
-
-    @ContentChildren(FieldGroupComponent)
-    public get fieldGroupsComponents(): QueryList<FieldGroupComponent> | undefined {
-        return this.fieldGroupsComponentsValue;
-    }
-
-    protected set fieldGroupsComponents(value: QueryList<FieldGroupComponent> | undefined) {
-        this.releaseGroups();
-        this.fieldGroupsComponentsValue = value;
-        this.subscribeGroups();
-        this.refreshIsValid();
-        this.refreshInlineValidation();
-        if (this.fieldGroupsComponentsValue) {
-            this.fieldGroupsComponentsValue.changes.subscribe(() => {
-                this.releaseGroups();
-                this.subscribeGroups();
-                this.refreshInlineValidation();
-            });
-        }
-    }
-
+    public readonly fieldComponents = contentChildren(FieldComponent);
+    public readonly fieldGroupsComponents = contentChildren(FieldGroupComponent);
+    public readonly loading = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly action = input<string>();
-
     public readonly autocomplete = input<'on' | 'off'>();
-
     public readonly enctype = input<'application/x-www-form-urlencoded' | 'multipart/form-data' | 'text/plain'>();
-
     public readonly method = input<'get' | 'post'>();
-
     public readonly name = input<string>();
-
     public readonly novalidate = input(false);
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.success')
-    public get success(): boolean {
-        return this.isSuccess;
-    }
-
-    public set success(value: BooleanLike) {
-        this.isSuccess = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.error')
-    public get error(): boolean {
-        return this.isError;
-    }
-
-    public set error(value: BooleanLike) {
-        this.isError = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.warning')
-    public get warning(): boolean {
-        return this.isWarning;
-    }
-
-    public set warning(value: BooleanLike) {
-        this.isWarning = this.toBoolean(value);
-    }
-
+    public readonly success = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly warning = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly target = input<'_blank' | '_self' | '_parent' | '_top'>();
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get isValid(): boolean {
-        return this.isValidValue;
-    }
-
-    public set isValid(_: boolean) {
-        // Ignore the value from the binding
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get autoSubmit(): boolean {
-        return this.isAutoSubmit;
-    }
-
-    public set autoSubmit(value: BooleanLike) {
-        this.isAutoSubmit = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get autoSubmitThrottle(): number {
-        return this.autoSubmitThrottleValue;
-    }
-
-    public set autoSubmitThrottle(value: number) {
-        this.autoSubmitThrottleValue = value;
-        this.refreshAutoSubmitSubscription();
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get inlineValidation(): boolean {
-        return this.isInlineValidation;
-    }
-
-    public set inlineValidation(value: BooleanLike) {
-        this.isInlineValidation = this.toBoolean(value);
-        this.refreshInlineValidation();
-    }
-
-    @Output()
-    public readonly submit = new EventEmitter<void>();
-
-    @Output()
-    public readonly isValidChange = new EventEmitter<boolean>();
+    public readonly autoSubmit = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly autoSubmitThrottle = input(1000);
+    public readonly inlineValidation = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    private readonly errorState = signal(false);
+    public readonly error = this.errorState.asReadonly();
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly isValidInput = input<boolean, BooleanLike>(false, { alias: 'isValid', transform: toBoolean });
+    private readonly isValidState = signal(false);
+    public readonly isValid = this.isValidState.asReadonly();
+    // eslint-disable-next-line @angular-eslint/no-output-native
+    public readonly submit = output();
+    public readonly isValidChange = output<boolean>();
 
     public constructor() {
         super(false);
-        this.classes.register('success', 'warning', 'error', 'autoSubmit');
-    }
+        this.classes.register('loading', 'success', 'warning', 'error', 'autoSubmit');
+        effect(() => this.classes.set('loading', this.loading()));
+        effect(() => this.refreshInverted(FormComponent.defaults.inverted()));
 
-    public override ngOnInit(): void {
-        super.ngOnInit();
-        FormComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
-        this.refreshAutoSubmitSubscription();
-    }
+        // Subscribe to each projected field's error/change, re-wiring when the field set changes.
+        effect(onCleanup => {
+            const fields = this.fieldComponents();
+            untracked(() => {
+                this.subscribeFields(fields);
+                this.refreshIsValid();
+            });
+            onCleanup(() => this.releaseFields());
+        });
 
-    private releaseFields(): void {
-        if (this.fieldSubscriptions) {
-            this.fieldSubscriptions.forEach(subscription => subscription.unsubscribe());
-            this.fieldSubscriptions = undefined;
-        }
-    }
+        // Same for field groups.
+        effect(onCleanup => {
+            const groups = this.fieldGroupsComponents();
+            untracked(() => {
+                this.subscribeGroups(groups);
+                this.refreshIsValid();
+            });
+            onCleanup(() => this.releaseGroups());
+        });
 
-    private subscribeFields(): void {
-        if (this.fieldComponents) {
-            this.fieldSubscriptions = [
-                ...this.fieldComponents.map(field => field.errorChange.subscribe(() => this.refreshIsValid())),
-                ...(this.isAutoSubmit ? this.fieldComponents.map(field => field.change.subscribe(() => this.changed())) : [])
-            ];
-        }
-    }
+        // Propagate inlineValidation to children when it or the child set changes.
+        effect(() => {
+            this.inlineValidation();
+            this.fieldComponents();
+            this.fieldGroupsComponents();
+            untracked(() => this.refreshInlineValidation());
+        });
 
-    private releaseGroups(): void {
-        if (this.groupSubscriptions) {
-            this.groupSubscriptions.forEach(subscription => subscription.unsubscribe());
-            this.groupSubscriptions = undefined;
-        }
-    }
-
-    private subscribeGroups(): void {
-        if (this.fieldGroupsComponents) {
-            this.groupSubscriptions = [
-                ...this.fieldGroupsComponents.map(group => group.errorChange.subscribe(() => this.refreshIsValid())),
-                ...(this.isAutoSubmit ? this.fieldGroupsComponents.map(group => group.change.subscribe(() => this.changed())) : [])
-            ];
-        }
+        // Re-arm the throttled auto-submit pipeline when the throttle changes.
+        effect(() => {
+            this.autoSubmitThrottle();
+            untracked(() => this.refreshAutoSubmitSubscription());
+        });
     }
 
     public changed(): void {
         this.autoSubmitSubject.next();
     }
 
-    private refreshAutoSubmitSubscription(): void {
-        this.autoSubmitSubscription?.unsubscribe();
-        this.autoSubmitSubscription = this.autoSubmitSubject.pipe(
-            throttleTime(this.autoSubmitThrottleValue, undefined, { leading: true, trailing: true }),
-            // Delay a little bit to let all bindings be executed and the values written to the objects
-            delay(1)
-        ).subscribe(() => this.validateAndSubmit());
-    }
-
-    private refreshIsValid(): void {
-        const hasError = this.fieldComponents?.some(field => field.error) || this.fieldGroupsComponents?.some(group => group.error);
-        const isValid = !hasError;
-        this.error = hasError;
-        if (this.isValidValue !== isValid) {
-            this.isValidValue = isValid;
-            this.formValidationNotifier?.set(isValid);
-            // Delay the notification be fire the change outside the check to ensure a change detection run will be started
-            setTimeout(() => this.isValidChange.emit(isValid));
-        }
-    }
-
     public validateAndSubmit(): void {
-        if (this.error) {
-            this.fieldComponents?.forEach(field => field.forceValidation());
+        if (this.error()) {
+            for (const field of this.fieldComponents()) {
+                field.forceValidation();
+            }
         }
         else {
             this.submit.emit();
@@ -277,8 +117,62 @@ export class FormComponent extends InvertibleComponent implements OnInit {
         // TODO: Implement
     }
 
+    private releaseFields(): void {
+        for (const subscription of this.fieldSubscriptions) {
+            subscription.unsubscribe();
+        }
+        this.fieldSubscriptions.length = 0;
+    }
+
+    private subscribeFields(fields: readonly FieldComponent[]): void {
+        this.fieldSubscriptions.push(
+            ...fields.map(field => field.errorChange.subscribe(() => this.refreshIsValid())),
+            ...(this.autoSubmit() ? fields.map(field => field.change.subscribe(() => this.changed())) : [])
+        );
+    }
+
+    private releaseGroups(): void {
+        for (const subscription of this.groupSubscriptions) {
+            subscription.unsubscribe();
+        }
+        this.groupSubscriptions.length = 0;
+    }
+
+    private subscribeGroups(groups: readonly FieldGroupComponent[]): void {
+        this.groupSubscriptions.push(
+            ...groups.map(group => group.errorChange.subscribe(() => this.refreshIsValid())),
+            ...(this.autoSubmit() ? groups.map(group => group.change.subscribe(() => this.changed())) : [])
+        );
+    }
+
+    private refreshAutoSubmitSubscription(): void {
+        this.autoSubmitSubscription?.unsubscribe();
+        this.autoSubmitSubscription = this.autoSubmitSubject.pipe(
+            throttleTime(this.autoSubmitThrottle(), undefined, { leading: true, trailing: true }),
+            // Delay a little bit to let all bindings be executed and the values written to the objects
+            delay(1)
+        ).subscribe(() => this.validateAndSubmit());
+    }
+
+    private refreshIsValid(): void {
+        const hasError = this.fieldComponents().some(field => field.error()) || this.fieldGroupsComponents().some(group => group.error());
+        const isValid = !hasError;
+        this.errorState.set(hasError);
+        if (this.isValidState() !== isValid) {
+            this.isValidState.set(isValid);
+            this.formValidationNotifier?.set(isValid);
+            // Delay the notification to fire the change outside the check to ensure a change detection run will be started
+            setTimeout(() => this.isValidChange.emit(isValid));
+        }
+    }
+
     private refreshInlineValidation(): void {
-        this.fieldComponents?.forEach(field => field.inlineValidation = this.inlineValidation);
-        this.fieldGroupsComponents?.forEach(group => group.inlineValidation = this.inlineValidation);
+        const inlineValidation = this.inlineValidation();
+        for (const field of this.fieldComponents()) {
+            field.inlineValidation.set(inlineValidation);
+        }
+        for (const group of this.fieldGroupsComponents()) {
+            group.inlineValidation.set(inlineValidation);
+        }
     }
 }

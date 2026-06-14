@@ -1,31 +1,33 @@
 <div class="wrapper">
-  @if (message() && !message().grouped) {
-    <div class="header">{{message().sender}}</div>
-  }
-  {{message()?.text}}
-  @if (message()?.options) {
-    <div class="options">
-      @for (option of message()?.options; track option) {
-        @if (option.url) {
-          @if (!option.hideUrl) {
-            @if (option.url.indexOf('http') === 0) {
-              <a m-button [attr.href]="option.url" class="option">{{option.text}}</a>
+    @if (message(); as message) {
+        @if (!message.grouped) {
+            <div class="header">{{ message.sender }}</div>
+        }
+    }
+    {{ message()?.text }}
+    @if (message()?.options) {
+        <div class="options">
+            @for (option of message()?.options; track option) {
+                @if (option.url) {
+                    @if (!option.hideUrl) {
+                        @if (option.url.indexOf('http') === 0) {
+                            <a m-button [attr.href]="option.url" class="option">{{ option.text }}</a>
+                        }
+                        @if (option.url.indexOf('http') !== 0) {
+                            <a m-button [routerLink]="[option.url]" class="option">{{ option.text }}</a>
+                        }
+                    }
+                    @if (option.hideUrl) {
+                        <a m-button class="option" (click)="open(option.url)">{{ option.text }}</a>
+                    }
+                }
+                @if (option.action) {
+                    <m-button class="option" (click)="onExecute(option.action)">{{ option.text }}</m-button>
+                }
+                @if (!option.url && !option.action) {
+                    <span class="option">{{ option.text }}</span>
+                }
             }
-            @if (option.url.indexOf('http') !== 0) {
-              <a m-button [routerLink]="[option.url]" class="option">{{option.text}}</a>
-            }
-          }
-          @if (option.hideUrl) {
-            <a m-button class="option" (click)="open(option.url)">{{option.text}}</a>
-          }
-        }
-        @if (option.action) {
-          <m-button class="option" (click)="onExecute(option.action)">{{option.text}}</m-button>
-        }
-        @if (!option.url && !option.action) {
-          <span class="option">{{option.text}}</span>
-        }
-      }
-    </div>
-  }
+        </div>
+    }
 </div>

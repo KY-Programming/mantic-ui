@@ -1,5 +1,5 @@
-@if (isVisible) {
-  <m-menu *m-to-body class="content" [vertical]="vertical" [style.left.px]="left" [style.top.px]="top">
+@if (isVisible()) {
+  <m-menu *m-to-body class="content" [vertical]="vertical()" [style.left.px]="left()" [style.top.px]="top()">
     <ng-content />
   </m-menu>
 }

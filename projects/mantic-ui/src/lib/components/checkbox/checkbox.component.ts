@@ -1,181 +1,127 @@
-
-import { Component, EventEmitter, HostBinding, HostListener, inject, Input, Output, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, computed, effect, input, model, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ReplaySubject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
-import { DisabledDirective } from '../../directives/disabled.directive';
-import { ReadOnlyDirective } from '../../directives/read-only.directive';
+import { toBoolean } from '../../helpers/to-boolean';
+import { transformableModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
 import { Key } from '../../models/key';
-import { IconSize } from '../icon/icon-size';
-import { IconType } from '../icon/icon-type';
 import { IconComponent } from '../icon/icon.component';
+import { IconSize } from '../icon/models/icon-size';
+import { IconType } from '../icon/models/icon-type';
 
 @Component({
     selector: 'm-checkbox',
     templateUrl: './checkbox.component.html',
     styleUrls: ['./checkbox.component.scss'],
-    imports: [
-    IconComponent,
-    FormsModule
-],
-    hostDirectives: [DisabledDirective.default, ReadOnlyDirective.default],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: CheckboxComponent.providers
+    imports: [IconComponent, FormsModule],
+    providers: CheckboxComponent.providers,
+    host: {
+        '[class.checked]': 'checked()',
+        '[class.indeterminate]': 'indeterminate()',
+        '(click)': 'onClick($event)',
+        '(keydown)': 'onKeyDown($event)'
+    }
 })
 export class CheckboxComponent extends InvertibleComponent {
     public static readonly defaults = {
-        checkIcon: <IconType>'check',
-        checkIconSize: <IconSize>'small',
-        indeterminateIcon: <IconType>'minus',
-        indeterminateIconSize: <IconSize>'small',
-        inverted: false,
-        invertedChange: new ReplaySubject<boolean>(1)
+        checkIcon: signal<IconType>('check'),
+        checkIconSize: signal<IconSize>('small'),
+        indeterminateIcon: signal<IconType>('minus'),
+        indeterminateIconSize: signal<IconSize>('small'),
+        inverted: signal(false)
     };
     protected static override readonly providers = [...InvertibleComponent.providers];
-
-    private readonly readOnlyDirective = inject(ReadOnlyDirective, { self: true });
-    private readonly disabledDirective = inject(DisabledDirective, { self: true });
-    private nameValue?: string;
-    private labelValue?: string;
-    private isChecked: boolean | undefined = false;
-    private isIndeterminate = false;
     protected readonly defaults = CheckboxComponent.defaults;
-
-    public get readonly(): boolean {
-        return this.readOnlyDirective.readonly;
-    }
-
-    public set readonly(value: BooleanLike) {
-        this.readOnlyDirective.readonly = value;
-    }
-
-    public get disabled(): boolean {
-        return this.disabledDirective.disabled;
-    }
-
-    public set disabled(value: BooleanLike) {
-        this.disabledDirective.disabled = value;
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get value(): boolean | undefined {
-        return this.isChecked;
-    }
-
-    public set value(value: BooleanLike) {
-        this.isChecked = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get name(): string {
-        return this.nameValue ?? '';
-    }
-
-    public set name(value: string | undefined) {
-        this.nameValue = value;
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get label(): string | undefined {
-        return this.labelValue;
-    }
-
-    public set label(value: string | undefined) {
-        this.labelValue = value;
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.checked')
-    public get checked(): boolean {
-        return this.isChecked ?? false;
-    }
-
-    public set checked(value: BooleanLike) {
-        this.isChecked = this.toBoolean(value);
-    }
-
-    @Output()
-    public readonly valueChange = new EventEmitter<boolean | undefined>();
-
-    @Output()
-    public readonly checkedChange = new EventEmitter<boolean>();
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.indeterminate')
-    public get indeterminate(): boolean {
-        return this.isIndeterminate;
-    }
-
-    public set indeterminate(value: BooleanLike) {
-        this.isIndeterminate = this.toBoolean(value);
-    }
-
-    @Output()
-    public readonly indeterminateChange = this.valueChange;
-
-    public readonly canUncheck = input(true);
-
+    protected readonly checkedState = signal<boolean | undefined>(false);
+    private readonly indeterminateState = signal(false);
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly valueInput = input<boolean | undefined, BooleanLike>(undefined, { alias: 'value', transform: toBoolean });
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly checkedInput = input<boolean | undefined, BooleanLike>(undefined, { alias: 'checked', transform: toBoolean });
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly indeterminateInput = input<boolean | undefined, BooleanLike>(undefined, { alias: 'indeterminate', transform: toBoolean });
+    public readonly value = computed(() => this.checkedState());
+    public readonly checked = computed(() => this.checkedState() ?? false);
+    public readonly indeterminate = computed(() => this.indeterminateState());
+    public readonly valueChange = output<boolean | undefined>();
+    public readonly checkedChange = output<boolean>();
+    public readonly indeterminateChange = output<boolean>();
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly readonlyInput = input<boolean, BooleanLike>(false, { alias: 'readonly', transform: toBoolean });
+    public readonly readonlyChange = output<boolean>();
+    public readonly readonly = transformableModel(this.readonlyInput, this.readonlyChange, toBoolean);
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly disabledInput = input<boolean, BooleanLike>(false, { alias: 'disabled', transform: toBoolean });
+    public readonly disabledChange = output<boolean>();
+    public readonly disabled = transformableModel(this.disabledInput, this.disabledChange, toBoolean);
+    public readonly name = model<string>();
+    public readonly label = model<string>();
+    public readonly canUncheck = model(true);
     public readonly checkIcon = input<IconType>();
-
     public readonly checkIconSize = input<IconSize>();
-
     public readonly indeterminateIcon = input<IconType>();
-
     public readonly indeterminateIconSize = input<IconSize>();
-
-    @HostBinding('class.checkbox')
-    public readonly checkbox = true;
 
     public constructor() {
         super();
-        this.classes.register('indeterminate', 'fitted', 'checked', 'value', 'name', 'label', 'readonly');
-        CheckboxComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
+        this.classes.register('disabled', 'read-only', 'indeterminate', 'fitted', 'checked', 'value', 'name', 'label', 'readonly')
+            .registerFixed('checkbox');
+        effect(() => this.refreshInverted(CheckboxComponent.defaults.inverted()));
+        effect(() => this.classes.set('read-only', this.readonly()));
+        effect(() => this.classes.set('disabled', this.disabled()));
+        effect(() => {
+            const value = this.valueInput();
+            if (value !== undefined) {
+                this.checkedState.set(value);
+            }
+        });
+        effect(() => {
+            const value = this.checkedInput();
+            if (value !== undefined) {
+                this.checkedState.set(value);
+            }
+        });
+        effect(() => {
+            const value = this.indeterminateInput();
+            if (value !== undefined) {
+                this.indeterminateState.set(value);
+            }
+        });
     }
 
-    @HostListener('click', ['$event'])
     protected onClick(event: MouseEvent): void {
-        if (event.target instanceof HTMLInputElement || this.readOnlyDirective.readonly || this.disabledDirective.disabled) {
+        if (event.target instanceof HTMLInputElement || this.readonly() || this.disabled()) {
             return;
         }
-        this.set(!this.value);
+        this.set(!this.value());
     }
 
-    @HostListener('keydown', ['$event'])
     protected onKeyDown(event: KeyboardEvent): void {
-        if (this.readOnlyDirective.readonly || this.disabledDirective.disabled || !Key.space.is(event)) {
+        if (this.readonly() || this.disabled() || !Key.space.is(event)) {
             return;
         }
         event.preventDefault();
-        this.set(!this.value);
+        this.set(!this.value());
     }
 
     protected set(value: boolean): void {
         if (!value && !this.canUncheck()) {
             return;
         }
-        this.indeterminate = false;
-        if (this.value !== value) {
-            this.value = value;
+        if (this.indeterminateState()) {
+            this.indeterminateState.set(false);
+            this.indeterminateChange.emit(false);
+        }
+        if (this.value() !== value) {
+            this.checkedState.set(value);
             this.onChange();
         }
         this.refreshClasses();
     }
 
     protected onChange(): void {
-        this.valueChange.emit(this.value);
-        this.checkedChange.emit(this.isChecked);
+        this.valueChange.emit(this.value());
+        this.checkedChange.emit(this.checked());
     }
 
 }

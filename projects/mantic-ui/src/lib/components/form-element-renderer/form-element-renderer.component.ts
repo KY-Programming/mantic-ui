@@ -1,9 +1,10 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, DoCheck, HostBinding, Input, IterableDiffer, IterableDiffers, Output, ChangeDetectionStrategy, input } from '@angular/core';
-import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
+import { Component, computed, DoCheck, effect, inject, input, IterableDiffer, IterableDiffers, output, untracked } from '@angular/core';
+import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { BaseComponent } from '../../base/base.component';
 import { HeaderDirective } from '../../directives/header.directive';
+import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
 import { ButtonComponent } from '../button/button.component';
 import { CellComponent } from '../cell/cell.component';
@@ -29,82 +30,51 @@ import { FormElementRenderer2Component } from './form-element-renderer2.componen
     templateUrl: './form-element-renderer.component.html',
     styleUrls: ['./form-element-renderer.component.scss'],
     imports: [FieldComponent, InputComponent, NumericInputComponent, CheckboxComponent, TextareaComponent, DropdownComponent, ButtonComponent, GridComponent, CellComponent, MessageComponent, WarningComponent, InfoComponent, ErrorComponent, DividerComponent, FormElementRenderer2Component, HeaderDirective, AsyncPipe],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...BaseComponent.providers]
+    providers: [...BaseComponent.providers],
+    host: {
+        '[class.fields]': 'fields()'
+    }
 })
 export class FormElementRendererComponent extends BaseComponent implements DoCheck {
-    private isFields = false;
-    private readonly elementsDiffer: IterableDiffer<FormElements>;
+    private readonly elementsDiffer: IterableDiffer<FormElements> = inject(IterableDiffers).find([]).create(undefined);
     private readonly fieldClasses = ['', '', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
     private readonly dataCache = new Map<string, Observable<Record<string, unknown>[]>>();
     private readonly dropDownCache = new Map<string, Observable<DropdownValue[]>>();
     private readonly filterTick = new BehaviorSubject<void>(undefined);
     private readonly filterFields = new Set<string>();
     private readonly lastFilterValues = new Map<string, unknown>();
-    private readonly executeSubject = new Subject<string>();
-    private elementsValue: FormElements[] = [];
-    private dataValue: Record<string, unknown> = {};
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get elements(): FormElements[] {
-        return this.elementsValue;
-    }
-
-    public set elements(value: FormElements[]) {
-        this.elementsValue = value;
-        this.applyDefaults();
-        this.collectFilterFields();
-    }
-
-    @Output()
-    public readonly execute = this.executeSubject.asObservable();
-
-    public get fields(): boolean {
-        return this.isFields;
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.fields')
-    public set fields(value: BooleanLike) {
-        this.isFields = this.toBoolean(value);
-    }
-
-    protected get anyData(): any {
-        return this.data;
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get data(): Record<string, unknown> {
-        return this.dataValue ?? {};
-    }
-
-    public set data(value: Record<string, unknown>) {
-        this.dataValue = value;
-        this.applyDefaults();
-        this.dropDownCache.clear();
-        this.lastFilterValues.clear();
-        this.filterTick.next();
-    }
-
+    public readonly elements = input<FormElements[]>([]);
+    public readonly data = input<Record<string, unknown>>({});
+    public readonly execute = output<string>();
+    public readonly fields = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    protected readonly anyData = computed(() => this.data() as any);
     public readonly dataSources = input<DataSourceComponent[]>([]);
 
-    public constructor(
-        iterableDiffers: IterableDiffers
-    ) {
+    public constructor() {
         super(false);
         this.classes.register('elements', 'fields');
-        this.elementsDiffer = iterableDiffers.find([]).create(undefined);
+        // Re-run the element/data setup side effects when those inputs change.
+        effect(() => {
+            this.elements();
+            untracked(() => {
+                this.applyDefaults();
+                this.collectFilterFields();
+            });
+        });
+        effect(() => {
+            this.data();
+            untracked(() => {
+                this.applyDefaults();
+                this.dropDownCache.clear();
+                this.lastFilterValues.clear();
+                this.filterTick.next();
+            });
+        });
     }
 
     public ngDoCheck(): void {
-        if (this.isFields && this.elementsDiffer.diff(this.elements)) {
-            this.classes.set('elements', this.fieldClasses[this.elements.length]);
+        if (this.fields() && this.elementsDiffer.diff(this.elements())) {
+            this.classes.set('elements', this.fieldClasses[this.elements().length]);
         }
         this.checkFilterValues();
     }
@@ -133,7 +103,7 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
         const stream = combineLatest([this.getData(dropdown.dataSource), this.filterTick]).pipe(
             map(([data]) => {
                 const filtered = data.filter(entry => filters.every(dropdownFilter => {
-                    const formValue = this.data[dropdownFilter.formField];
+                    const formValue = this.data()[dropdownFilter.formField];
                     if (formValue === undefined || formValue === null || formValue === '') {
                         return true;
                     }
@@ -153,7 +123,7 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
     }
 
     protected onExecute(action: string): void {
-        this.executeSubject.next(action);
+        this.execute.emit(action);
     }
 
     private normalizeFilters(filter: FormDropDownElement['filter']): FormDropDownFilter[] {
@@ -166,7 +136,7 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
     private collectFilterFields(): void {
         this.filterFields.clear();
         this.lastFilterValues.clear();
-        for (const element of this.elements) {
+        for (const element of this.elements()) {
             if (element.elementType === 'dropdown') {
                 for (const dropdownFilter of this.normalizeFilters(element.filter)) {
                     this.filterFields.add(dropdownFilter.formField);
@@ -181,7 +151,7 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
         }
         let changed = false;
         for (const field of this.filterFields) {
-            const value = this.data[field];
+            const value = this.data()[field];
             if (this.lastFilterValues.get(field) !== value) {
                 this.lastFilterValues.set(field, value);
                 changed = true;
@@ -193,12 +163,12 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
     }
 
     private applyDefaults(): void {
-        if (!this.data || !this.elements) {
+        if (!this.data() || !this.elements()) {
             return;
         }
-        for (const element of this.elements as FormDataElement[]) {
+        for (const element of this.elements() as FormDataElement[]) {
             if (element.field && element.defaultValue) {
-                this.data[element.field] ??= element.defaultValue;
+                this.data()[element.field] ??= element.defaultValue;
             }
         }
     }

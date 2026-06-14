@@ -1,215 +1,77 @@
-
-import { Component, effect, ElementRef, EventEmitter, HostBinding, inject, input, Input, Output, viewChild, ChangeDetectionStrategy } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Component, computed, effect, ElementRef, input, output, signal, viewChild } from '@angular/core';
 import { InvertibleComponent } from '../../base/invertible.component';
-import { BasicDirective } from '../../directives/basic.directive';
 import { FallbackForDirective } from '../../directives/fallback-for.directive';
 import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
 import { ButtonComponent } from '../button/button.component';
 import { DimmerComponent } from '../dimmer/dimmer.component';
-import { IconType } from '../icon/icon-type';
 import { IconComponent } from '../icon/icon.component';
+import { IconType } from '../icon/models/icon-type';
 import { LoaderComponent } from '../loader/loader.component';
 import { ModalFooterComponent } from './modal-footer.component';
 import { ModalHeaderComponent } from './modal-header.component';
-
-export type ModalSize =
-    'mini'
-    | 'tiny'
-    | 'small'
-    | 'large';
+import { ModalSize } from './models/modal-size';
 
 @Component({
     selector: 'm-modal',
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss'],
     imports: [DimmerComponent, ModalHeaderComponent, ModalFooterComponent, IconComponent, ButtonComponent, LoaderComponent, FallbackForDirective],
-    hostDirectives: [BasicDirective.default],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...InvertibleComponent.providers]
+    providers: [...InvertibleComponent.providers],
+    host: {
+        '[class.hide-dimmer]': 'hideDimmer()'
+    }
 })
 export class ModalComponent extends InvertibleComponent {
     public static readonly defaults = {
-        closeIcon: <IconType>'close',
-        inverted: false,
-        invertedChange: new ReplaySubject<boolean>(1)
+        closeIcon: signal<IconType>('close'),
+        inverted: signal(false)
     };
-
-    private isShowClose = false;
-    private isShowHeader = true;
-    private isShowFooter = true;
-    private isHideDimmer = false;
-    private isVisible = true;
-    private isImageContent = false;
-    private isFullscreen = false;
-    private isScrolling = true;
-    private isNoPadding = false;
-    private isLoading = false;
     private readonly resizeObserver = new ResizeObserver(() => this.onResize());
     protected minGrowOnlyContentHeight = 0;
-
-    private readonly basicDirective = inject(BasicDirective, { self: true });
     protected readonly defaults = ModalComponent.defaults;
-
     public readonly growOnly = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly contentElementRef = viewChild<ElementRef<HTMLElement>>('content');
-
-    protected get basic(): boolean {
-        return this.basicDirective.basic;
-    }
-
+    public readonly basic = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly header = input<string>();
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get showClose(): boolean {
-        return this.isShowClose;
-    }
-
-    public set showClose(value: BooleanLike) {
-        this.isShowClose = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get showHeader(): boolean {
-        return this.isShowHeader;
-    }
-
-    public set showHeader(value: BooleanLike) {
-        this.isShowHeader = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get hideHeader(): boolean {
-        return !this.isShowHeader;
-    }
-
-    public set hideHeader(value: BooleanLike) {
-        this.isShowHeader = !this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get showFooter(): boolean {
-        return this.isShowFooter;
-    }
-
-    public set showFooter(value: BooleanLike) {
-        this.isShowFooter = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get hideFooter(): boolean {
-        return !this.isShowFooter;
-    }
-
-    public set hideFooter(value: BooleanLike) {
-        this.isShowFooter = !this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    @HostBinding('class.hide-dimmer')
-    public get hideDimmer(): boolean {
-        return this.isHideDimmer;
-    }
-
-    public set hideDimmer(value: BooleanLike) {
-        this.isHideDimmer = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get visible(): boolean {
-        return this.isVisible;
-    }
-
-    public set visible(value: BooleanLike) {
-        this.isVisible = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get imageContent(): boolean {
-        return this.isImageContent;
-    }
-
-    public set imageContent(value: BooleanLike) {
-        this.isImageContent = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get fullscreen(): boolean {
-        return this.isFullscreen;
-    }
-
-    public set fullscreen(value: BooleanLike) {
-        this.isFullscreen = this.toBoolean(value);
-    }
-
+    public readonly showClose = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly showHeaderInput = input<boolean | undefined, BooleanLike>(undefined, { alias: 'showHeader', transform: toBoolean });
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly hideHeaderInput = input<boolean | undefined, BooleanLike>(undefined, { alias: 'hideHeader', transform: toBoolean });
+    public readonly showHeader = computed(() => {
+        const hide = this.hideHeaderInput();
+        return hide === undefined ? (this.showHeaderInput() ?? true) : !hide;
+    });
+    public readonly hideHeader = computed(() => !this.showHeader());
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly showFooterInput = input<boolean | undefined, BooleanLike>(undefined, { alias: 'showFooter', transform: toBoolean });
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly hideFooterInput = input<boolean | undefined, BooleanLike>(undefined, { alias: 'hideFooter', transform: toBoolean });
+    public readonly showFooter = computed(() => {
+        const hide = this.hideFooterInput();
+        return hide === undefined ? (this.showFooterInput() ?? true) : !hide;
+    });
+    public readonly hideFooter = computed(() => !this.showFooter());
+    public readonly hideDimmer = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly visible = input<boolean, BooleanLike>(true, { transform: toBoolean });
+    public readonly imageContent = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly fullscreen = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly size = input<ModalSize>();
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get scrolling(): boolean {
-        return this.isScrolling;
-    }
-
-    public set scrolling(value: BooleanLike) {
-        this.isScrolling = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get noPadding(): boolean {
-        return this.isNoPadding;
-    }
-
-    public set noPadding(value: BooleanLike) {
-        this.isNoPadding = this.toBoolean(value);
-    }
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get loading(): boolean {
-        return this.isLoading;
-    }
-
-    public set loading(value: BooleanLike) {
-        this.isLoading = this.toBoolean(value);
-    }
-
+    public readonly scrolling = input<boolean, BooleanLike>(true, { transform: toBoolean });
+    public readonly noPadding = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly loading = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly minContentHeight = input<string>();
-
     public readonly maxContentHeight = input<string>();
-
     public readonly closeIcon = input<IconType>();
-
-    @Output()
-    public readonly close = new EventEmitter<void>();
+    // eslint-disable-next-line @angular-eslint/no-output-native
+    public readonly close = output();
 
     public constructor() {
         super(false);
-        this.classes.register('visible', 'fullscreen', 'size', 'scrolling', 'imageContent', 'header', 'footer', 'showHeader', 'hideHeader', 'showFooter', 'hideFooter', 'hideDimmer', 'showClose', 'minContentHeight', 'maxContentHeight');
-        ModalComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
+        this.classes.register('basic', 'visible', 'fullscreen', 'size', 'scrolling', 'imageContent', 'header', 'footer', 'showHeader', 'hideHeader', 'showFooter', 'hideFooter', 'hideDimmer', 'showClose', 'minContentHeight', 'maxContentHeight');
+        effect(() => this.classes.set('basic', this.basic()));
+        effect(() => this.refreshInverted(ModalComponent.defaults.inverted()));
 
         effect(() => {
             const growOnly = this.growOnly();
@@ -237,7 +99,7 @@ export class ModalComponent extends InvertibleComponent {
         if ((event.target as HTMLElement).closest('.modal')) {
             return;
         }
-        if (this.showClose || this.showClose === undefined) {
+        if (this.showClose()) {
             this.onClose();
         }
     }

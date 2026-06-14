@@ -1,52 +1,52 @@
 <input type="hidden">
 @if (icon()) {
-  <m-icon [icon]="icon()" [size]="iconSize()" class="icon"></m-icon>
+    <m-icon [icon]="icon()" [size]="iconSize()" class="icon" />
 }
-@if (!allowFreeText && hasItems) {
-  <m-icon [icon]="dropdownIcon() ?? defaults.dropdownIcon" [size]="dropdownIconSize() ?? defaults.dropdownIconSize" class="dropdown icon"></m-icon>
+@if (!allowFreeText() && hasItems()) {
+    <m-icon [icon]="dropdownIcon() ?? defaults.dropdownIcon()" [size]="dropdownIconSize() ?? defaults.dropdownIconSize()" class="dropdown icon" />
 }
-@for (selectedItem of selectedItems; track selectedItem) {
-  <a class="ui label transition visible">
-    @if (selectedItem.icon) {
-      <m-icon [icon]="selectedItem.icon" [size]="selectedItem.iconSize"></m-icon>
-    }
-    {{selectedItem.text === undefined ? selectedItem.value : selectedItem.text}}
-    <m-icon [icon]="deleteIcon() ?? defaults.deleteIcon" [size]="deleteIconSize() ?? defaults.deleteIconSize" class="icon" (click)="deleteClick(selectedItem, $event)"></m-icon>
-  </a>
-}
-@if (search || allowFreeText) {
-  <input [(ngModel)]="filter()" class="search" autocomplete="off" tabindex="0" (input)="onFilter()" (keydown)="onKeyDown($event)" #inputElement>
-}
-<div [class.default]="isDefault" [class.filtered]="isFiltered" class="text">
-  @if (!selectedItem) {
-    {{value || placeholder()}}
-  }
-  <span #htmlElement></span>
-</div>
-<div class="menu" #menuElement
-  [class.visible]="isMenuVisible"
-  [style.display]="isMenuVisible ? 'block' : ''"
-  [style.max-height.px]="menuMaxHeightPx"
-  [style.animation-duration.ms]="animationDuration()"
-  [class.transition]="isSlidingIn || isSlidingOut"
-  [class.hidden]="isHidden"
-  [class.animating]="isSlidingIn || isSlidingOut"
-  [class.slide]="isSlidingIn || isSlidingOut"
-  [class.down]="(isSlidingIn || isSlidingOut) && !isUpwardClass"
-  [class.up]="(isSlidingIn || isSlidingOut) && isUpwardClass"
-  [class.in]="isSlidingIn"
-  [class.out]="isSlidingOut"
-  [class.loading]="isLoading">
-  @if (items) {
-    @for (item of items; track item; let index = $index) {
-      <m-dropdown-item [value]="item.value" [filteredOut]="item.filtered" [selected]="index === selectedIndex" (mousedown)="itemMouseDown(item)" (mouseup)="itemMouseUp(item)">
-        @if (item.icon) {
-          <m-icon [icon]="item.icon" [size]="item.iconSize"></m-icon>
+@for (selectedItem of selectedItems(); track selectedItem) {
+    <a class="ui label transition visible">
+        @if (selectedItem.icon) {
+            <m-icon [icon]="selectedItem.icon" [size]="selectedItem.iconSize"></m-icon>
         }
-        {{item.text === undefined ? item.value : item.text}}
-      </m-dropdown-item>
+        {{ selectedItem.text === undefined ? selectedItem.value : selectedItem.text }}
+        <m-icon [icon]="deleteIcon() ?? defaults.deleteIcon()" [size]="deleteIconSize() ?? defaults.deleteIconSize()" class="icon" (click)="deleteClick(selectedItem, $event)" />
+    </a>
+}
+@if (search() || allowFreeText()) {
+    <input [ngModel]="filter()" class="search" autocomplete="off" tabindex="0" (ngModelChange)="filter.set($event)" (input)="onFilter()" (keydown)="onKeyDown($event)" #inputElement>
+}
+<div [class.default]="isDefault()" [class.filtered]="isFiltered()" class="text">
+    @if (!selectedItem()) {
+        {{ value() || placeholder() }}
     }
-  } @else {
-    <ng-content></ng-content>
-  }
+    <span #htmlElement></span>
+</div>
+<div class="menu" [class.visible]="isMenuVisible()"
+     [style.display]="isMenuVisible() ? 'block' : ''"
+     [style.max-height.px]="menuMaxHeightPx()"
+     [style.animation-duration.ms]="animationDuration()"
+     [class.transition]="isSlidingIn() || isSlidingOut()"
+     [class.hidden]="isHidden()"
+     [class.animating]="isSlidingIn() || isSlidingOut()"
+     [class.slide]="isSlidingIn() || isSlidingOut()"
+     [class.down]="(isSlidingIn() || isSlidingOut()) && !isUpwardClass()"
+     [class.up]="(isSlidingIn() || isSlidingOut()) && isUpwardClass()"
+     [class.in]="isSlidingIn()"
+     [class.out]="isSlidingOut()"
+     [class.loading]="isLoading()"
+     #menuElement>
+    @if (items()) {
+        @for (item of items(); track item; let index = $index) {
+            <m-dropdown-item [value]="item.value" [filteredOut]="item.filtered" [selected]="index === selectedIndex()" (mousedown)="itemMouseDown(item)" (mouseup)="itemMouseUp(item)">
+                @if (item.icon) {
+                    <m-icon [icon]="item.icon" [size]="item.iconSize" />
+                }
+                {{ item.text === undefined ? item.value : item.text }}
+            </m-dropdown-item>
+        }
+    } @else {
+        <ng-content />
+    }
 </div>

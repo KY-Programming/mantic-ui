@@ -1,84 +1,53 @@
-import { NgIfContext } from '@angular/common';
-import { Component, DoCheck, ElementRef, Input, IterableDiffer, IterableDiffers, Output, TemplateRef, ChangeDetectionStrategy, input, viewChild } from '@angular/core';
+import { NgIfContext, NgTemplateOutlet } from '@angular/common';
+import { Component, DoCheck, ElementRef, inject, input, IterableDiffer, IterableDiffers, signal, TemplateRef, viewChild } from '@angular/core';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { Subject } from 'rxjs';
 import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
-import { ChatMessage } from '../../models/chat-message';
 import { ButtonComponent } from '../button/button.component';
 import { ChatMessageComponent } from '../chat-message/chat-message.component';
-import { IconSize } from '../icon/icon-size';
-import { IconType } from '../icon/icon-type';
 import { IconComponent } from '../icon/icon.component';
+import { IconSize } from '../icon/models/icon-size';
+import { IconType } from '../icon/models/icon-type';
 import { InputComponent } from '../input/text/input.component';
+import { ChatMessage } from './models/chat-message';
 
 @Component({
     selector: 'm-chat',
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
-    ChatMessageComponent,
-    InputComponent,
-    ButtonComponent,
-    IconComponent
-]
+        ChatMessageComponent,
+        InputComponent,
+        ButtonComponent,
+        IconComponent,
+        NgTemplateOutlet
+    ]
 })
 export class ChatComponent implements DoCheck {
-    public static readonly defaults = { sendIcon: <IconType>'caret right', sendIconSize: <IconSize>'big' };
+    public static readonly defaults = {
+        sendIcon: signal<IconType>('caret right'),
+        sendIconSize: signal<IconSize>('big')
+    };
     private readonly sendSubject = new Subject<ChatMessage>();
     private readonly messagesDiffer: IterableDiffer<unknown>;
     protected readonly defaults = ChatComponent.defaults;
-    private canSendValue = true;
-    protected isSendIconVisible = false;
-
     public readonly messages = input<ChatMessage[]>([]);
-
     public message: string | undefined;
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get canSend(): boolean {
-        return this.canSendValue;
-    }
-
-    public set canSend(value: BooleanLike) {
-        this.canSendValue = toBoolean(value);
-    }
-
+    public readonly canSend = input<boolean, BooleanLike>(true, { transform: toBoolean });
     public readonly sender = input<string>();
-
-    // eslint-disable-next-line no-null/no-null
-public readonly sendIconTemplate = input<TemplateRef<NgIfContext<boolean>> | null>(null);
-
+    // eslint-disable-next-line unicorn/no-null
+    public readonly sendIconTemplate = input<TemplateRef<NgIfContext<boolean>> | null>(null);
     public readonly sendIcon = input<IconType>();
-
     public readonly sendIconSize = input<IconSize>();
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get showSendIcon(): boolean {
-        return this.isSendIconVisible;
-    }
-
-    public set showSendIcon(value: BooleanLike) {
-        this.isSendIconVisible = toBoolean(value);
-    }
-
+    public readonly showSendIcon = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly placeholder = input('Type a message and send with ENTER');
-
-    @Output()
-    public readonly send = this.sendSubject.asObservable();
-
+    public readonly send = outputFromObservable(this.sendSubject);
     protected readonly chat = viewChild<ElementRef<HTMLElement>>('chat');
-
     protected readonly input = viewChild(InputComponent);
 
-    public constructor(
-        iterableDiffers: IterableDiffers
-    ) {
-        this.messagesDiffer = iterableDiffers.find([]).create(undefined);
+    public constructor() {
+        this.messagesDiffer = inject(IterableDiffers).find([]).create(undefined);
     }
 
     public ngDoCheck(): void {
@@ -102,6 +71,6 @@ public readonly sendIconTemplate = input<TemplateRef<NgIfContext<boolean>> | nul
     }
 
     private scrollDown(): void {
-        setTimeout(() => this.chat()?.nativeElement.scrollTo(0, 999999));
+        setTimeout(() => this.chat()?.nativeElement.scrollTo(0, 999_999));
     }
 }

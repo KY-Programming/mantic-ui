@@ -1,39 +1,29 @@
-
-import { Component, HostBinding, OnInit, ChangeDetectionStrategy, input } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { Component, effect, input } from '@angular/core';
 import { ButtonBaseComponent } from '../../base/button-base.component';
 import { ButtonComponent } from '../button/button.component';
-import { IconSize } from '../icon/icon-size';
-import { IconType } from '../icon/icon-type';
 import { IconComponent } from '../icon/icon.component';
+import { IconSize } from '../icon/models/icon-size';
+import { IconType } from '../icon/models/icon-type';
 
 @Component({
     selector: 'm-icon-button',
     templateUrl: './icon-button.component.html',
     styleUrls: ['./icon-button.component.scss'],
-    imports: [
-    IconComponent
-],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...ButtonBaseComponent.providers]
+    imports: [IconComponent],
+    providers: [...ButtonBaseComponent.providers],
+    host: {
+        '[class.social]': 'social()'
+    }
 })
-export class IconButtonComponent extends ButtonBaseComponent implements OnInit {
-
+export class IconButtonComponent extends ButtonBaseComponent {
     public readonly icon = input<IconType>();
-
     public readonly iconSize = input<IconSize>();
-
-    @HostBinding('class.social')
-public readonly social = input<string>();
+    public readonly social = input<string>();
 
     public constructor() {
         super();
         this.classes.register('iconSize', 'social', 'title')
             .registerFixed('icon');
-    }
-
-    public override ngOnInit(): void {
-        super.ngOnInit();
-        ButtonComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
+        effect(() => this.refreshInverted(ButtonComponent.defaults.inverted()));
     }
 }

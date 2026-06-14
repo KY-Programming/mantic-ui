@@ -1,25 +1,23 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { Component, effect, input } from '@angular/core';
 import { InvertibleComponent } from '../../base/invertible.component';
-import { IgnoredDirective } from '../../directives/ignored.directive';
+import { toBoolean } from '../../helpers/to-boolean';
+import { BooleanLike } from '../../models/boolean-like';
 import { MessageComponent } from '../message/message.component';
 
 @Component({
     selector: 'm-error',
     templateUrl: './error.component.html',
     styleUrls: ['./error.component.scss'],
-    hostDirectives: [IgnoredDirective.default],
-    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InvertibleComponent.providers]
 })
 export class ErrorComponent extends InvertibleComponent {
+    public readonly ignored = input<boolean, BooleanLike>(false, { transform: toBoolean });
+
     public constructor() {
         super();
-        this.classes.registerFixed('visible', 'error', 'message');
-    }
-
-    public override ngOnInit(): void {
-        super.ngOnInit();
-        MessageComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
+        this.classes.register('ignored')
+            .registerFixed('visible', 'error', 'message');
+        effect(() => this.classes.set('ignored', this.ignored()));
+        effect(() => this.refreshInverted(MessageComponent.defaults.inverted()));
     }
 }

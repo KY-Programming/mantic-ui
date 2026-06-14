@@ -1,55 +1,31 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, input } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Component, effect, input, signal } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { InvertibleComponent } from '../../base/invertible.component';
-import { IconSize } from '../icon/icon-size';
-import { IconType } from '../icon/icon-type';
 import { IconComponent } from '../icon/icon.component';
-
-export declare type HeaderSize = 'huge' | 'large' | 'medium' | 'small' | 'tiny';
+import { IconSize } from '../icon/models/icon-size';
+import { IconType } from '../icon/models/icon-type';
+import { HeaderSize } from './models/header-size';
 
 @Component({
     selector: 'm-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
-    imports: [
-    IconComponent
-],
-    changeDetection: ChangeDetectionStrategy.Eager,
+    imports: [IconComponent],
     providers: [...BaseComponent.providers]
 })
-export class HeaderComponent extends InvertibleComponent implements OnInit {
+export class HeaderComponent extends InvertibleComponent {
     public static readonly defaults = {
-        inverted: false,
-        invertedChange: new ReplaySubject<boolean>(1)
+        inverted: signal(false)
     };
-    private sizeValue: HeaderSize | undefined;
-
     public readonly icon = input<IconType>();
-
     public readonly iconSize = input<IconSize>();
-
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get size(): HeaderSize | undefined {
-        return this.sizeValue;
-    }
-
-    public set size(value: HeaderSize | undefined) {
-        this.sizeValue = value;
-        this.classes.set('size', value);
-    }
+    public readonly size = input<HeaderSize>();
 
     public constructor() {
         super();
         this.classes.register('size', 'iconSize')
             .registerFixed('header');
-    }
-
-    public override ngOnInit(): void {
-        super.ngOnInit();
-        HeaderComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
+        effect(() => this.classes.set('size', this.size()));
+        effect(() => this.refreshInverted(HeaderComponent.defaults.inverted()));
     }
 }

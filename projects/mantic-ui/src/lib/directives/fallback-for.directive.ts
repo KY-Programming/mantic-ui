@@ -1,24 +1,23 @@
-import { Directive, ElementRef, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, effect, ElementRef, inject, input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
-    selector: '[m-fallback-for]',
-    })
+    selector: '[m-fallback-for]'
+})
 export class FallbackForDirective {
+    private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+    private readonly templateRef = inject<TemplateRef<unknown>>(TemplateRef);
+    private readonly viewContainerRef = inject(ViewContainerRef);
+    public readonly fallback = input.required<string>({ alias: 'm-fallback-for' });
 
-    @Input('m-fallback-for')
-    public set fallback(selector: string) {
-        const foundElement = this.elementRef.nativeElement.parentElement?.querySelector(selector);
-        if (foundElement) {
-            this.viewContainer.clear();
-        } else {
-            this.viewContainer.createEmbeddedView(this.templateRef);
-        }
+    public constructor() {
+        effect(() => {
+            const foundElement = this.elementRef.nativeElement.parentElement?.querySelector(this.fallback());
+            if (foundElement) {
+                this.viewContainerRef.clear();
+            }
+            else {
+                this.viewContainerRef.createEmbeddedView(this.templateRef);
+            }
+        });
     }
-
-    public constructor(
-        private readonly elementRef: ElementRef<HTMLElement>,
-        private readonly templateRef: TemplateRef<unknown>,
-        private readonly viewContainer: ViewContainerRef
-    ) { }
-
 }

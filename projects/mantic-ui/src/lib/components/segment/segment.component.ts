@@ -1,142 +1,61 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Component, computed, effect, input, signal } from '@angular/core';
 import { InvertibleComponent } from '../../base/invertible.component';
-import { BasicDirective } from '../../directives/basic.directive';
-import { ColorDirective } from '../../directives/color.directive';
-import { LoadingDirective } from '../../directives/loading.directive';
+import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
-
-export declare type SegmentAttached =
-    'top'
-    | 'bottom';
+import { ColorName } from '../../models/color';
+import { SegmentAttached } from './models/segment-attached';
 
 @Component({
     selector: 'm-segment',
     templateUrl: './segment.component.html',
     styleUrls: ['./segment.component.scss'],
-    hostDirectives: [BasicDirective.default, ColorDirective.default, LoadingDirective.default],
-    changeDetection: ChangeDetectionStrategy.Eager,
     providers: SegmentComponent.providers
 })
-export class SegmentComponent extends InvertibleComponent implements OnInit {
+export class SegmentComponent extends InvertibleComponent {
     public static readonly defaults = {
-        inverted: false,
-        invertedChange: new ReplaySubject<boolean>(1),
-        raised: false,
-        raisedChange: new ReplaySubject<boolean>(1)
+        inverted: signal(false),
+        raised: signal(false)
     };
     protected static override readonly providers = [...InvertibleComponent.providers];
-
-    private isVertical = false;
-    private isRaised = false;
-    private isRaisedChanged = false;
-    private isPlaceholder = false;
-    private isSecondary = false;
-    private isTertiary = false;
-    private attachedValue: SegmentAttached | undefined;
-    private isNoPadding = false;
-    private isNoMargin = false;
-
-    @Input()
-    public get raised(): boolean {
-        return this.isRaised;
-    }
-
-    public set raised(value: BooleanLike) {
-        this.isRaisedChanged = true;
-        this.isRaised = this.toBoolean(value);
-        this.classes.set('raised', this.isRaised);
-    }
-
-    @Input()
-    public get vertical(): boolean {
-        return this.isVertical;
-    }
-
-    public set vertical(value: BooleanLike) {
-        this.isVertical = this.toBoolean(value);
-        this.classes.set('vertical', this.isVertical);
-    }
-
-    @Input()
-    public get placeholder(): boolean {
-        return this.isPlaceholder;
-    }
-
-    public set placeholder(value: BooleanLike) {
-        this.isPlaceholder = this.toBoolean(value);
-        this.classes.set('placeholder', this.isPlaceholder);
-    }
-
-    @Input()
-    public get secondary(): boolean {
-        return this.isSecondary;
-    }
-
-    public set secondary(value: BooleanLike) {
-        this.isSecondary = this.toBoolean(value);
-        this.classes.set('secondary', this.isSecondary);
-    }
-
-    @Input()
-    public get tertiary(): boolean {
-        return this.isTertiary;
-    }
-
-    public set tertiary(value: BooleanLike) {
-        this.isTertiary = this.toBoolean(value);
-        this.classes.set('tertiary', this.isTertiary);
-    }
-
-    public get attached(): SegmentAttached | undefined {
-        return this.attachedValue;
-    }
-
-    @Input()
-    public set attached(value: SegmentAttached | undefined) {
-        this.attachedValue = value;
-        this.classes.set('attachedValue', value);
-        this.classes.set('attached', !!value);
-    }
-
-    @Input()
-    public get noPadding(): boolean {
-        return this.isNoPadding;
-    }
-
-    public set noPadding(value: BooleanLike) {
-        this.isNoPadding = this.toBoolean(value);
-        this.classes.set('noPadding', this.isNoPadding ? 'no-padding' : undefined);
-    }
-
-    @Input()
-    public get noMargin(): boolean {
-        return this.isNoMargin;
-    }
-
-    public set noMargin(value: BooleanLike) {
-        this.isNoMargin = this.toBoolean(value);
-        this.classes.set('noMargin', this.isNoMargin ? 'no-margin' : undefined);
-    }
+    private readonly raisedDefault = signal(false);
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    public readonly raisedInput = input<boolean | undefined, BooleanLike>(undefined, { alias: 'raised', transform: toBoolean });
+    public readonly raised = computed(() => this.raisedInput() ?? this.raisedDefault());
+    public readonly vertical = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly placeholder = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly secondary = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly tertiary = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly attached = input<SegmentAttached | undefined>();
+    public readonly noPadding = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly noMargin = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly basic = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly color = input<ColorName | undefined>(undefined);
+    public readonly loading = input<boolean, BooleanLike>(false, { transform: toBoolean });
 
     public constructor() {
         super();
-        this.classes.register('raised', 'vertical', 'placeholder', 'secondary', 'tertiary', 'attached', 'attachedValue', 'noPadding', 'noMargin')
+        this.classes.register('basic', 'color', 'loading', 'raised', 'vertical', 'placeholder', 'secondary', 'tertiary', 'attached', 'attachedValue', 'noPadding', 'noMargin')
             .registerFixed('segment');
-    }
-
-    public override ngOnInit(): void {
-        super.ngOnInit();
-        SegmentComponent.defaults.invertedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshInverted(value));
-        SegmentComponent.defaults.raisedChange.pipe(takeUntil(this.destroy)).subscribe(value => this.refreshRaised(value));
+        effect(() => this.classes.set('basic', this.basic()));
+        effect(() => this.classes.set('color', this.color()));
+        effect(() => this.classes.set('loading', this.loading()));
+        effect(() => this.classes.set('raised', this.raised()));
+        effect(() => this.classes.set('vertical', this.vertical()));
+        effect(() => this.classes.set('placeholder', this.placeholder()));
+        effect(() => this.classes.set('secondary', this.secondary()));
+        effect(() => this.classes.set('tertiary', this.tertiary()));
+        effect(() => {
+            const value = this.attached();
+            this.classes.set('attachedValue', value);
+            this.classes.set('attached', !!value);
+        });
+        effect(() => this.classes.set('noPadding', this.noPadding() ? 'no-padding' : undefined));
+        effect(() => this.classes.set('noMargin', this.noMargin() ? 'no-margin' : undefined));
+        effect(() => this.refreshInverted(SegmentComponent.defaults.inverted()));
+        effect(() => this.refreshRaised(SegmentComponent.defaults.raised()));
     }
 
     private refreshRaised(value: boolean): void {
-        if (this.isRaisedChanged) {
-            return;
-        }
-        this.raised = value;
-        this.isRaisedChanged = false;
+        this.raisedDefault.set(value);
     }
 }

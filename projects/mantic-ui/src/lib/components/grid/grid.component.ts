@@ -1,100 +1,36 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
+import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
 import { FieldSize, ParsableFieldSize, parseFieldSize } from '../../models/field-size';
-
-export declare type GridWidth = 'equal';
+import { GridWidth } from './models/grid-width';
 
 @Component({
     selector: 'm-grid',
     templateUrl: './grid.component.html',
     styleUrls: ['./grid.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...BaseComponent.providers]
 })
 export class GridComponent extends BaseComponent {
-    private columnsValue?: FieldSize;
-    private isVertically = false;
-    private isDivided = false;
-    private isCelled = false;
-    private isInternally = false;
-    private widthValue?: GridWidth;
-    private noMarginValue = false;
-
-    @Input()
-    public get vertically(): boolean {
-        return this.isVertically;
-    }
-
-    public set vertically(value: BooleanLike) {
-        this.isVertically = this.toBoolean(value);
-        this.classes.set('vertically', this.isVertically);
-    }
-
-    @Input()
-    public get divided(): boolean {
-        return this.isDivided;
-    }
-
-    public set divided(value: BooleanLike) {
-        this.isDivided = this.toBoolean(value);
-        this.classes.set('divided', this.isDivided);
-    }
-
-    @Input()
-    public get columns(): FieldSize | undefined {
-        return this.columnsValue;
-    }
-
-    public set columns(value: ParsableFieldSize | undefined) {
-        this.columnsValue = parseFieldSize(value);
-        this.classes.set('columns', this.columnsValue ? `${this.columnsValue} column` : undefined);
-    }
-
-    @Input()
-    public get internally(): boolean {
-        return this.isInternally;
-    }
-
-    public set internally(value: BooleanLike) {
-        this.isInternally = this.toBoolean(value);
-        this.classes.set('internally', this.isInternally);
-    }
-
-    @Input()
-    public get celled(): boolean {
-        return this.isCelled;
-    }
-
-    public set celled(value: BooleanLike) {
-        this.isCelled = this.toBoolean(value);
-        this.classes.set('celled', this.isCelled);
-    }
-
-    @Input()
-    public get width(): GridWidth | undefined {
-        return this.widthValue;
-    }
-
-    public set width(value: GridWidth | undefined) {
-        this.widthValue = value;
-        this.classes.set('width', value ? `${value} width` : undefined);
-    }
-
-    @Input()
-    public get noMargin(): boolean {
-        return this.noMarginValue;
-    }
-
-    public set noMargin(value: BooleanLike) {
-        this.noMarginValue = this.toBoolean(value);
-        this.classes.set('no-margin', this.noMargin);
-    }
+    public readonly vertically = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly divided = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly columns = input<FieldSize | undefined, ParsableFieldSize>(undefined, { transform: parseFieldSize });
+    public readonly internally = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly celled = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly width = input<GridWidth | undefined>();
+    public readonly noMargin = input<boolean, BooleanLike>(false, { transform: toBoolean });
 
     public constructor() {
         super();
         this.classes.register('vertically', 'divided', 'columns', 'internally', 'celled', 'width', 'noMargin')
             .registerFixed('grid');
+        effect(() => this.classes.set('vertically', this.vertically()));
+        effect(() => this.classes.set('divided', this.divided()));
+        effect(() => this.classes.set('columns', this.columns() ? `${this.columns() ?? 'none'} column` : undefined));
+        effect(() => this.classes.set('internally', this.internally()));
+        effect(() => this.classes.set('celled', this.celled()));
+        effect(() => this.classes.set('width', this.width() ? `${this.width() ?? 'none'} width` : undefined));
+        effect(() => this.classes.set('no-margin', this.noMargin()));
     }
 
 }

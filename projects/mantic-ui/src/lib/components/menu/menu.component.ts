@@ -1,110 +1,40 @@
-import { Component, HostBinding, Input, Optional, SkipSelf, ChangeDetectionStrategy } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import { InvertibleComponent } from '../../base/invertible.component';
-import { PointingDirective } from '../../directives/pointing.directive';
+import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
-
-export declare type MenuPosition =
-    'top'
-    | 'left'
-    | 'bottom'
-    | 'right'
-    | undefined;
+import { MenuPosition } from './models/menu-position';
 
 @Component({
     selector: 'm-menu',
     templateUrl: './menu.component.html',
     styleUrls: ['./menu.component.scss'],
-    hostDirectives: [PointingDirective.default],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...InvertibleComponent.providers]
+    providers: [...InvertibleComponent.providers],
+    host: {
+        '[class.fixed]': 'fixed()',
+        '[class.secondary]': 'secondary()',
+        '[class.attached]': 'attached()',
+        '[class.tabular]': 'tabular()',
+        '[class.text]': 'text()',
+        '[class.vertical]': 'vertical()'
+    }
 })
 export class MenuComponent extends InvertibleComponent {
-    private isFixed = false;
-    private positionValue: MenuPosition;
-    private isSecondary = false;
-    private attachedValue: MenuPosition;
-    private isTabular = false;
-    private isText = false;
-    private isVertical = false;
-
     public readonly element = this.elementRef;
+    public readonly position = input<MenuPosition>();
+    public readonly fixed = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly secondary = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly attached = input<MenuPosition>();
+    public readonly tabular = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly text = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly vertical = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly pointing = input<boolean, BooleanLike>(false, { transform: toBoolean });
 
-    public get position(): MenuPosition {
-        return this.positionValue;
-    }
-
-    @Input()
-    public set position(value: MenuPosition) {
-        this.positionValue = value;
-        this.classes.set('position', value);
-    }
-
-    @Input()
-    @HostBinding('class.fixed')
-    public get fixed(): boolean {
-        return this.isFixed;
-    }
-
-    public set fixed(value: BooleanLike) {
-        this.isFixed = this.toBoolean(value);
-    }
-
-    @Input()
-    @HostBinding('class.secondary')
-    public get secondary(): boolean {
-        return this.isSecondary;
-    }
-
-    public set secondary(value: BooleanLike) {
-        this.isSecondary = this.toBoolean(value);
-    }
-
-    public get attached(): MenuPosition {
-        return this.attachedValue;
-    }
-
-    @Input()
-    @HostBinding('class.attached')
-    public set attached(value: MenuPosition) {
-        this.attachedValue = value;
-        this.classes.set('attached', value);
-    }
-
-    @Input()
-    @HostBinding('class.tabular')
-    public get tabular(): boolean {
-        return this.isTabular;
-    }
-
-    public set tabular(value: BooleanLike) {
-        this.isTabular = this.toBoolean(value);
-    }
-
-    @Input()
-    @HostBinding('class.text')
-    public get text(): boolean {
-        return this.isText;
-    }
-
-    public set text(value: BooleanLike) {
-        this.isText = this.toBoolean(value);
-    }
-
-    @Input()
-    @HostBinding('class.vertical')
-    public get vertical(): boolean {
-        return this.isVertical;
-    }
-
-    public set vertical(value: BooleanLike) {
-        this.isVertical = this.toBoolean(value);
-    }
-
-    public constructor(
-        @Optional() @SkipSelf() parentMenu?: MenuComponent
-    ) {
-        super(!parentMenu);
+    public constructor() {
+        super(!inject(MenuComponent, { optional: true, skipSelf: true }));
         this.classes.registerFixed('menu');
-        this.classes.register('position', 'fixed', 'secondary', 'tabular', 'text', 'attached', 'vertical');
+        this.classes.register('pointing', 'position', 'fixed', 'secondary', 'tabular', 'text', 'attached', 'vertical');
+        effect(() => this.classes.set('pointing', this.pointing()));
+        effect(() => this.classes.set('position', this.position()));
+        effect(() => this.classes.set('attached', this.attached()));
     }
 }

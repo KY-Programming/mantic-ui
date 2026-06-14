@@ -1,6 +1,6 @@
 import { inject, Injector, Pipe, PipeTransform } from '@angular/core';
-import { Notification } from './notification';
-import { notificationToken } from './notification-token';
+import { Notification } from './models/notification';
+import { notificationToken } from './models/notification-token';
 
 @Pipe({
     name: 'notificationInjector'

@@ -1,0 +1,1 @@
+export declare type CellAlign = 'left' | 'right';

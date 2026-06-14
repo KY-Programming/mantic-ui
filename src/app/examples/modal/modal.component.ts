@@ -1,5 +1,4 @@
-
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { faRocket } from '@fortawesome/pro-solid-svg-icons';
 import { ArrayPipe, ButtonComponent, DropdownComponent, DropdownItemComponent, FlexComponent, HeaderDirective, IconComponent, ModalComponent, ModalDefaultsComponent, ModalFooterComponent, ModalHeaderComponent, ModalSize, TabComponent, TabGroupComponent, ToBodyDirective } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
@@ -34,35 +33,37 @@ export class ModalExampleComponent {
     protected growOnlyRows = 0;
     protected readonly faRocket = faRocket;
 
-    public standardCode = `<m-button (click)="showModal = true">Open</m-button>
-<m-modal *ngIf="showModal" (close)="showModal = false" imageContent>
-  <m-modal-header>
-    <m-icon icon="question"></m-icon> Profile Picture
-  </m-modal-header>
-  <div class="ui medium image">
-    <img>
-  </div>
-  <div class="description">
-    <div class="ui header">We've auto-chosen a profile image for you.</div>
-    <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
-    <p>Is it okay to use this photo?</p>
-  </div>
-  <m-modal-footer>
-    <m-button color="black" (click)="showModal = false">Nope</m-button>
-    <m-button icon="checkmark" iconPosition="right" primary (click)="showModal = false">Yep, that's me</m-button>
-  </m-modal-footer>
-</m-modal>`;
+    public standardCode = `<m-button (click)="showModal = true">Open Modal</m-button>
+    {{ showModal }}
+@if (showModal) {
+    <m-modal imageContent (close)="showModal = false">
+      <m-modal-header>
+        <m-icon icon="question"></m-icon>
+        Profile Picture
+      </m-modal-header>
+      <div class="ui medium image">
+        <img src="/assets/images/avatar/large/rachel.png">
+      </div>
+      <div class="description">
+        <div class="ui header">We've auto-chosen a profile image for you.</div>
+        <p>We've grabbed the following image from the
+          <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.
+        </p>
+        <p>Is it okay to use this photo?</p>
+      </div>
+      <m-modal-footer>
+        <m-button color="black" (click)="showModal = false">Nope</m-button>
+        <m-button icon="checkmark" iconPosition="right" primary (click)="showModal = false">Yep, that's me</m-button>
+      </m-modal-footer>
+    </m-modal>
+}`;
 
-    public defaultCode = `<m-button (click)="showModal = true">Open</m-button>
-<m-modal *ngIf="showModal" header="Some header" (close)="showModal = false">
-  Some content
-</m-modal>`;
-    public textHeaderCode = `<m-modal header="Some header"></m-modal>`;
-    public templatedHeaderCode = `<m-modal>
-  <m-modal-header>
-    <m-icon icon="question"></m-icon> Profile Picture
-  </m-modal-header>
-</m-modal>`;
+    public defaultCode = `<m-button (click)="showDefault = true">Open Modal</m-button>
+@if (showDefault) {
+    <m-modal header="Some header" (close)="showDefault = false">
+      Some content
+    </m-modal>
+}`;
 
     public contentCode = `<m-modal>
   <p></p>

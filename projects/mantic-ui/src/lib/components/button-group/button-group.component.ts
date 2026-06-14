@@ -1,100 +1,55 @@
-import { Component, ContentChildren, HostBinding, Input, QueryList, ChangeDetectionStrategy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, computed, contentChildren, effect, input } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
-import { ColorDirective } from '../../directives/color.directive';
+import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';
+import { ColorName } from '../../models/color';
 import { ToggleButtonComponent } from '../toggle-button/toggle-button.component';
 
 @Component({
     selector: 'm-button-group',
     templateUrl: './button-group.component.html',
     styleUrls: ['./button-group.component.scss'],
-    hostDirectives: [ColorDirective.default],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    providers: [...BaseComponent.providers]
+    providers: [...BaseComponent.providers],
+    host: {
+        '[class.left]': 'attachedLeft()',
+        '[class.top]': 'attachedTop()',
+        '[class.right]': 'attachedRight()',
+        '[class.bottom]': 'attachedBottom()',
+        '[class.attached]': 'attached()'
+    }
 })
 export class ButtonGroupComponent extends BaseComponent {
-    private toggleButtonsChangeSubscription?: Subscription;
-    private toggleButtonSubscriptions?: Subscription[];
-    private toggleButtonsValue?: QueryList<ToggleButtonComponent>;
-    private isAttachedLeft = false;
-    private isAttachedTop = false;
-    private isAttachedRight = false;
-    private isAttachedBottom = false;
-
-    @Input()
-    @HostBinding('class.left')
-    public get attachedLeft(): boolean {
-        return this.isAttachedLeft;
-    }
-
-    public set attachedLeft(value: BooleanLike) {
-        this.isAttachedLeft = this.toBoolean(value);
-    }
-
-    @Input()
-    @HostBinding('class.top')
-    public get attachedTop(): boolean {
-        return this.isAttachedTop;
-    }
-
-    public set attachedTop(value: BooleanLike) {
-        this.isAttachedTop = this.toBoolean(value);
-    }
-
-    @Input()
-    @HostBinding('class.right')
-    public get attachedRight(): boolean {
-        return this.isAttachedRight;
-    }
-
-    public set attachedRight(value: BooleanLike) {
-        this.isAttachedRight = this.toBoolean(value);
-    }
-
-    @Input()
-    @HostBinding('class.bottom')
-    public get attachedBottom(): boolean {
-        return this.isAttachedBottom;
-    }
-
-    public set attachedBottom(value: BooleanLike) {
-        this.isAttachedBottom = this.toBoolean(value);
-    }
-
-    @HostBinding('class.attached')
-    protected get attached(): boolean {
-        return this.isAttachedTop || this.attachedBottom || this.attachedLeft || this.attachedRight;
-    }
-
-    @ContentChildren(ToggleButtonComponent)
-    protected get toggleButtons(): QueryList<ToggleButtonComponent> | undefined {
-        return this.toggleButtonsValue;
-    }
-
-    protected set toggleButtons(query: QueryList<ToggleButtonComponent> | undefined) {
-        this.toggleButtonsChangeSubscription?.unsubscribe();
-        this.toggleButtonsChangeSubscription = query?.changes.subscribe(() => this.subscribeToggleButtons());
-        this.toggleButtonsValue = query;
-        this.subscribeToggleButtons();
-    }
+    public readonly attachedLeft = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly attachedTop = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly attachedRight = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly attachedBottom = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    public readonly color = input<ColorName | undefined>(undefined);
+    protected readonly toggleButtons = contentChildren(ToggleButtonComponent);
+    protected readonly attached = computed(() => this.attachedTop() || this.attachedBottom() || this.attachedLeft() || this.attachedRight());
 
     public constructor() {
         super();
-        this.classes.registerFixed('buttons');
-    }
-
-    private subscribeToggleButtons(): void {
-        this.toggleButtonSubscriptions?.forEach(subscription => subscription.unsubscribe());
-        this.toggleButtonSubscriptions = this.toggleButtons?.map(button => button.checkedChange.subscribe(value => value ? this.uncheckOthers(button) : this.keepOneChecked()));
+        this.classes.register('color')
+            .registerFixed('buttons');
+        effect(() => this.classes.set('color', this.color()));
+        effect(onCleanup => {
+            const subscriptions = this.toggleButtons().map(button => button.checkedChange.subscribe(value => value ? this.uncheckOthers(button) : this.keepOneChecked()));
+            onCleanup(() => {
+                for (const subscription of subscriptions) {
+                    subscription.unsubscribe();
+                }
+            });
+        });
     }
 
     private uncheckOthers(button: ToggleButtonComponent): void {
-        this.toggleButtons?.filter(x => x !== button).forEach(x => x.uncheck());
+        for (const x of this.toggleButtons().filter(x => x !== button)) {
+            x.uncheck();
+        }
     }
 
     private keepOneChecked(): void {
-        const buttons = Array.from(this.toggleButtons ?? []);
+        const buttons = this.toggleButtons();
         if (buttons.length > 0 && buttons.every(button => !button.checked)) {
             buttons[0].check();
         }

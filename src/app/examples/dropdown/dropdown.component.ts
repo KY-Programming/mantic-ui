@@ -1,7 +1,6 @@
-
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DividerComponent, DropdownComponent, DropdownGroupComponent, DropdownItemComponent, FillDirective, HeaderDirective, IconComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
-import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { DividerComponent, DropdownComponent, DropdownGroupComponent, DropdownItemComponent, FillDirective, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
 import { DemoData } from '../../helpers/demo-data';
 
@@ -76,7 +75,7 @@ public countries: DropdownValue<string>[] = [
     protected valueChangeEventCode = `<m-dropdown (valueChange)="onValueChange($event)" />`;
     protected valueChangeEventLog: string[] = [];
 
-    protected onValueChange(value: string): void {
+    protected onValueChange(value: unknown): void {
         this.valueChangeEventLog.push(`Value was changed to ${value}`);
     }
 }

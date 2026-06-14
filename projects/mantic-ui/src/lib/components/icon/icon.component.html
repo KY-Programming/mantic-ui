@@ -1,7 +1,6 @@
-@if (mIcon) {
-    <i class="{{icon}} {{size}}" [ngClass]="iconClass()"></i>
+@if (mIcon(); as mIcon) {
+    <i class="{{ mIcon }} {{ mSize() }}" [ngClass]="iconClass()"></i>
 }
-@if (faIcon) {
-    <fa-icon [icon]="faIcon" [size]="faSize ?? '1x'" [ngClass]="iconClass()" />
+@if (faIcon(); as faIcon) {
+    <fa-icon [icon]="faIcon" [size]="faSize() ?? '1x'" [ngClass]="iconClass()" />
 }
-

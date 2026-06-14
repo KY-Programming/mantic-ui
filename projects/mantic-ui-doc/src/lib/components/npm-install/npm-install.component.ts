@@ -1,24 +1,18 @@
-import { Component, Input, ChangeDetectionStrategy, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, input, model } from '@angular/core';
 import { BooleanLike, SegmentComponent, toBoolean } from '@mantic-ui/angular';
 import { NpmApiService } from '../../services/npm-api.service';
-
 
 @Component({
     selector: 'm-npm-install',
     templateUrl: './npm-install.component.html',
     styleUrls: ['./npm-install.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-    SegmentComponent
-]
+    imports: [SegmentComponent]
 })
 export class NpmInstallComponent {
     private packageValue: string | undefined;
     private searchVersionValue: string | undefined;
-    private isDev = false;
 
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get package(): string | undefined {
         return this.packageValue;
@@ -29,10 +23,8 @@ export class NpmInstallComponent {
         this.refreshVersion();
     }
 
-    public readonly version = input<string>();
+    public readonly version = model<string>();
 
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
     @Input()
     public get searchVersion(): string | undefined {
         return this.searchVersionValue;
@@ -43,16 +35,7 @@ export class NpmInstallComponent {
         this.refreshVersion();
     }
 
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    public get dev(): boolean {
-        return this.isDev;
-    }
-
-    public set dev(value: BooleanLike) {
-        this.isDev = toBoolean(value);
-    }
+    public readonly dev = input<boolean, BooleanLike>(false, { transform: toBoolean });
 
     public constructor(
         private readonly nugetApiService: NpmApiService
@@ -63,7 +46,7 @@ export class NpmInstallComponent {
         if (!this.searchVersion || !this.package) {
             return;
         }
-        this.nugetApiService.find(this.package, this.searchVersion).subscribe(versions => this.version = versions[0]);
+        this.nugetApiService.find(this.package, this.searchVersion).subscribe(versions => this.version.set(versions[0]));
     }
 
 }

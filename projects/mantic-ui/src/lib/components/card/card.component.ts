@@ -1,16 +1,12 @@
-import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
-
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'm-card',
     templateUrl: './card.component.html',
     styleUrls: ['./card.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    imports: []
+    host: {
+        'class': 'ui card'
+    }
 })
 export class CardComponent {
-
-    @HostBinding('class.ui')
-    @HostBinding('class.card')
-    protected readonly host = true;
 }
