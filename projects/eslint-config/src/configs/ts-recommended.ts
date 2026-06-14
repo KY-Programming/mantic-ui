@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention,unicorn/no-null */
 import type { TSESLint } from '@typescript-eslint/utils';
 import angular from 'angular-eslint';
-import * as rxjs from 'eslint-plugin-rxjs-updated';
+import rxjsX from 'eslint-plugin-rxjs-x';
 import unicorn from 'eslint-plugin-unicorn';
 import tseslint from 'typescript-eslint';
 
@@ -10,7 +10,7 @@ const config: TSESLint.FlatConfig.ConfigArray = [
     ...tseslint.configs.strictTypeChecked,
     ...tseslint.configs.stylisticTypeChecked,
     ...angular.configs.tsRecommended,
-    (rxjs as any).configs.recommended,
+    rxjsX.configs.recommended,
     {
         languageOptions: {
             parserOptions: {
@@ -21,7 +21,7 @@ const config: TSESLint.FlatConfig.ConfigArray = [
     {
         name: '@mantic-ui/eslint-config/ts-recommended',
         plugins: {
-            rxjs
+            'rxjs-x': rxjsX
         },
         rules: {
             // Unicorn
@@ -177,12 +177,11 @@ const config: TSESLint.FlatConfig.ConfigArray = [
             '@angular-eslint/use-component-selector': 'error',
             '@angular-eslint/use-lifecycle-interface': 'error',
             '@angular-eslint/use-pipe-transform-interface': 'error',
-            'rxjs/no-compat': 'error',
-            'rxjs/no-ignored-replay-buffer': 'warn',
-            'rxjs/no-nested-subscribe': 'warn',
-            'rxjs/no-subject-value': 'warn',
-            'rxjs/no-unsafe-takeuntil': 'warn',
-            'rxjs/ban-operators': [
+            'rxjs-x/no-ignored-replay-buffer': 'warn',
+            'rxjs-x/no-nested-subscribe': 'warn',
+            'rxjs-x/no-subject-value': 'warn',
+            'rxjs-x/no-unsafe-takeuntil': 'warn',
+            'rxjs-x/ban-operators': [
                 'error',
                 {
                     'bufferTime': 'Use buffer(yourObservable.pipe(auditTime(1))) instead'

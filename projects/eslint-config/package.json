@@ -1,6 +1,6 @@
 {
   "name": "@mantic-ui/eslint-config",
-  "version": "22.0.2",
+  "version": "22.0.3",
   "description": "eslint Config for mantic UI",
   "keywords": [
     "mantic-ui",
@@ -40,7 +40,7 @@
     "angular-eslint": "^22.0.0",
     "eslint": ">= 10",
     "eslint-plugin-prefer-arrow": ">= 1",
-    "eslint-plugin-rxjs-updated": ">= 1",
+    "eslint-plugin-rxjs-x": ">= 1",
     "eslint-plugin-unicorn": ">= 61",
     "typescript-eslint": ">= 8.61.0"
   },

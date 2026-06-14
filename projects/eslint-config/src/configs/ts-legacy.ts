@@ -7,7 +7,7 @@ const config: TSESLint.FlatConfig.ConfigArray = [
     {
         name: '@mantic-ui/eslint-config/ts-legacy',
         rules: {
-            'rxjs/no-implicit-any-catch': 'off',
+            'rxjs-x/no-implicit-any-catch': 'off',
             '@typescript-eslint/no-unsafe-enum-comparison': 'off',
         }
     }
