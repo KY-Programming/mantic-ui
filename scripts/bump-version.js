@@ -154,14 +154,43 @@ async function main() {
     const part = parts[partIndex];
 
     clearScreen();
+
+    // Compute all next versions first, then build a name -> version map so cross-dependencies
+    // between the group's packages can be pinned to the exact new version.
+    const versionByName = {};
     packages.forEach(pkg => {
-        const next = bumpVersion(pkg.currentVersion, part.index);
-        pkg.json.version = next;
-        pkg.nextVersion = next;
+        pkg.nextVersion = bumpVersion(pkg.currentVersion, part.index);
+        if (pkg.json.name) {
+            versionByName[pkg.json.name] = pkg.nextVersion;
+        }
+    });
+
+    const dependencySections = ['dependencies', 'peerDependencies', 'optionalDependencies', 'devDependencies'];
+
+    packages.forEach(pkg => {
+        pkg.json.version = pkg.nextVersion;
+
+        // Keep references between the group's packages (e.g. fomantic/semantic/doc depending on
+        // @mantic-ui/angular) pinned to the exact new version of the depended-on package.
+        const updatedDeps = [];
+        dependencySections.forEach(section => {
+            const deps = pkg.json[section];
+            if (!deps) return;
+            Object.keys(deps).forEach(depName => {
+                if (Object.prototype.hasOwnProperty.call(versionByName, depName) && deps[depName] !== versionByName[depName]) {
+                    deps[depName] = versionByName[depName];
+                    updatedDeps.push(depName + '@' + versionByName[depName]);
+                }
+            });
+        });
+
         const text = JSON.stringify(pkg.json, null, 2) + '\n';
         fs.writeFileSync(pkg.fullPath, text);
         const rel = path.relative(rootDir, pkg.fullPath);
-        console.log('\x1b[32m√\x1b[0m  ' + rel.padEnd(40) + '  \x1b[2m' + pkg.currentVersion + '\x1b[0m  \x1b[2m→\x1b[0m  \x1b[33m' + next + '\x1b[0m');
+        console.log('\x1b[32m√\x1b[0m  ' + rel.padEnd(40) + '  \x1b[2m' + pkg.currentVersion + '\x1b[0m  \x1b[2m→\x1b[0m  \x1b[33m' + pkg.nextVersion + '\x1b[0m');
+        updatedDeps.forEach(dep => {
+            console.log('     \x1b[2m↳ dep\x1b[0m  ' + dep);
+        });
     });
 
     console.log('');

@@ -1,6 +1,6 @@
 {
   "name": "@mantic-ui/angular-doc",
-  "version": "22.0.0",
+  "version": "22.0.1",
   "description": "mantic UI Components for Documentation for Angular",
   "author": "KY-Programming",
   "license": "MIT",
@@ -13,9 +13,9 @@
     "mantic-sync-examples": "./bin/sync-example-code.mjs"
   },
   "peerDependencies": {
-    "@angular/common": "^21.0.0",
-    "@angular/core": "^21.0.0",
-    "@mantic-ui/angular": "21.3.0",
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@mantic-ui/angular": "22.0.1",
     "ngx-highlightjs": "> 4",
     "highlight.js": "> 10"
   },
