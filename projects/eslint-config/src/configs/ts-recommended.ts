@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention,unicorn/no-null */
 import type { TSESLint } from '@typescript-eslint/utils';
 import angular from 'angular-eslint';
 import * as esImport from 'eslint-plugin-import';
@@ -74,14 +75,14 @@ const config: TSESLint.FlatConfig.ConfigArray = [
                         'PascalCase'
                     ],
                     filter: {
-                        regex: String.raw`^\[(class|style|attr)(\..*)?\]$`,
+                        regex: String.raw`^(\[.+\]|\(.+\))$`,
                         match: false
                     }
                 },
                 {
                     selector: 'property',
                     custom: {
-                        regex: String.raw`^\[(class|style|attr)(\..*)?\]$`,
+                        regex: String.raw`^(\[.+\]|\(.+\))$`,
                         match: true
                     },
                     format: []
