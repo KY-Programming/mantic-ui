@@ -1,4 +1,6 @@
 export * from './lib/components/example-code/example-code.component';
+export * from './lib/directives/doc-ignore.directive';
+export * from './lib/directives/doc-ignore-content.directive';
 export * from './lib/components/example-description/example-description.component';
 export * from './lib/components/example-frame/example-frame.component';
 export * from './lib/components/example/example.component';

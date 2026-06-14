@@ -1,25 +1,27 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { CheckboxComponent, DividerComponent, InputComponent, SegmentComponent, TabComponent, TabGroupComponent, ToggleComponent } from '@mantic-ui/angular';
+import { DocIgnoreContentDirective, DocIgnoreDirective, ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 import { HeaderComponent } from '../../components/header/header.component';
-import { CheckboxComponent, DividerComponent, HeaderDirective, IconComponent, InputComponent, SegmentComponent, TabComponent, TabGroupComponent, ToggleComponent } from '@mantic-ui/angular';
-import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-checkbox-example',
-    imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, CheckboxComponent, SegmentComponent, InputComponent, ToggleComponent, DividerComponent],
+    imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, CheckboxComponent, SegmentComponent, InputComponent, ToggleComponent, DividerComponent, DocIgnoreDirective, DocIgnoreContentDirective],
     templateUrl: './checkbox.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./checkbox.component.scss']
 })
 export class CheckboxExampleComponent {
     public standardCode = `<m-checkbox name="example">Make my profile visible</m-checkbox>`;
-    public readonlyCode = `<m-checkbox readonly></m-checkbox>`;
-    public checkedCode = `<m-checkbox checked></m-checkbox>`;
-    public indeterminateCode = `<m-checkbox indeterminate></m-checkbox>`;
-    public disabledCode = `<m-checkbox disabled></m-checkbox>`;
-    public fittedCode = `<m-checkbox fitted></m-checkbox>`;
+    public readonlyCode = `<m-checkbox readonly />`;
+    public checkedCode = `<m-checkbox checked />`;
+    public indeterminateCode = `<m-checkbox indeterminate />`;
+    public disabledCode = `<m-checkbox disabled />`;
+    public fittedCode = `<m-segment class="left floated">
+    <m-checkbox fitted />
+</m-segment>`;
 
-    public bindCode = `<m-checkbox [readonly]="readonly" [checked]="checked" [indeterminate]="indeterminated" [disabled]="disabled">{{text}}</m-checkbox>`;
+    public bindCode = `<m-checkbox [readonly]="readonly" [(checked)]="checked" [(indeterminate)]="indeterminated" [disabled]="disabled">{{ text }}</m-checkbox>`;
     private readonlyField = false;
     private checkedField = false;
     private indeterminatedField: boolean | undefined = false;
@@ -63,5 +65,7 @@ export class CheckboxExampleComponent {
         this.readonlyField = false;
     }
 
-    public readonly inverted = `<m-checkbox inverted></m-checkbox>`;
+    public readonly inverted = `<m-segment inverted>
+    <m-checkbox inverted>Inverted</m-checkbox>
+</m-segment>`;
 }

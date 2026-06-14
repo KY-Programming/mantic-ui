@@ -18,6 +18,7 @@ import { IconType } from '../icon/models/icon-type';
     host: {
         '[class.checked]': 'checked()',
         '[class.indeterminate]': 'indeterminate()',
+        '[class.fitted]': 'fitted()',
         '(click)': 'onClick($event)',
         '(keydown)': 'onKeyDown($event)'
     }
@@ -61,6 +62,7 @@ export class CheckboxComponent extends InvertibleComponent {
     public readonly checkIconSize = input<IconSize>();
     public readonly indeterminateIcon = input<IconType>();
     public readonly indeterminateIconSize = input<IconSize>();
+    public readonly fitted = input<boolean, BooleanLike>(false, { transform: toBoolean });
 
     public constructor() {
         super();

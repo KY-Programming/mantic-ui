@@ -9,6 +9,9 @@
     "mantic UI",
     "Angular"
   ],
+  "bin": {
+    "mantic-sync-examples": "./bin/sync-example-code.mjs"
+  },
   "peerDependencies": {
     "@angular/common": "^21.0.0",
     "@angular/core": "^21.0.0",

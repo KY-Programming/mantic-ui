@@ -9,25 +9,25 @@
     </m-tab>
     <m-tab label="States">
         <m-example header="Read-only" description="A checkbox can be read-only and unable to change states" [code]="readonlyCode">
-            <m-checkbox readonly>Read Only</m-checkbox>
+            <m-checkbox readonly m-doc-ignore-content>Read Only</m-checkbox>
         </m-example>
 
         <m-example header="Checked" description="A checkbox can be checked" [code]="checkedCode">
-            <m-checkbox checked>Active</m-checkbox>
+            <m-checkbox checked m-doc-ignore-content>Active</m-checkbox>
         </m-example>
 
         <m-example header="Indeterminate" description="A checkbox can be indeterminate" [code]="indeterminateCode">
-            <m-checkbox indeterminate>Indeterminate</m-checkbox>
+            <m-checkbox indeterminate m-doc-ignore-content>Indeterminate</m-checkbox>
         </m-example>
 
         <m-example header="Disabled" description="A checkbox can be read-only and unable to change states" [code]="disabledCode">
-            <m-checkbox disabled>Disabled</m-checkbox>
+            <m-checkbox disabled m-doc-ignore-content>Disabled</m-checkbox>
         </m-example>
     </m-tab>
     <m-tab label="Variations">
         <m-example header="Fitted" description="A fitted checkbox does not leave padding for a label" [code]="fittedCode">
             <m-segment class="left floated">
-                <m-checkbox fitted></m-checkbox>
+                <m-checkbox fitted />
             </m-segment>
         </m-example>
         <m-example header="Inverted" description="A checkbox can be displayed with inverted colors" [code]="inverted">
@@ -38,13 +38,13 @@
     </m-tab>
     <m-tab label="Binding">
         <m-example header="Bind state" description="All button states can be bound" [code]="bindCode">
-            <div class="toolbar ui form">
+            <div class="toolbar ui form" m-doc-ignore>
                 <div class="three fields">
                     <div class="field">
                         <label>
                             Text
                         </label>
-                        <m-input [(text)]="text"></m-input>
+                        <m-input [(text)]="text" />
                     </div>
                 </div>
                 <div class="four fields">
@@ -62,7 +62,7 @@
                     </div>
                 </div>
             </div>
-            <m-divider></m-divider>
+            <m-divider m-doc-ignore />
             <m-checkbox [readonly]="readonly" [(checked)]="checked" [(indeterminate)]="indeterminated" [disabled]="disabled">{{ text }}</m-checkbox>
         </m-example>
     </m-tab>
