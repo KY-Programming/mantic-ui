@@ -1,6 +1,6 @@
 {
   "name": "@mantic-ui/eslint-config",
-  "version": "22.0.1",
+  "version": "22.0.2",
   "description": "eslint Config for mantic UI",
   "keywords": [
     "mantic-ui",
@@ -39,7 +39,6 @@
   "peerDependencies": {
     "angular-eslint": "^22.0.0",
     "eslint": ">= 10",
-    "eslint-plugin-import": ">= 2",
     "eslint-plugin-prefer-arrow": ">= 1",
     "eslint-plugin-rxjs-updated": ">= 1",
     "eslint-plugin-unicorn": ">= 61",

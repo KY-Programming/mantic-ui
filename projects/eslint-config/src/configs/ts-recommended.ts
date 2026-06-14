@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention,unicorn/no-null */
 import type { TSESLint } from '@typescript-eslint/utils';
 import angular from 'angular-eslint';
-import * as esImport from 'eslint-plugin-import';
 import * as rxjs from 'eslint-plugin-rxjs-updated';
 import unicorn from 'eslint-plugin-unicorn';
 import tseslint from 'typescript-eslint';
@@ -22,8 +21,7 @@ const config: TSESLint.FlatConfig.ConfigArray = [
     {
         name: '@mantic-ui/eslint-config/ts-recommended',
         plugins: {
-            rxjs,
-            'import': esImport
+            rxjs
         },
         rules: {
             // Unicorn
