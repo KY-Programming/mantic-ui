@@ -48,8 +48,6 @@ export class FormComponent extends InvertibleComponent {
     public readonly inlineValidation = input<boolean, BooleanLike>(false, { transform: toBoolean });
     private readonly errorState = signal(false);
     public readonly error = this.errorState.asReadonly();
-    // eslint-disable-next-line @angular-eslint/no-input-rename
-    public readonly isValidInput = input<boolean, BooleanLike>(false, { alias: 'isValid', transform: toBoolean });
     private readonly isValidState = signal(false);
     public readonly isValid = this.isValidState.asReadonly();
     // eslint-disable-next-line @angular-eslint/no-output-native
