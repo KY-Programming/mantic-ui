@@ -48,7 +48,7 @@ export class TimeInputComponent extends InputBaseComponent implements OnInit {
 
     public constructor() {
         super();
-        this.classes.register('min', 'max', 'defaultValue', 'value', 'time');
+        this.classes.register('min', 'max', 'default', 'value', 'time');
         // [value] flows into the shared state (normalising the display); [time] is guarded so an unbound alias can't clobber [value].
         effect(() => {
             const value = this.valueInput();

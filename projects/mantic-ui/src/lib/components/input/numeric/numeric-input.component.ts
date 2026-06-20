@@ -56,7 +56,7 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
 
     public constructor() {
         super();
-        this.classes.register('min', 'max', 'defaultValue', 'value', 'range', 'zeroText', 'number');
+        this.classes.register('min', 'max', 'default', 'value', 'range', 'zeroText', 'number');
         // [value] flows into the shared state (normalising the display); [number] is guarded so an unbound alias can't clobber [value].
         effect(() => {
             const value = this.valueInput();
