@@ -138,6 +138,18 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
             const items = this.itemComponents();
             untracked(() => this.refreshItems(items));
         });
+        // Re-apply the requested [value] once a matching item exists. Projected items (and their
+        // [value] inputs) can resolve after the dropdown is created — e.g. a preselected value in a
+        // freshly opened modal — which would otherwise leave select() with no match and the value cleared.
+        effect(() => {
+            const itemValues = this.itemComponents().map(item => item.value());
+            untracked(() => {
+                const requested = this.valueInput();
+                if (requested !== undefined && this.value() !== requested && itemValues.includes(requested)) {
+                    this.select(requested);
+                }
+            });
+        });
     }
 
     public override ngOnInit(): void {

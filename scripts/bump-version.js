@@ -196,7 +196,7 @@ async function main() {
     console.log('');
     for (const pkg of packages) {
         console.log('\x1b[36m▶\x1b[0m  npm run ' + pkg.build);
-        const result = spawnSync('npm', ['run', pkg.build], {
+        const result = spawnSync('npm run ' + pkg.build, {
             cwd: rootDir,
             stdio: 'inherit',
             shell: true
