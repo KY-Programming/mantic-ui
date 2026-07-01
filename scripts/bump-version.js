@@ -113,6 +113,26 @@ function select(question, options, formatter) {
     });
 }
 
+function confirm(question, defaultYes) {
+    return new Promise((resolve) => {
+        if (!process.stdin.isTTY) {
+            resolve(defaultYes);
+            return;
+        }
+        const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+        const hint = defaultYes ? '(Y/n)' : '(y/N)';
+        rl.question('\x1b[36m?\x1b[0m \x1b[1m' + question + '\x1b[0m \x1b[2m' + hint + '\x1b[0m ', (answer) => {
+            rl.close();
+            const a = (answer || '').trim().toLowerCase();
+            if (a === '') {
+                resolve(defaultYes);
+            } else {
+                resolve(a === 'y' || a === 'yes');
+            }
+        });
+    });
+}
+
 function clearScreen() {
     process.stdout.write('\x1b[2J\x1b[3J\x1b[H');
 }
@@ -206,6 +226,38 @@ async function main() {
             process.exit(result.status || 1);
         }
     }
+
+    console.log('');
+    console.log('\x1b[32m✓  All builds completed successfully.\x1b[0m');
+    packages.forEach(pkg => {
+        const name = pkg.json.name || pkg.file;
+        console.log('   \x1b[2m' + name.padEnd(28) + '\x1b[0m  \x1b[33m' + pkg.nextVersion + '\x1b[0m');
+    });
+    console.log('');
+
+    const shouldPublish = await confirm('Publish these packages to npm?', false);
+    if (!shouldPublish) {
+        console.log('\x1b[2m  Skipped publishing.\x1b[0m');
+        return;
+    }
+
+    console.log('');
+    for (const pkg of packages) {
+        const publishScript = pkg.build.replace(':build', ':publish');
+        console.log('\x1b[36m▶\x1b[0m  npm run ' + publishScript);
+        const result = spawnSync('npm run ' + publishScript, {
+            cwd: rootDir,
+            stdio: 'inherit',
+            shell: true
+        });
+        if (result.status !== 0) {
+            console.error('\x1b[31m✗  Publish failed for ' + publishScript + ' (exit ' + result.status + ')\x1b[0m');
+            process.exit(result.status || 1);
+        }
+    }
+
+    console.log('');
+    console.log('\x1b[32m✓  All packages published successfully.\x1b[0m');
 }
 
 main().catch(err => {

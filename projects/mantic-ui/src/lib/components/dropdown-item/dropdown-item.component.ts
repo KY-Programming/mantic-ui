@@ -19,7 +19,7 @@ import { DropDownSelectionService } from '../dropdown/dropdown-selection.service
 })
 export class DropdownItemComponent extends BaseComponent {
     private readonly dropDownSelectionService = inject(DropDownSelectionService);
-    public readonly value = input<unknown>();
+    public readonly value = input.required<unknown>();
     public readonly icon = input<string>();
     public readonly element = this.elementRef;
     // eslint-disable-next-line @angular-eslint/no-input-rename

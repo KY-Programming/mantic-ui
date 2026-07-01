@@ -5,7 +5,6 @@ import { ThemeService } from '@mantic-ui/angular';
     selector: 'm-fomantic-ui-theme',
     template: '',
     styleUrls: ['./fomantic-ui-theme.component.less'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     encapsulation: ViewEncapsulation.None
 })
 export class FomanticUiThemeComponent {

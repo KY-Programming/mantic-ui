@@ -22,7 +22,7 @@ const config: TSESLint.FlatConfig.ConfigArray = [
         name: '@mantic-ui/eslint-config/ts-recommended',
         rules: {
             // Unicorn
-            'unicorn/prevent-abbreviations': [
+            'unicorn/name-replacements': [
                 'warn',
                 {
                     'allowList': {
@@ -52,6 +52,13 @@ const config: TSESLint.FlatConfig.ConfigArray = [
             '@typescript-eslint/no-confusing-void-expression': ['error', { ignoreArrowShorthand: true }],
             '@typescript-eslint/no-unused-vars': 'warn',
             '@typescript-eslint/no-use-before-define': 'error',
+            '@typescript-eslint/no-extraneous-class': [
+                'error',
+                {
+                    // Fixes false positives for an angular class with only a template
+                    'allowWithDecorator': true
+                }
+            ],
             '@typescript-eslint/naming-convention': [
                 'warn',
                 {
