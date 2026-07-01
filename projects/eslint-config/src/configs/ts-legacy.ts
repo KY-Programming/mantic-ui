@@ -8,7 +8,8 @@ const config: TSESLint.FlatConfig.ConfigArray = [
         name: '@mantic-ui/eslint-config/ts-legacy',
         rules: {
             'rxjs-x/no-implicit-any-catch': 'off',
-            '@typescript-eslint/no-unsafe-enum-comparison': 'off',
+            'unicorn/consistent-class-member-ordering': 'off',
+            '@typescript-eslint/no-unsafe-enum-comparison': 'off'
         }
     }
 ];
