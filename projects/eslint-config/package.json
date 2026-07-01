@@ -1,6 +1,6 @@
 {
   "name": "@mantic-ui/eslint-config",
-  "version": "22.0.5",
+  "version": "22.0.6",
   "description": "eslint Config for mantic UI",
   "keywords": [
     "mantic-ui",
