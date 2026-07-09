@@ -24,12 +24,15 @@ export class NotificationComponent extends BaseComponent {
     public constructor() {
         super();
         this.classes.register('fromService', 'mode');
-        effect(() => {
+        const refresh = (): void => {
             const value = this.fromService();
             if (value) {
-                this.messages.set(this.notificationService.get(value));
+                this.messages.set([...this.notificationService.get(value)]);
             }
-        });
+        };
+        effect(refresh);
+        this.notificationService.added.pipe(this.takeUntilDestroy()).subscribe(refresh);
+        this.notificationService.removed.pipe(this.takeUntilDestroy()).subscribe(refresh);
     }
 
     public close(message: Notification, event: MouseEvent): void {
