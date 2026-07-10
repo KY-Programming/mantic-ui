@@ -141,8 +141,12 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         // Re-apply the requested [value] once a matching item exists. Projected items (and their
         // [value] inputs) can resolve after the dropdown is created — e.g. a preselected value in a
         // freshly opened modal — which would otherwise leave select() with no match and the value cleared.
+        // An item's [value] is a required input that can itself still be unresolved on the very
+        // same change-detection pass contentChildren() first reports it (NG0950) — readItemValue()
+        // tolerates that; the signal read still registers as an effect dependency, so this effect
+        // simply re-runs once the item's value is actually set.
         effect(() => {
-            const itemValues = this.itemComponents().map(item => item.value());
+            const itemValues = this.itemComponents().map(item => DropdownComponent.readItemValue(item));
             untracked(() => {
                 const requested = this.valueInput();
                 if (requested !== undefined && this.value() !== requested && itemValues.includes(requested)) {
@@ -150,6 +154,18 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
                 }
             });
         });
+    }
+
+    // See the comment above this method's only caller — swallows the NG0950 a required [value]
+    // input throws when read before it's been bound yet, treating that item as valueless for
+    // this pass rather than crashing the whole dropdown.
+    private static readItemValue(item: DropdownItemComponent): unknown {
+        try {
+            return item.value();
+        }
+        catch {
+            return undefined;
+        }
     }
 
     public override ngOnInit(): void {
@@ -210,7 +226,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
                 event.preventDefault();
                 event.stopPropagation();
                 const component = this.itemComponents()[index];
-                this.select(component.value());
+                this.select(DropdownComponent.readItemValue(component));
                 this.close();
             }
             else {
@@ -218,7 +234,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
                 if (filteredComponents.length === 1) {
                     event.preventDefault();
                     event.stopPropagation();
-                    this.select(filteredComponents[0].value());
+                    this.select(DropdownComponent.readItemValue(filteredComponents[0]));
                     this.close();
                 }
             }
@@ -242,12 +258,12 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
             const index = this.selectedIndex();
             if (index !== undefined && index >= 0) {
                 const component = this.itemComponents()[index];
-                this.select(component.value());
+                this.select(DropdownComponent.readItemValue(component));
             }
             else {
                 const filteredComponents = this.itemComponents().filter(component => !component.filteredOut());
                 if (filteredComponents.length === 1) {
-                    this.select(filteredComponents[0].value());
+                    this.select(DropdownComponent.readItemValue(filteredComponents[0]));
                 }
             }
         }
@@ -350,20 +366,24 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
             this.filter.set(undefined);
             return;
         }
-        let component = components.find(x => x.value() === value);
+        let component = components.find(x => DropdownComponent.readItemValue(x) === value);
         if (this.selectFirst()) {
+            // The selectFirst() fallback below picks an item that was never checked by the find()
+            // above, so its value has never been safely read yet — readItemValue() again here,
+            // not a direct .value(), for the same NG0950-tolerance reason.
             component ??= components[0];
         }
+        const componentValue = component ? DropdownComponent.readItemValue(component) : undefined;
         if (this.allowFreeText()) {
-            this.setValue(component?.value() ?? value);
+            this.setValue(componentValue ?? value);
         }
         else if (this.search() && this.filter()) {
             this.filter.set(undefined);
             this.onFilter();
-            this.setValue(component?.value());
+            this.setValue(componentValue);
         }
         else {
-            this.setValue(component?.value());
+            this.setValue(componentValue);
         }
         if (isChanged) {
             this.valueChange.emit(this.value());
@@ -434,14 +454,16 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
             ? value => !!value && value.toLowerCase().indexOf(caseInsensitiveFilter) === -1
             : value => !!value && value.toLowerCase().indexOf(caseInsensitiveFilter) !== 0;
         const textContainsFilter = !this.filterText() || filterAction(item.element.nativeElement.innerText);
-        const valueValue = item.value();
+        const valueValue = DropdownComponent.readItemValue(item);
         const valueContainsFilter = !this.filterValue() || filterAction(valueValue && typeof valueValue.toString === 'function' ? valueValue.toString() : undefined);
         return textContainsFilter && valueContainsFilter;
     }
 
     private refreshItems(items: DropdownItemComponent[]): void {
         const selectedIndex = this.selectedIndex();
-        if (selectedIndex === undefined || items[selectedIndex]?.value() !== this.value()) {
+        const selectedItem = selectedIndex === undefined ? undefined : items[selectedIndex];
+        const selectedValue = selectedItem ? DropdownComponent.readItemValue(selectedItem) : undefined;
+        if (selectedIndex === undefined || selectedValue !== this.value()) {
             setTimeout(() => this.select(this.value()));
         }
     }
