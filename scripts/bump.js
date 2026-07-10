@@ -9,7 +9,7 @@ const rootDir = path.join(__dirname, '..');
 const groups = {
     mantic: {
         label: 'mantic  (mantic-ui, mantic-ui-doc, fomantic-ui, semantic-ui)',
-        displayName: 'Mantic UI',
+        displayName: 'mantic UI',
         packages: [
             { file: 'projects/mantic-ui/package.json', build: 'mantic:build' },
             { file: 'projects/mantic-ui-doc/package.json', build: 'doc:build' },
@@ -313,13 +313,16 @@ function releaseNotes(tagPrefix, tag, paths) {
 }
 
 // Open the notes in the user's editor ($VISUAL / $EDITOR, default notepad) and read them back once
-// the file is saved and closed.
+// the file is saved and closed. Split the editor command so a value like "code --wait" still works
+// without needing shell:true (which, combined with an args array, Node flags as unsafe — args
+// wouldn't be escaped).
 function editText(initialText) {
     const file = path.join(os.tmpdir(), 'mantic-ui-release-notes-' + Date.now() + '.txt');
     fs.writeFileSync(file, initialText, 'utf8');
-    const editor = process.env.VISUAL || process.env.EDITOR || 'notepad';
-    console.log('\x1b[2m  Opening release notes in ' + editor + ' — save and close to continue...\x1b[0m');
-    spawnSync(editor, [file], { stdio: 'ignore', shell: true });
+    const editorCommand = process.env.VISUAL || process.env.EDITOR || 'notepad';
+    const [editor, ...editorArgs] = editorCommand.split(' ').filter(Boolean);
+    console.log('\x1b[2m  Opening release notes in ' + editorCommand + ' — save and close to continue...\x1b[0m');
+    spawnSync(editor, [...editorArgs, file], { stdio: 'ignore' });
     const edited = fs.readFileSync(file, 'utf8').replace(/\r\n/g, '\n').trim();
     fs.unlinkSync(file);
     return edited;
