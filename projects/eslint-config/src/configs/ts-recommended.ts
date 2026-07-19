@@ -42,6 +42,10 @@ const config: TSESLint.FlatConfig.ConfigArray = [
             'unicorn/switch-case-braces': 'off',
             // Has to be disabled because `computed(() => ...)` would not be allowed
             'unicorn/consistent-function-scoping': 'off',
+            // Handled by @typescript-eslint/member-ordering
+            'unicorn/consistent-class-member-ordering': 'off',
+            // Handled by @typescript-eslint/member-ordering
+            'unicorn/consistent-class-member-order': 'off',
 
             // typescript-eslint
             '@typescript-eslint/no-explicit-any': ['warn', { 'fixToUnknown': true }],
