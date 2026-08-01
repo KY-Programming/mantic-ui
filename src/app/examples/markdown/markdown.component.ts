@@ -54,7 +54,7 @@ You can create links by enclosing the link text in square brackets and the URL i
 
 To insert an image, use an exclamation mark followed by square brackets for alt text and parentheses for the image URL:
 
-![KY-Programming Logo](https://ky-programming.de/de/assets/images/logos/32xProgramming.png)
+![KY-Programming Logo](https://ky-programming.de/images/logos/32xProgramming.png)
 
 ## Code Blocks
 

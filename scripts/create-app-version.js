@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const rootDir = path.join(__dirname, '..');
 const outputPath = path.join(rootDir, 'dist', 'documentation', 'browser', 'assets');
-const packageJsonPath = path.join(rootDir, 'dist', 'mantic-ui', 'package.json');
+const packageJsonPath = path.join(rootDir, 'projects', 'mantic-ui', 'package.json');
 
 if (!fs.existsSync(outputPath)) {
     console.error(`\x1b[31mError: Output path does not exists: ${outputPath}`);

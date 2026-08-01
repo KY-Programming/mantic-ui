@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
 
 import { RouterLink } from '@angular/router';
 
@@ -11,8 +11,9 @@ import { RouterLink } from '@angular/router';
     styleUrls: ['./intro.component.scss']
 })
 export class IntroComponent implements OnInit {
+    private static readonly versionPattern = /(\d+\.\d+\.\d+)/;
 
-    public version = '?.?.?';
+    public readonly version = signal('?.?.?');
 
     public constructor(
         private readonly http: HttpClient
@@ -22,6 +23,14 @@ export class IntroComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.http.get<{ name: string }>('https://api.github.com/repos/ky-programming/mantic-ui/releases/latest').subscribe(result => this.version = result.name);
+        // The repository also releases other packages (e.g. "ESLint Config v22.0.8"), so /releases/latest can not be used.
+        // Mantic releases are tagged "mantic-v22.0.5" and the older ones just "22.0.5".
+        this.http.get<{ name: string, tag_name: string }[]>('https://api.github.com/repos/ky-programming/mantic-ui/releases?per_page=100').subscribe(releases => {
+            const latest = releases.find(entry => /^(mantic-)?v?\d+\.\d+\.\d+$/.test(entry.tag_name));
+            const version = IntroComponent.versionPattern.exec(latest?.tag_name ?? '')?.[1];
+            if (version) {
+                this.version.set(version);
+            }
+        });
     }
 }
