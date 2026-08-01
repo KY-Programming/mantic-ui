@@ -70,8 +70,7 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true,
-              "tsConfig": "tsconfig.dev.json"
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"

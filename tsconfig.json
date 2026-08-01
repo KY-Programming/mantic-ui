@@ -1,53 +1,53 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "paths": {
-      "@mantic-ui/fomantic-ui-angular": [
-        "./projects/fomantic-ui/src/public-api"
-      ],
-      "@mantic-ui/angular": [
-        "./projects/mantic-ui/src/public-api"
-      ],
-      "@mantic-ui/angular-doc": [
-        "./projects/mantic-ui-doc/src/public-api"
-      ],
-      "@mantic-ui/semantic-ui-angular": [
-        "./projects/semantic-ui/src/public-api"
-      ],
-      "eslint-config": [
-        "./projects/eslint-config/src/public-api"
-      ]
+    "compileOnSave": false,
+    "compilerOptions": {
+        "outDir": "./dist/out-tsc",
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "paths": {
+            "@mantic-ui/fomantic-ui-angular": [
+                "./dist/fomantic-ui"
+            ],
+            "@mantic-ui/angular": [
+                "./dist/mantic-ui"
+            ],
+            "@mantic-ui/angular-doc": [
+                "./dist/mantic-ui-doc"
+            ],
+            "@mantic-ui/semantic-ui-angular": [
+                "./dist/semantic-ui"
+            ],
+            "eslint-config": [
+              "./dist/eslint-config"
+            ]
+        },
+        "noImplicitOverride": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "esModuleInterop": true,
+        "sourceMap": true,
+        "declaration": false,
+        "experimentalDecorators": true,
+        "moduleResolution": "bundler",
+        "importHelpers": true,
+        "target": "ES2022",
+        "module": "ES2022",
+        "useDefineForClassFields": false
     },
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "declaration": false,
-    "experimentalDecorators": true,
-    "moduleResolution": "bundler",
-    "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022",
-    "useDefineForClassFields": false
-  },
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
-  },
-  "references": [
-    {
-      "path": "./projects/eslint-config/tsconfig.lib.json"
+    "angularCompilerOptions": {
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": true,
+        "strictInputAccessModifiers": true,
+        "strictTemplates": true
     },
-    {
-      "path": "./projects/eslint-config/tsconfig.spec.json"
-    }
-  ]
+    "references": [
+      {
+        "path": "./projects/eslint-config/tsconfig.lib.json"
+      },
+      {
+        "path": "./projects/eslint-config/tsconfig.spec.json"
+      }
+    ]
 }
