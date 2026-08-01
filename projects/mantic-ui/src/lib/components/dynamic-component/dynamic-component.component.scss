@@ -1,0 +1,4 @@
+:host {
+    // The parsed nodes are rendered inside the host element, so it must not affect the layout.
+    display: contents;
+}

@@ -1,11 +1,12 @@
-﻿import { Type, ViewContainerRef } from '@angular/core';
+﻿import { ComponentRef, Type, ViewContainerRef } from '@angular/core';
 import { ObjectHelper } from '../../helpers/object-helper';
 
 interface ComponentDef<T> {
     readonly ngContentSelectors?: string[];
     readonly selectors: string[][];
     readonly type: Type<T>;
-    hostDirectives: HostDirectiveDef[] | null;
+    readonly inputs: Record<string, unknown>;
+    hostDirectives: (HostDirectiveDef | unknown)[] | null;
 }
 
 interface HostDirectiveDef<T = unknown> {
@@ -16,6 +17,10 @@ interface HostDirectiveDef<T = unknown> {
 
 function getComponentDef<T>(type: Type<T>): ComponentDef<T> | undefined {
     return (type as any)['ɵ' + 'cmp'] || undefined;
+}
+
+function isHostDirectiveDef(value: unknown): value is HostDirectiveDef {
+    return !!value && typeof value === 'object' && typeof (value as HostDirectiveDef).inputs === 'object';
 }
 
 export class ComponentParser {
@@ -30,8 +35,10 @@ export class ComponentParser {
     }
 
     public static parse(template: string | undefined, viewContainerRef: ViewContainerRef, data?: Record<string, unknown>): Node[] {
+        const host: Element = viewContainerRef.element.nativeElement;
+        viewContainerRef.clear();
+        host.replaceChildren();
         if (!template) {
-            viewContainerRef.clear();
             return [];
         }
         data ??= {};
@@ -48,7 +55,9 @@ export class ComponentParser {
             Object.assign(data, JSON.parse(dataNode.innerHTML || '{}'));
         }
         for (const node of nodesToParse) {
-            nodes.push(this.parseNode(node, viewContainerRef, data));
+            const parsedNode = this.parseNode(node, viewContainerRef, data);
+            host.append(parsedNode);
+            nodes.push(parsedNode);
         }
         return nodes;
     }
@@ -56,8 +65,6 @@ export class ComponentParser {
     private static parseNode(node: Node, viewContainerRef: ViewContainerRef, data: Record<string, unknown>): Node {
         const definition = this.registeredComponents.find(d => d.selectors.some(sa => sa.some(s => s.toLowerCase() === node.nodeName.toLowerCase())));
         if (!definition) {
-            const target: Node = viewContainerRef.element.nativeElement;
-            this.appendTo(target, node);
             return node;
         }
 
@@ -84,33 +91,39 @@ export class ComponentParser {
             projectableNodes
         });
         if (node instanceof Element) {
-            for (const attribute of Array.from(node.attributes)) {
-                const boundAttribute = /^\[(?<name>.*)]$/.exec(attribute.name);
-                const attributeName = boundAttribute ? boundAttribute.groups?.['name'] ?? '' : attribute.name;
-                const attributeValue = boundAttribute ? ObjectHelper.get(data, attribute.value) : attribute.value;
-                let inputFound = false;
-                if (definition.hostDirectives) {
-                    for (const hostDirective of definition.hostDirectives) {
-                        if (hostDirective.inputs[attributeName]) {
-                            (componentRef.instance as any)[attributeName + 'Directive'][attributeName] = attributeValue;
-                            inputFound = true;
-                        }
-                    }
-                }
-                if (!inputFound) {
-                    (componentRef.instance as any)[attributeName] = attributeValue;
-                }
-            }
+            this.applyAttributes(node, definition, componentRef, data);
         }
-        this.appendTo(componentRef.location.nativeElement, node);
         return componentRef.location.nativeElement;
     }
 
-    private static appendTo(target: Node, node: Node): void {
-        if (target.nextSibling) {
-            target.parentNode?.insertBefore(node, target.nextSibling);
-        } else {
-            target.parentNode?.appendChild(node);
+    private static applyAttributes(node: Element, definition: ComponentDef<unknown>, componentRef: ComponentRef<unknown>, data: Record<string, unknown>): void {
+        const inputNames = this.getInputNames(definition);
+        for (const attribute of Array.from(node.attributes)) {
+            const boundAttribute = /^\[(?<name>.*)]$/.exec(attribute.name);
+            const attributeName = boundAttribute ? boundAttribute.groups?.['name'] ?? '' : attribute.name;
+            const attributeValue = boundAttribute ? ObjectHelper.get(data, attribute.value) : attribute.value;
+            const inputName = inputNames.get(attributeName.toLowerCase());
+            if (inputName) {
+                componentRef.setInput(inputName, attributeValue);
+            } else {
+                (componentRef.instance as any)[attributeName] = attributeValue;
+            }
         }
+    }
+
+    private static getInputNames(definition: ComponentDef<unknown>): Map<string, string> {
+        const inputNames = new Map<string, string>();
+        for (const inputName of Object.keys(definition.inputs ?? {})) {
+            inputNames.set(inputName.toLowerCase(), inputName);
+        }
+        for (const hostDirective of definition.hostDirectives ?? []) {
+            if (!isHostDirectiveDef(hostDirective)) {
+                continue;
+            }
+            for (const inputName of Object.values(hostDirective.inputs)) {
+                inputNames.set(inputName.toLowerCase(), inputName);
+            }
+        }
+        return inputNames;
     }
 }

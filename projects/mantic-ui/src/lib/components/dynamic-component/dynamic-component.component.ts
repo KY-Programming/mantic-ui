@@ -3,7 +3,8 @@ import { ComponentParser } from './component-parser';
 
 @Component({
     selector: 'm-dynamic-component',
-    template: ''
+    template: '',
+    styleUrls: ['./dynamic-component.component.scss']
 })
 export class DynamicComponentComponent {
     private readonly viewContainerRef = inject(ViewContainerRef);
