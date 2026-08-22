@@ -353,7 +353,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     }
 
     protected select(value: unknown): void {
-        const isChanged = this.valueState() !== value;
+        const previousValue = this.valueState();
         const components = this.itemComponents();
         if (this.items()?.length && !components.length) {
             return;
@@ -385,7 +385,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         else {
             this.setValue(componentValue);
         }
-        if (isChanged) {
+        if (this.valueState() !== previousValue) {
             this.valueChange.emit(this.value());
         }
         this.selectedIndex.set(component ? components.indexOf(component) : undefined);
