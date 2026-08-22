@@ -28,7 +28,15 @@ export class ModalComponent extends InvertibleComponent {
         inverted: signal(false)
     };
     private readonly resizeObserver = new ResizeObserver(() => this.onResize());
-    protected minGrowOnlyContentHeight = 0;
+    private readonly minGrowOnlyContentHeight = signal(0);
+    protected readonly contentMinHeight = computed<string | undefined>(() => {
+        const grown = this.minGrowOnlyContentHeight();
+        const configured = this.minContentHeight();
+        if (!grown) {
+            return configured;
+        }
+        return configured ? `max(${configured}, ${grown}px)` : `${grown}px`;
+    });
     protected readonly defaults = ModalComponent.defaults;
     public readonly growOnly = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly contentElementRef = viewChild<ElementRef<HTMLElement>>('content');
@@ -84,7 +92,7 @@ export class ModalComponent extends InvertibleComponent {
                 this.onResize();
             }
             else {
-                this.minGrowOnlyContentHeight = 0;
+                this.minGrowOnlyContentHeight.set(0);
                 this.resizeObserver.unobserve(ref.nativeElement);
             }
         });
@@ -105,6 +113,6 @@ export class ModalComponent extends InvertibleComponent {
     }
 
     private onResize(): void {
-        this.minGrowOnlyContentHeight = Math.max(this.minGrowOnlyContentHeight ?? 0, this.contentElementRef()?.nativeElement.clientHeight ?? 0);
+        this.minGrowOnlyContentHeight.update(height => Math.max(height, this.contentElementRef()?.nativeElement.clientHeight ?? 0));
     }
 }

@@ -13,7 +13,7 @@
         }
       </div>
     }
-    <div [class.image]="imageContent()" [class.scrolling]="scrolling()" class="content" [class.no-padding]="noPadding()" [style.min-height]="minContentHeight()" [style.min-height.px]="minGrowOnlyContentHeight" [style.max-height]="maxContentHeight()" #content>
+    <div [class.image]="imageContent()" [class.scrolling]="scrolling()" class="content" [class.no-padding]="noPadding()" [style.min-height]="contentMinHeight()" [style.max-height]="maxContentHeight()" #content>
       <ng-content />
       @if (loading()) {
         <m-dimmer inverted>
