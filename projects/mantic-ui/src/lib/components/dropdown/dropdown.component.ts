@@ -37,7 +37,7 @@ import { DropdownValue } from './dropdown-value';
         '(keydown)': 'onKeyDown($event)'
     }
 })
-export class DropdownComponent extends InvertibleComponent implements OnInit {
+export class DropdownComponent<T = unknown> extends InvertibleComponent implements OnInit {
     public static readonly defaults = {
         dropdownIcon: signal<IconType>('dropdown'),
         dropdownIconSize: signal<IconSize>(undefined),
@@ -79,12 +79,12 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     public readonly selectFirst = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly allowFreeText = input<boolean, BooleanLike>(false, { transform: toBoolean });
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    public readonly valueInput = input<unknown>(undefined, { alias: 'value' });
-    private readonly valueState = signal<unknown>(undefined);
+    public readonly valueInput = input<T | undefined>(undefined, { alias: 'value' });
+    private readonly valueState = signal<T | undefined>(undefined);
     public readonly value = this.valueState.asReadonly();
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    public readonly itemsInput = input<DropdownValue[] | null | undefined>(undefined, { alias: 'items' });
-    private readonly itemsState = signal<DropdownValue[] | undefined>(undefined);
+    public readonly itemsInput = input<DropdownValue<T>[] | null | undefined>(undefined, { alias: 'items' });
+    private readonly itemsState = signal<DropdownValue<T>[] | undefined>(undefined);
     public readonly items = this.itemsState.asReadonly();
     // eslint-disable-next-line @angular-eslint/no-input-rename
     public readonly disabledInput = input<boolean, BooleanLike>(false, { alias: 'disabled', transform: toBoolean });
@@ -105,8 +105,8 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     public readonly isFiltered = signal(false);
     public readonly isLoading = signal(false);
     public readonly selectedIndex = signal<number | undefined>(undefined);
-    public readonly selectedItem = signal<DropdownValue | undefined>(undefined);
-    public readonly selectedItems = signal<DropdownValue[]>([]);
+    public readonly selectedItem = signal<DropdownValue<T> | undefined>(undefined);
+    public readonly selectedItems = signal<DropdownValue<T>[]>([]);
     private readonly isSystemUpward = signal(false);
     private readonly menuMaxHeight = signal<number | undefined>(undefined);
     public readonly isUpwardClass = computed(() => this.isSystemUpward());
@@ -114,7 +114,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
     private readonly isFocused = signal(false);
     private readonly keepOpen = signal(false);
     public readonly hasItems = computed(() => this.itemComponents().length > 0);
-    public readonly valueChange = output<unknown>();
+    public readonly valueChange = output<T | undefined>();
 
     public constructor() {
         super();
@@ -269,7 +269,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         }
     }
 
-    protected deleteClick(item: DropdownValue, event: MouseEvent): void {
+    protected deleteClick(item: DropdownValue<T>, event: MouseEvent): void {
         event.preventDefault();
         this.deselect(item);
     }
@@ -338,12 +338,12 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         if (this.valueState() === value) {
             return;
         }
-        this.valueState.set(value);
+        this.valueState.set(value as T | undefined);
         this.select(value);
     }
 
     // Mirrors the former `items` setter.
-    private setItems(value: DropdownValue[] | null | undefined): void {
+    private setItems(value: DropdownValue<T>[] | null | undefined): void {
         value ??= undefined;
         if (this.itemsState() === value) {
             return;
@@ -385,7 +385,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         else {
             this.setValue(componentValue);
         }
-        if (this.valueState() !== previousValue) {
+        if (component && this.valueState() !== previousValue) {
             this.valueChange.emit(this.value());
         }
         this.selectedIndex.set(component ? components.indexOf(component) : undefined);
@@ -397,7 +397,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         }
         else {
             const items = this.items();
-            this.selectedItem.set(items ? items.find(item => item.value === value) : { value });
+            this.selectedItem.set(items ? items.find(item => item.value === value) : new DropdownValue(value as T));
         }
         if (!this.multiple()) {
             this.close();
@@ -413,7 +413,7 @@ export class DropdownComponent extends InvertibleComponent implements OnInit {
         // HACK-END
     }
 
-    protected deselect(item: DropdownValue): void {
+    protected deselect(item: DropdownValue<T>): void {
         const items = this.selectedItems();
         const index = items.indexOf(item);
         if (index >= 0) {
