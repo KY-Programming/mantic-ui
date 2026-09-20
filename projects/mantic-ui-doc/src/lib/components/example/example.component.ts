@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, input, model } from '@angular/core';
 import { HeaderDirective } from '@mantic-ui/angular';
-import { HighlightModule } from 'ngx-highlightjs';
+import { HighlightAuto } from 'ngx-highlightjs';
 
 @Component({
     selector: 'm-example',
@@ -10,7 +10,7 @@ import { HighlightModule } from 'ngx-highlightjs';
     host: {
         '[id]': 'id'
     },
-    imports: [HighlightModule, HeaderDirective]
+    imports: [HighlightAuto, HeaderDirective]
 })
 export class ExampleComponent {
     private headerField: string | undefined;

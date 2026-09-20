@@ -93,3 +93,17 @@ If you have a issue, look in our [issue tracker on github](https://github.com/KY
 To support us fork our [github repository](https://github.com/KY-Programming/mantic-ui)
 
 [Direct contact](https://support.ky-programming.de/) (German, English) via [email](https://mail.support.ky-programming.de/), [WhatsApp](https://whatsapp.support.ky-programming.de/) or join our [Discord server](https://discord.mantic-ui.ky-programming.de/)
+
+## For Agents
+
+**`m-example-code` / `m-example` are bound to the ngx-highlightjs directive API, which is not
+stable across majors.** Up to v10 `[highlight]` took a `languages` array and auto-detected within
+it; from v11 on `[highlight]` has a *required* single `language` and the array moved to
+`[highlightAuto]`, which is what these components use now. A mismatch does not fail the build —
+the directive throws `NG0950` at runtime and every code block on the page renders empty. So
+`ngx-highlightjs` is not a free `npm update`: check the directive inputs, and keep the
+`peerDependencies` range in `projects/mantic-ui-doc/package.json` honest about what the templates
+actually bind.
+
+**The highlighted HTML is written in an animation frame.** Nothing renders while the tab is
+hidden, which makes a headless or background-window check of a code block look like a bug.

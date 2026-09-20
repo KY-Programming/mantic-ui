@@ -8,5 +8,5 @@
   </m-button>
 }
 @if (code()) {
-  <pre><code [highlight]="code() ?? ''" [languages]="languages()"><ng-content></ng-content></code></pre>
+  <pre><code [highlightAuto]="code() ?? ''" [languages]="languages()"><ng-content></ng-content></code></pre>
 }

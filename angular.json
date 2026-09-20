@@ -82,7 +82,7 @@
               "buildTarget": "mantic-ui-test:build:production"
             },
             "development": {
-              "port": 4005,
+              "port": 4050,
               "buildTarget": "mantic-ui-test:build:development"
             }
           },

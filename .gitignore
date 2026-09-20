@@ -42,3 +42,10 @@ testem.log
 .DS_Store
 Thumbs.db
 /Designs
+/.dockerignore
+/docker*
+/project.md
+/scripts/All.cmd
+/scripts/Build.cmd
+/scripts/Check-Docker.cmd
+/scripts/Push.cmd

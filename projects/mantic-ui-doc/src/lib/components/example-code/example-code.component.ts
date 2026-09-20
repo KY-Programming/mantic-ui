@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, input, Output } from '@angular/core';
 import { BooleanLike, ButtonComponent, SegmentComponent, toBoolean } from '@mantic-ui/angular';
-import { HighlightModule } from 'ngx-highlightjs';
+import { HighlightAuto } from 'ngx-highlightjs';
 
 @Component({
     selector: 'm-example-code',
     templateUrl: './example-code.component.html',
     styleUrls: ['./example-code.component.scss'],
     imports: [
-        HighlightModule,
+        HighlightAuto,
         ButtonComponent
     ],
     changeDetection: ChangeDetectionStrategy.Eager,

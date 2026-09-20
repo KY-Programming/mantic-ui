@@ -16,7 +16,7 @@
     "@angular/common": "^22.0.0",
     "@angular/core": "^22.0.0",
     "@mantic-ui/angular": "22.1.0",
-    "ngx-highlightjs": "> 4",
+    "ngx-highlightjs": ">= 11",
     "highlight.js": "> 10"
   },
   "dependencies": {

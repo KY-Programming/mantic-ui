@@ -1,7 +1,11 @@
 # Documentation Components for mantic UI
 mantic UI Documentation components for Angular
 
-Requires [@mantic-ui/angular](https://www.npmjs.com/package/@mantic-ui/angular)
+Requires [@mantic-ui/angular](https://www.npmjs.com/package/@mantic-ui/angular),
+[ngx-highlightjs](https://www.npmjs.com/package/ngx-highlightjs) `>= 11` and
+[highlight.js](https://www.npmjs.com/package/highlight.js) `>= 11`. Register the highlighter once
+with `provideHighlightJs()` from this package. Versions of `ngx-highlightjs` below 11 do not have the
+`highlightAuto` directive `<m-example-code>` renders with, and leave every code block empty.
 
 ## Work-In-Progress
 Currently we are heavily working to get all components and features implemented.
