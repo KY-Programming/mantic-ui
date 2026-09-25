@@ -88,8 +88,10 @@ export class ModalComponent extends InvertibleComponent {
                 return;
             }
             if (growOnly) {
+                // No immediate measurement: this effect runs before the template bindings that cap the content height
+                // (.modal, .scrolling) are applied, so it would lock in the uncapped height. The observer reports the
+                // initial size itself, once the content is laid out.
                 this.resizeObserver.observe(ref.nativeElement);
-                this.onResize();
             }
             else {
                 this.minGrowOnlyContentHeight.set(0);
