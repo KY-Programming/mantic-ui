@@ -41,6 +41,8 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Custom
 /Designs
 /.dockerignore
 /docker*
@@ -49,3 +51,5 @@ Thumbs.db
 /scripts/Build.cmd
 /scripts/Check-Docker.cmd
 /scripts/Push.cmd
+*.todo.md
+*.idea.md
