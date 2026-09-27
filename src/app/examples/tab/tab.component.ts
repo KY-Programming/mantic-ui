@@ -1,12 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { HeaderComponent } from '../../components/header/header.component';
-import { DividerComponent, HeaderDirective, IconComponent, NumericInputComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { DividerComponent, HeaderDirective, IconComponent, MenuItemComponent, NumericInputComponent, TabComponent, TabGroupComponent, TabGroupMenuComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-tab-example',
-    imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, DividerComponent, NumericInputComponent],
+    imports: [HeaderComponent, TabGroupComponent, TabComponent, TabGroupMenuComponent, MenuItemComponent, IconComponent, ExampleComponent, ExampleCodeComponent, DividerComponent, NumericInputComponent],
     templateUrl: './tab.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./tab.component.scss']
@@ -27,6 +27,16 @@ export class TabExampleComponent {
   <m-tab></m-tab>
   <m-tab></m-tab>
   <m-tab></m-tab>
+</m-tab-group>`;
+
+    public readonly menuItemsCode = `<m-tab-group>
+  <m-tab label="Bio"></m-tab>
+  <m-tab label="Photos"></m-tab>
+  <m-tab-group-menu>
+    <m-menu-item link title="Settings" (click)="openSettings()">
+      <m-icon icon="cog" />
+    </m-menu-item>
+  </m-tab-group-menu>
 </m-tab-group>`;
 
     public readonly scrollableCode = `<m-tab-group scrollable></m-tab-group>`;

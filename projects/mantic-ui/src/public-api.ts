@@ -132,6 +132,7 @@ export * from './lib/components/table/table.component';
 export * from './lib/components/table/table-defaults.component';
 export * from './lib/components/tab-group/tab-group.component';
 export * from './lib/components/tab-group/tab-group-defaults.component';
+export * from './lib/components/tab-group-menu/tab-group-menu.component';
 export * from './lib/components/tab/tab.component';
 export * from './lib/components/template/template.component';
 export * from './lib/components/template-outlet/template-outlet.component';

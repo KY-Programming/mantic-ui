@@ -22,21 +22,22 @@
             <m-example-code [code]="code2"></m-example-code>
         </m-example>
 
-        <!--        <m-example>-->
-        <!--            <m-tab-group>-->
-        <!--                <m-tab label="Bio">-->
-        <!--                    <img src="/assets/images/paragraph.png">-->
-        <!--                </m-tab>-->
-        <!--                <m-tab label="Photos">-->
-        <!--                    <img src="/assets/images/media-paragraph.png">-->
-        <!--                </m-tab>-->
-        <!--                &lt;!&ndash; <m-menu position="right">-->
-        <!--                    <m-menu-item>-->
-        <!--                        <m-input transparent placeholder="Search..." icon="search link"></m-input>-->
-        <!--                    </m-menu-item>-->
-        <!--                </m-menu> &ndash;&gt;-->
-        <!--            </m-tab-group>-->
-        <!--        </m-example>-->
+        <m-example header="Menu items" description="More items can be added to the menu after the tabs, e.g. a settings button. A menu on top or at the bottom shows them at its right end">
+            <m-tab-group secondary pointing>
+                <m-tab label="Bio">
+                    <img src="/assets/images/paragraph.png">
+                </m-tab>
+                <m-tab label="Photos">
+                    <img src="/assets/images/media-paragraph.png">
+                </m-tab>
+                <m-tab-group-menu>
+                    <m-menu-item link title="Settings">
+                        <m-icon icon="cog" />
+                    </m-menu-item>
+                </m-tab-group-menu>
+            </m-tab-group>
+            <m-example-code [code]="menuItemsCode"></m-example-code>
+        </m-example>
 
         <m-example header="Menu position" description="The menu position can set to top (default), bottom, left or right">
             <m-tab-group menu="bottom">
