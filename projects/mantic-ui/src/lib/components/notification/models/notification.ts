@@ -13,5 +13,6 @@ export interface Notification<T = unknown> {
     loading?: boolean;
     component?: Type<unknown>;
     details?: T;
+    click?: (event: MouseEvent) => void;
 }
 

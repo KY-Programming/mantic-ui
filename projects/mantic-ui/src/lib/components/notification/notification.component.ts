@@ -42,6 +42,14 @@ export class NotificationComponent extends BaseComponent {
         this.notificationService.remove(message);
     }
 
+    // Like closing, the notification's click action leaves out a click its content handled already (prevented its default)
+    protected onClick(message: Notification, event: MouseEvent): void {
+        if (event.defaultPrevented) {
+            return;
+        }
+        message.click?.(event);
+    }
+
     protected $message(message: unknown): Notification {
         return message as Notification;
     }

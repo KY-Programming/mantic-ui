@@ -40,6 +40,7 @@ export class MessageComponent extends InvertibleComponent {
     public readonly error = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly closable = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly showClose = input<boolean, BooleanLike>(true, { transform: toBoolean });
+    public readonly closeOnClick = input<boolean, BooleanLike>(true, { transform: toBoolean });
     public readonly loading = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly attached = input<MessageAttached>();
     public readonly header = input<string>();
@@ -49,6 +50,8 @@ export class MessageComponent extends InvertibleComponent {
     public readonly closeIconSize = input<IconSize>();
     public readonly ignored = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly close = output<MouseEvent>();
+    public readonly clicked = output<MouseEvent>();
+    private readonly closeIconClicks = new WeakSet<MouseEvent>();
 
     public constructor() {
         super();
@@ -60,12 +63,21 @@ export class MessageComponent extends InvertibleComponent {
         effect(() => this.refreshInverted(MessageComponent.defaults.inverted()));
     }
 
+    protected closeFromIcon(event: MouseEvent): void {
+        this.closeIconClicks.add(event);
+        this.close.emit(event);
+    }
+
     protected onClick(event: MouseEvent): void {
+        if (this.closeIconClicks.has(event)) {
+            return;
+        }
         const selection = globalThis.getSelection();
         if (selection && this.elementRef.nativeElement.contains(selection.focusNode) && (selection.anchorNode !== selection.focusNode || selection.anchorOffset !== selection.focusOffset)) {
             return;
         }
-        if (this.closable()) {
+        this.clicked.emit(event);
+        if (this.closable() && this.closeOnClick()) {
             this.close.emit(event);
         }
     }

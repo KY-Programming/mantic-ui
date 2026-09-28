@@ -9,5 +9,5 @@
 }
 <ng-content />
 @if (closable() && showClose()) {
-  <m-icon [icon]="closeIcon() ?? defaults.closeIcon()" [size]="closeIconSize() ?? defaults.closeIconSize()" class="close icon" (click)="close.emit($event)" />
+  <m-icon [icon]="closeIcon() ?? defaults.closeIcon()" [size]="closeIconSize() ?? defaults.closeIconSize()" class="close icon" (click)="closeFromIcon($event)" />
 }

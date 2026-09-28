@@ -115,6 +115,26 @@ export class CustomNotificationComponent {
     }
 }`;
 
+    public showClickAction(): void {
+        const reference = this.notificationService.info('Click me to see the action, then I close', {
+            timeout: 0,
+            click: () => {
+                alert('You clicked the notification!');
+                reference.close();
+            }
+        });
+    }
+
+    public exampleClickAction = `import { NotificationService } from '@mantic-ui/angular';
+
+const reference = this.notificationService.info('Click me to see the action, then I close', {
+    timeout: 0,
+    click: () => {
+        alert('You clicked the notification!');
+        reference.close();
+    }
+});`;
+
     public showManual(): void {
         this.manualNotification = this.notificationService.error('A error that can be closed manually by click on the hide button');
     }

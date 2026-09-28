@@ -27,6 +27,12 @@
       <m-example-code [code]="exampleComponent" [languages]="['ts']" />
       <m-example-code [code]="exampleComponentTs" [languages]="['ts']" label="custom-notification.component.ts" />
     </m-example>
+    <m-example header="Click action" description="Do something on a click on the notification instead of closing it">
+      <m-flex>
+        <m-button (click)="showClickAction()">Show</m-button>
+      </m-flex>
+      <m-example-code [code]="exampleClickAction" [languages]="['ts']" />
+    </m-example>
     <m-example header="Hide a message" description="Use code to hide a message">
       <m-flex>
         @if (manualNotification) {

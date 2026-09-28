@@ -11,7 +11,7 @@
     @if ($message(message); as message) {
         <m-message
             [error]="message.type === 'error'" [warning]="message.type === 'warning'" [success]="message.type === 'success'" [positive]="message.type === 'positive'" [info]="message.type === 'info'"
-            [header]="message.title" [icon]="message.icon" closable [showClose]="message.type === 'error'" [attached]="attached()" [loading]="message.loading" (close)="close(message, $event)">
+            [header]="message.title" [icon]="message.icon" closable [showClose]="message.type === 'error'" [closeOnClick]="!message.click" [attached]="attached()" [loading]="message.loading" (close)="close(message, $event)" (clicked)="onClick(message, $event)">
             @if (message.component) {
                 <ng-container *ngComponentOutlet="message.component; injector: message | notificationInjector" />
             } @else {
