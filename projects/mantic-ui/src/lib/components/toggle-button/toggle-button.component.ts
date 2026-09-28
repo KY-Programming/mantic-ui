@@ -1,8 +1,9 @@
 import { NgIfContext } from '@angular/common';
-import { Component, contentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import { Component, contentChild, effect, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { ButtonBaseComponent } from '../../base/button-base.component';
 import { BooleanLike } from '../../models/boolean-like';
 import { Key } from '../../models/key';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
     selector: 'm-toggle-button',
@@ -36,6 +37,7 @@ export class ToggleButtonComponent extends ButtonBaseComponent {
         super();
         this.classes.register('checked')
             .registerFixed('toggle');
+        effect(() => this.refreshInverted(ButtonComponent.defaults.inverted()));
     }
 
     protected toggle(): void {

@@ -6,6 +6,18 @@ const { spawnSync } = require('child_process');
 
 const rootDir = path.join(__dirname, '..');
 
+// --yes / -y answers every y/n prompt with yes (commit, publish, GitHub release). The group/part
+// pickers and the release-notes editor stay interactive. Via npm: "npm run bump -- --yes".
+const yesFlags = ['--yes', '-y'];
+const cliArgs = process.argv.slice(2);
+const unknownArgs = cliArgs.filter(arg => !yesFlags.includes(arg));
+if (unknownArgs.length > 0) {
+    console.error('\x1b[31mUnknown argument(s): ' + unknownArgs.join(' ') + '\x1b[0m');
+    console.error('Usage: node scripts/bump.js [--yes|-y]');
+    process.exit(1);
+}
+const assumeYes = cliArgs.length > 0;
+
 const groups = {
     mantic: {
         label: 'mantic  (mantic-ui, mantic-ui-doc, fomantic-ui, semantic-ui)',
@@ -168,6 +180,11 @@ function select(question, options, formatter) {
 
 function confirm(question, defaultYes) {
     return new Promise((resolve) => {
+        if (assumeYes) {
+            console.log('\x1b[36m?\x1b[0m \x1b[1m' + question + '\x1b[0m yes \x1b[2m(--yes)\x1b[0m');
+            resolve(true);
+            return;
+        }
         if (!process.stdin.isTTY) {
             resolve(defaultYes);
             return;

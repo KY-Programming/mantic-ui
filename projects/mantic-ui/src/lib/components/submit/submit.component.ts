@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { ButtonBaseComponent } from '../../base/button-base.component';
 import { Key } from '../../models/key';
+import { ButtonComponent } from '../button/button.component';
 import { FormComponent } from '../form/form.component';
 
 @Component({
@@ -19,6 +20,7 @@ export class SubmitComponent extends ButtonBaseComponent {
 
     public constructor() {
         super();
+        effect(() => this.refreshInverted(ButtonComponent.defaults.inverted()));
     }
 
     protected onClick(): void {
