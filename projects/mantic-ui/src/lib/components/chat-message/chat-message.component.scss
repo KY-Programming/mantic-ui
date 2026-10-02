@@ -4,9 +4,29 @@ $space: 20px !default;
 $space-large: 30px !default;
 $chat-message-background: rgba(0,0,0,.05) !default;
 $chat-message-foreground: inherit !default;
+$chat-message-avatar-size: 32px !default;
 
 :host {
     display: flex;
+
+    .avatar {
+        flex: none;
+        align-self: flex-start;
+        width: $chat-message-avatar-size;
+        height: $chat-message-avatar-size;
+        margin-right: $space-small;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    &.out {
+        flex-direction: row-reverse;
+
+        .avatar {
+            margin-right: 0;
+            margin-left: $space-small;
+        }
+    }
 
     .wrapper {
         display: inline-block;

@@ -1,3 +1,10 @@
+@if (message()?.image; as image) {
+    @if (message()?.grouped) {
+        <span class="avatar"></span>
+    } @else {
+        <img class="avatar" [src]="image" alt="" />
+    }
+}
 <div class="wrapper">
     @if (message(); as message) {
         @if (!message.grouped) {
