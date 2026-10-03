@@ -25,7 +25,7 @@ export class LabelComponent extends BaseComponent implements LabelOptions {
 
     public constructor() {
         super();
-        this.classes.register('basic', 'color', 'pointing', 'position', 'horizontal')
+        this.classes.register('basic', 'color', 'pointing')
             .registerFixed('label');
         effect(() => this.classes.set('basic', this.basic()));
         effect(() => this.classes.set('color', this.color()));

@@ -23,7 +23,6 @@ export class NotificationComponent extends BaseComponent {
 
     public constructor() {
         super();
-        this.classes.register('fromService', 'mode');
         const refresh = (): void => {
             const value = this.fromService();
             if (value) {

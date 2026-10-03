@@ -39,7 +39,7 @@ export class FieldGroupComponent extends BaseComponent implements OnDestroy {
 
     public constructor() {
         super(false);
-        this.classes.register('inline', 'grouped')
+        this.classes.register('inline')
             .registerFixed('fields');
         effect(() => this.classes.set('inline', this.inline()));
 

@@ -1,8 +1,9 @@
-import { Directive, ElementRef, Inject, inject, OnInit, Optional, TypeProvider } from '@angular/core';
+import { Directive, ElementRef, Inject, inject, OnInit, Optional, Type, TypeProvider } from '@angular/core';
 import { toBoolean } from '../helpers/to-boolean';
 import { BooleanLike } from '../models/boolean-like';
 import { SortedClassesService } from '../services/sorted-classes.service';
 import { Destroyable } from './destroyable';
+import { validateAttributes } from './validate-attributes';
 
 @Directive()
 export abstract class BaseDirective extends Destroyable implements OnInit {
@@ -36,22 +37,10 @@ export abstract class BaseDirective extends Destroyable implements OnInit {
 
     public ngOnInit(): void {
         this.initialized = true;
-        this.readPropertiesFromAttributes();
+        if (this.validateAttributes) {
+            validateAttributes(this.elementRef.nativeElement, this.constructor as Type<unknown>, this.classes);
+        }
         this.refreshClasses();
-    }
-
-    private readPropertiesFromAttributes(): void {
-        if (!this.validateAttributes) {
-            return;
-        }
-        for (const attribute of this.elementRef.nativeElement.attributes) {
-            if (attribute.name.startsWith('_ng') || attribute.name.startsWith('ng-') || attribute.name.startsWith('m-') || attribute.name === 'class' || attribute.name === 'title') {
-                continue;
-            }
-            if (!this.classes.has(attribute.name)) {
-                console.warn(`Unknown attribute '${attribute.name}' on <${this.tag}> found.`, this.elementRef.nativeElement);
-            }
-        }
     }
 
     protected refreshClasses(): void {

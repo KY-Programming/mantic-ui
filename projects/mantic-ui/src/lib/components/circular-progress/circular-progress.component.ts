@@ -36,8 +36,7 @@ export class CircularProgressComponent extends BaseComponent {
 
     public constructor() {
         super();
-        this.classes.register('success', 'error', 'warning')
-            .registerFixed('circular', 'progress');
+        this.classes.registerFixed('circular', 'progress');
     }
 
 }

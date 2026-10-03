@@ -52,7 +52,6 @@ export class InputComponent extends InputBaseComponent {
 
     public constructor() {
         super();
-        this.classes.register('maxlength', 'type', 'default', 'value', 'text');
         // [value] flows into the shared state; [text] is guarded so an unbound alias can't clobber [value].
         effect(() => {
             const value = this.valueInput();

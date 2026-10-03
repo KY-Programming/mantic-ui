@@ -55,7 +55,7 @@ export class MessageComponent extends InvertibleComponent {
 
     public constructor() {
         super();
-        this.classes.register('ignored', 'positive', 'success', 'warning', 'error', 'attached', 'icon', 'closable')
+        this.classes.register('ignored', 'attached', 'icon')
             .registerFixed('visible', 'message');
         effect(() => this.classes.set('ignored', this.ignored()));
         effect(() => this.classes.set('icon', this.loading() || !!this.icon()));

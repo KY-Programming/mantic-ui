@@ -35,8 +35,7 @@ export class ToggleButtonComponent extends ButtonBaseComponent {
 
     public constructor() {
         super();
-        this.classes.register('checked')
-            .registerFixed('toggle');
+        this.classes.registerFixed('toggle');
         effect(() => this.refreshInverted(ButtonComponent.defaults.inverted()));
     }
 

@@ -42,7 +42,6 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
 
     public constructor() {
         super();
-        this.classes.register('openOnLeftClick', 'openOnRightClick', 'vertical', 'margin', 'shared');
     }
 
     public ngAfterViewInit(): void {

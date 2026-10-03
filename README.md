@@ -107,3 +107,11 @@ actually bind.
 
 **The highlighted HTML is written in an animation frame.** Nothing renders while the tab is
 hidden, which makes a headless or background-window check of a code block look like a bug.
+
+**Only register keys in `classes` that are really set as classes.** The "Unknown attribute"
+warning of `BaseComponent` already accepts every input of the component (read with
+`reflectComponentType`), so registering an input name just to silence it is not needed and hides
+typos. Directives have no public input reflection, so a
+`BaseDirective` still only accepts registered classes and the global attributes. Keep the
+otherwise empty `super()` constructors: without them Angular uses the inherited factory, which
+injects `null` for `useUiClass` and drops the `ui` class.

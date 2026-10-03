@@ -1,8 +1,9 @@
-﻿import { Directive, ElementRef, inject, Inject, OnInit, Optional } from '@angular/core';
+﻿import { Directive, ElementRef, inject, Inject, OnInit, Optional, Type } from '@angular/core';
 import { toBoolean } from '../helpers/to-boolean';
 import { BooleanLike } from '../models/boolean-like';
 import { SortedClassesService } from '../services/sorted-classes.service';
 import { Destroyable } from './destroyable';
+import { validateAttributes } from './validate-attributes';
 
 @Directive({
     providers: BaseComponent.providers
@@ -33,27 +34,14 @@ export abstract class BaseComponent extends Destroyable implements OnInit {
         if (useUiClass) {
             this.classes.registerFixed('ui');
         }
-        this.classes.register('style');
     }
 
     public ngOnInit(): void {
         this.initialized = true;
-        this.readPropertiesFromAttributes();
+        if (this.validateAttributes) {
+            validateAttributes(this.elementRef.nativeElement, this.constructor as Type<unknown>, this.classes);
+        }
         this.refreshClasses();
-    }
-
-    private readPropertiesFromAttributes(): void {
-        if (!this.validateAttributes) {
-            return;
-        }
-        for (const attribute of this.elementRef.nativeElement.attributes) {
-            if (attribute.name.startsWith('_ng') || attribute.name.startsWith('ng-') || attribute.name.startsWith('m-') || attribute.name === 'class' || attribute.name === 'title') {
-                continue;
-            }
-            if (!this.classes.has(attribute.name)) {
-                console.warn(`Unknown attribute '${attribute.name}' on <${this.tag}> found.`, this.elementRef.nativeElement);
-            }
-        }
     }
 
     // TODO: Check usage

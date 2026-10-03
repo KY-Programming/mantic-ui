@@ -32,7 +32,6 @@ export class ExpanderPartComponent extends BaseComponent {
 
     public constructor() {
         super(false);
-        this.classes.register('expanded', 'expandable');
     }
 
     protected onClick(): void {

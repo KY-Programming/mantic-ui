@@ -24,7 +24,6 @@ export class TabComponent extends MenuItemComponent {
 
     public constructor() {
         super(false);
-        this.classes.register('name', 'label', 'icon');
     }
 
     public changeState(value: boolean | undefined): void {

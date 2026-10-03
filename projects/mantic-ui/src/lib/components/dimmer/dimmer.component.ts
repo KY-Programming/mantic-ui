@@ -28,8 +28,7 @@ export class DimmerComponent extends InvertibleComponent implements OnDestroy {
 
     public constructor() {
         super();
-        this.classes.register('page', 'visible')
-            .registerFixed('dimmer');
+        this.classes.registerFixed('dimmer');
         effect(() => this.refreshInverted(DimmerComponent.defaults.inverted()));
         effect(() => {
             const value = this.visibleInput();

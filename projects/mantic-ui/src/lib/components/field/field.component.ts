@@ -84,7 +84,7 @@ export class FieldComponent extends BaseComponent {
     public constructor() {
         super(false);
         this.classes.registerFixed('field');
-        this.classes.register('size', 'disabled', 'readonly', 'inline', 'label', 'fill', 'name');
+        this.classes.register('size');
         effect(() => this.classes.set('size', this.size()));
 
         // Propagate name/for to every projected child input (and the label element).

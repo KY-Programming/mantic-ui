@@ -30,7 +30,6 @@ export class MenuItemComponent extends BaseComponent {
         @Optional() @Inject('none') useUiClass = true
     ) {
         super(useUiClass);
-        this.classes.register('active', 'link')
-            .registerFixed('item');
+        this.classes.registerFixed('item');
     }
 }

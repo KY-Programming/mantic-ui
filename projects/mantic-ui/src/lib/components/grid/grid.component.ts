@@ -22,7 +22,7 @@ export class GridComponent extends BaseComponent {
 
     public constructor() {
         super();
-        this.classes.register('vertically', 'divided', 'columns', 'internally', 'celled', 'width', 'noMargin')
+        this.classes.register('vertically', 'divided', 'columns', 'internally', 'celled', 'width', 'no-margin')
             .registerFixed('grid');
         effect(() => this.classes.set('vertically', this.vertically()));
         effect(() => this.classes.set('divided', this.divided()));

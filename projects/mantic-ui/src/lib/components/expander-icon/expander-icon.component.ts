@@ -29,7 +29,6 @@ export class ExpanderIconComponent extends BaseComponent {
 
     public constructor() {
         super();
-        this.classes.register('expanded');
     }
 
     public toggle(): void {

@@ -66,7 +66,7 @@ export class CheckboxComponent extends InvertibleComponent {
 
     public constructor() {
         super();
-        this.classes.register('disabled', 'read-only', 'indeterminate', 'fitted', 'checked', 'value', 'name', 'label', 'readonly')
+        this.classes.register('disabled', 'read-only')
             .registerFixed('checkbox');
         effect(() => this.refreshInverted(CheckboxComponent.defaults.inverted()));
         effect(() => this.classes.set('read-only', this.readonly()));

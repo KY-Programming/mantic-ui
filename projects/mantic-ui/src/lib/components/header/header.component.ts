@@ -23,7 +23,7 @@ export class HeaderComponent extends InvertibleComponent {
 
     public constructor() {
         super();
-        this.classes.register('size', 'iconSize')
+        this.classes.register('size')
             .registerFixed('header');
         effect(() => this.classes.set('size', this.size()));
         effect(() => this.refreshInverted(HeaderComponent.defaults.inverted()));

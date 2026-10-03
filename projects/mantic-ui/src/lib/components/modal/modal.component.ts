@@ -77,7 +77,7 @@ export class ModalComponent extends InvertibleComponent {
 
     public constructor() {
         super(false);
-        this.classes.register('basic', 'visible', 'fullscreen', 'size', 'scrolling', 'imageContent', 'header', 'footer', 'showHeader', 'hideHeader', 'showFooter', 'hideFooter', 'hideDimmer', 'showClose', 'minContentHeight', 'maxContentHeight');
+        this.classes.register('basic');
         effect(() => this.classes.set('basic', this.basic()));
         effect(() => this.refreshInverted(ModalComponent.defaults.inverted()));
 

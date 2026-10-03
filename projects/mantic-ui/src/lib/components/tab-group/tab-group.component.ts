@@ -55,7 +55,6 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
     public constructor() {
         super(false);
         this.noClasses = true;
-        this.classes.register('pointing', 'secondary', 'position', 'selectByRoute', 'routeParameterName', 'noPadding', 'menu', 'loading', 'scrollable');
         effect(() => this.refreshInverted(TabGroupComponent.defaults.inverted()));
         // Replaces the former selectedIndex setter side effect; tabs are read untracked so it only reacts to the index.
         effect(() => {

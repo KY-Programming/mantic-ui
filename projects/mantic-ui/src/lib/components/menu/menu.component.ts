@@ -32,7 +32,7 @@ export class MenuComponent extends InvertibleComponent {
     public constructor() {
         super(!inject(MenuComponent, { optional: true, skipSelf: true }));
         this.classes.registerFixed('menu');
-        this.classes.register('pointing', 'position', 'fixed', 'secondary', 'tabular', 'text', 'attached', 'vertical');
+        this.classes.register('pointing', 'position', 'attached');
         effect(() => this.classes.set('pointing', this.pointing()));
         effect(() => this.classes.set('position', this.position()));
         effect(() => this.classes.set('attached', this.attached()));

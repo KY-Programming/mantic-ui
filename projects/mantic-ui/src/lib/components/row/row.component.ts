@@ -19,7 +19,7 @@ export class RowComponent extends BaseComponent {
 
     public constructor() {
         super(false);
-        this.classes.register('columns', 'column', 'stretched')
+        this.classes.register('columns', 'column')
             .registerFixed('row');
         effect(() => {
             const columns = this.columns();

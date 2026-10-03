@@ -118,7 +118,7 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
 
     public constructor() {
         super();
-        this.classes.register('fluid', 'disabled', 'multiple', 'search', 'active', 'visible', 'upward', 'selectFirst', 'placeholder', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom', 'filterType', 'allowFreetext')
+        this.classes.register('fluid', 'disabled')
             .registerFixed('selection', 'dropdown');
         effect(() => this.classes.set('fluid', this.fluid()));
         effect(() => this.classes.set('disabled', this.disabled()));

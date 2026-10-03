@@ -37,7 +37,7 @@ export class ExpanderComponent extends BaseComponent {
 
     public constructor() {
         super();
-        this.classes.register('header', 'expanded', 'dropdownIcon', 'dropdownIconSize', 'styled')
+        this.classes.register('styled')
             .registerFixed('fluid', 'accordion');
         effect(() => this.classes.set('styled', !this.basic()));
     }

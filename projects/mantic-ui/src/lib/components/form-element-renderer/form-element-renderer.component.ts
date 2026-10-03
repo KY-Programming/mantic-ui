@@ -52,7 +52,7 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
 
     public constructor() {
         super(false);
-        this.classes.register('elements', 'fields');
+        this.classes.register('elements');
         // Re-run the element/data setup side effects when those inputs change.
         effect(() => {
             this.elements();

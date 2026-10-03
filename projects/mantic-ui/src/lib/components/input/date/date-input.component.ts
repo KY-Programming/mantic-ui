@@ -53,7 +53,6 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
 
     public constructor() {
         super();
-        this.classes.register('min', 'max', 'default', 'value', 'date', 'showDay', 'weekendColor');
         effect(() => this.classes.set('labeled', this.showDay()));
         // [value] flows into the shared state (normalising the display); [date] is guarded so an unbound alias can't clobber [value].
         effect(() => {

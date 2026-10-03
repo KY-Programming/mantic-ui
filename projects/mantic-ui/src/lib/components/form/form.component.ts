@@ -56,7 +56,7 @@ export class FormComponent extends InvertibleComponent {
 
     public constructor() {
         super(false);
-        this.classes.register('loading', 'success', 'warning', 'error', 'autoSubmit');
+        this.classes.register('loading');
         effect(() => this.classes.set('loading', this.loading()));
         effect(() => this.refreshInverted(FormComponent.defaults.inverted()));
 

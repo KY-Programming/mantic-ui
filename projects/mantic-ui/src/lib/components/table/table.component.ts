@@ -24,7 +24,7 @@ export class TableComponent extends InvertibleComponent {
 
     public constructor() {
         super();
-        this.classes.register('celled', 'notCelled', 'very', 'basic', 'unstackable', 'aligned', 'definition', 'collapsing')
+        this.classes.register('celled', 'very', 'basic', 'unstackable', 'aligned', 'definition', 'collapsing')
             .registerFixed('table');
         effect(() => this.classes.set('aligned', this.aligned()));
         effect(() => this.classes.set('basic', this.basic()));

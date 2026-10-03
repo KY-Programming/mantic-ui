@@ -35,7 +35,7 @@ export class ButtonComponent extends ButtonBaseComponent {
 
     public constructor() {
         super();
-        this.classes.register('fluid', 'pointing', 'animation', 'animated', 'labelPosition', 'iconPosition', 'label', 'labeled', 'iconLabeled', 'social', 'icon');
+        this.classes.register('fluid', 'pointing', 'iconPosition', 'labeled', 'iconLabeled', 'social', 'icon');
         effect(() => this.classes.set('fluid', this.fluid()));
         effect(() => this.classes.set('pointing', this.pointing()));
         effect(() => {

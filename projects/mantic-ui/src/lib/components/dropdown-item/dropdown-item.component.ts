@@ -33,8 +33,7 @@ export class DropdownItemComponent extends BaseComponent {
 
     public constructor() {
         super();
-        this.classes.register('filtered', 'selected', 'value')
-            .registerFixed('item');
+        this.classes.registerFixed('item');
     }
 
     protected click(event: MouseEvent): void {

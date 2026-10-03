@@ -17,8 +17,7 @@ export class SegmentGroupComponent extends BaseComponent {
 
     public constructor() {
         super();
-        this.classes.register('horizontal')
-            .registerFixed('segments');
+        this.classes.registerFixed('segments');
     }
 
 }

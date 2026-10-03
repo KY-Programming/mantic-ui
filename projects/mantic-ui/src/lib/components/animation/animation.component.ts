@@ -16,6 +16,5 @@ export class AnimationComponent extends BaseComponent {
     public constructor() {
         super(false);
         this.classes.registerFixed('content');
-        this.classes.register('hidden', 'direction');
     }
 }

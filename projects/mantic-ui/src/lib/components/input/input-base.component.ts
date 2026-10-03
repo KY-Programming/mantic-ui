@@ -63,7 +63,7 @@ export abstract class InputBaseComponent extends LabeledBaseComponent implements
         super();
         effect(() => this.refreshInverted(InputBaseComponent.defaults.inverted()));
         this.classes.registerFixed('input');
-        this.classes.register('loading', 'fluid', 'icon', 'focused', 'disabled', 'readonly', 'transparent', 'hasError', 'autofocus', 'placeholder', 'iconPosition');
+        this.classes.register('loading', 'fluid', 'iconPosition');
         effect(() => this.classes.set('loading', this.loading()));
         effect(() => this.classes.set('fluid', this.fluid()));
         effect(() => this.classes.set('iconPosition', this.iconPosition()));

@@ -73,9 +73,8 @@ export class TextareaComponent extends InvertibleComponent {
 
     public constructor() {
         super();
-        this.classes.register('disabled', 'readonly', 'hasError', 'fluid', 'value', 'text', 'default', 'placeholder')
-            // HACK: Currently I do not know a other way to style a textarea with semantic ui, so I have to use form class here
-            .registerFixed('form', 'textarea');
+        // HACK: Currently I do not know a other way to style a textarea with semantic ui, so I have to use form class here
+        this.classes.registerFixed('form', 'textarea');
         effect(() => this.refreshInverted(TextareaComponent.defaults.inverted()));
         // Push disabled/readonly onto the native element whenever they change.
         effect(() => {

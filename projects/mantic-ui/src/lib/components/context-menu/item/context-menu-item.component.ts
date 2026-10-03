@@ -24,7 +24,7 @@ export class ContextMenuItemComponent extends MenuItemComponent {
 
     public constructor() {
         super();
-        this.classes.register('keepOpen', 'icon');
+        this.classes.register('keepOpen');
         this.link.set(true);
         effect(() => this.classes.set('keepOpen', this.keepOpen()));
     }

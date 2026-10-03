@@ -47,7 +47,7 @@ export abstract class ButtonBaseComponent extends InvertibleComponent {
     protected constructor() {
         super();
         this.elementRef.nativeElement.setAttribute('tabindex', '0');
-        this.classes.register('color', 'basic', 'disabled', 'loading', 'active', 'size', 'primary', 'secondary', 'positive', 'negative', 'circular', 'tabindex', 'attachedLeft', 'attachedRight', 'attachedTop', 'attachedBottom')
+        this.classes.register('color', 'basic', 'disabled', 'loading', 'active', 'size')
             .registerFixed('button');
         effect(() => this.classes.set('color', this.color()));
         effect(() => this.classes.set('basic', this.basic()));
