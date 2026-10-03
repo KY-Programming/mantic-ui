@@ -5,6 +5,15 @@
 }
 
 /*--------------------
+        Error
+---------------------*/
+/* Checkbox-like fields show the inline-validation icon after the control, outside the (red) label */
+.ui.form .fields.error .field > m-icon.error,
+.ui.form .field.error > m-icon.error {
+    color: #9F3A38;
+}
+
+/*--------------------
         Inverted
 ---------------------*/
 .ui.inverted.form input:not([type]),

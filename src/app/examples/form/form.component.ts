@@ -29,6 +29,8 @@ export class FormExampleComponent {
     public email1?: string;
     public email2?: string;
     public inlineValidationValue: string | undefined;
+    public inlineValidationChecked: boolean | undefined;
+    public inlineValidationToggled: boolean | undefined;
     protected autoSubmitValue: string | undefined;
 
     public readonly code1 = `<m-form>

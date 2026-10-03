@@ -349,6 +349,12 @@
       <m-field label="Validated input" [valid]="inlineValidationValue | mIsFilled">
         <m-input [(value)]="inlineValidationValue" />
       </m-field>
+      <m-field label="Validated checkbox" [valid]="inlineValidationChecked | mIsFilled:'has to be checked'">
+        <m-checkbox [(value)]="inlineValidationChecked" />
+      </m-field>
+      <m-field label="Validated toggle" [valid]="inlineValidationToggled | mIsFilled:'has to be on'">
+        <m-toggle [(value)]="inlineValidationToggled" />
+      </m-field>
     </m-form>
   </m-example>
 

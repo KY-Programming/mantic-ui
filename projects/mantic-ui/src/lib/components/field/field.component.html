@@ -19,3 +19,6 @@
 @if (labelInControl() && hint()) {
     <m-icon class="hint" [icon]="defaults.hintIcon()" [size]="defaults.hintIconSize()" [title]="hint()" />
 }
+@if (labelInControl() && inlineValidation() && errors().length) {
+    <m-icon class="error" [icon]="defaults.errorIcon()" [size]="defaults.errorIconSize()" [title]="errors() | fieldFormatErrors" />
+}
