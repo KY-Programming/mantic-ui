@@ -1,4 +1,4 @@
-import { Component, contentChild, effect, ElementRef, input, output, OutputEmitterRef, OutputRefSubscription, signal, untracked } from '@angular/core';
+import { Component, computed, contentChild, effect, ElementRef, input, output, OutputEmitterRef, OutputRefSubscription, signal, untracked } from '@angular/core';
 import { BaseComponent } from '../../base/base.component';
 import { toBoolean } from '../../helpers/to-boolean';
 import { transformableModel } from '../../helpers/transformable-model';
@@ -67,6 +67,8 @@ export class FieldComponent extends BaseComponent {
     public readonly fill = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly ownLabel = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly forceLabel = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    // Checkbox-like controls render the field label themselves, unless ownLabel keeps their own one.
+    protected readonly labelInControl = computed(() => !this.ownLabel() && !!(this.checkboxComponent() ?? this.sliderComponent() ?? this.toggleComponent() ?? this.radioComponent()));
     public readonly valid = input<boolean | FormValidation | undefined>(undefined);
     // eslint-disable-next-line @angular-eslint/no-input-rename
     public readonly errorInput = input<boolean, BooleanLike>(false, { alias: 'error', transform: toBoolean });

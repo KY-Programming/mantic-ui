@@ -398,6 +398,12 @@ export class MyValidationPipe implements ValidationPipe, PipeTransform {
     <m-field label="Input with hint" hint="This is a very helpful hint">
         <m-input />
     </m-field>
+    <m-field label="Checkbox with hint" hint="The hint follows the label of the checkbox">
+        <m-checkbox />
+    </m-field>
+    <m-field label="Toggle with hint" hint="Sliders, toggles and radios show the hint the same way">
+        <m-toggle />
+    </m-field>
 </m-form>`;
 
     protected readonly autoSubmitCode = `<m-form autoSubmit />`;
