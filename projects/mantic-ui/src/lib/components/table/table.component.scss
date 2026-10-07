@@ -31,28 +31,52 @@
   inset-inline-end: 0;
   z-index: 1;
 
-  // The cell has to hide the rows scrolling beneath it, but its own background and its row's are often translucent
-  // (a basic, striped, hovered or inverted table). So an opaque layer (the table's resolved background) goes beneath,
-  // and the cell's own color is repeated above it in the ::after. Both are in the cell's stacking context, under its
-  // content.
+  // The cell has to hide the rows scrolling beneath it, but its own color, its row's and Semantic's borders are often
+  // translucent (a basic, striped, hovered or inverted table). So an opaque layer (the table's resolved background) goes
+  // beneath in the ::before, and the cell's own color and borders are repeated above it in the ::after. Both are in the
+  // cell's stacking context, under its content. They cover the cell's border strip too, on the sides where Semantic
+  // draws a cell's 1px borders (top and start, bottom in the header). Where a cell has no border, the extra pixel
+  // only covers the next cell's edge.
   &::before {
     content: '';
     position: absolute;
-    inset: 0;
+    inset: -1px 0 0;
+    inset-inline-start: -1px;
     z-index: -1;
     border-radius: inherit;
     background-color: var(--m-table-sticky-background, #FFFFFF);
   }
 }
 
-// Semantic draws a sortable header's sort icon in the th's ::after, so a sortable header keeps its ::after and shows
-// just the opaque layer.
+// Above the first row, whose cell's layer would otherwise cover the header's bottom border
+:host(.m-sticky-last-column) ::ng-deep thead tr > :last-child:not([colspan]) {
+  z-index: 2;
+}
+
+:host(.m-sticky-last-column:not(.sortable)) ::ng-deep thead tr > th:last-child:not([colspan]) {
+  &::before,
+  &::after {
+    top: 0;
+    bottom: -1px;
+  }
+}
+
+// Semantic draws a sortable header's sort icon in the th's ::after, so a sortable header keeps it and has only the
+// opaque layer, inside its borders.
+:host(.m-sticky-last-column.sortable) ::ng-deep tr > th:last-child:not([colspan])::before {
+  inset: 0;
+}
+
 :host(.m-sticky-last-column) ::ng-deep tr > td:last-child:not([colspan])::after,
 :host(.m-sticky-last-column:not(.sortable)) ::ng-deep tr > th:last-child:not([colspan])::after {
   content: '';
   position: absolute;
-  inset: 0;
+  inset: -1px 0 0;
+  inset-inline-start: -1px;
   z-index: -1;
+  border-width: inherit;
+  border-style: inherit;
+  border-color: inherit;
   border-radius: inherit;
   background-color: inherit;
 }
