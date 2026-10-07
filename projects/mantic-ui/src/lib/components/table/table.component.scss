@@ -1,3 +1,69 @@
 :host {
   display: table;
 }
+
+// The host stays the table's frame (border, rounded corners, background) and the rows scroll inside it, so a wide
+// table still looks complete instead of being cut off at the edge of a scrolling wrapper.
+:host(.m-scrollable) {
+  display: block;
+  // Clips the rows to the rounded corners. Not hidden: that would make the frame itself a scroll container.
+  overflow: clip;
+  // A scroll container still reports its content's width as its minimum, which would widen flex, grid and other
+  // intrinsically sized parents (and with them the page) instead of scrolling here.
+  contain: inline-size;
+}
+
+.scroller {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+// The table box the frame no longer is. border-collapse and border-spacing are inherited from the host.
+.content {
+  display: table;
+  width: 100%;
+  table-layout: inherit;
+}
+
+// A cell spanning the row (e.g. an "empty" row) is not part of the column and must scroll normally
+:host(.m-sticky-last-column) ::ng-deep tr > :last-child:not([colspan]) {
+  position: sticky;
+  inset-inline-end: 0;
+  z-index: 1;
+
+  // The cell has to hide the rows scrolling beneath it, but its own background and its row's are often translucent
+  // (a basic, striped, hovered or inverted table). So an opaque layer (the table's resolved background) goes beneath,
+  // and the cell's own color is repeated above it in the ::after. Both are in the cell's stacking context, under its
+  // content.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background-color: var(--m-table-sticky-background, #FFFFFF);
+  }
+}
+
+// Semantic draws a sortable header's sort icon in the th's ::after, so a sortable header keeps its ::after and shows
+// just the opaque layer.
+:host(.m-sticky-last-column) ::ng-deep tr > td:last-child:not([colspan])::after,
+:host(.m-sticky-last-column:not(.sortable)) ::ng-deep tr > th:last-child:not([colspan])::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: inherit;
+}
+
+// A data cell has no color of its own, it shows its row's, so it takes that over for the layer above. The cell part is
+// kept out of the specificity, so Semantic's colored cells (positive, warning, …) keep their own.
+:host(.m-sticky-last-column) ::ng-deep tr > td:where(:last-child:not([colspan])) {
+  background-color: inherit;
+}
+
+// Semantic resets a basic table's cells to transparent, which would drop the row's color (striped, hover) here
+:host(.m-sticky-last-column.basic) ::ng-deep tr > td:last-child:not([colspan]) {
+  background-color: inherit;
+}

@@ -134,5 +134,61 @@
             </m-table>
             <m-example-code [code]="veryBasicCode" />
         </m-example>
+        <m-example header="Scrollable" description="A wide table can scroll horizontally inside its own frame instead of overflowing the page. The last column (e.g. a row's menu) can stay in view. Drag the box's corner to change its width.">
+            <div class="narrow">
+                <m-table unstackable scrollable stickyLastColumn>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Job</th>
+                        <th>Status</th>
+                        <th>City</th>
+                        <th>Notes</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    @for (person of people; track person.name) {
+                        <tr>
+                            <td>{{ person.name }}</td>
+                            <td>{{ person.age }}</td>
+                            <td>{{ person.job }}</td>
+                            <td>{{ person.status }}</td>
+                            <td>{{ person.city }}</td>
+                            <td>{{ person.notes }}</td>
+                            <td class="collapsing"><m-icon icon="ellipsis horizontal" /></td>
+                        </tr>
+                    }
+                </m-table>
+            </div>
+            <m-example-code [code]="scrollableCode" />
+        </m-example>
+        <m-example header="Scrollable Very Basic" description="Works with every table style, also inverted">
+            <m-segment inverted class="narrow">
+                <m-table unstackable scrollable very basic inverted>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Job</th>
+                        <th>Status</th>
+                        <th>City</th>
+                        <th>Notes</th>
+                    </tr>
+                    </thead>
+                    @for (person of people; track person.name) {
+                        <tr>
+                            <td>{{ person.name }}</td>
+                            <td>{{ person.age }}</td>
+                            <td>{{ person.job }}</td>
+                            <td>{{ person.status }}</td>
+                            <td>{{ person.city }}</td>
+                            <td>{{ person.notes }}</td>
+                        </tr>
+                    }
+                </m-table>
+            </m-segment>
+            <m-example-code [code]="scrollableVeryBasicCode" />
+        </m-example>
     </m-tab>
 </m-tab-group>

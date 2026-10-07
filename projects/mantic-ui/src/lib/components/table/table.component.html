@@ -1,1 +1,12 @@
-<ng-content />
+@if (scrollable()) {
+    <div class="scroller">
+        <div class="content">
+            <ng-container [ngTemplateOutlet]="rows" />
+        </div>
+    </div>
+} @else {
+    <ng-container [ngTemplateOutlet]="rows" />
+}
+<ng-template #rows>
+    <ng-content />
+</ng-template>

@@ -1,0 +1,9 @@
+.narrow {
+    // Narrow like a phone, resizable to try other widths
+    width: 22rem;
+    max-width: 100%;
+    min-width: 12rem;
+    resize: horizontal;
+    overflow: auto;
+    padding-bottom: 0.5rem;
+}

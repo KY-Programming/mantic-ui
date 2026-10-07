@@ -31,7 +31,7 @@ export class LoaderComponent extends BaseComponent {
             .registerFixed('loader');
         effect(() => this.classes.set('inverted', this.inverted()));
         effect(() => this.classes.set('active', this.active()));
-        effect(() => this.classes.set('text', this.text() || this.text() === ''));
+        effect(() => this.classes.set('text', this.text() !== undefined));
         effect(() => this.classes.set('size', this.size()));
     }
 
