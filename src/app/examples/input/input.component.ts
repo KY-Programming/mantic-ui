@@ -99,7 +99,7 @@ export class InputExampleComponent {
     public dateCode = `<m-date-input [(value)]="dateValue" />`;
     public timeCode = `<m-time-input [(value)]="timeValue" />`;
     public standardCode = `<m-input>
-  <input type="text" placeholder="Search..." maxlength="3">
+  <input type="text" placeholder="Search..." maxlength="3" #input>
 </m-input>`;
 
     public readonly maxlengthCode = `<m-input type="text" maxlength="3" />`;

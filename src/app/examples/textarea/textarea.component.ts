@@ -13,5 +13,8 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 })
 export class TextareaExampleComponent {
     public textCode = `<m-textarea placeholder="Enter a long text..."></m-textarea>`;
+    public standardCode = `<m-textarea>
+    <textarea rows="2" placeholder="Only two rows high..." #textarea></textarea>
+</m-textarea>`;
     public inverted = `<m-textarea inverted></m-textarea>`;
 }

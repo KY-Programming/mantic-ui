@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, computed, ContentChild, effect, ElementRef, input, OnInit, output, signal, untracked, ViewChild } from '@angular/core';
+import { Component, computed, effect, input, OnInit, output, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 import { DateHelper } from '../../../helpers/date-helper';
@@ -28,23 +28,6 @@ export class TimeInputComponent extends InputBaseComponent implements OnInit {
     public readonly time = computed(() => this.valueState() ?? this.default());
     public readonly valueChange = output<Date | undefined>();
     public readonly timeChange = output<Date>();
-
-    @ContentChild('input')
-    protected set contentInputElement(input: ElementRef<HTMLInputElement>) {
-        this.unbindEvents();
-        this.inputElement = input;
-        this.refreshInput();
-        this.bindEvents();
-        this.refreshFocus();
-    }
-
-    @ViewChild('input')
-    protected set viewInputElement(input: ElementRef<HTMLInputElement>) {
-        this.unbindEvents();
-        this.inputElement = input;
-        this.bindEvents();
-        this.refreshFocus();
-    }
 
     public constructor() {
         super();

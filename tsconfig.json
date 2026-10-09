@@ -4,7 +4,6 @@
     "compilerOptions": {
         "outDir": "./dist/out-tsc",
         "forceConsistentCasingInFileNames": true,
-        "strict": true,
         "paths": {
             "@mantic-ui/fomantic-ui-angular": [
                 "./dist/fomantic-ui"
@@ -39,8 +38,7 @@
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
         "strictInjectionParameters": true,
-        "strictInputAccessModifiers": true,
-        "strictTemplates": true
+        "strictInputAccessModifiers": true
     },
     "references": [
       {

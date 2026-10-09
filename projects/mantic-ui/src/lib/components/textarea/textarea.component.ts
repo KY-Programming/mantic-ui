@@ -1,4 +1,4 @@
-import { Component, computed, ContentChild, effect, ElementRef, input, model, output, signal, untracked, ViewChild } from '@angular/core';
+import { Component, computed, contentChild, effect, ElementRef, input, model, output, signal, untracked, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { FallbackForDirective } from '../../directives/fallback-for.directive';
@@ -22,7 +22,10 @@ export class TextareaComponent extends InvertibleComponent {
         inverted: signal(false)
     };
     protected readonly valueState = signal<string | undefined>(undefined);
-    public textareaElement?: ElementRef<HTMLTextAreaElement>;
+    private readonly contentTextarea = contentChild<ElementRef<HTMLTextAreaElement>>('textarea');
+    private readonly viewTextarea = viewChild<ElementRef<HTMLTextAreaElement>>('textarea');
+    // A projected <textarea #textarea> replaces the built-in one (that one only renders when no <textarea> is projected).
+    private readonly activeTextarea = computed(() => this.contentTextarea() ?? this.viewTextarea());
     public readonly name = model<string>();
     // eslint-disable-next-line @angular-eslint/no-input-rename
     public readonly disabledInput = input<boolean, BooleanLike>(false, { alias: 'disabled', transform: toBoolean });
@@ -56,19 +59,8 @@ export class TextareaComponent extends InvertibleComponent {
     // eslint-disable-next-line @angular-eslint/no-output-native
     public readonly focusout = output<FocusEvent>();
 
-    @ContentChild('textarea')
-    protected set contentTextareaElement(textarea: ElementRef<HTMLTextAreaElement>) {
-        this.unbindEvents();
-        this.textareaElement = textarea;
-        this.refreshTextarea();
-        this.bindEvents();
-    }
-
-    @ViewChild('textarea')
-    protected set viewInputElement(textarea: ElementRef<HTMLTextAreaElement>) {
-        this.unbindEvents();
-        this.textareaElement = textarea;
-        this.bindEvents();
+    public get textareaElement(): ElementRef<HTMLTextAreaElement> | undefined {
+        return this.activeTextarea();
     }
 
     public constructor() {
@@ -76,11 +68,20 @@ export class TextareaComponent extends InvertibleComponent {
         // HACK: Currently I do not know a other way to style a textarea with semantic ui, so I have to use form class here
         this.classes.registerFixed('form', 'textarea');
         effect(() => this.refreshInverted(TextareaComponent.defaults.inverted()));
-        // Push disabled/readonly onto the native element whenever they change.
+        // Push disabled/readonly onto the native element whenever they or the element change.
         effect(() => {
-            this.disabled();
-            this.readonly();
-            this.refreshTextarea();
+            const textarea = this.activeTextarea()?.nativeElement;
+            if (textarea) {
+                textarea.disabled = this.disabled();
+                textarea.readOnly = this.readonly();
+            }
+        });
+        effect(onCleanup => {
+            const textarea = this.activeTextarea()?.nativeElement;
+            if (textarea) {
+                this.bindEvents(textarea);
+                onCleanup(() => this.unbindEvents(textarea));
+            }
         });
         // [value] flows into the shared state; [text] is guarded so an unbound alias can't clobber [value].
         effect(() => {
@@ -107,14 +108,6 @@ export class TextareaComponent extends InvertibleComponent {
         this.textChange.emit(this.text());
     }
 
-    private refreshTextarea(): void {
-        if (!this.textareaElement) {
-            return;
-        }
-        this.textareaElement.nativeElement.disabled = this.disabled();
-        this.textareaElement.nativeElement.readOnly = this.readonly();
-    }
-
     private readonly keyDownEventHandler = (event: KeyboardEvent): void => this.keyDown.emit(event);
     private readonly keyUpEventHandler = (event: KeyboardEvent): void => this.keyUp.emit(event);
     private readonly keyPressEventHandler = (event: Event): void => this.keyPress.emit(event);
@@ -123,30 +116,24 @@ export class TextareaComponent extends InvertibleComponent {
     private readonly focusinEventHandler = (event: FocusEvent): void => this.focusin.emit(event);
     private readonly focusoutEventHandler = (event: FocusEvent): void => this.focusout.emit(event);
 
-    protected bindEvents(): void {
-        if (!this.textareaElement) {
-            return;
-        }
-        // TODO: Improve event binding!
-        this.textareaElement.nativeElement.addEventListener('keydown', this.keyDownEventHandler);
-        this.textareaElement.nativeElement.addEventListener('keyup', this.keyUpEventHandler);
-        this.textareaElement.nativeElement.addEventListener('keyPress', this.keyPressEventHandler);
-        this.textareaElement.nativeElement.addEventListener('blur', this.blurEventHandler);
-        this.textareaElement.nativeElement.addEventListener('focus', this.focusEventHandler);
-        this.textareaElement.nativeElement.addEventListener('focusin', this.focusinEventHandler);
-        this.textareaElement.nativeElement.addEventListener('focusout', this.focusoutEventHandler);
+    // The projected textarea can't get template event bindings, so both variants are bound by hand.
+    private bindEvents(textarea: HTMLTextAreaElement): void {
+        textarea.addEventListener('keydown', this.keyDownEventHandler);
+        textarea.addEventListener('keyup', this.keyUpEventHandler);
+        textarea.addEventListener('keypress', this.keyPressEventHandler);
+        textarea.addEventListener('blur', this.blurEventHandler);
+        textarea.addEventListener('focus', this.focusEventHandler);
+        textarea.addEventListener('focusin', this.focusinEventHandler);
+        textarea.addEventListener('focusout', this.focusoutEventHandler);
     }
 
-    protected unbindEvents(): void {
-        if (!this.textareaElement) {
-            return;
-        }
-        this.textareaElement.nativeElement.removeEventListener('keydown', this.keyDownEventHandler);
-        this.textareaElement.nativeElement.removeEventListener('keyup', this.keyUpEventHandler);
-        this.textareaElement.nativeElement.removeEventListener('keyPress', this.keyPressEventHandler);
-        this.textareaElement.nativeElement.removeEventListener('blur', this.blurEventHandler);
-        this.textareaElement.nativeElement.removeEventListener('focus', this.focusEventHandler);
-        this.textareaElement.nativeElement.removeEventListener('focusin', this.focusinEventHandler);
-        this.textareaElement.nativeElement.removeEventListener('focusout', this.focusoutEventHandler);
+    private unbindEvents(textarea: HTMLTextAreaElement): void {
+        textarea.removeEventListener('keydown', this.keyDownEventHandler);
+        textarea.removeEventListener('keyup', this.keyUpEventHandler);
+        textarea.removeEventListener('keypress', this.keyPressEventHandler);
+        textarea.removeEventListener('blur', this.blurEventHandler);
+        textarea.removeEventListener('focus', this.focusEventHandler);
+        textarea.removeEventListener('focusin', this.focusinEventHandler);
+        textarea.removeEventListener('focusout', this.focusoutEventHandler);
     }
 }

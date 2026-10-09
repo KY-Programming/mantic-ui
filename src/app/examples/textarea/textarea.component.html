@@ -6,6 +6,12 @@
             <m-textarea placeholder="Enter a long text..."></m-textarea>
             <m-example-code [code]="textCode"></m-example-code>
         </m-example>
+        <m-example header="Standard Textarea" description="Use a standard textarea for missing features">
+            <m-textarea>
+                <textarea rows="2" placeholder="Only two rows high..." #textarea></textarea>
+            </m-textarea>
+            <m-example-code [code]="standardCode"></m-example-code>
+        </m-example>
     </m-tab>
     <m-tab label="Variations">
         <m-example header="Inverted" description="A checkbox can be displayed with inverted colors" [code]="inverted">

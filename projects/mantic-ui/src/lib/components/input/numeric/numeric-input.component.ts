@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, computed, ContentChild, effect, ElementRef, input, OnInit, output, signal, untracked, ViewChild } from '@angular/core';
+import { Component, computed, effect, input, OnInit, output, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 import { Math2 } from '../../../helpers/math2';
@@ -36,23 +36,6 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     });
     public readonly valueChange = output<number | undefined>();
     public readonly numberChange = output<number>();
-
-    @ContentChild('input')
-    protected set contentInputElement(input: ElementRef<HTMLInputElement>) {
-        this.unbindEvents();
-        this.inputElement = input;
-        this.refreshInput();
-        this.bindEvents();
-        this.refreshFocus();
-    }
-
-    @ViewChild('input')
-    protected set viewInputElement(input: ElementRef<HTMLInputElement>) {
-        this.unbindEvents();
-        this.inputElement = input;
-        this.bindEvents();
-        this.refreshFocus();
-    }
 
     public constructor() {
         super();
