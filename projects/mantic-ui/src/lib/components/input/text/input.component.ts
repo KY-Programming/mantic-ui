@@ -63,6 +63,14 @@ export class InputComponent extends InputBaseComponent {
         this.onChange();
     }
 
+    // ngModel only listens to input events. Some autofills write the value and fire nothing but a change,
+    // so the value is taken from there too.
+    protected onNativeChange(value: string): void {
+        if (value !== (this.value() ?? '')) {
+            this.setValue(value);
+        }
+    }
+
     protected onChange(): void {
         this.valueChange.emit(this.value() ?? this.default());
         this.textChange.emit(this.text());
