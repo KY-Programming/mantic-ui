@@ -69,7 +69,7 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
         if (event.contextMenuTarget === this || (event as KeyboardEvent).key === 'F8') {
             return;
         }
-        if ((event.target as HTMLElement).closest('m-context-menu-item')) {
+        if ((event.target as HTMLElement).closest('m-context-menu-item, m-context-menu-group')) {
             return;
         }
         this.close();

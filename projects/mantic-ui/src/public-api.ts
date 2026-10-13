@@ -22,6 +22,7 @@ export * from './lib/components/chat/models/chat-option';
 export * from './lib/components/circular-progress/circular-progress.component';
 export * from './lib/components/context-menu/context-menu.component';
 export * from './lib/components/context-menu/item/context-menu-item.component';
+export * from './lib/components/context-menu/group/context-menu-group.component';
 export * from './lib/components/dimmer/dimmer.component';
 export * from './lib/components/dimmer/dimmer-defaults.component';
 export * from './lib/components/data-source/data-source.component';

@@ -1,0 +1,16 @@
+// The group renders flat into the menu (header row + items as plain rows), so grouped items look exactly
+// like ungrouped ones. A Semantic sub-menu (`.item > .menu`) would shrink and grey out its items.
+:host {
+    display: contents;
+}
+
+// Semantic hides the divider of every `.item:first-child`. The header is always the group's first child,
+// but it is only the first row of the menu when the group itself is.
+:host(:not(:first-child)) > .header.item:first-child::before {
+    display: block !important;
+}
+
+// Only the header separates groups; the items of one group sit together without dividers.
+:host > ::ng-deep .item:not(.header)::before {
+    display: none;
+}

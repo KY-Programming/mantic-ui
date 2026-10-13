@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
-import { ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, FillComponent, FillDirective, FlexComponent, FlexDirective, InfoComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { ButtonComponent, ContextMenuComponent, ContextMenuGroupComponent, ContextMenuItemComponent, FillComponent, FillDirective, FlexComponent, FlexDirective, InfoComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-context-menu',
-    imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, FlexComponent, InfoComponent, FillComponent, FlexDirective, FillDirective],
+    imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, ButtonComponent, ContextMenuComponent, ContextMenuGroupComponent, ContextMenuItemComponent, FlexComponent, InfoComponent, FillComponent, FlexDirective, FillDirective],
     templateUrl: './context-menu.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./context-menu.component.scss']
@@ -26,6 +26,18 @@ export class ContextMenuExampleComponent {
 
     public readonly example3Code = `<m-context-menu>
     <m-context-menu-item keepOpen>I stay here</m-context-menu-item>
+</m-context-menu>`;
+
+    public readonly exampleGroupsCode = `<m-context-menu>
+    <m-context-menu-item icon="edit">Edit</m-context-menu-item>
+    <m-context-menu-group header="Share">
+        <m-context-menu-item icon="envelope">Mail</m-context-menu-item>
+        <m-context-menu-item icon="linkify">Copy link</m-context-menu-item>
+    </m-context-menu-group>
+    <m-context-menu-group header="Danger zone">
+        <m-context-menu-item icon="archive">Archive</m-context-menu-item>
+        <m-context-menu-item icon="trash">Delete</m-context-menu-item>
+    </m-context-menu-group>
 </m-context-menu>`;
 
     public readonly exampleSharedCode = `<m-flex>

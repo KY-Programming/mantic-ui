@@ -29,6 +29,23 @@
             </m-button>
             <m-example-code [code]="example3Code"></m-example-code>
         </m-example>
+        <m-example header="Groups" description="Items can be grouped under a header">
+            <m-button>
+                Click Me Right
+                <m-context-menu>
+                    <m-context-menu-item icon="edit" (click)="show('Edit')">Edit</m-context-menu-item>
+                    <m-context-menu-group header="Share">
+                        <m-context-menu-item icon="envelope" (click)="show('Mail')">Mail</m-context-menu-item>
+                        <m-context-menu-item icon="linkify" (click)="show('Copy link')">Copy link</m-context-menu-item>
+                    </m-context-menu-group>
+                    <m-context-menu-group header="Danger zone">
+                        <m-context-menu-item icon="archive" (click)="show('Archive')">Archive</m-context-menu-item>
+                        <m-context-menu-item icon="trash" (click)="show('Delete')">Delete</m-context-menu-item>
+                    </m-context-menu-group>
+                </m-context-menu>
+            </m-button>
+            <m-example-code [code]="exampleGroupsCode"></m-example-code>
+        </m-example>
         <m-example description="Hierarchical Menus">
             <!--            TODO: Implement-->
             Coming soon
