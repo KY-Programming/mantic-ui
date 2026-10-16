@@ -219,31 +219,49 @@ function gitRun(args) {
     return result.status;
 }
 
-// Refuse to start when the working tree has uncommitted changes anywhere in the repo — the
-// prepare-release commit should only ever contain the version-bump files, and a dirty tree would
-// make that commit (and the tag/release built on top of it) misleading.
-function checkCleanRepo() {
-    const status = gitCapture(['status', '--porcelain']);
+// Root files every library build reads besides its own package folder.
+const sharedBuildFiles = ['angular.json', 'tsconfig.json', 'package.json', 'package-lock.json'];
+
+// The builds run against the working copy, not the commit, so an uncommitted change in a built
+// package (or the shared build config) would be published without being part of the tagged commit.
+// Refuse in that case. Anything else (e.g. the demo app) is irrelevant to the release: the bump
+// commit only takes the version files (pathspec commit), so those changes simply stay uncommitted.
+function checkCleanBuildInputs(group) {
+    const status = gitCapture(['status', '--porcelain', '--untracked-files=all']);
     if (status.status !== 0) {
         console.error('\x1b[31mgit status failed — is this a git repository?\x1b[0m');
         process.exit(1);
     }
     const dirty = status.out.split('\n').map(l => l.trimEnd()).filter(Boolean);
-    if (dirty.length === 0) return;
+    if (dirty.length === 0) return [];
 
-    console.error('\x1b[31mUncommitted changes in the working tree — commit or stash them first:\x1b[0m');
-    dirty.forEach(line => console.error('  ' + line));
-    process.exit(1);
+    const packageFolders = group.packages.map(entry => entry.file.slice(0, entry.file.lastIndexOf('/') + 1));
+    // Porcelain lines are "XY path" or "XY from -> to" for renames; paths with special characters
+    // come quoted. Either side of a rename touching a build input counts.
+    const pathsOf = line => line.slice(3).split(' -> ').map(p => p.replace(/^"|"$/g, ''));
+    const isBuildInput = p => sharedBuildFiles.includes(p) || packageFolders.some(folder => p.startsWith(folder));
+    const blocking = dirty.filter(line => pathsOf(line).some(isBuildInput));
+
+    if (blocking.length > 0) {
+        console.error('\x1b[31mUncommitted changes in files that go into the build — commit or stash them first:\x1b[0m');
+        blocking.forEach(line => console.error('  ' + line));
+        process.exit(1);
+    }
+    return dirty;
 }
 
 // Offer to commit just the version-bump files (default yes), mirroring the KY.AI bump workflow.
 // Declining leaves the changes uncommitted but does not stop the rest of the pipeline.
-async function commitVersionFiles(files) {
+async function commitVersionFiles(files, unrelatedChanges) {
     if (!files.length) {
         console.log('\x1b[2mNo version files changed — nothing to commit.\x1b[0m');
         return;
     }
     console.log('');
+    if (unrelatedChanges.length > 0) {
+        console.log('\x1b[2mNot part of the build — stays uncommitted either way:\x1b[0m');
+        unrelatedChanges.forEach(line => console.log('\x1b[2m  ' + line + '\x1b[0m'));
+    }
     const doCommit = await confirm('Commit these changes?', true);
     if (!doCommit) {
         console.log('\x1b[2mLeft uncommitted.\x1b[0m');
@@ -354,8 +372,6 @@ function createRelease(tag, title, notes) {
 }
 
 async function main() {
-    checkCleanRepo();
-
     const groupKeys = Object.keys(groups);
     const groupOptions = groupKeys.map(k => groups[k]);
 
@@ -367,6 +383,8 @@ async function main() {
     );
     const group = groupOptions[groupIndex];
     const groupKey = groupKeys[groupIndex];
+
+    const unrelatedChanges = checkCleanBuildInputs(group);
 
     const packages = group.packages.map(entry => {
         const pkg = readPackage(entry.file);
@@ -440,7 +458,7 @@ async function main() {
         });
     });
 
-    await commitVersionFiles(changedFiles);
+    await commitVersionFiles(changedFiles, unrelatedChanges);
 
     console.log('');
     for (const pkg of packages) {
@@ -496,8 +514,9 @@ async function main() {
         console.error('\x1b[31mgit fetch (tags) failed — can\'t reliably check existing tags. No tag created.\x1b[0m');
         return;
     }
-    if (gitCapture(['status', '--porcelain']).out.trim().length > 0) {
-        console.log('\x1b[33mwarning: working tree has uncommitted changes — the tag will point at the current HEAD.\x1b[0m');
+    const relChangedFiles = changedFiles.map(f => path.relative(rootDir, f));
+    if (relChangedFiles.length > 0 && gitCapture(['status', '--porcelain', '--', ...relChangedFiles]).out.trim().length > 0) {
+        console.log('\x1b[33mwarning: the version bump is uncommitted — the tag will point at the current HEAD without it.\x1b[0m');
     }
 
     if (!pushBranch()) {
