@@ -358,7 +358,7 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
         if (this.items()?.length && !components.length) {
             return;
         }
-        this.isDefault.set(false);
+        this.isDefault.set(value === undefined || value === null || value === '');
         if (!components.length) {
             this.selectedItem.set(undefined);
             this.selectedItems.set([]);
