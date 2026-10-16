@@ -110,29 +110,29 @@ export class FieldComponent extends BaseComponent {
         // Propagate readonly.
         effect(() => {
             const readonly = this.readonly();
-            this.inputComponent()?.readonly.set(readonly);
-            this.numericInputComponent()?.readonly.set(readonly);
-            this.dateInputComponent()?.readonly.set(readonly);
-            this.textareaComponent()?.readonly.set(readonly);
-            this.checkboxComponent()?.readonly.set(readonly);
-            this.sliderComponent()?.readonly.set(readonly);
-            this.toggleComponent()?.readonly.set(readonly);
-            this.radioComponent()?.readonly.set(readonly);
-            this.dropDownComponent()?.readonly.set(readonly);
+            this.inputComponent()?.readonly.setInherited(readonly);
+            this.numericInputComponent()?.readonly.setInherited(readonly);
+            this.dateInputComponent()?.readonly.setInherited(readonly);
+            this.textareaComponent()?.readonly.setInherited(readonly);
+            this.checkboxComponent()?.readonly.setInherited(readonly);
+            this.sliderComponent()?.readonly.setInherited(readonly);
+            this.toggleComponent()?.readonly.setInherited(readonly);
+            this.radioComponent()?.readonly.setInherited(readonly);
+            this.dropDownComponent()?.readonly.setInherited(readonly);
         });
 
         // Propagate disabled.
         effect(() => {
             const disabled = this.disabled();
-            this.inputComponent()?.disabled.set(disabled);
-            this.numericInputComponent()?.disabled.set(disabled);
-            this.dateInputComponent()?.disabled.set(disabled);
-            this.textareaComponent()?.disabled.set(disabled);
-            this.checkboxComponent()?.disabled.set(disabled);
-            this.sliderComponent()?.disabled.set(disabled);
-            this.toggleComponent()?.disabled.set(disabled);
-            this.radioComponent()?.disabled.set(disabled);
-            this.dropDownComponent()?.disabled.set(disabled);
+            this.inputComponent()?.disabled.setInherited(disabled);
+            this.numericInputComponent()?.disabled.setInherited(disabled);
+            this.dateInputComponent()?.disabled.setInherited(disabled);
+            this.textareaComponent()?.disabled.setInherited(disabled);
+            this.checkboxComponent()?.disabled.setInherited(disabled);
+            this.sliderComponent()?.disabled.setInherited(disabled);
+            this.toggleComponent()?.disabled.setInherited(disabled);
+            this.radioComponent()?.disabled.setInherited(disabled);
+            this.dropDownComponent()?.disabled.setInherited(disabled);
         });
 
         // Propagate the field label to checkbox-family children (unless they own their label).

@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { FallbackForDirective } from '../../directives/fallback-for.directive';
 import { toBoolean } from '../../helpers/to-boolean';
-import { transformableModel } from '../../helpers/transformable-model';
+import { inheritableBooleanModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
 
 @Component({
@@ -30,11 +30,11 @@ export class TextareaComponent extends InvertibleComponent {
     // eslint-disable-next-line @angular-eslint/no-input-rename
     public readonly disabledInput = input<boolean, BooleanLike>(false, { alias: 'disabled', transform: toBoolean });
     public readonly disabledChange = output<boolean>();
-    public readonly disabled = transformableModel(this.disabledInput, this.disabledChange, toBoolean);
+    public readonly disabled = inheritableBooleanModel(this.disabledInput, this.disabledChange);
     // eslint-disable-next-line @angular-eslint/no-input-rename
     public readonly readonlyInput = input<boolean, BooleanLike>(false, { alias: 'readonly', transform: toBoolean });
     public readonly readonlyChange = output<boolean>();
-    public readonly readonly = transformableModel(this.readonlyInput, this.readonlyChange, toBoolean);
+    public readonly readonly = inheritableBooleanModel(this.readonlyInput, this.readonlyChange);
     public readonly hasError = input(false);
     public readonly placeholder = input<string>();
     // eslint-disable-next-line @angular-eslint/no-input-rename

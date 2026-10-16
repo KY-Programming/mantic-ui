@@ -1,7 +1,7 @@
 import { computed, contentChild, Directive, effect, ElementRef, input, model, output, signal, viewChild } from '@angular/core';
 import { LabeledBaseComponent } from '../../base/labeled-base.component';
 import { toBoolean } from '../../helpers/to-boolean';
-import { transformableModel } from '../../helpers/transformable-model';
+import { inheritableBooleanModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
 import { IconSize } from '../icon/models/icon-size';
 import { IconType } from '../icon/models/icon-type';
@@ -38,11 +38,11 @@ export abstract class InputBaseComponent extends LabeledBaseComponent {
     // eslint-disable-next-line @angular-eslint/no-input-rename
     public readonly disabledInput = input<boolean, BooleanLike>(false, { alias: 'disabled', transform: toBoolean });
     public readonly disabledChange = output<boolean>();
-    public readonly disabled = transformableModel(this.disabledInput, this.disabledChange, toBoolean);
+    public readonly disabled = inheritableBooleanModel(this.disabledInput, this.disabledChange);
     // eslint-disable-next-line @angular-eslint/no-input-rename
     public readonly readonlyInput = input<boolean, BooleanLike>(false, { alias: 'readonly', transform: toBoolean });
     public readonly readonlyChange = output<boolean>();
-    public readonly readonly = transformableModel(this.readonlyInput, this.readonlyChange, toBoolean);
+    public readonly readonly = inheritableBooleanModel(this.readonlyInput, this.readonlyChange);
     public readonly hasError = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly transparent = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly autofocus = input<boolean, BooleanLike>(false, { transform: toBoolean });

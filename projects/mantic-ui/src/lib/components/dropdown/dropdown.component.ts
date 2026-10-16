@@ -4,7 +4,7 @@ import { fromEvent } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { toBoolean } from '../../helpers/to-boolean';
-import { transformableModel } from '../../helpers/transformable-model';
+import { inheritableBooleanModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
 import { DropdownItemComponent } from '../dropdown-item/dropdown-item.component';
 import { IconComponent } from '../icon/icon.component';
@@ -89,11 +89,11 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
     // eslint-disable-next-line @angular-eslint/no-input-rename
     public readonly disabledInput = input<boolean, BooleanLike>(false, { alias: 'disabled', transform: toBoolean });
     public readonly disabledChange = output<boolean>();
-    public readonly disabled = transformableModel(this.disabledInput, this.disabledChange, toBoolean);
+    public readonly disabled = inheritableBooleanModel(this.disabledInput, this.disabledChange);
     // eslint-disable-next-line @angular-eslint/no-input-rename
     public readonly readonlyInput = input<boolean, BooleanLike>(false, { alias: 'readonly', transform: toBoolean });
     public readonly readonlyChange = output<boolean>();
-    public readonly readonly = transformableModel(this.readonlyInput, this.readonlyChange, toBoolean);
+    public readonly readonly = inheritableBooleanModel(this.readonlyInput, this.readonlyChange);
     public readonly tabIndex = computed(() => this.search() ? undefined : 0);
     public readonly searchClass = computed(() => this.search() || this.allowFreeText());
     public readonly isActive = signal(false);
