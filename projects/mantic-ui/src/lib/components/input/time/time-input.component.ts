@@ -26,6 +26,8 @@ export class TimeInputComponent extends InputBaseComponent implements OnInit {
     public readonly max = input<Date>();
     public readonly value = computed(() => this.valueState());
     public readonly time = computed(() => this.valueState() ?? this.default());
+    protected readonly minText = computed(() => TimeInputComponent.format(this.min()) ?? '');
+    protected readonly maxText = computed(() => TimeInputComponent.format(this.max()) ?? '');
     public readonly valueChange = output<Date | undefined>();
     public readonly timeChange = output<Date>();
 
@@ -79,7 +81,15 @@ export class TimeInputComponent extends InputBaseComponent implements OnInit {
 
     private setInternalValue(value: Date | null | undefined): void {
         // Use null to avoid strange input behaviour with undefined values (e.g. input of negative values requires two minus signs to work)
-        // eslint-disable-next-line no-null/no-null
-        this.internalValue.set(value?.toISOString().split('T')[1].replace('Z', '') ?? null);
+        // eslint-disable-next-line unicorn/no-null
+        this.internalValue.set(TimeInputComponent.format(value) ?? null);
+    }
+
+    /** Local time, like the parsing in onInternalChange - toISOString() would show UTC and shift the time by the zone offset. */
+    private static format(value: Date | null | undefined): string | undefined {
+        if (!value) {
+            return undefined;
+        }
+        return `${value.getHours().toString().padStart(2, '0')}:${value.getMinutes().toString().padStart(2, '0')}`;
     }
 }

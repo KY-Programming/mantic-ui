@@ -3,10 +3,19 @@
     margin-right: 0;
   }
 
+  // A square box for the icon, so the button is a circle: Font Awesome 7 draws its svg 1.25em wide (fixed width by
+  // default) and inline, which makes the button wider than high and adds the line's descent to its height
   &.circular {
     &::ng-deep .icon {
+      display: inline-block;
       width: 1em;
-    }
+      height: 1em;
 
+      svg {
+        display: block;
+        width: 1em;
+        height: 1em;
+      }
+    }
   }
 }
