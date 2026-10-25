@@ -1,11 +1,11 @@
 import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
 import { RouterLink } from '@angular/router';
-import { ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, DimmerComponent, ErrorComponent, FillDirective, HeaderDirective, InfoComponent, MessageComponent, ModalComponent, ModalFooterComponent, SegmentComponent, WarningComponent } from '@mantic-ui/angular';
+import { ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, DimmerComponent, ErrorComponent, FillDirective, FlexDirective, HeaderDirective, InfoComponent, MessageComponent, ModalComponent, ModalFooterComponent, SegmentComponent, WarningComponent } from '@mantic-ui/angular';
 
 @Component({
     selector: 'app-special-list',
-    imports: [RouterLink, SegmentComponent, ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, DimmerComponent, HeaderDirective, FillDirective, ModalComponent, ModalFooterComponent, InfoComponent, WarningComponent, ErrorComponent, MessageComponent],
+    imports: [RouterLink, SegmentComponent, ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, DimmerComponent, HeaderDirective, FlexDirective, FillDirective, ModalComponent, ModalFooterComponent, InfoComponent, WarningComponent, ErrorComponent, MessageComponent],
     templateUrl: './special-list.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./special-list.component.scss']

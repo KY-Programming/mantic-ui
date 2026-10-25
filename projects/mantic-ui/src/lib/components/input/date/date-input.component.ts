@@ -84,9 +84,13 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
         return isNaN(date?.getDate() as any) ? undefined : date;
     }
 
+    /**
+     * Shows the UTC date on purpose: a picked day is parsed as UTC midnight (new Date('yyyy-MM-dd')), like DateHelper.today(),
+     * and the apps send these dates to their backends via toISOString(). Showing the local date instead would shift the day.
+     */
     private setInternalValue(value: Date | null | undefined): void {
         // Use null to avoid strange input behaviour with undefined values (e.g. input of negative values requires two minus signs to work)
-        // eslint-disable-next-line no-null/no-null
+        // eslint-disable-next-line unicorn/no-null
         this.internalValue.set(value?.toISOString().split('T')[0] ?? null);
     }
 }
