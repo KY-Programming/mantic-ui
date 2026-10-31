@@ -24,10 +24,6 @@
       "url": "https://github.com/sponsors/KY-Programming"
     },
     {
-      "type": "patreon",
-      "url": "https://www.patreon.com/kylst"
-    },
-    {
       "type": "paypal",
       "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VFPAP4MKV654A&source=url"
     }
@@ -49,7 +45,6 @@
   },
   "sideEffects": false,
   "scripts": {
-    "build": "tsc -p tsconfig.dist.json",
-    "postbuild": "copy package.json ..\\..\\dist\\eslint-config\\"
+    "build": "tsc -p tsconfig.dist.json && copy package.json ..\\..\\dist\\eslint-config\\"
   }
 }
