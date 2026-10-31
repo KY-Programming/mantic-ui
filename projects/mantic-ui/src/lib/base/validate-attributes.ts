@@ -1,7 +1,10 @@
 import { reflectComponentType, Type } from '@angular/core';
 import { SortedClassesService } from '../services/sorted-classes.service';
 
-const globalAttributes = new Set(['class', 'style', 'title', 'tabindex']);
+// Attributes valid on any element, so they are never reported
+const globalAttributes = new Set(['class', 'style', 'title', 'tabindex', 'id', 'role', 'hidden']);
+// _ng/ng-: Angular's own markers, m-: selector attributes of mantic directives, aria-/data-: global HTML attribute families
+const globalAttributePrefixes = ['_ng', 'ng-', 'm-', 'aria-', 'data-'];
 const inputNamesByType = new WeakMap<Type<unknown>, ReadonlySet<string>>();
 
 /**
@@ -10,7 +13,7 @@ const inputNamesByType = new WeakMap<Type<unknown>, ReadonlySet<string>>();
 export function validateAttributes(element: HTMLElement, type: Type<unknown>, classes: SortedClassesService): void {
     for (const attribute of element.attributes) {
         const name = attribute.name;
-        if (name.startsWith('_ng') || name.startsWith('ng-') || name.startsWith('m-') || globalAttributes.has(name)) {
+        if (globalAttributes.has(name) || globalAttributePrefixes.some(prefix => name.startsWith(prefix))) {
             continue;
         }
         if (!classes.has(name) && !getInputNames(type).has(name)) {
