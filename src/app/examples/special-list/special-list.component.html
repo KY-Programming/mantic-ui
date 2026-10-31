@@ -1,3 +1,16 @@
+<a routerLink="/semantic/chat" m-flex column class="element">
+  <m-segment attached="top" class="no-overflow">
+    <div class="chat-preview">
+      @for (message of chatMessages; track message) {
+        <m-chat-message [message]="message" />
+      }
+    </div>
+  </m-segment>
+  <m-segment attached="bottom" m-fill>
+    <h3 m-header>Chat</h3>
+    <p>A conversation with text and image messages</p>
+  </m-segment>
+</a>
 <a routerLink="/semantic/context-menu" m-flex column class="element">
   <m-segment attached="top">
     <m-button (click)="prevent($event)">

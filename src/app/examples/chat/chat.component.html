@@ -2,6 +2,12 @@
 
 <m-tab-group secondary pointing class="page" selectByRoute>
     <m-tab label="Examples">
-        <m-chat [messages]="messages"></m-chat>
+        <m-example header="Images" description="Paste an image, drop it on the chat or pick it from the + menu. The menu also takes a screenshot (desktop) or a photo (phones and tablets); every image is shrunk and re-encoded as WebP. An app adds its own menu entries by placing m-context-menu-item (or -group) into m-chat.">
+            <m-chat [messages]="messages" sender="You" canAttachImages canTakeScreenshots canTakePhotos [screenshotMaxSize]="1280" showSendIcon
+                    [style.visibility]="isCapturing ? 'hidden' : null" (capturing)="isCapturing = $event" (send)="messages.push($event)" #chat>
+                <m-context-menu-item icon="user" (click)="attachSample(chat)">Sample picture</m-context-menu-item>
+            </m-chat>
+            <m-example-code [code]="imagesCode"></m-example-code>
+        </m-example>
     </m-tab>
 </m-tab-group>

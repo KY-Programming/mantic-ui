@@ -2,7 +2,9 @@
     @if (message()?.grouped) {
         <span class="avatar"></span>
     } @else {
-        <img class="avatar" [src]="image" alt="" />
+        <button type="button" class="avatar" (click)="openImage({ url: image, name: message()?.sender })">
+            <img [src]="image" [alt]="message()?.sender ?? ''" />
+        </button>
     }
 }
 <div class="wrapper">
@@ -12,6 +14,19 @@
         }
     }
     {{ message()?.text }}
+    @if (message()?.images?.length) {
+        <div class="images">
+            @for (image of message()?.images; track image) {
+                <button type="button" class="image" (click)="openImage(image)">
+                    <img [src]="image.url" [alt]="image.name ?? ''" loading="lazy" decoding="async"
+                         [class.sized]="image.width && image.height" [style.--image-width]="image.width + 'px'" [style.--image-ratio]="image.width && image.height ? image.width / image.height : null" />
+                </button>
+            }
+        </div>
+    }
+    @if (openedImage(); as image) {
+        <m-image-viewer [src]="image.url" [alt]="image.name ?? ''" (close)="closeImage()" />
+    }
     @if (message()?.options) {
         <div class="options">
             @for (option of message()?.options; track option) {

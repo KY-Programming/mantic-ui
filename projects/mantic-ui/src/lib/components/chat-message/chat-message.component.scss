@@ -5,6 +5,7 @@ $space-large: 30px !default;
 $chat-message-background: rgba(0,0,0,.05) !default;
 $chat-message-foreground: inherit !default;
 $chat-message-avatar-size: 32px !default;
+$chat-message-image-height: 240px !default;
 
 :host {
     display: flex;
@@ -15,8 +16,22 @@ $chat-message-avatar-size: 32px !default;
         width: $chat-message-avatar-size;
         height: $chat-message-avatar-size;
         margin-right: $space-small;
+        padding: 0;
+        border: none;
         border-radius: 50%;
-        object-fit: cover;
+        overflow: hidden;
+        background: none;
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    button.avatar {
+        cursor: zoom-in;
     }
 
     &.out {
@@ -52,6 +67,41 @@ $chat-message-avatar-size: 32px !default;
     .header {
         font-size: 0.75em;
         font-weight: bold;
+    }
+
+    .images {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $space-tiny;
+
+        &:not(:first-child) {
+            margin-top: $space-tiny;
+        }
+
+        .image {
+            display: block;
+            max-width: 100%;
+            padding: 0;
+            border: none;
+            background: none;
+            cursor: zoom-in;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            max-height: $chat-message-image-height;
+            border-radius: $space-tiny;
+
+            // With a known size the image gets its final box before it has loaded (lazy loading must not shift the chat):
+            // its own width, but no higher than the image height limit
+            &.sized {
+                width: min(var(--image-width), #{$chat-message-image-height} * var(--image-ratio));
+                height: auto;
+                max-height: none;
+                aspect-ratio: var(--image-ratio);
+            }
+        }
     }
 
     //.option {

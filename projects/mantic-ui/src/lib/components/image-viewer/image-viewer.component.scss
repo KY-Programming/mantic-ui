@@ -1,0 +1,17 @@
+$image-viewer-max-height: 85vh !default;
+
+:host {
+    display: none;
+}
+
+// The modal is moved to <body>, outside :host
+m-modal {
+    cursor: zoom-out;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    max-height: $image-viewer-max-height;
+    margin: 0 auto;
+}

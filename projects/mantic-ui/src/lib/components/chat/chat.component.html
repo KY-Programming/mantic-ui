@@ -1,21 +1,60 @@
-<div class="chat" #chat>
+<div class="chat" #chat (scroll)="onScroll(chat)">
     @for (message of messages(); track message) {
         <m-chat-message [message]="message" />
     }
     <ng-content />
 </div>
 @if (canSend()) {
-    <div class="input-wrapper" [class.visible]="canSend()">
-        <m-input autofocus [(value)]="message" [placeholder]="placeholder()" (keydown)="onKeyDown($event)">
-            @if (showSendIcon()) {
-                <m-button class="icon" (click)="sendMessage()">
-                    @if (!sendIconTemplate()) {
-                        <m-icon [icon]="sendIcon() ?? defaults.sendIcon()" [size]="sendIconSize() ?? defaults.sendIconSize()" />
-                    } @else {
-                        <ng-template [ngTemplateOutlet]="sendIconTemplate()" />
-                    }
+    <div class="input-wrapper" [class.visible]="canSend()" (paste)="onPaste($event)">
+        @if (attachments().length > 0) {
+            <div class="attachments">
+                @for (image of attachments(); track image) {
+                    <div class="attachment">
+                        <button type="button" class="preview" (click)="openedImage.set(image)">
+                            <img [src]="image.url" [alt]="image.name ?? ''" />
+                        </button>
+                        <button type="button" class="remove" [attr.aria-label]="removeImageText()" [title]="removeImageText()" (click)="removeAttachment(image)">
+                            <m-icon icon="close" />
+                        </button>
+                    </div>
+                }
+            </div>
+        }
+        @if (openedImage(); as image) {
+            <m-image-viewer [src]="image.url" [alt]="image.name ?? ''" (close)="openedImage.set(undefined)" />
+        }
+        <div class="input-row" [class.attachable]="showAttachButton()">
+            @if (showAttachButton()) {
+                <m-button class="icon attach" [attr.aria-label]="attachText()" [title]="attachText()" (click)="openAttachMenu($event)">
+                    <m-icon [icon]="attachIcon() ?? defaults.attachIcon()" />
                 </m-button>
+                <m-context-menu shared>
+                    @if (canAttachImages()) {
+                        <m-context-menu-item [icon]="attachImageIcon() ?? defaults.attachImageIcon()" (click)="openImagePicker()">{{ attachImageText() }}</m-context-menu-item>
+                    }
+                    @if (showPhoto()) {
+                        <m-context-menu-item [icon]="photoIcon() ?? defaults.photoIcon()" (click)="openCamera()">{{ takePhotoText() }}</m-context-menu-item>
+                    }
+                    @if (showScreenshot()) {
+                        <m-context-menu-item [icon]="screenshotIcon() ?? defaults.screenshotIcon()" (click)="takeScreenshot()">{{ takeTabScreenshotText() }}</m-context-menu-item>
+                        <m-context-menu-item [icon]="screenshotIcon() ?? defaults.screenshotIcon()" (click)="takeScreenshot(false)">{{ takeScreenScreenshotText() }}</m-context-menu-item>
+                    }
+                    <ng-content select="m-context-menu-item, m-context-menu-group" />
+                </m-context-menu>
+                <input type="file" accept="image/*" multiple hidden #fileInput (change)="onFilesPicked(fileInput)">
+                <input type="file" accept="image/*" capture="environment" hidden #photoInput (change)="onPhotoTaken(photoInput)">
             }
-        </m-input>
+            <m-input autofocus [(value)]="message" [placeholder]="placeholder()" (keydown)="onKeyDown($event)">
+                @if (showSendIcon()) {
+                    <m-button class="icon" (click)="sendMessage()">
+                        @if (!sendIconTemplate()) {
+                            <m-icon [icon]="sendIcon() ?? defaults.sendIcon()" [size]="sendIconSize() ?? defaults.sendIconSize()" />
+                        } @else {
+                            <ng-template [ngTemplateOutlet]="sendIconTemplate()" />
+                        }
+                    </m-button>
+                }
+            </m-input>
+        </div>
     </div>
 }

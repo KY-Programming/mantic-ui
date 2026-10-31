@@ -1,43 +1,54 @@
-import { Component, effect, input, OnDestroy } from '@angular/core';
+import { Component, effect, input, InputSignal, OnDestroy } from '@angular/core';
 import { IconSize } from '../icon/models/icon-size';
 import { IconType } from '../icon/models/icon-type';
 import { ChatComponent } from './chat.component';
+
+type ChatDefaultKey = keyof typeof ChatComponent.defaults;
 
 @Component({
     selector: 'm-chat-defaults',
     template: ''
 })
 export class ChatDefaultsComponent implements OnDestroy {
-    private readonly previousSendIcon = ChatComponent.defaults.sendIcon();
-    private readonly previousSendIconSize = ChatComponent.defaults.sendIconSize();
-    private currentSendIcon?: IconType;
-    private currentSendIconSize?: IconSize;
+    private readonly restores: (() => void)[] = [];
     public readonly sendIcon = input<IconType>();
     public readonly sendIconSize = input<IconSize>();
+    public readonly attachIcon = input<IconType>();
+    public readonly attachImageIcon = input<IconType>();
+    public readonly screenshotIcon = input<IconType>();
+    public readonly photoIcon = input<IconType>();
 
     public constructor() {
-        effect(() => {
-            const value = this.sendIcon();
-            if (value !== undefined) {
-                this.currentSendIcon = value;
-                ChatComponent.defaults.sendIcon.set(value);
-            }
-        });
-        effect(() => {
-            const value = this.sendIconSize();
-            if (value !== undefined) {
-                this.currentSendIconSize = value;
-                ChatComponent.defaults.sendIconSize.set(value);
-            }
-        });
+        this.bind('sendIcon', this.sendIcon);
+        this.bind('sendIconSize', this.sendIconSize);
+        this.bind('attachIcon', this.attachIcon);
+        this.bind('attachImageIcon', this.attachImageIcon);
+        this.bind('screenshotIcon', this.screenshotIcon);
+        this.bind('photoIcon', this.photoIcon);
     }
 
     public ngOnDestroy(): void {
-        if (this.currentSendIcon === ChatComponent.defaults.sendIcon()) {
-            ChatComponent.defaults.sendIcon.set(this.previousSendIcon);
+        for (const restore of this.restores) {
+            restore();
         }
-        if (this.currentSendIconSize === ChatComponent.defaults.sendIconSize()) {
-            ChatComponent.defaults.sendIconSize.set(this.previousSendIconSize);
-        }
+    }
+
+    // Sets the default while the input has a value; on destroy the previous default comes back, unless someone else changed it meanwhile
+    private bind<TKey extends ChatDefaultKey>(key: TKey, value: InputSignal<ReturnType<typeof ChatComponent.defaults[TKey]> | undefined>): void {
+        const target = ChatComponent.defaults[key] as unknown as { (): unknown; set(value: unknown): void };
+        const previous = target();
+        let current: unknown;
+        effect(() => {
+            const next = value();
+            if (next !== undefined) {
+                current = next;
+                target.set(next);
+            }
+        });
+        this.restores.push(() => {
+            if (current !== undefined && current === target()) {
+                target.set(previous);
+            }
+        });
     }
 }

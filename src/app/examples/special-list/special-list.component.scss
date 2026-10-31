@@ -4,6 +4,27 @@
     }
 }
 
+.chat-preview {
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+    width: 100%;
+    font-size: .8em;
+
+    m-chat-message {
+        max-width: 85%;
+    }
+
+    // The preview has to fit the card's preview area, so the bubbles are tighter than in a real chat
+    m-chat-message::ng-deep .wrapper {
+        padding: .4em .6em;
+    }
+
+    m-chat-message::ng-deep .images img {
+        max-height: 36px;
+    }
+}
+
 .notifications {
     position: relative;
     height: calc(100% - 2em);

@@ -75,6 +75,12 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
         this.close();
     }
 
+    protected onContentClick(event: ContextMenuEvent): void {
+        if (!event.keepContextMenuOpen && (event.target as HTMLElement).closest('m-context-menu-item')) {
+            this.close();
+        }
+    }
+
     private refreshPosition(tries = 3): void {
         const menu = this.menu();
         if (!menu) {
