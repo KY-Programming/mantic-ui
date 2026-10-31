@@ -65,7 +65,7 @@ export class ChatComponent implements DoCheck {
     }
 
     protected onKeyDown(event: KeyboardEvent): void {
-        if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+        if (event.key === 'Enter' && !event.isComposing) {
             this.sendMessage();
         }
     }
