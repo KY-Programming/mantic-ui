@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, input, output, signal, viewChild } from '@angular/core';
+import { AfterViewInit, Component, computed, input, output, signal, viewChild } from '@angular/core';
 import { animationFrameScheduler, fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '../../base/base.component';
@@ -24,6 +24,11 @@ import { ContextMenuMouseEvent } from './models/context-menu-mouse-event';
     }
 })
 export class ContextMenuComponent extends BaseComponent implements AfterViewInit {
+    public static readonly defaults = {
+        /** Set with `m-context-menu-defaults`, e.g. to the page's dark mode. */
+        inverted: signal(false)
+    };
+
     protected readonly menu = viewChild(MenuComponent);
     public readonly left = signal<number | undefined>(undefined);
     public readonly top = signal<number | undefined>(undefined);
@@ -33,6 +38,12 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
     public readonly vertical = input<boolean, BooleanLike>(true, { transform: toBoolean });
     public readonly shared = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly margin = input(5);
+    /**
+     * Dark menu; without it the default (`m-context-menu-defaults`). Passed to the menu rendered at the end of the page,
+     * which can not inherit the dark mode of where it is used.
+     */
+    public readonly inverted = input<boolean | undefined, BooleanLike>(undefined, { transform: toBoolean });
+    protected readonly isInverted = computed(() => this.inverted() ?? ContextMenuComponent.defaults.inverted());
 
     // eslint-disable-next-line @angular-eslint/no-output-rename,@angular-eslint/no-output-native
     public readonly onclose = output({ alias: 'close' });
