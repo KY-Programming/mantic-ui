@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
-
 import { RouterLink } from '@angular/router';
+import { setFavicon } from '../../helpers/favicon';
 
 @Component({
     selector: 'app-intro',
@@ -18,8 +18,7 @@ export class IntroComponent implements OnInit {
     public constructor(
         private readonly http: HttpClient
     ) {
-        const favicon = <HTMLLinkElement>document.getElementById('favicon');
-        favicon.href = window.location.origin + '/assets/mantic.png';
+        setFavicon('/assets/mantic.png');
     }
 
     public ngOnInit(): void {

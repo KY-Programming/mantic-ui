@@ -1,0 +1,11 @@
+{
+  "language": "en",
+  "title": "mantic UI - KY-Programming",
+  "header": "mantic UI",
+  "icon16": "assets/mantic.png",
+  "icon32": "assets/mantic.png",
+  "icon64": "assets/mantic.png",
+  "iconSvg": "assets/mantic.svg",
+  "splashIcon": "assets/mantic.svg",
+  "splashIconAlt": "mantic UI"
+}

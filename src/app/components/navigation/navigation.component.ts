@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs/operators';
-
 import { ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, FillComponent, FlexComponent, FlexDirective, IconComponent } from '@mantic-ui/angular';
 import { faChevronLeft } from '@fortawesome/pro-solid-svg-icons';
+import { setFavicon } from '../../helpers/favicon';
 
 @Component({
     selector: 'app-navigation',
@@ -30,13 +30,12 @@ export class NavigationComponent implements OnInit {
 
     private refresh(): void {
         this.isSemantic = this.router.url.startsWith('/semantic/');
-        const favicon = <HTMLLinkElement>document.getElementById('favicon');
         if (this.isSemantic) {
-            favicon.href = window.location.origin + '/assets/semantic.png';
+            setFavicon('/assets/semantic.png');
             this.prefix = 'semantic';
         }
         else {
-            favicon.href = window.location.origin + '/assets/fomantic.png';
+            setFavicon('/assets/fomantic.png');
             this.prefix = 'fomantic';
         }
         NavigationComponent.previous = '/' + this.prefix;

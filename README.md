@@ -115,3 +115,20 @@ typos. Directives have no public input reflection, so a
 `BaseDirective` still only accepts registered classes and the global attributes. Keep the
 otherwise empty `super()` constructors: without them Angular uses the inherited factory, which
 injects `null` for `useUiClass` and drops the `ui` class.
+
+**The documentation app's `index.html` is generated from `src/app/app.config.json` and the
+`@ky/mantic` template, but checked in.** `@ky/mantic` lives on the private KY registry, and this
+repository is public: it must install and build for anyone. So it is no dependency at all.
+`npm start` / `npm run build` first run `scripts/update-index.mjs`, which fetches the package's
+`ky-index` bin through `npx` and rewrites `src/index.html`. Without registry access that fails and the
+build uses the checked-in file. Edit `app.config.json`, never `src/index.html`, and commit the file
+whenever the run changed it. The script is called inside `start`/`build`, not as a `pre*` script,
+because those never run with `ignore-scripts=true`. It only calls `npx` when the npm config maps the
+`@ky` scope to a registry: unmapped, `npx` would look the package up on the public registry, where the
+scope is not ours, and run whatever it found. The registry URL itself is internal and must not appear
+in this repository (neither in a script nor in `package-lock.json`). A plain `ng serve` / `ng build`
+skips the refresh. The `@ky/mantic@^22` range moves with the Angular major. The site must stay indexable, so the config has no `robots` key. Never commit a
+`ky-ai-ng-inject` block in `src/index.html`: the ky-ai dev server injects it while it serves the app.
+
+**The favicon switches per theme at runtime, across every icon link** (`setFavicon`). Browsers prefer
+the SVG, so changing only one of the links has no visible effect.
