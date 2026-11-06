@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, computed, effect, input, OnInit, output, signal, untracked } from '@angular/core';
+import { Component, computed, DestroyRef, effect, inject, input, OnInit, output, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 import { Math2 } from '../../../helpers/math2';
@@ -7,12 +7,19 @@ import { toBoolean } from '../../../helpers/to-boolean';
 import { IconComponent } from '../../icon/icon.component';
 import { InputBaseComponent } from '../input-base.component';
 
+/** Holding an up / down button: pause before it starts repeating, then the time between two steps, in ms (as the browser's own spin buttons). */
+const stepRepeatDelay = 400;
+const stepRepeatInterval = 60;
+
 @Component({
     selector: 'm-numeric-input',
     templateUrl: './numeric-input.component.html',
     styleUrls: ['./numeric-input.component.scss'],
     imports: [IconComponent, FallbackForDirective, FormsModule, NgTemplateOutlet],
-    providers: [...InputBaseComponent.providers]
+    providers: [...InputBaseComponent.providers],
+    host: {
+        '[class.stepper]': 'hasStepper()'
+    }
 })
 export class NumericInputComponent extends InputBaseComponent implements OnInit {
     // eslint-disable-next-line unicorn/no-null
@@ -24,6 +31,13 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     public readonly zeroText = input<string>();
     public readonly range = input(false, { transform: toBoolean });
     public readonly type = computed<'number' | 'range'>(() => this.range() ? 'range' : 'number');
+    /** Amount the up / down buttons (and the arrow keys) add or take away. */
+    public readonly step = input(1);
+    /** The up / down buttons replace the browser's own spin buttons; not on a slider (`range`) or a read-only field. */
+    protected readonly hasStepper = computed(() => !this.range() && !this.readonly());
+    protected readonly canStepUp = computed(() => !this.disabled() && (this.max() === undefined || this.number() < (this.max() ?? 0)));
+    private stepTimer: ReturnType<typeof setTimeout> | undefined;
+    protected readonly canStepDown = computed(() => !this.disabled() && (this.min() === undefined || this.number() > (this.min() ?? 0)));
     // eslint-disable-next-line @angular-eslint/no-input-rename
     public readonly valueInput = input<number | undefined>(undefined, { alias: 'value' });
     // eslint-disable-next-line @angular-eslint/no-input-rename
@@ -39,6 +53,7 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
 
     public constructor() {
         super();
+        inject(DestroyRef).onDestroy(() => this.stopStepping());
         // [value] flows into the shared state (normalising the display); [number] is guarded so an unbound alias can't clobber [value].
         effect(() => {
             const value = this.valueInput();
@@ -60,7 +75,7 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
         this.blur.subscribe(() => this.setInternalValue(this.value()));
     }
 
-    protected onInternalChange(rawValue: string | null | undefined): void {
+    protected onInternalChange(rawValue: string | number | null | undefined): void {
         let value = typeof rawValue === 'string' ? rawValue !== '' ? parseFloat(rawValue) : undefined : rawValue ?? undefined;
         this.setInternalValue(value);
         value = value == undefined || Number.isNaN(value) ? undefined : Math2.keepInRange(this.min(), value, this.max());
@@ -69,6 +84,42 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
             this.valueChange.emit(this.value());
             this.numberChange.emit(this.number());
         }
+    }
+
+    /** Steps once on press, then, while the button is held, repeatedly: after a pause, then quickly, until `min` / `max`. */
+    protected startStepping(event: PointerEvent, direction: 1 | -1): void {
+        if (event.button !== 0) {
+            return;
+        }
+        // keeps the focus in the field; the capture delivers the release even when the pointer has left the button
+        event.preventDefault();
+        (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
+        this.stopStepping();
+        this.stepBy(direction);
+        const repeat = (delay: number): void => {
+            this.stepTimer = setTimeout(() => {
+                if (!(direction === 1 ? this.canStepUp() : this.canStepDown())) {
+                    this.stopStepping();
+                    return;
+                }
+                this.stepBy(direction);
+                repeat(stepRepeatInterval);
+            }, delay);
+        };
+        repeat(stepRepeatDelay);
+    }
+
+    protected stopStepping(): void {
+        clearTimeout(this.stepTimer);
+        this.stepTimer = undefined;
+    }
+
+    /** Adds `direction` × `step` to the value (an empty value counts as `default`), rounded to the step's decimals so 0.1 + 0.2 stays 0.3. */
+    protected stepBy(direction: 1 | -1): void {
+        const step = this.step();
+        const decimals = Math.max(String(step).split('.', 2)[1]?.length ?? 0, String(this.number()).split('.', 2)[1]?.length ?? 0);
+        const value = Number((this.number() + direction * step).toFixed(decimals));
+        this.onInternalChange(Math2.keepInRange(this.min(), value, this.max()));
     }
 
     // Mirrors the old `value` setter: normalise the display only when the value actually changes, then store it (without emitting).

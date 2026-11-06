@@ -1,0 +1,72 @@
+// The up / down buttons sit inside the field's own border, in room the field keeps free on its right: so border, focus
+// colour, rounding and inverted look stay the field's, and a label or button after the field still follows it.
+$stepper-width: 1.75em;
+
+:host.stepper > input {
+    padding-right: calc(#{$stepper-width} + 0.5em);
+    appearance: textfield;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+        appearance: none;
+        margin: 0;
+    }
+}
+
+.stepper-buttons {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex: 0 0 $stepper-width;
+    flex-direction: column;
+    width: $stepper-width;
+    // over the field's right padding, inside its 1px border
+    margin: 1px 1px 1px calc(-#{$stepper-width} - 1px);
+    border-left: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+
+    button {
+        display: flex;
+        flex: 1 1 0;
+        align-items: center;
+        justify-content: center;
+        min-height: 0;
+        padding: 0;
+        border: none;
+        background: none;
+        color: inherit;
+        cursor: pointer;
+        opacity: 0.6;
+
+        & + button {
+            border-top: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+        }
+
+        &:hover:not(:disabled) {
+            opacity: 1;
+            background-color: color-mix(in srgb, currentColor 8%, transparent);
+        }
+
+        &:disabled {
+            cursor: default;
+            opacity: 0.25;
+        }
+    }
+
+    svg {
+        width: 0.75em;
+        height: 0.75em;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.75;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+}
+
+// The theme rounds only the corners away from the field of a label or button that directly follows the field
+// (`input + .label`); the up / down buttons now stand in between, so the same is done after them.
+.stepper-buttons + ::ng-deep .label,
+.stepper-buttons + ::ng-deep .button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}

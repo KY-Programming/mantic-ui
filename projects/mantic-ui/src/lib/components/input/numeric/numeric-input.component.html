@@ -5,7 +5,19 @@
     <ng-container [ngTemplateOutlet]="contentTemplate" />
 }
 <ng-content />
-<input *m-fallback-for="'input'" [type]="type()" [placeholder]="placeholderInternal() || ''" [ngModel]="internalValue()" [min]="min() || ''" [max]="max() || ''" [attr.name]="name()" [attr.for]="for()" [attr.readOnly]="readonly() || undefined" [attr.disabled]="disabled() || undefined" (ngModelChange)="onInternalChange($event)" #input>
+<input *m-fallback-for="'input'" [type]="type()" [placeholder]="placeholderInternal() || ''" [ngModel]="internalValue()" [min]="min() || ''" [max]="max() || ''" [step]="step()" [attr.name]="name()" [attr.for]="for()" [attr.readOnly]="readonly() || undefined" [attr.disabled]="disabled() || undefined" (ngModelChange)="onInternalChange($event)" #input>
+<!-- Replaces the browser's spin buttons; held down they repeat. Pointer only: the keyboard has the arrow keys in the field,
+     so the buttons stay out of the tab order. -->
+@if (hasStepper()) {
+    <span class="stepper-buttons" aria-hidden="true">
+        <button type="button" tabindex="-1" [disabled]="!canStepUp()" (pointerdown)="startStepping($event, 1)" (pointerup)="stopStepping()" (pointercancel)="stopStepping()" (lostpointercapture)="stopStepping()">
+            <svg viewBox="0 0 12 12"><path d="M2.5 7.5 6 4l3.5 3.5" /></svg>
+        </button>
+        <button type="button" tabindex="-1" [disabled]="!canStepDown()" (pointerdown)="startStepping($event, -1)" (pointerup)="stopStepping()" (pointercancel)="stopStepping()" (lostpointercapture)="stopStepping()">
+            <svg viewBox="0 0 12 12"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>
+        </button>
+    </span>
+}
 @if (icon()) {
     <m-icon [icon]="icon()" [size]="iconSize()" class="link icon" />
 }
