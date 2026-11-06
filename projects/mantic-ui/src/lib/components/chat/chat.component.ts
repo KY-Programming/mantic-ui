@@ -46,7 +46,8 @@ export class ChatComponent implements DoCheck {
         attachIcon: signal<IconType>('plus'),
         attachImageIcon: signal<IconType>('image'),
         screenshotIcon: signal<IconType>('desktop'),
-        photoIcon: signal<IconType>('camera')
+        photoIcon: signal<IconType>('camera'),
+        removeImageIcon: signal<IconType>('close')
     };
     // How far (px) the chat may be scrolled up and still count as at the bottom; absorbs rounding of fractional scroll positions
     private static readonly bottomTolerance = 16;
@@ -94,6 +95,7 @@ export class ChatComponent implements DoCheck {
     public readonly attachImageIcon = input<IconType>();
     public readonly screenshotIcon = input<IconType>();
     public readonly photoIcon = input<IconType>();
+    public readonly removeImageIcon = input<IconType>();
     public readonly placeholder = input('Type a message and send with ENTER');
     public readonly attachText = input('Attach');
     public readonly attachImageText = input('Attach image');

@@ -17,6 +17,7 @@ export class ChatDefaultsComponent implements OnDestroy {
     public readonly attachImageIcon = input<IconType>();
     public readonly screenshotIcon = input<IconType>();
     public readonly photoIcon = input<IconType>();
+    public readonly removeImageIcon = input<IconType>();
 
     public constructor() {
         this.bind('sendIcon', this.sendIcon);
@@ -25,6 +26,7 @@ export class ChatDefaultsComponent implements OnDestroy {
         this.bind('attachImageIcon', this.attachImageIcon);
         this.bind('screenshotIcon', this.screenshotIcon);
         this.bind('photoIcon', this.photoIcon);
+        this.bind('removeImageIcon', this.removeImageIcon);
     }
 
     public ngOnDestroy(): void {
