@@ -19,7 +19,7 @@
             @for (image of message()?.images; track image) {
                 <button type="button" class="image" (click)="openImage(image)">
                     <img [src]="image.url" [alt]="image.name ?? ''" loading="lazy" decoding="async"
-                         [class.sized]="image.width && image.height" [style.--image-width]="image.width + 'px'" [style.--image-ratio]="image.width && image.height ? image.width / image.height : null" />
+                         [class.sized]="image.width && image.height" [style.--image-width]="image.width ? image.width + 'px' : null" [style.--image-ratio]="image.width && image.height ? image.width / image.height : null" />
                 </button>
             }
         </div>
