@@ -75,7 +75,7 @@
             <m-flex>
                 <m-button>
                     Top-Left
-                    <m-context-menu openOnLeftClick>
+                    <m-context-menu openOnLeftClick [position]="position()">
                         <m-context-menu-item (click)="show('Top-Left')">Top-Left</m-context-menu-item>
                         <m-context-menu-item icon="lock" keepOpen (click)="show('Keep open')">Keep open</m-context-menu-item>
                         @if (!isScrolling) {
@@ -89,7 +89,7 @@
                 <m-fill>
                     <m-button>
                         Top
-                        <m-context-menu openOnLeftClick>
+                        <m-context-menu openOnLeftClick [position]="position()">
                             <m-context-menu-item (click)="show('Top Item 1')">Top Item 1</m-context-menu-item>
                             <m-context-menu-item (click)="show('Top Item 2')">Top Item 2</m-context-menu-item>
                             <m-context-menu-item (click)="show('Top Item 3')">Top Item 3</m-context-menu-item>
@@ -98,7 +98,7 @@
                 </m-fill>
                 <m-button>
                     Top-Right
-                    <m-context-menu openOnLeftClick>
+                    <m-context-menu openOnLeftClick [position]="position()">
                         <m-context-menu-item (click)="show('Top-Right Item 1')">Top-Right Item 1</m-context-menu-item>
                         <m-context-menu-item (click)="show('Top-Right Item 2')">Top-Right Item 2</m-context-menu-item>
                         <m-context-menu-item (click)="show('Top-Right Item 3')">Top-Right Item 3</m-context-menu-item>
@@ -108,25 +108,28 @@
             <m-fill m-flex>
                 <m-button>
                     Middle-Left
-                    <m-context-menu openOnLeftClick>
+                    <m-context-menu openOnLeftClick [position]="position()">
                         <m-context-menu-item (click)="show('Middle-Left Item 1')">Middle-Left Item 1</m-context-menu-item>
                         <m-context-menu-item (click)="show('Middle-Left Item 2')">Middle-Left Item 2</m-context-menu-item>
                         <m-context-menu-item (click)="show('Middle-Left Item 3')">Middle-Left Item 3</m-context-menu-item>
                     </m-context-menu>
                 </m-button>
                 <m-fill>
+                    <!-- switches how every menu of this tab places itself -->
                     <m-button>
-                        Middle
-                        <m-context-menu openOnLeftClick>
-                            <m-context-menu-item (click)="show('Middle Item 1')">Middle Item 1</m-context-menu-item>
-                            <m-context-menu-item (click)="show('Middle Item 2')">Middle Item 2</m-context-menu-item>
-                            <m-context-menu-item (click)="show('Middle Item 3')">Middle Item 3</m-context-menu-item>
+                        Modes
+                        <m-context-menu openOnLeftClick [position]="position()">
+                            @for (mode of modes; track mode.position) {
+                                <m-context-menu-item keepOpen [active]="mode.position === position()" (click)="position.set(mode.position)">
+                                    {{ mode.label }} <small>({{ mode.position }})</small>
+                                </m-context-menu-item>
+                            }
                         </m-context-menu>
                     </m-button>
                 </m-fill>
                 <m-button>
                     Middle-Right
-                    <m-context-menu openOnLeftClick>
+                    <m-context-menu openOnLeftClick [position]="position()">
                         <m-context-menu-item (click)="show('Middle-Right Item 1')">Middle-Right Item 1</m-context-menu-item>
                         <m-context-menu-item (click)="show('Middle-Right Item 2')">Middle-Right Item 2</m-context-menu-item>
                         <m-context-menu-item (click)="show('Middle-Right Item 3')">Middle-Right Item 3</m-context-menu-item>
@@ -136,7 +139,7 @@
             <m-flex>
                 <m-button>
                     Bottom-Left
-                    <m-context-menu openOnLeftClick>
+                    <m-context-menu openOnLeftClick [position]="position()">
                         <m-context-menu-item (click)="show('Bottom-Left Item 1')">Bottom-Left Item 1</m-context-menu-item>
                         <m-context-menu-item (click)="show('Bottom-Left Item 2')">Bottom-Left Item 2</m-context-menu-item>
                         <m-context-menu-item (click)="show('Bottom-Left Item 3')">Bottom-Left Item 3</m-context-menu-item>
@@ -145,7 +148,7 @@
                 <m-fill>
                     <m-button>
                         Bottom
-                        <m-context-menu openOnLeftClick>
+                        <m-context-menu openOnLeftClick [position]="position()">
                             <m-context-menu-item (click)="show('Bottom Item 1')">Bottom Item 1</m-context-menu-item>
                             <m-context-menu-item (click)="show('Bottom Item 2')">Bottom Item 2</m-context-menu-item>
                             <m-context-menu-item (click)="show('Bottom Item 3')">Bottom Item 3</m-context-menu-item>
@@ -154,7 +157,7 @@
                 </m-fill>
                 <m-button>
                     Bottom-Right
-                    <m-context-menu openOnLeftClick>
+                    <m-context-menu openOnLeftClick [position]="position()">
                         <m-context-menu-item (click)="show('Bottom-Right Item 1')">Bottom-Right Item 1</m-context-menu-item>
                         <m-context-menu-item (click)="show('Bottom-Right Item 2')">Bottom-Right Item 2</m-context-menu-item>
                         <m-context-menu-item (click)="show('Bottom-Right Item 3')">Bottom-Right Item 3</m-context-menu-item>

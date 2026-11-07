@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
-import { ButtonComponent, ContextMenuComponent, ContextMenuGroupComponent, ContextMenuItemComponent, FillComponent, FillDirective, FlexComponent, FlexDirective, InfoComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { ChangeDetectionStrategy, Component, HostBinding, signal } from '@angular/core';
+import { ButtonComponent, ContextMenuComponent, ContextMenuGroupComponent, ContextMenuPosition, ContextMenuItemComponent, FillComponent, FillDirective, FlexComponent, FlexDirective, InfoComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 import { HeaderComponent } from '../../components/header/header.component';
@@ -14,6 +14,14 @@ import { HeaderComponent } from '../../components/header/header.component';
 export class ContextMenuExampleComponent {
     @HostBinding('class.scrolling')
     public isScrolling = false;
+
+    /** How the menus of the Variations tab place themselves, switched by its "Modes" button. */
+    protected readonly position = signal<ContextMenuPosition>('flip');
+    protected readonly modes: readonly { position: ContextMenuPosition; label: string }[] = [
+        { position: 'shift', label: 'Keep in viewport' },
+        { position: 'flip', label: 'Stay at pointer' },
+        { position: 'anchor', label: 'Attached' }
+    ];
 
     public readonly example1Code = `<m-button>
     Click Me Right

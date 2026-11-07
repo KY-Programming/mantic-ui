@@ -1,5 +1,5 @@
 @if (isVisible()) {
-  <m-menu *m-to-body class="content" [vertical]="vertical()" [inverted]="isInverted()" [style.left.px]="left()" [style.top.px]="top()" [style.visibility]="isPositioned() ? null : 'hidden'" (click)="onContentClick($event)">
+  <m-menu *m-to-body class="content" [vertical]="vertical()" [inverted]="isInverted()" [style.left.px]="left()" [style.top.px]="top()" [style.visibility]="isPositioned() ? null : 'hidden'" [style.max-height.px]="maxHeight()" [style.overflow-y]="maxHeight() === undefined ? null : 'auto'" (click)="onContentClick($event)">
     <ng-content />
   </m-menu>
 }

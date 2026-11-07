@@ -215,8 +215,7 @@ export class ChatComponent implements DoCheck {
             menu.open(event);
         }
         else {
-            const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
-            menu.open(rect.left, rect.top);
+            menu.open(event.currentTarget as HTMLElement);
         }
     }
 
