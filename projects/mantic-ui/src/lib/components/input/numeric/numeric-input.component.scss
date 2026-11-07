@@ -63,6 +63,39 @@ $stepper-width: 1.75em;
     }
 }
 
+// A narrow field gives its room to the digits: first tighter padding, then, very narrow, without the up / down buttons
+// (the arrow keys and the wheel still step). Only a fluid field is a container: its width comes from where it is placed,
+// whereas a field sized by its content would collapse under inline-size containment.
+:host.fluid {
+    container: numeric-input / inline-size;
+}
+
+@container numeric-input (max-width: 10rem) {
+    :host.ui.input > input {
+        padding-left: 0.5em;
+    }
+
+    :host.stepper.ui.input > input {
+        padding-right: calc(#{$stepper-width} + 0.25em);
+    }
+
+    // a unit label beside the digits; just above the theme's rule, so a label that styles itself keeps its own padding
+    :host.ui.labeled.input > ::ng-deep .label:not(.corner) {
+        padding-right: 0.5em;
+        padding-left: 0.5em;
+    }
+}
+
+@container numeric-input (max-width: 7rem) {
+    .stepper-buttons {
+        display: none;
+    }
+
+    :host.stepper.ui.input > input {
+        padding-right: 0.5em;
+    }
+}
+
 // The theme rounds only the corners away from the field of a label or button that directly follows the field
 // (`input + .label`); the up / down buttons now stand in between, so the same is done after them.
 .stepper-buttons + ::ng-deep .label,
