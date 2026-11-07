@@ -2,6 +2,26 @@
     display: block;
 }
 
+.item-layout {
+    display: flex;
+    // the icon sits on the first line of the text, also when a description or own markup follows
+    align-items: flex-start;
+}
+
+// A fixed column, so the texts of different icons start in line. The context menu indents an entry without an icon
+// by the same width (icon + margin) when another entry has one - change both together.
 m-icon {
+    flex: none;
+    width: 1.25em;
     margin-right: 0.5em;
+    text-align: center;
+    // no taller than the icon itself: its line box (with the icon's lowered baseline) would otherwise make an entry
+    // with an icon a pixel higher than one without
+    height: 1em;
+    line-height: 1;
+}
+
+.item-content {
+    flex: 1 1 auto;
+    min-width: 0;
 }

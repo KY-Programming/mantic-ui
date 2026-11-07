@@ -9,6 +9,13 @@
     z-index: 99999999;
 }
 
+// As soon as one entry has an icon, the entries without one are indented by the icon column (width + margin of the
+// item's m-icon), so all texts start in line; a menu without any icon is not indented. For the whole menu, groups
+// included. The items are projected content, hence ::ng-deep.
+.ui.menu:has(m-context-menu-item > .item-layout > m-icon) ::ng-deep m-context-menu-item:not(:has(> .item-layout > m-icon)) > .item-layout > .item-content {
+    margin-left: 1.75em;
+}
+
 .ui.menu {
     margin-top: 0;
 

@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, computed, input, output, signal, viewChild } from '@angular/core';
-import { animationFrameScheduler, fromEvent } from 'rxjs';
+import { afterNextRender, AfterViewInit, Component, computed, inject, Injector, input, output, signal, viewChild } from '@angular/core';
+import { fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '../../base/base.component';
 import { ToBodyDirective } from '../../directives/to-body.directive';
@@ -29,10 +29,13 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
         inverted: signal(false)
     };
 
+    private readonly injector = inject(Injector);
     protected readonly menu = viewChild(MenuComponent);
     public readonly left = signal<number | undefined>(undefined);
     public readonly top = signal<number | undefined>(undefined);
     public readonly isVisible = signal(false);
+    /** False from opening until the menu is moved into the viewport, so it never shows at the raw click position. */
+    protected readonly isPositioned = signal(false);
     public readonly openOnLeftClick = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly openOnRightClick = input<boolean, BooleanLike>(true, { transform: toBoolean });
     public readonly vertical = input<boolean, BooleanLike>(true, { transform: toBoolean });
@@ -92,18 +95,17 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
         }
     }
 
-    private refreshPosition(tries = 3): void {
+    /** Moves the rendered menu into the viewport, then shows it. */
+    private refreshPosition(): void {
         const menu = this.menu();
-        if (!menu) {
-            if (tries > 0) {
-                animationFrameScheduler.schedule(() => this.refreshPosition(tries - 1));
-            }
-            return;
+        if (menu) {
+            const menuRect = menu.element.nativeElement.getBoundingClientRect();
+            const clipRect = document.documentElement.getBoundingClientRect();
+            this.left.set(Math2.keepInRange(clipRect.left + this.margin(), this.left(), clipRect.right - this.margin() - menuRect.width));
+            this.top.set(Math2.keepInRange(clipRect.top + this.margin(), this.top(), clipRect.bottom - this.margin() - menuRect.height));
         }
-        const menuRect = menu.element.nativeElement.getBoundingClientRect();
-        const clipRect = document.documentElement.getBoundingClientRect();
-        this.left.set(Math2.keepInRange(clipRect.left + this.margin(), this.left(), clipRect.right - this.margin() - menuRect.width));
-        this.top.set(Math2.keepInRange(clipRect.top + this.margin(), this.top(), clipRect.bottom - this.margin() - menuRect.height));
+        // shown even without a menu to measure, so it can never stay invisible
+        this.isPositioned.set(true);
     }
 
     public open(left?: number, top?: number): void
@@ -119,8 +121,11 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
             this.left.set(leftOrEvent.clientX);
             this.top.set(leftOrEvent.clientY);
         }
+        // The menu can only be measured once it is rendered: until then it stays hidden (also when it is moved while
+        // open), and it is measured right after that render, before the browser paints it
+        this.isPositioned.set(false);
         this.isVisible.set(true);
-        this.refreshPosition();
+        afterNextRender({ read: () => this.refreshPosition() }, { injector: this.injector });
         this.onopen.emit();
     }
 

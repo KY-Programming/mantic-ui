@@ -1,3 +1,10 @@
-<m-icon [icon]="icon()" [style.color]="iconColor()" />
-
-<ng-content />
+<!-- icon and content side by side, so everything in the content (a second line, own markup) starts under the text and
+     not under the icon. The icon only when set: an empty one would still take up the icon column. -->
+<div class="item-layout">
+    @if (icon()) {
+        <m-icon [icon]="icon()" [style.color]="iconColor()" />
+    }
+    <div class="item-content">
+        <ng-content />
+    </div>
+</div>
