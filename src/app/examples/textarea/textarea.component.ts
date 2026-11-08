@@ -20,5 +20,7 @@ export class TextareaExampleComponent {
   <m-textarea attachedTop placeholder="Comment..." />
   <m-button attachedBottom>Send</m-button>
 </m-flex>`;
+    public disabledCode = `<m-textarea disabled value="This text can not be changed or selected" />`;
+    public readonlyCode = `<m-textarea readonly value="This text can not be changed" />`;
     public inverted = `<m-textarea inverted></m-textarea>`;
 }

@@ -1,6 +1,8 @@
 @use "../../../styles/attached";
+@use "../../../styles/readonly";
 
 @include attached.attached("> *");
+@include readonly.readonly;
 
 // The up / down buttons sit inside the field's own border, in room the field keeps free on its right: so border, focus
 // colour, rounding and inverted look stay the field's, and a label or button after the field still follows it.

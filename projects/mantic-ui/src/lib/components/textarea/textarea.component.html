@@ -1,2 +1,5 @@
 <ng-content />
 <textarea *m-fallback-for="'textarea'" [placeholder]="placeholder() || ''" [ngModel]="value()" [readOnly]="readonly() ? true : undefined" [disabled]="$any(disabled() ? true : undefined)" [attr.id]="inputId()" (ngModelChange)="setValue($event)" #textarea></textarea>
+@if (showReadonlyLock()) {
+    <m-icon class="readonly-lock-icon" role="img" [icon]="currentReadonlyIcon()" [title]="currentReadonlyText()" [attr.aria-label]="currentReadonlyText()" />
+}

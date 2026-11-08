@@ -1,7 +1,20 @@
 @use "../../styles/attached";
+@use "../../styles/readonly";
 
 @include attached.attached("> textarea");
+@include readonly.readonly("> textarea");
 
 :host {
+    position: relative;
     display: block;
+}
+
+// A textarea is no flex row as the inputs are: the lock sits in its top right corner
+.readonly-lock-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2.75em;
+    width: 2.5em;
+    margin-left: 0;
 }

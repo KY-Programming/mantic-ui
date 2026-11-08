@@ -5,12 +5,14 @@ import { inheritableBooleanModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
 import { IconSize } from '../icon/models/icon-size';
 import { IconType } from '../icon/models/icon-type';
+import { readonlyDefaults } from './readonly-defaults';
 import { InputIconPosition } from './text/input.component';
 
 @Directive({
     providers: InputBaseComponent.providers,
     host: {
-        '[class.icon]': 'icon()',
+        '[class.icon]': 'visibleIcon()',
+        '[class.readonly-lock]': 'showReadonlyLock()',
         '[class.disabled]': 'disabled()',
         '[class.readonly]': 'readonly()',
         '[class.error]': 'hasError()',
@@ -20,7 +22,10 @@ import { InputIconPosition } from './text/input.component';
 })
 export abstract class InputBaseComponent extends LabeledBaseComponent {
     public static readonly defaults = {
-        inverted: signal(false)
+        inverted: signal(false),
+        readonlyIcon: readonlyDefaults.icon,
+        readonlyText: readonlyDefaults.text,
+        showReadonlyIcon: readonlyDefaults.isIconShown
     };
     protected static override readonly providers = [...LabeledBaseComponent.providers];
     protected readonly colorForId = Date.now().toString() + Math.random().toString();
@@ -41,6 +46,14 @@ export abstract class InputBaseComponent extends LabeledBaseComponent {
     public readonly readonlyInput = input<boolean, BooleanLike>(false, { alias: 'readonly', transform: toBoolean });
     public readonly readonlyChange = output<boolean>();
     public readonly readonly = inheritableBooleanModel(this.readonlyInput, this.readonlyChange);
+    public readonly readonlyIcon = input<IconType>();
+    public readonly readonlyText = input<string>();
+    public readonly showReadonlyIcon = input<boolean | undefined, BooleanLike>(undefined, { transform: toBoolean });
+    protected readonly showReadonlyLock = computed(() => this.readonly() && (this.showReadonlyIcon() ?? InputBaseComponent.defaults.showReadonlyIcon()));
+    protected readonly currentReadonlyIcon = computed(() => this.readonlyIcon() ?? InputBaseComponent.defaults.readonlyIcon());
+    protected readonly currentReadonlyText = computed(() => this.readonlyText() ?? InputBaseComponent.defaults.readonlyText());
+    /** The lock takes the place of an icon on the right; one on the left stays */
+    protected readonly visibleIcon = computed(() => this.showReadonlyLock() && this.iconPosition() !== 'left' ? undefined : this.icon());
     public readonly hasError = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly transparent = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly autofocus = input<boolean, BooleanLike>(false, { transform: toBoolean });

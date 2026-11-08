@@ -6,8 +6,11 @@
 }
 <ng-content />
 <input *m-fallback-for="'input'" type="date" [placeholder]="placeholder() || ''" [ngModel]="internalValue()" [min]="min() || ''" [max]="max() || ''" [attr.name]="name()" [attr.for]="for()" [attr.readOnly]="readonly() || undefined" [attr.disabled]="disabled() || undefined" (ngModelChange)="onInternalChange($event)" #input>
-@if (icon()) {
-    <m-icon [icon]="icon()" [size]="iconSize()" class="link icon" />
+@if (showReadonlyLock()) {
+    <m-icon class="readonly-lock-icon" role="img" [icon]="currentReadonlyIcon()" [title]="currentReadonlyText()" [attr.aria-label]="currentReadonlyText()" />
+}
+@if (visibleIcon()) {
+    <m-icon [icon]="visibleIcon()" [size]="iconSize()" class="link icon" />
 }
 @if (isRight()) {
     <ng-container [ngTemplateOutlet]="labelTemplate" />

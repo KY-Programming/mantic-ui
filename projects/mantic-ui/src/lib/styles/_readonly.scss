@@ -1,0 +1,102 @@
+// The look of a readonly field: a muted background and a lock at its right end. The text stays fully readable and can be
+// selected, which is what tells readonly apart from disabled.
+// Lives in the component styles, not in a theme: it has to look the same in every theme.
+
+// The themes pad icon inputs with `!important` and selectors such as `.ui.ui.ui.ui[class*="left icon"]:not(…).input > input`.
+// Repeating the class outweighs them without naming each of them.
+@function -repeated($class) {
+    $selector: "";
+    @for $i from 1 through 8 {
+        $selector: $selector + $class;
+    }
+    @return $selector;
+}
+
+$-readonly: -repeated(".readonly");
+$-lock: -repeated(".readonly-lock");
+$-lock-width: 2.5em;
+
+// The field's line height would push the glyph down inside the icon's box
+@mixin -lock-glyph {
+    ::ng-deep .icon {
+        margin: 0;
+        line-height: 1;
+    }
+
+    ::ng-deep svg {
+        display: block;
+    }
+}
+
+// For a component whose host is the field itself, such as a selection dropdown. The lock sits where its arrow would be.
+@mixin readonly-host {
+    :host(#{$-readonly}:not(.transparent)) {
+        background-color: rgba(34, 36, 38, 0.05);
+        cursor: default;
+    }
+
+    :host(#{$-readonly}.inverted:not(.transparent)) {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    :host(#{$-lock}) {
+        padding-right: $-lock-width !important;
+    }
+
+    :host(.readonly) ::ng-deep input.search {
+        cursor: default;
+    }
+
+    .readonly-lock-icon {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: $-lock-width;
+        opacity: 0.6;
+
+        @include -lock-glyph;
+    }
+}
+
+// $field: the field element, relative to the host
+@mixin readonly($field: "> input") {
+    :host(#{$-readonly}:not(.error):not(.transparent)) ::ng-deep #{$field},
+    :host(#{$-readonly}:not(.error):not(.transparent)) ::ng-deep #{$field}:focus {
+        background-color: rgba(34, 36, 38, 0.05);
+        cursor: default;
+    }
+
+    :host(#{$-readonly}.inverted:not(.error):not(.transparent)) ::ng-deep #{$field},
+    :host(#{$-readonly}.inverted:not(.error):not(.transparent)) ::ng-deep #{$field}:focus {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    :host(#{$-lock}) ::ng-deep #{$field} {
+        padding-right: $-lock-width !important;
+    }
+
+    // Moves back over the end of the field by its own width, so it works whatever follows the field (a label, a button, nothing)
+    .readonly-lock-icon {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex: 0 0 $-lock-width;
+        align-items: center;
+        justify-content: center;
+        margin-left: -$-lock-width;
+        opacity: 0.6;
+
+        @include -lock-glyph;
+    }
+
+    // The theme squares a label or button only when it directly follows the field (`input + .label`); the lock stands in between
+    .readonly-lock-icon + ::ng-deep .label,
+    .readonly-lock-icon + ::ng-deep .button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}

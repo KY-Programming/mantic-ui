@@ -1,7 +1,10 @@
 <ng-content />
 <input *m-fallback-for="'input'" type="text" [placeholder]="placeholder() || ''" [ngModel]="text()" [attr.name]="name()" [attr.readOnly]="readonly() || undefined" [attr.disabled]="disabled() || undefined" (ngModelChange)="onTextInput($event)" (blur)="onTextBlur()" #input>
-@if (icon()) {
-    <m-icon [icon]="icon()" [size]="iconSize()" class="link icon" />
+@if (showReadonlyLock()) {
+    <m-icon class="readonly-lock-icon" role="img" [icon]="currentReadonlyIcon()" [title]="currentReadonlyText()" [attr.aria-label]="currentReadonlyText()" />
+}
+@if (visibleIcon()) {
+    <m-icon [icon]="visibleIcon()" [size]="iconSize()" class="link icon" />
 }
 <button type="button" class="ui label color-label" [class.alpha]="alpha()" [class.empty]="!swatchHex()" [style.--swatch-color]="swatchHex()" [disabled]="disabled() || readonly()" [attr.aria-label]="currentPickText()" [attr.aria-expanded]="isOpen()" [title]="currentPickText()" (click)="toggle()" #swatch></button>
 @if (isOpen()) {

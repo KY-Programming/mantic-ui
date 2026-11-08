@@ -14,6 +14,12 @@
         </m-example>
     </m-tab>
     <m-tab label="Variations">
+        <m-example header="Disabled" description="A textarea can show that it is disabled" [code]="disabledCode">
+            <m-textarea disabled value="This text can not be changed or selected"></m-textarea>
+        </m-example>
+        <m-example header="Readonly" description="A textarea can show a value that can not be changed. The text can still be selected" [code]="readonlyCode">
+            <m-textarea readonly value="This text can not be changed"></m-textarea>
+        </m-example>
         <m-example header="Attached" description="A textarea can be attached to its neighbour. The side names where the textarea sits: attachedTop flattens its bottom corners" [code]="attachedCode">
             <m-flex column>
                 <m-textarea attachedTop placeholder="Comment..."></m-textarea>

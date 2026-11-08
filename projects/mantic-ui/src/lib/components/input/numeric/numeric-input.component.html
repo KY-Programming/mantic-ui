@@ -18,8 +18,11 @@
         </button>
     </span>
 }
-@if (icon()) {
-    <m-icon [icon]="icon()" [size]="iconSize()" class="link icon" />
+@if (showReadonlyLock() && !range()) {
+    <m-icon class="readonly-lock-icon" role="img" [icon]="currentReadonlyIcon()" [title]="currentReadonlyText()" [attr.aria-label]="currentReadonlyText()" />
+}
+@if (visibleIcon()) {
+    <m-icon [icon]="visibleIcon()" [size]="iconSize()" class="link icon" />
 }
 @if (isRight()) {
     <ng-container [ngTemplateOutlet]="labelTemplate" />

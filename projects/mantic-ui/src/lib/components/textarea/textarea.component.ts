@@ -6,16 +6,21 @@ import { FallbackForDirective } from '../../directives/fallback-for.directive';
 import { toBoolean } from '../../helpers/to-boolean';
 import { inheritableBooleanModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
+import { IconComponent } from '../icon/icon.component';
+import { IconType } from '../icon/models/icon-type';
+import { readonlyDefaults } from '../input/readonly-defaults';
 
 @Component({
     selector: 'm-textarea',
     templateUrl: './textarea.component.html',
     styleUrls: ['./textarea.component.scss'],
-    imports: [FormsModule, FallbackForDirective],
+    imports: [FormsModule, FallbackForDirective, IconComponent],
     providers: [...InvertibleComponent.providers],
     hostDirectives: [AttachedDirective.default],
     host: {
-        '[class.disabled]': 'disabled() || readonly()',
+        '[class.disabled]': 'disabled()',
+        '[class.readonly]': 'readonly()',
+        '[class.readonly-lock]': 'showReadonlyLock()',
         '[class.error]': 'hasError()'
     }
 })
@@ -37,6 +42,13 @@ export class TextareaComponent extends InvertibleComponent {
     public readonly readonlyInput = input<boolean, BooleanLike>(false, { alias: 'readonly', transform: toBoolean });
     public readonly readonlyChange = output<boolean>();
     public readonly readonly = inheritableBooleanModel(this.readonlyInput, this.readonlyChange);
+    // The same lock as the inputs, with the same defaults, so a form looks the same in both
+    public readonly readonlyIcon = input<IconType>();
+    public readonly readonlyText = input<string>();
+    public readonly showReadonlyIcon = input<boolean | undefined, BooleanLike>(undefined, { transform: toBoolean });
+    protected readonly showReadonlyLock = computed(() => this.readonly() && (this.showReadonlyIcon() ?? readonlyDefaults.isIconShown()));
+    protected readonly currentReadonlyIcon = computed(() => this.readonlyIcon() ?? readonlyDefaults.icon());
+    protected readonly currentReadonlyText = computed(() => this.readonlyText() ?? readonlyDefaults.text());
     public readonly hasError = input(false);
     public readonly placeholder = input<string>();
     // eslint-disable-next-line @angular-eslint/no-input-rename

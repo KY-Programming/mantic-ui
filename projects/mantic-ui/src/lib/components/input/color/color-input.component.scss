@@ -1,6 +1,8 @@
 @use "../../../styles/attached";
+@use "../../../styles/readonly";
 
 @include attached.attached("> *");
+@include readonly.readonly;
 
 $border-color: rgba(34, 36, 38, 0.15);
 $inverted-border-color: rgba(255, 255, 255, 0.15);

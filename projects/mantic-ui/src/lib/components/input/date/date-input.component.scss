@@ -1,3 +1,10 @@
 @use "../../../styles/attached";
+@use "../../../styles/readonly";
 
 @include attached.attached("> *");
+@include readonly.readonly;
+
+// Nothing can be picked in a readonly field, and the lock takes this place
+:host(.readonly) ::ng-deep > input::-webkit-calendar-picker-indicator {
+    display: none;
+}
