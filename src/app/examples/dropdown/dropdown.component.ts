@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { DividerComponent, DropdownComponent, DropdownGroupComponent, DropdownItemComponent, FillDirective, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { DividerComponent, DropdownComponent, DropdownGroupComponent, DropdownItemComponent, FillDirective, FlexComponent, InputComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
 import { DemoData } from '../../helpers/demo-data';
 
 @Component({
     selector: 'app-dropdown-example',
-    imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, DropdownComponent, DropdownItemComponent, DropdownGroupComponent, HeaderComponent, SegmentComponent, DividerComponent, FillDirective],
+    imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, DropdownComponent, DropdownItemComponent, DropdownGroupComponent, HeaderComponent, SegmentComponent, DividerComponent, FillDirective, FlexComponent, InputComponent],
     templateUrl: './dropdown.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./dropdown.component.scss']
@@ -70,6 +70,13 @@ public countries: DropdownValue<string>[] = [
     </m-dropdown-group>
 </m-dropdown>`;
 
+    public readonly attachedCode = `<m-flex>
+  <m-dropdown attachedLeft selectFirst>
+    <m-dropdown-item value="http">http://</m-dropdown-item>
+    <m-dropdown-item value="https">https://</m-dropdown-item>
+  </m-dropdown>
+  <m-input attachedRight placeholder="mysite.com" />
+</m-flex>`;
     public readonly inverted = `<m-dropdown inverted></m-dropdown>`;
 
     protected valueChangeEventCode = `<m-dropdown (valueChange)="onValueChange($event)" />`;

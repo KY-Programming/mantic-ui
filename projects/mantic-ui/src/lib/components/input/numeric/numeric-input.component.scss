@@ -1,3 +1,7 @@
+@use "../../../styles/attached";
+
+@include attached.attached("> *");
+
 // The up / down buttons sit inside the field's own border, in room the field keeps free on its right: so border, focus
 // colour, rounding and inverted look stay the field's, and a label or button after the field still follows it.
 $stepper-width: 1.75em;

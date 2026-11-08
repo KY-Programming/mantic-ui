@@ -14,6 +14,12 @@
         </m-example>
     </m-tab>
     <m-tab label="Variations">
+        <m-example header="Attached" description="A textarea can be attached to its neighbour. The side names where the textarea sits: attachedTop flattens its bottom corners" [code]="attachedCode">
+            <m-flex column>
+                <m-textarea attachedTop placeholder="Comment..."></m-textarea>
+                <m-button attachedBottom>Send</m-button>
+            </m-flex>
+        </m-example>
         <m-example header="Inverted" description="A checkbox can be displayed with inverted colors" [code]="inverted">
             <m-segment inverted>
                 <m-textarea inverted placeholder="Inverted"></m-textarea>

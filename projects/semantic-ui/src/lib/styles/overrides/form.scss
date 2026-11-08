@@ -31,3 +31,9 @@
     background-color: colors.$tenthLighter;
     color: white;
 }
+
+// the field itself, not only its input: what sits beside the input in it (a numeric input's up / down buttons, a unit
+// label, an icon) is drawn in currentColor and would otherwise stay dark on the dark form
+.ui.inverted.form .ui.input {
+    color: white;
+}

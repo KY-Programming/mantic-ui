@@ -1,6 +1,7 @@
 import { DatePipe, NgTemplateOutlet } from '@angular/common';
 import { Component, computed, effect, input, OnInit, output, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AttachedDirective } from '../../../directives/attached.directive';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 import { DateHelper } from '../../../helpers/date-helper';
 import { toBoolean } from '../../../helpers/to-boolean';
@@ -14,7 +15,8 @@ import { InputBaseComponent } from '../input-base.component';
     templateUrl: './date-input.component.html',
     styleUrls: ['./date-input.component.scss'],
     imports: [IconComponent, FallbackForDirective, FormsModule, LabelComponent, NgTemplateOutlet, DatePipe],
-    providers: [...InputBaseComponent.providers]
+    providers: [...InputBaseComponent.providers],
+    hostDirectives: [AttachedDirective.default]
 })
 export class DateInputComponent extends InputBaseComponent implements OnInit {
     // eslint-disable-next-line unicorn/no-null

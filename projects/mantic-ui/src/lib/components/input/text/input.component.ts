@@ -1,6 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, computed, effect, input, output, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AttachedDirective } from '../../../directives/attached.directive';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 import { LabelPosition } from '../../../models/label-position';
 import { IconComponent } from '../../icon/icon.component';
@@ -17,7 +18,8 @@ export declare type InputType = 'button' | 'checkbox' | 'color' | 'date' | 'date
     templateUrl: './input.component.html',
     styleUrls: ['./input.component.scss'],
     imports: [IconComponent, FallbackForDirective, FormsModule, NgTemplateOutlet],
-    providers: [...InputBaseComponent.providers]
+    providers: [...InputBaseComponent.providers],
+    hostDirectives: [AttachedDirective.default]
 })
 export class InputComponent extends InputBaseComponent {
     protected readonly valueState = signal<string | undefined>(undefined);

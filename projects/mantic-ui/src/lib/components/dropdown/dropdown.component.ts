@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { fromEvent } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
+import { AttachedDirective } from '../../directives/attached.directive';
 import { toBoolean } from '../../helpers/to-boolean';
 import { inheritableBooleanModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
@@ -20,12 +21,9 @@ import { DropdownValue } from './dropdown-value';
     imports: [FormsModule, IconComponent, DropdownItemComponent],
     changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InvertibleComponent.providers, DropDownSelectionService],
+    hostDirectives: [AttachedDirective.default],
     host: {
         '[class.multiple]': 'multiple()',
-        '[class.attached-left]': 'attachedLeft()',
-        '[class.attached-top]': 'attachedTop()',
-        '[class.attached-right]': 'attachedRight()',
-        '[class.attached-bottom]': 'attachedBottom()',
         '[attr.tabindex]': 'tabIndex()',
         '[class.search]': 'searchClass()',
         '[class.active]': 'isActive()',
@@ -58,10 +56,6 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
     protected readonly itemComponents = computed(() => [...this.contentItems(), ...this.viewItems()]);
     public readonly multiple = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly search = input<boolean, BooleanLike>(false, { transform: toBoolean });
-    public readonly attachedLeft = input<boolean, BooleanLike>(false, { transform: toBoolean });
-    public readonly attachedTop = input<boolean, BooleanLike>(false, { transform: toBoolean });
-    public readonly attachedRight = input<boolean, BooleanLike>(false, { transform: toBoolean });
-    public readonly attachedBottom = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly placeholder = input<string>();
     public readonly fluid = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly animationDuration = input(200);

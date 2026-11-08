@@ -112,6 +112,16 @@
             </m-dropdown>
         </m-example>
 
+        <m-example header="Attached" description="A dropdown can be attached to its neighbour. The side names where the dropdown sits: attachedLeft flattens its right corners" [code]="attachedCode">
+            <m-flex>
+                <m-dropdown attachedLeft selectFirst>
+                    <m-dropdown-item value="http">http://</m-dropdown-item>
+                    <m-dropdown-item value="https">https://</m-dropdown-item>
+                </m-dropdown>
+                <m-input attachedRight placeholder="mysite.com"></m-input>
+            </m-flex>
+        </m-example>
+
         <m-example header="Inverted" description="A dropdown can be displayed with inverted colors" [code]="inverted">
             <m-segment inverted>
                 <m-dropdown inverted placeholder="Inverted">

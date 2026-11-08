@@ -229,6 +229,18 @@
                 </m-label>
             </m-input>
         </m-example>
+        <m-example [code]="attachedHorizontal" description="An input can be attached to its neighbour. The side names where the input sits: attachedLeft flattens its right corners" header="Attached">
+            <m-flex>
+                <m-input attachedLeft placeholder="Search..."></m-input>
+                <m-button attachedRight>Search</m-button>
+            </m-flex>
+        </m-example>
+        <m-example [code]="attachedVertical">
+            <m-flex column>
+                <m-input attachedTop placeholder="Comment..."></m-input>
+                <m-button attachedBottom>Send</m-button>
+            </m-flex>
+        </m-example>
         <m-example [code]="inverted" description="An input can be displayed with inverted colors" header="Inverted">
             <m-segment inverted>
                 <m-input inverted placeholder="Inverted"></m-input>

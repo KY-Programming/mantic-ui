@@ -19,6 +19,12 @@
 /*--------------------
         Inverted
 ---------------------*/
+// the field's own text colour, not only the input's: what sits beside the input in it (a numeric input's up / down
+// buttons, a unit label, an icon) is drawn in currentColor and would otherwise stay dark on the dark field
+.ui.inverted.input {
+    color: white;
+}
+
 .ui.inverted.input > input {
     background-color: colors.$tenthLighter;
     color: white;

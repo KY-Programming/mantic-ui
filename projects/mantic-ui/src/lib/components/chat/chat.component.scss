@@ -53,21 +53,11 @@ $chat-drop-color: #2185d0 !default;
         display: flex;
     }
 
-    // The attach button sits attached in front of the input
-    .input-row.attachable {
-        // The row's buttons have no vertical padding (made for the big send icon), so the small icon is centered here
-        .ui.button.attach {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-
-        m-input::ng-deep > input {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-        }
+    // The row's buttons have no vertical padding (made for the big send icon), so the attach button's small icon is centered here
+    .ui.button.attach {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .ui.button {

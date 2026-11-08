@@ -159,6 +159,7 @@ export * from './lib/directives/header.directive';
 export * from './lib/directives/to-body.directive';
 export * from './lib/directives/to-template.directive';
 export * from './lib/directives/position-absolute.directive';
+export * from './lib/directives/attached.directive';
 export * from './lib/helpers/external-route-data';
 export * from './lib/helpers/external-route.component';
 export * from './lib/helpers/cast';

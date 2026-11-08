@@ -1,0 +1,72 @@
+// Styles for the `attached-*` classes of the AttachedDirective: flattens the corners on the side that touches the neighbour.
+// The side names the component's own position, so `attached-left` (it sits left of its neighbour) flattens the right corners.
+// Lives in the component styles, not in a theme: flat corners look the same in every theme.
+// `!important`: the themes round labeled / action inputs and selection dropdowns with selectors of far higher specificity,
+// and attached has to win over all of them.
+
+$-flat-corners: (
+    left: (top-right, bottom-right),
+    right: (top-left, bottom-left),
+    top: (bottom-left, bottom-right),
+    bottom: (top-left, top-right)
+);
+
+@mixin -flatten($corners) {
+    @each $corner in $corners {
+        border-#{$corner}-radius: 0 !important;
+    }
+}
+
+// $target: the rounded elements, relative to the host (e.g. `> *`); null when the host itself is rounded
+@mixin attached($target: null) {
+    @each $side, $corners in $-flat-corners {
+        :host(.attached-#{$side}) {
+            @if $target {
+                ::ng-deep #{$target} {
+                    @include -flatten($corners);
+                }
+            } @else {
+                @include -flatten($corners);
+            }
+        }
+    }
+
+    // Side by side, the right one moves onto the left one's border, so two bordered fields share a single line.
+    // A focused field comes to the front, so its focus border is seen on the shared side as well.
+    :host(.attached-right) {
+        margin-left: -1px;
+    }
+
+    :host(.attached-left:focus-within),
+    :host(.attached-right:focus-within) {
+        position: relative;
+        z-index: 1;
+    }
+}
+
+// Left / right attached buttons (the button classes are the theme's own `left attached` / `right attached`).
+// The themes draw an attached button's border as an outer box-shadow, made for attached segments, which stick out 1px
+// as well. Next to a field the button then looks 1px bigger on every side. So a left / right attached button gets the
+// look of the theme's action input instead: no border, the field's border is the seam. A basic button needs its border,
+// so it gets it inside, like a field, and moves onto its neighbour's border as the fields do.
+// Top / bottom keep the theme look: there the neighbour is usually an attached segment.
+// `!important`: the themes set the outer box-shadow with `!important`.
+@mixin attached-button {
+    :host(.ui.left.attached.button:not(.basic)),
+    :host(.ui.right.attached.button:not(.basic)) {
+        box-shadow: none !important;
+    }
+
+    :host(.ui.left.attached.basic.button),
+    :host(.ui.right.attached.basic.button) {
+        box-shadow: inset 0 0 0 1px rgba(34, 36, 38, 0.15) !important;
+    }
+
+    :host(.ui.left.attached.basic.button) {
+        margin-right: -1px;
+    }
+
+    :host(.ui.right.attached.basic.button) {
+        margin-left: -1px;
+    }
+}

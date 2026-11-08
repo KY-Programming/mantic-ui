@@ -23,9 +23,9 @@
         @if (openedImage(); as image) {
             <m-image-viewer [src]="image.url" [alt]="image.name ?? ''" (close)="openedImage.set(undefined)" />
         }
-        <div class="input-row" [class.attachable]="showAttachButton()">
+        <div class="input-row">
             @if (showAttachButton()) {
-                <m-button class="icon attach" [attr.aria-label]="attachText()" [title]="attachText()" (click)="openAttachMenu($event)">
+                <m-button class="icon attach" attachedLeft [attr.aria-label]="attachText()" [title]="attachText()" (click)="openAttachMenu($event)">
                     <m-icon [icon]="attachIcon() ?? defaults.attachIcon()" />
                 </m-button>
                 <m-context-menu shared>
@@ -44,7 +44,7 @@
                 <input type="file" accept="image/*" multiple hidden #fileInput (change)="onFilesPicked(fileInput)">
                 <input type="file" accept="image/*" capture="environment" hidden #photoInput (change)="onPhotoTaken(photoInput)">
             }
-            <m-input autofocus [(value)]="message" [placeholder]="placeholder()" (keydown)="onKeyDown($event)">
+            <m-input autofocus [attachedRight]="showAttachButton()" [(value)]="message" [placeholder]="placeholder()" (keydown)="onKeyDown($event)">
                 @if (showSendIcon()) {
                     <m-button class="icon" (click)="sendMessage()">
                         @if (!sendIconTemplate()) {

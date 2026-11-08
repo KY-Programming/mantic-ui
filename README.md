@@ -112,9 +112,11 @@ hidden, which makes a headless or background-window check of a code block look l
 warning of `BaseComponent` already accepts every input of the component (read with
 `reflectComponentType`), so registering an input name just to silence it is not needed and hides
 typos. Directives have no public input reflection, so a
-`BaseDirective` still only accepts registered classes and the global attributes. Keep the
-otherwise empty `super()` constructors: without them Angular uses the inherited factory, which
-injects `null` for `useUiClass` and drops the `ui` class.
+`BaseDirective` still only accepts registered classes and the global attributes. Host directives
+are the exception to the rule: `reflectComponentType` does not list their inputs either, so a host
+directive announces them on its host with `classes.ignore(...)` (known, but never written as a
+class), see `AttachedDirective`. Keep the otherwise empty `super()` constructors: without them
+Angular uses the inherited factory, which injects `null` for `useUiClass` and drops the `ui` class.
 
 **The documentation app's `index.html` is generated from `src/app/app.config.json` and the
 `@ky/mantic` template, but checked in.** `@ky/mantic` lives on the private KY registry, and this

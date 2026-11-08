@@ -1,6 +1,7 @@
 import { Component, computed, contentChild, effect, ElementRef, input, model, output, signal, untracked, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InvertibleComponent } from '../../base/invertible.component';
+import { AttachedDirective } from '../../directives/attached.directive';
 import { FallbackForDirective } from '../../directives/fallback-for.directive';
 import { toBoolean } from '../../helpers/to-boolean';
 import { inheritableBooleanModel } from '../../helpers/transformable-model';
@@ -12,6 +13,7 @@ import { BooleanLike } from '../../models/boolean-like';
     styleUrls: ['./textarea.component.scss'],
     imports: [FormsModule, FallbackForDirective],
     providers: [...InvertibleComponent.providers],
+    hostDirectives: [AttachedDirective.default],
     host: {
         '[class.disabled]': 'disabled() || readonly()',
         '[class.error]': 'hasError()'

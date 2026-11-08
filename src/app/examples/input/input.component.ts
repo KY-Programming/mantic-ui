@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DateInputComponent, DividerComponent, DropdownComponent, DropdownItemComponent, FileInputComponent, FlexComponent, IconComponent, InputComponent, InputIconPosition, InputType, LabelComponent, LabelDropdownComponent, NumericInputComponent, SegmentComponent, TabComponent, TabGroupComponent, TextareaComponent, TimeInputComponent, ToggleComponent, WarningComponent } from '@mantic-ui/angular';
+import { ButtonComponent, DateInputComponent, DividerComponent, DropdownComponent, DropdownItemComponent, FileInputComponent, FlexComponent, IconComponent, InputComponent, InputIconPosition, InputType, LabelComponent, LabelDropdownComponent, NumericInputComponent, SegmentComponent, TabComponent, TabGroupComponent, TextareaComponent, TimeInputComponent, ToggleComponent, WarningComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent, ExampleDescriptionComponent } from '@mantic-ui/angular-doc';
 
 import { HeaderComponent } from '../../components/header/header.component';
@@ -8,7 +8,7 @@ import { ValueComponent } from '../../components/value/value.component';
 
 @Component({
     selector: 'app-input-example',
-    imports: [HeaderComponent, TabGroupComponent, TabComponent, IconComponent, ExampleComponent, ExampleCodeComponent, FlexComponent, InputComponent, ValueComponent, TextareaComponent, NumericInputComponent, DateInputComponent, TimeInputComponent, ToggleComponent, DropdownItemComponent, DropdownComponent, DividerComponent, SegmentComponent, FileInputComponent, WarningComponent, LabelComponent, LabelDropdownComponent, RouterLink, ExampleDescriptionComponent],
+    imports: [HeaderComponent, TabGroupComponent, TabComponent, ButtonComponent, IconComponent, ExampleComponent, ExampleCodeComponent, FlexComponent, InputComponent, ValueComponent, TextareaComponent, NumericInputComponent, DateInputComponent, TimeInputComponent, ToggleComponent, DropdownItemComponent, DropdownComponent, DividerComponent, SegmentComponent, FileInputComponent, WarningComponent, LabelComponent, LabelDropdownComponent, RouterLink, ExampleDescriptionComponent],
     templateUrl: './input.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./input.component.scss']
@@ -160,6 +160,15 @@ export class InputExampleComponent {
   </m-label>
 </m-input>`;
     public readonly file = `<m-file-input (change)="upload($event)">Upload</m-file-input>`;
+
+    public readonly attachedHorizontal = `<m-flex>
+  <m-input attachedLeft placeholder="Search..." />
+  <m-button attachedRight>Search</m-button>
+</m-flex>`;
+    public readonly attachedVertical = `<m-flex column>
+  <m-input attachedTop placeholder="Comment..." />
+  <m-button attachedBottom>Send</m-button>
+</m-flex>`;
 
     public readonly inverted = `<m-input inverted />`;
 

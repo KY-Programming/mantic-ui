@@ -1,6 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, computed, effect, input, OnInit, output, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AttachedDirective } from '../../../directives/attached.directive';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 import { DateHelper } from '../../../helpers/date-helper';
 import { IconComponent } from '../../icon/icon.component';
@@ -11,7 +12,8 @@ import { InputBaseComponent } from '../input-base.component';
     templateUrl: './time-input.component.html',
     styleUrls: ['./time-input.component.scss'],
     imports: [FormsModule, IconComponent, FallbackForDirective, NgTemplateOutlet],
-    providers: [...InputBaseComponent.providers]
+    providers: [...InputBaseComponent.providers],
+    hostDirectives: [AttachedDirective.default]
 })
 export class TimeInputComponent extends InputBaseComponent implements OnInit {
     // eslint-disable-next-line unicorn/no-null

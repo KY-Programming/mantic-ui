@@ -1,6 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, computed, DestroyRef, effect, inject, input, OnInit, output, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AttachedDirective } from '../../../directives/attached.directive';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
 import { Math2 } from '../../../helpers/math2';
 import { toBoolean } from '../../../helpers/to-boolean';
@@ -17,6 +18,7 @@ const stepRepeatInterval = 60;
     styleUrls: ['./numeric-input.component.scss'],
     imports: [IconComponent, FallbackForDirective, FormsModule, NgTemplateOutlet],
     providers: [...InputBaseComponent.providers],
+    hostDirectives: [AttachedDirective.default],
     host: {
         '[class.stepper]': 'hasStepper()'
     }

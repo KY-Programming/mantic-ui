@@ -1,0 +1,3 @@
+@use "../../../styles/attached";
+
+@include attached.attached("> *");
