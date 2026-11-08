@@ -11,7 +11,6 @@ import { InputIconPosition } from './text/input.component';
     providers: InputBaseComponent.providers,
     host: {
         '[class.icon]': 'icon()',
-        '[class.focus]': 'focused()',
         '[class.disabled]': 'disabled()',
         '[class.readonly]': 'readonly()',
         '[class.error]': 'hasError()',
@@ -34,7 +33,6 @@ export abstract class InputBaseComponent extends LabeledBaseComponent {
     public readonly iconSize = input<IconSize>();
     public readonly loading = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly fluid = input<boolean, BooleanLike>(false, { transform: toBoolean });
-    public readonly focused = signal(false);
     // eslint-disable-next-line @angular-eslint/no-input-rename
     public readonly disabledInput = input<boolean, BooleanLike>(false, { alias: 'disabled', transform: toBoolean });
     public readonly disabledChange = output<boolean>();
