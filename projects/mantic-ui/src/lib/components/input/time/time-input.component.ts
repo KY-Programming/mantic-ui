@@ -7,6 +7,8 @@ import { DateHelper } from '../../../helpers/date-helper';
 import { IconComponent } from '../../icon/icon.component';
 import { InputBaseComponent } from '../input-base.component';
 
+const timePattern = /^(\d{1,2}):(\d{2})(?::(\d{2}))?$/;
+
 @Component({
     selector: 'm-time-input',
     templateUrl: './time-input.component.html',
@@ -77,8 +79,29 @@ export class TimeInputComponent extends InputBaseComponent implements OnInit {
     }
 
     private static coerceDate(value: Date | number | string | undefined): Date | undefined {
+        if (typeof value === 'string') {
+            const time = this.parseTime(value);
+            if (time) {
+                return time;
+            }
+        }
         const date = value ? new Date(value) : undefined;
         return isNaN(date?.getDate() as any) ? undefined : date;
+    }
+
+    /** A plain time (`10:30`, `10:30:15`) on today's date, as a time typed into the field gets; `new Date()` can't read it */
+    private static parseTime(value: string): Date | undefined {
+        const match = timePattern.exec(value.trim());
+        if (!match) {
+            return undefined;
+        }
+        const [hours, minutes, seconds] = [match[1], match[2], match.at(3) ?? '0'].map(Number);
+        if (hours > 23 || minutes > 59 || seconds > 59) {
+            return undefined;
+        }
+        const date = new Date();
+        date.setHours(hours, minutes, seconds, 0);
+        return date;
     }
 
     private setInternalValue(value: Date | null | undefined): void {
