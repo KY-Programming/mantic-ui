@@ -3,7 +3,7 @@
 @if (icon()) {
     <m-icon [icon]="icon()" [size]="iconSize()" class="link icon" />
 }
-<button type="button" class="ui label color-label" [class.alpha]="alpha()" [class.empty]="!hex()" [style.--swatch-color]="hex()" [disabled]="disabled() || readonly()" [attr.aria-label]="currentPickText()" [attr.aria-expanded]="isOpen()" [title]="currentPickText()" (click)="toggle()" #swatch></button>
+<button type="button" class="ui label color-label" [class.alpha]="alpha()" [class.empty]="!swatchHex()" [style.--swatch-color]="swatchHex()" [disabled]="disabled() || readonly()" [attr.aria-label]="currentPickText()" [attr.aria-expanded]="isOpen()" [title]="currentPickText()" (click)="toggle()" #swatch></button>
 @if (isOpen()) {
     <div *m-to-body class="color-picker" role="dialog" [attr.aria-label]="currentPickText()" [class.inverted]="inverted()" [style.left.px]="popupLeft()" [style.top.px]="popupTop()" [style.visibility]="isPositioned() ? null : 'hidden'" (keydown.escape)="close(true)" #popup>
         <div class="area" tabindex="0" role="slider" aria-label="Saturation and brightness" aria-valuemin="0" aria-valuemax="100" [attr.aria-valuenow]="saturationPercent()" [attr.aria-valuetext]="areaText()" [style.background-color]="hueColor()" (pointerdown)="onAreaPointer($event)" (pointermove)="onAreaPointer($event)" (keydown)="onAreaKey($event)">

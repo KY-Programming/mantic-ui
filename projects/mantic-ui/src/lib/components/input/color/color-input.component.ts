@@ -87,6 +87,15 @@ export class ColorInputComponent extends InputBaseComponent {
         const color = this.color();
         return color ? ColorHelper.toHex(color, this.alpha()) : undefined;
     });
+    /** The colour the picker starts from and the swatch shows: the value; in an empty field a placeholder that is a colour, else `default`. */
+    private readonly baseColor = computed(() => {
+        const value = this.valueState();
+        return value?.trim() ? this.parse(value) : this.parse(this.placeholder()) ?? this.parse(this.default());
+    });
+    protected readonly swatchHex = computed(() => {
+        const color = this.baseColor();
+        return color ? ColorHelper.toHex(color, this.alpha()) : undefined;
+    });
     protected readonly hueColor = computed(() => `hsl(${String(this.hsva().h)} 100% 50%)`);
     protected readonly opaqueColor = computed(() => ColorHelper.toHex({ ...ColorHelper.toRgba(this.hsva()), a: 1 }));
     protected readonly resolvedPresets = computed(() => {
@@ -130,7 +139,7 @@ export class ColorInputComponent extends InputBaseComponent {
         });
         // A new value moves the picker, unless it is the colour the picker shows already (keeps the hue of greys)
         effect(() => {
-            const color = this.color();
+            const color = this.baseColor();
             const hasAlpha = this.alpha();
             untracked(() => {
                 if (color && ColorHelper.toHex(color, hasAlpha) !== ColorHelper.toHex(ColorHelper.toRgba(this.hsva()), hasAlpha)) {
