@@ -37,9 +37,19 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     public readonly step = input(1);
     /** The up / down buttons replace the browser's own spin buttons; not on a slider (`range`) or a read-only field. */
     protected readonly hasStepper = computed(() => !this.range() && !this.readonly());
-    protected readonly canStepUp = computed(() => !this.disabled() && (this.max() === undefined || this.number() < (this.max() ?? 0)));
+    /** The number stepping starts from: the value; in an empty field a numeric placeholder, else `default`. */
+    private readonly stepBase = computed(() => {
+        const value = this.value();
+        if (value !== undefined) {
+            return value;
+        }
+        const placeholder = this.placeholder()?.trim();
+        const placeholderNumber = placeholder ? Number(placeholder) : NaN;
+        return Number.isFinite(placeholderNumber) ? placeholderNumber : this.default();
+    });
+    protected readonly canStepUp = computed(() => !this.disabled() && (this.max() === undefined || this.stepBase() < (this.max() ?? 0)));
     private stepTimer: ReturnType<typeof setTimeout> | undefined;
-    protected readonly canStepDown = computed(() => !this.disabled() && (this.min() === undefined || this.number() > (this.min() ?? 0)));
+    protected readonly canStepDown = computed(() => !this.disabled() && (this.min() === undefined || this.stepBase() > (this.min() ?? 0)));
     // eslint-disable-next-line @angular-eslint/no-input-rename
     public readonly valueInput = input<number | undefined>(undefined, { alias: 'value' });
     // eslint-disable-next-line @angular-eslint/no-input-rename
@@ -56,6 +66,15 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     public constructor() {
         super();
         inject(DestroyRef).onDestroy(() => this.stopStepping());
+        effect(onCleanup => {
+            const element = this.inputElement?.nativeElement;
+            if (element) {
+                const onWheel = (event: WheelEvent): void => this.onWheel(event, element);
+                // Not passive: a focused field takes the wheel away from the page
+                element.addEventListener('wheel', onWheel, { passive: false });
+                onCleanup(() => element.removeEventListener('wheel', onWheel));
+            }
+        });
         // [value] flows into the shared state (normalising the display); [number] is guarded so an unbound alias can't clobber [value].
         effect(() => {
             const value = this.valueInput();
@@ -75,6 +94,7 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
         super.ngOnInit();
         // Set internal value on blur to ensure a invalid value is overwritten
         this.blur.subscribe(() => this.setInternalValue(this.value()));
+        this.keyDown.subscribe(event => this.onKeyDown(event));
     }
 
     protected onInternalChange(rawValue: string | number | null | undefined): void {
@@ -116,12 +136,38 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
         this.stepTimer = undefined;
     }
 
-    /** Adds `direction` × `step` to the value (an empty value counts as `default`), rounded to the step's decimals so 0.1 + 0.2 stays 0.3. */
+    /** Adds `direction` × `step` to the value (see `stepBase` for an empty one), rounded to the step's decimals so 0.1 + 0.2 stays 0.3. */
     protected stepBy(direction: 1 | -1): void {
         const step = this.step();
-        const decimals = Math.max(String(step).split('.', 2)[1]?.length ?? 0, String(this.number()).split('.', 2)[1]?.length ?? 0);
-        const value = Number((this.number() + direction * step).toFixed(decimals));
+        const base = this.stepBase();
+        const decimals = Math.max(String(step).split('.', 2)[1]?.length ?? 0, String(base).split('.', 2)[1]?.length ?? 0);
+        const value = Number((base + direction * step).toFixed(decimals));
         this.onInternalChange(Math2.keepInRange(this.min(), value, this.max()));
+    }
+
+    // Always handled here, not only for an empty field: browsers differ on whether the wheel steps a number field at all,
+    // so this way it behaves the same everywhere, and preventDefault keeps a browser's own stepping from adding a second step.
+    private onWheel(event: WheelEvent, element: HTMLInputElement): void {
+        if (document.activeElement !== element || !this.hasStepper() || element.validity.badInput || event.deltaY === 0) {
+            return;
+        }
+        event.preventDefault();
+        this.stepBy(event.deltaY < 0 ? 1 : -1);
+    }
+
+    // The browser steps an empty field from 0 and knows nothing of `stepBase`, so the first arrow key is handled here, as the
+    // buttons do it. From then on the field has a value and the browser's own stepping takes over. A field with text the
+    // browser can't read also reports an empty value (badInput): that one stays with the browser.
+    private onKeyDown(event: KeyboardEvent): void {
+        if ((event.key !== 'ArrowUp' && event.key !== 'ArrowDown') || !this.hasStepper()) {
+            return;
+        }
+        const element = event.target as HTMLInputElement;
+        if (element.value !== '' || element.validity.badInput) {
+            return;
+        }
+        event.preventDefault();
+        this.stepBy(event.key === 'ArrowUp' ? 1 : -1);
     }
 
     // Mirrors the old `value` setter: normalise the display only when the value actually changes, then store it (without emitting).
