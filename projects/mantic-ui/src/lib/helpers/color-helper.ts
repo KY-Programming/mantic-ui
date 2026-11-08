@@ -16,6 +16,8 @@ export interface Hsva {
 
 const hexPattern = /^#?([\da-f]{3,4}|[\da-f]{6}|[\da-f]{8})$/i;
 const rgbPattern = /^rgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)(?:[\s,/]+([\d.]+%?))?\s*\)$/i;
+const srgbNumber = String.raw`(-?[\d.]+(?:e[+-]?\d+)?%?)`;
+const srgbPattern = new RegExp(String.raw`^color\(\s*srgb\s+${srgbNumber}\s+${srgbNumber}\s+${srgbNumber}(?:\s*/\s*${srgbNumber})?\s*\)$`, 'i');
 
 export class ColorHelper {
     private static context: CanvasRenderingContext2D | undefined;
@@ -30,7 +32,7 @@ export class ColorHelper {
         if (!text) {
             return undefined;
         }
-        return this.parseHex(text) ?? this.parseRgb(text) ?? this.parseByCanvas(text);
+        return this.parseHex(text) ?? this.parseRgb(text) ?? this.parseSrgb(text) ?? this.parseByCanvas(text);
     }
 
     /** `#rrggbb`, or `#rrggbbaa` when the colour is not opaque and alpha is allowed */
@@ -110,8 +112,28 @@ export class ColorHelper {
         return { r: channel(match[1]), g: channel(match[2]), b: channel(match[3]), a: Math.min(1, Math.max(0, alpha)) };
     }
 
-    // Named colours, hsl(), … : the canvas normalises every CSS colour to `#rrggbb` or `rgba(…)`, and keeps its previous
-    // fill style for anything it can't read. So it is tested against two different starting values.
+    // `color(srgb 0.98 0.5 0 / 0.5)`: how a browser writes the computed value of a `color-mix()`
+    private static parseSrgb(text: string): Rgba | undefined {
+        const match = srgbPattern.exec(text);
+        if (!match) {
+            return undefined;
+        }
+        const ratio = (value: string): number => {
+            const number = value.endsWith('%') ? Number(value.slice(0, -1)) / 100 : Number(value);
+            return Math.min(1, Math.max(0, number));
+        };
+        const alphaText = match.at(4);
+        return {
+            r: Math.round(ratio(match[1]) * 255),
+            g: Math.round(ratio(match[2]) * 255),
+            b: Math.round(ratio(match[3]) * 255),
+            a: alphaText === undefined ? 1 : ratio(alphaText)
+        };
+    }
+
+    // Named colours, hsl(), … : the canvas normalises a CSS colour to `#rrggbb`, `rgba(…)` or (e.g. a `color-mix()`) to
+    // `color(srgb …)`, and keeps its previous fill style for anything it can't read. So it is tested against two different
+    // starting values.
     private static parseByCanvas(text: string): Rgba | undefined {
         if (!this.isContextCreated) {
             this.isContextCreated = true;
@@ -129,6 +151,6 @@ export class ColorHelper {
         if (first !== context.fillStyle) {
             return undefined;
         }
-        return this.parseHex(first) ?? this.parseRgb(first);
+        return this.parseHex(first) ?? this.parseRgb(first) ?? this.parseSrgb(first);
     }
 }
