@@ -143,17 +143,29 @@
         <!--        </m-example>-->
     </m-tab>
     <m-tab label="Color">
-        <m-example description="Bind to [value] to use a color value of type string | undefined" header="value">
-            <m-input type="color" [(value)]="colorValue" />
+        <m-example description="m-color-input replaces m-input type=&quot;color&quot;, which is deprecated. Bind to [value] to use a color value of type string | undefined. Type a color into the field or click the swatch to pick one" header="value">
+            <m-color-input [(value)]="colorValue" />
             <app-value [value]="colorValue" />
             <m-example-code [code]="colorValueCode" />
             <m-example-code [code]="colorValueTypeScriptCode" [languages]="['ts']" />
         </m-example>
         <m-example description="Bind to [text] to use a color value of type string" header="text">
-            <m-input type="color" [(text)]="colorText" />
+            <m-color-input [(text)]="colorText" />
             <app-value [value]="colorText" />
             <m-example-code [code]="colorTextCode" />
             <m-example-code [code]="colorTextTypeScriptCode" [languages]="['ts']" />
+        </m-example>
+        <m-example description="Allow see-through colors with alpha: the picker gets an opacity bar, and a see-through color is written as #rrggbbaa (opaque ones stay #rrggbb)" header="alpha">
+            <m-color-input alpha [(value)]="colorAlphaValue" />
+            <app-value [value]="colorAlphaValue" />
+            <m-example-code [code]="colorAlphaCode" />
+        </m-example>
+        <m-example description="The picker offers the theme's colors. Pass your own with [presets] (a CSS color, or one with a name shown as tooltip), or [presets]=&quot;[]&quot; for none. A theme or app sets the global ones with m-color-input-defaults" header="presets">
+            <m-color-input [presets]="colorPresets" [(value)]="colorPresetValue" />
+            <app-value [value]="colorPresetValue" />
+            <m-example-code [code]="colorPresetsCode" />
+            <m-example-code [code]="colorPresetsTypeScriptCode" [languages]="['ts']" />
+            <m-example-code [code]="colorDefaultsCode" />
         </m-example>
     </m-tab>
     <m-tab label="File">

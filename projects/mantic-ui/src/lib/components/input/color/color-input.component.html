@@ -1,0 +1,28 @@
+<ng-content />
+<input *m-fallback-for="'input'" type="text" [placeholder]="placeholder() || ''" [ngModel]="text()" [attr.name]="name()" [attr.readOnly]="readonly() || undefined" [attr.disabled]="disabled() || undefined" (ngModelChange)="onTextInput($event)" (blur)="onTextBlur()" #input>
+@if (icon()) {
+    <m-icon [icon]="icon()" [size]="iconSize()" class="link icon" />
+}
+<button type="button" class="ui label color-label" [class.alpha]="alpha()" [class.empty]="!hex()" [style.--swatch-color]="hex()" [disabled]="disabled() || readonly()" [attr.aria-label]="currentPickText()" [attr.aria-expanded]="isOpen()" [title]="currentPickText()" (click)="toggle()" #swatch></button>
+@if (isOpen()) {
+    <div *m-to-body class="color-picker" role="dialog" [attr.aria-label]="currentPickText()" [class.inverted]="inverted()" [style.left.px]="popupLeft()" [style.top.px]="popupTop()" [style.visibility]="isPositioned() ? null : 'hidden'" (keydown.escape)="close(true)" #popup>
+        <div class="area" tabindex="0" role="slider" aria-label="Saturation and brightness" aria-valuemin="0" aria-valuemax="100" [attr.aria-valuenow]="saturationPercent()" [attr.aria-valuetext]="areaText()" [style.background-color]="hueColor()" (pointerdown)="onAreaPointer($event)" (pointermove)="onAreaPointer($event)" (keydown)="onAreaKey($event)">
+            <div class="thumb" [style.left.%]="hsva().s * 100" [style.top.%]="(1 - hsva().v) * 100" [style.background-color]="opaqueColor()"></div>
+        </div>
+        <div class="bar hue" tabindex="0" role="slider" aria-label="Hue" aria-valuemin="0" aria-valuemax="359" [attr.aria-valuenow]="hue()" (pointerdown)="onHuePointer($event)" (pointermove)="onHuePointer($event)" (keydown)="onHueKey($event)">
+            <div class="thumb" [style.left.%]="hsva().h / 3.59" [style.background-color]="hueColor()"></div>
+        </div>
+        @if (alpha()) {
+            <div class="bar alpha" tabindex="0" role="slider" aria-label="Opacity" aria-valuemin="0" aria-valuemax="100" [attr.aria-valuenow]="alphaPercent()" [attr.aria-valuetext]="alphaPercent() + ' %'" [style.--opaque-color]="opaqueColor()" (pointerdown)="onAlphaPointer($event)" (pointermove)="onAlphaPointer($event)" (keydown)="onAlphaKey($event)">
+                <div class="thumb" [style.left.%]="hsva().a * 100"></div>
+            </div>
+        }
+        @if (resolvedPresets().length > 0) {
+            <div class="presets">
+                @for (preset of resolvedPresets(); track $index) {
+                    <button type="button" class="preset" [class.active]="preset.hex === hex()" [style.--swatch-color]="preset.hex" [title]="preset.name ?? preset.hex" [attr.aria-label]="preset.name ?? preset.hex" (click)="pickPreset(preset)"></button>
+                }
+            </div>
+        }
+    </div>
+}

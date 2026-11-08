@@ -1,0 +1,143 @@
+@use "../../../styles/attached";
+
+@include attached.attached("> *");
+
+$border-color: rgba(34, 36, 38, 0.15);
+$inverted-border-color: rgba(255, 255, 255, 0.15);
+// Shows through a see-through colour, so it can be told from a lighter one
+$checkerboard: conic-gradient(#cccccc 25%, #ffffff 0 50%, #cccccc 0 75%, #ffffff 0);
+$checker-size: 10px;
+$thumb-size: 14px;
+// `--swatch-color` drawn as an image layer, so a checkerboard can lie below it
+$swatch: linear-gradient(var(--swatch-color), var(--swatch-color));
+
+// The colour button: the label of the field, filled with the colour (as the former `m-input type="color"`)
+.color-label {
+    min-width: 4.75rem;
+    border: 1px solid $border-color;
+    cursor: pointer;
+    font: inherit;
+
+    &:not(.empty) {
+        background-color: transparent;
+        background-image: $swatch;
+    }
+
+    &.alpha:not(.empty) {
+        background-image: $swatch, $checkerboard;
+        background-size: 100% 100%, $checker-size $checker-size;
+    }
+
+    &:disabled {
+        cursor: default;
+    }
+
+    &:focus-visible {
+        outline: 2px solid #85b7d9;
+        outline-offset: -2px;
+    }
+}
+
+// The picker is moved to <body>, so it is placed with fixed coordinates
+.color-picker {
+    position: fixed;
+    z-index: 99999999;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+    width: 15rem;
+    padding: 0.75em;
+    border: 1px solid $border-color;
+    border-radius: 0.28571429rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+
+    &.inverted {
+        border-color: $inverted-border-color;
+        background-color: #1b1c1d;
+    }
+
+    [role=slider] {
+        position: relative;
+        touch-action: none;
+        cursor: pointer;
+        outline: none;
+
+        &:focus-visible .thumb {
+            box-shadow: 0 0 0 2px #85b7d9, inset 0 0 0 1px rgba(0, 0, 0, 0.3);
+        }
+    }
+
+    .thumb {
+        position: absolute;
+        width: $thumb-size;
+        height: $thumb-size;
+        border: 2px solid #ffffff;
+        border-radius: 50%;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(0, 0, 0, 0.3);
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+
+    // Saturation from left to right, brightness from bottom to top, over the pure hue
+    .area {
+        height: 9rem;
+        border-radius: 0.28571429rem;
+        background-image: linear-gradient(to top, #000000, transparent), linear-gradient(to right, #ffffff, transparent);
+    }
+
+    .bar {
+        height: 0.75rem;
+        border-radius: 0.375rem;
+
+        .thumb {
+            top: 50%;
+        }
+    }
+
+    .hue {
+        background-image: linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+    }
+
+    .alpha {
+        background-image: linear-gradient(to right, transparent, var(--opaque-color)), $checkerboard;
+        background-size: 100% 100%, $checker-size $checker-size;
+
+        .thumb {
+            background-color: transparent;
+        }
+    }
+
+    .presets {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 0.375em;
+    }
+
+    .preset {
+        aspect-ratio: 1;
+        padding: 0;
+        border: 1px solid $border-color;
+        border-radius: 0.28571429rem;
+        background-image: $swatch, $checkerboard;
+        background-size: 100% 100%, $checker-size $checker-size;
+        cursor: pointer;
+
+        &.active {
+            box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #2185d0;
+        }
+
+        &:focus-visible {
+            outline: 2px solid #85b7d9;
+            outline-offset: 1px;
+        }
+    }
+
+    &.inverted .preset {
+        border-color: $inverted-border-color;
+
+        &.active {
+            box-shadow: 0 0 0 2px #1b1c1d, 0 0 0 4px #54c8ff;
+        }
+    }
+}

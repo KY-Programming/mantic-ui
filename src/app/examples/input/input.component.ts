@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ButtonComponent, DateInputComponent, DividerComponent, DropdownComponent, DropdownItemComponent, FileInputComponent, FlexComponent, IconComponent, InputComponent, InputIconPosition, InputType, LabelComponent, LabelDropdownComponent, NumericInputComponent, SegmentComponent, TabComponent, TabGroupComponent, TextareaComponent, TimeInputComponent, ToggleComponent, WarningComponent } from '@mantic-ui/angular';
+import { ButtonComponent, ColorInputComponent, ColorPreset, DateInputComponent, DividerComponent, DropdownComponent, DropdownItemComponent, FileInputComponent, FlexComponent, IconComponent, InputComponent, InputIconPosition, InputType, LabelComponent, LabelDropdownComponent, NumericInputComponent, SegmentComponent, TabComponent, TabGroupComponent, TextareaComponent, TimeInputComponent, ToggleComponent, WarningComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent, ExampleDescriptionComponent } from '@mantic-ui/angular-doc';
 
 import { HeaderComponent } from '../../components/header/header.component';
@@ -8,7 +8,7 @@ import { ValueComponent } from '../../components/value/value.component';
 
 @Component({
     selector: 'app-input-example',
-    imports: [HeaderComponent, TabGroupComponent, TabComponent, ButtonComponent, IconComponent, ExampleComponent, ExampleCodeComponent, FlexComponent, InputComponent, ValueComponent, TextareaComponent, NumericInputComponent, DateInputComponent, TimeInputComponent, ToggleComponent, DropdownItemComponent, DropdownComponent, DividerComponent, SegmentComponent, FileInputComponent, WarningComponent, LabelComponent, LabelDropdownComponent, RouterLink, ExampleDescriptionComponent],
+    imports: [HeaderComponent, TabGroupComponent, TabComponent, ButtonComponent, ColorInputComponent, IconComponent, ExampleComponent, ExampleCodeComponent, FlexComponent, InputComponent, ValueComponent, TextareaComponent, NumericInputComponent, DateInputComponent, TimeInputComponent, ToggleComponent, DropdownItemComponent, DropdownComponent, DividerComponent, SegmentComponent, FileInputComponent, WarningComponent, LabelComponent, LabelDropdownComponent, RouterLink, ExampleDescriptionComponent],
     templateUrl: './input.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./input.component.scss']
@@ -37,6 +37,9 @@ export class InputExampleComponent {
     protected showDayValue = new Date();
     protected colorValue?: string;
     protected colorText = '#000000';
+    protected colorAlphaValue? = '#2185d080';
+    protected colorPresetValue?: string;
+    protected readonly colorPresets: ColorPreset[] = ['#000000', '#ffffff', { color: '#db2828', name: 'Alarm' }, { color: '#21ba45', name: 'OK' }];
 
     public get focus(): boolean {
         return this.focusValue;
@@ -117,9 +120,14 @@ export class InputExampleComponent {
     protected readonly dateDateTypeScriptCode = `protected value: Date = new Date();`;
     protected readonly timeValueCode = `<m-time-input [(value)]="value" />`;
     protected readonly timeValueTypeScriptCode = `protected value: Date | number | string | undefined;`;
-    protected readonly colorValueCode = `<m-input type="color" [(value)]="value" />`;
+    protected readonly colorValueCode = `<m-color-input [(value)]="value" />`;
+    protected readonly colorAlphaCode = `<m-color-input alpha [(value)]="value" />`;
+    protected readonly colorPresetsCode = `<m-color-input [presets]="presets" [(value)]="value" />`;
+    protected readonly colorPresetsTypeScriptCode = `protected readonly presets: ColorPreset[] = ['#000000', '#ffffff', { color: '#db2828', name: 'Alarm' }, { color: '#21ba45', name: 'OK' }];`;
+    protected readonly colorDefaultsCode = `<!-- once, near the app root: the colors every m-color-input offers -->
+<m-color-input-defaults [presets]="themeColors" />`;
     protected readonly colorValueTypeScriptCode = `protected value: string | undefined;`;
-    protected readonly colorTextCode = `<m-input type="color" [(text)]="value" />`;
+    protected readonly colorTextCode = `<m-color-input [(text)]="value" />`;
     protected readonly colorTextTypeScriptCode = `protected value: string = '';`;
     public readonly minCode = `<m-numeric-input [min]="1" />`;
     public readonly maxCode = `<m-numeric-input [max]="9" />`;

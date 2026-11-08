@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, computed, effect, input, output, signal, untracked } from '@angular/core';
+import { Component, computed, effect, input, isDevMode, output, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AttachedDirective } from '../../../directives/attached.directive';
 import { FallbackForDirective } from '../../../directives/fallback-for.directive';
@@ -11,6 +11,7 @@ export declare type InputIconPosition =
     'left'
     | 'right';
 
+/** `color` is deprecated: use `m-color-input` (own picker, presets, optional opacity) */
 export declare type InputType = 'button' | 'checkbox' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'urlweek';
 
 @Component({
@@ -55,6 +56,9 @@ export class InputComponent extends InputBaseComponent {
             const isColor = this.type() === 'color';
             this.isColor.set(isColor);
             if (isColor) {
+                if (isDevMode()) {
+                    console.warn('<m-input type="color"> is deprecated, use <m-color-input> instead.', this.elementRef.nativeElement);
+                }
                 this.label.set({ position: signal<LabelPosition>('right') });
             }
         });
