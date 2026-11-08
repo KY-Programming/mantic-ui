@@ -11,6 +11,7 @@ import { DropdownItemComponent } from '../dropdown-item/dropdown-item.component'
 import { IconComponent } from '../icon/icon.component';
 import { IconSize } from '../icon/models/icon-size';
 import { IconType } from '../icon/models/icon-type';
+import { readonlyDefaults } from '../input/readonly-defaults';
 import { DropDownSelectionService } from './dropdown-selection.service';
 import { DropdownValue } from './dropdown-value';
 
@@ -27,7 +28,8 @@ import { DropdownValue } from './dropdown-value';
         '[attr.tabindex]': 'tabIndex()',
         '[class.search]': 'searchClass()',
         '[class.active]': 'isActive()',
-        '[class.disabled]': 'readonly()',
+        '[class.readonly]': 'readonly()',
+        '[class.readonly-lock]': 'showReadonlyLock()',
         '[class.upward]': 'isUpwardClass()',
         '(focusin)': 'focus()',
         '(focusout)': 'blur()',
@@ -88,7 +90,16 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
     public readonly readonlyInput = input<boolean, BooleanLike>(false, { alias: 'readonly', transform: toBoolean });
     public readonly readonlyChange = output<boolean>();
     public readonly readonly = inheritableBooleanModel(this.readonlyInput, this.readonlyChange);
-    public readonly tabIndex = computed(() => this.search() ? undefined : 0);
+    public readonly readonlyIcon = input<IconType>();
+    public readonly readonlyText = input<string>();
+    public readonly showReadonlyIcon = input<boolean | undefined, BooleanLike>(undefined, { transform: toBoolean });
+    protected readonly showReadonlyLock = computed(() => this.readonly() && (this.showReadonlyIcon() ?? readonlyDefaults.isIconShown()));
+    protected readonly currentReadonlyIcon = computed(() => this.readonlyIcon() ?? readonlyDefaults.icon());
+    protected readonly currentReadonlyText = computed(() => this.readonlyText() ?? readonlyDefaults.text());
+    /** The styles only stop the mouse: everything that changes the value or opens the menu checks this as well */
+    private readonly isLocked = computed(() => this.disabled() || this.readonly());
+    // A readonly dropdown stays reachable with the keyboard, as a readonly input does; a disabled one does not
+    public readonly tabIndex = computed(() => this.search() || this.disabled() ? undefined : 0);
     public readonly searchClass = computed(() => this.search() || this.allowFreeText());
     public readonly isActive = signal(false);
     public readonly isDefault = signal(true);
@@ -117,6 +128,18 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
         effect(() => this.classes.set('fluid', this.fluid()));
         effect(() => this.classes.set('disabled', this.disabled()));
         effect(() => this.refreshInverted(DropdownComponent.defaults.inverted()));
+        // Locked while the menu is open: closes it, and drops free text not taken over yet instead of writing it as the value
+        effect(() => {
+            if (!this.isLocked()) {
+                return;
+            }
+            untracked(() => {
+                if (this.isMenuVisible()) {
+                    this.filter.set(undefined);
+                    this.close();
+                }
+            });
+        });
         this.dropDownSelectionService.selected.pipe(takeUntil(this.destroy)).subscribe(event => this.select(event));
         // External [value]/[items] changes drive the same selection logic the old setters did.
         // untracked() keeps select()'s many signal reads/writes from registering as effect dependencies.
@@ -200,6 +223,9 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
     }
 
     protected onKeyDown(event: KeyboardEvent): void {
+        if (this.isLocked()) {
+            return;
+        }
         if (event.code === 'ArrowUp') {
             event.preventDefault();
             event.stopPropagation();
@@ -265,11 +291,14 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
 
     protected deleteClick(item: DropdownValue<T>, event: MouseEvent): void {
         event.preventDefault();
+        if (this.isLocked()) {
+            return;
+        }
         this.deselect(item);
     }
 
     public open(): void {
-        if (this.isMenuVisible()) {
+        if (this.isMenuVisible() || this.isLocked()) {
             return;
         }
         if (this.search()) {

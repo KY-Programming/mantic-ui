@@ -77,6 +77,14 @@ public countries: DropdownValue<string>[] = [
   </m-dropdown>
   <m-input attachedRight placeholder="mysite.com" />
 </m-flex>`;
+    public readonly disabledCode = `<m-dropdown disabled selectFirst>
+  <m-dropdown-item value="1">One</m-dropdown-item>
+  <m-dropdown-item value="2">Two</m-dropdown-item>
+</m-dropdown>`;
+    public readonly readonlyCode = `<m-dropdown readonly selectFirst>
+  <m-dropdown-item value="1">One</m-dropdown-item>
+  <m-dropdown-item value="2">Two</m-dropdown-item>
+</m-dropdown>`;
     public readonly inverted = `<m-dropdown inverted></m-dropdown>`;
 
     protected valueChangeEventCode = `<m-dropdown (valueChange)="onValueChange($event)" />`;

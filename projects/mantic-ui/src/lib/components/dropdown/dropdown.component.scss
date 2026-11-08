@@ -1,6 +1,8 @@
 @use "../../styles/attached";
+@use "../../styles/readonly";
 
 @include attached.attached;
+@include readonly.readonly-host;
 
 :host {
   user-select: none;

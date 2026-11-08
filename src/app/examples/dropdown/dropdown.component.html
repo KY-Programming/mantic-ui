@@ -132,7 +132,18 @@
         </m-example>
     </m-tab>
     <m-tab label="States">
-        <!-- TODO -->
+        <m-example header="Disabled" description="A dropdown can show that it is disabled. It can not be reached with the keyboard" [code]="disabledCode">
+            <m-dropdown disabled selectFirst>
+                <m-dropdown-item value="1">One</m-dropdown-item>
+                <m-dropdown-item value="2">Two</m-dropdown-item>
+            </m-dropdown>
+        </m-example>
+        <m-example header="Readonly" description="A dropdown can show a value that can not be changed. It stays readable and can still be reached with the keyboard" [code]="readonlyCode">
+            <m-dropdown readonly selectFirst>
+                <m-dropdown-item value="1">One</m-dropdown-item>
+                <m-dropdown-item value="2">Two</m-dropdown-item>
+            </m-dropdown>
+        </m-example>
     </m-tab>
     <m-tab label="Binding">
         <!-- TODO -->
