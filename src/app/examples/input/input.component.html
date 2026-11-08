@@ -69,8 +69,29 @@
             <m-example-code [code]="stringTextCode" />
             <m-example-code [code]="stringTextTypeScriptCode" [languages]="['ts']" />
         </m-example>
+        <m-example [code]="textPlaceholderCode" description="Shows a text as long as the input has no value" header="placeholder">
+            <m-input placeholder="Enter a text..."></m-input>
+        </m-example>
         <m-example [code]="maxlengthCode" description="The text input has an additional property maxlength to limit the number of characters" header="maxlength">
             <m-input maxlength="3" type="text"></m-input>
+        </m-example>
+        <m-example [code]="states2" description="An icon input field can show that it is currently loading data" header="Loading">
+            <m-input icon="search" iconPosition="left" loading placeholder="Search..." type="text"></m-input>
+        </m-example>
+        <m-example [code]="states3">
+            <m-input icon="search" loading placeholder="Search..." type="text"></m-input>
+        </m-example>
+        <m-example [code]="states4" description="An input field can show that it is disabled" header="Disabled">
+            <m-input disabled placeholder="Search..." type="text"></m-input>
+        </m-example>
+        <m-example [code]="states5">
+            <m-input disabled icon="search" placeholder="Search..." type="text"></m-input>
+        </m-example>
+        <m-example [code]="states6" description="An input field can show the data contains errors" header="Error">
+            <m-input hasError placeholder="Search..." type="text"></m-input>
+        </m-example>
+        <m-example [code]="statesReadonly" description="An input field can show a value that can not be changed" header="Readonly">
+            <m-input readonly value="Read only" type="text"></m-input>
         </m-example>
     </m-tab>
     <m-tab label="Numeric">
@@ -85,6 +106,12 @@
             <app-value [value]="numericNumber" />
             <m-example-code [code]="numericNumberCode" />
             <m-example-code [code]="numericNumberTypeScriptCode" [languages]="['ts']" />
+        </m-example>
+        <m-example [code]="numericPlaceholderCode" description="Shows a text as long as the numeric input has no value" header="placeholder">
+            <m-numeric-input placeholder="Enter a number..."></m-numeric-input>
+        </m-example>
+        <m-example [code]="numericPlaceholderNumberCode" description="A numeric placeholder is where the up / down buttons and the arrow keys start from: up writes 101, down writes 99. The value stays empty until then">
+            <m-numeric-input placeholder="100"></m-numeric-input>
         </m-example>
         <m-example [code]="minCode" description="The numeric input has an additional property min to set the lowest possible number" header="min">
             <m-numeric-input [min]="1"></m-numeric-input>
@@ -104,6 +131,18 @@
             </m-warning>
             <m-numeric-input [max]="9" [min]="0" range></m-numeric-input>
         </m-example>
+        <m-example [code]="numericLoadingCode" description="An icon input field can show that it is currently loading data" header="Loading">
+            <m-numeric-input icon="calculator" iconPosition="left" loading></m-numeric-input>
+        </m-example>
+        <m-example [code]="numericDisabledCode" description="An input field can show that it is disabled" header="Disabled">
+            <m-numeric-input disabled [value]="42"></m-numeric-input>
+        </m-example>
+        <m-example [code]="numericErrorCode" description="An input field can show the data contains errors" header="Error">
+            <m-numeric-input hasError [value]="42"></m-numeric-input>
+        </m-example>
+        <m-example [code]="numericReadonlyCode" description="An input field can show a value that can not be changed" header="Readonly">
+            <m-numeric-input readonly [value]="42"></m-numeric-input>
+        </m-example>
     </m-tab>
     <m-tab label="Date">
         <m-example description="Bind to [value] to use a value of type Date | undefined" header="value">
@@ -121,6 +160,18 @@
         <m-example [code]="dateWithDayCode" header="Show day">
             <m-date-input [value]="showDayValue" showDay />
         </m-example>
+        <m-example [code]="dateLoadingCode" description="An icon input field can show that it is currently loading data" header="Loading">
+            <m-date-input icon="calendar" iconPosition="left" loading />
+        </m-example>
+        <m-example [code]="dateDisabledCode" description="An input field can show that it is disabled" header="Disabled">
+            <m-date-input disabled [value]="showDayValue" />
+        </m-example>
+        <m-example [code]="dateErrorCode" description="An input field can show the data contains errors" header="Error">
+            <m-date-input hasError [value]="showDayValue" />
+        </m-example>
+        <m-example [code]="dateReadonlyCode" description="An input field can show a value that can not be changed" header="Readonly">
+            <m-date-input readonly [value]="showDayValue" />
+        </m-example>
         <!--        <m-example header="min" description="The date input has an additional property min to set the oldest possible date" [code]="minDateCode">-->
         <!--            <m-date-input [min]="1"></m-date-input>-->
         <!--        </m-example>-->
@@ -134,6 +185,18 @@
             <app-value [value]="timeValue" />
             <m-example-code [code]="timeValueCode" />
             <m-example-code [code]="timeValueTypeScriptCode" [languages]="['ts']" />
+        </m-example>
+        <m-example [code]="timeLoadingCode" description="An icon input field can show that it is currently loading data" header="Loading">
+            <m-time-input icon="clock" iconPosition="left" loading />
+        </m-example>
+        <m-example [code]="timeDisabledCode" description="An input field can show that it is disabled" header="Disabled">
+            <m-time-input disabled [value]="showDayValue" />
+        </m-example>
+        <m-example [code]="timeErrorCode" description="An input field can show the data contains errors" header="Error">
+            <m-time-input hasError [value]="showDayValue" />
+        </m-example>
+        <m-example [code]="timeReadonlyCode" description="An input field can show a value that can not be changed" header="Readonly">
+            <m-time-input readonly [value]="showDayValue" />
         </m-example>
         <!--        <m-example description="Bind to [time] to use a value of type Time" header="time">-->
         <!--            <m-time-input [(time)]="timeDate" />-->
@@ -155,6 +218,13 @@
             <m-example-code [code]="colorTextCode" />
             <m-example-code [code]="colorTextTypeScriptCode" [languages]="['ts']" />
         </m-example>
+        <m-example [code]="colorPlaceholderCode" description="Shows a text as long as the color input has no value" header="placeholder">
+            <m-color-input placeholder="Enter a color..."></m-color-input>
+        </m-example>
+        <m-example [code]="colorPlaceholderColorCode" description="A placeholder that is a color is shown in the swatch, and the picker starts from it. The value stays empty until a color is picked">
+            <m-color-input placeholder="#2185d0" [(value)]="colorPlaceholderValue" />
+            <app-value [value]="colorPlaceholderValue" />
+        </m-example>
         <m-example description="Allow see-through colors with alpha: the picker gets an opacity bar, and a see-through color is written as #rrggbbaa (opaque ones stay #rrggbb)" header="alpha">
             <m-color-input alpha [(value)]="colorAlphaValue" />
             <app-value [value]="colorAlphaValue" />
@@ -167,30 +237,22 @@
             <m-example-code [code]="colorPresetsTypeScriptCode" [languages]="['ts']" />
             <m-example-code [code]="colorDefaultsCode" />
         </m-example>
+        <m-example [code]="colorLoadingCode" description="An icon input field can show that it is currently loading data" header="Loading">
+            <m-color-input icon="tint" iconPosition="left" loading />
+        </m-example>
+        <m-example [code]="colorDisabledCode" description="An input field can show that it is disabled" header="Disabled">
+            <m-color-input disabled value="#2185d0" />
+        </m-example>
+        <m-example [code]="colorErrorCode" description="An input field can show the data contains errors" header="Error">
+            <m-color-input hasError value="#2185d0" />
+        </m-example>
+        <m-example [code]="colorReadonlyCode" description="An input field can show a value that can not be changed" header="Readonly">
+            <m-color-input readonly value="#2185d0" />
+        </m-example>
     </m-tab>
     <m-tab label="File">
         <m-example [code]="file">
             <m-file-input>Upload</m-file-input>
-        </m-example>
-    </m-tab>
-    <m-tab label="States">
-        <m-example [code]="states1" description="An input field can show a user is currently interacting with it" header="Focus">
-            <m-input focused placeholder="Search..." type="text"></m-input>
-        </m-example>
-        <m-example [code]="states2" description="An icon input field can show that it is currently loading data" header="Loading">
-            <m-input icon="search" iconPosition="left" loading placeholder="Search..." type="text"></m-input>
-        </m-example>
-        <m-example [code]="states3">
-            <m-input icon="search" loading placeholder="Search..." type="text"></m-input>
-        </m-example>
-        <m-example [code]="states4" description="An input field can show that it is disabled" header="Disabled">
-            <m-input disabled placeholder="Search..." type="text"></m-input>
-        </m-example>
-        <m-example [code]="states5">
-            <m-input disabled icon="search" placeholder="Search..." type="text"></m-input>
-        </m-example>
-        <m-example [code]="states6" description="An input field can show the data contains errors" header="Error">
-            <m-input hasError placeholder="Search..." type="text"></m-input>
         </m-example>
     </m-tab>
     <m-tab label="Variations">

@@ -39,6 +39,7 @@ export class InputExampleComponent {
     protected colorText = '#000000';
     protected colorAlphaValue? = '#2185d080';
     protected colorPresetValue?: string;
+    protected colorPlaceholderValue?: string;
     protected readonly colorPresets: ColorPreset[] = ['#000000', '#ffffff', { color: '#db2828', name: 'Alarm' }, { color: '#21ba45', name: 'OK' }];
 
     public get focus(): boolean {
@@ -96,7 +97,7 @@ export class InputExampleComponent {
     public textCode = `<m-input type="text" placeholder="Search..." [(value)]="value" />`;
     public textareaCode = `<m-textarea placeholder="Enter a text with line breaks..." [(value)]="value" />`;
     public code2 = `<m-input type="text" placeholder="Search..." [(value)]="inputValue" />`;
-    public code3 = `<m-input [type]="type" placeholder="Search..." [icon]="icon" [iconPosition]="iconPosition" [focused]="focus" [loading]="loading" [disabled]="disabled" [hasError]="error" [fluid]="fluid" />`;
+    public code3 = `<m-input [type]="type" placeholder="Search..." [icon]="icon" [iconPosition]="iconPosition" [autofocus]="focus" [loading]="loading" [disabled]="disabled" [hasError]="error" [fluid]="fluid" />`;
     public eventCode = `<m-input (valueChange)="valueChange($event)" />`;
     public numberCode = `<m-numeric-input [(value)]="numericValue" />`;
     public dateCode = `<m-date-input [(value)]="dateValue" />`;
@@ -129,17 +130,38 @@ export class InputExampleComponent {
     protected readonly colorValueTypeScriptCode = `protected value: string | undefined;`;
     protected readonly colorTextCode = `<m-color-input [(text)]="value" />`;
     protected readonly colorTextTypeScriptCode = `protected value: string = '';`;
+    public readonly textPlaceholderCode = `<m-input placeholder="Enter a text..." />`;
+    public readonly colorPlaceholderCode = `<m-color-input placeholder="Enter a color..." />`;
+    public readonly colorPlaceholderColorCode = `<m-color-input placeholder="#2185d0" [(value)]="value" />`;
+    public readonly numericPlaceholderCode = `<m-numeric-input placeholder="Enter a number..." />`;
+    public readonly numericPlaceholderNumberCode = `<m-numeric-input placeholder="100" />`;
     public readonly minCode = `<m-numeric-input [min]="1" />`;
     public readonly maxCode = `<m-numeric-input [max]="9" />`;
     public readonly zeroCode = `<m-numeric-input zeroText="Zero" />`;
     public readonly rangeCode = `<m-numeric-input range [min]="0" [max]="9" />`;
 
-    public readonly states1 = `<m-input type="text" placeholder="Search..." focused />`;
     public readonly states2 = `<m-input type="text" placeholder="Search..." icon="search" iconPosition="left" loading />`;
     public readonly states3 = `<m-input type="text" placeholder="Search..." icon="search" loading />`;
     public readonly states4 = `<m-input type="text" placeholder="Search..." disabled />`;
     public readonly states5 = `<m-input type="text" placeholder="Search..." icon="search" disabled />`;
     public readonly states6 = `<m-input type="text" placeholder="Search..." hasError />`;
+    public readonly statesReadonly = `<m-input type="text" value="Read only" readonly />`;
+    public readonly numericLoadingCode = `<m-numeric-input icon="calculator" iconPosition="left" loading />`;
+    public readonly numericDisabledCode = `<m-numeric-input [value]="42" disabled />`;
+    public readonly numericErrorCode = `<m-numeric-input [value]="42" hasError />`;
+    public readonly numericReadonlyCode = `<m-numeric-input [value]="42" readonly />`;
+    public readonly dateLoadingCode = `<m-date-input icon="calendar" iconPosition="left" loading />`;
+    public readonly dateDisabledCode = `<m-date-input [value]="value" disabled />`;
+    public readonly dateErrorCode = `<m-date-input [value]="value" hasError />`;
+    public readonly dateReadonlyCode = `<m-date-input [value]="value" readonly />`;
+    public readonly timeLoadingCode = `<m-time-input icon="clock" iconPosition="left" loading />`;
+    public readonly timeDisabledCode = `<m-time-input [value]="value" disabled />`;
+    public readonly timeErrorCode = `<m-time-input [value]="value" hasError />`;
+    public readonly timeReadonlyCode = `<m-time-input [value]="value" readonly />`;
+    public readonly colorLoadingCode = `<m-color-input icon="tint" iconPosition="left" loading />`;
+    public readonly colorDisabledCode = `<m-color-input value="#2185d0" disabled />`;
+    public readonly colorErrorCode = `<m-color-input value="#2185d0" hasError />`;
+    public readonly colorReadonlyCode = `<m-color-input value="#2185d0" readonly />`;
 
     public readonly variations1 = `<m-input type="text" placeholder="Search..." icon="search" />`;
     public readonly variations2 = `<m-input type="text" placeholder="Search..." icon="users" iconPosition="left" />`;
