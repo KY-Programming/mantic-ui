@@ -11,7 +11,9 @@ import { DropdownComponent } from '../dropdown/dropdown.component';
 import { IconComponent } from '../icon/icon.component';
 import { IconSize } from '../icon/models/icon-size';
 import { IconType } from '../icon/models/icon-type';
+import { ColorInputComponent } from '../input/color/color-input.component';
 import { DateInputComponent } from '../input/date/date-input.component';
+import { TimeInputComponent } from '../input/time/time-input.component';
 import { NumericInputComponent } from '../input/numeric/numeric-input.component';
 import { InputComponent } from '../input/text/input.component';
 import { RadioComponent } from '../radio/radio.component';
@@ -50,6 +52,8 @@ export class FieldComponent extends BaseComponent {
     protected readonly inputComponent = contentChild(InputComponent);
     protected readonly numericInputComponent = contentChild(NumericInputComponent);
     protected readonly dateInputComponent = contentChild(DateInputComponent);
+    protected readonly timeInputComponent = contentChild(TimeInputComponent);
+    protected readonly colorInputComponent = contentChild(ColorInputComponent);
     protected readonly checkboxComponent = contentChild(CheckboxComponent);
     protected readonly sliderComponent = contentChild(SliderComponent);
     protected readonly toggleComponent = contentChild(ToggleComponent);
@@ -99,6 +103,10 @@ export class FieldComponent extends BaseComponent {
             this.numericInputComponent()?.name.set(name);
             this.dateInputComponent()?.for.set(name);
             this.dateInputComponent()?.name.set(name);
+            this.timeInputComponent()?.for.set(name);
+            this.timeInputComponent()?.name.set(name);
+            this.colorInputComponent()?.for.set(name);
+            this.colorInputComponent()?.name.set(name);
             this.checkboxComponent()?.name.set(name);
             this.sliderComponent()?.name.set(name);
             this.toggleComponent()?.name.set(name);
@@ -113,6 +121,8 @@ export class FieldComponent extends BaseComponent {
             this.inputComponent()?.readonly.setInherited(readonly);
             this.numericInputComponent()?.readonly.setInherited(readonly);
             this.dateInputComponent()?.readonly.setInherited(readonly);
+            this.timeInputComponent()?.readonly.setInherited(readonly);
+            this.colorInputComponent()?.readonly.setInherited(readonly);
             this.textareaComponent()?.readonly.setInherited(readonly);
             this.checkboxComponent()?.readonly.setInherited(readonly);
             this.sliderComponent()?.readonly.setInherited(readonly);
@@ -127,6 +137,8 @@ export class FieldComponent extends BaseComponent {
             this.inputComponent()?.disabled.setInherited(disabled);
             this.numericInputComponent()?.disabled.setInherited(disabled);
             this.dateInputComponent()?.disabled.setInherited(disabled);
+            this.timeInputComponent()?.disabled.setInherited(disabled);
+            this.colorInputComponent()?.disabled.setInherited(disabled);
             this.textareaComponent()?.disabled.setInherited(disabled);
             this.checkboxComponent()?.disabled.setInherited(disabled);
             this.sliderComponent()?.disabled.setInherited(disabled);
@@ -162,6 +174,8 @@ export class FieldComponent extends BaseComponent {
             subscribe(this.inputComponent());
             subscribe(this.numericInputComponent());
             subscribe(this.dateInputComponent());
+            subscribe(this.timeInputComponent());
+            subscribe(this.colorInputComponent());
             subscribe(this.checkboxComponent());
             subscribe(this.sliderComponent());
             subscribe(this.toggleComponent());
