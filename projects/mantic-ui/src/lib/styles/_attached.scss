@@ -62,11 +62,16 @@ $-flat-corners: (
         box-shadow: inset 0 0 0 1px rgba(34, 36, 38, 0.15) !important;
     }
 
-    :host(.ui.left.attached.basic.button) {
-        margin-right: -1px;
-    }
-
+    // Only the right part of a seam moves. The left part staying put is what keeps the overlap at 1px: with a margin on
+    // both, the two borders end up next to each other as a doubled line.
     :host(.ui.right.attached.basic.button) {
         margin-left: -1px;
+    }
+
+    // Left and right together: a button between two neighbours. The theme only knows one side, so its `right` rules would
+    // win: the right corners stay round and the text is left-aligned.
+    :host(.ui.left.right.attached.button) {
+        border-radius: 0;
+        text-align: center;
     }
 }

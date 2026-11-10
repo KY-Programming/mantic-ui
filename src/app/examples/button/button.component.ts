@@ -3,13 +3,13 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { faArrowRight, faCloud, faPause } from '@fortawesome/pro-solid-svg-icons';
-import { AnimationComponent, ButtonComponent, ButtonDirective, ButtonGroupComponent, DividerComponent, HeaderDirective, IconButtonComponent, IconComponent, InputComponent, LabelComponent, OrComponent, SegmentComponent, TabComponent, TabGroupComponent, ToggleButtonComponent, ToggleComponent, WarningComponent } from '@mantic-ui/angular';
+import { AnimationComponent, ButtonComponent, ButtonDirective, ButtonGroupComponent, DividerComponent, FlexComponent, HeaderDirective, IconButtonComponent, IconComponent, InputComponent, LabelComponent, OrComponent, SegmentComponent, TabComponent, TabGroupComponent, ToggleButtonComponent, ToggleComponent, WarningComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-button-example',
-    imports: [HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ButtonComponent, ButtonDirective, ExampleCodeComponent, RouterLink, WarningComponent, IconButtonComponent, SegmentComponent, ToggleButtonComponent, ButtonGroupComponent, OrComponent, InputComponent, DividerComponent, ToggleComponent, LabelComponent, AnimationComponent],
+    imports: [HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ButtonComponent, ButtonDirective, ExampleCodeComponent, RouterLink, WarningComponent, IconButtonComponent, SegmentComponent, ToggleButtonComponent, ButtonGroupComponent, OrComponent, InputComponent, DividerComponent, ToggleComponent, LabelComponent, AnimationComponent, FlexComponent],
     templateUrl: './button.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./button.component.scss']
@@ -251,6 +251,16 @@ export class ButtonExampleComponent {
   <m-button>One</m-button>
   <m-button>Two</m-button>
 </m-button-group>`;
+    public readonly horizontallyAttachedBoth = `<m-flex>
+  <m-input attachedLeft placeholder="Search..."></m-input>
+  <m-button attachedLeft attachedRight>Both</m-button>
+  <m-icon-button attachedRight icon="cloud"></m-icon-button>
+</m-flex>
+<m-flex>
+  <m-input attachedLeft placeholder="Search..."></m-input>
+  <m-icon-button attachedLeft attachedRight icon="cloud" basic></m-icon-button>
+  <m-button attachedRight basic>Right</m-button>
+</m-flex>`;
     public readonly groups1 = `<m-button-group>
   <m-button>One</m-button>
   <m-button>Two</m-button>

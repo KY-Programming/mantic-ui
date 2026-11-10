@@ -293,6 +293,18 @@
             <m-button attachedLeft>Left</m-button>
             <m-button attachedRight>Right</m-button>
         </m-example>
+        <m-example description="A button between two neighbours is attached on both sides: attachedLeft and attachedRight together flatten all its corners" [code]="horizontallyAttachedBoth">
+            <m-flex class="both-attached-row">
+                <m-input attachedLeft placeholder="Search..."></m-input>
+                <m-button attachedLeft attachedRight>Both</m-button>
+                <m-icon-button attachedRight icon="cloud"></m-icon-button>
+            </m-flex>
+            <m-flex class="both-attached-row">
+                <m-input attachedLeft placeholder="Search..."></m-input>
+                <m-icon-button attachedLeft attachedRight icon="cloud" basic></m-icon-button>
+                <m-button attachedRight basic>Right</m-button>
+            </m-flex>
+        </m-example>
     </m-tab>
     <m-tab label="Groups">
         <m-example header="Buttons" description="Buttons can exist together as a group" [code]="groups1">
