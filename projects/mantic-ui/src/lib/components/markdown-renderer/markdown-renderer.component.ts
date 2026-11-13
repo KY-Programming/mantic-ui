@@ -1,5 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
+import { toBoolean } from '../../helpers/to-boolean';
+import { BooleanLike } from '../../models/boolean-like';
 import { DynamicComponentComponent } from '../dynamic-component/dynamic-component.component';
 import { isMarkdownBold, MarkdownBold, markdownBoldType } from './models/markdown-bold';
 import { isMarkdownCode, MarkdownCode, markdownCodeType } from './models/markdown-code';
@@ -27,10 +29,12 @@ import { MarkdownParser } from './services/markdown-parser';
 export class MarkdownRendererComponent {
     private readonly parser = inject(MarkdownParser);
     public readonly value = input<string, string | undefined>('', { transform: value => value ?? '' });
+    /** Renders lines like `<m-button>...</m-button>` as components. Only enable it for fully trusted markdown, never for text from users or an LLM */
+    public readonly allowComponents = input<boolean, BooleanLike>(false, { transform: toBoolean });
     // Derived from value via the parser; replaces the former value setter's side effect of rebuilding the array.
     protected readonly elements = computed<MarkdownElement[]>(() => {
         const value = this.value();
-        return value ? this.parser.parse(value) : [];
+        return value ? this.parser.parse(value, { allowComponents: this.allowComponents() }) : [];
     });
     protected readonly markdownParagraphType = markdownParagraphType;
     protected readonly markdownHeader1Type = markdownHeader1Type;

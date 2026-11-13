@@ -62,7 +62,7 @@
             }
             @case (markdownCustomElementType) {
                 @if ($customElement(element); as customElement) {
-                    <m-dynamic-component [code]="customElement.code" />
+                    <m-dynamic-component [code]="customElement.code" [data]="customElement.data" />
                 }
             }
             @case (markdownCodeType) {

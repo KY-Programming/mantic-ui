@@ -67,7 +67,7 @@ You can create a code block by wrapping the code in triple backticks:
 
 ## Custom Components
 
-You can use your angular components, after register them via \`provideDynamicComponent\` in \`app.config.ts\`, like a mantic UI button:
+You can use your angular components, after register them via \`provideDynamicComponent\` in \`app.config.ts\` and enabling \`allowComponents\` on the renderer, like a mantic UI button:
 <m-button primary>Click me</m-button>
 
 ## Conclusion

@@ -19,9 +19,18 @@ import { MarkdownSeparator, markdownSeparatorType } from '../models/markdown-sep
 import { MarkdownStrikethrough, markdownStrikethroughType } from '../models/markdown-strikethrough';
 import { MarkdownText, markdownTextType } from '../models/markdown-text';
 
+export interface MarkdownParseOptions {
+    /**
+     * Parses lines of the form `<tag ...>...</tag>` as custom elements (rendered by m-dynamic-component) and reads
+     * `<m-json>` data. Off by default, so text from users or an LLM is never interpreted as HTML.
+     */
+    allowComponents?: boolean;
+}
+
 @Service()
 export class MarkdownParser {
     private readonly blockParsers: MarkdownBlockParser[] = [];
+    private readonly componentBlockParsers = new Set<MarkdownBlockParser>();
     private readonly inlineParsers: MarkdownInlineParser[] = [];
 
     public constructor() {
@@ -74,7 +83,7 @@ export class MarkdownParser {
             })
         });
         this.registerBlockParser({
-            regex: /^\s*`{3}(?<language>.*?)\r?\n(?<code>(.|\r?\n)*?)`{3}$/g,
+            regex: /^\s*`{3}(?<language>.*?)\r?\n(?<code>(.|\r?\n)*?)`{3}$/,
             factory: (result: RegExpExecArray): MarkdownCodeBlock => ({
                 type: markdownCodeBlockType,
                 language: result.groups?.['language'],
@@ -89,8 +98,9 @@ export class MarkdownParser {
                 isBlock: true
             })
         });
-        this.registerBlockParser({
-            regex: /^\s*(?<code><([^>]+)(.+?)<\/\2>)$/g,
+        // HTML lines are only parsed with allowComponents, see MarkdownParseOptions
+        this.registerComponentBlockParser({
+            regex: /^\s*(?<code><([^>]+)(.+?)<\/\2>)$/,
             factory: (result: RegExpExecArray, data?: Record<string, unknown>): MarkdownCustomElement => ({
                 type: markdownCustomElementType,
                 code: result.groups?.['code'],
@@ -98,8 +108,8 @@ export class MarkdownParser {
                 isBlock: true
             })
         });
-        this.registerBlockParser({
-            regex: /^\s*<m-json(.+?)<\/m-json>$/g,
+        this.registerComponentBlockParser({
+            regex: /^\s*<m-json(.+?)<\/m-json>$/,
             factory: (): MarkdownEmpty => ({
                 type: markdownEmptyType
             })
@@ -230,21 +240,27 @@ export class MarkdownParser {
         ComponentParser.register(component);
     }
 
-    public parse(value: string): MarkdownElement[] {
-        const data = this.parseData(value);
+    public parse(value: string, options?: MarkdownParseOptions): MarkdownElement[] {
+        const areComponentsAllowed = options?.allowComponents ?? false;
+        const data = areComponentsAllowed ? this.parseData(value) : {};
         if (value.includes('\n\n')) {
             const elements: MarkdownElement[] = [];
             const paragraphs = value.split('\n\n');
             for (const paragraph of paragraphs) {
                 elements.push(cast<MarkdownParagraph>({
                     type: 'paragraph',
-                    elements: this.parseBlock(paragraph, data),
+                    elements: this.parseBlock(paragraph, data, areComponentsAllowed),
                     isBlock: true
                 }));
             }
             return elements;
         }
-        return this.parseBlock(value, data);
+        return this.parseBlock(value, data, areComponentsAllowed);
+    }
+
+    private registerComponentBlockParser(parser: MarkdownBlockParser): void {
+        this.componentBlockParsers.add(parser);
+        this.registerBlockParser(parser);
     }
 
     private parseData(value: string): Record<string, unknown> {
@@ -258,13 +274,14 @@ export class MarkdownParser {
         return data;
     }
 
-    private parseBlock(text: string, data: Record<string, unknown>): MarkdownElement[] {
+    private parseBlock(text: string, data: Record<string, unknown>, areComponentsAllowed: boolean): MarkdownElement[] {
         const lines = text.split('\n');
         const elements: MarkdownElement[] = [];
+        const blockParsers = areComponentsAllowed ? this.blockParsers : this.blockParsers.filter(parser => !this.componentBlockParsers.has(parser));
         for (let line of lines) {
             line = line?.trimEnd();
             let parsed = false;
-            for (const parser of this.blockParsers) {
+            for (const parser of blockParsers) {
                 const regexResult = parser.regex.exec(line);
                 if (regexResult) {
                     const element = parser.factory(regexResult, data, elements.at(-1));
