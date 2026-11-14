@@ -14,76 +14,14 @@ The Semantic UI Theme is here: [/projects/semantic-ui](https://github.com/KY-Pro
 
 The Fomantic UI Theme is here: [/projects/fomantic-ui](https://github.com/KY-Programming/mantic-ui/tree/master/projects/fomantic-ui)
 
-## Getting Started with Semantic UI Theme
-Install base package for angular and Semantic UI theme
+## Getting Started
 
-```
-npm i @mantic-ui/angular @mantic-ui/semantic-ui-angular 
-```
+Install the base package and one of the themes, then follow the theme's README:
 
-### Import theme in AppModule
-app.module.ts
-```
-import { SemanticUiModule } from '@mantic-ui/semantic-ui-angular';
+- Semantic UI: `npm i @mantic-ui/angular @mantic-ui/semantic-ui-angular`, see [/projects/semantic-ui](https://github.com/KY-Programming/mantic-ui/tree/master/projects/semantic-ui)
+- Fomantic UI: `npm i @mantic-ui/angular @mantic-ui/fomantic-ui-angular`, see [/projects/fomantic-ui](https://github.com/KY-Programming/mantic-ui/tree/master/projects/fomantic-ui)
 
-@NgModule({
-  imports: [
-    ...
-    SemanticUiModule
-  ]
-})
-export class AppModule { }
-```
-
-### Apply style in AppComponent
-app.component.html
-```
-<m-semantic-ui-theme>
-    <!-- Import common styles for site -->
-    <m-semantic-ui-site></m-semantic-ui-site>
-    <!-- Import reset to normalize values for CSS properties -->
-    <m-semantic-ui-reset></m-semantic-ui-reset>
-    <!-- Import local hosted lato font -->
-    <m-semantic-ui-lato-local></m-semantic-ui-lato-local>
-</m-semantic-ui-theme>
-```
-As alternative for <m-semantic-ui-theme>, you can use a CDN
-```
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-```
-Or install via [Semantic Docs](https://semantic-ui.com/introduction/getting-started.html)
-
-### Configure package assets usage
-angular.json
-```
- "projects": {
-    "<your-project-name>": {
-      "architect": {
-        "build": {
-          "options": {
-            "assets": [
-              // Copy all package assets to app asset folder on build
-              {
-                "glob": "**/*",
-                "input": "./node_modules/@mantic-ui/semantic-ui-angular/assets",
-                "output": "/assets/"
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-```
-
-### Credits
-Original css from [Semantic UI](https://semantic-ui.com/)
-
-## Getting Started with Fomantic UI Theme
-The Fomantic UI theme is not yet ready. So it is not published. If you are interested, do not hesitate to write us and we try to get it ready soon! 
-
-### Credits
-Original css from [Fomantic UI](https://fomantic-ui.com/)
+Both themes are compiled from the LESS sources of [Semantic UI](https://semantic-ui.com/) and [Fomantic UI](https://fomantic-ui.com/), plus the adjustments the mantic components need.
 
 ## Work-in-progress
 Currently we are not yet done. So please do not expect a perfect framework
@@ -134,3 +72,30 @@ skips the refresh. The `@ky/mantic@^22` range moves with the Angular major. The 
 
 **The favicon switches per theme at runtime, across every icon link** (`setFavicon`). Browsers prefer
 the SVG, so changing only one of the links has no visible effect.
+
+**The Semantic UI and Fomantic UI CSS is generated, never edited.** `scripts/build-themes.mjs`
+(`npm run semantic:less` / `fomantic:less`) compiles the LESS sources (`semantic-ui-less`,
+`fomantic-ui-less`, pinned exactly) into `projects/*/src/lib/styles/components/*.css`, the icon / Lato
+font components and the theme assets. The output is checked in so a library build or `ng serve` needs no
+extra step: run the script after changing a theme's `less` folder or bumping a source package, and review
+the CSS diff. Each theme's `less` folder is laid over the package root like a regular Semantic UI project
+(`theme.config`, `site/`, `themes/`), nothing is written into node_modules. What mantic needs differs from
+stock Semantic in three ways, all there:
+- m-icon nests the icon (`<m-icon><i class="icon">` / `<m-icon><fa-icon>`) and m-checkbox draws its check
+  mark as an `m-icon.icon` in the label. `site/**/*.overrides` adds those selectors to the original rules
+  with `:extend`, which keeps the cascade order; a selector with an interpolated part (`@{notIcon}` in
+  Fomantic) cannot be extended and is repeated with the same variables instead. The script fails on any less
+  warning, so an `:extend` that stops matching after an upgrade does not go unnoticed.
+- `themes/default/modules/{accordion,checkbox}.overrides` replace the default theme's ones, which only bring
+  embedded icon fonts that would fight with m-icon (Fomantic always loads the default overrides, so picking
+  another theme in `theme.config` does not drop them).
+- `@font-face` rules go to their own opt-in components (`m-*-icons-local`, `m-fomantic-ui-lato-local`) with a
+  font path relative to that component, so ng-packagr inlines the fonts. An absolute path breaks apps served
+  below a base href. The flag sprite still loads from `/assets/` (Semantic) — a known limit.
+
+less 3+ no longer evaluates operations inside `calc()`, which the Semantic definitions were written for
+(see `site/elements/label.variables`): after an upgrade, grep the output for `--` inside `calc(`.
+
+mantic's own SCSS layer (`projects/semantic-ui/src/lib/styles/overrides`, `circular-progress.scss`) is shared:
+the Fomantic theme `@use`s it by relative path, Sass inlines it at build time. `@ky/mantic` imports
+`@mantic-ui/semantic-ui-angular/styles/overrides/all`, so that path is public API.

@@ -29,44 +29,46 @@ Install base package for angular and Semantic UI theme
 npm i @mantic-ui/angular @mantic-ui/semantic-ui-angular 
 ```
 
-### Import theme in AppModule
+### Import the theme components in your AppComponent
 
-app.module.ts
+All components are standalone, import them where you use them.
+
+app.component.ts
 
 ```
-import { SemanticUiModule } from '@mantic-ui/semantic-ui-angular';
+import { SemanticUiIconsLocalComponent, SemanticUiLatoLocalComponent, SemanticUiResetComponent, SemanticUiSiteComponent, SemanticUiThemeComponent } from '@mantic-ui/semantic-ui-angular';
 
-@NgModule({
-  imports: [
-    ...
-    SemanticUiModule
-  ]
+@Component({
+    selector: 'app-root',
+    imports: [SemanticUiThemeComponent, SemanticUiSiteComponent, SemanticUiResetComponent, SemanticUiLatoLocalComponent, SemanticUiIconsLocalComponent],
+    templateUrl: './app.component.html'
 })
-export class AppModule { }
+export class AppComponent {}
 ```
 
-### Apply style in AppComponent
+### Apply the style in your AppComponent
 
 app.component.html
 
 ```
 <m-semantic-ui-theme>
     <!-- Import common styles for site -->
-    <m-semantic-ui-site></m-semantic-ui-site>
+    <m-semantic-ui-site />
     <!-- Import reset to normalize values for CSS properties -->
-    <m-semantic-ui-reset></m-semantic-ui-reset>
+    <m-semantic-ui-reset />
     <!-- Import local hosted lato font -->
-    <m-semantic-ui-lato-local></m-semantic-ui-lato-local>
+    <m-semantic-ui-lato-local />
+    <!-- Import local hosted Semantic UI icons (not needed when you only use Font Awesome) -->
+    <m-semantic-ui-icons-local />
 </m-semantic-ui-theme>
 ```
 
-As alternative for <m-semantic-ui-theme>, you can use a CDN
+`<m-semantic-ui-theme dark>` switches the components to their inverted variants, `<m-semantic-ui-theme auto>` follows the
+dark mode setting of the operating system.
 
-```
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-```
-
-Or install via [Semantic Docs](https://semantic-ui.com/introduction/getting-started.html)
+The theme is Semantic UI 2.5.0 compiled from its LESS sources, plus the adjustments the mantic components need (icons
+rendered by `m-icon`, Font Awesome support, the check mark of `m-checkbox`). The plain Semantic UI CSS from a CDN lacks
+those, so icons in buttons and inputs and the check mark of a checkbox are not styled with it.
 
 ### Configure package assets usage
 

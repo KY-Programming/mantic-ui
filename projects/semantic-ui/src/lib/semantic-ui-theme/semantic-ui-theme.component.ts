@@ -16,6 +16,6 @@ export class SemanticUiThemeComponent {
     public readonly dark = computed(() => this.auto() ? this.themeService.prefersDark() : this.darkInput());
 
     public constructor() {
-        this.themeService.setVersion('2.4.2');
+        this.themeService.setVersion('2.5.0');
     }
 }

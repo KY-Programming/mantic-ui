@@ -1,0 +1,6 @@
+/*******************************
+         Theme Overrides
+*******************************/
+
+// Intentionally empty: replaces the default theme's overrides, which only declare the embedded 'Accordion' icon font.
+// The dropdown icon of a title is drawn by the regular icon font.

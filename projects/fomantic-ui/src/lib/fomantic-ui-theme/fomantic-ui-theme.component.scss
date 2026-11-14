@@ -1,0 +1,5 @@
+@use '../styles/all' as styles;
+// mantic's own additions and fixes on top of the UI framework (classes like no-padding, m-tab-group, inverted fallbacks)
+// are shared with the Semantic UI theme. Sass inlines them at build time, the package does not depend on the other one.
+@use '../../../../semantic-ui/src/lib/styles/components/circular-progress';
+@use '../../../../semantic-ui/src/lib/styles/overrides/all' as overrides;

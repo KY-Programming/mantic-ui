@@ -1,11 +1,43 @@
-<app-header header="Getting Started" subHeader="Getting up and running with Fomantic UI for Angular"></app-header>
+<app-header header="Getting Started" subHeader="Getting up and running with Fomantic UI for Angular" />
 
-<h2 m-header dividing>Installing</h2>
-<m-segment>
-    <pre><code class="code">npm i &#64;mantic-ui/angular &#64;mantic-ui/fomantic-ui-angular</code></pre>
-</m-segment>
+<m-tab-group secondary pointing class="page" selectByRoute>
+    <m-tab label="Installing">
+        <p>Install base package for angular
+            <m-npm package="@mantic-ui/angular"></m-npm>
+            and Fomantic UI theme
+            <m-npm package="@mantic-ui/fomantic-ui-angular"></m-npm>
+        </p>
+        <m-npm-install package="@mantic-ui/angular @mantic-ui/fomantic-ui-angular"></m-npm-install>
+        <h3>Import the theme components in your AppComponent</h3>
+        <p>All components are standalone, import them where you use them.</p>
+        <m-example-code label="app.component.ts" [code]="appComponentCode" [languages]="['ts']"></m-example-code>
+        <h3>Apply the style in your AppComponent</h3>
+        <m-example-code label="app.component.html" [code]="appComponentHtml" [languages]="['html']"></m-example-code>
+        <p>
+            <code>&lt;m-fomantic-ui-theme dark&gt;</code> switches the components to their inverted variants,
+            <code>&lt;m-fomantic-ui-theme auto&gt;</code> follows the dark mode setting of the operating system.
+        </p>
+        <p>
+            The theme is Fomantic UI 2.9.4 compiled from its LESS sources, plus the adjustments the mantic components need
+            (icons rendered by <code>m-icon</code>, Font Awesome support, the check mark of <code>m-checkbox</code>).
+            The plain Fomantic UI CSS from a CDN lacks those.
+        </p>
+        <h3>Configure package assets usage</h3>
+        <m-example-code label="angular.json" [code]="angularJson" [languages]="['json']"></m-example-code>
 
-<h2 m-header dividing>Work-in-progress</h2>
-<m-info>Currently we are not yet done. So please do not expect a perfect framework.</m-info>
-<p>If you have a issue, look in our <a href="https://github.com/KY-Programming/mantic-ui/issues">issue tracker on github</a></p>
-<p>To support us fork our <a href="https://github.com/KY-Programming/mantic-ui">github repository</a></p>
+        <h2 m-header dividing>Work-in-progress</h2>
+        <m-info>Currently we are not yet done. So please do not expect a perfect framework.</m-info>
+        <p>If you have a issue, look in our
+            <a href="https://github.com/KY-Programming/mantic-ui/issues">issue tracker on github</a>
+        </p>
+        <p>To support us fork our
+            <a href="https://github.com/KY-Programming/mantic-ui">github repository</a>
+        </p>
+        <p>
+            <a href="https://support.ky-programming.de">Direct contact</a> (German, English) via
+            <a href="https://email.support.ky-programming.de">email</a>,
+            <a href="https://whatsapp.support.ky-programming.de">WhatsApp</a> or join our
+            <a href="https://discord.mantic-ui.ky-programming.de">Discord server</a>
+        </p>
+    </m-tab>
+</m-tab-group>

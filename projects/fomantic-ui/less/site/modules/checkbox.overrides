@@ -1,0 +1,64 @@
+/*******************************
+         Site Overrides
+*******************************/
+
+// m-checkbox draws its check mark as an <m-icon class="icon"> inside the label instead of the label's ::after with an
+// icon font (themes/mantic drops that font). The icon gets the rules of the ::after it replaces. :extend adds the
+// selectors to the original rules in place, so the cascade order and the values stay exactly those of the definition.
+// The icon only exists while the box is checked or indeterminate, so the slider and toggle rules of the checked state
+// do not need the :checked part.
+
+.ui.checkbox label > .icon {
+    &:extend(.ui.checkbox label::after);
+}
+
+.ui.checkbox input:focus ~ label > .icon {
+    &:extend(.ui.checkbox input:focus ~ label::after);
+}
+
+.ui.checkbox input:checked ~ label > .icon {
+    &:extend(.ui.checkbox input:checked ~ label::after);
+}
+
+.ui.checkbox input:not([type="radio"]):indeterminate ~ label > .icon {
+    &:extend(.ui.checkbox input:not([type="radio"]):indeterminate ~ label::after);
+}
+
+.ui.checkbox input:not([type="radio"]):indeterminate:focus ~ label > .icon,
+.ui.checkbox input:checked:focus ~ label > .icon {
+    &:extend(.ui.checkbox input:checked:focus ~ label::after);
+}
+
+/* Radio */
+.ui.radio.checkbox label > .icon {
+    &:extend(.ui.radio.checkbox label::after);
+}
+
+.ui.radio.checkbox input:focus ~ label > .icon {
+    &:extend(.ui.radio.checkbox input:focus ~ label::after);
+}
+
+.ui.radio.checkbox input:indeterminate ~ label > .icon {
+    &:extend(.ui.radio.checkbox input:indeterminate ~ label::after);
+}
+
+.ui.radio.checkbox input:checked ~ label > .icon {
+    &:extend(.ui.radio.checkbox input:checked ~ label::after);
+}
+
+.ui.radio.checkbox input:focus:checked ~ label > .icon {
+    &:extend(.ui.radio.checkbox input:focus:checked ~ label::after);
+}
+
+/* Slider */
+.ui.slider.checkbox label > .icon {
+    &:extend(.ui.slider.checkbox label::after);
+    &:extend(.ui.slider.checkbox input:checked ~ label::after);
+}
+
+/* Toggle */
+.ui.toggle.checkbox label > .icon {
+    &:extend(.ui.toggle.checkbox label::after);
+    &:extend(.ui.toggle.checkbox input ~ label::after);
+    &:extend(.ui.toggle.checkbox input:checked ~ label::after);
+}

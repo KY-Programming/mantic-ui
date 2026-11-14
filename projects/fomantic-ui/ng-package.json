@@ -5,6 +5,11 @@
     "entryFile": "src/public-api.ts"
   },
   "assets": [
-      "./assets"
+    "./assets",
+    {
+      "input": "src/lib/styles",
+      "glob": "**/*",
+      "output": "styles"
+    }
   ]
 }

@@ -1,0 +1,65 @@
+/*******************************
+         Site Overrides
+*******************************/
+
+// m-icon renders the icon one level deeper than Semantic UI expects, as <m-icon><i class="icon"> or
+// <m-icon><fa-icon> (Font Awesome). :extend adds these selectors to the original rules in place, so the cascade order
+// and the values stay exactly those of the definition.
+
+.ui.loading.loading.input > m-icon > i:before,
+.ui.loading.loading.input > m-icon > fa-icon svg {
+  &:extend(.ui.loading.loading.input > i.icon:before);
+}
+
+.ui.loading.loading.input > m-icon > i:after {
+  &:extend(.ui.loading.loading.input > i.icon:after);
+}
+
+.ui.transparent.icon.input > m-icon > i,
+.ui.transparent.icon.input > m-icon > fa-icon {
+  &:extend(.ui.transparent.icon.input > i.icon);
+}
+
+.ui.icon.input > m-icon > i,
+.ui.icon.input > m-icon > fa-icon {
+  &:extend(.ui.icon.input > i.icon);
+}
+
+.ui.icon.input > m-icon > i:not(.link),
+.ui.icon.input > m-icon > fa-icon:not(.link) {
+  &:extend(.ui.icon.input > i.icon:not(.link));
+}
+
+.ui.icon.input > m-icon > i:before,
+.ui.icon.input > m-icon > i:after,
+.ui.icon.input > m-icon > fa-icon svg {
+  &:extend(.ui.icon.input > i.icon:before);
+}
+
+.ui.icon.input > m-icon > i.link,
+.ui.icon.input > m-icon > fa-icon.link {
+  &:extend(.ui.icon.input > i.link.icon);
+}
+
+.ui.icon.input > m-icon > i.circular,
+.ui.icon.input > m-icon > fa-icon.circular {
+  &:extend(.ui.icon.input > i.circular.icon);
+}
+
+.ui[class*="left icon"].input > m-icon > i,
+.ui[class*="left icon"].input > m-icon > fa-icon {
+  &:extend(.ui[class*="left icon"].input > i.icon);
+}
+
+.ui[class*="left icon"].input > m-icon > i.circular,
+.ui[class*="left icon"].input > m-icon > fa-icon.circular {
+  &:extend(.ui[class*="left icon"].input > i.circular.icon);
+}
+
+.ui[class*="corner labeled"].icon.input:not([class*="left corner labeled"]) > m-icon > * {
+  &:extend(.ui[class*="corner labeled"].icon.input:not([class*="left corner labeled"]) > .icon);
+}
+
+.ui[class*="left corner labeled"].icon.input > m-icon > * {
+  &:extend(.ui[class*="left corner labeled"].icon.input > .icon);
+}

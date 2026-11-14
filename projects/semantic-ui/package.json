@@ -2,10 +2,6 @@
   "name": "@mantic-ui/semantic-ui-angular",
   "version": "22.12.0",
   "description": "Semantic UI theme for mantic UI Angular components. Requires @mantic-ui/angular",
-  "scripts": {
-    "postbuild": "npm run copy-styles",
-    "copy-styles": "xcopy /Y /S  src\\lib\\styles\\ ..\\..\\dist\\semantic-ui\\styles\\"
-  },
   "keywords": [
     "mantic-ui",
     "mantic UI",

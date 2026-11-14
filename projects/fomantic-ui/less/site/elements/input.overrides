@@ -1,0 +1,51 @@
+/*******************************
+         Site Overrides
+*******************************/
+
+// m-icon renders the icon one level deeper than Fomantic UI expects, as <m-icon><i class="icon"> or
+// <m-icon><fa-icon> (Font Awesome). :extend adds these selectors to the original rules in place, so the cascade order
+// and the values stay exactly those of the definition. Rules with an interpolated selector (@{notLink}) cannot be
+// extended, they are repeated instead.
+
+.ui.ui.loading.input > m-icon > i::before,
+.ui.ui.loading.input > m-icon > fa-icon svg {
+    &:extend(.ui.ui.loading.input > i.icon::before);
+}
+
+.ui.ui.loading.input > m-icon > i::after {
+    &:extend(.ui.ui.loading.input > i.icon::after);
+}
+
+:not(.field) > .ui.transparent.icon.input > m-icon > i,
+:not(.field) > .ui.transparent.icon.input > m-icon > fa-icon {
+    &:extend(:not(.field) > .ui.transparent.icon.input > i.icon);
+}
+
+.ui.icon.input > m-icon > i,
+.ui.icon.input > m-icon > fa-icon {
+    &:extend(.ui.icon.input > i.icon);
+}
+
+.ui.icon.input > m-icon > i@{notLink},
+.ui.icon.input > m-icon > fa-icon@{notLink} {
+    pointer-events: none;
+}
+
+.ui.icon.input > m-icon > i::before,
+.ui.icon.input > m-icon > i::after,
+.ui.icon.input > m-icon > fa-icon svg {
+    &:extend(.ui.icon.input > i.icon::before);
+}
+
+.ui[class*="left icon"].input > m-icon > i,
+.ui[class*="left icon"].input > m-icon > fa-icon {
+    &:extend(.ui[class*="left icon"].input > i.icon);
+}
+
+.ui[class*="corner labeled"].icon.input:not([class*="left corner labeled"]) > m-icon > * {
+    &:extend(.ui[class*="corner labeled"].icon.input:not([class*="left corner labeled"]) > i.icon);
+}
+
+.ui[class*="left corner labeled"].icon.input > m-icon > * {
+    &:extend(.ui[class*="left corner labeled"].icon.input > i.icon);
+}

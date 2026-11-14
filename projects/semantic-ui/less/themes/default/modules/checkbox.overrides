@@ -1,0 +1,6 @@
+/*******************************
+         Theme Overrides
+*******************************/
+
+// Intentionally empty: replaces the default theme's overrides, which draw the check mark with the embedded 'Checkbox'
+// icon font. m-checkbox renders its check mark as an m-icon instead, see site/modules/checkbox.overrides.

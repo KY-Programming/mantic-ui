@@ -1,0 +1,8 @@
+/*******************************
+     User Global Variables
+*******************************/
+
+// The flag sprite is loaded from the app: the theme assets are copied to /assets/ of the app (see the README)
+@imagePath : '/assets/themes/default/assets/images';
+// Only used by the icon fonts, which go to m-semantic-ui-icons-local: relative to that component, so ng-packagr inlines them
+@fontPath  : '../../../assets/themes/default/assets/fonts';

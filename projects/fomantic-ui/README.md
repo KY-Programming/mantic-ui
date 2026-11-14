@@ -1,12 +1,10 @@
 # mantic UI
 
-| [Documentation](https://mantic-ui.ky-programming.de/semantic) | [Github Repository](https://github.com/KY-Programming/mantic-ui) | [Support](https://support.ky-programming.de/) |
+| [Documentation](https://mantic-ui.ky-programming.de/fomantic) | [Github Repository](https://github.com/KY-Programming/mantic-ui) | [Support](https://support.ky-programming.de/) |
 
 [Fomantic UI](https://fomantic-ui.com/) theme for [mantic UI](https://www.npmjs.com/package/@mantic-ui/angular) Angular components
 
 Requires [@mantic-ui/angular](https://www.npmjs.com/package/@mantic-ui/angular)
-
-## !!! This theme is currently not yet fully implemented and tested, and probably contains some bugs. So please use the [Semantic UI Theme](https://www.npmjs.com/package/@mantic-ui/semantic-ui-angular) !!!
 
 ## Example
 
@@ -31,44 +29,46 @@ Install base package for angular and Fomantic UI theme
 npm i @mantic-ui/angular @mantic-ui/fomantic-ui-angular 
 ```
 
-### Import theme in AppModule
+### Import the theme components in your AppComponent
 
-app.module.ts
+All components are standalone, import them where you use them.
+
+app.component.ts
 
 ```
-import { FomanticUiModule } from '@mantic-ui/fomantic-ui-angular';
+import { FomanticUiIconsLocalComponent, FomanticUiLatoLocalComponent, FomanticUiResetComponent, FomanticUiSiteComponent, FomanticUiThemeComponent } from '@mantic-ui/fomantic-ui-angular';
 
-@NgModule({
-  imports: [
-    ...
-    FomanticUiModule
-  ]
+@Component({
+    selector: 'app-root',
+    imports: [FomanticUiThemeComponent, FomanticUiSiteComponent, FomanticUiResetComponent, FomanticUiLatoLocalComponent, FomanticUiIconsLocalComponent],
+    templateUrl: './app.component.html'
 })
-export class AppModule { }
+export class AppComponent {}
 ```
 
-### Apply style in AppComponent
+### Apply the style in your AppComponent
 
 app.component.html
 
 ```
 <m-fomantic-ui-theme>
     <!-- Import common styles for site -->
-    <m-fomantic-ui-site></m-fomantic-ui-site>
+    <m-fomantic-ui-site />
     <!-- Import reset to normalize values for CSS properties -->
-    <m-fomantic-ui-reset></m-fomantic-ui-reset>
+    <m-fomantic-ui-reset />
     <!-- Import local hosted lato font -->
-    <m-fomantic-ui-lato-local></m-fomantic-ui-lato-local>
+    <m-fomantic-ui-lato-local />
+    <!-- Import local hosted Fomantic UI icons (not needed when you only use Font Awesome) -->
+    <m-fomantic-ui-icons-local />
 </m-fomantic-ui-theme>
 ```
 
-As alternative for <m-fomantic-ui-theme>, you can use a CDN
+`<m-fomantic-ui-theme dark>` switches the components to their inverted variants, `<m-fomantic-ui-theme auto>` follows the
+dark mode setting of the operating system.
 
-```
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.4.2/dist/fomantic.min.css">
-```
-
-Or install via [Fomantic Docs](https://fomantic-ui.com/introduction/getting-started.html)
+The theme is Fomantic UI 2.9.4 compiled from its LESS sources, plus the adjustments the mantic components need (icons
+rendered by `m-icon`, Font Awesome support, the check mark of `m-checkbox`). The plain Fomantic UI CSS from a CDN lacks
+those, so icons in buttons and inputs and the check mark of a checkbox are not styled with it.
 
 ### Configure package assets usage
 

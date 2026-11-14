@@ -8,14 +8,19 @@
             <m-npm package="@mantic-ui/semantic-ui-angular"></m-npm>
         </p>
         <m-npm-install package="@mantic-ui/angular @mantic-ui/semantic-ui-angular"></m-npm-install>
-        <h3>Import theme in AppModule</h3>
-        <m-example-code label="app.module.ts" [code]="appModuleCode" [languages]="['ts']"></m-example-code>
-        <h3>Apply style in AppComponent</h3>
+        <h3>Import the theme components in your AppComponent</h3>
+        <p>All components are standalone, import them where you use them.</p>
+        <m-example-code label="app.component.ts" [code]="appComponentCode" [languages]="['ts']"></m-example-code>
+        <h3>Apply the style in your AppComponent</h3>
         <m-example-code label="app.component.html" [code]="appComponentHtml" [languages]="['html']"></m-example-code>
-        <p>As alternative for &lt;m-semantic-ui-theme&gt;, you can use a CDN</p>
-        <m-example-code [code]="code"></m-example-code>
-        <p>Or install via
-            <a href="https://semantic-ui.com/introduction/getting-started.html">Semantic Docs</a>
+        <p>
+            <code>&lt;m-semantic-ui-theme dark&gt;</code> switches the components to their inverted variants,
+            <code>&lt;m-semantic-ui-theme auto&gt;</code> follows the dark mode setting of the operating system.
+        </p>
+        <p>
+            The theme is Semantic UI 2.5.0 compiled from its LESS sources, plus the adjustments the mantic components need
+            (icons rendered by <code>m-icon</code>, Font Awesome support, the check mark of <code>m-checkbox</code>).
+            The plain Semantic UI CSS from a CDN lacks those.
         </p>
         <h3>Configure package assets usage</h3>
         <m-example-code label="angular.json" [code]="angularJson" [languages]="['json']"></m-example-code>

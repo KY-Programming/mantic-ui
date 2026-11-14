@@ -1,17 +1,12 @@
-
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ButtonComponent, ButtonDirective, FillDirective, FlexComponent, ModalComponent, ModalFooterComponent, NotificationComponent } from '@mantic-ui/angular';
-import { FomanticUiThemeComponent } from '@mantic-ui/fomantic-ui-angular';
-import { SemanticUiIconsLocalComponent, SemanticUiLatoLocalComponent, SemanticUiResetComponent, SemanticUiSiteComponent } from '@mantic-ui/semantic-ui-angular';
+import { FillDirective, FlexComponent, NotificationComponent } from '@mantic-ui/angular';
+import { FomanticUiIconsLocalComponent, FomanticUiLatoLocalComponent, FomanticUiResetComponent, FomanticUiSiteComponent, FomanticUiThemeComponent } from '@mantic-ui/fomantic-ui-angular';
 
 @Component({
     selector: 'app-fomantic-layout',
-    imports: [FlexComponent, FillDirective, RouterOutlet, ModalComponent, ModalFooterComponent, ButtonComponent, ButtonDirective, FomanticUiThemeComponent, SemanticUiSiteComponent, SemanticUiResetComponent, SemanticUiLatoLocalComponent, SemanticUiIconsLocalComponent, NotificationComponent],
+    imports: [FlexComponent, FillDirective, RouterOutlet, FomanticUiThemeComponent, FomanticUiSiteComponent, FomanticUiResetComponent, FomanticUiLatoLocalComponent, FomanticUiIconsLocalComponent, NotificationComponent],
     templateUrl: './layout.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./layout.component.scss']
 })
-export class FomanticLayoutComponent {
-    public showThemeWarning = true;
-}
+export class FomanticLayoutComponent {}

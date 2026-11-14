@@ -1,0 +1,8 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+
+// less 3+ no longer evaluates operations inside calc(), so the default definition writes the negated (already
+// negative) margin as "--0.05rem", which is invalid. Negate it outside of calc(), like less 2 did.
+@ribbonImageNegatedMargin: -@ribbonImageMargin;
+@ribbonImageOffset: calc(@ribbonImageNegatedMargin - @ribbonTriangleSize);
