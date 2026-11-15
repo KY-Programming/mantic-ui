@@ -1,4 +1,4 @@
-$live-color: #DB2828;
+$live-color: var(--m-negative, #DB2828);
 $live-icon-size: 14px;
 
 :host {

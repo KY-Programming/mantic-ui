@@ -6,7 +6,8 @@ $input-size: $space-large !default;
 $chat-background: none !default;
 $chat-foreground: white !default;
 $chat-attachment-size: 64px !default;
-$chat-drop-color: #2185d0 !default;
+// The mantic theme's primary color when it is loaded, Semantic's blue otherwise
+$chat-drop-color: var(--m-primary, #2185d0) !default;
 
 :host {
     display: flex;
@@ -122,6 +123,6 @@ $chat-drop-color: #2185d0 !default;
     inset: 0;
     border: 2px dashed $chat-drop-color;
     border-radius: $space-tiny;
-    background-color: rgba($chat-drop-color, .1);
+    background-color: color-mix(in srgb, #{$chat-drop-color} 10%, transparent);
     pointer-events: none;
 }

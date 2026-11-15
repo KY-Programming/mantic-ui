@@ -59,7 +59,7 @@ $-flat-corners: (
 
     :host(.ui.left.attached.basic.button),
     :host(.ui.right.attached.basic.button) {
-        box-shadow: inset 0 0 0 1px rgba(34, 36, 38, 0.15) !important;
+        box-shadow: inset 0 0 0 1px var(--m-border, rgba(34, 36, 38, 0.15)) !important;
     }
 
     // Only the right part of a seam moves. The left part staying put is what keeps the overlap at 1px: with a margin on

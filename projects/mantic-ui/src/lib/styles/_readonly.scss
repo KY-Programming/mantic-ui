@@ -1,6 +1,7 @@
 // The look of a readonly field: a muted background and a lock at its right end. The text stays fully readable and can be
 // selected, which is what tells readonly apart from disabled.
-// Lives in the component styles, not in a theme: it has to look the same in every theme.
+// Lives in the component styles, not in a theme: it has to look the same in every theme. The color is the
+// --m-readonly-background token of the mantic theme (follows dark mode), with the Semantic values as fallback.
 
 // The themes pad icon inputs with `!important` and selectors such as `.ui.ui.ui.ui[class*="left icon"]:not(…).input > input`.
 // Repeating the class outweighs them without naming each of them.
@@ -31,12 +32,12 @@ $-lock-width: 2.5em;
 // For a component whose host is the field itself, such as a selection dropdown. The lock sits where its arrow would be.
 @mixin readonly-host {
     :host(#{$-readonly}:not(.transparent)) {
-        background-color: rgba(34, 36, 38, 0.05);
+        background-color: var(--m-readonly-background, rgba(34, 36, 38, 0.05));
         cursor: default;
     }
 
     :host(#{$-readonly}.inverted:not(.transparent)) {
-        background-color: rgba(255, 255, 255, 0.05);
+        background-color: var(--m-readonly-background, rgba(255, 255, 255, 0.05));
     }
 
     :host(#{$-lock}) {
@@ -66,13 +67,13 @@ $-lock-width: 2.5em;
 @mixin readonly($field: "> input") {
     :host(#{$-readonly}:not(.error):not(.transparent)) ::ng-deep #{$field},
     :host(#{$-readonly}:not(.error):not(.transparent)) ::ng-deep #{$field}:focus {
-        background-color: rgba(34, 36, 38, 0.05);
+        background-color: var(--m-readonly-background, rgba(34, 36, 38, 0.05));
         cursor: default;
     }
 
     :host(#{$-readonly}.inverted:not(.error):not(.transparent)) ::ng-deep #{$field},
     :host(#{$-readonly}.inverted:not(.error):not(.transparent)) ::ng-deep #{$field}:focus {
-        background-color: rgba(255, 255, 255, 0.05);
+        background-color: var(--m-readonly-background, rgba(255, 255, 255, 0.05));
     }
 
     :host(#{$-lock}) ::ng-deep #{$field} {

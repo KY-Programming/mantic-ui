@@ -10,7 +10,7 @@
 
 .preview {
     flex: 0 0 auto;
-    background-color: white;
+    background-color: var(--m-surface, white);
     margin-right: 1em;
     overflow: hidden;
 

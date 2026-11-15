@@ -2,7 +2,8 @@ $space-tiny: 5px !default;
 $space-small: 10px !default;
 $space: 20px !default;
 $space-large: 30px !default;
-$chat-message-background: rgba(0,0,0,.05) !default;
+// A tint of the text color, so it also works on a dark page (the mantic theme's --m-text, black otherwise)
+$chat-message-background: color-mix(in srgb, var(--m-text, #000) 5%, transparent) !default;
 $chat-message-foreground: inherit !default;
 $chat-message-avatar-size: 32px !default;
 $chat-message-image-height: 240px !default;

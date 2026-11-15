@@ -1,4 +1,5 @@
-$border-color: #d4d4d5;
+// The mantic theme's tokens when it is loaded (they follow dark mode), the Semantic look otherwise
+$border-color: var(--m-border, #d4d4d5);
 
 :host {
     display: flex;
@@ -32,7 +33,7 @@ p {
     top: calc(100% - 0.5em);
     background-color: transparent;
     border: none;
-    color: #000000;
+    color: var(--m-text, #000000);
     font-size: 1.5em;
     font-weight: bold;
     transform: translateY(-100%);
@@ -42,7 +43,7 @@ p {
     display: flex;
     border: 1px solid $border-color;
     border-radius: 4px;
-    background-color: #ffffff;
+    background-color: var(--m-surface, #ffffff);
     flex-direction: column;
 
     &::ng-deep {
@@ -53,7 +54,7 @@ p {
             display: none;
 
             code {
-                background-color: rgba(0, 0, 0, 0.08);
+                background-color: color-mix(in srgb, var(--m-text, #000) 8%, transparent);
                 border-radius: 3px;
                 display: inline-block;
                 font-size: 0.875em;
@@ -90,13 +91,13 @@ p {
 
 .example-box {
     .header {
-        background-color: #F8F8F8;
+        background-color: var(--m-surface-muted, #F8F8F8);
         padding: .75em 1em;
         flex: 0 0 auto;
         font-size: 0.75em;
         font-weight: bold;
         border-bottom: 1px solid $border-color;
-        color: rgba(0, 0, 0, .6);
+        color: var(--m-text-muted, rgba(0, 0, 0, .6));
     }
 }
 
