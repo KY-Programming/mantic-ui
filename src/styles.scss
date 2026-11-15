@@ -1,4 +1,4 @@
-@import '../node_modules/highlight.js/styles/github.css';
+@use 'highlight';
 
 $pageMargin: 2rem;
 
@@ -21,7 +21,7 @@ m-tab-group.page {
         z-index: 10;
         padding-left: $pageMargin;
         padding-right: $pageMargin;
-        background-color: #f2f2f2;
+        background-color: var(--m-surface-muted, #f2f2f2);
         border-radius: 0;
     }
 
@@ -44,11 +44,11 @@ m-tab-group.page {
 
         &:hover {
             m-segment[attached=top] {
-                background-color: rgba(0, 0, 0, 0.025);
+                background-color: color-mix(in srgb, var(--m-text, #000) 2.5%, transparent);
             }
 
             m-segment[attached=bottom] {
-                background-color: rgba(0, 0, 0, 0.05);
+                background-color: color-mix(in srgb, var(--m-text, #000) 5%, transparent);
             }
         }
 
@@ -65,7 +65,7 @@ m-tab-group.page {
             justify-content: center;
             align-items: center;
             height: 160px;
-            background-color: rgba(0, 0, 0, 0.05);
+            background-color: color-mix(in srgb, var(--m-text, #000) 5%, transparent);
 
             &.no-overflow {
                 overflow: hidden;
@@ -78,7 +78,7 @@ m-tab-group.page {
         }
 
         code {
-            background-color: rgba(0, 0, 0, 0.05);
+            background-color: color-mix(in srgb, var(--m-text, #000) 5%, transparent);
             padding: 0 0.25em;
             border-radius: 5px;
         }
