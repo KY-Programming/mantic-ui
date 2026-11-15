@@ -1,5 +1,7 @@
-:host {
-  display: table;
+@use "../../styles/core-layer";
+
+@include core-layer.host-defaults {
+    display: table;
 }
 
 // The host stays the table's frame (border, rounded corners, background) and the rows scroll inside it, so a wide

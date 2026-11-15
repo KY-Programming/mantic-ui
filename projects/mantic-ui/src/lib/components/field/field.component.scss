@@ -1,5 +1,7 @@
-:host {
-  display: block;
+@use "../../styles/core-layer";
+
+@include core-layer.host-defaults {
+    display: block;
 }
 
 .hint,

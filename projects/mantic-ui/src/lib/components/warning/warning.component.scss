@@ -1,7 +1,10 @@
-:host {
-  display: block;
+@use "../../styles/core-layer";
 
-  &.closed {
+@include core-layer.host-defaults {
+    display: block;
+}
+
+// Behavior, not a default: stays unlayered
+:host(.closed) {
     display: none;
-  }
 }

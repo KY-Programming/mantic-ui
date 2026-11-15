@@ -1,0 +1,16 @@
+// Host defaults a theme may override (mostly `display`), in the cascade layer `mantic.core`.
+//
+// Unlayered component styles beat every layered rule regardless of specificity. The mantic theme lives in layers, so
+// an unlayered `:host { display: block }` would override e.g. its `.ui.segments { display: flex }`. In this layer,
+// below all of the mantic theme's layers, they are only a fallback. The Semantic and Fomantic themes are unlayered
+// and win anyway, as they did by specificity before.
+//
+// Only defaults go here. Rules that carry behavior (`display: none` for a closed or hidden state) or must win over the
+// themes (the attached / readonly mixins) stay unlayered.
+@mixin host-defaults {
+    @layer mantic.core {
+        :host {
+            @content;
+        }
+    }
+}

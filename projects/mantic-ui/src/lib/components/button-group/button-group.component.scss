@@ -1,3 +1,5 @@
-:host {
-  flex-wrap: wrap;
+@use "../../styles/core-layer";
+
+@include core-layer.host-defaults {
+    flex-wrap: wrap;
 }
