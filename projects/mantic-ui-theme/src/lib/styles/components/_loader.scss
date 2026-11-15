@@ -1,0 +1,119 @@
+@use 'sass:list';
+
+// Loader (`.ui.loader`): m-loader.
+//
+// Ring and arc are drawn from currentColor, so a loader follows the text color of where it sits: dark on a light
+// surface, white in a (dark) dimmer, dark again in an inverted (light) dimmer, without rules per container.
+// A loader is hidden until it is `active` or sits in a dimmer; `inline` keeps it in the text flow.
+
+// Size of the spinner and font size of its text
+$sizes: (
+    mini: (1rem, 0.7857em),
+    tiny: (1.1429rem, 0.8571em),
+    small: (1.7143rem, 0.9286em),
+    medium: (2.2857rem, 1em),
+    large: (3.4286rem, 1.1429em),
+    big: (3.7143rem, 1.2857em),
+    huge: (4.1429rem, 1.4286em),
+    massive: (4.5714rem, 1.7143em)
+);
+
+@layer mantic.components {
+    .ui.loader {
+        --_loader-size: 2.2857rem;
+        position: absolute;
+        inset-block-start: 50%;
+        inset-inline-start: 50%;
+        z-index: 1000;
+        display: none;
+        inline-size: var(--_loader-size);
+        block-size: var(--_loader-size);
+        margin: 0;
+        translate: -50% -50%;
+        font-size: 1em;
+        text-align: center;
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            inset-block-start: 0;
+            inset-inline-start: 50%;
+            box-sizing: border-box;
+            inline-size: var(--_loader-size);
+            block-size: var(--_loader-size);
+            margin-inline-start: calc(var(--_loader-size) / -2);
+            border: 0.2em solid color-mix(in oklab, currentColor 12%, transparent);
+            border-radius: 50%;
+        }
+
+        &::after {
+            border-color: color-mix(in oklab, currentColor 55%, transparent) transparent transparent;
+            animation: m-loader-spin 0.6s linear infinite;
+        }
+    }
+
+    .ui:is(.active, .visible).loader,
+    .ui.dimmer .ui.loader {
+        display: block;
+    }
+
+    .ui:is(.disabled, .hidden).loader {
+        display: none;
+    }
+
+    // In a dimmer the arc is fully opaque, as the dimmer's veil already mutes everything around it
+    .ui.dimmer .ui.loader::after {
+        border-block-start-color: currentColor;
+    }
+
+    // Text: below the spinner
+    .ui.text.loader {
+        inline-size: auto;
+        block-size: auto;
+        min-inline-size: var(--_loader-size);
+        padding-block-start: calc(var(--_loader-size) + 0.7857rem);
+        font-style: normal;
+    }
+
+    .ui.indeterminate.loader::after {
+        animation-direction: reverse;
+        animation-duration: 1.2s;
+    }
+
+    // Inline: in the text flow instead of centered over its parent
+    .ui.inline.loader {
+        position: relative;
+        inset: auto;
+        vertical-align: middle;
+        translate: none;
+
+        &:is(.active, .visible) {
+            display: inline-block;
+        }
+
+        &.centered:is(.active, .visible) {
+            display: block;
+            margin-inline: auto;
+        }
+    }
+
+    // Inverted: sits on a dark background
+    .ui.inverted.loader {
+        color-scheme: dark;
+        color: var(--m-text);
+    }
+
+    @each $name, $values in $sizes {
+        .ui.#{$name}.loader {
+            --_loader-size: #{list.nth($values, 1)};
+            font-size: list.nth($values, 2);
+        }
+    }
+}
+
+@keyframes m-loader-spin {
+    to {
+        rotate: 360deg;
+    }
+}

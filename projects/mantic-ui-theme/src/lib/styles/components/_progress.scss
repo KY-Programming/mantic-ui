@@ -1,0 +1,209 @@
+@use 'sass:list';
+@use 'sass:map';
+@use '../palette';
+
+// Progress (`.ui.progress`): the bar markup (`.ui.progress > .bar > .progress`, `> .label`) and m-circular-progress
+// (`.ui.circular.progress`, an svg with a `.track` and a `.value` circle).
+//
+// A color or state class only sets --_progress-color; the bar and the circle's value stroke read it.
+
+$sizes: (
+    tiny: (0.8571rem, 0.5em),
+    small: (0.9286rem, 1em),
+    medium: (1rem, 1.75em),
+    large: (1.1429rem, 2.5em),
+    big: (1.2857rem, 3.5em)
+);
+
+$states: (
+    success: positive,
+    warning: warning,
+    error: negative
+);
+
+@layer mantic.components {
+    .ui.progress:not(.circular) {
+        --_progress-height: 1.75em;
+        position: relative;
+        display: block;
+        max-inline-size: 100%;
+        margin-block: 1em 2.5em;
+        padding: 0;
+        border: none;
+        border-radius: var(--m-radius);
+        background: color-mix(in oklab, var(--m-text) 10%, transparent);
+        box-shadow: none;
+
+        &:first-child {
+            margin-block-start: 0;
+        }
+
+        &:last-child {
+            margin-block-end: 1.5em;
+        }
+
+        .bar {
+            position: relative;
+            display: block;
+            inline-size: 0%;
+            min-inline-size: 2em;
+            block-size: var(--_progress-height);
+            border-radius: var(--m-radius);
+            background: var(--_progress-color, var(--m-color-grey));
+            line-height: 1;
+            transition: inline-size var(--m-duration) var(--m-easing), background-color var(--m-duration) var(--m-easing);
+
+            // The percentage inside the bar, at its end
+            > .progress {
+                position: absolute;
+                inset-block-start: 50%;
+                inset-inline-end: 0.5em;
+                translate: 0 -50%;
+                // Readable on whatever color the bar has (the same rule as the theme's `-on` tokens)
+                color: oklch(from var(--_progress-color, var(--m-color-grey)) clamp(0, (var(--m-on-threshold) - l) * 1000, 1) 0 0 / 70%);
+                font-size: 0.9286em;
+                font-weight: var(--m-font-weight-bold);
+                white-space: nowrap;
+            }
+        }
+
+        // The label below the bar
+        > .label {
+            position: absolute;
+            inset-block-start: 100%;
+            inset-inline-start: 0;
+            inline-size: 100%;
+            margin-block-start: 0.2em;
+            color: var(--_progress-text, var(--m-text));
+            font-size: 1em;
+            font-weight: var(--m-font-weight-bold);
+            text-align: center;
+            transition: color calc(var(--m-duration) * 4) var(--m-easing);
+        }
+    }
+
+    // Active: a shine running along the bar
+    .ui.active.progress:not(.circular) .bar::after {
+        content: '';
+        position: absolute;
+        inset-block: 0;
+        inset-inline-start: 0;
+        border-radius: inherit;
+        background: var(--m-color-white);
+        animation: m-progress-active 2s ease infinite;
+    }
+
+    .ui.progress:is(.success, .warning, .error) .bar::after,
+    .ui.disabled.progress .bar::after {
+        animation: none;
+    }
+
+    .ui.disabled.progress {
+        opacity: 0.35;
+    }
+
+    // Indicating: the bar turns from red to green as it fills (by the `data-percent` attribute, as Semantic UI)
+    .ui.indicating.progress {
+        --_progress-color: var(--m-negative);
+
+        &:is([data-percent^="3"], [data-percent^="4"], [data-percent^="5"], [data-percent^="6"]) {
+            --_progress-color: var(--m-warning);
+        }
+
+        &:is([data-percent^="7"], [data-percent^="8"]) {
+            --_progress-color: var(--m-color-olive);
+        }
+
+        &:is([data-percent^="9"], [data-percent="100"]) {
+            --_progress-color: var(--m-positive);
+        }
+
+        &:is([data-percent="3"], [data-percent="4"], [data-percent="5"], [data-percent="6"], [data-percent="7"], [data-percent="8"], [data-percent="9"]) {
+            --_progress-color: var(--m-negative);
+        }
+    }
+
+    // Attached: a thin line at the top or bottom edge of its parent
+    .ui.attached.progress:not(.circular) {
+        --_progress-height: 0.2rem;
+        position: relative;
+        margin: 0;
+        border: none;
+        background: transparent;
+
+        .bar {
+            min-inline-size: 0;
+            border-radius: 0;
+        }
+    }
+
+    .ui.bottom.attached.progress:not(.circular) {
+        position: absolute;
+        inset-block-end: 0;
+        inset-inline: 0;
+    }
+
+    .ui.top.attached.progress:not(.circular) {
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline: 0;
+    }
+
+    // Circular (m-circular-progress): the svg strokes. The core sets the geometry and a gray stroke as attributes.
+    .ui.circular.progress {
+        background: none;
+
+        .track {
+            stroke: color-mix(in oklab, var(--m-text) 10%, transparent);
+        }
+
+        .value {
+            stroke: var(--_progress-color, var(--m-color-grey));
+            transition: stroke-dashoffset var(--m-duration) var(--m-easing), stroke var(--m-duration) var(--m-easing);
+        }
+    }
+
+    // Colors and states
+    @each $state, $role in $states {
+        .ui.#{$state}.progress {
+            --_progress-color: var(--m-#{$role});
+            --_progress-text: color-mix(in oklab, var(--m-#{$role}), var(--m-shade) 50%);
+        }
+    }
+
+    @each $name, $values in palette.$colors {
+        .ui.#{$name}.progress {
+            --_progress-color: var(--m-color-#{$name});
+        }
+    }
+
+    @each $role in map.keys(palette.$roles) {
+        .ui.#{$role}.progress {
+            --_progress-color: var(--m-#{$role});
+        }
+    }
+
+    // Inverted: sits on a dark background
+    .ui.inverted.progress {
+        color-scheme: dark;
+    }
+
+    @each $name, $values in $sizes {
+        .ui.#{$name}.progress:not(.circular) {
+            --_progress-height: #{list.nth($values, 2)};
+            font-size: list.nth($values, 1);
+        }
+    }
+}
+
+@keyframes m-progress-active {
+    from {
+        inline-size: 0;
+        opacity: 0.3;
+    }
+
+    to {
+        inline-size: 100%;
+        opacity: 0;
+    }
+}

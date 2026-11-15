@@ -1,0 +1,5 @@
+// Cascade layer order of the mantic theme. Everything the theme ships lives in one of these layers, so any unlayered
+// app style wins without !important or specificity games. `mantic.core` holds the host defaults of the core components
+// (see the core's styles/_core-layer.scss) and must stay the lowest. `mantic.preset` is the slot for a preset on top of the
+// theme (tokens and component tweaks, e.g. @ky/mantic's ky-ui preset): above the theme, below the app.
+@layer mantic.core, mantic.reset, mantic.tokens, mantic.base, mantic.components, mantic.preset;

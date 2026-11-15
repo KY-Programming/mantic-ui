@@ -1,0 +1,177 @@
+@use 'sass:map';
+@use '../palette';
+
+// Only the icon elements: `.icon` alone would also match the components that take an `icon` class (`.ui.icon.button`,
+// `.ui.icon.input`, …).
+$icon: ':is(i, fa-icon).icon';
+
+// Icons come in two shapes: <i class="icon name"> for the icon font (glyphs in m-mantic-icons-local) and
+// <fa-icon class="icon"> for Font Awesome, whose own stylesheet sizes and aligns the svg. The font icon gets the
+// fixed 1.18em × 1em box of Semantic UI; the Font Awesome host only gets the same width and spacing, so both line up.
+@layer mantic.components {
+    :where(i, fa-icon).icon {
+        display: inline-block;
+        min-inline-size: 1.18em;
+        margin-inline: 0 0.25rem;
+        text-align: center;
+        text-decoration: inherit;
+    }
+
+    i.icon {
+        inline-size: 1.18em;
+        block-size: 1em;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        speak: never;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        backface-visibility: hidden;
+    }
+
+    // Sizes (Font Awesome sizes are set on the svg by m-icon)
+    i.icon {
+        &.mini {
+            font-size: 0.4em;
+        }
+
+        &.tiny {
+            font-size: 0.5em;
+        }
+
+        &.small {
+            font-size: 0.75em;
+        }
+
+        &:is(.large, .big, .huge, .massive) {
+            vertical-align: middle;
+        }
+
+        &.large {
+            font-size: 1.5em;
+        }
+
+        &.big {
+            font-size: 2em;
+        }
+
+        &.huge {
+            font-size: 4em;
+        }
+
+        &.massive {
+            font-size: 8em;
+        }
+    }
+
+    // States
+    #{$icon} {
+        &.fitted {
+            inline-size: auto;
+            min-inline-size: 0;
+            margin: 0;
+        }
+
+        &.disabled {
+            opacity: var(--m-disabled-opacity);
+            cursor: default;
+            pointer-events: none;
+        }
+
+        &.link {
+            opacity: 0.8;
+            cursor: pointer;
+            transition: opacity var(--m-duration) var(--m-easing);
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        &.loading {
+            animation: m-icon-spin 2s linear infinite;
+        }
+
+        // Individual transform properties, so flip and rotation combine without extra rules
+        &.flipped,
+        &.horizontally.flipped {
+            scale: -1 1;
+        }
+
+        &.vertically.flipped {
+            scale: 1 -1;
+        }
+
+        &.rotated,
+        &.right.rotated,
+        &.clockwise.rotated {
+            rotate: 90deg;
+        }
+
+        &.left.rotated,
+        &.counterclockwise.rotated {
+            rotate: -90deg;
+        }
+
+        &.halfway.rotated {
+            rotate: 180deg;
+        }
+    }
+
+    // Circular and bordered: the icon in a 2em circle or square
+    #{$icon}:is(.circular, .bordered) {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        inline-size: 2em;
+        block-size: 2em;
+        box-shadow: inset 0 0 0 0.1em var(--m-icon-ring, var(--m-border));
+    }
+
+    #{$icon}.circular {
+        border-radius: var(--m-radius-pill);
+    }
+
+    // Inverted: the icon sits on a dark background, so it uses the dark variants of all tokens
+    #{$icon}.inverted {
+        color-scheme: dark;
+        color: var(--m-text);
+
+        &:is(.circular, .bordered) {
+            background-color: var(--m-color-black);
+            color: var(--m-color-white);
+            box-shadow: none;
+        }
+    }
+
+    // Colors
+    @each $name, $values in palette.$colors {
+        #{$icon}.#{$name} {
+            --m-icon-ring: currentColor;
+            color: var(--m-color-#{$name});
+
+            &.inverted:is(.circular, .bordered) {
+                background-color: var(--m-color-#{$name});
+                color: var(--m-color-#{$name}-on);
+            }
+        }
+    }
+
+    @each $role in map.keys(palette.$roles) {
+        #{$icon}.#{$role} {
+            --m-icon-ring: currentColor;
+            color: var(--m-#{$role});
+
+            &.inverted:is(.circular, .bordered) {
+                background-color: var(--m-#{$role});
+                color: var(--m-#{$role}-on);
+            }
+        }
+    }
+}
+
+@keyframes m-icon-spin {
+    to {
+        rotate: 360deg;
+    }
+}

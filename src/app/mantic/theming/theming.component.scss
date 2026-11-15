@@ -1,0 +1,172 @@
+// The playground is styled with the tokens it edits, so it reacts to them as well.
+.page {
+    display: grid;
+    grid-template-columns: minmax(16rem, 22rem) 1fr;
+    gap: 1.5rem;
+    padding: 1rem 2rem;
+    align-items: start;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    grid-row: span 2;
+
+    fieldset {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        margin: 0;
+        padding: 0.5rem 0.75rem 0.75rem;
+        border: var(--m-border-width) solid var(--m-border);
+        border-radius: var(--m-radius);
+    }
+
+    legend {
+        padding-inline: 0.25rem;
+        font-weight: var(--m-font-weight-bold);
+    }
+
+    .range {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        column-gap: 0.5rem;
+
+        input {
+            grid-column: 1;
+        }
+
+        output {
+            grid-column: 2;
+            min-width: 4em;
+            text-align: end;
+            color: var(--m-text-muted);
+        }
+    }
+
+    .color {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .reset {
+        align-self: start;
+        padding: calc(0.6em * var(--m-density)) calc(1.4em * var(--m-density));
+        border: 0;
+        border-radius: var(--m-radius);
+        background: var(--m-neutral);
+        color: var(--m-neutral-on);
+        font: inherit;
+        cursor: pointer;
+        transition: background-color var(--m-duration) var(--m-easing);
+
+        &:hover {
+            background: var(--m-neutral-hover);
+        }
+
+        &:active {
+            background: var(--m-neutral-active);
+        }
+    }
+
+    .hint {
+        color: var(--m-text-muted);
+    }
+}
+
+.preview {
+    padding: 1rem;
+    border-radius: var(--m-radius-large);
+    background: var(--m-background);
+    color: var(--m-text);
+
+    h3:first-child {
+        margin-top: 0;
+    }
+}
+
+.swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+    gap: 0.75rem;
+}
+
+.swatch {
+    overflow: hidden;
+    border-radius: var(--m-radius);
+    box-shadow: var(--m-shadow);
+
+    .base {
+        padding: calc(1em * var(--m-density)) calc(0.75em * var(--m-density));
+        font-weight: var(--m-font-weight-bold);
+    }
+
+    .variants {
+        display: flex;
+
+        span {
+            flex: 1;
+            height: 1.25rem;
+        }
+    }
+}
+
+.surfaces {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1rem;
+}
+
+.card {
+    padding: calc(1em * var(--m-density));
+    border: var(--m-border-width) solid var(--m-border);
+    border-radius: var(--m-radius);
+    background: var(--m-surface);
+    box-shadow: var(--m-shadow-raised);
+
+    &.muted-surface {
+        background: var(--m-surface-muted);
+    }
+
+    .muted {
+        color: var(--m-text-muted);
+    }
+
+    a {
+        color: var(--m-link);
+
+        &:hover {
+            color: var(--m-link-hover);
+        }
+    }
+}
+
+.radii {
+    display: flex;
+    gap: 0.75rem;
+
+    span {
+        width: 3rem;
+        height: 2rem;
+        border-radius: var(--m-radius);
+        background: var(--m-primary);
+
+        &.small {
+            border-radius: var(--m-radius-small);
+        }
+
+        &.large {
+            border-radius: var(--m-radius-large);
+        }
+    }
+}
+
+.code pre {
+    margin: 0;
+    padding: 0.75rem 1rem;
+    border-radius: var(--m-radius);
+    background: var(--m-surface-muted);
+    font-family: var(--m-font-family-mono);
+}

@@ -1,0 +1,255 @@
+@use 'sass:map';
+@use '../palette';
+
+// Segment and segment group (`.ui.segment`, `.ui.segments`).
+// Public component tokens (optional): --m-segment-padding, --m-segment-radius.
+
+@layer mantic.components {
+    .ui.segment {
+        --_segment-radius: var(--m-segment-radius, var(--m-radius));
+        position: relative;
+        margin-block: 1rem;
+        padding: calc(var(--m-segment-padding, 1em) * var(--m-density));
+        border: var(--m-border-width) solid var(--m-border);
+        border-radius: var(--_segment-radius);
+        background: var(--m-surface);
+        color: var(--m-text);
+        box-shadow: var(--m-shadow);
+
+        &:first-child {
+            margin-block-start: 0;
+        }
+
+        &:last-child {
+            margin-block-end: 0;
+        }
+
+        &.no-padding {
+            padding: 0;
+        }
+
+        &.no-margin {
+            margin: 0;
+        }
+    }
+
+    .ui.raised.segment {
+        box-shadow: var(--m-shadow-raised);
+    }
+
+    .ui.basic.segment {
+        border: none;
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+    }
+
+    // Vertical: a section of a list of segments, separated by a line
+    .ui.vertical.segment {
+        margin: 0;
+        padding-inline: 0;
+        border: none;
+        border-block-end: var(--m-border-width) solid var(--m-border);
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+
+        &:last-child {
+            border-block-end: none;
+        }
+    }
+
+    .ui.secondary.segment {
+        background: var(--m-surface-muted);
+    }
+
+    .ui.tertiary.segment {
+        background: color-mix(in oklab, var(--m-surface), var(--m-shade) 12%);
+    }
+
+    .ui.placeholder.segment {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-block-size: 18rem;
+        background: var(--m-surface-muted);
+        box-shadow: inset 0 2px 25px 0 color-mix(in oklab, var(--m-shadow-color) 35%, transparent);
+    }
+
+    // Inverted: always dark. The segment switches to the dark color scheme, so its content (text, buttons, inputs)
+    // follows without inverted variants of its own.
+    .ui.inverted.segment {
+        color-scheme: dark;
+        border-color: transparent;
+        box-shadow: none;
+    }
+
+    // Colors: a colored top border, inverted a colored background
+    @mixin colored($token) {
+        &:not(.inverted) {
+            border-block-start: 2px solid var(#{$token});
+        }
+
+        &.inverted {
+            background: var(#{$token});
+            color: var(#{$token}-on);
+        }
+    }
+
+    @each $name, $values in palette.$colors {
+        .ui.#{$name}.segment {
+            @include colored(--m-color-#{$name});
+        }
+    }
+
+    @each $role in map.keys(palette.$roles) {
+        .ui.#{$role}.segment:not(.secondary) {
+            @include colored(--m-#{$role});
+        }
+    }
+
+    // Loading: a veil and a spinner over the content
+    .ui.loading.segment {
+        cursor: default;
+        pointer-events: none;
+        user-select: none;
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 100;
+            border-radius: inherit;
+            background: color-mix(in oklab, var(--m-surface) 80%, transparent);
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset-block-start: 50%;
+            inset-inline-start: 50%;
+            z-index: 101;
+            inline-size: 3em;
+            block-size: 3em;
+            margin: -1.5em 0 0 -1.5em;
+            border: 0.2em solid color-mix(in oklab, var(--m-text) 10%, transparent);
+            border-block-start-color: var(--m-text-muted);
+            border-radius: 50%;
+            animation: m-segment-spin 0.6s linear infinite;
+        }
+    }
+
+    // Attached: segments (and buttons, menus, messages) stacked into one box
+    .ui.attached.segment {
+        inline-size: calc(100% + var(--m-border-width) * 2);
+        max-inline-size: calc(100% + var(--m-border-width) * 2);
+        margin: 0 calc(var(--m-border-width) * -1);
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .ui.attached:not(.message) + .ui.attached.segment:not(.top) {
+        border-block-start: none;
+    }
+
+    .ui.top.attached.segment {
+        margin-block-start: 1rem;
+        border-start-start-radius: var(--_segment-radius);
+        border-start-end-radius: var(--_segment-radius);
+
+        &:first-child {
+            margin-block-start: 0;
+        }
+    }
+
+    .ui.bottom.attached.segment {
+        margin-block-end: 1rem;
+        border-end-start-radius: var(--_segment-radius);
+        border-end-end-radius: var(--_segment-radius);
+        box-shadow: var(--m-shadow);
+
+        &:last-child {
+            margin-block-end: 0;
+        }
+    }
+
+    // Group: segments in one box, separated by lines
+    .ui.segments {
+        --_segment-radius: var(--m-segment-radius, var(--m-radius));
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        margin-block: 1rem;
+        border: var(--m-border-width) solid var(--m-border);
+        border-radius: var(--_segment-radius);
+        box-shadow: var(--m-shadow);
+
+        &:first-child {
+            margin-block-start: 0;
+        }
+
+        &:last-child {
+            margin-block-end: 0;
+        }
+
+        > :is(.segment, .segments) {
+            margin: 0;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        > :is(.segment, .segments) + :is(.segment, .segments) {
+            border-block-start: var(--m-border-width) solid var(--m-border);
+        }
+
+        > :first-child {
+            border-start-start-radius: inherit;
+            border-start-end-radius: inherit;
+        }
+
+        > :last-child {
+            border-end-start-radius: inherit;
+            border-end-end-radius: inherit;
+        }
+
+        // Keep the colored top border inside a group
+        @each $name, $values in palette.$colors {
+            > .ui.#{$name}.segment:not(.inverted) {
+                border-block-start: 2px solid var(--m-color-#{$name});
+            }
+        }
+
+        &.horizontal {
+            flex-direction: row;
+
+            > :is(.segment, .segments) {
+                flex: 1 1 0;
+                min-inline-size: 0;
+            }
+
+            > :is(.segment, .segments) + :is(.segment, .segments) {
+                border-block-start: none;
+                border-inline-start: var(--m-border-width) solid var(--m-border);
+            }
+
+            > :first-child {
+                border-radius: 0;
+                border-start-start-radius: inherit;
+                border-end-start-radius: inherit;
+            }
+
+            > :last-child {
+                border-radius: 0;
+                border-start-end-radius: inherit;
+                border-end-end-radius: inherit;
+            }
+        }
+    }
+}
+
+@keyframes m-segment-spin {
+    to {
+        rotate: 360deg;
+    }
+}

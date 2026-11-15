@@ -1,0 +1,86 @@
+<app-header header="Theming" subHeader="Change the design tokens of the mantic theme live" />
+
+<div class="page">
+    <section class="controls">
+        <fieldset>
+            <legend>Apply to</legend>
+            <label><input type="radio" name="target" [checked]="target() === 'preview'" (change)="target.set('preview')"> Preview only (<code>m-theme-tokens</code>)</label>
+            <label><input type="radio" name="target" [checked]="target() === 'page'" (change)="target.set('page')"> Whole page (<code>ThemeTokenService</code>)</label>
+        </fieldset>
+        <fieldset>
+            <legend>Preview color scheme</legend>
+            <label><input type="radio" name="scheme" [checked]="scheme() === 'light'" (change)="scheme.set('light')"> Light</label>
+            <label><input type="radio" name="scheme" [checked]="scheme() === 'dark'" (change)="scheme.set('dark')"> Dark</label>
+        </fieldset>
+        <fieldset>
+            <legend>Shape and color derivation</legend>
+            @for (control of numericControls; track control.token) {
+                <label class="range">
+                    <span>{{ control.label }}</span>
+                    <input type="range" [min]="control.min" [max]="control.max" [step]="control.step" [value]="resolved().numbers[control.token]" (input)="setNumber(control, $any($event.target).value)">
+                    <output>{{ resolved().numbers[control.token] }}{{ control.unit }}</output>
+                </label>
+            }
+        </fieldset>
+        <fieldset>
+            <legend>Roles</legend>
+            @for (role of roles; track role) {
+                <label class="color"><input type="color" [value]="resolved().roles[role]" (input)="setRole(role, $any($event.target).value)"> {{ role }}</label>
+            }
+        </fieldset>
+        <fieldset>
+            <legend>Palette</legend>
+            @for (color of colors; track color) {
+                <label class="color"><input type="color" [value]="resolved().colors[color]" (input)="setColor(color, $any($event.target).value)"> {{ color }}</label>
+            }
+        </fieldset>
+        <button type="button" class="reset" (click)="reset()">Reset</button>
+        <p class="hint">A picked color applies to light and dark mode. Pass <code>light-dark(a, b)</code> as value to set both.</p>
+    </section>
+
+    <section #preview class="preview" [style.color-scheme]="scheme()" [m-theme-tokens]="previewTokens()">
+        <h3>Roles</h3>
+        <div class="swatches">
+            @for (role of roles; track role) {
+                <div class="swatch">
+                    <div class="base" [style.background]="'var(--m-' + role + ')'" [style.color]="'var(--m-' + role + '-on)'">{{ role }}</div>
+                    <div class="variants">
+                        <span [style.background]="'var(--m-' + role + '-hover)'" title="hover"></span>
+                        <span [style.background]="'var(--m-' + role + '-active)'" title="active"></span>
+                        <span [style.background]="'var(--m-' + role + '-subtle)'" title="subtle"></span>
+                    </div>
+                </div>
+            }
+        </div>
+        <h3>Palette</h3>
+        <div class="swatches">
+            @for (color of colors; track color) {
+                <div class="swatch">
+                    <div class="base" [style.background]="'var(--m-color-' + color + ')'" [style.color]="'var(--m-color-' + color + '-on)'">{{ color }}</div>
+                    <div class="variants">
+                        <span [style.background]="'var(--m-color-' + color + '-hover)'" title="hover"></span>
+                        <span [style.background]="'var(--m-color-' + color + '-active)'" title="active"></span>
+                        <span [style.background]="'var(--m-color-' + color + '-subtle)'" title="subtle"></span>
+                    </div>
+                </div>
+            }
+        </div>
+        <h3>Surfaces, radius and density</h3>
+        <div class="surfaces">
+            <div class="card">
+                <b>Surface</b>
+                <p class="muted">Muted text on the surface with a <a href="javascript:void(0)">link</a>.</p>
+            </div>
+            <div class="card muted-surface">
+                <b>Muted surface</b>
+                <p class="muted">Radius small, default and large:</p>
+                <div class="radii"><span class="small"></span><span></span><span class="large"></span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="code">
+        <h3>Your overrides</h3>
+        <pre>{{ code() }}</pre>
+    </section>
+</div>

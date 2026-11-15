@@ -1,0 +1,52 @@
+// Container (`.ui.container`, m-text-container `.ui.text.container`): centers its content at a readable width.
+//
+// One fluid rule instead of Semantic's three fixed widths per breakpoint: as wide as the viewport allows (minus a 1em
+// gutter on each side), at most --m-container-width.
+//
+// Public component tokens (optional): --m-container-width, --m-text-container-width.
+
+@layer mantic.components {
+    .ui.container {
+        display: block;
+        box-sizing: border-box;
+        inline-size: min(var(--m-container-width, 1127px), 100% - 2em);
+        max-inline-size: 100%;
+        margin-inline: auto;
+    }
+
+    // A grid container keeps its gutters outside of the content width
+    .ui.grid.container {
+        inline-size: min(var(--m-container-width, 1127px) + 2rem, 100% - 2em);
+    }
+
+    .ui.relaxed.grid.container {
+        inline-size: min(var(--m-container-width, 1127px) + 3rem, 100% - 2em);
+    }
+
+    .ui.very.relaxed.grid.container {
+        inline-size: min(var(--m-container-width, 1127px) + 5rem, 100% - 2em);
+    }
+
+    .ui.text.container {
+        inline-size: min(var(--m-text-container-width, 700px), 100% - 2em);
+        font-family: var(--m-font-family);
+        font-size: 1.1429rem;
+        line-height: 1.5;
+    }
+
+    .ui.fluid.container {
+        inline-size: 100%;
+        margin-inline: 0;
+    }
+
+    @each $name, $value in (left: start, center: center, right: end) {
+        .ui.#{$name}.aligned.container {
+            text-align: $value;
+        }
+    }
+
+    .ui.justified.container {
+        text-align: justify;
+        hyphens: auto;
+    }
+}

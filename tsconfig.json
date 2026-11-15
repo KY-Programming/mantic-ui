@@ -17,6 +17,9 @@
             "@mantic-ui/semantic-ui-angular": [
                 "./dist/semantic-ui"
             ],
+            "@mantic-ui/theme": [
+                "./dist/mantic-ui-theme"
+            ],
             "eslint-config": [
               "./dist/eslint-config"
             ]

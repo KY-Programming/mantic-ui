@@ -1,0 +1,74 @@
+// Breadcrumb (`.ui.breadcrumb`): sections separated by dividers, the last (active) one in bold.
+//
+// m-breadcrumb renders no sections yet (its template is a TODO), so these rules serve the Semantic markup placed into
+// it or written by hand: `.section` (a link or text), `.divider` (a character or an icon), `.active.section`.
+
+$sizes: (
+    mini: 0.7857rem,
+    tiny: 0.8571rem,
+    small: 0.9286rem,
+    large: 1.1429rem,
+    big: 1.2857rem,
+    huge: 1.4286rem,
+    massive: 1.7143rem
+);
+
+@layer mantic.components {
+    .ui.breadcrumb {
+        display: inline-flex;
+        flex-wrap: wrap;
+        align-items: center;
+        line-height: 1;
+        vertical-align: middle;
+
+        &:first-child {
+            margin-block-start: 0;
+        }
+
+        &:last-child {
+            margin-block-end: 0;
+        }
+
+        .section {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+        }
+
+        a.section {
+            color: var(--m-link);
+            cursor: pointer;
+
+            &:hover {
+                color: var(--m-link-hover);
+            }
+        }
+
+        .active.section {
+            color: var(--m-text);
+            font-weight: var(--m-font-weight-bold);
+        }
+
+        .divider {
+            display: inline-block;
+            margin-block: 0;
+            margin-inline: 0.2143rem;
+            color: var(--m-text-muted);
+            font-size: 0.9286em;
+            opacity: 0.7;
+            vertical-align: baseline;
+        }
+
+        :is(m-icon, :is(i, fa-icon).icon).divider {
+            margin-block: 0;
+            font-size: 0.8571em;
+            vertical-align: baseline;
+        }
+    }
+
+    @each $name, $size in $sizes {
+        .ui.#{$name}.breadcrumb {
+            font-size: $size;
+        }
+    }
+}

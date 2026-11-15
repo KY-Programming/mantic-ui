@@ -1,0 +1,348 @@
+// Input (`.ui.input`): m-input, m-numeric-input, m-date-input, m-time-input and m-color-input all render one.
+//
+// The native field gets its look from the `control` mixin, which the form uses for its plain fields and textareas too.
+// Its colors come from private --_control-* properties with the normal look as fallback; an error state (`.ui.input.error`,
+// `.field.error`) only sets them, and they inherit into every field inside.
+//
+// Public component tokens (optional, set them anywhere): --m-input-background, --m-input-radius.
+
+$sizes: (
+    mini: 0.7857em,
+    small: 0.9286em,
+    medium: 1em,
+    large: 1.1429em,
+    big: 1.2857em,
+    huge: 1.4286em,
+    massive: 1.7143em
+);
+
+// Width of the icon box at either end of the field
+$icon-box: 2.6714em;
+// Room a corner label takes from the field
+$corner-room: 2.5em;
+
+@mixin control {
+    margin: 0;
+    padding: calc(0.6786em * var(--m-density)) calc(1em * var(--m-density));
+    border: var(--m-border-width) solid var(--_control-border, var(--m-border));
+    border-radius: var(--m-input-radius, var(--m-radius));
+    outline: none;
+    background: var(--_control-background, var(--m-input-background, var(--m-surface)));
+    color: var(--_control-text, var(--m-text));
+    font-family: var(--m-font-family);
+    font-size: 1em;
+    line-height: 1.2143em;
+    text-align: start;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color var(--m-duration) var(--m-easing), box-shadow var(--m-duration) var(--m-easing);
+
+    &::placeholder {
+        color: currentColor;
+        opacity: 0.4;
+    }
+
+    &:focus {
+        border-color: var(--_control-focus, var(--m-focus));
+
+        &::placeholder {
+            opacity: 0.6;
+        }
+    }
+
+    // The browser paints autofilled fields in its own colors; an inset shadow covers that background
+    &:autofill {
+        box-shadow: inset 0 0 0 100vmax color-mix(in oklab, var(--m-warning) 12%, var(--m-surface));
+        -webkit-text-fill-color: var(--_control-text, var(--m-text));
+    }
+}
+
+// The error look of a field, set on the field or anything around it
+@mixin error {
+    --_control-background: var(--m-negative-subtle);
+    --_control-border: color-mix(in oklab, var(--m-negative) 40%, var(--m-surface));
+    --_control-focus: color-mix(in oklab, var(--m-negative) 60%, var(--m-surface));
+    --_control-text: color-mix(in oklab, var(--m-negative), var(--m-shade) 25%);
+}
+
+@layer mantic.components {
+    .ui.input {
+        position: relative;
+        display: inline-flex;
+        color: var(--_control-text, var(--m-text));
+        font-size: 1em;
+        font-style: normal;
+        font-weight: var(--m-font-weight-normal);
+
+        > input {
+            @include control;
+
+            flex: 1 0 auto;
+            max-inline-size: 100%;
+        }
+
+        > input[type="range"] {
+            padding-inline: 0;
+        }
+
+        // The date / time parts get their own padding in Chromium, which would make these fields taller than a text field
+        > input::-webkit-datetime-edit,
+        > input::-webkit-datetime-edit-fields-wrapper {
+            padding-block: 0;
+        }
+    }
+
+    .ui.disabled.input,
+    .ui.input:not(.disabled) > input:disabled {
+        opacity: var(--m-disabled-opacity);
+    }
+
+    .ui.disabled.input > input,
+    .ui.input > input:disabled {
+        pointer-events: none;
+    }
+
+    .ui.error.input {
+        @include error;
+    }
+
+    // Transparent: only the text, no box
+    .ui.transparent.input > input {
+        padding: 0;
+        border-color: transparent;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    // Icon: in a box at the end of the field (`left`: at the start). The readonly lock is placed by the core.
+    .ui.icon.input {
+        > input {
+            padding-inline-end: $icon-box;
+        }
+
+        > m-icon:not(.readonly-lock-icon) {
+            position: absolute;
+            inset-block: 0;
+            inset-inline-end: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            inline-size: $icon-box;
+            cursor: default;
+            opacity: 0.5;
+            // Clicks go through to the field
+            pointer-events: none;
+            transition: opacity var(--m-duration) var(--m-easing);
+
+            > :is(i, fa-icon).icon {
+                margin: 0;
+            }
+        }
+
+        > input:focus ~ m-icon:not(.readonly-lock-icon) {
+            opacity: 1;
+        }
+
+        &.left {
+            > input {
+                padding-inline: $icon-box 1em;
+            }
+
+            > m-icon:not(.readonly-lock-icon) {
+                inset-inline: 0 auto;
+            }
+        }
+    }
+
+    .ui.transparent.icon.input {
+        > input {
+            padding-inline: 0 2em;
+        }
+
+        &.left > input {
+            padding-inline: 2em 0;
+        }
+
+        > m-icon:not(.readonly-lock-icon) {
+            inline-size: 1.1em;
+        }
+    }
+
+    // Loading: a spinner in place of the icon
+    .ui.loading.input > m-icon:not(.readonly-lock-icon) {
+        opacity: 1;
+
+        > * {
+            visibility: hidden;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset-block-start: 50%;
+            inset-inline-start: 50%;
+            inline-size: 1.2857em;
+            block-size: 1.2857em;
+            translate: -50% -50%;
+            border: 0.2em solid color-mix(in oklab, currentColor 10%, transparent);
+            border-block-start-color: color-mix(in oklab, currentColor 55%, transparent);
+            border-radius: 50%;
+            animation: m-icon-spin 0.6s linear infinite;
+        }
+    }
+
+    // Labeled: a label at the start or the end, joined with the field. A corner label sits inside the field instead.
+    .ui.labeled.input {
+        > .label:not(.corner) {
+            display: flex;
+            flex: 0 0 auto;
+            align-items: center;
+            margin: 0;
+            padding-block: 0.7857em;
+            font-size: 1em;
+            white-space: nowrap;
+
+            &:first-child {
+                border-start-end-radius: 0;
+                border-end-end-radius: 0;
+            }
+        }
+
+        > input ~ .label:not(.corner) {
+            border-start-start-radius: 0;
+            border-end-start-radius: 0;
+        }
+
+        > .label:not(.corner) ~ input {
+            border-inline-start-color: transparent;
+            border-start-start-radius: 0;
+            border-end-start-radius: 0;
+        }
+
+        > input:has(~ .label:not(.corner)) {
+            border-inline-end-color: transparent;
+            border-start-end-radius: 0;
+            border-end-end-radius: 0;
+        }
+
+        > input:focus {
+            border-inline-color: var(--_control-focus, var(--m-focus));
+        }
+    }
+
+    .ui.input > .corner.label {
+        inset-block-start: var(--m-border-width);
+        inset-inline-end: var(--m-border-width);
+        font-size: 0.6429em;
+        border-start-end-radius: var(--m-input-radius, var(--m-radius));
+
+        &.left {
+            inset-inline: var(--m-border-width) auto;
+            border-radius: 0;
+            border-start-start-radius: var(--m-input-radius, var(--m-radius));
+        }
+    }
+
+    .ui.input:has(> .corner.label:not(.left)) {
+        > input {
+            padding-inline-end: $corner-room;
+        }
+
+        &.icon > input {
+            padding-inline-end: 3.25em;
+        }
+
+        &.icon:not(.left) > m-icon:not(.readonly-lock-icon) {
+            margin-inline-end: 1.25em;
+        }
+    }
+
+    .ui.input:has(> .left.corner.label) {
+        > input {
+            padding-inline-start: $corner-room;
+        }
+
+        &.icon > input {
+            padding-inline-start: 3.25em;
+        }
+
+        &.left.icon > m-icon:not(.readonly-lock-icon) {
+            margin-inline-start: 1.25em;
+        }
+    }
+
+    // Action: buttons at the start or the end, joined with the field
+    .ui.action.input {
+        > :is(.button, .buttons) {
+            display: flex;
+            flex: 0 0 auto;
+            align-items: center;
+            margin: 0;
+        }
+
+        > .button,
+        > .buttons > .button {
+            margin: 0;
+            padding-block: 0.7857em;
+        }
+
+        > .button:not(:first-child),
+        > .buttons:not(:first-child) > .button:first-child {
+            border-start-start-radius: 0;
+            border-end-start-radius: 0;
+        }
+
+        > .button:not(:last-child),
+        > .buttons:not(:last-child) > .button:last-child {
+            border-start-end-radius: 0;
+            border-end-end-radius: 0;
+        }
+
+        > :is(.button, .buttons) ~ input {
+            border-inline-start-color: transparent;
+            border-start-start-radius: 0;
+            border-end-start-radius: 0;
+        }
+
+        > input:has(~ :is(.button, .buttons)) {
+            border-inline-end-color: transparent;
+            border-start-end-radius: 0;
+            border-end-end-radius: 0;
+        }
+
+        > input:focus {
+            border-inline-color: var(--_control-focus, var(--m-focus));
+        }
+    }
+
+    // Color (the deprecated `m-input type="color"`): the label is the swatch, the native picker hides inside it
+    .ui.color.input .ui.label {
+        border: var(--m-border-width) solid var(--m-border);
+        cursor: pointer;
+
+        input[type="color"] {
+            visibility: hidden;
+            block-size: auto;
+            min-inline-size: 3em;
+        }
+    }
+
+    // Inverted: sits on a dark background
+    .ui.inverted.input {
+        color-scheme: dark;
+    }
+
+    .ui.fluid.input {
+        display: flex;
+
+        > input {
+            inline-size: 0;
+        }
+    }
+
+    @each $name, $size in $sizes {
+        .ui.#{$name}.input {
+            font-size: $size;
+        }
+    }
+}

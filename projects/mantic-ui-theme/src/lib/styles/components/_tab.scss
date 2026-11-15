@@ -1,0 +1,60 @@
+// Tab (`.ui.tab`) and the tab group (m-tab-group): a tabular menu joined with an `.active.tab` segment.
+//
+// m-tab-group carries `menu-top` / `-bottom` / `-left` / `-right` for the side its menu is on; the segment drops its
+// border and rounding on that side, so the active tab of the menu opens into it. The core lays the group out (flex).
+
+@layer mantic.components {
+    .ui.tab {
+        display: none;
+
+        &:is(.active, .open) {
+            display: block;
+        }
+    }
+
+    m-tab-group {
+        border-radius: var(--m-radius);
+
+        > .ui.segment.active.tab {
+            margin: 0;
+            box-shadow: none;
+        }
+
+        &.menu-top > .active.tab {
+            border-block-start: none;
+            border-start-start-radius: 0;
+            border-start-end-radius: 0;
+        }
+
+        &.menu-bottom > .active.tab {
+            border-block-end: none;
+            border-end-start-radius: 0;
+            border-end-end-radius: 0;
+        }
+
+        &.menu-left > .active.tab {
+            border-inline-start: none;
+            border-start-start-radius: 0;
+            border-end-start-radius: 0;
+        }
+
+        &.menu-right > .active.tab {
+            border-inline-end: none;
+            border-start-end-radius: 0;
+            border-end-end-radius: 0;
+        }
+
+        // A menu beside the content is as wide as its tabs
+        &.horizontal > .ui.attached.tabular.menu {
+            inline-size: auto;
+            max-inline-size: none;
+            margin-inline: 0;
+        }
+
+        // Inverted: the whole group sits on a dark background
+        &.inverted {
+            color-scheme: dark;
+            background: var(--m-surface);
+        }
+    }
+}

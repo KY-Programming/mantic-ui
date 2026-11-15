@@ -1,0 +1,285 @@
+@use 'sass:map';
+@use '../palette';
+
+// Message (`.ui.message`): m-message, m-info, m-error, m-warning.
+//
+// A state or color class only sets --_message-color; background, text, header and border are mixed from it, so every
+// state follows runtime color changes and dark mode. m-message renders the header before the icon and does not wrap
+// the text in a `.content`, so the icon of an icon message is placed in the padding instead of being a flex item.
+//
+// The `display` stays `block` (or the host default): the form hides state messages with a more specific rule.
+
+$sizes: (
+    mini: 0.7857em,
+    tiny: 0.8571em,
+    small: 0.9286em,
+    medium: 1em,
+    large: 1.1429em,
+    big: 1.2857em,
+    huge: 1.4286em,
+    massive: 1.7143em
+);
+
+// States the core sets as classes, and the role each one takes its color from
+$states: (
+    info: info,
+    positive: positive,
+    success: positive,
+    negative: negative,
+    error: negative,
+    warning: warning
+);
+
+// Width of the icon of an icon message (3em glyph incl. its spacing, in the message's font size)
+$icon-room: 3.5em;
+
+@layer mantic.components {
+    .ui.message {
+        position: relative;
+        min-block-size: 1em;
+        margin-block: 1em;
+        padding: calc(1em * var(--m-density)) calc(1.5em * var(--m-density));
+        border-radius: var(--m-radius);
+        background: var(--_message-background, var(--m-surface-muted));
+        box-shadow: inset 0 0 0 var(--m-border-width) var(--_message-border, color-mix(in oklab, var(--m-text) 22%, transparent));
+        color: var(--_message-text, var(--m-text));
+        font-size: 1em;
+        line-height: 1.4285em;
+        overflow-wrap: anywhere;
+        transition-property: opacity, color, background-color, box-shadow;
+        transition-duration: var(--m-duration);
+        transition-timing-function: var(--m-easing);
+
+        &:first-child {
+            margin-block-start: 0;
+        }
+
+        &:last-child {
+            margin-block-end: 0;
+        }
+
+        > :first-child {
+            margin-block-start: 0;
+        }
+
+        > :last-child {
+            margin-block-end: 0;
+        }
+
+        .header {
+            display: block;
+            margin-block: -0.1429em 0;
+            color: var(--_message-header, inherit);
+            font-family: var(--m-font-family-header);
+            font-weight: var(--m-font-weight-bold);
+
+            &:not(.ui) {
+                font-size: 1.1429em;
+            }
+        }
+
+        p {
+            margin-block: 0.75em;
+            opacity: 0.85;
+
+            &:first-child {
+                margin-block-start: 0;
+            }
+
+            &:last-child {
+                margin-block-end: 0;
+            }
+        }
+
+        .header + p {
+            margin-block-start: 0.25em;
+        }
+
+        .list:not(.ui) {
+            margin-block: 0.5em 0;
+            padding: 0;
+            list-style: none;
+            text-align: start;
+            opacity: 0.85;
+
+            &:first-child {
+                margin-block-start: 0;
+            }
+
+            li {
+                position: relative;
+                margin-block: 0 0.3em;
+                margin-inline: 1em 0;
+
+                &::before {
+                    content: '•';
+                    position: absolute;
+                    inset-inline-start: -1em;
+                }
+
+                &:last-child {
+                    margin-block-end: 0;
+                }
+            }
+        }
+
+        > m-icon.icon:not(.close),
+        > :is(i, fa-icon).icon:not(.close) {
+            margin-inline-end: 0.6em;
+        }
+
+        // Close: in the top end corner
+        > :is(m-icon, i, fa-icon).close.icon {
+            position: absolute;
+            inset-block-start: 0.7857em;
+            inset-inline-end: 0.5em;
+            margin: 0;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity var(--m-duration) var(--m-easing);
+
+            &:hover {
+                opacity: 1;
+            }
+
+            > :is(i, fa-icon).icon {
+                margin: 0;
+            }
+        }
+    }
+
+    // Icon message: a large icon (or the loader) at the start, centered beside everything else
+    .ui.icon.message {
+        // A column, so header and text are centered beside the icon as well
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-block-size: calc(3em + 2em * var(--m-density));
+        padding-inline-start: calc(1.5em * var(--m-density) + #{$icon-room} + 1em);
+
+        > m-icon.icon:not(.close),
+        > :is(i, fa-icon).icon:not(.close),
+        > .ui.loader {
+            position: absolute;
+            inset-block-start: 50%;
+            inset-inline-start: calc(1.5em * var(--m-density));
+            display: flex;
+            justify-content: center;
+            inline-size: $icon-room;
+            margin: 0;
+            translate: 0 -50%;
+        }
+
+        // The box stays in the message's font size (its insets are em), only the glyph is 3em
+        > m-icon.icon:not(.close) {
+            line-height: 1;
+            opacity: 0.8;
+
+            > :is(i, fa-icon).icon {
+                margin: 0;
+                font-size: 3em;
+            }
+        }
+
+        // An icon written directly into the message is box and glyph at once
+        > :is(i, fa-icon).icon:not(.close) {
+            inset-inline-start: calc(1.5em * var(--m-density) / 3);
+            inline-size: calc(#{$icon-room} / 3);
+            font-size: 3em;
+            line-height: 1;
+            opacity: 0.8;
+        }
+
+        // The loader of a loading message is always shown, it is not toggled by `active`
+        > .ui.loader {
+            display: block;
+        }
+    }
+
+    // m-form renders its error message whenever it is in the error state; with no field errors its list stays empty
+    .ui.message:has(> .list:only-child:not(:has(li))) {
+        display: none;
+    }
+
+    .ui.compact.message {
+        display: inline-block;
+    }
+
+    .ui.compact.icon.message {
+        display: inline-flex;
+    }
+
+    .ui.floating.message {
+        box-shadow:
+            inset 0 0 0 var(--m-border-width) var(--_message-border, color-mix(in oklab, var(--m-text) 22%, transparent)),
+            var(--m-shadow-raised);
+    }
+
+    // Attached: joined with the segment / form above or below
+    .ui.attached.message {
+        margin-block: 0 calc(var(--m-border-width) * -1);
+        margin-inline: calc(var(--m-border-width) * -1);
+        border-radius: var(--m-radius) var(--m-radius) 0 0;
+
+        &:not(.top, .bottom) {
+            border-radius: 0;
+        }
+
+        &.bottom {
+            margin-block: calc(var(--m-border-width) * -1) 0;
+            border-radius: 0 0 var(--m-radius) var(--m-radius);
+            box-shadow:
+                inset 0 0 0 var(--m-border-width) var(--_message-border, color-mix(in oklab, var(--m-text) 22%, transparent)),
+                var(--m-shadow);
+
+            &:not(:last-child) {
+                margin-block-end: 1em;
+            }
+        }
+    }
+
+    .ui.attached + .ui.attached.message:not(.top, .bottom) {
+        margin-block-start: calc(var(--m-border-width) * -1);
+    }
+
+    // States and colors: everything is mixed from one color
+    @mixin colored($token) {
+        --_message-color: var(#{$token});
+        --_message-background: color-mix(in oklab, var(--_message-color) 8%, var(--m-surface));
+        --_message-border: color-mix(in oklab, var(--_message-color) 45%, var(--m-surface));
+        --_message-text: color-mix(in oklab, var(--_message-color), var(--m-shade) 45%);
+        --_message-header: color-mix(in oklab, var(--_message-color), var(--m-shade) 60%);
+    }
+
+    @each $state, $role in $states {
+        .ui.#{$state}.message {
+            @include colored(--m-#{$role});
+        }
+    }
+
+    @each $name, $values in palette.$colors {
+        .ui.#{$name}.message {
+            @include colored(--m-color-#{$name});
+        }
+    }
+
+    // Roles that are no state of their own (primary, secondary)
+    @each $role in map.keys(palette.$roles) {
+        @if not map.has-key($states, $role) {
+            .ui.#{$role}.message {
+                @include colored(--m-#{$role});
+            }
+        }
+    }
+
+    // Inverted: sits on a dark background
+    .ui.inverted.message {
+        color-scheme: dark;
+    }
+
+    @each $name, $size in $sizes {
+        .ui.#{$name}.message {
+            font-size: $size;
+        }
+    }
+}

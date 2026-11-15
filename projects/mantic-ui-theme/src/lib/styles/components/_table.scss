@@ -1,0 +1,487 @@
+@use 'sass:list';
+@use 'sass:map';
+@use '../palette';
+
+// Table (`.ui.table`): m-table, or a plain <table class="ui table">.
+//
+// m-table is no <table> element, so its rows usually sit directly in the host (no <tbody>) next to <thead> / <tfoot>.
+// Row rules therefore use `:nth-of-type` / `:first-of-type`, which only count the rows, where Semantic counts all
+// children. The scrollable m-table wraps the rows in `.scroller > .content`; descendant selectors reach them there too.
+//
+// Row backgrounds: a row paints `--_table-state-bg`, else `--_table-hover-bg`, else `--_table-stripe-bg`. Striped,
+// selectable and the states only set those properties, so their precedence does not depend on selector specificity
+// (a striped positive row stays positive, a hovered positive row gets the darker positive). The background is painted
+// on the row, not the cells: the core's sticky last column takes the row's color over (`background-color: inherit`).
+//
+// Public component tokens (optional): --m-table-padding-block, --m-table-padding-inline.
+
+$widths: (one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen);
+$states: (
+    positive: --m-positive,
+    negative: --m-negative,
+    error: --m-negative,
+    warning: --m-warning
+);
+$aligns: (left: start, center: center, right: end);
+
+// The color of a row / cell state; the text is the state color darkened (lightened in dark mode) for contrast
+@mixin state($token) {
+    --_table-state-bg: color-mix(in oklab, var(#{$token}) 12%, var(--m-surface));
+    --_table-state-hover-bg: color-mix(in oklab, var(#{$token}) 20%, var(--m-surface));
+    color: color-mix(in oklab, var(#{$token}), var(--m-shade) 45%);
+}
+
+@layer mantic.components {
+    .ui.table {
+        --_table-line: color-mix(in oklab, var(--m-border) 67%, transparent);
+        --_table-padding-block: calc(var(--m-table-padding-block, 0.7857em) * var(--m-density));
+        --_table-padding-inline: calc(var(--m-table-padding-inline, 0.7857em) * var(--m-density));
+        inline-size: 100%;
+        margin-block: 1em;
+        border: var(--m-border-width) solid var(--m-border);
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: var(--m-radius);
+        background: var(--m-surface);
+        color: var(--m-text);
+        font-size: 1em;
+        text-align: start;
+
+        &:first-child {
+            margin-block-start: 0;
+        }
+
+        &:last-child {
+            margin-block-end: 0;
+        }
+
+        tr {
+            background: var(--_table-state-bg, var(--_table-hover-bg, var(--_table-stripe-bg)));
+        }
+
+        :is(th, td) {
+            transition: background-color var(--m-duration) var(--m-easing), color var(--m-duration) var(--m-easing);
+        }
+
+        thead th {
+            padding: calc(var(--_table-padding-block) * 1.1818) var(--_table-padding-inline);
+            border-block-end: var(--m-border-width) solid var(--_table-line);
+            background: var(--m-surface-muted);
+            color: inherit;
+            font-style: normal;
+            font-weight: var(--m-font-weight-bold);
+            text-align: inherit;
+            text-transform: none;
+            vertical-align: inherit;
+            cursor: auto;
+        }
+
+        thead tr:first-child > th {
+            &:first-child {
+                border-start-start-radius: var(--m-radius);
+            }
+
+            &:last-child {
+                border-start-end-radius: var(--m-radius);
+            }
+        }
+
+        tfoot th {
+            padding: var(--_table-padding-block) var(--_table-padding-inline);
+            border-block-start: var(--m-border-width) solid var(--m-border);
+            background: var(--m-surface-muted);
+            color: inherit;
+            font-style: normal;
+            font-weight: var(--m-font-weight-normal);
+            text-align: inherit;
+            vertical-align: middle;
+        }
+
+        tfoot tr:first-child > th {
+            &:first-child {
+                border-end-start-radius: var(--m-radius);
+            }
+
+            &:last-child {
+                border-end-end-radius: var(--m-radius);
+            }
+        }
+
+        td {
+            padding: var(--_table-padding-block) var(--_table-padding-inline);
+            border-block-start: var(--m-border-width) solid var(--_table-line);
+            text-align: inherit;
+        }
+
+        // The first row has no line above: the header (if any) already draws one
+        tr:first-of-type > td {
+            border-block-start: none;
+        }
+
+        tbody + tbody tr:first-of-type > td {
+            border-block-start: var(--m-border-width) solid var(--_table-line);
+        }
+
+        :is(th, td).no-padding {
+            padding: 0;
+        }
+
+        :is(th, td) :is(.image, .image img) {
+            max-inline-size: none;
+        }
+    }
+
+    // A table right below a field label
+    label + .ui.table {
+        margin-block-start: 0;
+    }
+
+    .ui.table.segment {
+        padding: 0;
+    }
+
+    // Celled: lines between the columns too
+    .ui.celled.table :is(th, td) {
+        border-inline-start: var(--m-border-width) solid var(--_table-line);
+
+        &:first-child {
+            border-inline-start: none;
+        }
+    }
+
+    // Basic: no background, the table sits on its container
+    .ui.basic.table {
+        background: transparent;
+
+        th {
+            border-inline-start: none;
+            background: transparent;
+        }
+    }
+
+    // Very basic: no frame, the cells line up with the content around the table
+    .ui.very.basic.table {
+        border: none;
+
+        &:not(.sortable, .striped) {
+            :is(th, td):first-child {
+                padding-inline-start: 0;
+            }
+
+            :is(th, td):last-child {
+                padding-inline-end: 0;
+            }
+
+            thead tr:first-child th {
+                padding-block-start: 0;
+            }
+        }
+    }
+
+    // Definition: the first column names the row
+    .ui.definition.table {
+        thead:not(.full-width) th:first-child {
+            background: transparent;
+            color: var(--m-text-muted);
+            font-weight: var(--m-font-weight-normal);
+            pointer-events: none;
+            // Covers the table's frame above and beside the empty corner cell
+            box-shadow: calc(var(--m-border-width) * -1) calc(var(--m-border-width) * -1) 0 var(--m-border-width) var(--m-background);
+        }
+
+        tfoot:not(.full-width) th:first-child {
+            background: transparent;
+            pointer-events: none;
+            box-shadow: var(--m-border-width) var(--m-border-width) 0 var(--m-border-width) var(--m-background);
+        }
+
+        tr td:first-child:not(.ignored),
+        tr td.definition {
+            background: color-mix(in oklab, var(--m-text) 3%, transparent);
+            color: var(--m-text);
+            font-weight: var(--m-font-weight-bold);
+        }
+
+        :is(thead, tfoot):not(.full-width) th:nth-child(2),
+        td:nth-child(2) {
+            border-inline-start: var(--m-border-width) solid var(--m-border);
+        }
+    }
+
+    // Striped: every second row tinted
+    .ui.striped.table {
+        > tr:nth-of-type(2n),
+        tbody > tr:nth-of-type(2n),
+        .content > tr:nth-of-type(2n) {
+            --_table-stripe-bg: color-mix(in oklab, var(--m-text) 3%, transparent);
+        }
+    }
+
+    // Selectable: rows (or single cells) react to the pointer
+    .ui.selectable.table tr:not(thead tr, tfoot tr):hover,
+    .ui.table td.selectable:hover {
+        --_table-hover-bg: color-mix(in oklab, var(--m-text) 5%, transparent);
+        --_table-state-bg: var(--_table-state-hover-bg);
+        cursor: pointer;
+    }
+
+    .ui.table td.selectable {
+        padding: 0;
+
+        > a:not(.ui) {
+            display: block;
+            padding: var(--_table-padding-block) var(--_table-padding-inline);
+            color: inherit;
+        }
+    }
+
+    .ui.table td.selectable:hover {
+        background: var(--_table-state-bg, var(--_table-hover-bg));
+    }
+
+    // States of a row or a cell
+    @each $state, $token in $states {
+        .ui.table :is(tr, td).#{$state} {
+            @include state($token);
+        }
+
+        // A cell paints its own state, a row's cells show the row's
+        .ui.table td.#{$state} {
+            background: var(--_table-state-bg);
+        }
+    }
+
+    .ui.table :is(tr, td).active {
+        --_table-state-bg: color-mix(in oklab, var(--m-text) 12%, var(--m-surface));
+        --_table-state-hover-bg: var(--_table-state-bg);
+        color: var(--m-text);
+    }
+
+    .ui.table td.active {
+        background: var(--_table-state-bg);
+    }
+
+    .ui.table tr.disabled td,
+    .ui.table td.disabled {
+        color: color-mix(in oklab, var(--m-text) 30%, transparent);
+        pointer-events: none;
+    }
+
+    // Alignment of the whole table or of single cells / rows
+    @each $name, $value in $aligns {
+        .ui.table.#{$name}.aligned,
+        .ui.table .#{$name}.aligned {
+            text-align: $value;
+        }
+    }
+
+    @each $name in (top, middle, bottom) {
+        .ui.table.#{$name}.aligned,
+        .ui.table .#{$name}.aligned {
+            vertical-align: $name;
+        }
+    }
+
+    .ui.table.single.line,
+    .ui.table .single.line {
+        white-space: nowrap;
+    }
+
+    // Collapsing: the table (or a column) only as wide as its content
+    .ui.collapsing.table {
+        inline-size: auto;
+    }
+
+    .ui.table :is(th, td).collapsing {
+        inline-size: 1px;
+        white-space: nowrap;
+    }
+
+    // Fixed: equal columns, overflowing text is cut
+    .ui.fixed.table {
+        table-layout: fixed;
+
+        :is(th, td) {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    // Column count and column widths
+    @each $width in $widths {
+        $n: list.index($widths, $width);
+
+        .ui.#{$width}.column.table td {
+            inline-size: calc(100% / #{$n});
+        }
+
+        .ui.table :is(th, td).#{$width}.wide {
+            inline-size: calc(100% * #{$n} / 16);
+        }
+    }
+
+    // Sortable: clickable header cells with a sort arrow drawn in CSS (no icon font needed)
+    .ui.sortable.table thead th {
+        border-inline-start: var(--m-border-width) solid var(--m-border);
+        white-space: nowrap;
+        cursor: pointer;
+
+        &:first-child {
+            border-inline-start: none;
+        }
+
+        &:hover {
+            background: color-mix(in oklab, var(--m-text) 5%, var(--m-surface-muted));
+        }
+
+        &.sorted {
+            background: color-mix(in oklab, var(--m-text) 5%, var(--m-surface-muted));
+            user-select: none;
+
+            &::after {
+                content: '';
+                display: inline-block;
+                margin-inline-start: 0.5em;
+                border-inline: 0.3em solid transparent;
+                vertical-align: middle;
+                opacity: 0.8;
+            }
+        }
+
+        &.ascending::after {
+            border-block-end: 0.4em solid currentColor;
+        }
+
+        &.descending::after {
+            border-block-start: 0.4em solid currentColor;
+        }
+
+        &.disabled:hover {
+            color: color-mix(in oklab, var(--m-text) 30%, transparent);
+            cursor: auto;
+        }
+    }
+
+    // Padding variants
+    .ui.padded.table :is(th, td) {
+        padding: 1em;
+    }
+
+    .ui.very.padded.table :is(th, td) {
+        padding: 1.5em;
+    }
+
+    .ui.compact.table {
+        th {
+            padding-inline: 0.7em;
+        }
+
+        td {
+            padding: 0.5em 0.7em;
+        }
+    }
+
+    .ui.very.compact.table {
+        th {
+            padding-inline: 0.6em;
+        }
+
+        td {
+            padding: 0.4em 0.6em;
+        }
+    }
+
+    // Attached: joined with a segment or another attached element above / below
+    .ui.attached.table {
+        inline-size: calc(100% + var(--m-border-width) * 2);
+        max-inline-size: calc(100% + var(--m-border-width) * 2);
+        margin: 0 calc(var(--m-border-width) * -1);
+        border-radius: 0;
+    }
+
+    .ui.attached + .ui.attached.table:not(.top) {
+        border-block-start: none;
+    }
+
+    .ui.top.attached.table {
+        margin-block: 1em 0;
+        border-radius: var(--m-radius) var(--m-radius) 0 0;
+
+        &:first-child {
+            margin-block-start: 0;
+        }
+    }
+
+    .ui.bottom.attached.table {
+        margin-block: 0 1em;
+        border-radius: 0 0 var(--m-radius) var(--m-radius);
+
+        &:last-child {
+            margin-block-end: 0;
+        }
+    }
+
+    // Colors: a colored top edge; inverted, the whole table
+    @each $name, $values in palette.$colors {
+        .ui.#{$name}.table {
+            border-block-start: 0.2em solid var(--m-color-#{$name});
+        }
+
+        .ui.inverted.#{$name}.table {
+            border-color: transparent;
+            background: var(--m-color-#{$name});
+            color: var(--m-color-#{$name}-on);
+        }
+    }
+
+    @each $role in map.keys(palette.$roles) {
+        .ui.#{$role}.table {
+            border-block-start: 0.2em solid var(--m-#{$role});
+        }
+    }
+
+    // Inverted: sits on a dark background
+    .ui.inverted.table {
+        color-scheme: dark;
+        background: color-mix(in oklab, var(--m-surface), #fff 10%);
+
+        thead th,
+        tfoot th {
+            background: color-mix(in oklab, #000 15%, transparent);
+        }
+    }
+
+    .ui.small.table {
+        font-size: 0.9em;
+    }
+
+    .ui.large.table {
+        font-size: 1.1em;
+    }
+
+    // Stackable: on a narrow screen every row becomes a block of its cells (unless `unstackable`)
+    @media (width < 768px) {
+        .ui.table:not(.unstackable) {
+            :is(thead, tbody, tfoot, tr, th, td) {
+                display: block;
+                inline-size: auto;
+            }
+
+            tr {
+                padding-block: 1em;
+                box-shadow: inset 0 calc(var(--m-border-width) * -1) 0 0 var(--_table-line);
+            }
+
+            tr > :is(th, td) {
+                padding: 0.25em 0.75em;
+                border: none;
+                background: none;
+                box-shadow: none;
+            }
+
+            :is(th, td):first-child {
+                font-weight: var(--m-font-weight-bold);
+            }
+        }
+    }
+}

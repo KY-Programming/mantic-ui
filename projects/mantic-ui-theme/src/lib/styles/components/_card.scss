@@ -1,0 +1,290 @@
+@use 'sass:list';
+@use 'sass:map';
+@use '../palette';
+
+// Card and card group (`.ui.card`, `.ui.cards`): m-card, m-card-group.
+//
+// A card group is a grid with `gap` instead of negative margins: without a count the cards keep their own width and
+// wrap, with a count (`three cards`) every row has that many equal columns.
+//
+// Public component tokens (optional): --m-card-width, --m-card-gap.
+
+$counts: (one, two, three, four, five, six, seven, eight, nine, ten);
+
+// The border-like outline of a card, drawn as shadows so it adds no size
+$outline: 0 0 0 var(--m-border-width) var(--m-border);
+
+@layer mantic.components {
+    .ui.card,
+    .ui.cards > .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        inline-size: var(--m-card-width, 290px);
+        max-inline-size: 100%;
+        min-block-size: 0;
+        padding: 0;
+        border: none;
+        border-radius: var(--m-radius);
+        background: var(--m-surface);
+        box-shadow: 0 1px 3px 0 var(--m-border), $outline;
+        color: var(--m-text);
+        transition: box-shadow var(--m-duration) var(--m-easing), translate var(--m-duration) var(--m-easing);
+
+        a {
+            cursor: pointer;
+        }
+
+        > :first-child {
+            border-block-start: none;
+            border-start-start-radius: var(--m-radius);
+            border-start-end-radius: var(--m-radius);
+        }
+
+        > :last-child {
+            border-end-start-radius: var(--m-radius);
+            border-end-end-radius: var(--m-radius);
+        }
+
+        > .image {
+            position: relative;
+            display: block;
+            flex: 0 0 auto;
+            padding: 0;
+            background: color-mix(in oklab, var(--m-text) 5%, transparent);
+
+            > img {
+                display: block;
+                inline-size: 100%;
+                block-size: auto;
+                border: none;
+                border-radius: inherit;
+            }
+        }
+
+        > .content {
+            flex-grow: 1;
+            margin: 0;
+            padding: calc(1em * var(--m-density));
+            border: none;
+            border-block-start: var(--m-border-width) solid color-mix(in oklab, var(--m-text) 10%, transparent);
+            border-radius: 0;
+            background: none;
+            box-shadow: none;
+            font-size: 1em;
+
+            > .header {
+                display: block;
+                color: var(--m-text);
+                font-family: var(--m-font-family-header);
+
+                &:not(.ui) {
+                    margin-block-start: -0.2143em;
+                    font-size: 1.2857em;
+                    font-weight: var(--m-font-weight-bold);
+                    line-height: 1.2857em;
+                }
+            }
+
+            > a.header:hover {
+                color: var(--m-link-hover);
+            }
+
+            > :is(.meta, .header) + .description {
+                margin-block-start: 0.5em;
+            }
+
+            > .description {
+                color: color-mix(in oklab, var(--m-text) 78%, transparent);
+            }
+
+            p {
+                margin-block: 0 0.5em;
+
+                &:last-child {
+                    margin-block-end: 0;
+                }
+            }
+
+            img {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3em;
+            color: var(--m-text-muted);
+            font-size: 1em;
+
+            > a:not(.ui) {
+                color: inherit;
+
+                &:hover {
+                    color: var(--m-text);
+                }
+            }
+        }
+
+        :is(img.avatar, .avatar img) {
+            inline-size: 2em;
+            block-size: 2em;
+            border-radius: 50%;
+        }
+
+        // Alignment and the former floats: `right floated` content moves to the end
+        [class*="right floated"] {
+            float: none;
+            margin-inline-start: auto;
+        }
+
+        [class*="left aligned"] {
+            text-align: start;
+        }
+
+        [class*="center aligned"] {
+            text-align: center;
+        }
+
+        [class*="right aligned"] {
+            text-align: end;
+        }
+
+        > .extra {
+            flex-grow: 0;
+            min-block-size: 0;
+            max-inline-size: 100%;
+            margin: 0;
+            padding: calc(0.75em * var(--m-density)) calc(1em * var(--m-density));
+            border-block-start: var(--m-border-width) solid color-mix(in oklab, var(--m-text) 5%, transparent);
+            color: var(--m-text-muted);
+            transition: color var(--m-duration) var(--m-easing);
+
+            a:not(.ui) {
+                color: inherit;
+
+                &:hover {
+                    color: var(--m-link-hover);
+                }
+            }
+        }
+
+        // A button (group) at the bottom spans the card
+        > :is(.button, .buttons) {
+            inline-size: calc(100% + var(--m-border-width) * 2);
+            margin: 0 calc(var(--m-border-width) * -1);
+        }
+
+        .dimmer {
+            z-index: 10;
+        }
+    }
+
+    .ui.card {
+        margin-block: 1em;
+
+        &:first-child {
+            margin-block-start: 0;
+        }
+
+        &:last-child {
+            margin-block-end: 0;
+        }
+    }
+
+    // Group: wrapping cards with a gap, or a fixed number of columns
+    .ui.cards {
+        --_cards-gap: var(--m-card-gap, 1em 1em);
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--_cards-gap);
+        margin-block: 0;
+
+        > .card {
+            margin: 0;
+        }
+
+        & ~ .ui.cards {
+            margin-block-start: 1.75em;
+        }
+    }
+
+    @each $count in $counts {
+        .ui.#{$count}.cards {
+            display: grid;
+            grid-template-columns: repeat(#{list.index($counts, $count)}, minmax(0, 1fr));
+
+            > .card {
+                inline-size: auto;
+            }
+        }
+    }
+
+    .ui.centered.cards {
+        justify-content: center;
+    }
+
+    .ui.centered.card {
+        margin-inline: auto;
+    }
+
+    .ui.fluid.card {
+        inline-size: 100%;
+        max-inline-size: none;
+    }
+
+    // Link and raised: a card that reacts to the pointer
+    .ui.raised:is(.card, .cards > .card) {
+        box-shadow: $outline, var(--m-shadow-raised);
+    }
+
+    :is(a.ui.card, .ui.link.card, .ui.link.cards > .card, .ui.cards > a.card) {
+        &:hover {
+            z-index: 5;
+            translate: 0 -3px;
+            box-shadow: 0 1px 3px 0 var(--m-border-strong), 0 0 0 var(--m-border-width) var(--m-border-strong);
+        }
+    }
+
+    // Colored: a colored line at the top
+    @mixin colored($token) {
+        box-shadow: 0 0 0 var(--m-border-width) var(--m-border), 0 2px 0 0 var(#{$token}) inset, 0 1px 3px 0 var(--m-border);
+    }
+
+    @each $name, $values in palette.$colors {
+        .ui.#{$name}:is(.card, .cards > .card),
+        .ui.#{$name}.cards > .card {
+            @include colored(--m-color-#{$name});
+        }
+    }
+
+    @each $role in map.keys(palette.$roles) {
+        .ui.#{$role}:is(.card, .cards > .card),
+        .ui.#{$role}.cards > .card {
+            @include colored(--m-#{$role});
+        }
+    }
+
+    // Narrow screens: column grids become two columns, then one (unless `unstackable` / not `stackable`)
+    @media (width < 768px) {
+        .ui.stackable.cards {
+            display: flex;
+            flex-direction: column;
+
+            > .card {
+                inline-size: 100%;
+            }
+        }
+
+        .ui.doubling.cards {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    // Inverted: sits on a dark background
+    .ui.inverted:is(.card, .cards) {
+        color-scheme: dark;
+    }
+}

@@ -1,0 +1,440 @@
+@use 'input';
+
+// Dropdown (`.ui.dropdown`): m-dropdown always renders a selection dropdown (`.ui.selection.dropdown`), with `search`,
+// `multiple`, `fluid`, `upward` and `active` set by the core; m-label-dropdown renders a `.ui.dropdown.label` with a
+// plain item list, mostly inside a labeled input.
+//
+// A selection dropdown is a field: it takes the `control` look of the input and its --_control-* properties, so a
+// field in error colors it as it colors an input. The open menu continues the field's border below it (above it with
+// `upward`).
+//
+// The menu is shown by the core (inline `display: block` while open, the slide transition classes while it animates);
+// the theme only keeps it hidden otherwise.
+//
+// Public component tokens (optional, set them anywhere): --m-dropdown-menu-max-height.
+
+// Room at the end of the field for the dropdown icon
+$icon-room: 2.1em;
+
+@mixin menu {
+    position: absolute;
+    inset-block-start: 100%;
+    inset-inline-start: 0;
+    z-index: 11;
+    display: none;
+    min-inline-size: max-content;
+    margin: 0;
+    padding: 0;
+    border: var(--m-border-width) solid var(--_control-border, var(--m-border));
+    border-radius: var(--m-radius);
+    outline: none;
+    background: var(--m-surface);
+    box-shadow: 0 2px 3px 0 var(--m-shadow-color);
+    color: var(--_control-text, var(--m-text));
+    font-size: 1em;
+    font-weight: var(--m-font-weight-normal);
+    text-align: start;
+    cursor: auto;
+}
+
+@mixin item {
+    position: relative;
+    display: block;
+    padding: calc(0.7857rem * var(--m-density)) calc(1.1429rem * var(--m-density));
+    color: inherit;
+    font-size: 1rem;
+    font-weight: var(--m-font-weight-normal);
+    line-height: 1em;
+    text-align: start;
+    text-transform: none;
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+
+    &:hover {
+        background: color-mix(in oklab, currentColor 5%, transparent);
+    }
+}
+
+@layer mantic.components {
+    .ui.dropdown {
+        position: relative;
+        display: inline-block;
+        outline: none;
+        text-align: start;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+
+        // The value input; the search input is the only one shown
+        > input:not(.search) {
+            display: none;
+        }
+
+        > .text {
+            display: inline-block;
+        }
+
+        > .default.text {
+            color: currentColor;
+            opacity: 0.4;
+        }
+
+        > .filtered.text {
+            visibility: hidden;
+        }
+
+        // An icon in front of the value (`icon` input)
+        > m-icon.icon:not(.dropdown, .readonly-lock-icon) {
+            margin-inline-end: 0.7857em;
+
+            > :is(i, fa-icon).icon {
+                margin: 0;
+            }
+        }
+
+        > .menu {
+            @include menu;
+
+            > .item {
+                @include item;
+            }
+
+            > .active.item {
+                font-weight: var(--m-font-weight-bold);
+            }
+
+            > .selected.item {
+                background: color-mix(in oklab, currentColor 3%, transparent);
+            }
+
+            > .filtered.item {
+                display: none;
+            }
+
+            > .disabled.item {
+                cursor: default;
+                opacity: var(--m-disabled-opacity);
+                pointer-events: none;
+            }
+
+            // Icons and images of an item, in front of its text
+            > .item > :is(m-icon, .icon, .image, img) {
+                margin-inline: 0 0.7857rem;
+            }
+
+            > .item > :is(.image, img) {
+                display: inline-block;
+                inline-size: auto;
+                max-block-size: 2em;
+                margin-block: -0.5em;
+                vertical-align: top;
+            }
+
+            > .item > m-icon > :is(i, fa-icon).icon {
+                margin: 0;
+            }
+
+            > .item > .description {
+                margin-inline-start: 1em;
+                color: var(--m-text-muted);
+            }
+
+            // m-dropdown-group: a header and a divider in front of its items
+            > :is(.header, .ui.header) {
+                margin: 1rem 0 0.75rem;
+                padding: 0 1.1429rem;
+                color: var(--m-text);
+                font-size: 0.7857em;
+                font-weight: var(--m-font-weight-bold);
+                text-transform: uppercase;
+            }
+
+            > :is(.divider, .ui.divider) {
+                block-size: 0;
+                margin: 0.5em 0;
+                border: none;
+                border-block-start: var(--m-border-width) solid var(--m-border);
+            }
+
+            > .message {
+                padding: 0.7857rem 1.1429rem;
+                color: var(--m-text-muted);
+            }
+        }
+    }
+
+    // Selection: the field look
+    .ui.selection.dropdown {
+        @include input.control;
+
+        z-index: auto;
+        min-inline-size: 14em;
+        min-block-size: calc(2.5714em + var(--m-border-width) * 2);
+        padding-inline-end: $icon-room;
+        word-wrap: break-word;
+        white-space: normal;
+        cursor: pointer;
+
+        &:hover {
+            border-color: var(--_control-border, var(--m-border-strong));
+        }
+
+        // The arrow, in a box at the end of the field
+        > m-icon.dropdown.icon {
+            position: absolute;
+            inset-block: 0;
+            inset-inline-end: 0;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            inline-size: 2.5em;
+            opacity: 0.8;
+            transition: opacity var(--m-duration) var(--m-easing);
+
+            > :is(i, fa-icon).icon {
+                margin: 0;
+            }
+        }
+
+        > .menu {
+            inset-inline-start: calc(var(--m-border-width) * -1);
+            box-sizing: border-box;
+            inline-size: calc(100% + var(--m-border-width) * 2);
+            min-inline-size: calc(100% + var(--m-border-width) * 2);
+            max-block-size: var(--m-dropdown-menu-max-height, 16.0286rem);
+            overflow: hidden auto;
+            border-block-start-width: 0;
+            border-start-start-radius: 0;
+            border-start-end-radius: 0;
+            overscroll-behavior: contain;
+
+            > .item {
+                border-block-start: var(--m-border-width) solid color-mix(in oklab, var(--m-text) 3%, transparent);
+                white-space: normal;
+                word-wrap: normal;
+
+                &:first-child {
+                    border-block-start: none;
+                }
+            }
+        }
+
+        // Open: the field and its menu become one box with the focus border
+        &.active {
+            z-index: 10;
+            border-color: var(--_control-focus, var(--m-focus));
+            border-end-start-radius: 0;
+            border-end-end-radius: 0;
+            box-shadow: 0 2px 3px 0 var(--m-shadow-color);
+
+            > .menu {
+                border-color: var(--_control-focus, var(--m-focus));
+            }
+        }
+
+        &:focus,
+        &:focus-within {
+            border-color: var(--_control-focus, var(--m-focus));
+        }
+    }
+
+    // Upward: the menu opens above the field
+    .ui.upward.selection.dropdown {
+        > .menu {
+            inset-block: auto 100%;
+            border-block-start-width: var(--m-border-width);
+            border-block-end-width: 0;
+            border-radius: var(--m-radius) var(--m-radius) 0 0;
+            box-shadow: 0 -2px 3px 0 var(--m-shadow-color);
+        }
+
+        &.active {
+            border-radius: 0 0 var(--m-radius) var(--m-radius);
+        }
+    }
+
+    // Search: the search input lies over the value text, which hides while a filter is typed
+    .ui.search.dropdown {
+        cursor: text;
+
+        > input.search {
+            position: absolute;
+            inset-block-start: 0;
+            inset-inline-start: var(--m-border-width);
+            z-index: 2;
+            box-sizing: border-box;
+            inline-size: 100%;
+            margin: 0;
+            padding: calc(0.6786em * var(--m-density)) $icon-room calc(0.6786em * var(--m-density)) calc(1em * var(--m-density));
+            border: none;
+            outline: none;
+            background: transparent;
+            box-shadow: none;
+            color: inherit;
+            font: inherit;
+            line-height: 1.2143em;
+            cursor: text;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        > .text {
+            position: relative;
+            z-index: 3;
+            cursor: text;
+        }
+
+        &.active > .text {
+            pointer-events: none;
+        }
+
+        &.active > input.search:focus + .text {
+            opacity: 0.6;
+        }
+    }
+
+    // Multiple: the chosen values as labels, the search input behind them
+    .ui.multiple.dropdown {
+        display: inline-flex;
+        flex-wrap: wrap;
+        align-items: center;
+        padding-block: 0.2262em;
+        padding-inline-start: 0.3571em;
+        cursor: text;
+
+        > .label {
+            display: inline-flex;
+            align-items: center;
+            margin-block: 0.1429rem;
+            margin-inline: 0 0.2857rem;
+            padding: 0.3571em 0.7857em;
+            box-shadow: inset 0 0 0 var(--m-border-width) var(--m-border);
+            font-size: 1em;
+            white-space: nowrap;
+            user-select: none;
+
+            // The delete icon at the end of a label
+            > m-icon:last-child {
+                margin-inline: 0.5em 0;
+                cursor: pointer;
+                opacity: 0.5;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                > :is(i, fa-icon).icon {
+                    margin: 0;
+                }
+            }
+
+            > m-icon:not(:last-child) > :is(i, fa-icon).icon {
+                margin-inline: 0 0.5em;
+            }
+        }
+
+        > .text {
+            position: static;
+            max-inline-size: 100%;
+            margin-block: 0.4524em;
+            margin-inline: 0.6429em 0;
+            padding: 0;
+            line-height: 1.2143em;
+        }
+
+        > .label ~ .text {
+            display: none;
+        }
+
+        > input.search {
+            position: static;
+            flex: 1 1 2.2em;
+            inline-size: 2.2em;
+            min-inline-size: 2.2em;
+            max-inline-size: 100%;
+            margin-block: 0.4524em;
+            margin-inline: 0.6429em 0;
+            padding: 0;
+            line-height: 1.2143em;
+        }
+
+        > .label ~ input.search {
+            margin-inline-start: 0.1429em;
+        }
+
+        // Without a label yet the placeholder lies under the search input
+        &.search > .text {
+            position: absolute;
+            inset-block-start: 0;
+            inset-inline-start: 0;
+            padding: inherit;
+            padding-inline-end: 0;
+        }
+
+        &.search > .label ~ .text {
+            display: none;
+        }
+    }
+
+    .ui.fluid.dropdown {
+        display: block;
+        inline-size: 100%;
+        min-inline-size: 0;
+
+        &.multiple {
+            display: flex;
+        }
+    }
+
+    .ui.disabled.dropdown {
+        cursor: default;
+        opacity: var(--m-disabled-opacity);
+        pointer-events: none;
+    }
+
+    // Readonly: the core draws the lock and the muted background; nothing opens
+    .ui.readonly.dropdown {
+        cursor: default;
+    }
+
+    // In a form field the dropdown fills the field, as an input does
+    .ui.form .field > .selection.dropdown {
+        inline-size: 100%;
+        min-inline-size: auto;
+    }
+
+    .ui.form .inline.field:not(.wide) > .selection.dropdown {
+        inline-size: auto;
+    }
+
+    // Inverted: sits on a dark background
+    .ui.inverted.dropdown {
+        color-scheme: dark;
+    }
+
+    // Label dropdown: a label that opens a short list (m-label-dropdown, e.g. the domain of a labeled input)
+    .ui.dropdown.label {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5em;
+        cursor: pointer;
+
+        > m-icon > :is(i, fa-icon).icon {
+            margin: 0;
+        }
+
+        > .menu {
+            @include menu;
+
+            inset-inline: auto 0;
+            min-inline-size: 100%;
+            margin-block-start: var(--m-border-width);
+            overflow: hidden auto;
+
+            > .item {
+                @include item;
+            }
+        }
+    }
+}

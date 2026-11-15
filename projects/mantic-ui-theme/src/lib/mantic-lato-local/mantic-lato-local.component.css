@@ -1,0 +1,42 @@
+/*!
+ * Lato 2.0 (Latin: all of Western Europe incl. German, plus the common punctuation, € and ™), self-hosted and inlined at
+ * build time. Latin Extended (Central and Eastern Europe, e.g. ł č ő) is in m-mantic-lato-ext-local, as the fonts are
+ * inlined and every embedded face is downloaded with the app. Characters outside the loaded parts fall back to the
+ * next font of --m-font-family. Font: Lato by Łukasz Dziedzic, SIL OFL 1.1, see ../fonts/LICENSE_Lato.txt
+ */
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato-Regular-latin.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    unicode-range: U+0000, U+000D, U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2010, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039-203A, U+2044, U+20AC, U+2122, U+2212, U+2215;
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato-Italic-latin.woff2') format('woff2');
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    unicode-range: U+0000, U+000D, U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2010, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039-203A, U+2044, U+20AC, U+2122, U+2212, U+2215;
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato-Bold-latin.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    unicode-range: U+0000, U+000D, U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2010, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039-203A, U+2044, U+20AC, U+2122, U+2212, U+2215;
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato-BoldItalic-latin.woff2') format('woff2');
+    font-style: italic;
+    font-weight: 700;
+    font-display: swap;
+    unicode-range: U+0000, U+000D, U+0020-007E, U+00A0-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2010, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039-203A, U+2044, U+20AC, U+2122, U+2212, U+2215;
+}

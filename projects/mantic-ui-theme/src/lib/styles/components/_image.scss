@@ -1,0 +1,160 @@
+// Image (`.ui.image`, `.ui.images`): on an <img>, or on a wrapper around an <img> / <svg>.
+//
+// `floated` still uses float: that is what makes the text around wrap the image, which flex cannot do.
+
+$sizes: (
+    mini: 35px,
+    tiny: 80px,
+    small: 150px,
+    medium: 300px,
+    large: 450px,
+    big: 600px,
+    huge: 800px,
+    massive: 960px
+);
+
+@layer mantic.components {
+    .ui.image {
+        position: relative;
+        display: inline-block;
+        max-inline-size: 100%;
+        background-color: transparent;
+        vertical-align: middle;
+
+        :is(img, svg) {
+            display: block;
+            max-inline-size: 100%;
+            block-size: auto;
+        }
+    }
+
+    img.ui.image {
+        display: block;
+    }
+
+    .ui:is(.image, .images).hidden {
+        display: none;
+    }
+
+    .ui:is(.image, .images).disabled {
+        opacity: var(--m-disabled-opacity);
+        cursor: default;
+    }
+
+    .ui.inline.image,
+    .ui.inline.image :is(img, svg) {
+        display: inline-block;
+    }
+
+    @each $name in (top, middle, bottom) {
+        .ui.#{$name}.aligned.images .image,
+        .ui.#{$name}.aligned.image,
+        .ui.#{$name}.aligned.image :is(img, svg) {
+            display: inline-block;
+            vertical-align: $name;
+        }
+    }
+
+    .ui.rounded.images .image,
+    .ui.rounded.image,
+    .ui.rounded.images .image > *,
+    .ui.rounded.image > * {
+        border-radius: var(--m-radius-large);
+    }
+
+    .ui.bordered.images :is(.image, img, svg),
+    .ui.bordered.image :is(img, svg),
+    img.ui.bordered.image {
+        border: var(--m-border-width) solid color-mix(in oklab, var(--m-text) 10%, transparent);
+    }
+
+    .ui.circular.images,
+    .ui.circular.image {
+        overflow: hidden;
+    }
+
+    .ui.circular.images .image,
+    .ui.circular.image,
+    .ui.circular.images .image > *,
+    .ui.circular.image > * {
+        border-radius: 50%;
+    }
+
+    .ui.fluid.images,
+    .ui.fluid.image,
+    .ui.fluid.images :is(img, svg),
+    .ui.fluid.image :is(img, svg) {
+        display: block;
+        inline-size: 100%;
+        block-size: auto;
+    }
+
+    // Avatar: a small round picture inline with text
+    .ui.avatar.images :is(.image, img, svg),
+    .ui.avatar.image :is(img, svg),
+    .ui.avatar.image {
+        display: inline-block;
+        inline-size: 2em;
+        block-size: 2em;
+        margin-inline-end: 0.25em;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .ui.spaced.image {
+        display: inline-block;
+        margin-inline: 0.5em;
+
+        &.left {
+            margin-inline: 0.5em 0;
+        }
+
+        &.right {
+            margin-inline: 0 0.5em;
+        }
+    }
+
+    .ui.floated:is(.image, .images) {
+        float: inline-start;
+        margin-block-end: 1em;
+        margin-inline-end: 1em;
+
+        &.right {
+            float: inline-end;
+            margin-inline: 1em 0;
+        }
+
+        &:last-child {
+            margin-block-end: 0;
+        }
+    }
+
+    .ui.centered:is(.image, .images) {
+        margin-inline: auto;
+    }
+
+    .ui.centered.image {
+        display: block;
+    }
+
+    @each $name, $size in $sizes {
+        .ui.#{$name}.image,
+        .ui.#{$name}.images :is(.image, img, svg) {
+            inline-size: $size;
+            block-size: auto;
+        }
+    }
+
+    // Image group: a row of images with a little room around each
+    .ui.images {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-block: 0;
+
+        :is(img, .image, svg) {
+            display: inline-block;
+            margin: 0;
+        }
+    }
+}

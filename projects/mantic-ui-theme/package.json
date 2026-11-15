@@ -1,0 +1,46 @@
+{
+  "name": "@mantic-ui/theme",
+  "version": "22.12.0",
+  "description": "The native theme for mantic UI Angular components: modern CSS, adjustable at runtime. Requires @mantic-ui/angular",
+  "keywords": [
+    "mantic-ui",
+    "mantic UI",
+    "Angular",
+    "theme",
+    "design tokens"
+  ],
+  "homepage": "https://mantic-ui.ky-programming.de/mantic",
+  "bugs": {
+    "url": "https://github.com/KY-Programming/mantic-ui",
+    "email": "support@ky-programming.de"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "KY-Programming",
+    "email": "hi@ky-programming.de",
+    "url": "https://ky-programming.de"
+  },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/KY-Programming"
+    },
+    {
+      "type": "paypal",
+      "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VFPAP4MKV654A&source=url"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KY-Programming/mantic-ui.git"
+  },
+  "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@mantic-ui/angular": "22.12.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}

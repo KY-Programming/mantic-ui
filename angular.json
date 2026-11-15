@@ -264,6 +264,63 @@
         }
       }
     },
+    "mantic-ui-theme": {
+      "projectType": "library",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:resolver": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "root": "projects/mantic-ui-theme",
+      "sourceRoot": "projects/mantic-ui-theme/src",
+      "prefix": "m",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "projects/mantic-ui-theme/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/mantic-ui-theme/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/mantic-ui-theme/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/mantic-ui-theme/tsconfig.spec.json",
+            "polyfills": []
+          }
+        }
+      }
+    },
     "mantic-ui-doc": {
       "projectType": "library",
       "schematics": {

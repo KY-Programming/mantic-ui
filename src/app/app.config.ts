@@ -14,7 +14,8 @@ export const appConfig: ApplicationConfig = {
             fallback: 'mantic UI',
             conditions: [
                 { condition: '/semantic', fallback: 'Semantic UI Angular - mantic UI', postfix: ' - Semantic UI Angular - mantic UI' },
-                { condition: '/fomantic', fallback: 'Fomantic UI Angular - mantic UI', postfix: ' - Fomantic UI Angular - mantic UI' }
+                { condition: '/fomantic', fallback: 'Fomantic UI Angular - mantic UI', postfix: ' - Fomantic UI Angular - mantic UI' },
+                { condition: '/mantic', fallback: 'mantic Theme - mantic UI', postfix: ' - mantic Theme - mantic UI' }
             ]
         }),
         provideHighlightJs(),

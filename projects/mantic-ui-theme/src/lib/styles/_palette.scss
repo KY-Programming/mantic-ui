@@ -1,0 +1,28 @@
+// The named colors every mantic component accepts as a color class (`<m-button red>` → `.ui.red.button`).
+// Each entry is (light, dark): the dark value is used under `color-scheme: dark`. Values are the Semantic UI colors and
+// their "light" variants, so the theme starts out familiar.
+$colors: (
+    "red": (#db2828, #ff695e),
+    "orange": (#f2711c, #ff851b),
+    "yellow": (#fbbd08, #ffe21f),
+    "olive": (#b5cc18, #d9e778),
+    "green": (#21ba45, #2ecc40),
+    "teal": (#00b5ad, #6dffff),
+    "blue": (#2185d0, #54c8ff),
+    "violet": (#6435c9, #a291fb),
+    "purple": (#a333c8, #dc73ff),
+    "pink": (#e03997, #ff8edf),
+    "brown": (#a5673f, #d67c1c),
+    "grey": (#767676, #dcddde),
+    "black": (#1b1c1d, #545454)
+);
+
+// Roles components use instead of a concrete color. Each one points at a palette color by default.
+$roles: (
+    primary: "blue",
+    secondary: "black",
+    positive: "green",
+    negative: "red",
+    warning: "yellow",
+    info: "teal"
+);

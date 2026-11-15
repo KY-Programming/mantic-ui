@@ -1,0 +1,615 @@
+@use 'sass:map';
+@use '../palette';
+
+// Button and button group (`.ui.button`, `.ui.buttons`).
+//
+// One rule set draws every color: a color class only sets the private --_button-* properties, the rules read them with
+// the neutral look as fallback. The properties inherit, so a colored group (`.ui.blue.buttons`) colors its buttons and
+// a labeled button passes its color to the inner button.
+//
+// Public component tokens (optional, set them anywhere): --m-button-padding-block, --m-button-padding-inline,
+// --m-button-radius, --m-button-font-weight.
+
+$sizes: (
+    mini: 0.7857rem,
+    tiny: 0.8571rem,
+    small: 0.9286rem,
+    medium: 1rem,
+    large: 1.1429rem,
+    big: 1.2857rem,
+    huge: 1.4286rem,
+    massive: 1.7143rem
+);
+
+// Social brand colors, class names as Semantic UI uses them
+$social: (
+    facebook: #3b5998,
+    twitter: #55acee,
+    google: #dd4b39,
+    vk: #4d7198,
+    linkedin: #1f88be,
+    instagram: #49769c,
+    youtube: #f00
+);
+
+// Width of the icon box of a labeled icon button
+$icon-box: 2.5714em;
+
+@mixin color($token) {
+    --_button-color: var(#{$token});
+    --_button-hover: var(#{$token}-hover);
+    --_button-active: var(#{$token}-active);
+    --_button-on: var(#{$token}-on);
+}
+
+@mixin static-color($color) {
+    --_button-color: #{$color};
+    --_button-hover: color-mix(in oklab, #{$color}, #000 10%);
+    --_button-active: color-mix(in oklab, #{$color}, #000 20%);
+    --_button-on: #fff;
+}
+
+@layer mantic.components {
+    .ui.button {
+        --_button-padding-block: calc(var(--m-button-padding-block, 0.7857em) * var(--m-density) * var(--_button-scale, 1));
+        --_button-padding-inline: calc(var(--m-button-padding-inline, 1.5em) * var(--m-density) * var(--_button-scale, 1));
+        display: inline-block;
+        min-block-size: 1em;
+        margin-block: 0;
+        margin-inline: 0 0.25em;
+        padding: var(--_button-padding-block) var(--_button-padding-inline);
+        border: none;
+        border-radius: var(--m-button-radius, var(--m-radius));
+        background: var(--_button-color, var(--m-neutral));
+        color: var(--_button-on, var(--m-text-muted));
+        font-family: var(--m-font-family);
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: var(--m-button-font-weight, var(--m-font-weight-bold));
+        line-height: 1em;
+        text-align: center;
+        text-decoration: none;
+        text-transform: none;
+        vertical-align: baseline;
+        cursor: pointer;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        transition-property: background-color, color, box-shadow, opacity;
+        transition-duration: var(--m-duration);
+        transition-timing-function: var(--m-easing);
+
+        &:hover,
+        &:focus-visible {
+            background: var(--_button-hover, var(--m-neutral-hover));
+            color: var(--_button-on, var(--m-text));
+        }
+
+        &:active,
+        &.active {
+            background: var(--_button-active, var(--m-neutral-active));
+            color: var(--_button-on, var(--m-text));
+        }
+
+        &.disabled,
+        &:disabled {
+            opacity: var(--m-disabled-opacity);
+            box-shadow: none;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        // Icons. m-icon nests the icon (<m-icon><i class="icon"> / <m-icon><fa-icon class="icon">), plain markup puts it
+        // directly into the button.
+        > m-icon > .icon,
+        > .icon {
+            margin-block: 0;
+            margin-inline: -0.2143em 0.4286em;
+            opacity: 0.8;
+            transition: opacity var(--m-duration) var(--m-easing);
+        }
+
+        > m-icon > i.icon,
+        > i.icon {
+            block-size: 0.8571em;
+        }
+    }
+
+    // Loading: a spinner instead of the content
+    .ui.loading.button {
+        position: relative;
+        color: transparent;
+        cursor: default;
+        pointer-events: none;
+
+        > m-icon {
+            visibility: hidden;
+        }
+
+        &::before {
+            --_button-spinner: var(--_button-on, var(--m-text-muted));
+            content: '';
+            position: absolute;
+            inset-block-start: 50%;
+            inset-inline-start: 50%;
+            inline-size: 1.2857em;
+            block-size: 1.2857em;
+            margin: -0.6429em 0 0 -0.6429em;
+            border: 0.2em solid color-mix(in oklab, var(--_button-spinner) 20%, transparent);
+            border-block-start-color: var(--_button-spinner);
+            border-radius: 50%;
+            animation: m-button-spin 0.6s linear infinite;
+        }
+    }
+
+    // Basic: outlined, the color moves to text and border
+    .ui.basic.button {
+        background: transparent;
+        color: var(--_button-color, var(--m-text-muted));
+        font-weight: var(--m-font-weight-normal);
+        box-shadow: inset 0 0 0 var(--m-border-width) var(--_button-color, var(--m-border));
+
+        &:hover,
+        &:focus-visible {
+            background: var(--m-surface);
+            color: var(--_button-hover, var(--m-text));
+            box-shadow: inset 0 0 0 var(--m-border-width) var(--_button-hover, var(--m-border-strong));
+        }
+
+        &:active,
+        &.active {
+            background: var(--m-surface-muted);
+            color: var(--_button-active, var(--m-text));
+            box-shadow: inset 0 0 0 var(--m-border-width) var(--_button-active, var(--m-border-strong));
+        }
+    }
+
+    // Inverted: for dark backgrounds. The button switches to the dark color scheme, so every color token resolves to
+    // its light-on-dark variant, and is drawn as an outline that fills on hover.
+    .ui.inverted.button {
+        color-scheme: dark;
+        background: transparent;
+        color: var(--_button-color, var(--m-color-white));
+        box-shadow: inset 0 0 0 2px var(--_button-color, var(--m-color-white));
+
+        &:hover,
+        &:focus-visible,
+        &:active,
+        &.active {
+            background: var(--_button-hover, var(--m-color-white));
+            // Without a color the fill is white: dark text, which is the page background of the dark scheme
+            color: var(--_button-on, var(--m-background));
+            box-shadow: none;
+        }
+
+        &.basic {
+            color: var(--_button-color, var(--m-color-white));
+            box-shadow: inset 0 0 0 2px var(--_button-color, rgb(255 255 255 / 50%));
+
+            &:hover,
+            &:focus-visible,
+            &:active,
+            &.active {
+                background: transparent;
+                color: var(--_button-hover, var(--m-color-white));
+                box-shadow: inset 0 0 0 2px var(--_button-hover, var(--m-color-white));
+            }
+        }
+    }
+
+    // Colors, roles and social brands
+    @each $name, $values in palette.$colors {
+        .ui.#{$name}:is(.button, .buttons) {
+            @include color(--m-color-#{$name});
+        }
+    }
+
+    @each $role in map.keys(palette.$roles) {
+        .ui.#{$role}:is(.button, .buttons) {
+            @include color(--m-#{$role});
+        }
+    }
+
+    @each $name, $value in $social {
+        .ui.#{$name}:is(.button, .buttons) {
+            @include static-color($value);
+        }
+    }
+
+    // A toggle button shows its active state as positive
+    .ui.toggle.active.button {
+        @include color(--m-positive);
+
+        background: var(--_button-color);
+
+        &:hover {
+            background: var(--_button-hover);
+        }
+    }
+
+    // Sizes
+    @each $name, $size in $sizes {
+        .ui.#{$name}:is(.button, .buttons) {
+            font-size: $size;
+        }
+    }
+
+    .ui.compact:is(.button, .buttons) {
+        --_button-scale: 0.75;
+    }
+
+    .ui.fluid.button {
+        display: block;
+        inline-size: 100%;
+    }
+
+    .ui.circular.button {
+        border-radius: var(--m-radius-pill);
+    }
+
+    // A square icon box, so the padding makes a circle
+    .ui.circular.icon.button {
+        > m-icon > i.icon,
+        > i.icon {
+            inline-size: 1em;
+        }
+    }
+
+    // Icon only: square padding
+    .ui.icon.button:not(.labeled) {
+        padding: var(--_button-padding-block);
+
+        > m-icon > .icon,
+        > .icon {
+            margin: 0;
+            opacity: 0.9;
+        }
+    }
+
+    // Labeled icon: the icon in its own box at the start (or the end with `right`). Not a button with an m-label, which
+    // is a labeled button as well.
+    .ui.labeled.icon.button:not(:has(> .label)) {
+        position: relative;
+        padding-inline: calc(var(--_button-padding-inline) + #{$icon-box}) var(--_button-padding-inline);
+
+        > m-icon,
+        > .icon {
+            position: absolute;
+            inset-block: 0;
+            inset-inline-start: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            inline-size: $icon-box;
+            border-start-start-radius: inherit;
+            border-end-start-radius: inherit;
+            background: color-mix(in oklab, var(--m-shade) 6%, transparent);
+        }
+
+        > m-icon > .icon {
+            margin: 0;
+        }
+
+        > m-icon > i.icon {
+            block-size: 1em;
+        }
+
+        // `right` alone is the icon position, `right attached` the attached button
+        &.right:not(.attached) {
+            padding-inline: var(--_button-padding-inline) calc(var(--_button-padding-inline) + #{$icon-box});
+
+            > m-icon,
+            > .icon {
+                inset-inline: auto 0;
+                border-radius: 0;
+                border-start-end-radius: inherit;
+                border-end-end-radius: inherit;
+            }
+        }
+    }
+
+    // Labeled: a button joined with a label (<m-button><m-label>). The host only lays out its inner button and label.
+    .ui.labeled.button:has(> .label) {
+        display: inline-flex;
+        padding: 0;
+
+        &,
+        &:hover,
+        &:focus-visible,
+        &:active,
+        &.active {
+            background: none;
+            box-shadow: none;
+        }
+
+        > .ui.button {
+            margin: 0;
+        }
+
+        > .label {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            font-size: 1em;
+        }
+
+        > :first-child:not(:last-child) {
+            border-start-end-radius: 0;
+            border-end-end-radius: 0;
+        }
+
+        > :last-child:not(:first-child) {
+            margin-inline-start: -1px;
+            border-start-start-radius: 0;
+            border-end-start-radius: 0;
+        }
+    }
+
+    // Animated: a hidden content (<m-animation>) replaces the visible one on hover / focus. Default slides in from
+    // the end, `vertical` from above, `fade` cross-fades.
+    .ui.animated.button {
+        --_button-animation: calc(var(--m-duration) * 3) var(--m-easing);
+        position: relative;
+        overflow: hidden;
+        padding-inline-end: 0;
+        vertical-align: middle;
+
+        > .content {
+            transition: inset-inline-end var(--_button-animation), translate var(--_button-animation), opacity var(--_button-animation);
+        }
+
+        > .visible.content {
+            position: relative;
+            inset-inline-end: 0;
+            margin-inline-end: var(--_button-padding-inline);
+        }
+
+        > .hidden.content {
+            position: absolute;
+            inset-block-start: 50%;
+            inset-inline-end: -100%;
+            inline-size: 100%;
+            translate: 0 -50%;
+        }
+
+        &:is(:hover, :focus-visible) {
+            > .visible.content {
+                inset-inline-end: 200%;
+            }
+
+            > .hidden.content {
+                inset-inline-end: 0;
+            }
+        }
+
+        &.vertical {
+            > .hidden.content {
+                inset-inline: 0;
+                translate: 0 -250%;
+            }
+
+            &:is(:hover, :focus-visible) {
+                > .visible.content {
+                    inset-inline-end: 0;
+                    translate: 0 200%;
+                }
+
+                > .hidden.content {
+                    translate: 0 -50%;
+                }
+            }
+        }
+
+        &.fade {
+            > .hidden.content {
+                inset-inline: 0;
+                opacity: 0;
+                scale: 1.5;
+            }
+
+            &:is(:hover, :focus-visible) {
+                > .visible.content {
+                    inset-inline-end: 0;
+                    opacity: 0;
+                    scale: 0.75;
+                }
+
+                > .hidden.content {
+                    opacity: 1;
+                    scale: 1;
+                }
+            }
+        }
+    }
+
+    // Attached to content above or below (left / right: see the core's attached mixin)
+    .ui.attached.button {
+        position: relative;
+        margin: 0;
+    }
+
+    .ui:is(.top, .bottom).attached.button {
+        display: block;
+        box-shadow: 0 0 0 var(--m-border-width) var(--m-border);
+    }
+
+    .ui.top.attached.button {
+        border-end-start-radius: 0;
+        border-end-end-radius: 0;
+    }
+
+    .ui.bottom.attached.button {
+        border-start-start-radius: 0;
+        border-start-end-radius: 0;
+    }
+
+    .ui.left.attached.button {
+        padding-inline-end: calc(var(--_button-padding-inline) / 2);
+        border-start-end-radius: 0;
+        border-end-end-radius: 0;
+    }
+
+    .ui.right.attached.button {
+        padding-inline-start: calc(var(--_button-padding-inline) / 2);
+        border-start-start-radius: 0;
+        border-end-start-radius: 0;
+    }
+
+    // Groups
+    .ui.buttons {
+        --_buttons-radius: var(--m-button-radius, var(--m-radius));
+        display: inline-flex;
+        flex-direction: row;
+        margin-block: 0;
+        margin-inline: 0 0.25em;
+        border-radius: var(--_buttons-radius);
+        font-size: 1rem;
+        vertical-align: baseline;
+
+        > .button {
+            flex: 1 0 auto;
+            margin: 0;
+            border-radius: 0;
+            font-size: inherit;
+        }
+
+        > .button:first-child {
+            border-start-start-radius: var(--_buttons-radius);
+            border-end-start-radius: var(--_buttons-radius);
+        }
+
+        > .button:last-child {
+            border-start-end-radius: var(--_buttons-radius);
+            border-end-end-radius: var(--_buttons-radius);
+        }
+
+        &.vertical {
+            flex-direction: column;
+
+            > .button {
+                border-radius: 0;
+            }
+
+            > .button:first-child {
+                border-start-start-radius: var(--_buttons-radius);
+                border-start-end-radius: var(--_buttons-radius);
+            }
+
+            > .button:last-child {
+                border-end-start-radius: var(--_buttons-radius);
+                border-end-end-radius: var(--_buttons-radius);
+            }
+        }
+
+        &.fluid {
+            display: flex;
+            inline-size: 100%;
+        }
+    }
+
+    // Equal width
+    .ui:is(.two, .three, .four, .five, .six, .seven, .eight, .nine, .ten).buttons {
+        display: flex;
+        inline-size: 100%;
+
+        > .button {
+            flex: 1 1 0;
+        }
+    }
+
+    // Basic group: one border around all buttons, separators between them
+    .ui.basic.buttons {
+        border: var(--m-border-width) solid var(--m-border);
+
+        > .button {
+            background: transparent;
+            color: var(--_button-color, var(--m-text-muted));
+            font-weight: var(--m-font-weight-normal);
+            box-shadow: none;
+
+            &:hover,
+            &:focus-visible {
+                background: color-mix(in oklab, var(--m-shade) 4%, transparent);
+                color: var(--_button-hover, var(--m-text));
+            }
+
+            &:active,
+            &.active {
+                background: color-mix(in oklab, var(--m-shade) 8%, transparent);
+                color: var(--_button-active, var(--m-text));
+            }
+
+            + .button {
+                border-inline-start: var(--m-border-width) solid var(--m-border);
+            }
+        }
+
+        &.vertical > .button + .button {
+            border-inline-start: none;
+            border-block-start: var(--m-border-width) solid var(--m-border);
+        }
+    }
+
+    // Conditional between two buttons (<m-or>, text from data-text)
+    .ui.buttons > .or {
+        position: relative;
+        z-index: 1;
+        inline-size: 0.3em;
+        block-size: 2.5714em;
+
+        &::before {
+            content: 'or';
+            position: absolute;
+            inset-block-start: 50%;
+            inset-inline-start: 50%;
+            translate: -50% -50%;
+            inline-size: 1.7857em;
+            block-size: 1.7857em;
+            border-radius: 50%;
+            background: var(--m-surface);
+            color: var(--m-text-muted);
+            font-size: 0.8571em;
+            font-style: italic;
+            font-weight: var(--m-font-weight-bold);
+            line-height: 1.7857em;
+            text-align: center;
+            box-shadow: 0 0 0 var(--m-border-width) var(--m-border);
+        }
+
+        &[data-text]::before {
+            content: attr(data-text);
+        }
+    }
+
+    // Group attached to content above or below
+    .ui.attached.buttons {
+        display: flex;
+        position: relative;
+        margin-inline: calc(var(--m-border-width) * -1);
+        border-radius: 0;
+        inline-size: calc(100% + var(--m-border-width) * 2);
+    }
+
+    .ui.top.attached.buttons {
+        margin-block-end: calc(var(--m-border-width) * -1);
+
+        > .button {
+            border-end-start-radius: 0;
+            border-end-end-radius: 0;
+        }
+    }
+
+    .ui.bottom.attached.buttons {
+        margin-block-start: calc(var(--m-border-width) * -1);
+
+        > .button {
+            border-start-start-radius: 0;
+            border-start-end-radius: 0;
+        }
+    }
+}
+
+@keyframes m-button-spin {
+    to {
+        rotate: 360deg;
+    }
+}

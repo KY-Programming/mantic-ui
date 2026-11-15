@@ -1,0 +1,253 @@
+// Checkbox, radio, toggle and slider (`.ui.checkbox`, `.ui.radio.checkbox`, …): m-checkbox, m-radio, m-toggle, m-slider.
+//
+// Every variant renders a hidden native input and a label; the label's ::before draws the box (or the track), the
+// check mark is the m-icon m-checkbox puts into its label, radio dot and toggle / slider knob are the label's ::after.
+// States are read from the host classes the core sets (`.checked`, `.indeterminate`, `.disabled`, `.read-only`), not
+// from `input:checked`: they are what the component considers its value.
+//
+// Box and label take the --_control-* properties of the input (see _input.scss), so an error field colors them too.
+
+// Size of the check box, and of the radio circle
+$box: 1.2143em;
+$radio: 1.0714em;
+// Track and knob of toggle and slider
+$track: 3.5rem;
+$knob: 1.5rem;
+
+@layer mantic.components {
+    .ui.checkbox {
+        position: relative;
+        display: inline-block;
+        min-block-size: $box;
+        min-inline-size: $box;
+        font-size: 1rem;
+        font-style: normal;
+        line-height: $box;
+        vertical-align: baseline;
+        outline: none;
+
+        // Kept focusable for the keyboard, but never seen: the label draws the box
+        > input {
+            position: absolute;
+            inset-block-start: 0;
+            inset-inline-start: 0;
+            z-index: -1;
+            inline-size: $box;
+            block-size: $box;
+            margin: 0;
+            opacity: 0;
+        }
+
+        > label {
+            position: relative;
+            display: block;
+            padding-inline-start: 1.8571em;
+            color: var(--_control-text, var(--m-text));
+            font-size: 1em;
+            cursor: pointer;
+            user-select: none;
+            transition: color var(--m-duration) var(--m-easing);
+
+            &::before {
+                content: '';
+                position: absolute;
+                inset-block-start: 0;
+                inset-inline-start: 0;
+                box-sizing: border-box;
+                inline-size: $box;
+                block-size: $box;
+                border: var(--m-border-width) solid var(--_control-border, var(--m-border));
+                border-radius: var(--m-radius-small);
+                background: var(--_control-background, var(--m-surface));
+                transition-property: border-color, background-color, inset-inline-start;
+                transition-duration: var(--m-duration);
+                transition-timing-function: var(--m-easing);
+            }
+
+            &:hover::before {
+                border-color: var(--_control-border, var(--m-border-strong));
+            }
+
+            // The check mark (and the dash of an indeterminate checkbox)
+            > m-icon {
+                position: absolute;
+                inset-block-start: 0;
+                inset-inline-start: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                inline-size: $box;
+                block-size: $box;
+                color: var(--_control-text, var(--m-text));
+                pointer-events: none;
+
+                > :is(i, fa-icon).icon {
+                    margin: 0;
+                }
+            }
+        }
+
+        > input:focus-visible ~ label::before {
+            border-color: var(--_control-focus, var(--m-focus));
+        }
+
+        &:is(.checked, .indeterminate) > label::before {
+            border-color: var(--_control-border, var(--m-border-strong));
+        }
+    }
+
+    // Fitted: only the box, no room for a label
+    .ui.fitted.checkbox > label {
+        padding-inline-start: 0;
+    }
+
+    .ui.read-only.checkbox,
+    .ui.read-only.checkbox > label {
+        cursor: default;
+    }
+
+    .ui.disabled.checkbox {
+        pointer-events: none;
+
+        > label {
+            cursor: default;
+            opacity: 0.5;
+        }
+    }
+
+    // Radio: a circle with a dot
+    .ui.radio.checkbox {
+        min-block-size: $radio;
+
+        > label {
+            &::before,
+            &::after {
+                inset-block-start: 0.0714em;
+                inline-size: $radio;
+                block-size: $radio;
+                border-radius: 50%;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                inset-inline-start: 0;
+                background: var(--_control-text, var(--m-text));
+                opacity: 0;
+                scale: 0.4667;
+                transition: opacity var(--m-duration) var(--m-easing);
+            }
+        }
+
+        &.checked > label::after {
+            opacity: 1;
+        }
+    }
+
+    // Toggle and slider: a knob that moves along a track. They are switches, not fields, so an error field does not
+    // color them.
+    .ui:is(.toggle, .slider).checkbox {
+        > input {
+            inline-size: $track;
+            block-size: $knob;
+        }
+
+        > label {
+            padding-inline-start: calc(#{$track} + 1rem);
+            color: var(--m-text);
+
+            &::before {
+                inline-size: $track;
+                border: none;
+                border-radius: var(--m-radius-pill);
+                background: color-mix(in oklab, var(--m-text) 6%, transparent);
+            }
+
+            &:hover::before {
+                background: color-mix(in oklab, var(--m-text) 15%, transparent);
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                inset-inline-start: 0;
+                z-index: 1;
+                inline-size: $knob;
+                block-size: $knob;
+                border-radius: 50%;
+                background: var(--m-color-white) linear-gradient(transparent, rgb(0 0 0 / 5%));
+                box-shadow: 0 1px 2px 0 var(--m-shadow-color), inset 0 0 0 1px rgb(34 36 38 / 15%);
+                transition: inset-inline-start calc(var(--m-duration) * 3) var(--m-easing);
+            }
+        }
+
+        > input:focus-visible ~ label::before {
+            outline: 2px solid var(--m-focus);
+            outline-offset: 1px;
+        }
+
+        &.checked > label::after {
+            inset-inline-start: calc(#{$track} - #{$knob});
+        }
+    }
+
+    .ui.fitted:is(.toggle, .slider).checkbox {
+        inline-size: $track;
+    }
+
+    .ui.toggle.checkbox {
+        min-block-size: $knob;
+
+        > label {
+            min-block-size: $knob;
+            padding-block-start: 0.15em;
+
+            &::before {
+                block-size: $knob;
+            }
+
+            &::after {
+                inset-block-start: 0;
+            }
+        }
+
+        &.checked > label::before {
+            background: var(--m-primary);
+        }
+
+        &.checked > label:hover::before {
+            background: var(--m-primary-hover);
+        }
+    }
+
+    .ui.slider.checkbox {
+        min-block-size: 1.25rem;
+
+        > label {
+            color: var(--m-text-muted);
+            line-height: 1rem;
+
+            &::before {
+                inset-block-start: 0.4rem;
+                block-size: 0.2143rem;
+            }
+
+            &::after {
+                inset-block-start: -0.25rem;
+            }
+        }
+
+        &.checked > label {
+            color: var(--m-text);
+
+            &::before {
+                background: color-mix(in oklab, var(--m-text) 70%, transparent);
+            }
+        }
+    }
+
+    // Inverted: sits on a dark background
+    .ui.inverted.checkbox {
+        color-scheme: dark;
+    }
+}

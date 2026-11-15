@@ -1,0 +1,197 @@
+// Modal (`.ui.modal`): m-modal renders its box inside a page dimmer (`m-dimmer page > .ui.modal`).
+//
+// The modal is a flex item centered by the dimmer (`safe center`, so a modal taller than the viewport scrolls instead of
+// being cut off at the top). It resets the text color the dimmer sets for its own content.
+//
+// Public component tokens (optional): --m-modal-width, --m-modal-radius.
+
+// Widths of the sizes (Semantic's widths at a large screen)
+$widths: (
+    mini: 360px,
+    tiny: 540px,
+    small: 720px,
+    large: 1080px
+);
+
+@layer mantic.components {
+    .ui.dimmer:has(> .ui.modal) {
+        justify-content: safe center;
+        overflow: auto;
+        user-select: text;
+    }
+
+    .ui.modal {
+        --_modal-radius: var(--m-modal-radius, var(--m-radius));
+        position: relative;
+        z-index: 1001;
+        display: none;
+        flex: 0 0 auto;
+        inline-size: min(95%, var(--_modal-width, var(--m-modal-width, 900px)));
+        margin-block: 1rem;
+        border: none;
+        border-radius: var(--_modal-radius);
+        background: var(--m-surface);
+        box-shadow: var(--m-shadow-overlay);
+        color: var(--m-text);
+        font-size: 1rem;
+        line-height: var(--m-line-height);
+        text-align: start;
+        user-select: text;
+
+        > :first-child {
+            border-start-start-radius: var(--_modal-radius);
+            border-start-end-radius: var(--_modal-radius);
+        }
+
+        > :last-child {
+            border-end-start-radius: var(--_modal-radius);
+            border-end-end-radius: var(--_modal-radius);
+        }
+
+        // The core lays the header out as a row: its text, then the close icon
+        > .header {
+            align-items: center;
+            gap: 0.5em;
+            margin: 0;
+            padding: 1.25rem 1.5rem;
+            border-block-end: var(--m-border-width) solid var(--m-border);
+            background: transparent;
+            color: var(--m-text);
+            font-family: var(--m-font-family-header);
+
+            &:not(.ui) {
+                font-size: 1.4286rem;
+                font-weight: var(--m-font-weight-bold);
+                line-height: 1.2857em;
+            }
+
+            > m-icon.close {
+                cursor: pointer;
+                opacity: 0.8;
+                transition: opacity var(--m-duration) var(--m-easing);
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                > :is(i, fa-icon).icon {
+                    margin: 0;
+                }
+            }
+        }
+
+        > .content {
+            display: block;
+            inline-size: 100%;
+            padding: 1.5rem;
+            background: transparent;
+            font-size: 1em;
+            line-height: 1.4;
+        }
+
+        > .scrolling.content {
+            max-block-size: calc(80vh - 10em);
+            overflow: auto;
+        }
+
+        // Image content: an image (or a big icon) beside the description
+        > .image.content {
+            display: flex;
+            gap: 2em;
+
+            > .image {
+                display: block;
+                flex: 0 1 auto;
+                align-self: start;
+            }
+
+            > .description {
+                display: block;
+                flex: 1 0 auto;
+                min-inline-size: 0;
+                align-self: start;
+            }
+        }
+
+        > .actions {
+            padding: 1rem;
+            border-block-start: var(--m-border-width) solid var(--m-border);
+            background: var(--m-surface-muted);
+            text-align: end;
+
+            > m-modal-footer {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 0.75em;
+            }
+
+            .ui.button {
+                margin: 0;
+            }
+        }
+    }
+
+    .ui.active.modal {
+        display: block;
+    }
+
+    // Basic: no box, the content stands on the dimmer
+    .ui.basic.modal {
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        color: inherit;
+
+        > .header,
+        > .content,
+        > .actions {
+            border: none;
+            background: transparent;
+            color: inherit;
+        }
+    }
+
+    .ui.inverted.dimmer > .ui.modal:not(.basic) {
+        box-shadow: 1px 3px 10px 2px var(--m-shadow-color);
+    }
+
+    // Fullscreen: nearly the whole viewport width
+    .ui.fullscreen.modal {
+        inline-size: 95%;
+    }
+
+    @each $name, $width in $widths {
+        .ui.#{$name}.modal {
+            --_modal-width: #{$width};
+
+            > .header:not(.ui) {
+                @if $name == mini or $name == small {
+                    font-size: 1.3em;
+                }
+            }
+        }
+    }
+
+    // Inverted: a dark box
+    .ui.inverted.modal {
+        color-scheme: dark;
+    }
+
+    @media (width < 768px) {
+        .ui.modal {
+            > .header {
+                padding: 0.75rem 1rem;
+            }
+
+            > .content {
+                padding: 1rem;
+            }
+
+            > .image.content {
+                flex-direction: column;
+            }
+        }
+    }
+}

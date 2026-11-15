@@ -1,0 +1,302 @@
+@use 'sass:list';
+@use 'input';
+
+// Form, field and field group (`.ui.form`, `.field`, `.fields`). m-textarea renders a `.ui.form.textarea` host, so its
+// textarea is styled by the form rules as well.
+//
+// Fields in a group are laid out with flex and `gap`, not with negative margins: an equal-width group shares the room
+// evenly, a `wide` field takes its sixteenths of it (gap included), and the other fields share the rest.
+
+$sizes: (
+    mini: 0.7857rem,
+    tiny: 0.8571rem,
+    small: 0.9286rem,
+    medium: 1rem,
+    large: 1.1429rem,
+    big: 1.2857rem,
+    huge: 1.4286rem,
+    massive: 1.7143rem
+);
+
+$counts: (two, three, four, five, six, seven, eight, nine, ten);
+$widths: (one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen);
+
+// Native fields the form styles directly. `:where` keeps the specificity low, so the rules of `.ui.input` (transparent,
+// labeled, …) still win over these for an input inside an m-input.
+$control: ':where(textarea, input:is(:not([type]), [type="date"], [type="datetime-local"], [type="email"], [type="number"], [type="password"], [type="search"], [type="tel"], [type="time"], [type="text"], [type="file"], [type="url"]))';
+
+@mixin label {
+    color: var(--_control-text, var(--m-text));
+    font-size: 0.9286em;
+    font-weight: var(--m-font-weight-bold);
+    text-transform: none;
+}
+
+@layer mantic.components {
+    .ui.form {
+        position: relative;
+        max-inline-size: 100%;
+        font-size: 1rem;
+
+        > p {
+            margin-block: 1em;
+        }
+
+        #{$control} {
+            @include input.control;
+
+            inline-size: 100%;
+            vertical-align: top;
+        }
+
+        textarea {
+            padding-block: calc(0.7857em * var(--m-density));
+            line-height: 1.2857;
+            resize: vertical;
+
+            &:not([rows]) {
+                block-size: 12em;
+                min-block-size: 8em;
+                max-block-size: 24em;
+            }
+        }
+
+        .field {
+            margin-block: 0 1em;
+
+            &:last-child {
+                margin-block-end: 0;
+            }
+
+            > label {
+                @include label;
+
+                display: block;
+                margin-block: 0 0.2857rem;
+            }
+
+            // An m-input fills the field; its input takes the room that is left beside icons, labels and buttons
+            .ui.input {
+                inline-size: 100%;
+
+                > input {
+                    inline-size: 0;
+                }
+            }
+        }
+
+        // The hint and inline-validation icons of a field
+        .field > label > m-icon,
+        .field > m-icon:is(.hint, .error) {
+            margin-inline-start: 0.25em;
+        }
+
+        // A field required to be filled (the `required` class is set by the app)
+        .required.field > label,
+        .required.fields:not(.grouped) > .field > label,
+        .required.grouped.fields > label {
+            &::after {
+                content: '*';
+                display: inline-block;
+                margin-block-start: -0.2em;
+                margin-inline-start: 0.2em;
+                color: var(--m-negative);
+                vertical-align: top;
+            }
+        }
+
+        // States
+        .field.error,
+        .fields.error > .field {
+            @include input.error;
+
+            > m-icon.error {
+                color: var(--_control-text);
+            }
+        }
+
+        .field.disabled,
+        .fields.disabled > .field,
+        .field :disabled {
+            opacity: var(--m-disabled-opacity);
+            pointer-events: none;
+        }
+
+        // A disabled field is dimmed once, not once more for its disabled input inside
+        .field.disabled :is(.disabled, :disabled),
+        .fields.disabled > .field :is(.disabled, :disabled) {
+            opacity: 1;
+        }
+
+        // The state messages show only while the form is in that state
+        @each $state in (success, error, warning) {
+            &:not(.#{$state}) .#{$state}.message {
+                display: none;
+            }
+        }
+
+        .message:first-child {
+            margin-block-start: 0;
+        }
+    }
+
+    // Field group
+    .ui.form .fields {
+        --_fields-gap: 1em;
+        display: flex;
+        gap: var(--_fields-gap);
+        margin-block: 0 1em;
+
+        &:last-child {
+            margin-block-end: 0;
+        }
+
+        // Without a column count a field is as wide as its content, so its input keeps its own width
+        > .field {
+            flex: 0 1 auto;
+            min-inline-size: 0;
+            margin: 0;
+
+            .ui.input > input {
+                inline-size: auto;
+            }
+        }
+
+        > :is(.wide, .fill).field .ui.input > input {
+            inline-size: 0;
+        }
+
+        @each $count in $counts {
+            &.#{$count} > .field {
+                flex: 1 1 0;
+
+                .ui.input > input {
+                    inline-size: 0;
+                }
+            }
+        }
+
+        // A wide field takes n sixteenths of the row; the gap is shared out so that sixteen sixteenths fill it exactly
+        @each $width in $widths {
+            $n: list.index($widths, $width);
+
+            > .#{$width}.wide.field {
+                flex: 0 0 auto;
+                inline-size: calc(#{$n} / 16 * (100% + var(--_fields-gap)) - var(--_fields-gap));
+            }
+        }
+
+        > .fill.field {
+            flex-grow: 1;
+        }
+    }
+
+    // Grouped: the fields below each other, under a common label
+    .ui.form .grouped.fields {
+        flex-direction: column;
+        gap: 0.5em;
+
+        > label {
+            @include label;
+
+            margin: 0;
+        }
+    }
+
+    // Inline: label and field side by side
+    .ui.form .inline.fields {
+        align-items: center;
+
+        > label {
+            @include label;
+
+            margin: 0;
+        }
+    }
+
+    .ui.form .inline.field,
+    .ui.form .inline.fields > .field {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.8571em;
+
+        > label {
+            margin: 0;
+        }
+
+        &:not(.wide) .ui.input {
+            inline-size: auto;
+
+            > input {
+                inline-size: auto;
+            }
+        }
+
+        &.wide .ui.input {
+            flex: 1 1 0;
+        }
+    }
+
+    // On a narrow screen the fields of a group go below each other
+    @media (width < 768px) {
+        .ui.form:not(.unstackable) .fields:not(.unstackable, .inline, .grouped) {
+            flex-direction: column;
+
+            > .field,
+            > .wide.field {
+                flex: none;
+                inline-size: auto;
+            }
+        }
+    }
+
+    // Loading: a veil and a spinner over the form
+    .ui.loading.form {
+        cursor: default;
+        pointer-events: none;
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 100;
+            background: color-mix(in oklab, var(--m-surface) 80%, transparent);
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset-block-start: 50%;
+            inset-inline-start: 50%;
+            z-index: 101;
+            inline-size: 3em;
+            block-size: 3em;
+            translate: -50% -50%;
+            border: 0.2em solid color-mix(in oklab, var(--m-text) 10%, transparent);
+            border-block-start-color: var(--m-text-muted);
+            border-radius: 50%;
+            animation: m-icon-spin 0.6s linear infinite;
+        }
+    }
+
+    // Textarea outside of a field (m-textarea)
+    .ui.disabled.textarea {
+        opacity: var(--m-disabled-opacity);
+
+        > textarea {
+            pointer-events: none;
+        }
+    }
+
+    // Inverted: sits on a dark background
+    .ui.inverted.form {
+        color-scheme: dark;
+    }
+
+    @each $name, $size in $sizes {
+        .ui.#{$name}.form {
+            font-size: $size;
+        }
+    }
+}

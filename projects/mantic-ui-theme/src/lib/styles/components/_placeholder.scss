@@ -1,0 +1,191 @@
+// Placeholder (`.ui.placeholder`): a shimmering skeleton of content that is still loading.
+//
+// As in Semantic, the shimmer is the background of the whole placeholder and the "gaps" between lines are pieces of
+// surface color laid over it. So they take --m-surface: the placeholder must sit on a surface-colored background.
+// The placeholder segment (`.ui.placeholder.segment`) is a segment variant, styled in _segment.scss, and excluded here.
+
+// Width of the shimmer's travel; the gradient is that wide and slides across once per cycle
+$shimmer: 1200px;
+
+@layer mantic.components {
+    .ui.placeholder:not(.segment) {
+        --_placeholder-gap: var(--m-surface);
+        position: static;
+        overflow: hidden;
+        max-inline-size: 30rem;
+        background-color: var(--_placeholder-gap);
+        background-image: linear-gradient(to right, color-mix(in oklab, var(--m-text) 8%, transparent) 0%, color-mix(in oklab, var(--m-text) 15%, transparent) 15%, color-mix(in oklab, var(--m-text) 8%, transparent) 30%);
+        background-size: $shimmer 100%;
+        animation: m-placeholder-shimmer 2s linear infinite;
+
+        @media (prefers-reduced-motion: reduce) {
+            animation: none;
+        }
+
+        > ::before,
+        .image.header::after,
+        .line,
+        .line::after {
+            background-color: var(--_placeholder-gap);
+        }
+
+        .image:not(.header, .ui) {
+            block-size: 100px;
+        }
+
+        .square.image:not(.header) {
+            block-size: auto;
+            aspect-ratio: 1;
+        }
+
+        .rectangular.image:not(.header) {
+            block-size: auto;
+            aspect-ratio: 4 / 3;
+        }
+
+        // A line is a strip of shimmer: the gap below it is its ::before / ::after, the ::after also cuts it short
+        .line {
+            position: relative;
+            block-size: 0.8571em;
+            margin-block-end: 0.5em;
+
+            &:not(:first-child) {
+                margin-block-start: 0.5em;
+            }
+
+            &::before,
+            &::after {
+                content: '';
+                position: absolute;
+                inset-block-start: 100%;
+                block-size: 0.5em;
+                background-color: inherit;
+            }
+
+            &::before {
+                inset-inline-start: 0;
+            }
+
+            &::after {
+                inset-inline-end: 0;
+            }
+        }
+
+        .header {
+            position: relative;
+            overflow: hidden;
+
+            .line {
+                margin-block-end: 0.6429em;
+
+                &::before,
+                &::after {
+                    block-size: 0.6429em;
+                }
+
+                &:not(:first-child) {
+                    margin-block-start: 0.6429em;
+                }
+
+                &::after {
+                    inline-size: 20%;
+                }
+
+                &:nth-child(2)::after {
+                    inline-size: 60%;
+                }
+            }
+        }
+
+        .image.header {
+            .line {
+                margin-inline-start: 3em;
+
+                &::before {
+                    inline-size: 0.7143rem;
+                }
+            }
+
+            &::after {
+                content: '';
+                display: block;
+                block-size: 0.8571em;
+                margin-inline-start: 3em;
+            }
+        }
+
+        :is(.image, .paragraph, .header) .line:first-child {
+            block-size: 0.01px;
+        }
+
+        :is(.image, .paragraph, .header):not(:first-child)::before {
+            content: '';
+            display: block;
+            block-size: 1.4286em;
+        }
+    }
+
+    // How much of a line is cut off (default: varying per line)
+    @each $n, $cut in (1: 0%, 2: 50%, 3: 10%, 4: 35%, 5: 65%) {
+        .ui.placeholder:not(.segment) .line:nth-child(#{$n})::after {
+            inline-size: $cut;
+        }
+    }
+
+    .ui.placeholder:not(.segment) .full.line.line.line::after {
+        inline-size: 0%;
+    }
+
+    .ui.placeholder:not(.segment) .very.long.line.line.line::after {
+        inline-size: 10%;
+    }
+
+    .ui.placeholder:not(.segment) .long.line.line.line:not(.very)::after {
+        inline-size: 35%;
+    }
+
+    .ui.placeholder:not(.segment) .medium.line.line.line::after {
+        inline-size: 50%;
+    }
+
+    .ui.placeholder:not(.segment) .short.line.line.line:not(.very)::after {
+        inline-size: 65%;
+    }
+
+    .ui.placeholder:not(.segment) .very.short.line.line.line::after {
+        inline-size: 80%;
+    }
+
+    // Several placeholders below each other shimmer one after the other
+    .ui.placeholder + .ui.placeholder:not(.segment) {
+        margin-block-start: 2rem;
+        animation-delay: 0.15s;
+    }
+
+    .ui.placeholder + .ui.placeholder + .ui.placeholder:not(.segment) {
+        animation-delay: 0.3s;
+    }
+
+    .ui.placeholder + .ui.placeholder + .ui.placeholder + .ui.placeholder:not(.segment) {
+        animation-delay: 0.45s;
+    }
+
+    .ui.fluid.placeholder {
+        max-inline-size: none;
+    }
+
+    // Inverted: sits on a dark background
+    .ui.inverted.placeholder {
+        color-scheme: dark;
+    }
+}
+
+@keyframes m-placeholder-shimmer {
+    from {
+        background-position: -$shimmer 0;
+    }
+
+    to {
+        background-position: $shimmer 0;
+    }
+}

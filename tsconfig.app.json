@@ -16,6 +16,9 @@
       ],
       "@mantic-ui/semantic-ui-angular": [
         "./projects/semantic-ui/src/public-api"
+      ],
+      "@mantic-ui/theme": [
+        "./projects/mantic-ui-theme/src/public-api"
       ]
     }
   },

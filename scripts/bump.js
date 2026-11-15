@@ -20,13 +20,14 @@ const assumeYes = cliArgs.length > 0;
 
 const groups = {
     mantic: {
-        label: 'mantic  (mantic-ui, mantic-ui-doc, fomantic-ui, semantic-ui)',
+        label: 'mantic  (mantic-ui, mantic-ui-doc, fomantic-ui, semantic-ui, mantic-ui-theme)',
         displayName: 'mantic UI',
         packages: [
             { file: 'projects/mantic-ui/package.json', build: 'mantic:build' },
             { file: 'projects/mantic-ui-doc/package.json', build: 'doc:build' },
             { file: 'projects/fomantic-ui/package.json', build: 'fomantic:build' },
-            { file: 'projects/semantic-ui/package.json', build: 'semantic:build' }
+            { file: 'projects/semantic-ui/package.json', build: 'semantic:build' },
+            { file: 'projects/mantic-ui-theme/package.json', build: 'theme:build' }
         ]
     },
     eslint: {

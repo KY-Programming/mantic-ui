@@ -10,21 +10,35 @@
         <span><b>mantic UI</b></span>
     </a>
     <a class="item active">
-        @if (isSemantic) {
-            <span class="ui logo icon image">
-        <img src="/assets/semantic.png" alt="semantic">
-      </span>
-            <span><b>Semantic UI Angular</b></span>
-        } @else {
-            <span class="ui logo icon image">
-        <img src="/assets/fomantic.png" alt="fomantic">
-      </span>
-            <span><b>Fomantic UI Angular</b></span>
+        @switch (framework) {
+            @case ('semantic') {
+                <span class="ui logo icon image">
+                    <img src="/assets/semantic.png" alt="semantic">
+                </span>
+                <span><b>Semantic UI Angular</b></span>
+            }
+            @case ('mantic') {
+                <span class="ui logo icon image">
+                    <img src="/assets/mantic.png" alt="mantic">
+                </span>
+                <span><b>mantic UI Theme</b></span>
+            }
+            @default {
+                <span class="ui logo icon image">
+                    <img src="/assets/fomantic.png" alt="fomantic">
+                </span>
+                <span><b>Fomantic UI Angular</b></span>
+            }
         }
     </a>
     <a class="item" [routerLink]="[prefix, 'start']" routerLinkActive="active">
         <b>Getting Started</b>
     </a>
+    @if (framework === 'mantic') {
+        <a class="item" [routerLink]="[prefix, 'theming']" routerLinkActive="active">
+            <b>Theming</b>
+        </a>
+    }
     <div class="item">
         <div class="header">
             <a [routerLink]="[prefix, 'help']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">How to get help?</a>
@@ -185,8 +199,9 @@
         <m-button icon="refresh">
             Framework
             <m-context-menu openOnLeftClick>
-                <m-context-menu-item [icon]="isSemantic ? '' : 'check'" (click)="toFomantic()">Fomantic UI</m-context-menu-item>
-                <m-context-menu-item [icon]="isSemantic ? 'check' : ''" (click)="toSemantic()">Semantic UI</m-context-menu-item>
+                <m-context-menu-item [icon]="framework === 'fomantic' ? 'check' : ''" (click)="switchTo('fomantic')">Fomantic UI</m-context-menu-item>
+                <m-context-menu-item [icon]="framework === 'semantic' ? 'check' : ''" (click)="switchTo('semantic')">Semantic UI</m-context-menu-item>
+                <m-context-menu-item [icon]="framework === 'mantic' ? 'check' : ''" (click)="switchTo('mantic')">mantic UI</m-context-menu-item>
             </m-context-menu>
         </m-button>
         <m-button icon="refresh">

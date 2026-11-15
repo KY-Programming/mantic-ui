@@ -1,0 +1,100 @@
+// Accordion (`.ui.accordion`): m-expander renders `.ui.fluid.accordion` (plus `styled` unless `basic`) with a `.title`
+// row (an m-flex: dropdown icon and text, reversed for `iconPosition="right"`) and a `.content` that shows while active.
+// m-expander-part / m-expander-icon bring their own core styles and need nothing here.
+
+@layer mantic.components {
+    .ui.accordion {
+        max-inline-size: 100%;
+
+        .title {
+            gap: 0.25rem;
+            cursor: pointer;
+
+            &:not(.ui) {
+                padding-block: 0.5em;
+                color: var(--m-text);
+                font-family: var(--m-font-family);
+                font-size: 1em;
+            }
+
+            .dropdown.icon {
+                inline-size: 1.25em;
+                block-size: 1em;
+                margin: 0;
+                padding: 0;
+                font-size: 1em;
+                opacity: 1;
+                transition: rotate var(--m-duration) var(--m-easing), opacity var(--m-duration) var(--m-easing);
+            }
+
+            &.active .dropdown.icon {
+                rotate: 90deg;
+            }
+        }
+
+        .title ~ .content {
+            display: none;
+
+            &.active {
+                display: block;
+            }
+        }
+
+        &:not(.styled) .title ~ .content:not(.ui) {
+            padding-block: 0.5em 1em;
+
+            &:last-child {
+                padding-block-end: 0;
+            }
+        }
+
+        .accordion {
+            margin-block: 1em 0;
+            padding: 0;
+        }
+    }
+
+    .ui.fluid.accordion {
+        inline-size: 100%;
+    }
+
+    // Styled: a box, the titles separated by lines
+    .ui.styled.accordion {
+        inline-size: 600px;
+        border-radius: var(--m-radius);
+        background: var(--m-surface);
+        box-shadow: var(--m-shadow), 0 0 0 var(--m-border-width) var(--m-border);
+
+        &.fluid {
+            inline-size: 100%;
+        }
+
+        .title {
+            margin: 0;
+            padding: 0.75em 1em;
+            border-block-start: var(--m-border-width) solid var(--m-border);
+            color: var(--m-text-muted);
+            font-weight: var(--m-font-weight-bold);
+            transition: color var(--m-duration) var(--m-easing);
+
+            &:first-child {
+                border-block-start: none;
+            }
+
+            &:hover,
+            &.active {
+                color: var(--m-text);
+            }
+        }
+
+        .content {
+            margin: 0;
+            padding: 0.5em 1em 1.5em;
+        }
+    }
+
+    // Inverted: sits on a dark background
+    .ui.inverted.accordion {
+        color-scheme: dark;
+    }
+}

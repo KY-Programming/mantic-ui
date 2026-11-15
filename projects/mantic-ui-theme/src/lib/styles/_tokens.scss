@@ -1,0 +1,113 @@
+@use 'sass:list';
+@use 'palette';
+
+// Design tokens of the mantic theme, as CSS custom properties.
+//
+// Base tokens are declared on :root only. Derived tokens (anything computed from another token) are declared on :root
+// AND on every [m-theme-scope] element, because a custom property resolves its var() references where it is declared:
+// declared on :root alone, a derived token would ignore base tokens overridden further down the tree.
+// Base tokens must not be repeated in the scope rule, or a scope would reset base tokens overridden on :root.
+//
+// Tokens are deliberately not registered with @property: unregistered properties inherit as unresolved token
+// streams, so light-dark() inside them is evaluated where the token is used, under that element's color-scheme.
+
+// Color variants derived from one color token. `--m-shade` is black in light and white in dark mode, so hover and
+// active darken a color on light backgrounds and lighten it on dark ones.
+@mixin variants($token) {
+    #{$token}-hover: color-mix(in oklab, var(#{$token}), var(--m-shade) var(--m-hover-amount));
+    #{$token}-active: color-mix(in oklab, var(#{$token}), var(--m-shade) var(--m-active-amount));
+    #{$token}-subtle: color-mix(in oklab, var(#{$token}) var(--m-subtle-amount), var(--m-surface));
+    // Readable text color on top of the color: white below the lightness threshold, black above it.
+    #{$token}-on: oklch(from var(#{$token}) clamp(0, (var(--m-on-threshold) - l) * 1000, 1) 0 0);
+}
+
+@layer mantic.tokens {
+    :root {
+        // Palette
+        @each $name, $values in palette.$colors {
+            --m-color-#{$name}: light-dark(#{list.nth($values, 1)}, #{list.nth($values, 2)});
+        }
+        --m-color-white: #fff;
+
+        // Roles
+        @each $role, $color in palette.$roles {
+            --m-#{$role}: var(--m-color-#{$color});
+        }
+        // Default (uncolored) controls, e.g. a plain button
+        --m-neutral: light-dark(#e0e1e2, #3d3e3f);
+
+        // Surfaces and text
+        --m-background: light-dark(#fff, #1b1c1d);
+        --m-surface: light-dark(#fff, #1b1c1d);
+        --m-surface-muted: light-dark(#f9fafb, #252627);
+        --m-text: light-dark(rgb(0 0 0 / 87%), rgb(255 255 255 / 90%));
+        --m-text-muted: light-dark(rgb(0 0 0 / 60%), rgb(255 255 255 / 70%));
+        --m-border: light-dark(rgb(34 36 38 / 15%), rgb(255 255 255 / 15%));
+        --m-border-strong: light-dark(rgb(34 36 38 / 35%), rgb(255 255 255 / 35%));
+        --m-focus: light-dark(#85b7d9, #5c9ac9);
+        --m-link: light-dark(#4183c4, #8ab4f8);
+        --m-shadow-color: light-dark(rgb(34 36 38 / 15%), rgb(0 0 0 / 50%));
+        --m-disabled-opacity: 0.45;
+
+        // Color derivation
+        --m-shade: light-dark(#000, #fff);
+        --m-hover-amount: 8%;
+        --m-active-amount: 16%;
+        --m-subtle-amount: 12%;
+        --m-on-threshold: 0.72;
+
+        // Typography
+        --m-font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        --m-font-family-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        // Page level: sets the rem of the whole page, so a scope cannot override it
+        --m-font-size: 14px;
+        --m-line-height: 1.4285em;
+        --m-font-weight-normal: 400;
+        --m-font-weight-bold: 700;
+        --m-font-size-h1: 2rem;
+        --m-font-size-h2: 1.7143rem;
+        --m-font-size-h3: 1.2857rem;
+        --m-font-size-h4: 1.0714rem;
+        --m-font-size-h5: 1rem;
+        --m-line-height-header: 1.2857em;
+
+        // Shape and spacing
+        --m-radius: 0.2857rem;
+        --m-radius-pill: 9999px;
+        --m-border-width: 1px;
+        // Scales the inner spacing of all components: 0.75 compact, 1 default, 1.25 comfortable
+        --m-density: 1;
+
+        // Motion
+        --m-duration: 0.1s;
+        --m-easing: ease;
+
+        @media (prefers-reduced-motion: reduce) {
+            --m-duration: 0s;
+        }
+    }
+
+    :root,
+    [m-theme-scope] {
+        @each $name, $values in palette.$colors {
+            @include variants(--m-color-#{$name});
+        }
+        @each $role, $color in palette.$roles {
+            @include variants(--m-#{$role});
+        }
+        @include variants(--m-neutral);
+        --m-link-hover: color-mix(in oklab, var(--m-link), var(--m-shade) 20%);
+        --m-font-family-header: var(--m-font-family);
+        --m-selection: color-mix(in oklab, var(--m-primary) 35%, transparent);
+        --m-scrollbar-thumb: color-mix(in oklab, var(--m-text) 30%, transparent);
+        // Read by the core (readonly fields): a tint of the text, so it is dark on light and light on dark
+        --m-readonly-background: color-mix(in oklab, var(--m-text) 5%, transparent);
+
+        --m-radius-small: calc(var(--m-radius) * 0.5);
+        --m-radius-large: calc(var(--m-radius) * 2);
+        --m-shadow: 0 1px 2px 0 var(--m-shadow-color);
+        --m-shadow-raised: 0 2px 4px 0 var(--m-shadow-color), 0 2px 10px 0 var(--m-shadow-color);
+        // Modals and other layers above the page
+        --m-shadow-overlay: 1px 3px 3px 0 var(--m-shadow-color), 1px 3px 15px 2px var(--m-shadow-color);
+    }
+}

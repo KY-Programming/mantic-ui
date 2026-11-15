@@ -1,0 +1,917 @@
+@use 'sass:list';
+@use 'sass:map';
+@use '../palette';
+
+// Menu (`.ui.menu`): m-menu with m-menu-item / m-menu-header, plain `.item` markup, and the menu of m-tab-group.
+//
+// Item backgrounds (hover, active) are the text color mixed in at a low amount, so they work on any menu background and
+// follow `color-scheme`: an inverted menu only switches to dark and gets the light overlays for free.
+// A color class sets the private --_menu-color / --_menu-on properties: a normal menu shows it on the active item, an
+// inverted one as its background.
+//
+// Public component tokens (optional, set them anywhere): --m-menu-background, --m-menu-radius.
+
+$sizes: (
+    mini: (0.7857rem, 9rem),
+    tiny: (0.8571rem, 11rem),
+    small: (0.9286rem, 13rem),
+    large: (1.0714rem, 18rem),
+    huge: (1.1429rem, 20rem),
+    massive: (1.2857rem, 25rem)
+);
+
+
+@mixin color($token) {
+    --_menu-color: var(#{$token});
+    --_menu-on: var(#{$token}-on);
+}
+
+@layer mantic.components {
+    .ui.menu {
+        --_menu-radius: var(--m-menu-radius, var(--m-radius));
+        --_menu-divider: color-mix(in oklab, var(--m-text) 10%, transparent);
+        --_menu-hover: color-mix(in oklab, var(--m-text) 4%, transparent);
+        --_menu-active: color-mix(in oklab, var(--m-text) 7%, transparent);
+        display: flex;
+        min-block-size: 2.8571em;
+        margin-block: 1rem;
+        border: var(--m-border-width) solid var(--m-border);
+        border-radius: var(--_menu-radius);
+        background: var(--m-menu-background, var(--m-surface));
+        box-shadow: var(--m-shadow);
+        font-family: var(--m-font-family);
+        font-weight: var(--m-font-weight-normal);
+
+        &:first-child {
+            margin-block-start: 0;
+        }
+
+        &:last-child {
+            margin-block-end: 0;
+        }
+
+        // A menu inside a menu groups items (`position="right"`), it has no box of its own
+        .menu {
+            margin: 0;
+        }
+
+        &:not(.vertical) > .menu {
+            display: flex;
+        }
+
+        .item {
+            position: relative;
+            display: flex;
+            flex: 0 0 auto;
+            align-items: center;
+            padding: calc(0.9286em * var(--m-density)) calc(1.1429em * var(--m-density));
+            background: none;
+            color: var(--m-text);
+            font-weight: var(--m-font-weight-normal);
+            line-height: 1;
+            text-decoration: none;
+            text-transform: none;
+            vertical-align: middle;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            transition-property: background-color, color, box-shadow, border-color;
+            transition-duration: var(--m-duration);
+            transition-timing-function: var(--m-easing);
+
+            // The divider line at the end of every item
+            &::before {
+                content: '';
+                position: absolute;
+                inset-block: 0;
+                inset-inline-end: 0;
+                inline-size: 1px;
+                background: var(--_menu-divider);
+            }
+
+            > m-icon > :is(i, fa-icon).icon,
+            > :is(i, fa-icon).icon {
+                margin-block: 0;
+                margin-inline: 0 0.3571em;
+                opacity: 0.9;
+            }
+
+            > img:not(.ui) {
+                display: inline-block;
+                inline-size: 2.5em;
+                margin-block: -0.3em;
+                vertical-align: middle;
+            }
+
+            > a:not(.ui),
+            > p:only-child {
+                line-height: 1.3;
+                user-select: text;
+            }
+
+            > p:first-child {
+                margin-block-start: 0;
+            }
+
+            > p:last-child {
+                margin-block-end: 0;
+            }
+
+            // Buttons and inputs keep the item's height
+            > .button {
+                margin-block: -0.5em;
+                padding-block: 0.7857em;
+                font-size: 1em;
+            }
+
+            > .input {
+                inline-size: 100%;
+                margin-block: -0.5em;
+
+                > input {
+                    padding-block: 0.5714em;
+                    font-size: 1em;
+                }
+            }
+        }
+
+        > .item:first-child {
+            border-start-start-radius: var(--_menu-radius);
+            border-end-start-radius: var(--_menu-radius);
+        }
+
+        // A label in an item: grey unless it has a color of its own (`:where` keeps that color class stronger)
+        :where(.item) > .label {
+            --_label-color: var(--m-color-grey);
+            --_label-on: var(--m-color-grey-on);
+            margin-inline-start: 1em;
+            padding: 0.3em 0.7857em;
+        }
+
+        a.item,
+        .link.item,
+        .dropdown.item,
+        &.link .item {
+            cursor: pointer;
+
+            &:hover {
+                background: var(--_menu-hover);
+                color: var(--m-text);
+            }
+
+            &:active {
+                background: var(--_menu-hover);
+            }
+        }
+
+        .active.item {
+            background: var(--_menu-active);
+            color: var(--_menu-color, var(--m-text));
+
+            &:hover {
+                background: var(--_menu-active);
+            }
+        }
+
+        .disabled.item,
+        .disabled.item:hover {
+            background: transparent;
+            color: color-mix(in oklab, var(--m-text) 30%, transparent);
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .header.item,
+        .item > .header:not(.ui) {
+            font-weight: var(--m-font-weight-bold);
+        }
+
+        .header.item {
+            margin: 0;
+            text-transform: none;
+        }
+
+        .item .header:not(.ui) a {
+            color: inherit;
+        }
+
+        // Grids and containers inside a menu lay out its items
+        > :is(.grid, .container) {
+            display: flex;
+            flex-direction: inherit;
+            align-items: inherit;
+        }
+    }
+
+    // Start / end groups: `right` pushes an item or a menu to the end, `left` keeps the rest after it
+    .ui.menu:not(.vertical) {
+        .right.item,
+        .right.menu {
+            display: flex;
+            margin-inline-start: auto;
+        }
+
+        .left.item,
+        :not(.dropdown) > .left.menu {
+            display: flex;
+            margin-inline-end: auto;
+        }
+    }
+
+    .ui.menu :is(.right.item, .right.menu > .item)::before {
+        inset-inline: 0 auto;
+    }
+
+    // Vertical: items below each other, with a sub menu under a header item
+    .ui.vertical.menu {
+        flex-direction: column;
+        inline-size: 15rem;
+
+        .item {
+            display: block;
+            background: none;
+
+            &::before {
+                inset-block: 0 auto;
+                inset-inline: 0;
+                inline-size: 100%;
+                block-size: 1px;
+            }
+
+            &:first-child::before {
+                display: none;
+            }
+
+            > .label {
+                float: none;
+                margin-block: -0.15em;
+                text-align: center;
+            }
+
+            > .header:not(.ui) {
+                margin: 0 0 0.5em;
+                font-size: 1em;
+            }
+
+            > .menu {
+                display: flex;
+                flex-direction: column;
+                margin-block: 0.5em 0;
+                margin-inline: calc(-1.1429em * var(--m-density));
+            }
+
+            > img:not(.ui):only-child {
+                display: block;
+                inline-size: auto;
+                max-inline-size: 100%;
+            }
+        }
+
+        // An item with a label: text at the start, label at the end
+        .item:has(> .label) {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .menu .item {
+            padding: 0.5em 1.3333em;
+            color: var(--m-text-muted);
+            font-size: 0.8571em;
+
+            &::before {
+                display: none;
+            }
+        }
+
+        .item .menu :is(a.item, .link.item):hover {
+            background: none;
+            color: var(--m-text);
+        }
+
+        .item .menu .active.item {
+            background: transparent;
+            color: var(--_menu-color, var(--m-text));
+            font-weight: var(--m-font-weight-bold);
+        }
+
+        > .item:first-child {
+            border-radius: var(--_menu-radius) var(--_menu-radius) 0 0;
+        }
+
+        > .item:last-child {
+            border-radius: 0 0 var(--_menu-radius) var(--_menu-radius);
+        }
+
+        > .item:only-child {
+            border-radius: var(--_menu-radius);
+        }
+    }
+
+    // Tabular: the items are tabs, the active one opens towards the content below (or above / beside it)
+    .ui.tabular.menu {
+        --_menu-tab-border: color-mix(in oklab, var(--m-text) 17%, var(--m-surface));
+        border: none;
+        border-block-end: var(--m-border-width) solid var(--_menu-tab-border);
+        border-radius: 0;
+        background: none transparent;
+        box-shadow: none;
+
+        .item {
+            padding: calc(0.9286em * var(--m-density)) calc(1.4286em * var(--m-density));
+            border: var(--m-border-width) solid transparent;
+            border-block-start-width: 2px;
+            border-block-end: none;
+            background: transparent;
+            color: var(--m-text);
+
+            &::before {
+                display: none;
+            }
+
+            &:hover {
+                background: transparent;
+            }
+        }
+
+        .active.item {
+            margin-block-end: calc(var(--m-border-width) * -1);
+            border-color: var(--_menu-tab-border);
+            border-block-start-width: var(--m-border-width);
+            border-radius: var(--_menu-radius) var(--_menu-radius) 0 0;
+            background: var(--m-surface);
+            color: var(--_menu-color, var(--m-text));
+            font-weight: var(--m-font-weight-bold);
+
+            &:hover {
+                background: var(--m-surface);
+            }
+        }
+
+        &.fluid {
+            inline-size: calc(100% + var(--m-border-width) * 2);
+        }
+
+        &.bottom {
+            border-block-end: none;
+            border-block-start: var(--m-border-width) solid var(--_menu-tab-border);
+
+            .item {
+                border-block-start: none;
+                border-block-end: var(--m-border-width) solid transparent;
+            }
+
+            .active.item {
+                margin-block: calc(var(--m-border-width) * -1) 0;
+                border-color: var(--_menu-tab-border);
+                border-radius: 0 0 var(--_menu-radius) var(--_menu-radius);
+            }
+        }
+
+        &.vertical {
+            border-block-end: none;
+            border-inline-end: var(--m-border-width) solid var(--_menu-tab-border);
+
+            .item {
+                border: var(--m-border-width) solid transparent;
+                border-inline-end: none;
+            }
+
+            .active.item {
+                margin-block: 0;
+                margin-inline-end: calc(var(--m-border-width) * -1);
+                border-color: var(--_menu-tab-border);
+                border-radius: 0;
+                border-start-start-radius: var(--_menu-radius);
+                border-end-start-radius: var(--_menu-radius);
+            }
+
+            &.right {
+                border-inline-end: none;
+                border-inline-start: var(--m-border-width) solid var(--_menu-tab-border);
+
+                .item {
+                    border: var(--m-border-width) solid transparent;
+                    border-inline-start: none;
+                }
+
+                .active.item {
+                    margin-inline: calc(var(--m-border-width) * -1) 0;
+                    border-color: var(--_menu-tab-border);
+                    border-radius: 0;
+                    border-start-end-radius: var(--_menu-radius);
+                    border-end-end-radius: var(--_menu-radius);
+                }
+            }
+        }
+    }
+
+    // Secondary: no box, the items are rounded chips
+    .ui.secondary.menu {
+        margin-inline: -0.3571em;
+        border: none;
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+
+        .item {
+            align-self: center;
+            margin-block: 0;
+            margin-inline: 0.3571em;
+            padding: calc(0.7857em * var(--m-density)) calc(0.9286em * var(--m-density));
+            border: none;
+            border-radius: var(--_menu-radius);
+            background: none;
+            box-shadow: none;
+
+            &::before {
+                display: none;
+            }
+
+            > img:not(.ui) {
+                margin: 0;
+            }
+        }
+
+        .header.item {
+            border-radius: 0;
+            background: none transparent;
+        }
+
+        :is(a.item, .link.item, .dropdown.item):hover,
+        .active.item,
+        .active.item:hover {
+            background: var(--_menu-active);
+            color: var(--_menu-color, var(--m-text));
+        }
+
+        &.item {
+            margin-inline: 0;
+        }
+    }
+
+    .ui.vertical.secondary.menu {
+        > .item {
+            margin: 0 0 0.3571em;
+            border: none;
+            border-radius: var(--_menu-radius);
+        }
+
+        > .header.item {
+            border-radius: 0;
+        }
+
+        .item:not(.dropdown) > .menu {
+            margin-inline: calc(-0.9286em * var(--m-density));
+
+            > .item {
+                margin: 0;
+                padding: 0.5em 1.3333em;
+                background-color: transparent;
+            }
+        }
+    }
+
+    // Secondary pointing: an underline marks the active item
+    .ui.secondary.pointing.menu {
+        margin-inline: 0;
+        border-block-end: 2px solid var(--m-border);
+
+        .item {
+            align-self: flex-end;
+            margin-block: 0 -2px;
+            margin-inline: 0;
+            padding: calc(0.8571em * var(--m-density)) calc(1.1429em * var(--m-density));
+            border: none;
+            border-block-end: 2px solid transparent;
+            border-radius: 0;
+            background: transparent;
+            font-weight: var(--m-font-weight-normal);
+            transition: color var(--m-duration) var(--m-easing), border-color var(--m-duration) var(--m-easing);
+
+            &::after {
+                display: none;
+            }
+        }
+
+        :is(a.item, .link.item, .dropdown.item):hover {
+            background: transparent;
+            color: var(--m-text);
+        }
+
+        :is(a.item, .link.item, .dropdown.item):active {
+            border-color: var(--m-border);
+        }
+
+        .active.item,
+        .active.item:hover {
+            border-color: var(--_menu-color, var(--m-text));
+            background: transparent;
+            color: var(--_menu-color, var(--m-text));
+            font-weight: var(--m-font-weight-bold);
+        }
+
+        .active.dropdown.item {
+            border-color: transparent;
+        }
+
+        &.vertical {
+            border-block-end: none;
+            border-inline-end: 2px solid var(--m-border);
+
+            .item {
+                align-self: stretch;
+                margin-block: 0;
+                margin-inline: 0 -2px;
+                border-block-end: none;
+                border-inline-end: 2px solid transparent;
+            }
+
+            .active.item {
+                border-color: var(--_menu-color, var(--m-text));
+            }
+        }
+    }
+
+    // Pointing: a small arrow under (vertical: beside) the active item
+    .ui.pointing.menu:not(.secondary) {
+        --_menu-active: color-mix(in oklab, var(--m-text) 7%, var(--m-menu-background, var(--m-surface)));
+
+        .item::after {
+            content: '';
+            position: absolute;
+            inset-block-start: 100%;
+            inset-inline-start: 50%;
+            z-index: 2;
+            visibility: hidden;
+            inline-size: 0.5714em;
+            block-size: 0.5714em;
+            margin-block-start: 0.5px;
+            translate: -50% -50%;
+            rotate: 45deg;
+            border: none;
+            border-block-end: var(--m-border-width) solid var(--m-border);
+            border-inline-end: var(--m-border-width) solid var(--m-border);
+            background: var(--_menu-active);
+        }
+
+        .active.item::after {
+            visibility: visible;
+        }
+
+        :is(.active.dropdown.item, .active.item .menu .active.item)::after {
+            display: none;
+        }
+
+        &.vertical .item::after {
+            inset-block-start: 50%;
+            inset-inline: auto 0;
+            margin: 0 -0.5px 0 0;
+            translate: 50% -50%;
+            border: none;
+            border-block-start: var(--m-border-width) solid var(--m-border);
+            border-inline-end: var(--m-border-width) solid var(--m-border);
+        }
+    }
+
+    // Text: plain text links, no box
+    .ui.text.menu {
+        margin-block: 1em;
+        margin-inline: -0.5em;
+        border: none;
+        border-radius: 0;
+        background: none transparent;
+        box-shadow: none;
+
+        .item {
+            align-self: center;
+            margin: 0;
+            padding: 0.3571em 0.5em;
+            border-radius: 0;
+            box-shadow: none;
+            color: var(--m-text-muted);
+            font-weight: var(--m-font-weight-normal);
+            transition: opacity var(--m-duration) var(--m-easing), color var(--m-duration) var(--m-easing);
+
+            &::before {
+                display: none;
+            }
+
+            > img:not(.ui) {
+                margin: 0;
+            }
+        }
+
+        .header.item {
+            background: transparent;
+            color: var(--m-text);
+            font-size: 0.9286em;
+            font-weight: var(--m-font-weight-bold);
+            text-transform: uppercase;
+        }
+
+        .item:hover,
+        .active.item,
+        .active.item:hover {
+            background: transparent;
+            color: var(--_menu-color, var(--m-text));
+        }
+
+        &.vertical {
+            margin-block: 1em;
+            margin-inline: 0;
+
+            .item {
+                margin-block: 0.5714em;
+                padding-inline: 0;
+            }
+
+            .header.item {
+                margin-block: 0.5714em 0.7143em;
+            }
+
+            .item:not(.dropdown) > .menu {
+                margin: 0;
+
+                > .item {
+                    margin: 0;
+                    padding: 0.5em 0;
+                }
+            }
+        }
+
+        &.fluid {
+            margin-inline: 0;
+        }
+    }
+
+    // Attached: joined with a segment above or below
+    .ui.attached.menu {
+        inline-size: calc(100% + var(--m-border-width) * 2);
+        max-inline-size: calc(100% + var(--m-border-width) * 2);
+        margin-block: 0;
+        margin-inline: calc(var(--m-border-width) * -1);
+        border-radius: 0;
+        box-shadow: none;
+
+        &.top {
+            margin-block: 1rem 0;
+            border-radius: var(--_menu-radius) var(--_menu-radius) 0 0;
+
+            &:first-child {
+                margin-block-start: 0;
+            }
+
+            > .item:first-child {
+                border-radius: var(--_menu-radius) 0 0 0;
+            }
+        }
+
+        &.bottom {
+            margin-block: 0 1rem;
+            border-radius: 0 0 var(--_menu-radius) var(--_menu-radius);
+            box-shadow: var(--m-shadow);
+
+            &:last-child {
+                margin-block-end: 0;
+            }
+
+            > .item:first-child {
+                border-radius: 0 0 0 var(--_menu-radius);
+            }
+        }
+
+        &.tabular {
+            inline-size: 100%;
+            max-inline-size: 100%;
+            margin-inline: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        &.secondary,
+        &.text {
+            box-shadow: none;
+        }
+    }
+
+    .ui.attached + .ui.attached.menu:not(.top) {
+        border-block-start: none;
+    }
+
+    // Compact: as wide as its items
+    .ui.compact.menu {
+        display: inline-flex;
+        margin: 0;
+        vertical-align: middle;
+
+        &.vertical {
+            inline-size: auto;
+        }
+
+        &:not(.vertical) .item:last-child {
+            border-start-end-radius: var(--_menu-radius);
+            border-end-end-radius: var(--_menu-radius);
+
+            &::before {
+                display: none;
+            }
+        }
+    }
+
+    .ui.fluid.menu {
+        inline-size: 100%;
+    }
+
+    // Evenly divided (`three item`): the items share the width
+    .ui.item.menu {
+        inline-size: 100%;
+
+        > .item,
+        > :not(.item) > .item {
+            flex: 1 1 0;
+            justify-content: center;
+            margin-inline: 0;
+            padding-inline: 0;
+            text-align: center;
+        }
+
+        .item:last-child::before {
+            display: none;
+        }
+
+        &.attached {
+            margin-inline: calc(var(--m-border-width) * -1);
+        }
+    }
+
+    .ui.borderless.menu .item::before,
+    .ui.menu .borderless.item::before {
+        display: none;
+    }
+
+    // Fixed: stuck to an edge of the viewport
+    .ui.fixed.menu {
+        position: fixed;
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        z-index: 101;
+        inline-size: 100%;
+        margin: 0;
+        border-radius: 0;
+
+        .item {
+            border-radius: 0;
+        }
+
+        &.top {
+            border-block-start: none;
+            border-inline: none;
+        }
+
+        &.bottom {
+            inset-block: auto 0;
+            border-block-end: none;
+            border-inline: none;
+        }
+
+        &.left,
+        &.right {
+            inline-size: auto;
+            block-size: 100%;
+            border-block: none;
+        }
+
+        &.left {
+            border-inline-start: none;
+        }
+
+        &.right {
+            inset-inline: auto 0;
+            border-inline-end: none;
+        }
+    }
+
+    // Icon: items with only an icon
+    .ui.icon.menu {
+        .item {
+            justify-content: center;
+            color: var(--m-text);
+        }
+
+        .item > m-icon > :is(i, fa-icon).icon:not(.dropdown),
+        .item > :is(i, fa-icon).icon:not(.dropdown) {
+            margin: 0;
+            opacity: 1;
+        }
+
+        &.vertical {
+            display: inline-flex;
+            inline-size: auto;
+
+            .item > m-icon,
+            .item > :is(i, fa-icon).icon:not(.dropdown) {
+                display: block;
+                margin-inline: auto;
+            }
+        }
+    }
+
+    // Labeled icon: the icon above its text
+    .ui.labeled.icon.menu {
+        text-align: center;
+
+        .item {
+            flex-direction: column;
+            min-inline-size: 6em;
+
+            > m-icon > :is(i, fa-icon).icon:not(.dropdown),
+            > :is(i, fa-icon).icon:not(.dropdown) {
+                display: block;
+                margin: 0 auto 0.5rem;
+                font-size: 1.7143em;
+            }
+        }
+
+        &.fluid > .item {
+            min-inline-size: 0;
+        }
+    }
+
+    // Inverted: a dark menu. Text and overlays follow the dark color scheme; a colored inverted menu takes its color
+    // as background and keeps the normal (light scheme) color for it, which is the saturated one.
+    .ui.inverted.menu {
+        // Light overlays need more weight than dark ones to be seen
+        --_menu-hover: color-mix(in oklab, var(--m-text) 9%, transparent);
+        --_menu-active: color-mix(in oklab, var(--m-text) 16%, transparent);
+        color-scheme: dark;
+        border: 0 solid transparent;
+        box-shadow: none;
+
+        &.attached:not(.tabular) {
+            border: none;
+        }
+
+        .item.menu {
+            background: transparent;
+        }
+    }
+
+    .ui.secondary.inverted.menu {
+        background-color: transparent;
+    }
+
+    // Colors and roles. On an inverted menu the color is the background and the items use its readable text color.
+    @mixin colored($token) {
+        &.menu,
+        &.item {
+            @include color($token);
+        }
+
+        &.inverted.menu {
+            color-scheme: light;
+            background: var(--_menu-color);
+
+            .item,
+            .item > a:not(.ui) {
+                color: var(--_menu-on);
+            }
+
+            .item::before {
+                background: color-mix(in oklab, var(--_menu-on) 15%, transparent);
+            }
+
+            :is(a.item, .link.item, .dropdown.item):hover,
+            .active.item,
+            .active.item:hover {
+                background: color-mix(in oklab, #000 10%, transparent);
+                color: var(--_menu-on);
+            }
+        }
+    }
+
+    @each $name, $values in palette.$colors {
+        .ui.#{$name} {
+            @include colored(--m-color-#{$name});
+        }
+    }
+
+    // `secondary` is also a menu variant (no box), so it is no color role here
+    @each $role in map.keys(palette.$roles) {
+        @if $role != secondary {
+            .ui.#{$role} {
+                @include colored(--m-#{$role});
+            }
+        }
+    }
+
+    // Sizes: the font size, and the width of a vertical menu
+    @each $name, $values in $sizes {
+        .ui.#{$name}.menu {
+            font-size: list.nth($values, 1);
+
+            &.vertical {
+                inline-size: list.nth($values, 2);
+            }
+        }
+    }
+}

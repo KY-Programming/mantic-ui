@@ -1,0 +1,53 @@
+// The transition classes the core components set (dropdown menu: `transition animating slide down in`). Only these
+// are implemented; add more when a component starts using them. The duration follows --m-duration (0 with reduced
+// motion), a component can set its own animation-duration inline.
+@layer mantic.components {
+    .transition {
+        animation-duration: calc(var(--m-duration) * 3);
+        animation-timing-function: var(--m-easing);
+        animation-iteration-count: 1;
+        animation-fill-mode: both;
+
+        &.animating,
+        &.visible {
+            visibility: visible;
+        }
+
+        &.hidden {
+            display: none;
+            visibility: hidden;
+        }
+
+        &.slide {
+            &.down {
+                transform-origin: top center;
+            }
+
+            &.up {
+                transform-origin: bottom center;
+            }
+
+            &.in {
+                animation-name: m-slide-in;
+            }
+
+            &.out {
+                animation-name: m-slide-out;
+            }
+        }
+    }
+}
+
+@keyframes m-slide-in {
+    from {
+        opacity: 0;
+        scale: 1 0;
+    }
+}
+
+@keyframes m-slide-out {
+    to {
+        opacity: 0;
+        scale: 1 0;
+    }
+}

@@ -1,0 +1,110 @@
+// Sidebar (`.ui.sidebar`, m-sidebar): a panel that slides in from an edge of the viewport while `visible`.
+//
+// The core only toggles `visible`; showing and hiding is a CSS transition here (Semantic animates it with script).
+// A `fluid` sidebar is not an overlay but a part of the page layout, shown or removed with `visible`.
+
+// Width classes as the core sets them (`very thin` is two classes), mapped to a selector
+$widths: (
+    '.thin:not(.very)': 150px,
+    '.very.thin': 60px,
+    '.wide:not(.very)': 350px,
+    '.very.wide': 475px
+);
+
+@layer mantic.components {
+    .ui.sidebar {
+        position: fixed;
+        inset-block: 0;
+        inset-inline-start: 0;
+        z-index: 102;
+        inline-size: 260px;
+        max-block-size: 100%;
+        margin: 0;
+        overflow-y: auto;
+        border-radius: 0;
+        visibility: hidden;
+        translate: -100% 0;
+        transition: translate calc(var(--m-duration) * 5) var(--m-easing), visibility 0s linear calc(var(--m-duration) * 5);
+        overscroll-behavior: contain;
+
+        &.right {
+            inset-inline: auto 0;
+            translate: 100% 0;
+        }
+
+        &:is(.top, .bottom) {
+            inline-size: 100%;
+            block-size: auto;
+        }
+
+        &.top {
+            inset-block: 0 auto;
+            translate: 0 -100%;
+        }
+
+        &.bottom {
+            inset-block: auto 0;
+            translate: 0 100%;
+        }
+
+        &.visible {
+            visibility: visible;
+            translate: 0 0;
+            box-shadow: 0 0 20px var(--m-shadow-color);
+            transition-delay: 0s;
+        }
+
+        &.menu .item {
+            border-radius: 0;
+        }
+
+        &.vertical.menu > .item {
+            &::before {
+                inset-block: auto 0;
+            }
+
+            &:first-child::before {
+                display: block;
+            }
+        }
+
+        &.no-scrolling {
+            overflow-y: hidden;
+        }
+
+        &.inverted {
+            color-scheme: dark;
+        }
+    }
+
+    // The left / right sidebar opens at the start / end edge, so it follows the writing direction
+    .ui.sidebar:not(.right, .top, .bottom):dir(rtl) {
+        translate: 100% 0;
+    }
+
+    .ui.sidebar.right:dir(rtl) {
+        translate: -100% 0;
+    }
+
+    .ui.sidebar.visible:dir(rtl) {
+        translate: 0 0;
+    }
+
+    @each $selector, $width in $widths {
+        .ui#{$selector}.sidebar:not(.top, .bottom) {
+            inline-size: $width;
+        }
+    }
+
+    // Fluid: part of the page layout instead of an overlay
+    .ui.fluid.sidebar {
+        position: static;
+        inline-size: auto;
+        translate: none;
+        transition: none;
+
+        &:not(.visible) {
+            display: none;
+        }
+    }
+}

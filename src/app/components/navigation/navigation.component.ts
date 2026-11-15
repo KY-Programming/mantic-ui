@@ -5,6 +5,9 @@ import { ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, FillCo
 import { faChevronLeft } from '@fortawesome/pro-solid-svg-icons';
 import { setFavicon } from '../../helpers/favicon';
 
+type Framework = 'semantic' | 'fomantic' | 'mantic';
+const frameworkPattern = /^\/(semantic|fomantic|mantic)(\/|$)/;
+
 @Component({
     selector: 'app-navigation',
     imports: [RouterLink, RouterLinkActive, FlexComponent, IconComponent, FillComponent, FlexDirective, RouterOutlet, ButtonComponent, ContextMenuComponent, ContextMenuItemComponent],
@@ -15,7 +18,7 @@ import { setFavicon } from '../../helpers/favicon';
 export class NavigationComponent implements OnInit {
     protected readonly faChevronLeft = faChevronLeft;
     private static previous: string;
-    protected isSemantic = false;
+    protected framework: Framework = 'fomantic';
     protected prefix = '';
     protected isMenuExpanded = true;
 
@@ -29,24 +32,18 @@ export class NavigationComponent implements OnInit {
     }
 
     private refresh(): void {
-        this.isSemantic = this.router.url.startsWith('/semantic/');
-        if (this.isSemantic) {
-            setFavicon('/assets/semantic.png');
-            this.prefix = 'semantic';
-        }
-        else {
-            setFavicon('/assets/fomantic.png');
-            this.prefix = 'fomantic';
-        }
+        this.framework = (frameworkPattern.exec(this.router.url)?.[1] as Framework | undefined) ?? 'fomantic';
+        this.prefix = this.framework;
+        setFavicon(`/assets/${this.framework}.png`);
         NavigationComponent.previous = '/' + this.prefix;
     }
 
-    protected toFomantic(): void {
-        window.location.href = this.router.url.replace('semantic', 'fomantic');
-    }
-
-    protected toSemantic(): void {
-        window.location.href = this.router.url.replace('fomantic', 'semantic');
+    /** Full reload: the theme styles are global and must not mix */
+    protected switchTo(framework: Framework): void {
+        const url = this.router.url;
+        const current = frameworkPattern.exec(url)?.[1];
+        const path = current ? url.slice(current.length + 1) : url;
+        globalThis.location.assign(`/${framework}${path}`);
     }
 
     protected toggle(): void {

@@ -1,0 +1,486 @@
+@use 'sass:map';
+@use '../palette';
+
+// Label and label group (`.ui.label`, `.ui.labels`).
+//
+// Same color pattern as the button: a color class sets the private --_label-* properties, one rule set reads them with
+// the neutral look as fallback. Shapes that draw a triangle or an arrow (tag, corner, ribbon, pointing) take the same
+// properties, so they need no rules per color.
+
+$sizes: (
+    mini: 0.6429rem,
+    tiny: 0.7143rem,
+    small: 0.7857rem,
+    medium: 0.8571rem,
+    large: 1rem,
+    big: 1.2857rem,
+    huge: 1.4286rem,
+    massive: 1.7143rem
+);
+
+// Size of the corner triangle and of the fold of a ribbon
+$corner: 4em;
+$fold: 1.2em;
+
+@mixin color($token) {
+    --_label-color: var(#{$token});
+    --_label-hover: var(#{$token}-hover);
+    --_label-active: var(#{$token}-active);
+    --_label-on: var(#{$token}-on);
+}
+
+@layer mantic.components {
+    .ui.label {
+        display: inline-block;
+        margin-block: 0;
+        margin-inline: 0.1429em;
+        padding: calc(0.5833em * var(--m-density)) calc(0.8333em * var(--m-density));
+        // The border color is the label color, so the arrows of tag / pointing labels can take it over
+        border: 0 solid var(--_label-border, var(--_label-color, var(--m-neutral)));
+        border-radius: var(--m-radius);
+        background: var(--_label-color, var(--m-neutral));
+        color: var(--_label-on, var(--m-text-muted));
+        font-size: 0.8571rem;
+        font-weight: var(--m-font-weight-bold);
+        line-height: 1;
+        text-transform: none;
+        vertical-align: baseline;
+        transition: background-color var(--m-duration) var(--m-easing);
+
+        &:first-child {
+            margin-inline-start: 0;
+        }
+
+        &:last-child {
+            margin-inline-end: 0;
+        }
+
+        > a {
+            color: inherit;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity var(--m-duration) var(--m-easing);
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        > img {
+            block-size: 2.1666em;
+            inline-size: auto;
+            vertical-align: middle;
+        }
+
+        > m-icon > :is(i, fa-icon).icon,
+        > :is(i, fa-icon).icon {
+            inline-size: auto;
+            margin-block: 0;
+            margin-inline: 0 0.75em;
+        }
+
+        > .detail {
+            display: inline-block;
+            margin-inline-start: 1em;
+            font-weight: var(--m-font-weight-bold);
+            vertical-align: top;
+            opacity: 0.8;
+        }
+
+        > :is(m-icon, .icon):is(.close, .delete) {
+            margin-inline: 0.5em 0;
+            font-size: 0.9286em;
+            cursor: pointer;
+            opacity: 0.5;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+
+    a.ui.label {
+        cursor: pointer;
+
+        &:hover {
+            background: var(--_label-hover, var(--m-neutral-hover));
+            color: var(--_label-on, var(--m-text));
+        }
+    }
+
+    .ui.active.label {
+        background: var(--_label-active, var(--m-neutral-active));
+        color: var(--_label-on, var(--m-text));
+    }
+
+    .ui.disabled.label {
+        opacity: 0.5;
+    }
+
+    .ui.labels > .label {
+        margin-block: 0 0.5em;
+        margin-inline: 0 0.5em;
+    }
+
+    // Basic: outlined, the color only on border and text
+    .ui.basic.label {
+        border-width: var(--m-border-width);
+        border-color: var(--_label-color, var(--m-border));
+        background: var(--m-surface);
+        color: var(--_label-color, var(--m-text));
+    }
+
+    a.ui.basic.label:hover {
+        background: var(--m-surface);
+        color: var(--_label-hover, var(--m-link));
+    }
+
+    .ui.fluid.label,
+    .ui.fluid.labels > .label {
+        box-sizing: border-box;
+        inline-size: 100%;
+    }
+
+    .ui.horizontal.label,
+    .ui.horizontal.labels > .label {
+        min-inline-size: 3em;
+        margin-block: 0;
+        margin-inline: 0 0.5em;
+        padding-block: 0.4em;
+        text-align: center;
+    }
+
+    .ui.circular.label,
+    .ui.circular.labels > .label {
+        min-inline-size: 2em;
+        min-block-size: 2em;
+        padding: 0.5em;
+        border-radius: var(--m-radius-pill);
+        line-height: 1em;
+        text-align: center;
+    }
+
+    .ui.empty.circular.label,
+    .ui.empty.circular.labels > .label {
+        overflow: hidden;
+        inline-size: 0.5em;
+        block-size: 0.5em;
+        min-inline-size: 0;
+        min-block-size: 0;
+    }
+
+    // Image: a picture at the start, a detail at the end
+    .ui.image.label {
+        padding-inline-start: 0.5em;
+
+        img {
+            display: inline-block;
+            block-size: 2.1666em;
+            margin-block: -0.5833em;
+            margin-inline: -0.5em 0.5em;
+            border-start-start-radius: inherit;
+            border-end-start-radius: inherit;
+            vertical-align: top;
+        }
+
+        .detail {
+            margin-block: -0.5833em;
+            margin-inline: 0.5em -0.8333em;
+            padding: 0.5833em 0.8333em;
+            border-start-end-radius: inherit;
+            border-end-end-radius: inherit;
+            background: color-mix(in oklab, currentColor 10%, transparent);
+        }
+    }
+
+    // Tag: a rotated square for the point, a dot for the hole
+    .ui.tag.label,
+    .ui.tag.labels > .label {
+        position: relative;
+        margin-inline-start: 1em;
+        padding-inline: 1.5em;
+        border-start-start-radius: 0;
+        border-end-start-radius: 0;
+        transition: none;
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset-block-start: 50%;
+            inset-inline-start: -0.78em;
+            inline-size: 1.56em;
+            block-size: 1.56em;
+            translate: 0 -50%;
+            rotate: 45deg;
+            background: inherit;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset-block-start: 50%;
+            inset-inline-start: -0.25em;
+            inline-size: 0.5em;
+            block-size: 0.5em;
+            translate: 0 -50%;
+            border-radius: 50%;
+            background: var(--m-surface);
+            box-shadow: 0 -1px 1px 0 var(--m-shadow-color);
+        }
+    }
+
+    // Corner: a triangle in the corner of its positioned parent, drawn as a hard-stop diagonal gradient
+    .ui.corner.label {
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline-end: 0;
+        z-index: 1;
+        inline-size: $corner;
+        block-size: $corner;
+        margin: 0;
+        padding: 0;
+        border-radius: 0;
+        background: transparent;
+        color: var(--_label-on, var(--m-text-muted));
+        text-align: center;
+
+        &::after {
+            --_label-triangle: var(--_label-color, var(--m-neutral));
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            border-radius: inherit;
+            background: linear-gradient(to bottom left, var(--_label-triangle) 50%, transparent 50%);
+        }
+
+        > m-icon > :is(i, fa-icon).icon,
+        > :is(i, fa-icon).icon {
+            position: relative;
+            inset-block-start: 0.6429em;
+            inset-inline-start: 0.7857em;
+            margin: 0;
+            font-size: 1.1429em;
+            cursor: default;
+        }
+
+        &.left {
+            inset-inline: 0 auto;
+
+            &::after {
+                background: linear-gradient(to bottom right, var(--_label-triangle) 50%, transparent 50%);
+            }
+
+            > m-icon > :is(i, fa-icon).icon,
+            > :is(i, fa-icon).icon {
+                inset-inline-start: -0.7857em;
+            }
+        }
+
+        // The triangle is drawn for left-to-right, mirrored for right-to-left
+        &:dir(rtl)::after {
+            scale: -1 1;
+        }
+    }
+
+    // Ribbon: sticks out of its container at the start (or the end) and folds around its edge
+    .ui.ribbon.label {
+        position: relative;
+        inset-inline-start: calc(-1rem - #{$fold});
+        min-inline-size: max-content;
+        margin-block: 0;
+        margin-inline: 0 (-$fold);
+        padding-inline: calc(1rem + #{$fold}) $fold;
+        border-start-start-radius: 0;
+        border-end-start-radius: 0;
+
+        &::after {
+            --_label-triangle: color-mix(in oklab, var(--_label-color, var(--m-neutral)), #000 30%);
+            content: '';
+            position: absolute;
+            inset-block-start: 100%;
+            inset-inline-start: 0;
+            inline-size: $fold;
+            block-size: $fold;
+            background: linear-gradient(to bottom left, var(--_label-triangle) 50%, transparent 50%);
+        }
+
+        &.right {
+            inset-inline-start: calc(100% + 1rem + #{$fold});
+            padding-inline: $fold calc(1rem + #{$fold});
+            translate: -100% 0;
+            border-radius: 0;
+            border-start-start-radius: var(--m-radius);
+            border-end-start-radius: var(--m-radius);
+            text-align: start;
+
+            &::after {
+                inset-inline: auto 0;
+                background: linear-gradient(to bottom right, var(--_label-triangle) 50%, transparent 50%);
+            }
+        }
+    }
+
+    // Attached: spans the top (or bottom) edge of its positioned parent, or sits in one of its corners
+    .ui.attached.label {
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        inline-size: 100%;
+        margin: 0;
+        padding: 0.75em 1em;
+        border-radius: var(--m-radius) var(--m-radius) 0 0;
+
+        &.bottom {
+            inset-block: auto 0;
+            border-radius: 0 0 var(--m-radius) var(--m-radius);
+        }
+
+        &.left,
+        &.right {
+            inline-size: auto;
+        }
+
+        &.right {
+            inset-inline: auto 0;
+        }
+
+        &.top.left {
+            border-radius: var(--m-radius) 0 var(--m-radius) 0;
+        }
+
+        &.top.right {
+            border-radius: 0 var(--m-radius) 0 var(--m-radius);
+        }
+
+        &.bottom.left {
+            border-radius: 0 var(--m-radius) 0 var(--m-radius);
+        }
+
+        &.bottom.right {
+            border-radius: var(--m-radius) 0 var(--m-radius) 0;
+        }
+    }
+
+    .ui.top.attached.label:first-child + :not(.attached) {
+        margin-block-start: 2rem;
+    }
+
+    .ui.bottom.attached.label:first-child ~ :last-child:not(.attached) {
+        margin-block: 0 2rem;
+    }
+
+    // Pointing: an arrow on one side (above by default). The arrow is a rotated square in the label's colors; a basic
+    // label draws only the two outer sides of it.
+    .ui.pointing.label {
+        position: relative;
+        margin-block-start: 1em;
+
+        &::before {
+            content: '';
+            position: absolute;
+            inset-block-start: 0;
+            inset-inline-start: 50%;
+            z-index: 2;
+            inline-size: 0.6666em;
+            block-size: 0.6666em;
+            translate: -50% -50%;
+            rotate: 45deg;
+            border-style: solid;
+            border-color: inherit;
+            border-width: 0;
+            background: inherit;
+        }
+
+        &.basic::before {
+            border-width: var(--m-border-width) 0 0 var(--m-border-width);
+            margin-block-start: calc(var(--m-border-width) * -1);
+        }
+
+        &:is(.bottom, .below) {
+            margin-block: 0 1em;
+
+            &::before {
+                inset-block-start: 100%;
+            }
+
+            &.basic::before {
+                border-width: 0 var(--m-border-width) var(--m-border-width) 0;
+                margin-block-start: var(--m-border-width);
+            }
+        }
+
+        &.left {
+            margin-block-start: 0;
+            margin-inline-start: 0.6666em;
+
+            &::before {
+                inset-block-start: 50%;
+                inset-inline-start: 0;
+            }
+
+            &.basic::before {
+                border-width: 0 0 var(--m-border-width) var(--m-border-width);
+                margin: 0;
+                inset-inline-start: calc(var(--m-border-width) * -1);
+            }
+        }
+
+        &.right {
+            margin-block-start: 0;
+            margin-inline-end: 0.6666em;
+
+            &::before {
+                inset-block-start: 50%;
+                inset-inline: auto 0;
+                translate: 50% -50%;
+            }
+
+            &.basic::before {
+                border-width: var(--m-border-width) var(--m-border-width) 0 0;
+                margin: 0;
+                inset-inline-end: calc(var(--m-border-width) * -1);
+            }
+        }
+    }
+
+    .ui.attached.pointing.label {
+        position: absolute;
+    }
+
+    // Floating: over the top end corner of its positioned parent
+    .ui.floating.label {
+        position: absolute;
+        inset-block-start: -1em;
+        inset-inline-start: 100%;
+        z-index: 100;
+        margin: 0 0 0 -1.5em;
+    }
+
+    // Inverted: sits on a dark background
+    .ui.inverted.label,
+    .ui.inverted.labels {
+        color-scheme: dark;
+    }
+
+    // Colors and roles
+    @each $name, $values in palette.$colors {
+        .ui.#{$name}:is(.label, .labels) {
+            @include color(--m-color-#{$name});
+        }
+    }
+
+    @each $role in map.keys(palette.$roles) {
+        .ui.#{$role}:is(.label, .labels) {
+            @include color(--m-#{$role});
+        }
+    }
+
+    // Sizes
+    @each $name, $size in $sizes {
+        .ui.#{$name}.label,
+        .ui.#{$name}.labels > .label {
+            font-size: $size;
+        }
+    }
+}

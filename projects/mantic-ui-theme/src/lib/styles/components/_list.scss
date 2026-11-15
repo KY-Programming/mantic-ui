@@ -1,0 +1,425 @@
+@use 'sass:map';
+@use '../palette';
+
+// List (`.ui.list`, also on a plain <ul> / <ol>). Items are flex rows of an optional icon / image and the content,
+// so an icon or image lines up with the first line of the text without table-cell tricks.
+
+$sizes: (
+    mini: 0.7857em,
+    tiny: 0.8571em,
+    small: 0.9286em,
+    medium: 1em,
+    large: 1.1429em,
+    big: 1.2857em,
+    huge: 1.4286em,
+    massive: 1.7143em
+);
+
+$item: '> :is(.item, li)';
+// Items of a nested list (its parent list is a descendant of the outer .ui.list, so top-level items do not match)
+$nested-item: ':is(.list, ul, ol) > :is(.item, li)';
+
+@layer mantic.components {
+    :is(ul, ol).ui.list,
+    .ui.list {
+        margin-block: 1em;
+        padding: 0;
+        list-style-type: none;
+
+        &:first-child {
+            margin-block-start: 0;
+        }
+
+        &:last-child {
+            margin-block-end: 0;
+        }
+
+        #{$item},
+        #{$nested-item} {
+            padding-block: 0.2143em;
+            line-height: 1.1429em;
+            list-style-type: none;
+
+            &:first-child {
+                padding-block-start: 0;
+            }
+
+            &:last-child {
+                padding-block-end: 0;
+            }
+        }
+
+        // An icon or image beside the content
+        #{$item}:has(> :is(m-icon, .icon, .image, img)),
+        #{$nested-item}:has(> :is(m-icon, .icon, .image, img)) {
+            display: flex;
+            align-items: start;
+            gap: 0.2857em;
+
+            > :is(m-icon, .icon, .image, img) {
+                flex: none;
+            }
+
+            > .content {
+                flex: 1 1 auto;
+                min-inline-size: 0;
+            }
+
+            > :is(.image, img) + .content {
+                padding-inline-start: 0.2143em;
+            }
+        }
+
+        :is(.item, li) > :is(m-icon > :is(i, fa-icon), :is(i, fa-icon)).icon {
+            margin: 0;
+            transition: color var(--m-duration) var(--m-easing);
+        }
+
+        .list,
+        :is(ul, ol) {
+            margin: 0;
+            padding-block: 0.75em 0.25em;
+            padding-inline: 0.5em 0;
+        }
+
+        .list > .item,
+        :is(ul, ol) > li {
+            padding-block: 0.1429em;
+            line-height: inherit;
+        }
+
+        > .item > .content > .list {
+            margin-inline-start: 0;
+            padding-inline-start: 0;
+        }
+
+        .header {
+            display: block;
+            margin: 0;
+            color: var(--m-text);
+            font-family: var(--m-font-family-header);
+            font-weight: var(--m-font-weight-bold);
+        }
+
+        .description {
+            display: block;
+            color: var(--m-text-muted);
+        }
+
+        .item a {
+            cursor: pointer;
+        }
+
+        > a.item,
+        .list > a.item {
+            color: var(--m-link);
+            cursor: pointer;
+
+            &:hover {
+                color: var(--m-link-hover);
+            }
+
+            :is(i, fa-icon).icon {
+                color: var(--m-text-muted);
+            }
+
+            &:hover :is(i, fa-icon).icon {
+                color: var(--m-text);
+            }
+        }
+
+        .item a.header {
+            color: var(--m-link);
+            cursor: pointer;
+
+            &:hover {
+                color: var(--m-link-hover);
+            }
+        }
+
+        .item .left.floated {
+            margin-inline-end: auto;
+        }
+
+        .item .right.floated {
+            order: 1;
+            margin-inline-start: auto;
+        }
+
+        > .disabled.item,
+        .list > .disabled.item {
+            color: color-mix(in oklab, var(--m-text) 30%, transparent);
+            pointer-events: none;
+        }
+    }
+
+    // Horizontal: the items in a row
+    .ui.horizontal.list {
+        display: inline-flex;
+        flex-wrap: wrap;
+        align-items: center;
+        column-gap: 1em;
+
+        > .item {
+            padding-block: 0.2143em;
+        }
+
+        .list {
+            padding-inline-start: 0;
+            padding-block-end: 0;
+        }
+    }
+
+    // Alignment of icons / images against the content
+    @each $name, $value in (top: start, middle: center, bottom: end) {
+        .ui.#{$name}.aligned.list > .item,
+        .ui.list > .#{$name}.aligned.item {
+            align-items: $value;
+        }
+    }
+
+    // Link: muted items that light up on hover
+    .ui.link.list {
+        .item,
+        a.item,
+        .item a:not(.ui) {
+            color: var(--m-text-muted);
+            transition: color var(--m-duration) var(--m-easing);
+        }
+
+        a.item:hover,
+        .item a:not(.ui):hover {
+            color: var(--m-text);
+        }
+
+        .active.item,
+        .active.item a:not(.ui) {
+            color: var(--m-text);
+        }
+    }
+
+    // Selection: items as clickable rows
+    .ui.selection.list {
+        > .item,
+        .list > .item {
+            margin: 0;
+            padding: 0.5em;
+            border-radius: 0.5em;
+            background: transparent;
+            color: var(--m-text-muted);
+            cursor: pointer;
+            transition-property: color, background-color, padding-inline-start;
+            transition-duration: var(--m-duration);
+            transition-timing-function: var(--m-easing);
+
+            &:hover {
+                background: color-mix(in oklab, var(--m-text) 3%, transparent);
+                color: var(--m-text);
+            }
+
+            &:active,
+            &.active {
+                background: color-mix(in oklab, var(--m-text) 5%, transparent);
+                color: var(--m-text);
+            }
+        }
+    }
+
+    .ui.animated.list {
+        > .item {
+            transition-duration: calc(var(--m-duration) * 2.5);
+            transition-delay: var(--m-duration);
+        }
+
+        &:not(.horizontal) > .item:hover {
+            padding-inline-start: 1em;
+        }
+    }
+
+    .ui.fitted.list:not(.selection) > .item {
+        padding-inline: 0;
+    }
+
+    .ui.fitted.selection.list > .item {
+        margin-inline: -0.5em;
+    }
+
+    // Bulleted and ordered: the marker hangs in front of the item
+    ul.ui.list,
+    .ui.bulleted.list,
+    ol.ui.list,
+    .ui.ordered.list {
+        margin-inline-start: 1.25rem;
+
+        .list,
+        :is(ul, ol) {
+            padding-inline-start: 1.25rem;
+        }
+    }
+
+    ul.ui.list li,
+    .ui.bulleted.list > .item,
+    .ui.bulleted.list .list > .item {
+        position: relative;
+
+        &::before {
+            content: '•';
+            position: absolute;
+            margin-inline-start: -1.25rem;
+            color: var(--m-text);
+            font-weight: var(--m-font-weight-normal);
+            pointer-events: none;
+            user-select: none;
+        }
+    }
+
+    ol.ui.list,
+    .ui.ordered.list,
+    .ui.ordered.list .list,
+    ol.ui.list ol {
+        counter-reset: ordered;
+    }
+
+    ol.ui.list li,
+    .ui.ordered.list > .item,
+    .ui.ordered.list .list > .item {
+        position: relative;
+        counter-increment: ordered;
+
+        &::before {
+            content: counters(ordered, '.') ' ';
+            position: absolute;
+            margin-inline-start: -1.25rem;
+            color: var(--m-text);
+            text-align: end;
+            pointer-events: none;
+            user-select: none;
+        }
+    }
+
+    ol.ui.list li[value]::before {
+        content: attr(value);
+    }
+
+    .ui.ordered.list .list > .item,
+    ol.ui.list ol li {
+        margin-inline-start: 1em;
+
+        &::before {
+            margin-inline-start: -2em;
+        }
+    }
+
+    .ui.horizontal:is(.bulleted, .ordered).list {
+        margin-inline-start: 0;
+        column-gap: 1.75rem;
+
+        > .item:first-child::before {
+            display: none;
+        }
+    }
+
+    // Divided and celled: lines between (celled: and around) the items
+    .ui.divided.list > .item:not(:first-child),
+    .ui.celled.list > .item {
+        border-block-start: var(--m-border-width) solid var(--m-border);
+    }
+
+    .ui.celled.list > .item {
+        padding-inline: 0.5em;
+
+        &:first-child,
+        &:last-child {
+            padding-block: 0.2143em;
+        }
+
+        &:last-child {
+            border-block-end: var(--m-border-width) solid var(--m-border);
+        }
+    }
+
+    .ui:is(.divided, .celled).selection.list > .item {
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .ui:is(.divided, .celled):is(.bulleted, .ordered).list {
+        margin-inline-start: 0;
+
+        > .item {
+            padding-inline-start: 1.25rem;
+        }
+    }
+
+    .ui.horizontal:is(.divided, .celled).list {
+        column-gap: 0;
+
+        > .item {
+            padding-inline: 0.5em;
+            border-block: none;
+            line-height: 0.6;
+
+            &:first-child {
+                padding-inline-start: 0;
+            }
+
+            &:last-child {
+                padding-inline-end: 0;
+            }
+        }
+
+        > .item:not(:first-child) {
+            border-inline-start: var(--m-border-width) solid var(--m-border);
+        }
+    }
+
+    .ui.horizontal.celled.list > .item {
+        border-inline-start: var(--m-border-width) solid var(--m-border);
+        padding-inline: 0.5em;
+
+        &:last-child {
+            padding-inline-end: 0.5em;
+            border-inline-end: var(--m-border-width) solid var(--m-border);
+        }
+    }
+
+    // Relaxed: more room between the items
+    .ui.relaxed.list:not(.horizontal) > .item {
+        &:not(:first-child) {
+            padding-block-start: 0.4286em;
+        }
+
+        &:not(:last-child) {
+            padding-block-end: 0.4286em;
+        }
+    }
+
+    .ui.very.relaxed.list:not(.horizontal) > .item {
+        &:not(:first-child) {
+            padding-block-start: 0.8571em;
+        }
+
+        &:not(:last-child) {
+            padding-block-end: 0.8571em;
+        }
+    }
+
+    .ui.horizontal.relaxed.list {
+        column-gap: 2rem;
+    }
+
+    .ui.horizontal.very.relaxed.list {
+        column-gap: 3rem;
+    }
+
+    // Inverted: sits on a dark background
+    .ui.inverted.list {
+        color-scheme: dark;
+    }
+
+    @each $name, $size in $sizes {
+        .ui.#{$name}.list {
+            font-size: $size;
+        }
+    }
+}

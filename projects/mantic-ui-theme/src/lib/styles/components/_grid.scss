@@ -1,0 +1,517 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+@use '../palette';
+
+// Grid (`.ui.grid`): m-grid (`.ui.grid`), m-row (`.row`), m-cell (`.column`).
+//
+// Kept as Semantic's flex model: columns carry half the gutter as padding, the grid pulls itself out by the same amount
+// with negative margins. A `gap` grid would be simpler, but a column's padding box is part of the contract: colored,
+// celled and divided columns draw their background and lines on it, and apps size content against it.
+// The gutter is one property (--_grid-gutter), so relaxed / very relaxed only change it.
+//
+// Widths: `N column` on the grid or a row sets --_grid-column-width (a row's wins for its columns), `N wide` on a column
+// sets its own width.
+//
+// Public component tokens (optional): --m-grid-gutter (half the space between two columns, default 1rem).
+
+$counts: (one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen);
+// Every column of a grid; nest it (`.ui.x.grid { #{$columns} { … } }`), as it starts with a combinator
+$columns: '> .column:not(.row), > .row > .column';
+// A column with a variant class: append the class (`#{$column}.wide`)
+$column: ':is(.ui.grid > .column, .ui.grid > .row > .column)';
+
+// Breakpoints of the device variants (`mobile only`, `four wide tablet`, `tablet reversed`, …)
+$devices: (
+    mobile: '(width < 768px)',
+    tablet: '(768px <= width < 992px)',
+    computer: '(width >= 992px)',
+    large-screen: '(1200px <= width < 1920px)',
+    widescreen: '(width >= 1920px)'
+);
+
+// Columns per row of a `doubling` grid on a tablet and on a phone, by the grid's column count
+$doubling-tablet: (2: 1, 3: 2, 4: 2, 5: 3, 6: 3, 7: 3, 8: 4, 9: 4, 10: 5, 11: 5, 12: 6, 13: 6, 14: 7, 15: 7, 16: 8);
+$doubling-mobile: (2: 1, 3: 2, 4: 2, 5: 2, 6: 2, 7: 2, 8: 2, 9: 3, 10: 3, 11: 3, 12: 3, 13: 3, 14: 4, 15: 4, 16: 4);
+
+// Every column of the grids matched by $grid (a selector list)
+@function cols($grid) {
+    @return "#{$grid} > .column:not(.row), #{$grid} > .row > .column";
+}
+
+// The class selector of a device variant: `large-screen` is the two classes `large screen`
+@function device-class($device) {
+    @if $device == large-screen {
+        @return '.large.screen';
+    }
+    @return '.#{$device}';
+}
+
+// The color classes as a selector list (`.red, .orange, …`)
+@function color-classes() {
+    $list: ();
+    @each $name in map.keys(palette.$colors) {
+        $list: list.append($list, '.#{$name}', $separator: comma);
+    }
+    @return $list;
+}
+
+// A line at the start edge of a column (divided / celled), on the right side in right-to-left
+@mixin start-line($color) {
+    box-shadow: calc(var(--m-border-width) * -1) 0 0 0 $color;
+
+    &:dir(rtl) {
+        box-shadow: var(--m-border-width) 0 0 0 $color;
+    }
+}
+
+@layer mantic.components {
+    .ui.grid {
+        --_grid-gutter: var(--m-grid-gutter, 1rem);
+        --_grid-gutter-block: 1rem;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: stretch;
+        margin: calc(var(--_grid-gutter-block) * -1) calc(var(--_grid-gutter) * -1);
+        padding: 0;
+
+        > * {
+            padding-inline: var(--_grid-gutter);
+        }
+
+        #{$columns} {
+            position: relative;
+            display: inline-block;
+            inline-size: var(--_grid-column-width, 6.25%);
+            padding-inline: var(--_grid-gutter);
+            vertical-align: top;
+        }
+
+        > .column:not(.row) {
+            padding-block: var(--_grid-gutter-block);
+        }
+
+        > .row {
+            position: relative;
+            display: flex;
+            flex-flow: row wrap;
+            align-items: stretch;
+            justify-content: inherit;
+            inline-size: 100%;
+            padding: var(--_grid-gutter-block) 0;
+
+            > .column {
+                margin-block: 0;
+            }
+        }
+
+        > .row > img,
+        > .row > .column > img {
+            max-inline-size: 100%;
+        }
+
+        > .ui.grid:first-child {
+            margin-block-start: 0;
+        }
+
+        > .ui.grid:last-child {
+            margin-block-end: 0;
+        }
+
+        .row + .ui.divider {
+            flex-grow: 1;
+            margin: 1rem var(--_grid-gutter);
+        }
+
+
+        > .column:only-child,
+        > .row > .column:only-child {
+            --_grid-column-width: 100%;
+        }
+    }
+
+    .ui.grid + .grid {
+        margin-block-start: 1rem;
+    }
+
+    // Column counts and widths
+    @each $count in $counts {
+        $n: list.index($counts, $count);
+
+        .ui.#{$count}.column.grid,
+        .ui.grid > .#{$count}.column.row {
+            --_grid-column-width: calc(100% / #{$n});
+        }
+
+        #{$column}.#{$count}.wide {
+            inline-size: calc(100% * #{$n} / 16);
+        }
+    }
+
+    // Equal width: the columns share the row
+    #{cols('.ui.equal.width.grid')},
+    .ui.grid > .equal.width.row > .column {
+        flex: 1 1 0;
+        min-inline-size: 0;
+    }
+
+    .ui.equal.width.grid > .wide.column:not(.row),
+    .ui.equal.width.grid > .row > .wide.column,
+    .ui.grid > .equal.width.row > .wide.column {
+        flex: none;
+    }
+
+    // Floated: pushed to the start / end of its row
+    .ui.grid .left.floated.column {
+        margin-inline-end: auto;
+    }
+
+    .ui.grid .right.floated.column {
+        margin-inline-start: auto;
+    }
+
+    // Relaxed: wider gutters
+    .ui.relaxed.grid,
+    .ui.grid > .relaxed.row {
+        --_grid-gutter: calc(var(--m-grid-gutter, 1rem) * 1.5);
+    }
+
+    .ui.very.relaxed.grid,
+    .ui.grid > .very.relaxed.row {
+        --_grid-gutter: calc(var(--m-grid-gutter, 1rem) * 2.5);
+    }
+
+    // Padded: the grid keeps its gutters inside instead of pulling itself out
+    .ui.padded.grid:not(.vertically, .horizontally) {
+        margin: 0;
+    }
+
+    .ui.horizontally.padded.grid {
+        margin-inline: 0;
+    }
+
+    .ui.vertically.padded.grid {
+        margin-block: 0;
+    }
+
+    // Divided: lines between the columns (vertically divided: between the rows)
+    #{cols('.ui.divided.grid:not(.vertically)')},
+    .ui.grid > .divided.row > .column {
+        @include start-line(var(--m-border));
+    }
+
+    .ui.divided.grid:not(.vertically) > .column:first-child,
+    .ui.divided.grid:not(.vertically) > .row > .column:first-child,
+    .ui.grid > .divided.row > .column:first-child {
+        box-shadow: none;
+    }
+
+    .ui.padded.divided.grid:not(.vertically, .horizontally),
+    .ui.horizontally.padded.divided.grid {
+        inline-size: 100%;
+    }
+
+    .ui.vertically.divided.grid {
+        #{$columns} {
+            margin-block: var(--_grid-gutter-block);
+            padding-block: 0;
+        }
+
+        > .row {
+            margin-block: 0;
+
+            &:first-child > .column {
+                margin-block-start: 0;
+            }
+
+            &:not(:first-child)::before {
+                content: '';
+                position: absolute;
+                inset-block-start: 0;
+                inset-inline: var(--_grid-gutter);
+                border-block-start: var(--m-border-width) solid var(--m-border);
+            }
+        }
+    }
+
+    // Celled: every cell framed
+    .ui.celled.grid {
+        inline-size: 100%;
+        margin: 1em 0;
+        box-shadow: 0 0 0 var(--m-border-width) var(--m-border);
+
+        > .row {
+            inline-size: 100%;
+            margin: 0;
+            padding: 0;
+            box-shadow: 0 calc(var(--m-border-width) * -1) 0 0 var(--m-border);
+        }
+
+        #{$columns} {
+            padding: 1em;
+
+            @include start-line(var(--m-border));
+        }
+
+        > .column:first-child,
+        > .row > .column:first-child {
+            box-shadow: none;
+        }
+
+        &.no-margin {
+            margin: 0;
+        }
+    }
+
+    #{cols('.ui.relaxed.celled.grid')} {
+        padding: 1.5em;
+    }
+
+    #{cols('.ui.very.relaxed.celled.grid')} {
+        padding: 2em;
+    }
+
+    .ui.internally.celled.grid {
+        margin: 0;
+        box-shadow: none;
+
+        > .row:first-child {
+            box-shadow: none;
+        }
+    }
+
+    // Vertical alignment of the columns
+    @each $name, $value in (top: start, middle: center, bottom: end) {
+        #{cols('.ui.#{$name}.aligned.grid')},
+        .ui.grid > .#{$name}.aligned.row > .column,
+        #{$column}.#{$name}.aligned {
+            align-self: $value;
+        }
+    }
+
+    // Stretched: the content of a column fills its height
+    #{cols('.ui.stretched.grid')},
+    .ui.grid > .stretched.row > .column,
+    #{$column}.stretched {
+        display: flex;
+        flex-direction: column;
+        align-self: stretch;
+
+        > * {
+            flex-grow: 1;
+        }
+    }
+
+    // Text alignment
+    @each $name, $value in (left: start, center: center, right: end) {
+        #{cols('.ui.#{$name}.aligned.grid')},
+        .ui.grid > .#{$name}.aligned.row > .column,
+        #{$column}.#{$name}.aligned {
+            text-align: $value;
+        }
+    }
+
+    .ui.center.aligned.grid {
+        justify-content: center;
+    }
+
+    #{cols('.ui.justified.grid')},
+    .ui.grid > .justified.row > .column,
+    #{$column}.justified {
+        text-align: justify;
+        hyphens: auto;
+    }
+
+    // Centered: the columns (not their text) in the middle of the row
+    .ui.centered.grid,
+    .ui.centered.grid > .row,
+    .ui.grid > .centered.row {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .ui.centered.grid > .column:not(.aligned, .justified, .row),
+    .ui.centered.grid > .row > .column:not(.aligned, .justified),
+    .ui.grid .centered.row > .column:not(.aligned, .justified) {
+        text-align: start;
+    }
+
+    .ui.grid > .centered.column,
+    .ui.grid > .row > .centered.column {
+        display: block;
+        margin-inline: auto;
+    }
+
+    // An aligned grid's segments fill their column
+    .ui.grid .aligned.row > .column > .segment:not(.compact, .attached),
+    .ui.aligned.grid .column > .segment:not(.compact, .attached) {
+        inline-size: 100%;
+    }
+
+    // Colored columns and rows
+    @each $name, $values in palette.$colors {
+        .ui.grid > .#{$name}.row,
+        .ui.grid > .#{$name}.column,
+        .ui.grid > .row > .#{$name}.column {
+            background-color: var(--m-color-#{$name});
+            color: var(--m-color-#{$name}-on);
+        }
+    }
+
+    .ui.grid > .row > .column:is(#{color-classes()}) {
+        margin-block: calc(var(--_grid-gutter-block) * -1);
+        padding-block: var(--_grid-gutter-block);
+    }
+
+    // Device variants: widths, reversed order and visibility per screen size
+    @each $device, $query in $devices {
+        $class: device-class($device);
+
+        @media #{$query} {
+            @each $count in $counts {
+                $n: list.index($counts, $count);
+
+                #{$column}.#{$count}.wide#{$class} {
+                    inline-size: calc(100% * #{$n} / 16);
+                }
+            }
+
+            .ui#{$class}.reversed.grid,
+            .ui#{$class}.reversed.grid > .row,
+            .ui.grid > #{$class}.reversed.row {
+                flex-direction: row-reverse;
+            }
+
+            .ui#{$class}.vertically.reversed.grid {
+                flex-direction: column-reverse;
+            }
+        }
+    }
+
+    // `X only`: hidden on every other screen size
+    @each $device, $query in $devices {
+        $class: device-class($device);
+
+        @media not all and #{$query} {
+            .ui#{$class}.only.grid,
+            .ui.grid > #{$class}.only.row,
+            #{$column}#{$class}.only {
+                display: none;
+            }
+        }
+    }
+
+    // Doubling: on smaller screens the columns double in width
+    @media (768px <= width < 992px) {
+        .ui.doubling.grid {
+            inline-size: auto;
+        }
+
+        .ui.grid > .doubling.row,
+        .ui.doubling.grid > .row {
+            margin: 0;
+            padding: 0;
+        }
+
+        .ui.grid > .doubling.row > .column,
+        .ui.doubling.grid > .row > .column {
+            display: inline-block;
+            margin: 0;
+            padding-block: 1rem;
+            box-shadow: none;
+        }
+
+        @each $n, $per-row in $doubling-tablet {
+            $count: list.nth($counts, $n);
+
+            .ui.#{$count}.column.doubling.grid,
+            .ui.grid > .#{$count}.column.doubling.row {
+                --_grid-column-width: #{math.div(100%, $per-row)};
+            }
+        }
+    }
+
+    @media (width < 768px) {
+        .ui.grid > .doubling.row,
+        .ui.doubling.grid > .row {
+            margin: 0;
+            padding: 0;
+        }
+
+        .ui.grid > .doubling.row > .column,
+        .ui.doubling.grid > .row > .column {
+            margin: 0;
+            padding-block: 1rem;
+            box-shadow: none;
+        }
+
+        @each $n, $per-row in $doubling-mobile {
+            $count: list.nth($counts, $n);
+
+            .ui.#{$count}.column.doubling:not(.stackable).grid,
+            .ui.grid > .#{$count}.column.doubling:not(.stackable).row {
+                --_grid-column-width: #{math.div(100%, $per-row)};
+            }
+        }
+
+        // Stackable: one column per row on a phone
+        .ui.stackable.grid {
+            inline-size: auto;
+            margin-inline: 0;
+
+            #{$columns},
+            > .row > .wide.column,
+            > .wide.column {
+                inline-size: 100%;
+                margin: 0;
+                padding: 1rem;
+                box-shadow: none;
+            }
+
+            &:not(.vertically) > .row {
+                margin: 0;
+                padding: 0;
+            }
+
+            &:is(.celled, .divided:not(.vertically)) > .column:not(.row),
+            &:is(.celled, .divided:not(.vertically)) > .row > .column {
+                padding-block: 2rem;
+                border-block-start: var(--m-border-width) solid var(--m-border);
+            }
+
+            &:is(.celled, .divided) > .row:first-child > .column:first-child,
+            &:is(.celled, .divided) > .column:not(.row):first-child {
+                border-block-start: none;
+            }
+
+            &.celled > .row {
+                box-shadow: none;
+            }
+
+            &.divided:not(.vertically) > .column:not(.row),
+            &.divided:not(.vertically) > .row > .column {
+                padding-inline: 0;
+            }
+        }
+
+        .ui.grid > .stackable.row > .column {
+            inline-size: 100%;
+            margin: 0;
+            padding: 1rem;
+            box-shadow: none;
+        }
+
+        #{cols('.ui.container > .ui.stackable.grid')} {
+            padding-inline: 0;
+        }
+
+        .ui.grid .ui.stackable.grid {
+            margin-inline: -1rem;
+        }
+    }
+
+    // Inverted: sits on a dark background
+    .ui.inverted.grid {
+        color-scheme: dark;
+    }
+}

@@ -47,6 +47,9 @@ import { ToggleExampleComponent } from './examples/toggle/toggle.component';
 import { UtilExamplesComponent } from './examples/utils/utils.component';
 import { FomanticLayoutComponent } from './fomantic/layout.component';
 import { FomanticStartComponent } from './fomantic/start/start.component';
+import { ManticLayoutComponent } from './mantic/layout.component';
+import { ManticStartComponent } from './mantic/start/start.component';
+import { ManticThemingComponent } from './mantic/theming/theming.component';
 import { SemanticLayoutComponent } from './semantic/layout.component';
 import { SemanticStartComponent } from './semantic/start/start.component';
 
@@ -150,6 +153,13 @@ export const routes: Routes = [
             {
                 path: 'fomantic', component: FomanticLayoutComponent, children: [
                     { path: 'start', title: 'Getting Started', component: FomanticStartComponent },
+                    ...sharedRoutes
+                ]
+            },
+            {
+                path: 'mantic', component: ManticLayoutComponent, children: [
+                    { path: 'start', title: 'Getting Started', component: ManticStartComponent },
+                    { path: 'theming', title: 'Theming', component: ManticThemingComponent },
                     ...sharedRoutes
                 ]
             },

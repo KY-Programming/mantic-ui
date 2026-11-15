@@ -1,0 +1,293 @@
+@use 'sass:map';
+@use '../palette';
+
+// Header (`.ui.header`): m-header, or `<hN m-header>`. m-header renders its icon as an m-icon before the content; a
+// header with an icon is a flex row (icon header: a column), so no table-cell layout is needed.
+
+// The size classes of m-header, as Semantic sizes them (em: relative to the surrounding text)
+$sizes: (
+    huge: 2em,
+    large: 1.7143em,
+    medium: 1.2857em,
+    small: 1.0714em,
+    tiny: 1em
+);
+$sub-sizes: (
+    huge: 1.1429rem,
+    large: 1.1429rem,
+    small: 1rem,
+    tiny: 0.9286rem
+);
+$block-sizes: (
+    tiny: 0.8571rem,
+    small: 0.9286rem,
+    large: 1.1429rem,
+    huge: 1.4286rem
+);
+
+// Text color (dividing: also a thicker line)
+@mixin colored($token) {
+    color: var(#{$token});
+
+    &.dividing {
+        border-block-end: 2px solid var(#{$token});
+    }
+}
+
+@layer mantic.components {
+    .ui.header {
+        margin-block: calc(2rem - 0.1429em) 1rem;
+        margin-inline: 0;
+        padding: 0;
+        border: none;
+        color: var(--m-text);
+        font-family: var(--m-font-family-header);
+        font-weight: var(--m-font-weight-bold);
+        line-height: var(--m-line-height-header);
+        text-transform: none;
+
+        &:first-child {
+            margin-block-start: -0.1429em;
+        }
+
+        &:last-child {
+            margin-block-end: 0;
+        }
+
+        .sub.header {
+            display: block;
+            margin: 0;
+            padding: 0;
+            color: var(--m-text-muted);
+            font-size: 1rem;
+            font-weight: var(--m-font-weight-normal);
+            line-height: 1.2em;
+        }
+
+        .content {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .ui.label {
+            margin-inline-start: 0.5rem;
+            vertical-align: middle;
+        }
+    }
+
+    // An icon or image beside the text
+    .ui.header:has(> :is(m-icon, .icon, img, .image)) {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+
+        > m-icon > :is(i, fa-icon).icon,
+        > :is(i, fa-icon).icon {
+            margin: 0;
+            font-size: 1.5em;
+            opacity: 1;
+        }
+
+        > :is(img, .image:not(.icon)) {
+            inline-size: 2.5em;
+            block-size: auto;
+        }
+    }
+
+    .ui.header + p {
+        margin-block-start: 0;
+    }
+
+    // Default size of a header that is no <hN>; the <hN> sizes come from the site styles
+    .ui.header:not(h1, h2, h3, h4, h5, h6) {
+        font-size: 1.2857em;
+    }
+
+    @each $level, $sub in (1: 1.1429rem, 2: 1.1429rem, 3: 1rem, 4: 1rem, 5: 0.9286rem) {
+        h#{$level}.ui.header {
+            font-size: var(--m-font-size-h#{$level});
+
+            .sub.header {
+                font-size: $sub;
+            }
+        }
+    }
+
+    @each $name, $size in $sizes {
+        .ui.#{$name}.header {
+            font-size: $size;
+        }
+    }
+
+    @each $name, $size in $sub-sizes {
+        .ui.#{$name}.header .sub.header {
+            font-size: $size;
+        }
+    }
+
+    // Sub header: a small, uppercase label above some content
+    .ui.sub.header {
+        margin-block-end: 0.1429rem;
+        padding: 0;
+        font-size: 0.8571em;
+        font-weight: var(--m-font-weight-bold);
+        text-transform: uppercase;
+
+        &.small {
+            font-size: 0.7857em;
+        }
+
+        &.large {
+            font-size: 0.9286em;
+        }
+
+        &.huge {
+            font-size: 1em;
+        }
+    }
+
+    // Icon header: a big icon above the text
+    .ui.icon.header {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        margin-block: 2rem 1rem;
+        text-align: center;
+
+        &:first-child {
+            margin-block-start: 0;
+        }
+
+        > m-icon > :is(i, fa-icon).icon,
+        > :is(i, fa-icon).icon {
+            block-size: auto;
+            inline-size: auto;
+            margin: 0;
+            font-size: 3em;
+            line-height: 1;
+        }
+
+        > m-icon > :is(.circular, .square).icon,
+        > :is(i, fa-icon):is(.circular, .square).icon {
+            font-size: 2em;
+        }
+
+        .content {
+            display: block;
+        }
+
+        &.aligned {
+            display: flex;
+            margin-inline: auto;
+        }
+    }
+
+    .ui.disabled.header {
+        opacity: var(--m-disabled-opacity);
+    }
+
+    @each $name, $value in (left: start, center: center, right: end) {
+        .ui.#{$name}.aligned.header {
+            text-align: $value;
+            justify-content: $value;
+        }
+    }
+
+    .ui.justified.header {
+        text-align: justify;
+        text-align-last: justify;
+    }
+
+    .ui.fitted.header {
+        padding: 0;
+    }
+
+    // Dividing: a line below
+    .ui.dividing.header {
+        padding-block-end: 0.2143rem;
+        border-block-end: var(--m-border-width) solid var(--m-border);
+
+        .sub.header {
+            padding-block-end: 0.2143rem;
+        }
+    }
+
+    // Block: on a muted box
+    .ui.block.header {
+        padding: 0.7857rem 1rem;
+        border: var(--m-border-width) solid var(--m-border);
+        border-radius: var(--m-radius);
+        background: var(--m-surface-muted);
+
+        &:not(h1, h2, h3, h4, h5, h6) {
+            font-size: 1rem;
+        }
+
+        > m-icon > :is(i, fa-icon).icon {
+            margin-block-end: 0;
+        }
+    }
+
+    @each $name, $size in $block-sizes {
+        .ui.#{$name}.block.header {
+            font-size: $size;
+        }
+    }
+
+    // Attached: the top (or bottom) part of a segment
+    .ui.attached.header {
+        margin-inline: calc(var(--m-border-width) * -1);
+        padding: 0.7857rem 1rem;
+        border: var(--m-border-width) solid var(--m-border);
+        background: var(--m-surface);
+
+        &.block {
+            background: var(--m-surface-muted);
+        }
+
+        &:not(.top, .bottom) {
+            margin-block: 0;
+            border-block-start: none;
+            border-radius: 0;
+        }
+
+        &.top {
+            margin-block-end: 0;
+            border-radius: var(--m-radius) var(--m-radius) 0 0;
+        }
+
+        &.bottom {
+            margin-block-start: 0;
+            border-block-start: none;
+            border-radius: 0 0 var(--m-radius) var(--m-radius);
+        }
+
+        &:not(h1, h2, h3, h4, h5, h6) {
+            font-size: 1em;
+        }
+    }
+
+    // Colors: the text (dividing: also a thicker line)
+    @each $name, $values in palette.$colors {
+        .ui.#{$name}.header {
+            @include colored(--m-color-#{$name});
+        }
+    }
+
+    @each $role in map.keys(palette.$roles) {
+        .ui.#{$role}.header {
+            @include colored(--m-#{$role});
+        }
+    }
+
+    // Inverted: sits on a dark background
+    .ui.inverted.header {
+        color-scheme: dark;
+    }
+
+    .ui.inverted:is(.attached, .block).header {
+        border-color: transparent;
+        background: color-mix(in oklab, var(--m-surface), #fff 25%);
+    }
+}

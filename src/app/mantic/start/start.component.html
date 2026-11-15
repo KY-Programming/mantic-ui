@@ -1,0 +1,21 @@
+<app-header header="Getting Started" subHeader="The native mantic theme: modern CSS, adjustable at runtime" />
+
+<div class="page">
+    <h3>Install</h3>
+    <m-npm-install package="@mantic-ui/angular @mantic-ui/theme" />
+    <h3>Import the theme components in your AppComponent</h3>
+    <m-example-code label="app.component.ts" [code]="appComponentCode" [languages]="['ts']" />
+    <m-example-code label="app.component.html" [code]="appComponentHtml" [languages]="['html']" />
+
+    <h3>Adjust the theme at runtime</h3>
+    <p>
+        Colors, radii, spacing, fonts and motion are CSS custom properties (<code>--m-*</code>). Change them for the whole
+        page or for one part of it; hover, active and text-on-color variants follow automatically.
+        Try it in the <a routerLink="../theming">theming playground</a>.
+    </p>
+    <m-example-code label="Whole page" [code]="runtimeCode" [languages]="['ts']" />
+    <m-example-code label="One part of the page" [code]="scopeCode" [languages]="['html']" />
+
+    <h3>Browser support</h3>
+    <p>The theme targets current browsers (2024 and newer): it relies on <code>light-dark()</code>, <code>color-mix()</code>, relative colors and cascade layers.</p>
+</div>

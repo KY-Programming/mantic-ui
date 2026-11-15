@@ -1,0 +1,90 @@
+// Dimmer (`.ui.dimmer`): m-dimmer, inline over its positioned parent or `page` over the viewport.
+//
+// The default dimmer is a dark veil with white content, `inverted` a light veil (the surface color) with the normal
+// text color. Only the text color is set, not `color-scheme`: a modal inside the dimmer must keep the page's scheme.
+// Loaders and icons in it are drawn from currentColor and follow on their own.
+//
+// Public component tokens (optional): --m-dimmer-background, --m-dimmer-inverted-background.
+
+@layer mantic.components {
+    .dimmable:not(body) {
+        position: relative;
+    }
+
+    .ui.dimmer {
+        position: absolute;
+        inset: 0;
+        z-index: 1000;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1em;
+        border-radius: inherit;
+        background: var(--m-dimmer-background, rgb(0 0 0 / 85%));
+        color: var(--m-color-white);
+        line-height: 1;
+        text-align: center;
+        user-select: none;
+        opacity: 0;
+        transition: background-color calc(var(--m-duration) * 5) linear;
+
+        > .content {
+            color: inherit;
+            user-select: text;
+        }
+    }
+
+    .ui:is(.active, .visible).dimmer {
+        display: flex;
+        opacity: 1;
+        animation: m-dimmer-fade-in calc(var(--m-duration) * 5) var(--m-easing);
+    }
+
+    .ui.disabled.dimmer {
+        display: none;
+    }
+
+    .ui.page.dimmer {
+        position: fixed;
+        border-radius: 0;
+    }
+
+    .ui.inverted.dimmer {
+        background: var(--m-dimmer-inverted-background, color-mix(in oklab, var(--m-surface) 85%, transparent));
+        color: var(--m-text);
+    }
+
+    .ui.top.aligned.dimmer {
+        justify-content: flex-start;
+    }
+
+    .ui.bottom.aligned.dimmer {
+        justify-content: flex-end;
+    }
+
+    // Blurring: the dimmed content behind the veil is blurred
+    .blurring.dimmable {
+        > :not(.dimmer) {
+            transition: filter 800ms ease;
+        }
+
+        &:has(> .ui:is(.active, .visible).dimmer) > :not(.dimmer) {
+            filter: blur(5px) grayscale(0.7);
+        }
+
+        > .ui.dimmer {
+            background: rgb(0 0 0 / 60%);
+        }
+
+        > .ui.inverted.dimmer {
+            background: color-mix(in oklab, var(--m-surface) 60%, transparent);
+        }
+    }
+}
+
+@keyframes m-dimmer-fade-in {
+    from {
+        opacity: 0;
+    }
+}

@@ -1,0 +1,41 @@
+/*!
+ * Lato 2.0, Latin Extended part (Central and Eastern Europe, e.g. ł č ő, plus a few symbols), next to
+ * m-mantic-lato-local. Opt-in: only apps that show such text need it. Font: Lato by Łukasz Dziedzic, SIL OFL 1.1,
+ * see ../fonts/LICENSE_Lato.txt
+ */
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato-Regular-latin-ext.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    unicode-range: U+0100-0130, U+0132-0151, U+0154-017F, U+0192, U+0218-021B, U+0237, U+02C7, U+02C9, U+02D8-02D9, U+02DB, U+02DD, U+0394, U+03A9, U+03BC, U+03C0, U+1E80-1E85, U+20A3-20A4, U+20A7, U+2113, U+2126, U+212E, U+2202, U+2206, U+220F, U+2211, U+2219-221A, U+221E, U+222B, U+2248, U+2260, U+2264-2265, U+25CA, U+F8FF, U+FB00-FB04;
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato-Italic-latin-ext.woff2') format('woff2');
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    unicode-range: U+0100-0130, U+0132-0151, U+0154-017F, U+0192, U+0218-021B, U+0237, U+02C7, U+02C9, U+02D8-02D9, U+02DB, U+02DD, U+0394, U+03A9, U+03BC, U+03C0, U+1E80-1E85, U+20A3-20A4, U+20A7, U+2113, U+2126, U+212E, U+2202, U+2206, U+220F, U+2211, U+2219-221A, U+221E, U+222B, U+2248, U+2260, U+2264-2265, U+25CA, U+F8FF, U+FB00-FB04;
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato-Bold-latin-ext.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    unicode-range: U+0100-0130, U+0132-0151, U+0154-017F, U+0192, U+0218-021B, U+0237, U+02C7, U+02C9, U+02D8-02D9, U+02DB, U+02DD, U+0394, U+03A9, U+03BC, U+03C0, U+1E80-1E85, U+20A3-20A4, U+20A7, U+2113, U+2126, U+212E, U+2202, U+2206, U+220F, U+2211, U+2219-221A, U+221E, U+222B, U+2248, U+2260, U+2264-2265, U+25CA, U+F8FF, U+FB00-FB04;
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/Lato-BoldItalic-latin-ext.woff2') format('woff2');
+    font-style: italic;
+    font-weight: 700;
+    font-display: swap;
+    unicode-range: U+0100-0130, U+0132-0151, U+0154-017F, U+0192, U+0218-021B, U+0237, U+02C7, U+02C9, U+02D8-02D9, U+02DB, U+02DD, U+0394, U+03A9, U+03BC, U+03C0, U+1E80-1E85, U+20A3-20A4, U+20A7, U+2113, U+2126, U+212E, U+2202, U+2206, U+220F, U+2211, U+2219-221A, U+221E, U+222B, U+2248, U+2260, U+2264-2265, U+25CA, U+F8FF, U+FB00-FB04;
+}

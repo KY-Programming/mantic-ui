@@ -1,0 +1,276 @@
+// Popup (`.ui.popup`) and the CSS-only tooltip (`[data-tooltip]`).
+//
+// No core component renders a `.ui.popup` (m-context-menu is an m-menu, m-color-input has its own picker); the classes
+// are supported for app markup, with the variants of Semantic UI. The app (or a script) positions a popup and shows it
+// with `visible`; the arrow side follows the position class (`top left`, `bottom center`, `right center`, …) and points
+// at the target, so `top` means the popup sits above it.
+//
+// Inverted is `color-scheme: dark`, as everywhere: the tokens then resolve to their dark values.
+
+$arrow: 0.7143em;
+
+@mixin box {
+    border: var(--m-border-width) solid var(--m-border);
+    border-radius: var(--m-radius);
+    background: var(--m-surface);
+    box-shadow: var(--m-shadow-raised);
+    color: var(--m-text);
+    font-style: normal;
+    font-weight: var(--m-font-weight-normal);
+    line-height: 1.4285em;
+}
+
+@mixin arrow {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    inline-size: $arrow;
+    block-size: $arrow;
+    background: var(--m-surface);
+    box-shadow: 1px 1px 0 0 var(--m-border-strong);
+}
+
+@layer mantic.components {
+    .ui.popup {
+        @include box;
+
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline-end: 0;
+        z-index: 1900;
+        display: none;
+        min-inline-size: min-content;
+        max-inline-size: 250px;
+        padding: 0.833em 1em;
+
+        &.visible {
+            display: block;
+        }
+
+        > .header {
+            padding: 0;
+            font-family: var(--m-font-family-header);
+            font-size: 1.1429em;
+            font-weight: var(--m-font-weight-bold);
+            line-height: 1.2;
+        }
+
+        > .header + .content {
+            padding-block-start: 0.5em;
+        }
+
+        // The arrow: a rotated square on the side that faces the target, drawn below the popup by default
+        &::before {
+            @include arrow;
+
+            inset-block-start: 100%;
+            inset-inline-start: 50%;
+            translate: -50% -50%;
+            rotate: 45deg;
+        }
+
+        &.top {
+            margin-block-end: 0.7143em;
+        }
+
+        &.bottom {
+            margin-block-start: 0.7143em;
+
+            &::before {
+                inset-block: 0 auto;
+                box-shadow: -1px -1px 0 0 var(--m-border-strong);
+            }
+        }
+
+        &:is(.top, .bottom) {
+            &.left::before {
+                inset-inline-start: 1em;
+                translate: 0 -50%;
+            }
+
+            &.right::before {
+                inset-inline: auto 1em;
+                translate: 0 -50%;
+            }
+        }
+
+        &.left.center {
+            margin-inline-end: 0.7143em;
+
+            &::before {
+                inset-block-start: 50%;
+                inset-inline-start: 100%;
+                box-shadow: 1px -1px 0 0 var(--m-border-strong);
+            }
+        }
+
+        &.right.center {
+            margin-inline-start: 0.7143em;
+
+            &::before {
+                inset-block-start: 50%;
+                inset-inline-start: 0;
+                box-shadow: -1px 1px 0 0 var(--m-border-strong);
+            }
+        }
+
+        // Basic: no arrow
+        &.basic::before {
+            display: none;
+        }
+    }
+
+    .ui.wide.popup {
+        max-inline-size: 350px;
+    }
+
+    .ui.very.wide.popup {
+        max-inline-size: 550px;
+    }
+
+    .ui.flowing.popup {
+        max-inline-size: none;
+    }
+
+    .ui.fluid.popup {
+        inline-size: 100%;
+        max-inline-size: none;
+    }
+
+    .ui.inverted.popup {
+        color-scheme: dark;
+
+        &::before {
+            box-shadow: none;
+        }
+    }
+
+    @each $name, $size in (mini: 0.7857rem, tiny: 0.8571rem, small: 0.9286rem, large: 1.1429rem, huge: 1.4286rem) {
+        .ui.#{$name}.popup {
+            font-size: $size;
+        }
+    }
+
+    // Tooltip: `data-tooltip` on any element, shown on hover; `data-position` places it (default `top center`),
+    // `data-inverted` makes it dark
+    [data-tooltip] {
+        position: relative;
+
+        &::before,
+        &::after {
+            position: absolute;
+            font-size: 1rem;
+            text-transform: none;
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--m-duration) var(--m-easing), visibility var(--m-duration) var(--m-easing);
+        }
+
+        &::before {
+            @include arrow;
+
+            inset-block-end: 100%;
+            inset-inline-start: 50%;
+            margin-block-end: 0.1429rem;
+            translate: -50% 50%;
+            rotate: 45deg;
+        }
+
+        &::after {
+            @include box;
+
+            content: attr(data-tooltip);
+            inset-block-end: 100%;
+            inset-inline-start: 50%;
+            z-index: 1;
+            margin-block-end: 0.5em;
+            padding: 0.833em 1em;
+            text-align: start;
+            white-space: nowrap;
+            translate: -50% 0;
+        }
+
+        &:hover::before,
+        &:hover::after {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        &[data-inverted] {
+            &::before,
+            &::after {
+                color-scheme: dark;
+            }
+
+            &::before {
+                box-shadow: none;
+            }
+        }
+
+        &:is([data-position^="bottom"]) {
+            &::before {
+                inset-block: 100% auto;
+                margin-block: 0.1429rem 0;
+                translate: -50% -50%;
+                box-shadow: -1px -1px 0 0 var(--m-border-strong);
+            }
+
+            &::after {
+                inset-block: 100% auto;
+                margin-block: 0.5em 0;
+            }
+        }
+
+        &:is([data-position$="left"]):not([data-position="left center"])::after {
+            inset-inline-start: 0;
+            translate: none;
+        }
+
+        &:is([data-position$="right"]):not([data-position="right center"])::after {
+            inset-inline: auto 0;
+            translate: none;
+        }
+
+        &[data-position="left center"],
+        &[data-position="right center"] {
+            &::before,
+            &::after {
+                inset-block: 50% auto;
+                margin: 0;
+            }
+
+            &::after {
+                translate: 0 -50%;
+            }
+        }
+
+        &[data-position="left center"] {
+            &::before {
+                inset-inline: auto 100%;
+                margin-inline-end: 0.1429rem;
+                translate: 50% -50%;
+                box-shadow: 1px -1px 0 0 var(--m-border-strong);
+            }
+
+            &::after {
+                inset-inline: auto 100%;
+                margin-inline-end: 0.5em;
+            }
+        }
+
+        &[data-position="right center"] {
+            &::before {
+                inset-inline-start: 100%;
+                margin-inline-start: 0.1429rem;
+                translate: -50% -50%;
+                box-shadow: -1px 1px 0 0 var(--m-border-strong);
+            }
+
+            &::after {
+                inset-inline-start: 100%;
+                margin-inline-start: 0.5em;
+            }
+        }
+    }
+}
