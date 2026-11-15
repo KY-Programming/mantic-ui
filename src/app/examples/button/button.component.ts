@@ -3,13 +3,13 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { faArrowRight, faCloud, faPause } from '@fortawesome/pro-solid-svg-icons';
-import { AnimationComponent, ButtonComponent, ButtonDirective, ButtonGroupComponent, DividerComponent, FlexComponent, HeaderDirective, IconButtonComponent, IconComponent, InputComponent, LabelComponent, OrComponent, SegmentComponent, TabComponent, TabGroupComponent, ToggleButtonComponent, ToggleComponent, WarningComponent } from '@mantic-ui/angular';
+import { AnimationComponent, ButtonComponent, ButtonDirective, ButtonGroupComponent, DividerComponent, FlexComponent, HeaderDirective, IconButtonComponent, IconComponent, InputComponent, LabelComponent, OrComponent, SegmentComponent, TabComponent, TabGroupComponent, ToggleButtonComponent, ToggleComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-button-example',
-    imports: [HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ButtonComponent, ButtonDirective, ExampleCodeComponent, RouterLink, WarningComponent, IconButtonComponent, SegmentComponent, ToggleButtonComponent, ButtonGroupComponent, OrComponent, InputComponent, DividerComponent, ToggleComponent, LabelComponent, AnimationComponent, FlexComponent],
+    imports: [HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ButtonComponent, ButtonDirective, ExampleCodeComponent, RouterLink, IconButtonComponent, SegmentComponent, ToggleButtonComponent, ButtonGroupComponent, OrComponent, InputComponent, DividerComponent, ToggleComponent, LabelComponent, AnimationComponent, FlexComponent],
     templateUrl: './button.component.html',
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./button.component.scss']

@@ -35,7 +35,7 @@ export class ButtonComponent extends ButtonBaseComponent {
 
     public constructor() {
         super();
-        this.classes.register('fluid', 'pointing', 'iconPosition', 'labeled', 'iconLabeled', 'social', 'icon');
+        this.classes.register('fluid', 'pointing', 'iconPosition', 'labeled', 'iconLabeled', 'social', 'icon', 'animated', 'animation');
         effect(() => this.classes.set('fluid', this.fluid()));
         effect(() => this.classes.set('pointing', this.pointing()));
         effect(() => {
@@ -44,7 +44,10 @@ export class ButtonComponent extends ButtonBaseComponent {
             this.classes.set('iconLabeled', value ? 'labeled' : undefined);
         });
         effect(() => this.classes.set('iconPosition', this.iconPosition()));
-        effect(() => this.classes.set('social', this.social()));
+        // The themes name the brand classes in lower case (`.ui.google.plus.button`), the input is the display text
+        effect(() => this.classes.set('social', this.social()?.toLowerCase()));
+        effect(() => this.classes.set('animated', !!this.animated()));
+        effect(() => this.classes.set('animation', this.animation()));
         effect(() => this.classes.set('labeled', !!this.label()));
         effect(() => this.refreshInverted(ButtonComponent.defaults.inverted()));
     }

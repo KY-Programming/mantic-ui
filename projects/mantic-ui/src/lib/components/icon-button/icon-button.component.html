@@ -1,3 +1,3 @@
-@if (icon() || social()) {
-    <m-icon [icon]="icon() ?? social()" [size]="iconSize()" />
+@if (icon() ?? socialName(); as value) {
+    <m-icon [icon]="value" [size]="iconSize()" />
 }
