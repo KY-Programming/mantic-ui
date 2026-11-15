@@ -39,9 +39,10 @@ export class FieldGroupComponent extends BaseComponent implements OnDestroy {
 
     public constructor() {
         super(false);
-        this.classes.register('inline')
-            .registerFixed('fields');
+        this.classes.register('inline', 'fields');
         effect(() => this.classes.set('inline', this.inline()));
+        // The column count goes in front of `fields` (`two fields`): the themes size the fields by it
+        effect(() => this.classes.set('fields', [this.fields(), 'fields'].filter(Boolean).join(' ')));
 
         // React to the projected fields: derive the column-count class, re-wire change/error subscriptions, recheck validity.
         effect(() => {
