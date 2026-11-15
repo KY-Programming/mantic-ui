@@ -39,7 +39,8 @@ export class TableComponent extends InvertibleComponent {
         super();
         this.classes.register('celled', 'very', 'basic', 'unstackable', 'aligned', 'definition', 'collapsing')
             .registerFixed('table');
-        effect(() => this.classes.set('aligned', this.aligned()));
+        // The themes match the pair (`middle aligned`), as with the cell's align
+        effect(() => this.classes.set('aligned', `${this.aligned()} aligned`));
         effect(() => this.classes.set('basic', this.basic()));
         effect(() => this.classes.set('celled', !this.notCelled()));
         effect(() => this.classes.set('very', this.very()));
