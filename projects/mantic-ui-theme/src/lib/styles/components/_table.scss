@@ -63,6 +63,11 @@ $aligns: (left: start, center: center, right: end);
             transition: background-color var(--m-duration) var(--m-easing), color var(--m-duration) var(--m-easing);
         }
 
+        // A th in a body row (a row header) lines up like the cells instead of the browser's centered default
+        th {
+            text-align: inherit;
+        }
+
         thead th {
             padding: calc(var(--_table-padding-block) * 1.1818) var(--_table-padding-inline);
             border-block-end: var(--m-border-width) solid var(--_table-line);

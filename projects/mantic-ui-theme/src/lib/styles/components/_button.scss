@@ -55,8 +55,7 @@ $icon-box: 2.5714em;
         --_button-padding-inline: calc(var(--m-button-padding-inline, 1.5em) * var(--m-density) * var(--_button-scale, 1));
         display: inline-block;
         min-block-size: 1em;
-        margin-block: 0;
-        margin-inline: 0 0.25em;
+        margin: 0;
         padding: var(--_button-padding-block) var(--_button-padding-inline);
         border: none;
         border-radius: var(--m-button-radius, var(--m-radius));
@@ -266,10 +265,11 @@ $icon-box: 2.5714em;
     }
 
     // Labeled icon: the icon in its own box at the start (or the end with `right`). Not a button with an m-label, which
-    // is a labeled button as well.
+    // is a labeled button as well. The text keeps the same distance from the box as the (1em) icon has from the box's
+    // edges, (box - 1em) / 2, which is the block padding; the full inline padding there looked detached from the icon.
     .ui.labeled.icon.button:not(:has(> .label)) {
         position: relative;
-        padding-inline: calc(var(--_button-padding-inline) + #{$icon-box}) var(--_button-padding-inline);
+        padding-inline: calc(var(--_button-padding-block) + #{$icon-box}) var(--_button-padding-inline);
 
         > m-icon,
         > .icon {
@@ -295,7 +295,7 @@ $icon-box: 2.5714em;
 
         // `right` alone is the icon position, `right attached` the attached button
         &.right:not(.attached) {
-            padding-inline: var(--_button-padding-inline) calc(var(--_button-padding-inline) + #{$icon-box});
+            padding-inline: var(--_button-padding-inline) calc(var(--_button-padding-block) + #{$icon-box});
 
             > m-icon,
             > .icon {
@@ -454,13 +454,19 @@ $icon-box: 2.5714em;
         border-end-start-radius: 0;
     }
 
+    // Spacing: only between buttons (and groups) that stand next to each other. A trailing margin on every button, as in
+    // Semantic UI, pushes against whatever follows and breaks flex rows with a gap. Members of a group and attached
+    // buttons are joined, so they get none.
+    .ui:is(.button, .buttons) + .ui:is(.button, .buttons):not(.ui.buttons > *, .attached) {
+        margin-inline-start: 0.25em;
+    }
+
     // Groups
     .ui.buttons {
         --_buttons-radius: var(--m-button-radius, var(--m-radius));
         display: inline-flex;
         flex-direction: row;
-        margin-block: 0;
-        margin-inline: 0 0.25em;
+        margin: 0;
         border-radius: var(--_buttons-radius);
         font-size: 1rem;
         vertical-align: baseline;

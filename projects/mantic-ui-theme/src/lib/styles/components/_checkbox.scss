@@ -6,9 +6,12 @@
 // from `input:checked`: they are what the component considers its value.
 //
 // Box and label take the --_control-* properties of the input (see _input.scss), so an error field colors them too.
+//
+// Public component token (optional): --m-checkbox-size (box size and line height of a checkbox; em, so it scales with
+// the font size by default).
 
 // Size of the check box, and of the radio circle
-$box: 1.2143em;
+$box: var(--m-checkbox-size, 1.2143em);
 $radio: 1.0714em;
 // Track and knob of toggle and slider
 $track: 3.5rem;

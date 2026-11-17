@@ -185,6 +185,11 @@ Rules that are easy to break:
   is a menu variant, so menus have no `secondary` color (buttons do).
 - Menu hover / active backgrounds are the text color at a low share; `inverted` only switches `color-scheme` and raises
   the share. Colored inverted menus set `color-scheme: light` to get the strong base color.
+- Buttons have no trailing margin (Semantic's `margin-right: 0.25em` pushed against whatever followed and doubled the gap
+  of flex rows); only a button or group directly after another one gets `margin-inline-start: 0.25em`. Group members and
+  attached buttons are excluded in that selector itself, because it outranks their `margin: 0` by specificity.
+- A vertical menu must not reset the item background: `.ui.vertical.menu .item` is as specific as
+  `.ui.menu .active.item` and comes later, so any background there wipes out the active highlight.
 - The dimmer sets only the text color, never `color-scheme`: a modal inside must keep the page scheme. Loaders, icons and
   the dimmer content follow through `currentColor`.
 - Text on a color the theme computes (the progress bar's percentage) uses the `-on` rule inline,
