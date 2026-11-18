@@ -41,6 +41,13 @@ $corner-room: 2.5em;
         opacity: 0.4;
     }
 
+    // Like Fomantic UI, for inputs and the selection dropdown alike; a readonly field (`[readonly]`, a dropdown's
+    // `.readonly`) does not react, as nothing can be changed there. A field in a state (error, …) keeps its state color.
+    // `:where` adds no specificity, so variations that hide the border (transparent) still win.
+    &:where(:hover:not(:focus, [readonly], .readonly)) {
+        border-color: var(--_control-border, var(--m-border-strong));
+    }
+
     &:focus {
         border-color: var(--_control-focus, var(--m-focus));
 

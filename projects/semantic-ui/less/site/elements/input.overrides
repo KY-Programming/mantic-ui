@@ -63,3 +63,18 @@
 .ui[class*="left corner labeled"].icon.input > m-icon > * {
   &:extend(.ui[class*="left corner labeled"].icon.input > .icon);
 }
+
+// Hover like the selection dropdown, as Fomantic UI does it (its input.less), plus m-textarea (.ui.form.textarea), which
+// Fomantic's selectors miss. An input in the error state keeps its border, which Fomantic misses for .ui.input.error;
+// the form states are in collections/form.overrides.
+.ui.form .field > textarea:hover:not(:focus),
+.ui.form.textarea > textarea:hover:not(:focus),
+.ui.input > textarea:hover:not(:focus),
+.ui.form .field > input:hover:not(:focus),
+.ui.input > input:hover:not(:focus) {
+  border-color: @selectedBorderColor;
+}
+
+.ui.input.error > input:hover:not(:focus) {
+  border-color: @errorBorder;
+}

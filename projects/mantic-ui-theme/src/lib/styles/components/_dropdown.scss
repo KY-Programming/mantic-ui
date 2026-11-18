@@ -175,9 +175,7 @@ $icon-room: 2.1em;
         white-space: normal;
         cursor: pointer;
 
-        &:hover {
-            border-color: var(--_control-border, var(--m-border-strong));
-        }
+        // The hover comes with input.control (not on a readonly dropdown)
 
         // The arrow, in a box at the end of the field
         > m-icon.dropdown.icon {

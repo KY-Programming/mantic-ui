@@ -1,0 +1,14 @@
+/*******************************
+         Site Overrides
+*******************************/
+
+// The input hover (elements/input.overrides) must not replace the border of a field in the error state, as in
+// Fomantic UI's form.less
+.ui.form .fields.error .field > textarea:hover:not(:focus),
+.ui.form .fields.error .field > input:hover:not(:focus),
+.ui.form .field.error > textarea:hover:not(:focus),
+.ui.form .field.error > input:hover:not(:focus),
+.ui.form .fields.error .field .ui.form.textarea > textarea:hover:not(:focus),
+.ui.form .field.error .ui.form.textarea > textarea:hover:not(:focus) {
+  border-color: @formErrorBorder;
+}

@@ -83,7 +83,7 @@ font components and the theme assets. The output is checked in so a library buil
 extra step: run the script after changing a theme's `less` folder or bumping a source package, and review
 the CSS diff. Each theme's `less` folder is laid over the package root like a regular Semantic UI project
 (`theme.config`, `site/`, `themes/`), nothing is written into node_modules. What mantic needs differs from
-stock Semantic in three ways, all there:
+stock Semantic in four ways, all there:
 - m-icon nests the icon (`<m-icon><i class="icon">` / `<m-icon><fa-icon>`) and m-checkbox draws its check
   mark as an `m-icon.icon` in the label. `site/**/*.overrides` adds those selectors to the original rules
   with `:extend`, which keeps the cascade order; a selector with an interpolated part (`@{notIcon}` in
@@ -95,6 +95,9 @@ stock Semantic in three ways, all there:
 - `@font-face` rules go to their own opt-in components (`m-*-icons-local`, `m-fomantic-ui-lato-local`) with a
   font path relative to that component, so ng-packagr inlines the fonts. An absolute path breaks apps served
   below a base href. The flag sprite still loads from `/assets/` (Semantic) — a known limit.
+- Inputs and textareas darken their border on hover like the selection dropdown, as Fomantic does (stock Semantic
+  only does it for the dropdown). `site/elements/input.overrides` adds the rule, `site/collections/form.overrides`
+  keeps the error border on hover; the mantic theme does the same in its `control` mixin.
 
 less 3+ no longer evaluates operations inside `calc()`, which the Semantic definitions were written for
 (see `site/elements/label.variables`): after an upgrade, grep the output for `--` inside `calc(`.
