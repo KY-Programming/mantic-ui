@@ -20,7 +20,9 @@ const stepRepeatInterval = 60;
     providers: [...InputBaseComponent.providers],
     hostDirectives: [AttachedDirective.default],
     host: {
-        '[class.stepper]': 'hasStepper()'
+        '[class.stepper]': 'hasStepper()',
+        '[class.sized]': 'contentChars() !== undefined',
+        '[style.--m-numeric-input-chars]': 'contentChars()'
     }
 })
 export class NumericInputComponent extends InputBaseComponent implements OnInit {
@@ -59,6 +61,21 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     protected readonly placeholderInternal = computed(() => {
         const zeroText = this.zeroText();
         return this.value() === 0 && zeroText ? zeroText : this.placeholder() ?? '';
+    });
+    /**
+     * How many characters the longest allowed value takes, once `min` and `max` bound it: sign and whole digits of the
+     * wider bound, plus the step's decimals. A placeholder that is longer still wins, so it is not cut off. Undefined
+     * without both bounds (or on a slider), where the field keeps the browser's default width.
+     */
+    protected readonly contentChars = computed(() => {
+        const min = this.min();
+        const max = this.max();
+        if (min === undefined || max === undefined || this.range()) {
+            return undefined;
+        }
+        const decimals = String(this.step()).split('.', 2)[1]?.length ?? 0;
+        const digits = Math.max(this.countWholeChars(min), this.countWholeChars(max)) + (decimals > 0 ? decimals + 1 : 0);
+        return Math.max(digits, this.placeholderInternal().length);
     });
     public readonly valueChange = output<number | undefined>();
     public readonly numberChange = output<number>();
@@ -168,6 +185,11 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
         }
         event.preventDefault();
         this.stepBy(event.key === 'ArrowUp' ? 1 : -1);
+    }
+
+    /** Sign and digits before the decimal point; `-0.5` takes two (`-0`). */
+    private countWholeChars(value: number): number {
+        return (value < 0 ? 1 : 0) + String(Math.trunc(Math.abs(value))).length;
     }
 
     // Mirrors the old `value` setter: normalise the display only when the value actually changes, then store it (without emitting).

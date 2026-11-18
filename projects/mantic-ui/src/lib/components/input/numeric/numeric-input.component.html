@@ -5,7 +5,7 @@
     <ng-container [ngTemplateOutlet]="contentTemplate" />
 }
 <ng-content />
-<input *m-fallback-for="'input'" [type]="type()" [placeholder]="placeholderInternal() || ''" [ngModel]="internalValue()" [min]="min() || ''" [max]="max() || ''" [step]="step()" [attr.name]="name()" [attr.for]="for()" [attr.readOnly]="readonly() || undefined" [attr.disabled]="disabled() || undefined" (ngModelChange)="onInternalChange($event)" #input>
+<input *m-fallback-for="'input'" [type]="type()" [placeholder]="placeholderInternal() || ''" [ngModel]="internalValue()" [min]="min() ?? ''" [max]="max() ?? ''" [step]="step()" [attr.name]="name()" [attr.for]="for()" [attr.readOnly]="readonly() || undefined" [attr.disabled]="disabled() || undefined" (ngModelChange)="onInternalChange($event)" #input>
 <!-- Replaces the browser's spin buttons; held down they repeat. Pointer only: the keyboard has the arrow keys in the field,
      so the buttons stay out of the tab order. -->
 @if (hasStepper()) {

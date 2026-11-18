@@ -69,6 +69,14 @@ $stepper-width: 1.75em;
     }
 }
 
+// With `min` and `max` the longest value is known, so a field sized by its content is sized to that instead of to the
+// browser's default of about 20 characters. Content-box, so the theme's padding and the room for the up / down buttons
+// come on top and the buttons stay. A fluid field takes its width from where it is placed and is left alone.
+:host.sized:not(.fluid) > input {
+    box-sizing: content-box;
+    width: calc(var(--m-numeric-input-chars) * 1ch);
+}
+
 // A narrow field gives its room to the digits: first tighter padding, then, very narrow, without the up / down buttons
 // (the arrow keys and the wheel still step). Only a fluid field is a container: its width comes from where it is placed,
 // whereas a field sized by its content would collapse under inline-size containment.
