@@ -456,8 +456,9 @@ $icon-box: 2.5em;
 
     // Spacing: only between buttons (and groups) that stand next to each other. A trailing margin on every button, as in
     // Semantic UI, pushes against whatever follows and breaks flex rows with a gap. Members of a group and attached
-    // buttons are joined, so they get none.
-    .ui:is(.button, .buttons) + .ui:is(.button, .buttons):not(.ui.buttons > *, .attached) {
+    // buttons are joined, so they get none. `:where` keeps the exclusion out of the specificity, so a container that
+    // spaces its buttons with a gap (the modal's actions, …) can reset the margin with a plain `.ui.button` rule.
+    .ui:is(.button, .buttons) + .ui:is(.button, .buttons):where(:not(.ui.buttons > *, .attached)) {
         margin-inline-start: 0.25em;
     }
 
