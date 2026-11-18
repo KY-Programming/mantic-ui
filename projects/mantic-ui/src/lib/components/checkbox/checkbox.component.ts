@@ -1,13 +1,14 @@
 import { Component, computed, effect, input, model, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InvertibleComponent } from '../../base/invertible.component';
-import { toBoolean } from '../../helpers/to-boolean';
+import { toBoolean, toBooleanWithUndefined } from '../../helpers/to-boolean';
 import { inheritableBooleanModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
 import { Key } from '../../models/key';
 import { IconComponent } from '../icon/icon.component';
 import { IconSize } from '../icon/models/icon-size';
 import { IconType } from '../icon/models/icon-type';
+import { readonlyDefaults } from '../input/readonly-defaults';
 
 @Component({
     selector: 'm-checkbox',
@@ -51,6 +52,13 @@ export class CheckboxComponent extends InvertibleComponent {
     public readonly readonlyInput = input<boolean, BooleanLike>(false, { alias: 'readonly', transform: toBoolean });
     public readonly readonlyChange = output<boolean>();
     public readonly readonly = inheritableBooleanModel(this.readonlyInput, this.readonlyChange);
+    // The lock after the label, as on the fields; shared defaults, switched off app-wide with the theme's noReadonlyLock
+    public readonly readonlyIcon = input<IconType>();
+    public readonly readonlyText = input<string>();
+    public readonly hideReadonlyIcon = input<boolean | undefined, BooleanLike>(undefined, { transform: toBooleanWithUndefined });
+    protected readonly showReadonlyLock = computed(() => this.readonly() && !(this.hideReadonlyIcon() ?? readonlyDefaults.isIconHidden()));
+    protected readonly currentReadonlyIcon = computed(() => this.readonlyIcon() ?? readonlyDefaults.icon());
+    protected readonly currentReadonlyText = computed(() => this.readonlyText() ?? readonlyDefaults.text());
     // eslint-disable-next-line @angular-eslint/no-input-rename
     public readonly disabledInput = input<boolean, BooleanLike>(false, { alias: 'disabled', transform: toBoolean });
     public readonly disabledChange = output<boolean>();

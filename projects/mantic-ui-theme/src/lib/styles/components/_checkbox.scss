@@ -71,8 +71,8 @@ $knob: 1.5rem;
                 border-color: var(--_control-border, var(--m-border-strong));
             }
 
-            // The check mark (and the dash of an indeterminate checkbox)
-            > m-icon {
+            // The check mark (and the dash of an indeterminate checkbox); the readonly lock after the text is the core's
+            > m-icon:not(.readonly-lock-icon) {
                 position: absolute;
                 inset-block-start: 0;
                 inset-inline-start: 0;

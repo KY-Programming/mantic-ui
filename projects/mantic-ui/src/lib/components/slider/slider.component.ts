@@ -3,12 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { filter, takeUntil } from 'rxjs/operators';
 import { RadioService } from '../../services/radio.service';
 import { CheckboxComponent } from '../checkbox/checkbox.component';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
     selector: 'm-slider',
     templateUrl: './slider.component.html',
     styleUrls: ['./slider.component.scss'],
-    imports: [FormsModule],
+    imports: [IconComponent, FormsModule],
     providers: [...CheckboxComponent.providers]
 })
 export class SliderComponent extends CheckboxComponent {

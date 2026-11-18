@@ -17,10 +17,14 @@ $-readonly: -repeated(".readonly");
 $-lock: -repeated(".readonly-lock");
 $-lock-width: 2.5em;
 
-// The field's line height would push the glyph down inside the icon's box
+// A hint, not a control: smaller than the text and faint
 @mixin -lock-glyph {
+    opacity: 0.35;
+
+    // The field's line height would push the glyph down inside the icon's box
     ::ng-deep .icon {
         margin: 0;
+        font-size: 0.875em;
         line-height: 1;
     }
 
@@ -57,9 +61,40 @@ $-lock-width: 2.5em;
         align-items: center;
         justify-content: center;
         width: $-lock-width;
-        opacity: 0.6;
 
         @include -lock-glyph;
+    }
+}
+
+// For checkbox, radio, toggle and slider: the lock follows the label text inside the label. It is no `.icon` and no
+// direct m-icon the themes position as the check mark (Semantic: `label > .icon`, mantic: `label > m-icon` excludes it).
+// Without a text to follow (fitted, or simply no label, as in a table column of readonly checkboxes) it is left out: a
+// lock in every row would only be noise. The label text sits in `.label-text`, which stays `:empty` without one.
+// It stands on the baseline and is as tall as the capitals (`1cap`: the cap height of the label's font), like a letter.
+@mixin readonly-inline {
+    .readonly-lock-icon {
+        display: inline-block;
+        margin-left: 0.4em;
+        font-size: 1cap;
+        line-height: 1;
+        vertical-align: baseline;
+        opacity: 0.35;
+
+        // An icon font draws its glyphs from -0.125em to 0.875em; lifted by that, the glyph stands on the baseline
+        ::ng-deep i.icon {
+            margin: 0;
+            vertical-align: 0.125em;
+        }
+
+        // An SVG icon (Font Awesome) fills its box: its bottom edge is the baseline
+        ::ng-deep svg {
+            display: block;
+        }
+    }
+
+    :host(.fitted) .readonly-lock-icon,
+    .label-text:empty + .readonly-lock-icon {
+        display: none;
     }
 }
 
@@ -89,7 +124,6 @@ $-lock-width: 2.5em;
         align-items: center;
         justify-content: center;
         margin-left: -$-lock-width;
-        opacity: 0.6;
 
         @include -lock-glyph;
     }
