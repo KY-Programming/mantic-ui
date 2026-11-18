@@ -8,14 +8,14 @@
 // evenly, a `wide` field takes its sixteenths of it (gap included), and the other fields share the rest.
 
 $sizes: (
-    mini: 0.7857rem,
-    tiny: 0.8571rem,
-    small: 0.9286rem,
+    mini: 0.75rem,
+    tiny: 0.8125rem,
+    small: 0.875rem,
     medium: 1rem,
-    large: 1.1429rem,
-    big: 1.2857rem,
-    huge: 1.4286rem,
-    massive: 1.7143rem
+    large: 1.125rem,
+    big: 1.25rem,
+    huge: 1.5rem,
+    massive: 1.75rem
 );
 
 $counts: (two, three, four, five, six, seven, eight, nine, ten);
@@ -27,7 +27,7 @@ $control: ':where(textarea, input:is(:not([type]), [type="date"], [type="datetim
 
 @mixin label {
     color: var(--_control-text, var(--m-text));
-    font-size: 0.9286em;
+    font-size: 0.875em;
     font-weight: var(--m-font-weight-bold);
     text-transform: none;
 }
@@ -50,7 +50,7 @@ $control: ':where(textarea, input:is(:not([type]), [type="date"], [type="datetim
         }
 
         textarea {
-            padding-block: calc(0.7857em * var(--m-density));
+            padding-block: calc(0.75em * var(--m-density));
             line-height: 1.2857;
             resize: vertical;
 
@@ -72,7 +72,7 @@ $control: ':where(textarea, input:is(:not([type]), [type="date"], [type="datetim
                 @include label;
 
                 display: block;
-                margin-block: 0 0.2857rem;
+                margin-block: 0 0.25rem;
             }
 
             // An m-input fills the field; its input takes the room that is left beside icons, labels and buttons
@@ -98,8 +98,8 @@ $control: ':where(textarea, input:is(:not([type]), [type="date"], [type="datetim
             &::after {
                 content: '*';
                 display: inline-block;
-                margin-block-start: -0.2em;
-                margin-inline-start: 0.2em;
+                margin-block-start: -0.25em;
+                margin-inline-start: 0.25em;
                 color: var(--m-negative);
                 vertical-align: top;
             }
@@ -219,7 +219,7 @@ $control: ':where(textarea, input:is(:not([type]), [type="date"], [type="datetim
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: 0.8571em;
+        gap: 0.75em;
 
         > label {
             margin: 0;

@@ -59,20 +59,21 @@
         // Typography
         --m-font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
         --m-font-family-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-        // Page level: sets the rem of the whole page, so a scope cannot override it
-        --m-font-size: 14px;
-        --m-line-height: 1.4285em;
+        // Page level: sets the rem of the whole page, so a scope cannot override it. The theme's spacing is laid out for
+        // 16px on a 4px grid (multiples of 0.25rem); see the README
+        --m-font-size: 16px;
+        --m-line-height: 1.5em;
         --m-font-weight-normal: 400;
         --m-font-weight-bold: 700;
         --m-font-size-h1: 2rem;
-        --m-font-size-h2: 1.7143rem;
-        --m-font-size-h3: 1.2857rem;
-        --m-font-size-h4: 1.0714rem;
+        --m-font-size-h2: 1.5rem;
+        --m-font-size-h3: 1.25rem;
+        --m-font-size-h4: 1rem;
         --m-font-size-h5: 1rem;
-        --m-line-height-header: 1.2857em;
+        --m-line-height-header: 1.25em;
 
         // Shape and spacing
-        --m-radius: 0.2857rem;
+        --m-radius: 0.25rem;
         --m-radius-pill: 9999px;
         --m-border-width: 1px;
         // Scales the inner spacing of all components: 0.75 compact, 1 default, 1.25 comfortable

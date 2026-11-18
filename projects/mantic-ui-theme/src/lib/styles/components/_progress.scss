@@ -8,11 +8,11 @@
 // A color or state class only sets --_progress-color; the bar and the circle's value stroke read it.
 
 $sizes: (
-    tiny: (0.8571rem, 0.5em),
-    small: (0.9286rem, 1em),
+    tiny: (0.8125rem, 0.5em),
+    small: (0.875rem, 1em),
     medium: (1rem, 1.75em),
-    large: (1.1429rem, 2.5em),
-    big: (1.2857rem, 3.5em)
+    large: (1.125rem, 2.5em),
+    big: (1.25rem, 3.5em)
 );
 
 $states: (
@@ -61,7 +61,7 @@ $states: (
                 translate: 0 -50%;
                 // Readable on whatever color the bar has (the same rule as the theme's `-on` tokens)
                 color: oklch(from var(--_progress-color, var(--m-color-grey)) clamp(0, (var(--m-on-threshold) - l) * 1000, 1) 0 0 / 70%);
-                font-size: 0.9286em;
+                font-size: 0.875em;
                 font-weight: var(--m-font-weight-bold);
                 white-space: nowrap;
             }
@@ -73,7 +73,7 @@ $states: (
             inset-block-start: 100%;
             inset-inline-start: 0;
             inline-size: 100%;
-            margin-block-start: 0.2em;
+            margin-block-start: 0.25em;
             color: var(--_progress-text, var(--m-text));
             font-size: 1em;
             font-weight: var(--m-font-weight-bold);
@@ -125,7 +125,7 @@ $states: (
 
     // Attached: a thin line at the top or bottom edge of its parent
     .ui.attached.progress:not(.circular) {
-        --_progress-height: 0.2rem;
+        --_progress-height: 0.25rem;
         position: relative;
         margin: 0;
         border: none;

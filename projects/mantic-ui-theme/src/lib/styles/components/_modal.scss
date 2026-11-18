@@ -60,9 +60,9 @@ $widths: (
             font-family: var(--m-font-family-header);
 
             &:not(.ui) {
-                font-size: 1.4286rem;
+                font-size: 1.5rem;
                 font-weight: var(--m-font-weight-bold);
-                line-height: 1.2857em;
+                line-height: 1.25em;
             }
 
             > m-icon.close {
@@ -168,7 +168,7 @@ $widths: (
 
             > .header:not(.ui) {
                 @if $name == mini or $name == small {
-                    font-size: 1.3em;
+                    font-size: 1.25em;
                 }
             }
         }

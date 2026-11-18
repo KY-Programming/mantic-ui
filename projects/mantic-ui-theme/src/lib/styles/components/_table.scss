@@ -34,8 +34,8 @@ $aligns: (left: start, center: center, right: end);
 @layer mantic.components {
     .ui.table {
         --_table-line: color-mix(in oklab, var(--m-border) 67%, transparent);
-        --_table-padding-block: calc(var(--m-table-padding-block, 0.7857em) * var(--m-density));
-        --_table-padding-inline: calc(var(--m-table-padding-inline, 0.7857em) * var(--m-density));
+        --_table-padding-block: calc(var(--m-table-padding-block, 0.75em) * var(--m-density));
+        --_table-padding-inline: calc(var(--m-table-padding-inline, 0.75em) * var(--m-density));
         inline-size: 100%;
         margin-block: 1em;
         border: var(--m-border-width) solid var(--m-border);
@@ -69,7 +69,7 @@ $aligns: (left: start, center: center, right: end);
         }
 
         thead th {
-            padding: calc(var(--_table-padding-block) * 1.1818) var(--_table-padding-inline);
+            padding: var(--_table-padding-block) var(--_table-padding-inline);
             border-block-end: var(--m-border-width) solid var(--_table-line);
             background: var(--m-surface-muted);
             color: inherit;
@@ -378,21 +378,21 @@ $aligns: (left: start, center: center, right: end);
 
     .ui.compact.table {
         th {
-            padding-inline: 0.7em;
+            padding-inline: 0.5em;
         }
 
         td {
-            padding: 0.5em 0.7em;
+            padding: 0.5em 0.5em;
         }
     }
 
     .ui.very.compact.table {
         th {
-            padding-inline: 0.6em;
+            padding-inline: 0.5em;
         }
 
         td {
-            padding: 0.4em 0.6em;
+            padding: 0.25em 0.5em;
         }
     }
 
@@ -457,11 +457,11 @@ $aligns: (left: start, center: center, right: end);
     }
 
     .ui.small.table {
-        font-size: 0.9em;
+        font-size: 0.875em;
     }
 
     .ui.large.table {
-        font-size: 1.1em;
+        font-size: 1.125em;
     }
 
     // Stackable: on a narrow screen every row becomes a block of its cells (unless `unstackable`)

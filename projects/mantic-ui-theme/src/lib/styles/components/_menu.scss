@@ -12,12 +12,12 @@
 // Public component tokens (optional, set them anywhere): --m-menu-background, --m-menu-radius.
 
 $sizes: (
-    mini: (0.7857rem, 9rem),
-    tiny: (0.8571rem, 11rem),
-    small: (0.9286rem, 13rem),
-    large: (1.0714rem, 18rem),
-    huge: (1.1429rem, 20rem),
-    massive: (1.2857rem, 25rem)
+    mini: (0.75rem, 9rem),
+    tiny: (0.8125rem, 11rem),
+    small: (0.875rem, 13rem),
+    large: (1.0625rem, 18rem),
+    huge: (1.125rem, 20rem),
+    massive: (1.25rem, 25rem)
 );
 
 
@@ -33,7 +33,7 @@ $sizes: (
         --_menu-hover: color-mix(in oklab, var(--m-text) 4%, transparent);
         --_menu-active: color-mix(in oklab, var(--m-text) 7%, transparent);
         display: flex;
-        min-block-size: 2.8571em;
+        min-block-size: 2.5em;
         margin-block: 1rem;
         border: var(--m-border-width) solid var(--m-border);
         border-radius: var(--_menu-radius);
@@ -64,7 +64,7 @@ $sizes: (
             display: flex;
             flex: 0 0 auto;
             align-items: center;
-            padding: calc(0.9286em * var(--m-density)) calc(1.1429em * var(--m-density));
+            padding: calc(0.75em * var(--m-density)) calc(1em * var(--m-density));
             background: none;
             color: var(--m-text);
             font-weight: var(--m-font-weight-normal);
@@ -91,14 +91,14 @@ $sizes: (
             > m-icon > :is(i, fa-icon).icon,
             > :is(i, fa-icon).icon {
                 margin-block: 0;
-                margin-inline: 0 0.3571em;
+                margin-inline: 0 0.25em;
                 opacity: 0.9;
             }
 
             > img:not(.ui) {
                 display: inline-block;
                 inline-size: 2.5em;
-                margin-block: -0.3em;
+                margin-block: -0.25em;
                 vertical-align: middle;
             }
 
@@ -119,7 +119,7 @@ $sizes: (
             // Buttons and inputs keep the item's height
             > .button {
                 margin-block: -0.5em;
-                padding-block: 0.7857em;
+                padding-block: 0.75em;
                 font-size: 1em;
             }
 
@@ -128,7 +128,7 @@ $sizes: (
                 margin-block: -0.5em;
 
                 > input {
-                    padding-block: 0.5714em;
+                    padding-block: 0.5em;
                     font-size: 1em;
                 }
             }
@@ -144,7 +144,7 @@ $sizes: (
             --_label-color: var(--m-color-grey);
             --_label-on: var(--m-color-grey-on);
             margin-inline-start: 1em;
-            padding: 0.3em 0.7857em;
+            padding: 0.25em 0.75em;
         }
 
         a.item,
@@ -242,7 +242,7 @@ $sizes: (
 
             > .label {
                 float: none;
-                margin-block: -0.15em;
+                margin-block: -0.125em;
                 text-align: center;
             }
 
@@ -255,7 +255,7 @@ $sizes: (
                 display: flex;
                 flex-direction: column;
                 margin-block: 0.5em 0;
-                margin-inline: calc(-1.1429em * var(--m-density));
+                margin-inline: calc(-1em * var(--m-density));
             }
 
             > img:not(.ui):only-child {
@@ -273,9 +273,9 @@ $sizes: (
         }
 
         .menu .item {
-            padding: 0.5em 1.3333em;
+            padding: 0.5em 1.25em;
             color: var(--m-text-muted);
-            font-size: 0.8571em;
+            font-size: 0.8125em;
 
             &::before {
                 display: none;
@@ -316,7 +316,7 @@ $sizes: (
         box-shadow: none;
 
         .item {
-            padding: calc(0.9286em * var(--m-density)) calc(1.4286em * var(--m-density));
+            padding: calc(0.75em * var(--m-density)) calc(1.25em * var(--m-density));
             border: var(--m-border-width) solid transparent;
             border-block-start-width: 2px;
             border-block-end: none;
@@ -406,7 +406,7 @@ $sizes: (
 
     // Secondary: no box, the items are rounded chips
     .ui.secondary.menu {
-        margin-inline: -0.3571em;
+        margin-inline: -0.25em;
         border: none;
         border-radius: 0;
         background: none;
@@ -415,8 +415,8 @@ $sizes: (
         .item {
             align-self: center;
             margin-block: 0;
-            margin-inline: 0.3571em;
-            padding: calc(0.7857em * var(--m-density)) calc(0.9286em * var(--m-density));
+            margin-inline: 0.25em;
+            padding: calc(0.75em * var(--m-density)) calc(0.75em * var(--m-density));
             border: none;
             border-radius: var(--_menu-radius);
             background: none;
@@ -450,7 +450,7 @@ $sizes: (
 
     .ui.vertical.secondary.menu {
         > .item {
-            margin: 0 0 0.3571em;
+            margin: 0 0 0.25em;
             border: none;
             border-radius: var(--_menu-radius);
         }
@@ -460,11 +460,11 @@ $sizes: (
         }
 
         .item:not(.dropdown) > .menu {
-            margin-inline: calc(-0.9286em * var(--m-density));
+            margin-inline: calc(-0.75em * var(--m-density));
 
             > .item {
                 margin: 0;
-                padding: 0.5em 1.3333em;
+                padding: 0.5em 1.25em;
                 background-color: transparent;
             }
         }
@@ -479,7 +479,7 @@ $sizes: (
             align-self: flex-end;
             margin-block: 0 -2px;
             margin-inline: 0;
-            padding: calc(0.8571em * var(--m-density)) calc(1.1429em * var(--m-density));
+            padding: calc(0.75em * var(--m-density)) calc(1em * var(--m-density));
             border: none;
             border-block-end: 2px solid transparent;
             border-radius: 0;
@@ -542,8 +542,8 @@ $sizes: (
             inset-inline-start: 50%;
             z-index: 2;
             visibility: hidden;
-            inline-size: 0.5714em;
-            block-size: 0.5714em;
+            inline-size: 0.5em;
+            block-size: 0.5em;
             margin-block-start: 0.5px;
             translate: -50% -50%;
             rotate: 45deg;
@@ -584,7 +584,7 @@ $sizes: (
         .item {
             align-self: center;
             margin: 0;
-            padding: 0.3571em 0.5em;
+            padding: 0.25em 0.5em;
             border-radius: 0;
             box-shadow: none;
             color: var(--m-text-muted);
@@ -603,7 +603,7 @@ $sizes: (
         .header.item {
             background: transparent;
             color: var(--m-text);
-            font-size: 0.9286em;
+            font-size: 0.875em;
             font-weight: var(--m-font-weight-bold);
             text-transform: uppercase;
         }
@@ -620,12 +620,12 @@ $sizes: (
             margin-inline: 0;
 
             .item {
-                margin-block: 0.5714em;
+                margin-block: 0.5em;
                 padding-inline: 0;
             }
 
             .header.item {
-                margin-block: 0.5714em 0.7143em;
+                margin-block: 0.5em 0.75em;
             }
 
             .item:not(.dropdown) > .menu {
@@ -827,7 +827,7 @@ $sizes: (
             > :is(i, fa-icon).icon:not(.dropdown) {
                 display: block;
                 margin: 0 auto 0.5rem;
-                font-size: 1.7143em;
+                font-size: 1.75em;
             }
         }
 

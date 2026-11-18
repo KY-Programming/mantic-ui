@@ -11,14 +11,14 @@
 // --m-button-radius, --m-button-font-weight.
 
 $sizes: (
-    mini: 0.7857rem,
-    tiny: 0.8571rem,
-    small: 0.9286rem,
+    mini: 0.75rem,
+    tiny: 0.8125rem,
+    small: 0.875rem,
     medium: 1rem,
-    large: 1.1429rem,
-    big: 1.2857rem,
-    huge: 1.4286rem,
-    massive: 1.7143rem
+    large: 1.125rem,
+    big: 1.25rem,
+    huge: 1.5rem,
+    massive: 1.75rem
 );
 
 // Social brand colors, class names as Semantic UI uses them
@@ -33,7 +33,7 @@ $social: (
 );
 
 // Width of the icon box of a labeled icon button
-$icon-box: 2.5714em;
+$icon-box: 2.5em;
 
 @mixin color($token) {
     --_button-color: var(#{$token});
@@ -51,7 +51,7 @@ $icon-box: 2.5714em;
 
 @layer mantic.components {
     .ui.button {
-        --_button-padding-block: calc(var(--m-button-padding-block, 0.7857em) * var(--m-density) * var(--_button-scale, 1));
+        --_button-padding-block: calc(var(--m-button-padding-block, 0.75em) * var(--m-density) * var(--_button-scale, 1));
         --_button-padding-inline: calc(var(--m-button-padding-inline, 1.5em) * var(--m-density) * var(--_button-scale, 1));
         display: inline-block;
         min-block-size: 1em;
@@ -102,14 +102,14 @@ $icon-box: 2.5714em;
         > m-icon > .icon,
         > .icon {
             margin-block: 0;
-            margin-inline: -0.2143em 0.4286em;
+            margin-inline: -0.25em 0.5em;
             opacity: 0.8;
             transition: opacity var(--m-duration) var(--m-easing);
         }
 
         > m-icon > i.icon,
         > i.icon {
-            block-size: 0.8571em;
+            block-size: 0.75em;
         }
     }
 
@@ -130,9 +130,9 @@ $icon-box: 2.5714em;
             position: absolute;
             inset-block-start: 50%;
             inset-inline-start: 50%;
-            inline-size: 1.2857em;
-            block-size: 1.2857em;
-            margin: -0.6429em 0 0 -0.6429em;
+            inline-size: 1em;
+            block-size: 1em;
+            margin: -0.5em 0 0 -0.5em;
             border: 0.2em solid color-mix(in oklab, var(--_button-spinner) 20%, transparent);
             border-block-start-color: var(--_button-spinner);
             border-radius: 50%;
@@ -559,8 +559,8 @@ $icon-box: 2.5714em;
     .ui.buttons > .or {
         position: relative;
         z-index: 1;
-        inline-size: 0.3em;
-        block-size: 2.5714em;
+        inline-size: 0.25em;
+        block-size: 2.5em;
 
         &::before {
             content: 'or';
@@ -568,15 +568,15 @@ $icon-box: 2.5714em;
             inset-block-start: 50%;
             inset-inline-start: 50%;
             translate: -50% -50%;
-            inline-size: 1.7857em;
-            block-size: 1.7857em;
+            inline-size: 1.5em;
+            block-size: 1.5em;
             border-radius: 50%;
             background: var(--m-surface);
             color: var(--m-text-muted);
-            font-size: 0.8571em;
+            font-size: 0.8125em;
             font-style: italic;
             font-weight: var(--m-font-weight-bold);
-            line-height: 1.7857em;
+            line-height: 1.75em;
             text-align: center;
             box-shadow: 0 0 0 var(--m-border-width) var(--m-border);
         }

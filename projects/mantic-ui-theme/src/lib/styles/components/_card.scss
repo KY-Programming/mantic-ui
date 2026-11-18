@@ -79,10 +79,10 @@ $outline: 0 0 0 var(--m-border-width) var(--m-border);
                 font-family: var(--m-font-family-header);
 
                 &:not(.ui) {
-                    margin-block-start: -0.2143em;
-                    font-size: 1.2857em;
+                    margin-block-start: -0.25em;
+                    font-size: 1.25em;
                     font-weight: var(--m-font-weight-bold);
-                    line-height: 1.2857em;
+                    line-height: 1.25em;
                 }
             }
 
@@ -115,7 +115,7 @@ $outline: 0 0 0 var(--m-border-width) var(--m-border);
         .meta {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.3em;
+            gap: 0.25em;
             color: var(--m-text-muted);
             font-size: 1em;
 

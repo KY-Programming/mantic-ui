@@ -7,7 +7,7 @@
 //
 // Inverted is `color-scheme: dark`, as everywhere: the tokens then resolve to their dark values.
 
-$arrow: 0.7143em;
+$arrow: 0.75em;
 
 @mixin box {
     border: var(--m-border-width) solid var(--m-border);
@@ -17,7 +17,7 @@ $arrow: 0.7143em;
     color: var(--m-text);
     font-style: normal;
     font-weight: var(--m-font-weight-normal);
-    line-height: 1.4285em;
+    line-height: 1.5em;
 }
 
 @mixin arrow {
@@ -41,7 +41,7 @@ $arrow: 0.7143em;
         display: none;
         min-inline-size: min-content;
         max-inline-size: 250px;
-        padding: 0.833em 1em;
+        padding: 0.75em 1em;
 
         &.visible {
             display: block;
@@ -50,7 +50,7 @@ $arrow: 0.7143em;
         > .header {
             padding: 0;
             font-family: var(--m-font-family-header);
-            font-size: 1.1429em;
+            font-size: 1.125em;
             font-weight: var(--m-font-weight-bold);
             line-height: 1.2;
         }
@@ -70,11 +70,11 @@ $arrow: 0.7143em;
         }
 
         &.top {
-            margin-block-end: 0.7143em;
+            margin-block-end: 0.75em;
         }
 
         &.bottom {
-            margin-block-start: 0.7143em;
+            margin-block-start: 0.75em;
 
             &::before {
                 inset-block: 0 auto;
@@ -95,7 +95,7 @@ $arrow: 0.7143em;
         }
 
         &.left.center {
-            margin-inline-end: 0.7143em;
+            margin-inline-end: 0.75em;
 
             &::before {
                 inset-block-start: 50%;
@@ -105,7 +105,7 @@ $arrow: 0.7143em;
         }
 
         &.right.center {
-            margin-inline-start: 0.7143em;
+            margin-inline-start: 0.75em;
 
             &::before {
                 inset-block-start: 50%;
@@ -145,7 +145,7 @@ $arrow: 0.7143em;
         }
     }
 
-    @each $name, $size in (mini: 0.7857rem, tiny: 0.8571rem, small: 0.9286rem, large: 1.1429rem, huge: 1.4286rem) {
+    @each $name, $size in (mini: 0.75rem, tiny: 0.8125rem, small: 0.875rem, large: 1.125rem, huge: 1.5rem) {
         .ui.#{$name}.popup {
             font-size: $size;
         }
@@ -172,7 +172,7 @@ $arrow: 0.7143em;
 
             inset-block-end: 100%;
             inset-inline-start: 50%;
-            margin-block-end: 0.1429rem;
+            margin-block-end: 0.125rem;
             translate: -50% 50%;
             rotate: 45deg;
         }
@@ -185,7 +185,7 @@ $arrow: 0.7143em;
             inset-inline-start: 50%;
             z-index: 1;
             margin-block-end: 0.5em;
-            padding: 0.833em 1em;
+            padding: 0.75em 1em;
             text-align: start;
             white-space: nowrap;
             translate: -50% 0;
@@ -211,7 +211,7 @@ $arrow: 0.7143em;
         &:is([data-position^="bottom"]) {
             &::before {
                 inset-block: 100% auto;
-                margin-block: 0.1429rem 0;
+                margin-block: 0.125rem 0;
                 translate: -50% -50%;
                 box-shadow: -1px -1px 0 0 var(--m-border-strong);
             }
@@ -248,7 +248,7 @@ $arrow: 0.7143em;
         &[data-position="left center"] {
             &::before {
                 inset-inline: auto 100%;
-                margin-inline-end: 0.1429rem;
+                margin-inline-end: 0.125rem;
                 translate: 50% -50%;
                 box-shadow: 1px -1px 0 0 var(--m-border-strong);
             }
@@ -262,7 +262,7 @@ $arrow: 0.7143em;
         &[data-position="right center"] {
             &::before {
                 inset-inline-start: 100%;
-                margin-inline-start: 0.1429rem;
+                margin-inline-start: 0.125rem;
                 translate: -50% -50%;
                 box-shadow: -1px 1px 0 0 var(--m-border-strong);
             }

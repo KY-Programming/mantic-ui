@@ -113,6 +113,13 @@ clearfix (flex/grid/`gap`), logical properties, and mantic's own DOM (`m-icon`, 
 styled directly instead of patched afterwards. It targets current browsers only (2024+: `light-dark()`,
 `color-mix()`, relative colors, `@layer`); that was a deliberate decision, don't add fallbacks.
 Rules that are easy to break:
+- Sizes are laid out for a 16px base (`--m-font-size`) on a 4px grid: spacing and sizes are multiples of 0.25em/rem,
+  so they land on whole pixels. Semantic's 14px fractions (`0.7857em`, `1.1429rem`, …) were converted once; don't
+  bring them back with values copied from Semantic. Font sizes follow a step scale instead (12, 13, 14, 16, 18, 20,
+  24, 28, 32px): mini/tiny/small would collide on a 4px grid. Inputs, dropdowns and buttons are 2.5em (40px) tall
+  **including** the border, so they line up side by side: a field takes its border out of its padding
+  (`calc(0.5em - var(--m-border-width))`) with a 1.5em line height, a button has no border (0.75em + 1em + 0.75em).
+  Size variants (`small`, `large`, …) scale with their font size and may fall between the grid lines.
 - Everything sits in `@layer mantic.*` (order in `_layers.scss`), so unlayered app styles always win. The last layer,
   `mantic.preset`, is empty in the theme: it is the slot for a preset that sets tokens and tweaks components on top
   (e.g. `@ky/mantic`'s ky-ui preset), above the theme and below the app. The

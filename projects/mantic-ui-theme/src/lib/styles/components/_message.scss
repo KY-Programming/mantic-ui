@@ -10,14 +10,14 @@
 // The `display` stays `block` (or the host default): the form hides state messages with a more specific rule.
 
 $sizes: (
-    mini: 0.7857em,
-    tiny: 0.8571em,
-    small: 0.9286em,
+    mini: 0.75em,
+    tiny: 0.8125em,
+    small: 0.875em,
     medium: 1em,
-    large: 1.1429em,
-    big: 1.2857em,
-    huge: 1.4286em,
-    massive: 1.7143em
+    large: 1.125em,
+    big: 1.25em,
+    huge: 1.5em,
+    massive: 1.75em
 );
 
 // States the core sets as classes, and the role each one takes its color from
@@ -44,7 +44,7 @@ $icon-room: 3.5em;
         box-shadow: inset 0 0 0 var(--m-border-width) var(--_message-border, color-mix(in oklab, var(--m-text) 22%, transparent));
         color: var(--_message-text, var(--m-text));
         font-size: 1em;
-        line-height: 1.4285em;
+        line-height: 1.5em;
         overflow-wrap: anywhere;
         transition-property: opacity, color, background-color, box-shadow;
         transition-duration: var(--m-duration);
@@ -68,13 +68,13 @@ $icon-room: 3.5em;
 
         .header {
             display: block;
-            margin-block: -0.1429em 0;
+            margin-block: -0.125rem 0;
             color: var(--_message-header, inherit);
             font-family: var(--m-font-family-header);
             font-weight: var(--m-font-weight-bold);
 
             &:not(.ui) {
-                font-size: 1.1429em;
+                font-size: 1.125em;
             }
         }
 
@@ -108,7 +108,7 @@ $icon-room: 3.5em;
 
             li {
                 position: relative;
-                margin-block: 0 0.3em;
+                margin-block: 0 0.25em;
                 margin-inline: 1em 0;
 
                 &::before {
@@ -125,13 +125,13 @@ $icon-room: 3.5em;
 
         > m-icon.icon:not(.close),
         > :is(i, fa-icon).icon:not(.close) {
-            margin-inline-end: 0.6em;
+            margin-inline-end: 0.5em;
         }
 
         // Close: in the top end corner
         > :is(m-icon, i, fa-icon).close.icon {
             position: absolute;
-            inset-block-start: 0.7857em;
+            inset-block-start: 0.75em;
             inset-inline-end: 0.5em;
             margin: 0;
             cursor: pointer;

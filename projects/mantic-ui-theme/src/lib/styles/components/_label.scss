@@ -8,19 +8,19 @@
 // properties, so they need no rules per color.
 
 $sizes: (
-    mini: 0.6429rem,
-    tiny: 0.7143rem,
-    small: 0.7857rem,
-    medium: 0.8571rem,
+    mini: 0.625rem,
+    tiny: 0.6875rem,
+    small: 0.75rem,
+    medium: 0.8125rem,
     large: 1rem,
-    big: 1.2857rem,
-    huge: 1.4286rem,
-    massive: 1.7143rem
+    big: 1.25rem,
+    huge: 1.5rem,
+    massive: 1.75rem
 );
 
 // Size of the corner triangle and of the fold of a ribbon
 $corner: 4em;
-$fold: 1.2em;
+$fold: 1em;
 
 @mixin color($token) {
     --_label-color: var(#{$token});
@@ -33,14 +33,14 @@ $fold: 1.2em;
     .ui.label {
         display: inline-block;
         margin-block: 0;
-        margin-inline: 0.1429em;
-        padding: calc(0.5833em * var(--m-density)) calc(0.8333em * var(--m-density));
+        margin-inline: 0.125em;
+        padding: calc(0.5em * var(--m-density)) calc(0.75em * var(--m-density));
         // The border color is the label color, so the arrows of tag / pointing labels can take it over
         border: 0 solid var(--_label-border, var(--_label-color, var(--m-neutral)));
         border-radius: var(--m-radius);
         background: var(--_label-color, var(--m-neutral));
         color: var(--_label-on, var(--m-text-muted));
-        font-size: 0.8571rem;
+        font-size: 0.8125rem;
         font-weight: var(--m-font-weight-bold);
         line-height: 1;
         text-transform: none;
@@ -67,7 +67,7 @@ $fold: 1.2em;
         }
 
         > img {
-            block-size: 2.1666em;
+            block-size: 2em;
             inline-size: auto;
             vertical-align: middle;
         }
@@ -89,7 +89,7 @@ $fold: 1.2em;
 
         > :is(m-icon, .icon):is(.close, .delete) {
             margin-inline: 0.5em 0;
-            font-size: 0.9286em;
+            font-size: 0.875em;
             cursor: pointer;
             opacity: 0.5;
 
@@ -146,7 +146,7 @@ $fold: 1.2em;
         min-inline-size: 3em;
         margin-block: 0;
         margin-inline: 0 0.5em;
-        padding-block: 0.4em;
+        padding-block: 0.25em;
         text-align: center;
     }
 
@@ -175,8 +175,8 @@ $fold: 1.2em;
 
         img {
             display: inline-block;
-            block-size: 2.1666em;
-            margin-block: -0.5833em;
+            block-size: 2em;
+            margin-block: -0.5em;
             margin-inline: -0.5em 0.5em;
             border-start-start-radius: inherit;
             border-end-start-radius: inherit;
@@ -184,9 +184,9 @@ $fold: 1.2em;
         }
 
         .detail {
-            margin-block: -0.5833em;
-            margin-inline: 0.5em -0.8333em;
-            padding: 0.5833em 0.8333em;
+            margin-block: -0.5em;
+            margin-inline: 0.5em -0.75em;
+            padding: 0.5em 0.75em;
             border-start-end-radius: inherit;
             border-end-end-radius: inherit;
             background: color-mix(in oklab, currentColor 10%, transparent);
@@ -207,9 +207,9 @@ $fold: 1.2em;
             content: '';
             position: absolute;
             inset-block-start: 50%;
-            inset-inline-start: -0.78em;
-            inline-size: 1.56em;
-            block-size: 1.56em;
+            inset-inline-start: -0.75em;
+            inline-size: 1.25em;
+            block-size: 1.25em;
             translate: 0 -50%;
             rotate: 45deg;
             background: inherit;
@@ -257,10 +257,10 @@ $fold: 1.2em;
         > m-icon > :is(i, fa-icon).icon,
         > :is(i, fa-icon).icon {
             position: relative;
-            inset-block-start: 0.6429em;
-            inset-inline-start: 0.7857em;
+            inset-block-start: 0.5em;
+            inset-inline-start: 0.75em;
             margin: 0;
-            font-size: 1.1429em;
+            font-size: 1.125em;
             cursor: default;
         }
 
@@ -273,7 +273,7 @@ $fold: 1.2em;
 
             > m-icon > :is(i, fa-icon).icon,
             > :is(i, fa-icon).icon {
-                inset-inline-start: -0.7857em;
+                inset-inline-start: -0.75em;
             }
         }
 
@@ -382,8 +382,8 @@ $fold: 1.2em;
             inset-block-start: 0;
             inset-inline-start: 50%;
             z-index: 2;
-            inline-size: 0.6666em;
-            block-size: 0.6666em;
+            inline-size: 0.5em;
+            block-size: 0.5em;
             translate: -50% -50%;
             rotate: 45deg;
             border-style: solid;
@@ -412,7 +412,7 @@ $fold: 1.2em;
 
         &.left {
             margin-block-start: 0;
-            margin-inline-start: 0.6666em;
+            margin-inline-start: 0.5em;
 
             &::before {
                 inset-block-start: 50%;
@@ -428,7 +428,7 @@ $fold: 1.2em;
 
         &.right {
             margin-block-start: 0;
-            margin-inline-end: 0.6666em;
+            margin-inline-end: 0.5em;
 
             &::before {
                 inset-block-start: 50%;

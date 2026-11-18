@@ -5,14 +5,14 @@
 // so an icon or image lines up with the first line of the text without table-cell tricks.
 
 $sizes: (
-    mini: 0.7857em,
-    tiny: 0.8571em,
-    small: 0.9286em,
+    mini: 0.75em,
+    tiny: 0.8125em,
+    small: 0.875em,
     medium: 1em,
-    large: 1.1429em,
-    big: 1.2857em,
-    huge: 1.4286em,
-    massive: 1.7143em
+    large: 1.125em,
+    big: 1.25em,
+    huge: 1.5em,
+    massive: 1.75em
 );
 
 $item: '> :is(.item, li)';
@@ -36,8 +36,8 @@ $nested-item: ':is(.list, ul, ol) > :is(.item, li)';
 
         #{$item},
         #{$nested-item} {
-            padding-block: 0.2143em;
-            line-height: 1.1429em;
+            padding-block: 0.25em;
+            line-height: 1.25em;
             list-style-type: none;
 
             &:first-child {
@@ -54,7 +54,7 @@ $nested-item: ':is(.list, ul, ol) > :is(.item, li)';
         #{$nested-item}:has(> :is(m-icon, .icon, .image, img)) {
             display: flex;
             align-items: start;
-            gap: 0.2857em;
+            gap: 0.25em;
 
             > :is(m-icon, .icon, .image, img) {
                 flex: none;
@@ -66,7 +66,7 @@ $nested-item: ':is(.list, ul, ol) > :is(.item, li)';
             }
 
             > :is(.image, img) + .content {
-                padding-inline-start: 0.2143em;
+                padding-inline-start: 0.25em;
             }
         }
 
@@ -84,7 +84,7 @@ $nested-item: ':is(.list, ul, ol) > :is(.item, li)';
 
         .list > .item,
         :is(ul, ol) > li {
-            padding-block: 0.1429em;
+            padding-block: 0.125em;
             line-height: inherit;
         }
 
@@ -161,7 +161,7 @@ $nested-item: ':is(.list, ul, ol) > :is(.item, li)';
         column-gap: 1em;
 
         > .item {
-            padding-block: 0.2143em;
+            padding-block: 0.25em;
         }
 
         .list {
@@ -330,7 +330,7 @@ $nested-item: ':is(.list, ul, ol) > :is(.item, li)';
 
         &:first-child,
         &:last-child {
-            padding-block: 0.2143em;
+            padding-block: 0.25em;
         }
 
         &:last-child {
@@ -386,21 +386,21 @@ $nested-item: ':is(.list, ul, ol) > :is(.item, li)';
     // Relaxed: more room between the items
     .ui.relaxed.list:not(.horizontal) > .item {
         &:not(:first-child) {
-            padding-block-start: 0.4286em;
+            padding-block-start: 0.5em;
         }
 
         &:not(:last-child) {
-            padding-block-end: 0.4286em;
+            padding-block-end: 0.5em;
         }
     }
 
     .ui.very.relaxed.list:not(.horizontal) > .item {
         &:not(:first-child) {
-            padding-block-start: 0.8571em;
+            padding-block-start: 0.75em;
         }
 
         &:not(:last-child) {
-            padding-block-end: 0.8571em;
+            padding-block-end: 0.75em;
         }
     }
 

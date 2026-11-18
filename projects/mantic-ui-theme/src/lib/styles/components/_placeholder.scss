@@ -46,7 +46,7 @@ $shimmer: 1200px;
         // A line is a strip of shimmer: the gap below it is its ::before / ::after, the ::after also cuts it short
         .line {
             position: relative;
-            block-size: 0.8571em;
+            block-size: 0.75em;
             margin-block-end: 0.5em;
 
             &:not(:first-child) {
@@ -76,15 +76,15 @@ $shimmer: 1200px;
             overflow: hidden;
 
             .line {
-                margin-block-end: 0.6429em;
+                margin-block-end: 0.5em;
 
                 &::before,
                 &::after {
-                    block-size: 0.6429em;
+                    block-size: 0.5em;
                 }
 
                 &:not(:first-child) {
-                    margin-block-start: 0.6429em;
+                    margin-block-start: 0.5em;
                 }
 
                 &::after {
@@ -102,14 +102,14 @@ $shimmer: 1200px;
                 margin-inline-start: 3em;
 
                 &::before {
-                    inline-size: 0.7143rem;
+                    inline-size: 0.75rem;
                 }
             }
 
             &::after {
                 content: '';
                 display: block;
-                block-size: 0.8571em;
+                block-size: 0.75em;
                 margin-inline-start: 3em;
             }
         }
@@ -121,7 +121,7 @@ $shimmer: 1200px;
         :is(.image, .paragraph, .header):not(:first-child)::before {
             content: '';
             display: block;
-            block-size: 1.4286em;
+            block-size: 1.25em;
         }
     }
 

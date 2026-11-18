@@ -14,7 +14,7 @@
 // Public component tokens (optional, set them anywhere): --m-dropdown-menu-max-height.
 
 // Room at the end of the field for the dropdown icon
-$icon-room: 2.1em;
+$icon-room: 1.75em;
 
 @mixin menu {
     position: absolute;
@@ -40,7 +40,7 @@ $icon-room: 2.1em;
 @mixin item {
     position: relative;
     display: block;
-    padding: calc(0.7857rem * var(--m-density)) calc(1.1429rem * var(--m-density));
+    padding: calc(0.75rem * var(--m-density)) calc(1rem * var(--m-density));
     color: inherit;
     font-size: 1rem;
     font-weight: var(--m-font-weight-normal);
@@ -85,7 +85,7 @@ $icon-room: 2.1em;
 
         // An icon in front of the value (`icon` input)
         > m-icon.icon:not(.dropdown, .readonly-lock-icon) {
-            margin-inline-end: 0.7857em;
+            margin-inline-end: 0.75em;
 
             > :is(i, fa-icon).icon {
                 margin: 0;
@@ -119,7 +119,7 @@ $icon-room: 2.1em;
 
             // Icons and images of an item, in front of its text
             > .item > :is(m-icon, .icon, .image, img) {
-                margin-inline: 0 0.7857rem;
+                margin-inline: 0 0.75rem;
             }
 
             > .item > :is(.image, img) {
@@ -142,9 +142,9 @@ $icon-room: 2.1em;
             // m-dropdown-group: a header and a divider in front of its items
             > :is(.header, .ui.header) {
                 margin: 1rem 0 0.75rem;
-                padding: 0 1.1429rem;
+                padding: 0 1rem;
                 color: var(--m-text);
-                font-size: 0.7857em;
+                font-size: 0.75em;
                 font-weight: var(--m-font-weight-bold);
                 text-transform: uppercase;
             }
@@ -157,7 +157,7 @@ $icon-room: 2.1em;
             }
 
             > .message {
-                padding: 0.7857rem 1.1429rem;
+                padding: 0.75rem 1rem;
                 color: var(--m-text-muted);
             }
         }
@@ -169,7 +169,7 @@ $icon-room: 2.1em;
 
         z-index: auto;
         min-inline-size: 14em;
-        min-block-size: calc(2.5714em + var(--m-border-width) * 2);
+        min-block-size: 2.5em;
         padding-inline-end: $icon-room;
         word-wrap: break-word;
         white-space: normal;
@@ -200,7 +200,7 @@ $icon-room: 2.1em;
             box-sizing: border-box;
             inline-size: calc(100% + var(--m-border-width) * 2);
             min-inline-size: calc(100% + var(--m-border-width) * 2);
-            max-block-size: var(--m-dropdown-menu-max-height, 16.0286rem);
+            max-block-size: var(--m-dropdown-menu-max-height, 14rem);
             overflow: hidden auto;
             border-block-start-width: 0;
             border-start-start-radius: 0;
@@ -264,14 +264,14 @@ $icon-room: 2.1em;
             box-sizing: border-box;
             inline-size: 100%;
             margin: 0;
-            padding: calc(0.6786em * var(--m-density)) $icon-room calc(0.6786em * var(--m-density)) calc(1em * var(--m-density));
+            padding: calc(0.5em * var(--m-density) - var(--m-border-width)) $icon-room calc(0.5em * var(--m-density) - var(--m-border-width)) calc(0.75em * var(--m-density));
             border: none;
             outline: none;
             background: transparent;
             box-shadow: none;
             color: inherit;
             font: inherit;
-            line-height: 1.2143em;
+            line-height: 1.5em;
             cursor: text;
             -webkit-tap-highlight-color: transparent;
         }
@@ -296,16 +296,17 @@ $icon-room: 2.1em;
         display: inline-flex;
         flex-wrap: wrap;
         align-items: center;
-        padding-block: 0.2262em;
-        padding-inline-start: 0.3571em;
+        // 40px with one row, like the other fields: border + padding + the text's margin + line height
+        padding-block: calc(0.25em - var(--m-border-width));
+        padding-inline-start: 0.25em;
         cursor: text;
 
         > .label {
             display: inline-flex;
             align-items: center;
-            margin-block: 0.1429rem;
-            margin-inline: 0 0.2857rem;
-            padding: 0.3571em 0.7857em;
+            margin-block: 0.125rem;
+            margin-inline: 0 0.25rem;
+            padding: 0.25em 0.75em;
             box-shadow: inset 0 0 0 var(--m-border-width) var(--m-border);
             font-size: 1em;
             white-space: nowrap;
@@ -334,10 +335,10 @@ $icon-room: 2.1em;
         > .text {
             position: static;
             max-inline-size: 100%;
-            margin-block: 0.4524em;
-            margin-inline: 0.6429em 0;
+            margin-block: 0.25em;
+            margin-inline: 0.5em 0;
             padding: 0;
-            line-height: 1.2143em;
+            line-height: 1.5em;
         }
 
         > .label ~ .text {
@@ -346,18 +347,18 @@ $icon-room: 2.1em;
 
         > input.search {
             position: static;
-            flex: 1 1 2.2em;
-            inline-size: 2.2em;
-            min-inline-size: 2.2em;
+            flex: 1 1 2em;
+            inline-size: 2em;
+            min-inline-size: 2em;
             max-inline-size: 100%;
-            margin-block: 0.4524em;
-            margin-inline: 0.6429em 0;
+            margin-block: 0.25em;
+            margin-inline: 0.5em 0;
             padding: 0;
-            line-height: 1.2143em;
+            line-height: 1.5em;
         }
 
         > .label ~ input.search {
-            margin-inline-start: 0.1429em;
+            margin-inline-start: 0.125em;
         }
 
         // Without a label yet the placeholder lies under the search input

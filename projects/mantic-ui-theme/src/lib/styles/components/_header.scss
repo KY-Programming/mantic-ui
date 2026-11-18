@@ -7,22 +7,22 @@
 // The size classes of m-header, as Semantic sizes them (em: relative to the surrounding text)
 $sizes: (
     huge: 2em,
-    large: 1.7143em,
-    medium: 1.2857em,
-    small: 1.0714em,
+    large: 1.75em,
+    medium: 1.25em,
+    small: 1em,
     tiny: 1em
 );
 $sub-sizes: (
-    huge: 1.1429rem,
-    large: 1.1429rem,
+    huge: 1.125rem,
+    large: 1.125rem,
     small: 1rem,
-    tiny: 0.9286rem
+    tiny: 0.875rem
 );
 $block-sizes: (
-    tiny: 0.8571rem,
-    small: 0.9286rem,
-    large: 1.1429rem,
-    huge: 1.4286rem
+    tiny: 0.8125rem,
+    small: 0.875rem,
+    large: 1.125rem,
+    huge: 1.5rem
 );
 
 // Text color (dividing: also a thicker line)
@@ -36,7 +36,7 @@ $block-sizes: (
 
 @layer mantic.components {
     .ui.header {
-        margin-block: calc(2rem - 0.1429em) 1rem;
+        margin-block: calc(2rem - 0.125em) 1rem;
         margin-inline: 0;
         padding: 0;
         border: none;
@@ -47,7 +47,7 @@ $block-sizes: (
         text-transform: none;
 
         &:first-child {
-            margin-block-start: -0.1429em;
+            margin-block-start: -0.125em;
         }
 
         &:last-child {
@@ -61,7 +61,7 @@ $block-sizes: (
             color: var(--m-text-muted);
             font-size: 1rem;
             font-weight: var(--m-font-weight-normal);
-            line-height: 1.2em;
+            line-height: 1.25em;
         }
 
         .content {
@@ -100,10 +100,10 @@ $block-sizes: (
 
     // Default size of a header that is no <hN>; the <hN> sizes come from the site styles
     .ui.header:not(h1, h2, h3, h4, h5, h6) {
-        font-size: 1.2857em;
+        font-size: 1.25em;
     }
 
-    @each $level, $sub in (1: 1.1429rem, 2: 1.1429rem, 3: 1rem, 4: 1rem, 5: 0.9286rem) {
+    @each $level, $sub in (1: 1.125rem, 2: 1.125rem, 3: 1rem, 4: 1rem, 5: 0.875rem) {
         h#{$level}.ui.header {
             font-size: var(--m-font-size-h#{$level});
 
@@ -127,18 +127,18 @@ $block-sizes: (
 
     // Sub header: a small, uppercase label above some content
     .ui.sub.header {
-        margin-block-end: 0.1429rem;
+        margin-block-end: 0.125rem;
         padding: 0;
-        font-size: 0.8571em;
+        font-size: 0.8125em;
         font-weight: var(--m-font-weight-bold);
         text-transform: uppercase;
 
         &.small {
-            font-size: 0.7857em;
+            font-size: 0.75em;
         }
 
         &.large {
-            font-size: 0.9286em;
+            font-size: 0.875em;
         }
 
         &.huge {
@@ -205,17 +205,17 @@ $block-sizes: (
 
     // Dividing: a line below
     .ui.dividing.header {
-        padding-block-end: 0.2143rem;
+        padding-block-end: 0.25rem;
         border-block-end: var(--m-border-width) solid var(--m-border);
 
         .sub.header {
-            padding-block-end: 0.2143rem;
+            padding-block-end: 0.25rem;
         }
     }
 
     // Block: on a muted box
     .ui.block.header {
-        padding: 0.7857rem 1rem;
+        padding: 0.75rem 1rem;
         border: var(--m-border-width) solid var(--m-border);
         border-radius: var(--m-radius);
         background: var(--m-surface-muted);
@@ -238,7 +238,7 @@ $block-sizes: (
     // Attached: the top (or bottom) part of a segment
     .ui.attached.header {
         margin-inline: calc(var(--m-border-width) * -1);
-        padding: 0.7857rem 1rem;
+        padding: 0.75rem 1rem;
         border: var(--m-border-width) solid var(--m-border);
         background: var(--m-surface);
 

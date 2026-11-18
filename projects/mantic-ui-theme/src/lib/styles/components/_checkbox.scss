@@ -11,8 +11,8 @@
 // the font size by default).
 
 // Size of the check box, and of the radio circle
-$box: var(--m-checkbox-size, 1.2143em);
-$radio: 1.0714em;
+$box: var(--m-checkbox-size, 1em);
+$radio: 1em;
 // Track and knob of toggle and slider
 $track: 3.5rem;
 $knob: 1.5rem;
@@ -44,7 +44,7 @@ $knob: 1.5rem;
         > label {
             position: relative;
             display: block;
-            padding-inline-start: 1.8571em;
+            padding-inline-start: 1.5em;
             color: var(--_control-text, var(--m-text));
             font-size: 1em;
             cursor: pointer;
@@ -133,7 +133,7 @@ $knob: 1.5rem;
         > label {
             &::before,
             &::after {
-                inset-block-start: 0.0714em;
+                inset-block-start: 0.0625em;
                 inline-size: $radio;
                 block-size: $radio;
                 border-radius: 50%;
@@ -211,7 +211,7 @@ $knob: 1.5rem;
 
         > label {
             min-block-size: $knob;
-            padding-block-start: 0.15em;
+            padding-block-start: 0.125em;
 
             &::before {
                 block-size: $knob;
@@ -244,8 +244,8 @@ $knob: 1.5rem;
             line-height: 1rem;
 
             &::before {
-                inset-block-start: 0.4rem;
-                block-size: 0.2143rem;
+                inset-block-start: 0.25rem;
+                block-size: 0.25rem;
             }
 
             &::after {

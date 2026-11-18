@@ -8,19 +8,19 @@
 
 // Size of the spinner and font size of its text
 $sizes: (
-    mini: (1rem, 0.7857em),
-    tiny: (1.1429rem, 0.8571em),
-    small: (1.7143rem, 0.9286em),
-    medium: (2.2857rem, 1em),
-    large: (3.4286rem, 1.1429em),
-    big: (3.7143rem, 1.2857em),
-    huge: (4.1429rem, 1.4286em),
-    massive: (4.5714rem, 1.7143em)
+    mini: (1rem, 0.75em),
+    tiny: (1rem, 0.8125em),
+    small: (1.5rem, 0.875em),
+    medium: (2rem, 1em),
+    large: (3rem, 1.125em),
+    big: (3.25rem, 1.25em),
+    huge: (3.75rem, 1.5em),
+    massive: (4rem, 1.75em)
 );
 
 @layer mantic.components {
     .ui.loader {
-        --_loader-size: 2.2857rem;
+        --_loader-size: 2rem;
         position: absolute;
         inset-block-start: 50%;
         inset-inline-start: 50%;
@@ -72,7 +72,7 @@ $sizes: (
         inline-size: auto;
         block-size: auto;
         min-inline-size: var(--_loader-size);
-        padding-block-start: calc(var(--_loader-size) + 0.7857rem);
+        padding-block-start: calc(var(--_loader-size) + 0.75rem);
         font-style: normal;
     }
 
