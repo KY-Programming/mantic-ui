@@ -1,6 +1,6 @@
 import { computed, contentChild, Directive, effect, ElementRef, input, model, output, signal, viewChild } from '@angular/core';
 import { LabeledBaseComponent } from '../../base/labeled-base.component';
-import { toBoolean } from '../../helpers/to-boolean';
+import { toBoolean, toBooleanWithUndefined } from '../../helpers/to-boolean';
 import { inheritableBooleanModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
 import { IconSize } from '../icon/models/icon-size';
@@ -25,7 +25,7 @@ export abstract class InputBaseComponent extends LabeledBaseComponent {
         inverted: signal(false),
         readonlyIcon: readonlyDefaults.icon,
         readonlyText: readonlyDefaults.text,
-        showReadonlyIcon: readonlyDefaults.isIconShown
+        hideReadonlyIcon: readonlyDefaults.isIconHidden
     };
     protected static override readonly providers = [...LabeledBaseComponent.providers];
     protected readonly colorForId = Date.now().toString() + Math.random().toString();
@@ -48,8 +48,8 @@ export abstract class InputBaseComponent extends LabeledBaseComponent {
     public readonly readonly = inheritableBooleanModel(this.readonlyInput, this.readonlyChange);
     public readonly readonlyIcon = input<IconType>();
     public readonly readonlyText = input<string>();
-    public readonly showReadonlyIcon = input<boolean | undefined, BooleanLike>(undefined, { transform: toBoolean });
-    protected readonly showReadonlyLock = computed(() => this.readonly() && (this.showReadonlyIcon() ?? InputBaseComponent.defaults.showReadonlyIcon()));
+    public readonly hideReadonlyIcon = input<boolean | undefined, BooleanLike>(undefined, { transform: toBooleanWithUndefined });
+    protected readonly showReadonlyLock = computed(() => this.readonly() && !(this.hideReadonlyIcon() ?? InputBaseComponent.defaults.hideReadonlyIcon()));
     protected readonly currentReadonlyIcon = computed(() => this.readonlyIcon() ?? InputBaseComponent.defaults.readonlyIcon());
     protected readonly currentReadonlyText = computed(() => this.readonlyText() ?? InputBaseComponent.defaults.readonlyText());
     /** The lock takes the place of an icon on the right; one on the left stays */

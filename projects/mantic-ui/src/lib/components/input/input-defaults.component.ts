@@ -1,4 +1,6 @@
 import { Component, effect, input, OnDestroy } from '@angular/core';
+import { toBooleanWithUndefined } from '../../helpers/to-boolean';
+import { BooleanLike } from '../../models/boolean-like';
 import { IconType } from '../icon/models/icon-type';
 import { InputBaseComponent } from './input-base.component';
 
@@ -9,14 +11,14 @@ import { InputBaseComponent } from './input-base.component';
 export class InputDefaultsComponent implements OnDestroy {
     private readonly previousReadonlyIcon = InputBaseComponent.defaults.readonlyIcon();
     private readonly previousReadonlyText = InputBaseComponent.defaults.readonlyText();
-    private readonly previousShowReadonlyIcon = InputBaseComponent.defaults.showReadonlyIcon();
+    private readonly previousHideReadonlyIcon = InputBaseComponent.defaults.hideReadonlyIcon();
     private currentReadonlyIcon?: IconType;
     private currentReadonlyText?: string;
-    private currentShowReadonlyIcon?: boolean;
+    private currentHideReadonlyIcon?: boolean;
     public readonly inverted = input<boolean>();
     public readonly readonlyIcon = input<IconType>();
     public readonly readonlyText = input<string>();
-    public readonly showReadonlyIcon = input<boolean>();
+    public readonly hideReadonlyIcon = input<boolean | undefined, BooleanLike>(undefined, { transform: toBooleanWithUndefined });
 
     public constructor() {
         effect(() => {
@@ -34,10 +36,10 @@ export class InputDefaultsComponent implements OnDestroy {
             }
         });
         effect(() => {
-            const value = this.showReadonlyIcon();
+            const value = this.hideReadonlyIcon();
             if (value !== undefined) {
-                this.currentShowReadonlyIcon = value;
-                InputBaseComponent.defaults.showReadonlyIcon.set(value);
+                this.currentHideReadonlyIcon = value;
+                InputBaseComponent.defaults.hideReadonlyIcon.set(value);
             }
         });
         effect(() => {
@@ -55,8 +57,8 @@ export class InputDefaultsComponent implements OnDestroy {
         if (this.currentReadonlyText === InputBaseComponent.defaults.readonlyText()) {
             InputBaseComponent.defaults.readonlyText.set(this.previousReadonlyText);
         }
-        if (this.currentShowReadonlyIcon === InputBaseComponent.defaults.showReadonlyIcon()) {
-            InputBaseComponent.defaults.showReadonlyIcon.set(this.previousShowReadonlyIcon);
+        if (this.currentHideReadonlyIcon === InputBaseComponent.defaults.hideReadonlyIcon()) {
+            InputBaseComponent.defaults.hideReadonlyIcon.set(this.previousHideReadonlyIcon);
         }
     }
 }

@@ -14,6 +14,8 @@ export class SemanticUiThemeComponent {
     public readonly darkInput = input<boolean, BooleanLike>(false, { alias: 'dark', transform: toBoolean });
     public readonly auto = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly dark = computed(() => this.auto() ? this.themeService.prefersDark() : this.darkInput());
+    /** Hides the lock of readonly fields (inputs, m-textarea, m-dropdown) in the whole app */
+    public readonly noReadonlyLock = input<boolean, BooleanLike>(false, { transform: toBoolean });
 
     public constructor() {
         this.themeService.setVersion('2.5.0');

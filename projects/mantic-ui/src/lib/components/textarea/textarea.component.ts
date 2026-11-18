@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { AttachedDirective } from '../../directives/attached.directive';
 import { FallbackForDirective } from '../../directives/fallback-for.directive';
-import { toBoolean } from '../../helpers/to-boolean';
+import { toBoolean, toBooleanWithUndefined } from '../../helpers/to-boolean';
 import { inheritableBooleanModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
 import { IconComponent } from '../icon/icon.component';
@@ -45,8 +45,8 @@ export class TextareaComponent extends InvertibleComponent {
     // The same lock as the inputs, with the same defaults, so a form looks the same in both
     public readonly readonlyIcon = input<IconType>();
     public readonly readonlyText = input<string>();
-    public readonly showReadonlyIcon = input<boolean | undefined, BooleanLike>(undefined, { transform: toBoolean });
-    protected readonly showReadonlyLock = computed(() => this.readonly() && (this.showReadonlyIcon() ?? readonlyDefaults.isIconShown()));
+    public readonly hideReadonlyIcon = input<boolean | undefined, BooleanLike>(undefined, { transform: toBooleanWithUndefined });
+    protected readonly showReadonlyLock = computed(() => this.readonly() && !(this.hideReadonlyIcon() ?? readonlyDefaults.isIconHidden()));
     protected readonly currentReadonlyIcon = computed(() => this.readonlyIcon() ?? readonlyDefaults.icon());
     protected readonly currentReadonlyText = computed(() => this.readonlyText() ?? readonlyDefaults.text());
     public readonly hasError = input(false);

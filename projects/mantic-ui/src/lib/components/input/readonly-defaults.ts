@@ -6,5 +6,5 @@ export const readonlyDefaults = {
     icon: signal<IconType>('lock'),
     text: signal('Read only'),
     /** A form that is readonly as a whole gets calmer without the locks; the background still marks the fields */
-    isIconShown: signal(true)
+    isIconHidden: signal(false)
 };

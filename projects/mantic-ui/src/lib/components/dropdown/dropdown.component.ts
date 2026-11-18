@@ -4,7 +4,7 @@ import { fromEvent } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { AttachedDirective } from '../../directives/attached.directive';
-import { toBoolean } from '../../helpers/to-boolean';
+import { toBoolean, toBooleanWithUndefined } from '../../helpers/to-boolean';
 import { inheritableBooleanModel } from '../../helpers/transformable-model';
 import { BooleanLike } from '../../models/boolean-like';
 import { DropdownItemComponent } from '../dropdown-item/dropdown-item.component';
@@ -92,8 +92,8 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
     public readonly readonly = inheritableBooleanModel(this.readonlyInput, this.readonlyChange);
     public readonly readonlyIcon = input<IconType>();
     public readonly readonlyText = input<string>();
-    public readonly showReadonlyIcon = input<boolean | undefined, BooleanLike>(undefined, { transform: toBoolean });
-    protected readonly showReadonlyLock = computed(() => this.readonly() && (this.showReadonlyIcon() ?? readonlyDefaults.isIconShown()));
+    public readonly hideReadonlyIcon = input<boolean | undefined, BooleanLike>(undefined, { transform: toBooleanWithUndefined });
+    protected readonly showReadonlyLock = computed(() => this.readonly() && !(this.hideReadonlyIcon() ?? readonlyDefaults.isIconHidden()));
     protected readonly currentReadonlyIcon = computed(() => this.readonlyIcon() ?? readonlyDefaults.icon());
     protected readonly currentReadonlyText = computed(() => this.readonlyText() ?? readonlyDefaults.text());
     /** The styles only stop the mouse: everything that changes the value or opens the menu checks this as well */
