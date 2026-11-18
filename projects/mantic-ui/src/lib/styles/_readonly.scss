@@ -1,7 +1,8 @@
-// The look of a readonly field: a muted background and a lock at its right end. The text stays fully readable and can be
-// selected, which is what tells readonly apart from disabled.
-// Lives in the component styles, not in a theme: it has to look the same in every theme. The color is the
-// --m-readonly-background token of the mantic theme (follows dark mode), with the Semantic values as fallback.
+// The lock of a readonly field, at its right end. The text stays fully readable and can be selected, which is what tells
+// readonly apart from disabled.
+// Only the lock lives here, it is the components' own DOM; the look of the field is the theme's: Semantic and Fomantic
+// keep their stock look, the mantic theme adds a muted background (`.readonly` in its _input.scss).
+// The lock is switched off for the whole app with `noReadonlyLock` on the theme component.
 
 // The themes pad icon inputs with `!important` and selectors such as `.ui.ui.ui.ui[class*="left icon"]:not(…).input > input`.
 // Repeating the class outweighs them without naming each of them.
@@ -35,13 +36,8 @@ $-lock-width: 2.5em;
 
 // For a component whose host is the field itself, such as a selection dropdown. The lock sits where its arrow would be.
 @mixin readonly-host {
-    :host(#{$-readonly}:not(.transparent)) {
-        background-color: var(--m-readonly-background, rgba(34, 36, 38, 0.05));
+    :host(#{$-readonly}) {
         cursor: default;
-    }
-
-    :host(#{$-readonly}.inverted:not(.transparent)) {
-        background-color: var(--m-readonly-background, rgba(255, 255, 255, 0.05));
     }
 
     :host(#{$-lock}) {
@@ -100,15 +96,8 @@ $-lock-width: 2.5em;
 
 // $field: the field element, relative to the host
 @mixin readonly($field: "> input") {
-    :host(#{$-readonly}:not(.error):not(.transparent)) ::ng-deep #{$field},
-    :host(#{$-readonly}:not(.error):not(.transparent)) ::ng-deep #{$field}:focus {
-        background-color: var(--m-readonly-background, rgba(34, 36, 38, 0.05));
+    :host(#{$-readonly}) ::ng-deep #{$field} {
         cursor: default;
-    }
-
-    :host(#{$-readonly}.inverted:not(.error):not(.transparent)) ::ng-deep #{$field},
-    :host(#{$-readonly}.inverted:not(.error):not(.transparent)) ::ng-deep #{$field}:focus {
-        background-color: var(--m-readonly-background, rgba(255, 255, 255, 0.05));
     }
 
     :host(#{$-lock}) ::ng-deep #{$field} {

@@ -392,7 +392,7 @@ $icon-room: 2.1em;
         pointer-events: none;
     }
 
-    // Readonly: the core draws the lock and the muted background; nothing opens
+    // Readonly: the core draws the lock, _input.scss the muted background; nothing opens
     .ui.readonly.dropdown {
         cursor: default;
     }

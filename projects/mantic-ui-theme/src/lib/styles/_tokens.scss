@@ -100,7 +100,7 @@
         --m-font-family-header: var(--m-font-family);
         --m-selection: color-mix(in oklab, var(--m-primary) 35%, transparent);
         --m-scrollbar-thumb: color-mix(in oklab, var(--m-text) 30%, transparent);
-        // Read by the core (readonly fields): a tint of the text, so it is dark on light and light on dark
+        // Readonly fields (_input.scss): a tint of the text, so it is dark on light and light on dark
         --m-readonly-background: color-mix(in oklab, var(--m-text) 5%, transparent);
 
         --m-radius-small: calc(var(--m-radius) * 0.5);

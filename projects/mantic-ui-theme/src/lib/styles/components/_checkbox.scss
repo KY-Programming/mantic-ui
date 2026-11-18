@@ -67,10 +67,6 @@ $knob: 1.5rem;
                 transition-timing-function: var(--m-easing);
             }
 
-            &:hover::before {
-                border-color: var(--_control-border, var(--m-border-strong));
-            }
-
             // The check mark (and the dash of an indeterminate checkbox); the readonly lock after the text is the core's
             > m-icon:not(.readonly-lock-icon) {
                 position: absolute;
@@ -90,6 +86,12 @@ $knob: 1.5rem;
             }
         }
 
+        // Not on a readonly one (here and on toggle / slider): nothing can be changed there. `:where` keeps the specificity
+        // of a plain hover, so the checked slider's track still wins over it.
+        &:where(:not(.read-only)) > label:hover::before {
+            border-color: var(--_control-border, var(--m-border-strong));
+        }
+
         > input:focus-visible ~ label::before {
             border-color: var(--_control-focus, var(--m-focus));
         }
@@ -102,6 +104,12 @@ $knob: 1.5rem;
     // Fitted: only the box, no room for a label
     .ui.fitted.checkbox > label {
         padding-inline-start: 0;
+    }
+
+    // Readonly: the muted background of the readonly fields, and a selected state in grey instead of the accent, so
+    // it reads as a value, not as a switch (toggle and slider below). The text stays as it is, unlike disabled.
+    .ui.read-only.checkbox {
+        --_control-background: var(--m-readonly-background);
     }
 
     .ui.read-only.checkbox,
@@ -166,10 +174,6 @@ $knob: 1.5rem;
                 background: color-mix(in oklab, var(--m-text) 6%, transparent);
             }
 
-            &:hover::before {
-                background: color-mix(in oklab, var(--m-text) 15%, transparent);
-            }
-
             &::after {
                 content: '';
                 position: absolute;
@@ -182,6 +186,10 @@ $knob: 1.5rem;
                 box-shadow: 0 1px 2px 0 var(--m-shadow-color), inset 0 0 0 1px rgb(34 36 38 / 15%);
                 transition: inset-inline-start calc(var(--m-duration) * 3) var(--m-easing);
             }
+        }
+
+        &:where(:not(.read-only)) > label:hover::before {
+            background: color-mix(in oklab, var(--m-text) 15%, transparent);
         }
 
         > input:focus-visible ~ label::before {
@@ -218,8 +226,13 @@ $knob: 1.5rem;
             background: var(--m-primary);
         }
 
-        &.checked > label:hover::before {
+        &.checked:where(:not(.read-only)) > label:hover::before {
             background: var(--m-primary-hover);
+        }
+
+        // Readonly: grey instead of the accent (the slider's track and the check mark / radio dot are grey anyway)
+        &.checked.read-only > label::before {
+            background: color-mix(in oklab, var(--m-text) 40%, transparent);
         }
     }
 

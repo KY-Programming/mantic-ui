@@ -105,6 +105,12 @@ $corner-room: 2.5em;
         @include error;
     }
 
+    // Readonly (the core sets `.readonly` on the host and draws the lock): a muted background, for the inputs, m-textarea
+    // and the selection dropdown. An error field keeps its error look.
+    .ui.readonly:is(.input, .textarea, .selection.dropdown):not(.error, .transparent) {
+        --_control-background: var(--m-readonly-background);
+    }
+
     // Transparent: only the text, no box
     .ui.transparent.input > input {
         padding: 0;

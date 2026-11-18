@@ -124,9 +124,17 @@ Rules that are easy to break:
 - The core (and `@mantic-ui/doc`, and the docs app's own styles) never hardcode a theme color: they read the theme's
   token with the Semantic value as fallback, e.g. `var(--m-border, rgba(34, 36, 38, 0.15))`. The Semantic and Fomantic
   themes define no `--m-*` property, so they keep their look exactly; under the mantic theme the token wins and follows
-  dark mode. Tokens only the core reads (`--m-readonly-background`) are still declared by the theme. Colors that belong
+  dark mode. Colors that belong
   to the content and not to the theme stay literal: the color picker's gradients, checkerboard and white thumb, the
   color input's preset swatches, the dark badge over a chat attachment.
+- Readonly fields: the core only draws the lock (its own DOM, switched off app-wide with `noReadonlyLock` on any of the
+  three theme components); how the field looks is the theme's. Semantic and Fomantic keep their stock look (a readonly
+  input looks like any input and still hovers, as in Fomantic), the mantic theme gives readonly inputs, m-textarea and
+  the selection dropdown `--m-readonly-background` and no hover — checkbox, radio, toggle and slider included.
+- Checkbox, radio, toggle and slider show the lock after their label text and set `aria-readonly` (a native checkbox
+  ignores `readonly`). Without a text (fitted, or a column of checkboxes in a table) the lock is left out; that is
+  detected with `.label-text:empty`, so the label text must stay in that one span. The mantic theme also gives the box
+  the readonly background and turns a checked toggle grey instead of the accent, so it reads as a value, not a switch.
 - Base tokens are declared on `:root` only; derived tokens (hover/active/subtle/on variants, radius scale,
   shadows, anything with a `var()` inside) are declared on `:root` **and** `[m-theme-scope]`. A custom
   property resolves its `var()`s where it is declared, so a derived token declared on `:root` alone ignores
