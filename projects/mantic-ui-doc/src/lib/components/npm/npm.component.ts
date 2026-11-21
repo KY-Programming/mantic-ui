@@ -40,8 +40,7 @@ export class NpmComponent {
 
     public constructor(
         private readonly npmApiService: NpmApiService
-    ) {
-    }
+    ) {}
 
     private refreshVersion(): void {
         if (!this.searchVersion || !this.package) {

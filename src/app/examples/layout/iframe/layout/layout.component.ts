@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-
 import { LayoutComponent } from '@mantic-ui/angular';
 
 @Component({
@@ -9,6 +8,4 @@ import { LayoutComponent } from '@mantic-ui/angular';
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./layout.component.scss']
 })
-export class SemanticLayoutIframeComponent {
-
-}
+export class SemanticLayoutIframeComponent {}

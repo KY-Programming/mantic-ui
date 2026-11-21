@@ -94,6 +94,6 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
     private setInternalValue(value: Date | null | undefined): void {
         // Use null to avoid strange input behaviour with undefined values (e.g. input of negative values requires two minus signs to work)
         // eslint-disable-next-line unicorn/no-null
-        this.internalValue.set(value?.toISOString().split('T')[0] ?? null);
+        this.internalValue.set(value?.toISOString().split('T', 1)[0] ?? null);
     }
 }

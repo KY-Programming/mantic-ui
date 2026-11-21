@@ -1,5 +1,4 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-
 import { MenuComponent, MenuItemComponent, MenuItemDirective } from '@mantic-ui/angular';
 
 @Component({
@@ -9,6 +8,4 @@ import { MenuComponent, MenuItemComponent, MenuItemDirective } from '@mantic-ui/
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./fixed1.component.scss']
 })
-export class SemanticMenuIframeFixed1Component {
-
-}
+export class SemanticMenuIframeFixed1Component {}

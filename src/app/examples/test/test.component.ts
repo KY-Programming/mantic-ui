@@ -7,6 +7,5 @@ import { SemanticUiIconsLocalComponent, SemanticUiLatoLocalComponent, SemanticUi
     styleUrls: ['./test.component.scss'],
     imports: [SemanticUiThemeComponent, SemanticUiSiteComponent, SemanticUiResetComponent, SemanticUiLatoLocalComponent, SemanticUiIconsLocalComponent]
 })
-export class TestExampleComponent {
-}
+export class TestExampleComponent {}
 

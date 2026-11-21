@@ -46,11 +46,11 @@ export class TemplateService {
                 continue;
             }
             const index = list.indexOf(template);
-            if (index >= 0) {
+            if (index !== -1) {
                 const template = list.splice(index, 1)[0];
                 template.visible.set(false);
             }
-            const lastTemplate = list[list.length - 1];
+            const lastTemplate = list.at(-1);
             lastTemplate?.visible.set(true);
             this.notify(name, lastTemplate);
         }
@@ -72,7 +72,7 @@ export class TemplateService {
 
     public get(names: string | string[]): Observable<Template | undefined> {
         names = typeof names === 'string' ? [names] : names ?? [];
-        const existingSubject = names.map(name => this.subscriptions.get(name)).find(subscription => subscription);
+        const existingSubject = names.map(name => this.subscriptions.get(name)).find(Boolean);
         const subject = existingSubject ?? new ReplaySubject<Template | undefined>(1);
         for (const name of names) {
             this.subscriptions.set(name, subject);

@@ -1,8 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IterableLicenses, Licenses } from 'license-to-json';
-
-import { ExpanderComponent, ExpanderHeaderComponent, FlexDirective, HeaderDirective, LoaderComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { ExpanderComponent, ExpanderHeaderComponent, FlexDirective, LoaderComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({

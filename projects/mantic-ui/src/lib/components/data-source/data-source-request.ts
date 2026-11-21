@@ -6,8 +6,7 @@ export class DataSourceRequest {
 
     public constructor(
         public readonly key: string
-    ) {
-    }
+    ) {}
 
     public resolve(data: Record<string, unknown>[] | Observable<Record<string, unknown>[]>): void {
         if (Array.isArray(data)) {
@@ -15,7 +14,7 @@ export class DataSourceRequest {
         } else {
             data.subscribe({
                 next: result => this.subject.next(result),
-                error: error => this.subject.error(error)
+                error: (error: unknown) => this.subject.error(error)
             });
         }
     }

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/member-ordering */
-
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { faArrowRight, faCloud, faPause } from '@fortawesome/pro-solid-svg-icons';

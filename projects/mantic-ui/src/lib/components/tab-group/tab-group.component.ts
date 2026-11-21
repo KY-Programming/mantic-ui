@@ -1,7 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { AfterViewInit, Component, computed, contentChildren, effect, inject, input, model, OnInit, signal, untracked } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, Routes } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { toBoolean } from '../../helpers/to-boolean';
 import { BooleanLike } from '../../models/boolean-like';

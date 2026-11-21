@@ -79,20 +79,7 @@ export class InputExampleComponent {
     }
 
     public fluid = false;
-
-    private reset(): void {
-        this.focusValue = false;
-        this.loadingValue = false;
-        this.disabledValue = false;
-        this.errorValue = false;
-    }
-
     public inputMessage?: string;
-
-    public valueChange(event: string | undefined): void {
-        this.inputMessage = `Value changed to: ${event}`;
-        setTimeout(() => this.inputMessage = undefined, 2000);
-    }
 
     public textCode = `<m-input type="text" placeholder="Search..." [(value)]="value" />`;
     public textareaCode = `<m-textarea placeholder="Enter a text with line breaks..." [(value)]="value" />`;
@@ -203,6 +190,18 @@ export class InputExampleComponent {
     public readonly inverted = `<m-input inverted />`;
 
     public readonly dateWithDayCode = `<m-date-input showDay />`;
+
+    private reset(): void {
+        this.focusValue = false;
+        this.loadingValue = false;
+        this.disabledValue = false;
+        this.errorValue = false;
+    }
+
+    public valueChange(event: string | undefined): void {
+        this.inputMessage = `Value changed to: ${event}`;
+        setTimeout(() => this.inputMessage = undefined, 2000);
+    }
 
     public getType(value: unknown): string {
         return typeof value;

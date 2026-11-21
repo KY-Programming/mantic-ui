@@ -8,7 +8,7 @@ export class EnvironmentService {
 
     public getBaseUrl(): string {
         if (this.baseUrl === undefined) {
-            const baseElement = document.getElementsByTagName('base')[0];
+            const baseElement = document.querySelector('base');
             this.baseUrl = baseElement ? baseElement.attributes.getNamedItem('href')?.value || '' : '';
             this.baseUrl = this.baseUrl.replace(/\/+$/, '');
         }

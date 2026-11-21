@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, ReplaySubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map } from 'rxjs';
 import { NpmPackageResponse } from '../models/npm-package-response';
 
 @Injectable({

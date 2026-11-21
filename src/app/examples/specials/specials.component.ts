@@ -1,8 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-
 import { HeaderComponent } from '../../components/header/header.component';
-import { HeaderDirective, IconComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
-import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { SpecialListExamplesComponent } from '../special-list/special-list.component';
 
 @Component({
@@ -12,6 +10,4 @@ import { SpecialListExamplesComponent } from '../special-list/special-list.compo
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./specials.component.scss']
 })
-export class SpecialExamplesComponent {
-
-}
+export class SpecialExamplesComponent {}

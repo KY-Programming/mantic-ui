@@ -17,7 +17,7 @@ export class FaviconService {
             this.canvasElement.style.display = 'none';
             this.canvasElement.width = 16;
             this.canvasElement.height = 16;
-            document.body.appendChild(this.canvasElement);
+            document.body.append(this.canvasElement);
         }
         return this.canvasElement;
     }

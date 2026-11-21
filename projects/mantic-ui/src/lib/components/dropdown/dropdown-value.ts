@@ -9,5 +9,5 @@ export class DropdownValue<T = unknown> {
         public text?: string,
         public icon?: IconType,
         public iconSize?: IconSize
-    ) { }
+    ) {}
 }

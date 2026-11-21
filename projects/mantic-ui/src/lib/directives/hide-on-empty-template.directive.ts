@@ -1,6 +1,6 @@
 import { Directive, effect, inject, input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { race, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs';
 import { Destroyable } from '../base/destroyable';
 import { TemplateService } from '../services/template.service';
 

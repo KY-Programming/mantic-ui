@@ -39,8 +39,7 @@ export class NpmInstallComponent {
 
     public constructor(
         private readonly nugetApiService: NpmApiService
-    ) {
-    }
+    ) {}
 
     private refreshVersion(): void {
         if (!this.searchVersion || !this.package) {

@@ -17,7 +17,7 @@ export class MyValidationPipe implements ValidationPipe, PipeTransform {
         const stringValue = typeof rawValue === 'string' ? rawValue : undefined;
         return {
             // Do the validation
-            valid: !!stringValue && stringValue.indexOf('a') >= 0,
+            valid: !!stringValue && stringValue.includes('a'),
             // Create an validation message. args[0] can be used to override the validation message
             message: value ? undefined : args[0] as string || 'has to contain at least one \'a\'',
             // Provide the value for the next validation step

@@ -15,5 +15,4 @@ import { Directive } from '@angular/core';
 @Directive({
     selector: '[m-doc-ignore-content]'
 })
-export class DocIgnoreContentDirective {
-}
+export class DocIgnoreContentDirective {}

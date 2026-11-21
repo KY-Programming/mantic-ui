@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ButtonComponent, ExpanderComponent, ExpanderIconComponent, HeaderDirective, IconComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { ButtonComponent, ExpanderComponent, ExpanderIconComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
 

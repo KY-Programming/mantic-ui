@@ -7,12 +7,12 @@ export abstract class ExternalRouteComponent implements OnInit {
 
     protected constructor(
         private readonly route: ActivatedRoute
-    ) { }
+    ) {}
 
     public ngOnInit(): void {
         const data = this.route.snapshot.data as ExternalRouteData;
         if (data && data.redirectTo) {
-            window.location.href = data.redirectTo;
+            globalThis.location.assign(data.redirectTo);
         }
     }
 

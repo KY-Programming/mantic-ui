@@ -76,7 +76,7 @@
     "@angular/cli": "^22.2.7",
     "@angular/compiler-cli": "^22.2.6",
     "@eslint/js": "^10.0.1",
-    "@mantic-ui/eslint-config": "^22.0.8",
+    "@mantic-ui/eslint-config": "^22.0.9",
     "@types/resize-observer-browser": "^0.1.11",
     "angular-eslint": "22.6.0",
     "eslint": "^10.15.0",

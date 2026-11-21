@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, computed, DoCheck, effect, inject, input, IterableDiffer, IterableDiffers, output, untracked } from '@angular/core';
 import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs';
 import { BaseComponent } from '../../base/base.component';
 import { HeaderDirective } from '../../directives/header.directive';
 import { toBoolean } from '../../helpers/to-boolean';
@@ -86,9 +86,9 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
         }
         const subject = new ReplaySubject<Record<string, unknown>[]>(1);
         this.dataCache.set(dataSource, subject.asObservable());
-        merge(...this.dataSources().map(x => x.get(dataSource)).filter(x => x)).subscribe({
+        merge(...this.dataSources().map(x => x.get(dataSource)).filter(Boolean)).subscribe({
             next: data => subject.next(data),
-            error: error => subject.next(error)
+            error: (error: unknown) => subject.error(error)
         });
         return subject.asObservable();
     }
@@ -183,7 +183,7 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
                 if (!variable || variable.startsWith('$$')) {
                     continue;
                 }
-                const index = parseInt(variable.replace(/\$/g, ''));
+                const index = parseInt(variable.replaceAll('$', ''));
                 result = result.replace(variable, entry[field[index]] as string);
             }
             return result;

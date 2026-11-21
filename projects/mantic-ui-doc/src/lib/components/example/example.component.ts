@@ -40,6 +40,6 @@ export class ExampleComponent {
     }
 
     private refreshId(): void {
-        this.id = this.header ? this.header.replace(/[^a-zA-Z0-9]/g, '').toLocaleLowerCase() : undefined;
+        this.id = this.header ? this.header.replaceAll(/[^a-zA-Z0-9]/g, '').toLocaleLowerCase() : undefined;
     }
 }

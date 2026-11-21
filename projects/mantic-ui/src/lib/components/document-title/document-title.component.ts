@@ -38,8 +38,7 @@ export class DocumentTitleComponent implements DoCheck, OnDestroy {
     public constructor(
         private readonly element: ElementRef<HTMLElement>,
         private readonly titleService: Title
-    ) {
-    }
+    ) {}
 
     public ngDoCheck(): void {
         const newValue = this.prefix + this.element.nativeElement.innerText + this.postfix;

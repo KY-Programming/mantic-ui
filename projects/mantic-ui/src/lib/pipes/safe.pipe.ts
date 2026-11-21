@@ -1,7 +1,7 @@
 import { DOCUMENT, inject, Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
-const allowedProtocols = ['http:', 'https:'];
+const allowedProtocols = new Set(['http:', 'https:']);
 const blankUrl = 'about:blank';
 
 /**
@@ -24,7 +24,7 @@ export class SafePipe implements PipeTransform {
             return false;
         }
         try {
-            return allowedProtocols.includes(new URL(url, this.document.baseURI).protocol);
+            return allowedProtocols.has(new URL(url, this.document.baseURI).protocol);
         }
         catch {
             return false;

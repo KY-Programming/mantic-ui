@@ -10,6 +10,4 @@ import { SemanticUiIconsLocalComponent, SemanticUiLatoLocalComponent, SemanticUi
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./layout.component.scss']
 })
-export class SemanticLayoutComponent {
-
-}
+export class SemanticLayoutComponent {}

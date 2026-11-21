@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { MonoTypeOperatorFunction, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs';
 
 @Injectable()
 export abstract class Destroyable implements OnDestroy {

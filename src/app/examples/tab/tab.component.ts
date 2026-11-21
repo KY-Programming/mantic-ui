@@ -1,7 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-
 import { HeaderComponent } from '../../components/header/header.component';
-import { DividerComponent, HeaderDirective, IconComponent, MenuItemComponent, NumericInputComponent, TabComponent, TabGroupComponent, TabGroupMenuComponent } from '@mantic-ui/angular';
+import { DividerComponent, IconComponent, MenuItemComponent, NumericInputComponent, TabComponent, TabGroupComponent, TabGroupMenuComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({

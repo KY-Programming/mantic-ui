@@ -32,7 +32,7 @@ function getInputNames(type: Type<unknown>): ReadonlySet<string> {
     let names = inputNamesByType.get(type);
     if (!names) {
         // The HTML parser lower-cases attribute names, so input names are compared lower-cased. Directives have no component mirror and only match registered classes.
-        names = new Set(reflectComponentType(type)?.inputs.map(input => input.templateName.toLowerCase()) ?? []);
+        names = new Set(reflectComponentType(type)?.inputs.map(input => input.templateName.toLowerCase()));
         inputNamesByType.set(type, names);
     }
     return names;

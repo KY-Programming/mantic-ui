@@ -1,7 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-
 import { HeaderComponent } from '../../components/header/header.component';
-import { ButtonComponent, FlexComponent, HeaderDirective, IconComponent, SegmentComponent, TabComponent, TabGroupComponent, TextareaComponent } from '@mantic-ui/angular';
+import { ButtonComponent, FlexComponent, SegmentComponent, TabComponent, TabGroupComponent, TextareaComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({

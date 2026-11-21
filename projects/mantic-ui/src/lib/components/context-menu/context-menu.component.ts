@@ -1,6 +1,6 @@
 import { afterNextRender, AfterViewInit, Component, computed, inject, Injector, input, output, signal, viewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs';
 import { BaseComponent } from '../../base/base.component';
 import { ToBodyDirective } from '../../directives/to-body.directive';
 import { Math2 } from '../../helpers/math2';

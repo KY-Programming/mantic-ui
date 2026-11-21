@@ -7,8 +7,7 @@ export class Key {
 
     public constructor(
         public readonly code: string
-    ) {
-    }
+    ) {}
 
     public is(event: KeyboardEvent): boolean {
         return Key.is(event, this);

@@ -27,7 +27,6 @@ export class FlexDirective {
     protected readonly wrapStyle = computed(() => this.wrap() ? 'wrap' : this.wrapReverse() ? 'wrap-reverse' : '');
     public readonly direction = computed<FlexDirection>(() => {
         const column = this.column();
-        // eslint-disable-next-line unicorn/no-array-reverse
         if (this.reverse()) {
             return column ? 'column-reverse' : 'row-reverse';
         }

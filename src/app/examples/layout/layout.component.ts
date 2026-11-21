@@ -1,9 +1,8 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FrameworkService } from '../../services/framework.service';
-
 import { HeaderComponent } from '../../components/header/header.component';
-import { HeaderDirective, IconComponent, InfoComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
-import { ExampleCodeComponent, ExampleComponent, ExampleFrameComponent } from '@mantic-ui/angular-doc';
+import { InfoComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { ExampleComponent, ExampleFrameComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-layout-example',

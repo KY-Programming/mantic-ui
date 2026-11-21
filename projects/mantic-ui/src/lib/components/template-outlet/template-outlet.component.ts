@@ -1,7 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, effect, inject, input, signal } from '@angular/core';
 import { race, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs';
 import { Destroyable } from '../../base/destroyable';
 import { Template } from '../../models/template';
 import { TemplateService } from '../../services/template.service';

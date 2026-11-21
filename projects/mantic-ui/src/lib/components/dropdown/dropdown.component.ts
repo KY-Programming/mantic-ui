@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, contentChildren, effect, ElementRef, inject, input, model, NgZone, OnInit, output, signal, untracked, viewChild, viewChildren } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { fromEvent } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs';
 import { InvertibleComponent } from '../../base/invertible.component';
 import { AttachedDirective } from '../../directives/attached.directive';
 import { toBoolean, toBooleanWithUndefined } from '../../helpers/to-boolean';
@@ -164,10 +164,10 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
         // tolerates that; the signal read still registers as an effect dependency, so this effect
         // simply re-runs once the item's value is actually set.
         effect(() => {
-            const itemValues = this.itemComponents().map(item => DropdownComponent.readItemValue(item));
+            const itemValues = new Set(this.itemComponents().map(item => DropdownComponent.readItemValue(item)));
             untracked(() => {
                 const requested = this.valueInput();
-                if (requested !== undefined && this.value() !== requested && itemValues.includes(requested)) {
+                if (requested !== undefined && this.value() !== requested && itemValues.has(requested)) {
                     this.select(requested);
                 }
             });
@@ -189,7 +189,7 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
     public override ngOnInit(): void {
         super.ngOnInit();
         this.zone.runOutsideAngular(() =>
-            fromEvent(window, 'scroll', { capture: true }).pipe(
+            fromEvent(globalThis, 'scroll', { capture: true }).pipe(
                 filter(event => this.isActive() && event.target instanceof HTMLElement && this.elementRef.nativeElement !== event.target && !this.elementRef.nativeElement.contains(event.target)),
                 takeUntil(this.destroy)
             ).subscribe(() => this.zone.run(() => this.close())));
@@ -261,11 +261,11 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
             }
         }
         else if (event.code === 'Backspace') {
-            const selectedItems = this.selectedItems();
-            if (this.multiple() && selectedItems.length > 0) {
+            const lastSelectedItem = this.selectedItems().at(-1);
+            if (lastSelectedItem && this.multiple()) {
                 event.preventDefault();
                 event.stopPropagation();
-                this.deselect(selectedItems[selectedItems.length - 1]);
+                this.deselect(lastSelectedItem);
             }
         }
         else if (event.code === 'Escape') {
@@ -319,9 +319,9 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
             this.isSystemUpward.set(isUpward);
             const available = (isUpward ? spaceAbove : spaceBelow) - DropdownComponent.viewportMargin;
             const menu = this.menuElement()?.nativeElement;
-            const defaultMaxHeight = menu ? parseFloat(window.getComputedStyle(menu).maxHeight) : NaN;
+            const defaultMaxHeight = menu ? Number.parseFloat(globalThis.getComputedStyle(menu).maxHeight) : NaN;
             // Only override the stylesheet default when our viewport-fit cap is stricter.
-            this.menuMaxHeight.set(isFinite(defaultMaxHeight) && defaultMaxHeight > 0 && defaultMaxHeight <= available
+            this.menuMaxHeight.set(Number.isFinite(defaultMaxHeight) && defaultMaxHeight > 0 && defaultMaxHeight <= available
                 ? undefined
                 : Math.max(0, available));
 
@@ -441,7 +441,7 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
     protected deselect(item: DropdownValue<T>): void {
         const items = this.selectedItems();
         const index = items.indexOf(item);
-        if (index >= 0) {
+        if (index !== -1) {
             this.selectedItems.set(items.filter((_, itemIndex) => itemIndex !== index));
         }
         if (this.selectedItems().length === 0) {
@@ -452,12 +452,16 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
     protected selectIndex(index: number): void {
         const components = this.itemComponents();
         this.selectedIndex.set(Math.max(0, Math.min(index, components.length - 1)));
-        components.forEach((item, itemIndex) => item.select(itemIndex === this.selectedIndex()));
+        for (const [itemIndex, item] of components.entries()) {
+            item.select(itemIndex === this.selectedIndex());
+        }
     }
 
     protected onFilter(): void {
         const components = this.itemComponents();
-        components.forEach(item => item.filteredOut.set(this.isItemFilteredOut(item)));
+        for (const item of components) {
+            item.filteredOut.set(this.isItemFilteredOut(item));
+        }
         const filteredItems = components.filter(item => !item.filteredOut());
         if (filteredItems.length === 1) {
             this.selectedIndex.set(components.indexOf(filteredItems[0]));
@@ -476,8 +480,8 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
         }
         const caseInsensitiveFilter = filterValue.toLowerCase();
         const filterAction: (value: string | undefined) => boolean = this.filterType() === 'contains'
-            ? value => !!value && value.toLowerCase().indexOf(caseInsensitiveFilter) === -1
-            : value => !!value && value.toLowerCase().indexOf(caseInsensitiveFilter) !== 0;
+            ? value => !!value && !value.toLowerCase().includes(caseInsensitiveFilter)
+            : value => !!value && !value.toLowerCase().startsWith(caseInsensitiveFilter);
         const textContainsFilter = !this.filterText() || filterAction(item.element.nativeElement.innerText);
         const valueValue = DropdownComponent.readItemValue(item);
         const valueContainsFilter = !this.filterValue() || filterAction(valueValue && typeof valueValue.toString === 'function' ? valueValue.toString() : undefined);
@@ -493,7 +497,7 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
         }
     }
 
-    protected itemMouseDown(item: DropdownValue): void {
+    protected itemMouseDown(): void {
         this.keepOpen.set(true);
         // this.select(item);
         setTimeout(() => {
@@ -506,7 +510,7 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
         });
     }
 
-    protected itemMouseUp(item: DropdownValue): void {
+    protected itemMouseUp(): void {
         this.keepOpen.set(false);
     }
 
@@ -519,7 +523,7 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
         let bottom = window.innerHeight;
         let node: HTMLElement | null = element.parentElement;
         while (node && node !== document.body && node !== document.documentElement) {
-            const style = window.getComputedStyle(node);
+            const style = globalThis.getComputedStyle(node);
             const overflowY = style.overflowY;
             const clipsY = overflowY === 'auto' || overflowY === 'scroll' || overflowY === 'hidden' || overflowY === 'clip';
             if (clipsY) {

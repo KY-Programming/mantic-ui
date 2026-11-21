@@ -1,10 +1,7 @@
 ﻿import { Timespan } from './timespan';
 
 export abstract class DateHelper {
-    public static keepInRange(min: Date, value: Date | undefined, max?: Date | undefined): Date
-    public static keepInRange(min: Date | undefined, value: Date, max?: Date | undefined): Date
-    public static keepInRange(min: Date | undefined, value: Date | undefined, max?: Date): Date
-    public static keepInRange(min: Date | undefined, value: Date | undefined, max?: Date | undefined): Date {
+    public static keepInRange(min: Date | undefined, value: Date | undefined, max?: Date): Date {
         if (min !== undefined && (value === undefined || value < min)) {
             return min;
         }

@@ -17,8 +17,7 @@ export class PositionAbsoluteDirective implements AfterViewInit, OnDestroy {
 
     public constructor(
         private readonly elementRef: ElementRef<HTMLElement>
-    ) {
-    }
+    ) {}
 
     public ngAfterViewInit(): void {
         this.parent = this.elementRef.nativeElement.parentElement ?? undefined;
@@ -108,14 +107,20 @@ export class PositionAbsoluteDirective implements AfterViewInit, OnDestroy {
             }
             left = Math.max(0, left);
             const minLeft = this.minLeft();
-            if (minLeft === 'parent-left') {
-                left = Math.max(left, parentRect.left);
-            } else if (minLeft === 'parent-center') {
-                left = Math.max(left, parentRect.left + parentRect.width / 2);
-            } else if (minLeft === 'parent-right') {
-                left = Math.max(left, parentRect.right);
-            } else if (typeof minLeft === 'number') {
-                left = Math.max(left, minLeft);
+            switch (minLeft) {
+                case 'parent-left':
+                    left = Math.max(left, parentRect.left);
+                    break;
+                case 'parent-center':
+                    left = Math.max(left, parentRect.left + parentRect.width / 2);
+                    break;
+                case 'parent-right':
+                    left = Math.max(left, parentRect.right);
+                    break;
+                default:
+                    if (typeof minLeft === 'number') {
+                        left = Math.max(left, minLeft);
+                    }
             }
         }
         if (left && rect.width > 0 && left + rect.width > window.innerWidth) {

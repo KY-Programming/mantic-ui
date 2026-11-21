@@ -2,10 +2,10 @@
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     private constructor() {}
 
-    public static keepInRange(min: number, value: number | undefined, max?: number | undefined): number
-    public static keepInRange(min: number | undefined, value: number, max?: number | undefined): number
+    public static keepInRange(min: number, value: number | undefined, max?: number): number
+    public static keepInRange(min: number | undefined, value: number, max?: number): number
     public static keepInRange(min: number | undefined, value: number | undefined, max: number): number
-    public static keepInRange(min: number | undefined, value: number | undefined, max?: number | undefined): number {
+    public static keepInRange(min: number | undefined, value: number | undefined, max?: number): number {
         if (min !== undefined && (value === undefined || value < min)) {
             return min;
         }

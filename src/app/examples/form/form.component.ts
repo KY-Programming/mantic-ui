@@ -429,6 +429,18 @@ export class MyValidationPipe implements ValidationPipe, PipeTransform {
     </m-field-group>
 </m-form>`;
 
+    protected readonly localizeTs = `// Import mantic constant from @mantic-ui/angular
+import { mantic } from '@mantic-ui/angular'
+
+// make it in your component html available
+class MyComponent {
+    protected readonly mantic = mantic;
+}`;
+
+    protected readonly localizeHtml = `<m-localize [key]="mantic.pipes.isEmail.message" i18n>no valid email address</m-localize>
+<m-localize [key]="mantic.pipes.isFilled.message" i18n>has to be filled</m-localize>
+<m-localize [key]="mantic.pipes.allowedChars.message" i18n>forbidden characters found</m-localize>`;
+
     public requestData(request: DataSourceRequest): void {
         if (request.key === 'status') {
             request.resolve([
@@ -499,16 +511,4 @@ export class MyValidationPipe implements ValidationPipe, PipeTransform {
         const asyncAction = this.notificationService.async('Submitting', 'Auto Submitted');
         setTimeout(() => asyncAction.done(), 1000);
     }
-
-    protected readonly localizeTs = `// Import mantic constant from @mantic-ui/angular
-import { mantic } from '@mantic-ui/angular'
-
-// make it in your component html available
-class MyComponent {
-    protected readonly mantic = mantic;
-}`;
-
-    protected readonly localizeHtml = `<m-localize [key]="mantic.pipes.isEmail.message" i18n>no valid email address</m-localize>
-<m-localize [key]="mantic.pipes.isFilled.message" i18n>has to be filled</m-localize>
-<m-localize [key]="mantic.pipes.allowedChars.message" i18n>forbidden characters found</m-localize>`;
 }

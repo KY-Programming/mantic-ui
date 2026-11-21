@@ -41,7 +41,7 @@
      #menuElement>
     @if (items()) {
         @for (item of items(); track item; let index = $index) {
-            <m-dropdown-item [value]="item.value" [filteredOut]="item.filtered" [selected]="index === selectedIndex()" (mousedown)="itemMouseDown(item)" (mouseup)="itemMouseUp(item)">
+            <m-dropdown-item [value]="item.value" [filteredOut]="item.filtered" [selected]="index === selectedIndex()" (mousedown)="itemMouseDown()" (mouseup)="itemMouseUp()">
                 @if (item.icon) {
                     <m-icon [icon]="item.icon" [size]="item.iconSize" />
                 }

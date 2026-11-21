@@ -9,6 +9,4 @@ import { SemanticUiIconsLocalComponent, SemanticUiLatoLocalComponent, SemanticUi
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss']
 })
-export class CommonLayoutComponent {
-
-}
+export class CommonLayoutComponent {}

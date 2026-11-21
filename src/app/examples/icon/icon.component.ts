@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faRocket } from '@fortawesome/pro-solid-svg-icons';
-import { HeaderDirective, IconComponent, LabelComponent, TabComponent, TabGroupComponent, TableComponent } from '@mantic-ui/angular';
+import { IconComponent, TabComponent, TabGroupComponent, TableComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
 

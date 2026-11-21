@@ -8,5 +8,4 @@ import { Component } from '@angular/core';
         'class': 'ui card'
     }
 })
-export class CardComponent {
-}
+export class CardComponent {}

@@ -17,7 +17,7 @@ export class SortedClassesService {
     /**
      * Registers one or more keys. The keys will only registered if they are not already registered.
      */
-    public registerFallback(...keys: string[]): SortedClassesService {
+    public registerFallback(...keys: string[]): this {
         for (const key of keys) {
             if (this.has(key)) {
                 continue;
@@ -30,11 +30,11 @@ export class SortedClassesService {
     /**
      * Registers one or more keys. If they are already registered, the order will be updated.
      */
-    public register(...keys: string[]): SortedClassesService {
+    public register(...keys: string[]): this {
         for (const key of keys) {
             const existingEntry = this.getEntry(key);
             if (existingEntry) {
-                for (let [_, entry] of this.entries) {
+                for (const entry of this.entries.values()) {
                     if (entry.order > existingEntry.order) {
                         entry.order--;
                     }
@@ -48,21 +48,21 @@ export class SortedClassesService {
         return this;
     }
 
-    public registerFixed(...keys: string[]): SortedClassesService {
+    public registerFixed(...keys: string[]): this {
         for (const key of keys) {
             this.registerEntry(key, { fixed: true });
         }
         return this;
     }
 
-    public unregister(...keys: string[]): SortedClassesService {
+    public unregister(...keys: string[]): this {
         for (const key of keys) {
             this.entries.delete(key.toLocaleLowerCase());
         }
         return this;
     }
 
-    public ignore(...keys: string[]): SortedClassesService {
+    public ignore(...keys: string[]): this {
         for (const key of keys) {
             this.registerEntry(key, { ignore: true });
         }
@@ -90,7 +90,7 @@ export class SortedClassesService {
         return this.entries.get(key);
     }
 
-    public set(key: string, value: unknown, options?: { refresh: boolean }): SortedClassesService {
+    public set(key: string, value: unknown, options?: { refresh: boolean }): this {
         let entry = this.getEntry(key);
         if (!entry) {
             console.warn(`Set an unregistered value '${key}' on <${this.elementRef.nativeElement.tagName}> is not recommended. Call register(key) method once, before using set(...) method.`);
@@ -130,15 +130,17 @@ export class SortedClassesService {
         return Array.from(this.entries.values())
             .sort(SortedClassesService.sortByOrder)
             .map(entry => entry.value)
-            .filter(value => value)
+            .filter(Boolean)
             .join(' ');
     }
 
     public update(): void {
-        Array.from(this.entries.values())
+        const entries = Array.from(this.entries.values())
             .filter(entry => !entry.ignore)
-            .sort(SortedClassesService.sortByOrder)
-            .forEach(entry => this.updateEntry(entry));
+            .sort(SortedClassesService.sortByOrder);
+        for (const entry of entries) {
+            this.updateEntry(entry);
+        }
     }
 
     private updateEntry(entry: Entry): void {

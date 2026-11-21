@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, ReplaySubject } from 'rxjs';
 import { NugetPackageResponse, sortByPackageVersionDesc } from '../models/nuget-package-response';
-import { map } from 'rxjs/operators';
+import { map } from 'rxjs';
 import { NugetPackageVersion } from '../models/nuget-package.version';
 
 @Injectable({
@@ -27,7 +27,7 @@ export class NugetApiService {
             this.cache[packageName] = new ReplaySubject<NugetPackageVersion[]>(1);
             this.http.get<NugetPackageResponse>(`https://api.nuget.org/v3/registration5-gz-semver2/${packageName}/index.json`).subscribe(response => {
                 const versions: NugetPackageVersion[] = [];
-                for (let page of response.items) {
+                for (const page of response.items) {
                     versions.push(...page.items.map(x => x.catalogEntry));
                 }
                 this.cache[packageName].next(versions.sort(sortByPackageVersionDesc));

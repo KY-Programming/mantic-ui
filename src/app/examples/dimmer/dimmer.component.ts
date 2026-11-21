@@ -1,8 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-
 import { HeaderComponent } from '../../components/header/header.component';
 import { ButtonComponent, DimmerComponent, HeaderDirective, IconComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
-import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-dimmer-example',

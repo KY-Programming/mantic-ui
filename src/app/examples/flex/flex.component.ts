@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { CheckboxComponent, FieldComponent, FillDirective, FlexComponent, FlexDirective, FormComponent, InputComponent, SegmentComponent, SubmitComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { FillDirective, FlexComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
 

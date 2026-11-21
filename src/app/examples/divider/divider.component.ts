@@ -1,8 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-
 import { HeaderComponent } from '../../components/header/header.component';
-import { ButtonComponent, DividerComponent, HeaderDirective, IconComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
-import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { ButtonComponent, DividerComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
+import { ExampleComponent } from '@mantic-ui/angular-doc';
 
 @Component({
     selector: 'app-divider-example',
@@ -11,6 +10,4 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./divider.component.scss']
 })
-export class DividerExampleComponent {
-
-}
+export class DividerExampleComponent {}

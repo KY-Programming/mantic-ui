@@ -82,7 +82,7 @@ export class NotificationService implements NotificationHandler {
                 this.remove(loadingMessage);
                 this.success(doneText, { icon: NotificationService.defaults.successIcon(), group: 'content' });
             },
-            error: (error: string | undefined, options?: { timeout: 10_000 } | Partial<Notification>) => {
+            error: (error: string | undefined, options?: Partial<Notification> | { timeout: 10_000 }) => {
                 this.remove(loadingMessage);
                 this.error(error ?? errorText ?? 'Could not execute action due to an unexpected network issue. Please retry or contact the support team.', options);
             }
@@ -90,8 +90,8 @@ export class NotificationService implements NotificationHandler {
         return action;
     }
 
-    public error(message: { timeout: 0 } | Partial<Notification>): NotificationReference
-    public error(text: string, options?: { timeout: 0 } | Partial<Notification>): NotificationReference
+    public error(message: Partial<Notification> | { timeout: 0 }): NotificationReference
+    public error(text: string, options?: Partial<Notification> | { timeout: 0 }): NotificationReference
     public error(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): NotificationReference {
         const options: Partial<Notification> = typeof textOrOptions === 'object' ? textOrOptions : optionsFallback ?? {};
         const text = typeof textOrOptions === 'string' ? textOrOptions : options.text;
@@ -101,8 +101,8 @@ export class NotificationService implements NotificationHandler {
         return reference;
     }
 
-    public warning(message: { timeout: 2000 } | Partial<Notification>): NotificationReference
-    public warning(text: string, options?: { timeout: 2000 } | Partial<Notification>): NotificationReference
+    public warning(message: Partial<Notification> | { timeout: 2000 }): NotificationReference
+    public warning(text: string, options?: Partial<Notification> | { timeout: 2000 }): NotificationReference
     public warning(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): NotificationReference {
         const options: Partial<Notification> = typeof textOrOptions === 'object' ? textOrOptions : optionsFallback ?? {};
         const text = typeof textOrOptions === 'string' ? textOrOptions : options.text;
@@ -112,8 +112,8 @@ export class NotificationService implements NotificationHandler {
         return reference;
     }
 
-    public success(message: { timeout: 2000 } | Partial<Notification>): NotificationReference
-    public success(text: string, options?: { timeout: 2000 } | Partial<Notification>): NotificationReference
+    public success(message: Partial<Notification> | { timeout: 2000 }): NotificationReference
+    public success(text: string, options?: Partial<Notification> | { timeout: 2000 }): NotificationReference
     public success(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): NotificationReference {
         const options: Partial<Notification> = typeof textOrOptions === 'object' ? textOrOptions : optionsFallback ?? {};
         const text = typeof textOrOptions === 'string' ? textOrOptions : options.text;
@@ -123,8 +123,8 @@ export class NotificationService implements NotificationHandler {
         return reference;
     }
 
-    public positive(message: { timeout: 2000 } | Partial<Notification>): NotificationReference
-    public positive(text: string, options?: { timeout: 2000 } | Partial<Notification>): NotificationReference
+    public positive(message: Partial<Notification> | { timeout: 2000 }): NotificationReference
+    public positive(text: string, options?: Partial<Notification> | { timeout: 2000 }): NotificationReference
     public positive(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): NotificationReference {
         const options: Partial<Notification> = typeof textOrOptions === 'object' ? textOrOptions : optionsFallback ?? {};
         const text = typeof textOrOptions === 'string' ? textOrOptions : options.text;
@@ -134,8 +134,8 @@ export class NotificationService implements NotificationHandler {
         return reference;
     }
 
-    public info(message: { timeout: 2000 } | Partial<Notification>): NotificationReference
-    public info(text: string, options?: { timeout: 2000 } | Partial<Notification>): NotificationReference
+    public info(message: Partial<Notification> | { timeout: 2000 }): NotificationReference
+    public info(text: string, options?: Partial<Notification> | { timeout: 2000 }): NotificationReference
     public info(textOrOptions: string | Partial<Notification>, optionsFallback?: Partial<Notification>): NotificationReference {
         const options: Partial<Notification> = typeof textOrOptions === 'object' ? textOrOptions : optionsFallback ?? {};
         const text = typeof textOrOptions === 'string' ? textOrOptions : options.text;

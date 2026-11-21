@@ -58,6 +58,57 @@ export class DemoComponent {
 }`;
     protected manualNotification: NotificationRef | undefined;
 
+    public exampleComponent = `import { NotificationService } from '@mantic-ui/angular';
+
+this.notificationService.error('Default error message', {
+    component: CustomNotificationComponent
+});`;
+
+    public exampleComponentTs = `import { Component, inject } from '@angular/core';
+import { ButtonComponent, notificationToken } from '@mantic-ui/angular';
+
+@Component({
+    selector: 'app-custom-notification',
+    imports: [ButtonComponent],
+    template: \`
+{{ notification.text }}
+<m-button color="red" (click)="onClick($event)">Info</m-button>
+    \`
+})
+export class CustomNotificationComponent {
+    protected readonly notification = inject(notificationToken);
+
+    protected onClick(event: MouseEvent): void {
+        // Prevent default to avoid close of the message
+        event.preventDefault();
+        alert('You clicked the button!');
+    }
+}`;
+
+    public exampleClickAction = `import { NotificationService } from '@mantic-ui/angular';
+
+const reference = this.notificationService.info('Click me to see the action, then I close', {
+    timeout: 0,
+    click: () => {
+        alert('You clicked the notification!');
+        reference.close();
+    }
+});`;
+
+    public exampleManual = `import { NotificationService, NotificationRef } from '@mantic-ui/angular';
+
+notificationService = inject(NotificationService);
+manualNotification: NotificationRef | undefined;
+
+showManual(): void {
+    this.manualNotification = this.notificationService.error('A error...');
+}
+
+hideManual(): void {
+    this.manualNotification?.close();
+    this.manualNotification = undefined;
+}';`;
+
     protected showError(): void {
         this.notificationService.error('Error Text');
     }
@@ -87,33 +138,6 @@ export class DemoComponent {
         this.notificationService.error('Default error message', { component: CustomNotificationComponent });
     }
 
-    public exampleComponent = `import { NotificationService } from '@mantic-ui/angular';
-
-this.notificationService.error('Default error message', {
-    component: CustomNotificationComponent
-});`;
-
-    public exampleComponentTs = `import { Component, inject } from '@angular/core';
-import { ButtonComponent, notificationToken } from '@mantic-ui/angular';
-
-@Component({
-    selector: 'app-custom-notification',
-    imports: [ButtonComponent],
-    template: \`
-{{ notification.text }}
-<m-button color="red" (click)="onClick($event)">Info</m-button>
-    \`
-})
-export class CustomNotificationComponent {
-    protected readonly notification = inject(notificationToken);
-
-    protected onClick(event: MouseEvent): void {
-        // Prevent default to avoid close of the message
-        event.preventDefault();
-        alert('You clicked the button!');
-    }
-}`;
-
     public showClickAction(): void {
         const reference = this.notificationService.info('Click me to see the action, then I close', {
             timeout: 0,
@@ -124,16 +148,6 @@ export class CustomNotificationComponent {
         });
     }
 
-    public exampleClickAction = `import { NotificationService } from '@mantic-ui/angular';
-
-const reference = this.notificationService.info('Click me to see the action, then I close', {
-    timeout: 0,
-    click: () => {
-        alert('You clicked the notification!');
-        reference.close();
-    }
-});`;
-
     public showManual(): void {
         this.manualNotification = this.notificationService.error('A error that can be closed manually by click on the hide button');
     }
@@ -142,18 +156,4 @@ const reference = this.notificationService.info('Click me to see the action, the
         this.manualNotification?.close();
         this.manualNotification = undefined;
     }
-
-    public exampleManual = `import { NotificationService, NotificationRef } from '@mantic-ui/angular';
-
-notificationService = inject(NotificationService);
-manualNotification: NotificationRef | undefined;
-
-showManual(): void {
-    this.manualNotification = this.notificationService.error('A error...');
-}
-
-hideManual(): void {
-    this.manualNotification?.close();
-    this.manualNotification = undefined;
-}';`;
 }

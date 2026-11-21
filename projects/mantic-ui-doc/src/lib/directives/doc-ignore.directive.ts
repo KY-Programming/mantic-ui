@@ -11,5 +11,4 @@ import { Directive } from '@angular/core';
 @Directive({
     selector: '[m-doc-ignore]'
 })
-export class DocIgnoreDirective {
-}
+export class DocIgnoreDirective {}

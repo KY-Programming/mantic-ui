@@ -1,9 +1,7 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FrameworkService } from '../../services/framework.service';
-
 import { HeaderComponent } from '../../components/header/header.component';
-import { HeaderDirective, IconComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
-import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { HeaderDirective, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ElementListExamplesComponent } from '../element-list/element-list.component';
 import { RouterLink } from '@angular/router';
 import { LayoutListExamplesComponent } from '../layout-list/layout-list.component';

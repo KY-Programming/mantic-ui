@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, HostBinding, signal } from '@angular/core';
 import { ButtonComponent, ContextMenuComponent, ContextMenuGroupComponent, ContextMenuPosition, ContextMenuItemComponent, FillComponent, FillDirective, FlexComponent, FlexDirective, InfoComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
-
 import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
@@ -71,13 +70,13 @@ public contextMenu?: ContextMenuComponent;
 ...
 this.contextMenu?.open();`;
 
-    public show(message: string): void {
-        alert(message);
-    }
-
     protected readonly logEntries: string[] = [];
     public openEventCode = `<m-context-menu (open)="log('open')"></m-context-menu>`;
     public closeEventCode = `<m-context-menu (close)="log('close')"></m-context-menu>`;
+
+    public show(message: string): void {
+        alert(message);
+    }
 
     protected log(eventName: string): void {
         this.logEntries.push(eventName);

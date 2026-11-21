@@ -1,8 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-
 import { HeaderComponent } from '../../components/header/header.component';
-import { HeaderDirective, IconComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
-import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
+import { TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { UtilListExamplesComponent } from '../util-list/util-list.component';
 
 @Component({
@@ -12,6 +10,4 @@ import { UtilListExamplesComponent } from '../util-list/util-list.component';
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./utils.component.scss']
 })
-export class UtilExamplesComponent {
-
-}
+export class UtilExamplesComponent {}
