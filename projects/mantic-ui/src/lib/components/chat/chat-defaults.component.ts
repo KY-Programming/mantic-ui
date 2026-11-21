@@ -42,10 +42,11 @@ export class ChatDefaultsComponent implements OnDestroy {
         let current: unknown;
         effect(() => {
             const next = value();
-            if (next !== undefined) {
-                current = next;
-                target.set(next);
+            if (next === undefined) {
+                return;
             }
+            current = next;
+            target.set(next);
         });
         this.restores.push(() => {
             if (current !== undefined && current === target()) {

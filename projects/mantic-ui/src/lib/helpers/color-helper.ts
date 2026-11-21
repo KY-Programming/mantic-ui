@@ -29,10 +29,7 @@ export class ColorHelper {
     /** Reads any CSS colour (hex, rgb(), a name such as `red`, …); undefined if it is none */
     public static parse(value: string | undefined): Rgba | undefined {
         const text = value?.trim();
-        if (!text) {
-            return undefined;
-        }
-        return this.parseHex(text) ?? this.parseRgb(text) ?? this.parseSrgb(text) ?? this.parseByCanvas(text);
+        return text ? this.parseHex(text) ?? this.parseRgb(text) ?? this.parseSrgb(text) ?? this.parseByCanvas(text) : undefined;
     }
 
     /** `#rrggbb`, or `#rrggbbaa` when the colour is not opaque and alpha is allowed */
@@ -148,9 +145,6 @@ export class ColorHelper {
         const first = context.fillStyle;
         context.fillStyle = '#ffffff';
         context.fillStyle = text;
-        if (first !== context.fillStyle) {
-            return undefined;
-        }
-        return this.parseHex(first) ?? this.parseRgb(first) ?? this.parseSrgb(first);
+        return first === context.fillStyle ? this.parseHex(first) ?? this.parseRgb(first) ?? this.parseSrgb(first) : undefined;
     }
 }

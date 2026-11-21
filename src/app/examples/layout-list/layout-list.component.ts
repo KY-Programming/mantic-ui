@@ -1,4 +1,3 @@
-
 import { Component, HostBinding, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FrameworkService } from '../../services/framework.service';
 import { RouterLink } from '@angular/router';

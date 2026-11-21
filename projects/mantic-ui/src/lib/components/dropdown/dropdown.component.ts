@@ -134,10 +134,11 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
                 return;
             }
             untracked(() => {
-                if (this.isMenuVisible()) {
-                    this.filter.set(undefined);
-                    this.close();
+                if (!this.isMenuVisible()) {
+                    return;
                 }
+                this.filter.set(undefined);
+                this.close();
             });
         });
         this.dropDownSelectionService.selected.pipe(takeUntil(this.destroy)).subscribe(event => this.select(event));
@@ -342,7 +343,7 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
         this.isSlidingOut.set(true);
         this.isActive.set(false);
         const filterValue = this.filter();
-        if (this.allowFreeText() && (this.selectedIndex() === -1 || this.selectedIndex() === undefined) && filterValue) {
+        if (filterValue && this.allowFreeText() && (this.selectedIndex() === -1 || this.selectedIndex() === undefined)) {
             this.setValue(filterValue);
             this.valueChange.emit(this.value());
         }
@@ -412,7 +413,7 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
             this.valueChange.emit(this.value());
         }
         this.selectedIndex.set(component ? components.indexOf(component) : undefined);
-        if (this.multiple() && component) {
+        if (component && this.multiple()) {
             this.selectedItem.set(undefined);
             // TODO: Implement
             // this.selectedItems.push(item);
@@ -431,6 +432,7 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
             if (!textElement) {
                 return;
             }
+            // eslint-disable-next-line unicorn/prefer-dom-node-html-methods -- copies the rendered item as is, setHTML() would sanitize it
             textElement.nativeElement.innerHTML = component?.element.nativeElement.innerHTML ?? '';
         });
         // HACK-END

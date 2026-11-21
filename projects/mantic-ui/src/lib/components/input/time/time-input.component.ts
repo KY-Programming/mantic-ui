@@ -112,9 +112,6 @@ export class TimeInputComponent extends InputBaseComponent implements OnInit {
 
     /** Local time, like the parsing in onInternalChange - toISOString() would show UTC and shift the time by the zone offset. */
     private static format(value: Date | null | undefined): string | undefined {
-        if (!value) {
-            return undefined;
-        }
-        return `${value.getHours().toString().padStart(2, '0')}:${value.getMinutes().toString().padStart(2, '0')}`;
+        return value ? `${value.getHours().toString().padStart(2, '0')}:${value.getMinutes().toString().padStart(2, '0')}` : undefined;
     }
 }

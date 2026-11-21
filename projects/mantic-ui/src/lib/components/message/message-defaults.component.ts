@@ -19,17 +19,19 @@ export class MessageDefaultsComponent implements OnDestroy {
     public constructor() {
         effect(() => {
             const value = this.closeIcon();
-            if (value !== undefined) {
-                this.currentCloseIcon = value;
-                MessageComponent.defaults.closeIcon.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentCloseIcon = value;
+            MessageComponent.defaults.closeIcon.set(value);
         });
         effect(() => {
             const value = this.closeIconSize();
-            if (value !== undefined) {
-                this.currentCloseIconSize = value;
-                MessageComponent.defaults.closeIconSize.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentCloseIconSize = value;
+            MessageComponent.defaults.closeIconSize.set(value);
         });
         effect(() => {
             const value = this.inverted();

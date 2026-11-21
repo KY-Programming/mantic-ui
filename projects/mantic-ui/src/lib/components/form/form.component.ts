@@ -156,12 +156,13 @@ export class FormComponent extends InvertibleComponent {
         const hasError = this.fieldComponents().some(field => field.error()) || this.fieldGroupsComponents().some(group => group.error());
         const isValid = !hasError;
         this.errorState.set(hasError);
-        if (this.isValidState() !== isValid) {
-            this.isValidState.set(isValid);
-            this.formValidationNotifier?.set(isValid);
-            // Delay the notification to fire the change outside the check to ensure a change detection run will be started
-            setTimeout(() => this.isValidChange.emit(isValid));
+        if (this.isValidState() === isValid) {
+            return;
         }
+        this.isValidState.set(isValid);
+        this.formValidationNotifier?.set(isValid);
+        // Delay the notification to fire the change outside the check to ensure a change detection run will be started
+        setTimeout(() => this.isValidChange.emit(isValid));
     }
 
     private refreshInlineValidation(): void {

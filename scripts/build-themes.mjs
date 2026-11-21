@@ -20,11 +20,17 @@ const postcss = require('postcss');
 
 // less only logs, e.g. an :extend in a site override that matches nothing (a selector changed upstream). The notice
 // that targeting a selector with combinators "can have unexpected behavior" comes for every such :extend, which is
-// the point of the site overrides, so it is no warning here.
+// the point of the site overrides, so it is no warning here. Since less 4.9 the Semantic / Fomantic definitions also
+// raise the "numeric-variable-name" deprecation (`@1px`, `@4px`, ...). Those files are the pinned upstream packages and
+// cannot be changed, so the deprecation is skipped there only; in the theme's own less folder it still fails the build.
+// less 5 drops these names: a less major means a newer upstream package or a patch layer, not just an npm update.
 let warnings = 0;
 less.logger.addListener({
     warn: message => {
         if (message.includes('Targeting complex selectors')) {
+            return;
+        }
+        if (message.includes('Variable names beginning with a number') && /[\\/]node_modules[\\/](semantic|fomantic)-ui-less[\\/]/.test(message)) {
             return;
         }
         warnings++;

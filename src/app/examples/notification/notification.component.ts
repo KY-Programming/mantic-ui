@@ -1,4 +1,3 @@
-
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { AsyncAction, ButtonComponent, FlexComponent, NotificationRef, NotificationService, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';

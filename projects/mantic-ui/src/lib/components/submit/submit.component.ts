@@ -28,10 +28,11 @@ export class SubmitComponent extends ButtonBaseComponent {
     }
 
     protected onKeyDown(event: KeyboardEvent): void {
-        if (Key.is(event, Key.space, Key.enter)) {
-            this.submit();
-            event.preventDefault();
+        if (!Key.is(event, Key.space, Key.enter)) {
+            return;
         }
+        this.submit();
+        event.preventDefault();
     }
 
     protected submit(): void {

@@ -18,17 +18,19 @@ export class ExpanderDefaultsComponent implements OnDestroy {
     public constructor() {
         effect(() => {
             const value = this.dropdownIcon();
-            if (value !== undefined) {
-                this.currentDropdownIcon = value;
-                ExpanderComponent.defaults.dropdownIcon.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentDropdownIcon = value;
+            ExpanderComponent.defaults.dropdownIcon.set(value);
         });
         effect(() => {
             const value = this.dropdownIconSize();
-            if (value !== undefined) {
-                this.currentDropdownIconSize = value;
-                ExpanderComponent.defaults.dropdownIconSize.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentDropdownIconSize = value;
+            ExpanderComponent.defaults.dropdownIconSize.set(value);
         });
     }
 

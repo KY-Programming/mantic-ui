@@ -13,10 +13,11 @@ export class TabGroupDefaultsComponent implements OnDestroy {
     public constructor() {
         effect(() => {
             const value = this.inverted();
-            if (value !== undefined) {
-                this.currentInverted = value;
-                TabGroupComponent.defaults.inverted.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentInverted = value;
+            TabGroupComponent.defaults.inverted.set(value);
         });
     }
 

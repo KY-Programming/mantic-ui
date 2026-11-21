@@ -104,10 +104,7 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
             map(([data]) => {
                 const filtered = data.filter(entry => filters.every(dropdownFilter => {
                     const formValue = this.data()[dropdownFilter.formField];
-                    if (formValue === undefined || formValue === null || formValue === '') {
-                        return true;
-                    }
-                    return entry[dropdownFilter.dataField] === formValue;
+                    return formValue === undefined || formValue === null || formValue === '' || entry[dropdownFilter.dataField] === formValue;
                 }));
                 const values = filtered.map(entry => new DropdownValue<unknown>(entry[dropdown.valueField], this.format(entry, dropdown.textField, dropdown.textFieldFormatter)));
                 return [
@@ -152,10 +149,11 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
         let changed = false;
         for (const field of this.filterFields) {
             const value = this.data()[field];
-            if (this.lastFilterValues.get(field) !== value) {
-                this.lastFilterValues.set(field, value);
-                changed = true;
+            if (this.lastFilterValues.get(field) === value) {
+                continue;
             }
+            this.lastFilterValues.set(field, value);
+            changed = true;
         }
         if (changed) {
             this.filterTick.next();
@@ -182,10 +180,11 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
             const matches = fieldFormatter.matchAll(/[^$]*(?<var>\$+\d+)/gm);
             for (const match of matches) {
                 const variable = match?.groups?.['var'];
-                if (variable && !variable.startsWith('$$')) {
-                    const index = parseInt(variable.replace(/\$/g, ''));
-                    result = result.replace(variable, entry[field[index]] as string);
+                if (!variable || variable.startsWith('$$')) {
+                    continue;
                 }
+                const index = parseInt(variable.replace(/\$/g, ''));
+                result = result.replace(variable, entry[field[index]] as string);
             }
             return result;
         }

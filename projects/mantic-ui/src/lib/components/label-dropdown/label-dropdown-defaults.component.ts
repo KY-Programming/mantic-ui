@@ -18,17 +18,19 @@ export class LabelDropdownDefaultsComponent implements OnDestroy {
     public constructor() {
         effect(() => {
             const value = this.dropdownIcon();
-            if (value !== undefined) {
-                this.currentDropdownIcon = value;
-                LabelDropdownComponent.defaults.dropdownIcon.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentDropdownIcon = value;
+            LabelDropdownComponent.defaults.dropdownIcon.set(value);
         });
         effect(() => {
             const value = this.dropdownIconSize();
-            if (value !== undefined) {
-                this.currentDropdownIconSize = value;
-                LabelDropdownComponent.defaults.dropdownIconSize.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentDropdownIconSize = value;
+            LabelDropdownComponent.defaults.dropdownIconSize.set(value);
         });
     }
 

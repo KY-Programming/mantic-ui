@@ -25,31 +25,35 @@ export class DropdownDefaultsComponent implements OnDestroy {
     public constructor() {
         effect(() => {
             const value = this.dropdownIcon();
-            if (value !== undefined) {
-                this.currentDropdownIcon = value;
-                DropdownComponent.defaults.dropdownIcon.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentDropdownIcon = value;
+            DropdownComponent.defaults.dropdownIcon.set(value);
         });
         effect(() => {
             const value = this.dropdownIconSize();
-            if (value !== undefined) {
-                this.currentDropdownIconSize = value;
-                DropdownComponent.defaults.dropdownIconSize.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentDropdownIconSize = value;
+            DropdownComponent.defaults.dropdownIconSize.set(value);
         });
         effect(() => {
             const value = this.deleteIcon();
-            if (value !== undefined) {
-                this.currentDeleteIcon = value;
-                DropdownComponent.defaults.deleteIcon.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentDeleteIcon = value;
+            DropdownComponent.defaults.deleteIcon.set(value);
         });
         effect(() => {
             const value = this.deleteIconSize();
-            if (value !== undefined) {
-                this.currentDeleteIconSize = value;
-                DropdownComponent.defaults.deleteIconSize.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentDeleteIconSize = value;
+            DropdownComponent.defaults.deleteIconSize.set(value);
         });
         effect(() => {
             const value = this.inverted();

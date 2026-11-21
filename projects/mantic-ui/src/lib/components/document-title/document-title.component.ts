@@ -43,14 +43,15 @@ export class DocumentTitleComponent implements DoCheck, OnDestroy {
 
     public ngDoCheck(): void {
         const newValue = this.prefix + this.element.nativeElement.innerText + this.postfix;
-        if (newValue !== this.value) {
-            this.value = newValue;
-            if (this.previousTitle === undefined) {
-                this.previousTitle = this.titleService.getTitle();
-            }
-            this.title = this.value;
-            this.titleService.setTitle(this.title);
+        if (newValue === this.value) {
+            return;
         }
+        this.value = newValue;
+        if (this.previousTitle === undefined) {
+            this.previousTitle = this.titleService.getTitle();
+        }
+        this.title = this.value;
+        this.titleService.setTitle(this.title);
     }
 
     public ngOnDestroy(): void {

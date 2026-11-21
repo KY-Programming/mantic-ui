@@ -101,6 +101,8 @@ stock Semantic in four ways, all there:
 
 less 3+ no longer evaluates operations inside `calc()`, which the Semantic definitions were written for
 (see `site/elements/label.variables`): after an upgrade, grep the output for `--` inside `calc(`.
+less 4.9 deprecates variable names that start with a digit (`@1px`), which the upstream definitions use everywhere;
+the script skips that deprecation for the upstream packages only. less 5 removes those names, so it is no plain update.
 
 mantic's own SCSS layer (`projects/semantic-ui/src/lib/styles/overrides`, `circular-progress.scss`) is shared:
 the Fomantic theme `@use`s it by relative path, Sass inlines it at build time. `@ky/mantic` imports

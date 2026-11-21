@@ -44,7 +44,7 @@ export class FormElementRenderer2Component implements OnDestroy {
     public createComponent(): void {
         this.viewContainerRef.clear();
         const element = this.element();
-        if (!this.elementType || !element) {
+        if (!element || !this.elementType) {
             return;
         }
         this.componentRef = this.viewContainerRef.createComponent(this.elementType);

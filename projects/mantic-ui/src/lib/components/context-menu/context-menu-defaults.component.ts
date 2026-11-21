@@ -20,17 +20,19 @@ export class ContextMenuDefaultsComponent implements OnDestroy {
     public constructor() {
         effect(() => {
             const value = this.inverted();
-            if (value !== undefined) {
-                this.currentInverted = value;
-                ContextMenuComponent.defaults.inverted.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentInverted = value;
+            ContextMenuComponent.defaults.inverted.set(value);
         });
         effect(() => {
             const value = this.position();
-            if (value !== undefined) {
-                this.currentPosition = value;
-                ContextMenuComponent.defaults.position.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentPosition = value;
+            ContextMenuComponent.defaults.position.set(value);
         });
     }
 

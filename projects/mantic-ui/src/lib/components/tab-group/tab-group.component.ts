@@ -106,20 +106,17 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
             selectedTabName = selectedTabName.toLowerCase();
             found = this.tabs().find((tab, index) => {
                 const name = tab.name();
-                if (name) {
-                    return name.toLocaleLowerCase() === selectedTabName || selectedTabIndex === index;
-                }
-                return this.toName(tab.label()) === selectedTabName || selectedTabIndex === index;
+                return (name ? name.toLocaleLowerCase() : this.toName(tab.label())) === selectedTabName || selectedTabIndex === index;
             });
 
         }
         else {
             found = this.tabs().find((_, index) => index === selectedTabIndex) || this.tabs().find((_, index) => index === 0);
         }
-        if (found) {
-            const found2 = found;
-            setTimeout(() => this.activate(found2));
+        if (!found) {
+            return;
         }
+        setTimeout(() => this.activate(found));
     }
 
     protected activate(tab: TabComponent): void {
@@ -129,40 +126,41 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
         tab.changeState(true);
         // selectedIndex.set emits selectedIndexChange itself (model two-way semantics).
         this.selectedIndex.set(this.tabs().indexOf(tab));
-        if (this.isSelectByRoute()) {
-            const routeParameterName = this.routeParameterName();
-            const name = tab.name() || this.toName(tab.label());
-            const urlSegments = this.getActiveRouteSegments();
-            const segment = urlSegments.find(s => s.name === ':' + routeParameterName);
-            if (segment?.path === name) {
-                return;
-            }
-            if (segment) {
-                const replaceUrl = !segment.path;
-                segment.path = name;
-                void this.router.navigate(urlSegments.map(s => s.path), { replaceUrl });
-                return;
-            }
-            const activePath = urlSegments.map(segment => segment.name).join('/');
-            const parameters = [
-                ...urlSegments.filter(segment => segment.name.startsWith(':')).map(segment => segment.name.slice(1)),
-                routeParameterName
-            ];
-            const possibleRoutes = this.routes.filter(route => route.fullPath.startsWith(activePath) && parameters.every(parameter => route.parameters.includes(parameter)))
-                .sort((leftRoute, rightRoute) => leftRoute.parameters < rightRoute.parameters ? -1 : leftRoute.parameters > rightRoute.parameters ? 1 : 0);
-
-            if (possibleRoutes.length === 0) {
-                console.warn(`tab-group selectByRoute is set, but the route does not have a :${routeParameterName} parameter like { path: '/${urlSegments.map(s => s.path).join('/')}/:${routeParameterName}', component: ... }`);
-                return;
-            }
-            const route = possibleRoutes[0];
-            let fullPath = route.fullPath.replace(':' + routeParameterName, name);
-            for (const parameterName of route.parameters) {
-                const segmentValue = urlSegments.find(segment => segment.name === ':' + parameterName)?.path;
-                fullPath = fullPath.replace(':' + parameterName, segmentValue ?? '');
-            }
-            void this.router.navigate(['/' + fullPath], { replaceUrl: true });
+        if (!this.isSelectByRoute()) {
+            return;
         }
+        const routeParameterName = this.routeParameterName();
+        const name = tab.name() || this.toName(tab.label());
+        const urlSegments = this.getActiveRouteSegments();
+        const segment = urlSegments.find(s => s.name === ':' + routeParameterName);
+        if (segment?.path === name) {
+            return;
+        }
+        if (segment) {
+            const replaceUrl = !segment.path;
+            segment.path = name;
+            void this.router.navigate(urlSegments.map(s => s.path), { replaceUrl });
+            return;
+        }
+        const activePath = urlSegments.map(segment => segment.name).join('/');
+        const parameters = [
+            ...urlSegments.filter(segment => segment.name.startsWith(':')).map(segment => segment.name.slice(1)),
+            routeParameterName
+        ];
+        const possibleRoutes = this.routes.filter(route => route.fullPath.startsWith(activePath) && parameters.every(parameter => route.parameters.includes(parameter)))
+            .sort((leftRoute, rightRoute) => leftRoute.parameters < rightRoute.parameters ? -1 : leftRoute.parameters > rightRoute.parameters ? 1 : 0);
+
+        if (possibleRoutes.length === 0) {
+            console.warn(`tab-group selectByRoute is set, but the route does not have a :${routeParameterName} parameter like { path: '/${urlSegments.map(s => s.path).join('/')}/:${routeParameterName}', component: ... }`);
+            return;
+        }
+        const route = possibleRoutes[0];
+        let fullPath = route.fullPath.replace(':' + routeParameterName, name);
+        for (const parameterName of route.parameters) {
+            const segmentValue = urlSegments.find(segment => segment.name === ':' + parameterName)?.path;
+            fullPath = fullPath.replace(':' + parameterName, segmentValue ?? '');
+        }
+        void this.router.navigate(['/' + fullPath], { replaceUrl: true });
     }
 
     private toName(value: string | undefined): string {

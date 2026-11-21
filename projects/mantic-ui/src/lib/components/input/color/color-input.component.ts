@@ -223,29 +223,32 @@ export class ColorInputComponent extends InputBaseComponent {
 
     protected onAreaPointer(event: PointerEvent): void {
         const element = this.capture(event);
-        if (element) {
-            const rect = element.getBoundingClientRect();
-            this.pick({
-                s: this.ratio(event.clientX - rect.left, rect.width),
-                v: 1 - this.ratio(event.clientY - rect.top, rect.height)
-            });
+        if (!element) {
+            return;
         }
+        const rect = element.getBoundingClientRect();
+        this.pick({
+            s: this.ratio(event.clientX - rect.left, rect.width),
+            v: 1 - this.ratio(event.clientY - rect.top, rect.height)
+        });
     }
 
     protected onHuePointer(event: PointerEvent): void {
         const element = this.capture(event);
-        if (element) {
-            const rect = element.getBoundingClientRect();
-            this.pick({ h: Math.min(359, this.ratio(event.clientX - rect.left, rect.width) * 360) });
+        if (!element) {
+            return;
         }
+        const rect = element.getBoundingClientRect();
+        this.pick({ h: Math.min(359, this.ratio(event.clientX - rect.left, rect.width) * 360) });
     }
 
     protected onAlphaPointer(event: PointerEvent): void {
         const element = this.capture(event);
-        if (element) {
-            const rect = element.getBoundingClientRect();
-            this.pick({ a: Math.round(this.ratio(event.clientX - rect.left, rect.width) * 100) / 100 });
+        if (!element) {
+            return;
         }
+        const rect = element.getBoundingClientRect();
+        this.pick({ a: Math.round(this.ratio(event.clientX - rect.left, rect.width) * 100) / 100 });
     }
 
     protected onAreaKey(event: KeyboardEvent): void {

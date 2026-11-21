@@ -85,17 +85,19 @@ export class TextareaComponent extends InvertibleComponent {
         // Push disabled/readonly onto the native element whenever they or the element change.
         effect(() => {
             const textarea = this.activeTextarea()?.nativeElement;
-            if (textarea) {
-                textarea.disabled = this.disabled();
-                textarea.readOnly = this.readonly();
+            if (!textarea) {
+                return;
             }
+            textarea.disabled = this.disabled();
+            textarea.readOnly = this.readonly();
         });
         effect(onCleanup => {
             const textarea = this.activeTextarea()?.nativeElement;
-            if (textarea) {
-                this.bindEvents(textarea);
-                onCleanup(() => this.unbindEvents(textarea));
+            if (!textarea) {
+                return;
             }
+            this.bindEvents(textarea);
+            onCleanup(() => this.unbindEvents(textarea));
         });
         // [value] flows into the shared state; [text] is guarded so an unbound alias can't clobber [value].
         effect(() => {

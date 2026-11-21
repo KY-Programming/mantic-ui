@@ -24,31 +24,35 @@ export class FieldDefaultsComponent implements OnDestroy {
     public constructor() {
         effect(() => {
             const value = this.hintIcon();
-            if (value !== undefined) {
-                this.currentHintIcon = value;
-                FieldComponent.defaults.hintIcon.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentHintIcon = value;
+            FieldComponent.defaults.hintIcon.set(value);
         });
         effect(() => {
             const value = this.hintIconSize();
-            if (value !== undefined) {
-                this.currentHintIconSize = value;
-                FieldComponent.defaults.hintIconSize.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentHintIconSize = value;
+            FieldComponent.defaults.hintIconSize.set(value);
         });
         effect(() => {
             const value = this.errorIcon();
-            if (value !== undefined) {
-                this.currentErrorIcon = value;
-                FieldComponent.defaults.errorIcon.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentErrorIcon = value;
+            FieldComponent.defaults.errorIcon.set(value);
         });
         effect(() => {
             const value = this.errorIconSize();
-            if (value !== undefined) {
-                this.currentErrorIconSize = value;
-                FieldComponent.defaults.errorIconSize.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentErrorIconSize = value;
+            FieldComponent.defaults.errorIconSize.set(value);
         });
     }
 

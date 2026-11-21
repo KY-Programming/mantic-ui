@@ -16,17 +16,19 @@ export class SegmentDefaultsComponent implements OnDestroy {
     public constructor() {
         effect(() => {
             const value = this.inverted();
-            if (value !== undefined) {
-                this.currentInverted = value;
-                SegmentComponent.defaults.inverted.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentInverted = value;
+            SegmentComponent.defaults.inverted.set(value);
         });
         effect(() => {
             const value = this.raised();
-            if (value !== undefined) {
-                this.currentRaised = value;
-                SegmentComponent.defaults.raised.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentRaised = value;
+            SegmentComponent.defaults.raised.set(value);
         });
     }
 

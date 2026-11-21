@@ -211,6 +211,7 @@ export class ChatComponent implements DoCheck {
             return;
         }
         // A click from the keyboard has no pointer position, the menu opens at the button then
+        // eslint-disable-next-line unicorn/prefer-ternary -- open() has an overload per target type, a ternary would pass the union
         if (event.detail > 0) {
             menu.open(event);
         }
@@ -236,7 +237,7 @@ export class ChatComponent implements DoCheck {
 
     protected onPaste(event: ClipboardEvent): void {
         const files = event.clipboardData?.files;
-        if (!this.canAttachImages() || !files || [...files].every(file => !file.type.startsWith('image/'))) {
+        if (!files || !this.canAttachImages() || [...files].every(file => !file.type.startsWith('image/'))) {
             return;
         }
         // Keep the browser from pasting the image's name (or nothing) into the text field

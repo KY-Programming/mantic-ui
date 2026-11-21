@@ -312,10 +312,11 @@ export class MarkdownParser {
         let firstParser: MarkdownInlineParser | undefined;
         for (const parser of this.inlineParsers) {
             const regexResult = parser.regex.exec(text);
-            if (regexResult && (!firstResult || regexResult.index <= firstResult.index)) {
-                firstResult = regexResult;
-                firstParser = parser;
+            if (!regexResult || (firstResult && regexResult.index > firstResult.index)) {
+                continue;
             }
+            firstResult = regexResult;
+            firstParser = parser;
         }
         if (firstResult && firstParser) {
             elements.push(...firstParser.factory(firstResult));

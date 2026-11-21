@@ -1,4 +1,3 @@
-
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FillDirective, FlexComponent, NotificationComponent } from '@mantic-ui/angular';

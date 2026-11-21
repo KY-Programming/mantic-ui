@@ -14,10 +14,11 @@ export class NotificationDefaultsComponent implements OnDestroy {
     public constructor() {
         effect(() => {
             const value = this.successIcon();
-            if (value !== undefined) {
-                this.currentSuccessIcon = value;
-                NotificationService.defaults.successIcon.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentSuccessIcon = value;
+            NotificationService.defaults.successIcon.set(value);
         });
     }
 

@@ -15,10 +15,11 @@ export class ModalDefaultsComponent implements OnDestroy {
     public constructor() {
         effect(() => {
             const value = this.closeIcon();
-            if (value !== undefined) {
-                this.currentCloseIcon = value;
-                ModalComponent.defaults.closeIcon.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentCloseIcon = value;
+            ModalComponent.defaults.closeIcon.set(value);
         });
         effect(() => {
             const value = this.inverted();

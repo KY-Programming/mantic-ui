@@ -25,31 +25,35 @@ export class CheckboxDefaultsComponent implements OnDestroy {
     public constructor() {
         effect(() => {
             const value = this.checkIcon();
-            if (value !== undefined) {
-                this.currentCheckIcon = value;
-                CheckboxComponent.defaults.checkIcon.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentCheckIcon = value;
+            CheckboxComponent.defaults.checkIcon.set(value);
         });
         effect(() => {
             const value = this.checkIconSize();
-            if (value !== undefined) {
-                this.currentCheckIconSize = value;
-                CheckboxComponent.defaults.checkIconSize.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentCheckIconSize = value;
+            CheckboxComponent.defaults.checkIconSize.set(value);
         });
         effect(() => {
             const value = this.indeterminateIcon();
-            if (value !== undefined) {
-                this.currentIndeterminateIcon = value;
-                CheckboxComponent.defaults.indeterminateIcon.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentIndeterminateIcon = value;
+            CheckboxComponent.defaults.indeterminateIcon.set(value);
         });
         effect(() => {
             const value = this.indeterminateIconSize();
-            if (value !== undefined) {
-                this.currentIndeterminateIconSize = value;
-                CheckboxComponent.defaults.indeterminateIconSize.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentIndeterminateIconSize = value;
+            CheckboxComponent.defaults.indeterminateIconSize.set(value);
         });
         effect(() => {
             const value = this.inverted();

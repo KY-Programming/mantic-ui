@@ -66,11 +66,12 @@ export class DateInputComponent extends InputBaseComponent implements OnInit {
             this.setInternalValue(value);
         }
         value = DateHelper.keepInRange(this.min(), value, this.max());
-        if (value !== this.value()) {
-            this.valueState.set(value);
-            this.valueChange.emit(this.value());
-            this.dateChange.emit(this.date());
+        if (value === this.value()) {
+            return;
         }
+        this.valueState.set(value);
+        this.valueChange.emit(this.value());
+        this.dateChange.emit(this.date());
     }
 
     // Mirrors the old `value` setter: normalise the display only when the value actually changes, then store it (without emitting).

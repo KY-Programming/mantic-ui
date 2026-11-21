@@ -15,10 +15,7 @@ export abstract class DateHelper {
     }
 
     public static sameDay(left: Date | undefined, right: Date | undefined): boolean {
-        if (!left || !right) {
-            return false;
-        }
-        return this.sameMonth(left, right) && left.getDate() === right.getDate();
+        return !!left && !!right && this.sameMonth(left, right) && left.getDate() === right.getDate();
     }
 
     public static sameWeek(left: Date | undefined, right: Date | undefined): boolean {
@@ -33,17 +30,11 @@ export abstract class DateHelper {
     }
 
     public static sameMonth(left: Date | undefined, right: Date | undefined): boolean {
-        if (!left || !right) {
-            return false;
-        }
-        return this.sameYear(left, right) && left.getMonth() === right.getMonth();
+        return !!left && !!right && this.sameYear(left, right) && left.getMonth() === right.getMonth();
     }
 
     public static sameYear(left: Date | undefined, right: Date | undefined): boolean {
-        if (!left || !right) {
-            return false;
-        }
-        return left.getFullYear() === right.getFullYear();
+        return !!left && !!right && left.getFullYear() === right.getFullYear();
     }
 
     public static today(): Date {

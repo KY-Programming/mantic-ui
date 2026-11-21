@@ -102,6 +102,7 @@ export class ComponentParser {
         for (const node of nodes) {
             container.content.append(this.replaceComponents(node, context));
         }
+        // eslint-disable-next-line unicorn/prefer-dom-node-html-methods -- Angular's sanitizer is the one that sanitizes here, it needs the raw markup
         const sanitized = context.sanitizer.sanitize(SecurityContext.HTML, container.innerHTML) ?? '';
         const result = document.importNode(this.parseInert(sanitized), true);
         const walker = document.createTreeWalker(result, NodeFilter.SHOW_TEXT);

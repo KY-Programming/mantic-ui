@@ -136,10 +136,7 @@ export class ContextMenuComponent extends BaseComponent implements AfterViewInit
     }
 
     protected onOutsideAction(event: ContextMenuEvent): void {
-        if (!this.isVisible()) {
-            return;
-        }
-        if (event.contextMenuTarget === this || (event as KeyboardEvent).key === 'F8') {
+        if (!this.isVisible() || event.contextMenuTarget === this || (event as KeyboardEvent).key === 'F8') {
             return;
         }
         const target = event.target instanceof Element ? event.target : undefined;

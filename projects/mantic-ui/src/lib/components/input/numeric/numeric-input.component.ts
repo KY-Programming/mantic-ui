@@ -60,7 +60,7 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
     public readonly number = computed(() => this.valueState() ?? this.default());
     protected readonly placeholderInternal = computed(() => {
         const zeroText = this.zeroText();
-        return this.value() === 0 && zeroText ? zeroText : this.placeholder() ?? '';
+        return zeroText && this.value() === 0 ? zeroText : this.placeholder() ?? '';
     });
     /**
      * How many characters the longest allowed value takes, once `min` and `max` bound it: sign and whole digits of the
@@ -85,12 +85,13 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
         inject(DestroyRef).onDestroy(() => this.stopStepping());
         effect(onCleanup => {
             const element = this.inputElement?.nativeElement;
-            if (element) {
-                const onWheel = (event: WheelEvent): void => this.onWheel(event, element);
-                // Not passive: a focused field takes the wheel away from the page
-                element.addEventListener('wheel', onWheel, { passive: false });
-                onCleanup(() => element.removeEventListener('wheel', onWheel));
+            if (!element) {
+                return;
             }
+            const onWheel = (event: WheelEvent): void => this.onWheel(event, element);
+            // Not passive: a focused field takes the wheel away from the page
+            element.addEventListener('wheel', onWheel, { passive: false });
+            onCleanup(() => element.removeEventListener('wheel', onWheel));
         });
         // [value] flows into the shared state (normalising the display); [number] is guarded so an unbound alias can't clobber [value].
         effect(() => {
@@ -118,11 +119,12 @@ export class NumericInputComponent extends InputBaseComponent implements OnInit 
         let value = typeof rawValue === 'string' ? rawValue !== '' ? parseFloat(rawValue) : undefined : rawValue ?? undefined;
         this.setInternalValue(value);
         value = value == undefined || Number.isNaN(value) ? undefined : Math2.keepInRange(this.min(), value, this.max());
-        if (value !== this.value()) {
-            this.valueState.set(value);
-            this.valueChange.emit(this.value());
-            this.numberChange.emit(this.number());
+        if (value === this.value()) {
+            return;
         }
+        this.valueState.set(value);
+        this.valueChange.emit(this.value());
+        this.numberChange.emit(this.number());
     }
 
     /** Steps once on press, then, while the button is held, repeatedly: after a pause, then quickly, until `min` / `max`. */

@@ -49,10 +49,11 @@ export class ToggleButtonComponent extends ButtonBaseComponent {
     }
 
     protected onKeyDown(event: KeyboardEvent): void {
-        if (Key.is(event, Key.space, Key.enter)) {
-            this.toggle();
-            event.preventDefault();
+        if (!Key.is(event, Key.space, Key.enter)) {
+            return;
         }
+        this.toggle();
+        event.preventDefault();
     }
 
     public check(): void {

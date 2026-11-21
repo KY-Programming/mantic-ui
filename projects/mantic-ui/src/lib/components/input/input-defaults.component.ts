@@ -23,24 +23,27 @@ export class InputDefaultsComponent implements OnDestroy {
     public constructor() {
         effect(() => {
             const value = this.readonlyIcon();
-            if (value !== undefined) {
-                this.currentReadonlyIcon = value;
-                InputBaseComponent.defaults.readonlyIcon.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentReadonlyIcon = value;
+            InputBaseComponent.defaults.readonlyIcon.set(value);
         });
         effect(() => {
             const value = this.readonlyText();
-            if (value !== undefined) {
-                this.currentReadonlyText = value;
-                InputBaseComponent.defaults.readonlyText.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentReadonlyText = value;
+            InputBaseComponent.defaults.readonlyText.set(value);
         });
         effect(() => {
             const value = this.hideReadonlyIcon();
-            if (value !== undefined) {
-                this.currentHideReadonlyIcon = value;
-                InputBaseComponent.defaults.hideReadonlyIcon.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentHideReadonlyIcon = value;
+            InputBaseComponent.defaults.hideReadonlyIcon.set(value);
         });
         effect(() => {
             const value = this.inverted();

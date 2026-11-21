@@ -21,24 +21,27 @@ export class ColorInputDefaultsComponent implements OnDestroy {
     public constructor() {
         effect(() => {
             const value = this.presets();
-            if (value !== undefined) {
-                this.currentPresets = value;
-                ColorInputComponent.defaults.presets.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentPresets = value;
+            ColorInputComponent.defaults.presets.set(value);
         });
         effect(() => {
             const value = this.pickText();
-            if (value !== undefined) {
-                this.currentPickText = value;
-                ColorInputComponent.defaults.pickText.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentPickText = value;
+            ColorInputComponent.defaults.pickText.set(value);
         });
         effect(() => {
             const value = this.transparentText();
-            if (value !== undefined) {
-                this.currentTransparentText = value;
-                ColorInputComponent.defaults.transparentText.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentTransparentText = value;
+            ColorInputComponent.defaults.transparentText.set(value);
         });
     }
 

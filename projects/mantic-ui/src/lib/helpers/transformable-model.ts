@@ -78,6 +78,7 @@ export const inheritableBooleanModel = (
     change: OutputEmitterRef<boolean>
 ): InheritableModel<boolean, BooleanLike> => {
     const inherited: WritableSignal<boolean> = signal(false);
+    // eslint-disable-next-line unicorn/consistent-boolean-name -- a model of a boolean, not a boolean
     const model = createModel<boolean, BooleanLike>(
         computed(() => source() || inherited()),
         change,

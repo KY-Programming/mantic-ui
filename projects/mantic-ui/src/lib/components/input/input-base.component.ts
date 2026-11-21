@@ -88,17 +88,19 @@ export abstract class InputBaseComponent extends LabeledBaseComponent {
         // Push disabled/readonly onto the native element whenever they or the element change.
         effect(() => {
             const input = this.activeInput()?.nativeElement;
-            if (input) {
-                input.disabled = this.disabled();
-                input.readOnly = this.readonly();
+            if (!input) {
+                return;
             }
+            input.disabled = this.disabled();
+            input.readOnly = this.readonly();
         });
         effect(onCleanup => {
             const input = this.activeInput()?.nativeElement;
-            if (input) {
-                this.bindEvents(input);
-                onCleanup(() => this.unbindEvents(input));
+            if (!input) {
+                return;
             }
+            this.bindEvents(input);
+            onCleanup(() => this.unbindEvents(input));
         });
         effect(() => {
             const input = this.activeInput()?.nativeElement;

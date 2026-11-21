@@ -43,7 +43,7 @@ export class TemplateComponent implements OnDestroy {
                 }
             });
         });
-        effect(() => this.visible.update(value => this.hidden() ? false : value));
+        effect(() => this.visible.update(value => !this.hidden() && value));
         effect(() => {
             const isVisible = this.visible();
             if (!this.template) {

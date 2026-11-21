@@ -1,4 +1,3 @@
-
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faRocket } from '@fortawesome/pro-solid-svg-icons';

@@ -17,8 +17,8 @@ export class ManticTitleStrategy extends TitleStrategy {
     public override updateTitle(snapshot: RouterStateSnapshot): void {
         const condition = this.configuration.conditions?.find(condition => this.matches(condition, snapshot.url));
         const title = this.buildTitle(snapshot);
-        const prefix = condition?.showPrefixOnFallback || this.configuration.showPrefixOnFallback || title ? condition?.prefix ?? this.configuration.prefix ?? '' : '';
-        const postfix = condition?.showPostfixOnFallback || this.configuration.showPostfixOnFallback || title ? condition?.postfix ?? this.configuration.postfix ?? '' : '';
+        const prefix = title || condition?.showPrefixOnFallback || this.configuration.showPrefixOnFallback ? condition?.prefix ?? this.configuration.prefix ?? '' : '';
+        const postfix = title || condition?.showPostfixOnFallback || this.configuration.showPostfixOnFallback ? condition?.postfix ?? this.configuration.postfix ?? '' : '';
         document.title = prefix + (title ?? condition?.fallback ?? this.configuration.fallback ?? '') + postfix;
     }
 
@@ -28,10 +28,7 @@ export class ManticTitleStrategy extends TitleStrategy {
     }
 
     private matches(condition: ManticTitleStrategyCondition, url: string): boolean {
-        if (typeof condition.condition === 'string') {
-            return url?.toLowerCase()?.startsWith(condition.condition);
-        }
-        return !!condition.condition.exec(url);
+        return typeof condition.condition === 'string' ? url?.toLowerCase()?.startsWith(condition.condition) : !!condition.condition.exec(url);
     }
 }
 

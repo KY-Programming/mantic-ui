@@ -55,12 +55,13 @@ export class InputComponent extends InputBaseComponent {
         effect(() => {
             const isColor = this.type() === 'color';
             this.isColor.set(isColor);
-            if (isColor) {
-                if (isDevMode()) {
-                    console.warn('<m-input type="color"> is deprecated, use <m-color-input> instead.', this.elementRef.nativeElement);
-                }
-                this.label.set({ position: signal<LabelPosition>('right') });
+            if (!isColor) {
+                return;
             }
+            if (isDevMode()) {
+                console.warn('<m-input type="color"> is deprecated, use <m-color-input> instead.', this.elementRef.nativeElement);
+            }
+            this.label.set({ position: signal<LabelPosition>('right') });
         });
     }
 

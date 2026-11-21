@@ -18,17 +18,19 @@ export class LayoutDefaultsComponent implements OnDestroy {
     public constructor() {
         effect(() => {
             const value = this.menuIcon();
-            if (value !== undefined) {
-                this.currentMenuIcon = value;
-                LayoutComponent.defaults.menuIcon.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentMenuIcon = value;
+            LayoutComponent.defaults.menuIcon.set(value);
         });
         effect(() => {
             const value = this.menuIconSize();
-            if (value !== undefined) {
-                this.currentMenuIconSize = value;
-                LayoutComponent.defaults.menuIconSize.set(value);
+            if (value === undefined) {
+                return;
             }
+            this.currentMenuIconSize = value;
+            LayoutComponent.defaults.menuIconSize.set(value);
         });
     }
 
