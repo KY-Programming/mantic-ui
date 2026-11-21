@@ -6,3 +6,6 @@
 @imagePath : '/assets/themes/default/assets/images';
 // Only used by the icon fonts, which go to m-semantic-ui-icons-local: relative to that component, so ng-packagr inlines them
 @fontPath  : '../../../assets/themes/default/assets/fonts';
+// Lato comes from m-semantic-ui-lato-local or, opted in, m-semantic-ui-lato-googleapi - never from site.css itself:
+// the import would bypass the local font, break the default CSP (font/style 'self') and send every visitor to Google
+@importGoogleFonts : false;
