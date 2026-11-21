@@ -46,6 +46,12 @@ const config: TSESLint.FlatConfig.ConfigArray = [
             'unicorn/consistent-class-member-ordering': 'off',
             // Handled by @typescript-eslint/member-ordering
             'unicorn/consistent-class-member-order': 'off',
+            // One-line JSDoc (`/** Text */`) is kept, the rule would force every doc comment onto three lines
+            'unicorn/single-line-block-comment-style': 'off',
+            // Multi-line JSDoc keeps its ` * ` prefix (the common JSDoc style the IDEs generate)
+            'unicorn/no-asterisk-prefix-in-documentation-comments': 'off',
+            // Has to be disabled because `input('', { transform: value => value ?? '' })` would not be allowed
+            'unicorn/prefer-default-parameters': 'off',
 
             // typescript-eslint
             '@typescript-eslint/no-explicit-any': ['warn', { 'fixToUnknown': true }],
