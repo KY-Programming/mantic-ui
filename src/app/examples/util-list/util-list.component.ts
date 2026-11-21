@@ -1,4 +1,5 @@
-import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy, inject } from '@angular/core';
+import { FrameworkService } from '../../services/framework.service';
 
 import { RouterLink } from '@angular/router';
 import { FillDirective, FlexDirective, HeaderDirective, SegmentComponent } from '@mantic-ui/angular';
@@ -11,6 +12,7 @@ import { FillDirective, FlexDirective, HeaderDirective, SegmentComponent } from 
     styleUrls: ['./util-list.component.scss']
 })
 export class UtilListExamplesComponent {
+    protected readonly prefix = inject(FrameworkService).prefix;
 
     @HostBinding('class.component-grid')
     public readonly host = true;

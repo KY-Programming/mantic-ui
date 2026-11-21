@@ -4,7 +4,7 @@
     <m-tab label="Examples">
         <m-example header="" description="">
             <m-info>These examples use a an <code>iframe</code>, to prevent content from sticking to the browser viewport.</m-info>
-            <m-example-frame src="iframe/semantic/layout"></m-example-frame>
+            <m-example-frame [src]="'/iframe' + prefix() + '/layout'"></m-example-frame>
         </m-example>
     </m-tab>
 </m-tab-group>

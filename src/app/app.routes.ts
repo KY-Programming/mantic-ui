@@ -23,7 +23,6 @@ import { FormExampleComponent } from './examples/form/form.component';
 import { GridExampleComponent } from './examples/grid/grid.component';
 import { HeaderExampleComponent } from './examples/header/header.component';
 import { IconExampleComponent } from './examples/icon/icon.component';
-import { SemanticIframeComponent } from './examples/iframe/iframe.component';
 import { InputExampleComponent } from './examples/input/input.component';
 import { SemanticLayoutIframeComponent } from './examples/layout/iframe/layout/layout.component';
 import { LayoutExampleComponent } from './examples/layout/layout.component';
@@ -136,6 +135,11 @@ export const sharedRoutes: Route[] = [
     { path: '**', redirectTo: 'components/' }
 ];
 
+const iframeRoutes: Route[] = [
+    { path: 'menu-fixed-1', component: SemanticMenuIframeFixed1Component },
+    { path: 'layout', component: SemanticLayoutIframeComponent }
+];
+
 export const routes: Routes = [
     {
         path: '', component: CommonLayoutComponent, children: [
@@ -162,17 +166,15 @@ export const routes: Routes = [
                     { path: 'theming', title: 'Theming', component: ManticThemingComponent },
                     ...sharedRoutes
                 ]
-            },
-            {
-                path: 'iframe', children: [
-                    {
-                        path: '', component: SemanticIframeComponent, children: [
-                            { path: 'menu-fixed-1', component: SemanticMenuIframeFixed1Component },
-                            { path: 'layout', component: SemanticLayoutIframeComponent }
-                        ]
-                    }
-                ]
             }
+        ]
+    },
+    {
+        // Rendered inside an <iframe> of the examples: the framework layout brings the theme, but no navigation
+        path: 'iframe', children: [
+            { path: 'semantic', component: SemanticLayoutComponent, children: iframeRoutes },
+            { path: 'fomantic', component: FomanticLayoutComponent, children: iframeRoutes },
+            { path: 'mantic', component: ManticLayoutComponent, children: iframeRoutes }
         ]
     },
     { path: 'test', title: 'Test', component: TestExampleComponent },

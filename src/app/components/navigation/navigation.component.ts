@@ -1,12 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Component, ChangeDetectionStrategy, effect, inject } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, FillComponent, FlexComponent, FlexDirective, IconComponent } from '@mantic-ui/angular';
 import { faChevronLeft } from '@fortawesome/pro-solid-svg-icons';
 import { setFavicon } from '../../helpers/favicon';
-
-type Framework = 'semantic' | 'fomantic' | 'mantic';
-const frameworkPattern = /^\/(semantic|fomantic|mantic)(\/|$)/;
+import { Framework, FrameworkService } from '../../services/framework.service';
 
 @Component({
     selector: 'app-navigation',
@@ -15,35 +12,19 @@ const frameworkPattern = /^\/(semantic|fomantic|mantic)(\/|$)/;
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent {
+    private readonly frameworkService = inject(FrameworkService);
     protected readonly faChevronLeft = faChevronLeft;
-    private static previous: string;
-    protected framework: Framework = 'fomantic';
-    protected prefix = '';
+    protected readonly framework = this.frameworkService.current;
+    protected readonly prefix = this.frameworkService.prefix;
     protected isMenuExpanded = true;
 
-    public constructor(
-        private readonly router: Router
-    ) { }
-
-    public ngOnInit(): void {
-        this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => this.refresh());
-        this.refresh();
+    public constructor() {
+        effect(() => setFavicon(`/assets/${this.framework()}.png`));
     }
 
-    private refresh(): void {
-        this.framework = (frameworkPattern.exec(this.router.url)?.[1] as Framework | undefined) ?? 'fomantic';
-        this.prefix = this.framework;
-        setFavicon(`/assets/${this.framework}.png`);
-        NavigationComponent.previous = '/' + this.prefix;
-    }
-
-    /** Full reload: the theme styles are global and must not mix */
     protected switchTo(framework: Framework): void {
-        const url = this.router.url;
-        const current = frameworkPattern.exec(url)?.[1];
-        const path = current ? url.slice(current.length + 1) : url;
-        globalThis.location.assign(`/${framework}${path}`);
+        this.frameworkService.switchTo(framework);
     }
 
     protected toggle(): void {

@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { FrameworkService } from '../../services/framework.service';
 import { RouterLink } from '@angular/router';
 import { InfoComponent, TabComponent, TabGroupComponent, TableComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, NpmComponent, NpmInstallComponent } from '@mantic-ui/angular-doc';
@@ -12,6 +13,8 @@ import { HeaderComponent } from '../../components/header/header.component';
     styleUrls: ['./license.component.scss']
 })
 export class LicenseComponent {
+    protected readonly prefix = inject(FrameworkService).prefix;
+
     public readonly angular = `{
   ...
   "scripts": {

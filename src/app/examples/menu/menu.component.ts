@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { FrameworkService } from '../../services/framework.service';
 
 import { HeaderComponent } from '../../components/header/header.component';
 import { HeaderDirective, IconComponent, InfoComponent, InputComponent, MenuComponent, MenuHeaderComponent, MenuItemComponent, MenuLinkComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
@@ -12,5 +13,5 @@ import { ExampleCodeComponent, ExampleComponent, ExampleFrameComponent } from '@
     styleUrls: ['./menu.component.scss']
 })
 export class MenuExampleComponent {
-
+    protected readonly prefix = inject(FrameworkService).prefix;
 }

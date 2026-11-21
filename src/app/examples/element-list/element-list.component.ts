@@ -1,4 +1,5 @@
-import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy, inject } from '@angular/core';
+import { FrameworkService } from '../../services/framework.service';
 
 import { HeaderDirective } from '../../../../projects/mantic-ui/src/lib/directives/header.directive';
 import { RouterLink } from '@angular/router';
@@ -12,6 +13,7 @@ import { ButtonComponent, CheckboxComponent, DropdownComponent, DropdownItemComp
     styleUrls: ['./element-list.component.scss']
 })
 export class ElementListExamplesComponent {
+    protected readonly prefix = inject(FrameworkService).prefix;
 
     @HostBinding('class.component-grid')
     public readonly host = true;

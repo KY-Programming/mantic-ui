@@ -1,5 +1,6 @@
 
-import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy, inject } from '@angular/core';
+import { FrameworkService } from '../../services/framework.service';
 import { RouterLink } from '@angular/router';
 import { DividerComponent, ExpanderComponent, FieldComponent, FillDirective, FlexComponent, FlexDirective, FormComponent, HeaderDirective, IconComponent, InputComponent, MenuComponent, MenuItemComponent, SegmentComponent, SubmitComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 
@@ -11,6 +12,7 @@ import { DividerComponent, ExpanderComponent, FieldComponent, FillDirective, Fle
     styleUrls: ['./layout-list.component.scss']
 })
 export class LayoutListExamplesComponent {
+    protected readonly prefix = inject(FrameworkService).prefix;
 
     @HostBinding('class.component-grid')
     public readonly host = true;

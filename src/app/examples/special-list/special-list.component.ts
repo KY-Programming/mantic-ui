@@ -1,4 +1,5 @@
-import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostBinding, ChangeDetectionStrategy, inject } from '@angular/core';
+import { FrameworkService } from '../../services/framework.service';
 
 import { RouterLink } from '@angular/router';
 import { ButtonComponent, ChatMessage, ChatMessageComponent, ContextMenuComponent, ContextMenuItemComponent, DimmerComponent, ErrorComponent, FillDirective, FlexDirective, HeaderDirective, InfoComponent, MessageComponent, ModalComponent, ModalFooterComponent, SegmentComponent, WarningComponent } from '@mantic-ui/angular';
@@ -11,6 +12,8 @@ import { ButtonComponent, ChatMessage, ChatMessageComponent, ContextMenuComponen
     styleUrls: ['./special-list.component.scss']
 })
 export class SpecialListExamplesComponent {
+    protected readonly prefix = inject(FrameworkService).prefix;
+
     public showDimmer = true;
     public showModal = false;
     public readonly chatMessages: ChatMessage[] = [

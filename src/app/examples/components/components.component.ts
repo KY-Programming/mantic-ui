@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { FrameworkService } from '../../services/framework.service';
 
 import { HeaderComponent } from '../../components/header/header.component';
 import { HeaderDirective, IconComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
@@ -17,5 +18,5 @@ import { UtilListExamplesComponent } from '../util-list/util-list.component';
     styleUrls: ['./components.component.scss']
 })
 export class ComponentExamplesComponent {
-
+    protected readonly prefix = inject(FrameworkService).prefix;
 }

@@ -83,6 +83,6 @@
         <p>To use the generated <code>3d-party-license.json</code> you can create a component like this:</p>
         <m-example-code [code]="angularComponent" [languages]="['ts']"></m-example-code>
         <m-info>Feel free to copy this code</m-info>
-        <p>We use these component at our <a routerLink="/semantic/credits">Credits</a> page </p>
+        <p>We use these component at our <a [routerLink]="[prefix(), 'credits']">Credits</a> page </p>
     </m-tab>
 </m-tab-group>

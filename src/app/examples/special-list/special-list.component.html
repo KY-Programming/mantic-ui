@@ -1,4 +1,4 @@
-<a routerLink="/semantic/chat" m-flex column class="element">
+<a [routerLink]="[prefix(), 'chat']" m-flex column class="element">
   <m-segment attached="top" class="no-overflow">
     <div class="chat-preview">
       @for (message of chatMessages; track message) {
@@ -11,7 +11,7 @@
     <p>A conversation with text and image messages</p>
   </m-segment>
 </a>
-<a routerLink="/semantic/context-menu" m-flex column class="element">
+<a [routerLink]="[prefix(), 'context-menu']" m-flex column class="element">
   <m-segment attached="top">
     <m-button (click)="prevent($event)">
       Click Me Right
@@ -25,7 +25,7 @@
     <p>A menu opened by right click</p>
   </m-segment>
 </a>
-<a routerLink="/semantic/dimmer" m-flex column class="element">
+<a [routerLink]="[prefix(), 'dimmer']" m-flex column class="element">
   <m-segment attached="top">
     @if (showDimmer) {
       <m-dimmer (click)="showDimmer = false; prevent($event)">
@@ -39,7 +39,7 @@
     <p>Hides distractions to focus attention on particular content</p>
   </m-segment>
 </a>
-<a routerLink="/semantic/markdown" m-flex column class="element">
+<a [routerLink]="[prefix(), 'markdown']" m-flex column class="element">
   <m-segment attached="top">
     <div class="markdown">
       <div class="header-1"># header</div>
@@ -53,7 +53,7 @@
     <p>Renders markdown text</p>
   </m-segment>
 </a>
-<a routerLink="/semantic/modal" m-flex column class="element">
+<a [routerLink]="[prefix(), 'modal']" m-flex column class="element">
   <m-segment attached="top">
     @if (showModal) {
       <m-modal (click)="showModal = false; prevent($event)" (close)="showModal = false">
@@ -70,7 +70,7 @@
     <p>Displays content that temporarily blocks interactions</p>
   </m-segment>
 </a>
-<a routerLink="/semantic/notification" m-flex column class="element">
+<a [routerLink]="[prefix(), 'notification']" m-flex column class="element">
   <m-segment attached="top" class="no-overflow">
     <div class="notifications">
       <m-info>Info</m-info>
