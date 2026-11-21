@@ -67,7 +67,7 @@
     }
 
     // In a grid that stacks, a vertical divider turns horizontal
-    @media (width < 768px) {
+    @media screen and (width < 768px) {
         :is(.ui.stackable.grid, .ui.grid .stackable.row) .ui.vertical.divider {
             position: static;
             flex-direction: row;

@@ -465,7 +465,7 @@ $aligns: (left: start, center: center, right: end);
     }
 
     // Stackable: on a narrow screen every row becomes a block of its cells (unless `unstackable`)
-    @media (width < 768px) {
+    @media screen and (width < 768px) {
         .ui.table:not(.unstackable) {
             :is(thead, tbody, tfoot, tr, th, td) {
                 display: block;

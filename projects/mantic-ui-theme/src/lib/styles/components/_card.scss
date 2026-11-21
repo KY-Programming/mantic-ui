@@ -268,7 +268,7 @@ $outline: 0 0 0 var(--m-border-width) var(--m-border);
     }
 
     // Narrow screens: column grids become two columns, then one (unless `unstackable` / not `stackable`)
-    @media (width < 768px) {
+    @media screen and (width < 768px) {
         .ui.stackable.cards {
             display: flex;
             flex-direction: column;

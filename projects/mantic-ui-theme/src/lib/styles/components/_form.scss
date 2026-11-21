@@ -239,7 +239,7 @@ $control: ':where(textarea, input:is(:not([type]), [type="date"], [type="datetim
     }
 
     // On a narrow screen the fields of a group go below each other
-    @media (width < 768px) {
+    @media screen and (width < 768px) {
         .ui.form:not(.unstackable) .fields:not(.unstackable, .inline, .grouped) {
             flex-direction: column;
 
