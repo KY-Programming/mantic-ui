@@ -513,7 +513,7 @@ async function main() {
     console.log('');
     if (!fetchTags()) {
         console.error('\x1b[31mgit fetch (tags) failed — can\'t reliably check existing tags. No tag created.\x1b[0m');
-        return;
+        process.exit(1);
     }
     const relChangedFiles = changedFiles.map(f => path.relative(rootDir, f));
     if (relChangedFiles.length > 0 && gitCapture(['status', '--porcelain', '--', ...relChangedFiles]).out.trim().length > 0) {
@@ -522,21 +522,21 @@ async function main() {
 
     if (!pushBranch()) {
         console.error('\x1b[31mgit push (branch) failed — reconcile with origin, then re-run. No tag created.\x1b[0m');
-        return;
+        process.exit(1);
     }
 
     const releaseVersion = packages[0].nextVersion;
     const tag = groupKey + '-v' + releaseVersion;
-    if (!ensureTag(tag, groupKey + ' ' + releaseVersion)) return;
+    if (!ensureTag(tag, groupKey + ' ' + releaseVersion)) process.exit(1);
     if (!pushTag(tag)) {
         console.error('\x1b[31mgit push (tag) failed.\x1b[0m');
-        return;
+        process.exit(1);
     }
 
     // ---- release --------------------------------------------------------------
 
     console.log('');
-    if (!checkGhCli()) return;
+    if (!checkGhCli()) process.exit(1);
 
     if (spawnSync('gh', ['release', 'view', tag], { cwd: rootDir, stdio: 'ignore' }).status === 0) {
         console.log('\x1b[2mskip    release ' + tag + ' (already exists)\x1b[0m');
@@ -569,6 +569,7 @@ async function main() {
         console.log('\x1b[32m√\x1b[0m released ' + tag);
     } else {
         console.error('\x1b[31mfailed to create release ' + tag + '\x1b[0m');
+        process.exit(1);
     }
 }
 
