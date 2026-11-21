@@ -17,7 +17,7 @@ export class SpecialListExamplesComponent {
     public showModal = false;
     public readonly chatMessages: ChatMessage[] = [
         { direction: 'in', sender: 'Jenny', text: 'Hi, how is it going?' },
-        { direction: 'out', sender: 'You', text: '', grouped: true, images: [{ url: 'assets/images/avatar/small/matt.jpg', name: 'matt.jpg' }] }
+        { direction: 'out', sender: 'You', text: '', grouped: true, images: [{ url: 'images/avatar/small/matt.jpg', name: 'matt.jpg' }] }
     ];
 
     @HostBinding('class.component-grid')

@@ -178,7 +178,7 @@ export class GridExampleComponent {
       </m-cell>
       <m-cell size="6">
           <m-segment>
-              <img src="./assets/images/image.png" height="145">
+              <img src="./images/image.png" height="145">
           </m-segment>
       </m-cell>
       <m-cell>
@@ -193,7 +193,7 @@ export class GridExampleComponent {
       </m-cell>
       <m-cell size="6">
           <m-segment>
-              <img src="./assets/images/image.png" height="145">
+              <img src="./images/image.png" height="145">
           </m-segment>
       </m-cell>
       <m-cell>

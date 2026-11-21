@@ -19,7 +19,7 @@ export class NavigationComponent {
     protected isMenuExpanded = true;
 
     public constructor() {
-        effect(() => setFavicon(`/assets/${this.framework()}.png`));
+        effect(() => setFavicon(`/${this.framework()}.svg`));
     }
 
     protected switchTo(framework: Framework): void {

@@ -16,7 +16,7 @@ export class IntroComponent implements OnInit {
     public readonly version = signal('?.?.?');
 
     public constructor() {
-        setFavicon('/assets/mantic.png');
+        setFavicon('/mantic.svg');
     }
 
     public ngOnInit(): void {

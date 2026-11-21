@@ -53,7 +53,10 @@
                 "input": "./projects/semantic-ui/assets",
                 "output": "/assets/"
               },
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
             ],
             "styles": [
               "projects/mantic-ui-theme/src/lib/styles/lato.scss",
@@ -143,13 +146,6 @@
             }
           },
           "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "projects/fomantic-ui/tsconfig.spec.json",
-            "polyfills": []
-          }
         }
       }
     },
@@ -200,13 +196,6 @@
             }
           },
           "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "projects/mantic-ui/tsconfig.spec.json",
-            "polyfills": []
-          }
         }
       }
     },
@@ -257,13 +246,6 @@
             }
           },
           "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "projects/semantic-ui/tsconfig.spec.json",
-            "polyfills": []
-          }
         }
       }
     },
@@ -314,13 +296,6 @@
             }
           },
           "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "projects/mantic-ui-theme/tsconfig.spec.json",
-            "polyfills": []
-          }
         }
       }
     },
@@ -371,13 +346,6 @@
             }
           },
           "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "projects/mantic-ui-doc/tsconfig.spec.json",
-            "polyfills": []
-          }
         }
       }
     },
@@ -398,13 +366,6 @@
             }
           },
           "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "projects/eslint-config/tsconfig.spec.json",
-            "polyfills": []
-          }
         }
       }
     }

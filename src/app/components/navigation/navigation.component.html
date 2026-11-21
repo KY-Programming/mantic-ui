@@ -5,7 +5,7 @@
 <m-flex column class="ui vertical inverted menu" [class.expanded]="isMenuExpanded">
     <a class="item" routerLink="/">
     <span class="ui logo icon image">
-      <img src="/assets/mantic.png" alt="mantic">
+      <img src="/mantic.svg" alt="mantic">
     </span>
         <span><b>mantic UI</b></span>
     </a>
@@ -13,19 +13,19 @@
         @switch (framework()) {
             @case ('semantic') {
                 <span class="ui logo icon image">
-                    <img src="/assets/semantic.png" alt="semantic">
+                    <img src="/semantic.svg" alt="semantic">
                 </span>
                 <span><b>Semantic UI Angular</b></span>
             }
             @case ('mantic') {
                 <span class="ui logo icon image">
-                    <img src="/assets/mantic.png" alt="mantic">
+                    <img src="/mantic.svg" alt="mantic">
                 </span>
                 <span><b>mantic UI Theme</b></span>
             }
             @default {
                 <span class="ui logo icon image">
-                    <img src="/assets/fomantic.png" alt="fomantic">
+                    <img src="/fomantic.svg" alt="fomantic">
                 </span>
                 <span><b>Fomantic UI Angular</b></span>
             }

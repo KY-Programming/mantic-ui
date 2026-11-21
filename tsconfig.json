@@ -28,15 +28,14 @@
         "noPropertyAccessFromIndexSignature": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
-        "esModuleInterop": true,
         "sourceMap": true,
         "declaration": false,
+        "isolatedModules": true,
+        "skipLibCheck": true,
         "experimentalDecorators": true,
-        "moduleResolution": "bundler",
         "importHelpers": true,
         "target": "ES2022",
-        "module": "ES2022",
-        "useDefineForClassFields": false
+        "module": "preserve"
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
@@ -46,9 +45,6 @@
     "references": [
       {
         "path": "./projects/eslint-config/tsconfig.lib.json"
-      },
-      {
-        "path": "./projects/eslint-config/tsconfig.spec.json"
       }
     ]
 }

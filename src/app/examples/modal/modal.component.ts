@@ -41,7 +41,7 @@ export class ModalExampleComponent {
         Profile Picture
       </m-modal-header>
       <div class="ui medium image">
-        <img src="/assets/images/avatar/large/rachel.png">
+        <img src="/images/avatar/large/rachel.png">
       </div>
       <div class="description">
         <div class="ui header">We've auto-chosen a profile image for you.</div>

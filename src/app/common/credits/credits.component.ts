@@ -16,7 +16,7 @@ export class CreditsComponent implements OnInit {
     protected readonly licenses = signal<IterableLicenses | undefined>(undefined);
 
     public ngOnInit(): void {
-        this.http.get<Licenses>('./assets/3d-party-licenses.json').subscribe(licenses => {
+        this.http.get<Licenses>('./3d-party-licenses.json').subscribe(licenses => {
             this.licenses.set(new IterableLicenses(licenses));
         });
     }

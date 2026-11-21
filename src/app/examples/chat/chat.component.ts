@@ -23,7 +23,7 @@ export class ChatExampleComponent implements OnInit {
 // screenshotMaxSize and photoMaxSize/-Quality override them for screenshots and photos;
 // screenshotQuality defaults to 1 (lossless WebP), independent of imageQuality.
 public async attachSample(chat: ChatComponent): Promise<void> {
-    const response = await fetch('assets/images/avatar/small/jenny.jpg');
+    const response = await fetch('images/avatar/small/jenny.jpg');
     const blob = await response.blob();
     await chat.attach([new File([blob], 'jenny.jpg', { type: blob.type })]);
 }`;
@@ -32,15 +32,15 @@ public async attachSample(chat: ChatComponent): Promise<void> {
         this.messages.push(
             { direction: 'in', sender: 'Someone', text: 'Some incoming message' },
             { direction: 'out', sender: 'You', text: 'Some message from you' },
-            { direction: 'in', sender: 'Jenny', text: 'A message with a picture of its sender', image: 'assets/images/avatar/small/jenny.jpg' },
-            { direction: 'in', sender: 'Jenny', text: 'A grouped message keeps the picture\'s space free', image: 'assets/images/avatar/small/jenny.jpg', grouped: true },
-            { direction: 'out', sender: 'You', text: 'Your own picture is on the right', image: 'assets/images/avatar/small/matt.jpg' },
-            { direction: 'in', sender: 'Someone', text: 'A message with an image', images: [{ url: 'assets/images/avatar/large/rachel.png', name: 'rachel.png', width: 800, height: 800 }] }
+            { direction: 'in', sender: 'Jenny', text: 'A message with a picture of its sender', image: 'images/avatar/small/jenny.jpg' },
+            { direction: 'in', sender: 'Jenny', text: 'A grouped message keeps the picture\'s space free', image: 'images/avatar/small/jenny.jpg', grouped: true },
+            { direction: 'out', sender: 'You', text: 'Your own picture is on the right', image: 'images/avatar/small/matt.jpg' },
+            { direction: 'in', sender: 'Someone', text: 'A message with an image', images: [{ url: 'images/avatar/large/rachel.png', name: 'rachel.png', width: 800, height: 800 }] }
         );
     }
 
     public async attachSample(chat: ChatComponent): Promise<void> {
-        const response = await fetch('assets/images/avatar/small/jenny.jpg');
+        const response = await fetch('images/avatar/small/jenny.jpg');
         const blob = await response.blob();
         await chat.attach([new File([blob], 'jenny.jpg', { type: blob.type })]);
     }

@@ -65,7 +65,7 @@ export class CreditsComponent {
     ) {}
 
     public ngOnInit(): void {
-        this.http.get<Licenses>('./assets/3d-party-licenses.json').subscribe(licenses => {
+        this.http.get<Licenses>('./3d-party-licenses.json').subscribe(licenses => {
             this.licenses = new IterableLicenses(licenses);
             this.isLoading = false;
         });
