@@ -1,8 +1,7 @@
 /*!
- * Lato 2.0 (Latin: all of Western Europe incl. German, plus the common punctuation, € and ™), self-hosted and inlined at
- * build time. Latin Extended (Central and Eastern Europe, e.g. ł č ő) is in m-mantic-lato-ext-local, as the fonts are
- * inlined and every embedded face is downloaded with the app. Characters outside the loaded parts fall back to the
- * next font of --m-font-family. Font: Lato by Łukasz Dziedzic, SIL OFL 1.1, see ../fonts/LICENSE_Lato.txt
+ * Lato 2.0, Latin part (all of Western Europe incl. German, plus the common punctuation, € and ™). Latin Extended is in
+ * _lato-latin-ext.scss. Characters outside the loaded parts fall back to the next font of --m-font-family.
+ * Font: Lato by Łukasz Dziedzic, SIL OFL 1.1, see ../fonts/LICENSE_Lato.txt
  */
 
 @font-face {

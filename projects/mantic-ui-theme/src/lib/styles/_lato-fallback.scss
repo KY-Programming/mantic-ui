@@ -1,0 +1,50 @@
+// Arial scaled to the metrics of Lato. It is the second font of --m-font-family, so the text shown until Lato has loaded
+// (font-display: swap) takes about the space Lato will take and the page barely shifts when Lato swaps in.
+// One face per style: a single face would be stretched over every weight and render bold text in regular Arial.
+// Measured against the Lato files of ../fonts and Windows' Arial: size-adjust is the ratio of the average advance width
+// over typical German and English text, the overrides are Lato's hhea ascent/descent/line gap divided by it.
+// Re-measure when the Lato files change.
+
+@font-face {
+    font-family: 'Lato Fallback';
+    src: local('Arial'), local('ArialMT');
+    font-style: normal;
+    font-weight: 400;
+    size-adjust: 99.25%;
+    ascent-override: 99.45%;
+    descent-override: 21.46%;
+    line-gap-override: 0%;
+}
+
+@font-face {
+    font-family: 'Lato Fallback';
+    src: local('Arial Italic'), local('Arial-ItalicMT');
+    font-style: italic;
+    font-weight: 400;
+    size-adjust: 93.48%;
+    ascent-override: 105.59%;
+    descent-override: 22.79%;
+    line-gap-override: 0%;
+}
+
+@font-face {
+    font-family: 'Lato Fallback';
+    src: local('Arial Bold'), local('Arial-BoldMT');
+    font-style: normal;
+    font-weight: 700;
+    size-adjust: 93.61%;
+    ascent-override: 105.44%;
+    descent-override: 22.75%;
+    line-gap-override: 0%;
+}
+
+@font-face {
+    font-family: 'Lato Fallback';
+    src: local('Arial Bold Italic'), local('Arial-BoldItalicMT');
+    font-style: italic;
+    font-weight: 700;
+    size-adjust: 88.43%;
+    ascent-override: 111.61%;
+    descent-override: 24.09%;
+    line-gap-override: 0%;
+}

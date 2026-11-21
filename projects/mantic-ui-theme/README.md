@@ -19,11 +19,11 @@ npm i @mantic-ui/angular @mantic-ui/theme
 ## Usage
 
 ````ts
-import { ManticIconsLocalComponent, ManticLatoLocalComponent, ManticResetComponent, ManticSiteComponent, ManticThemeComponent } from '@mantic-ui/theme';
+import { ManticResetComponent, ManticSiteComponent, ManticThemeComponent } from '@mantic-ui/theme';
 
 @Component({
     selector: 'app-root',
-    imports: [ManticThemeComponent, ManticResetComponent, ManticSiteComponent, ManticLatoLocalComponent, ManticIconsLocalComponent],
+    imports: [ManticThemeComponent, ManticResetComponent, ManticSiteComponent],
     templateUrl: './app.component.html'
 })
 export class AppComponent {}
@@ -36,18 +36,38 @@ export class AppComponent {}
     <m-mantic-reset />
     <!-- Page colors, typography, links, focus and selection -->
     <m-mantic-site />
-    <!-- Self-hosted Lato font, Latin (Western Europe incl. German). Add <m-mantic-lato-ext-local /> for
-         Central and Eastern European characters (ł č ő …) -->
-    <m-mantic-lato-local />
-    <!-- Self-hosted icon font for icon names (not needed when you only use Font Awesome) -->
-    <m-mantic-icons-local />
 </m-mantic-theme>
 ````
 
-Icons work with names (`<m-icon icon="home" />`, needs `m-mantic-icons-local`) and with Font Awesome icon definitions
+The fonts are stylesheets for the global styles of the app:
+
+````jsonc
+// angular.json
+"styles": [
+    // Self-hosted Lato (Latin and Latin Extended)
+    "@mantic-ui/theme/styles/lato.scss",
+    // Icon font for icon names (not needed when you only use Font Awesome)
+    "@mantic-ui/theme/styles/icons.scss",
+    // Brand icons like "github"
+    "@mantic-ui/theme/styles/brand-icons.scss",
+    "src/styles.scss"
+]
+````
+
+`@use '@mantic-ui/theme/styles/lato';` in `src/styles.scss` works as well. The Angular builder emits the fonts as files
+of their own, hashed and with relative URLs: they work behind any base href, nothing has to be copied to the assets, they
+stay cached across releases, and the browser only downloads the faces a page renders (italic only for italic text,
+Latin Extended only for characters like ł č ő). Until Lato has loaded, the text shows Arial scaled to Lato's metrics, so
+the page barely shifts when Lato swaps in. Preloading `Lato-Regular-latin` and `Lato-Bold-latin` (from the build output's
+`media` folder) in `index.html` lets the first render use Lato right away.
+
+Icons work with names (`<m-icon icon="home" />`, needs `icons.scss`) and with Font Awesome icon definitions
 (`<m-icon [icon]="faHome" />`), both share the same size, spacing and variants. Brand icons (`icon="github"`) need
-`m-mantic-brand-icons-local` in addition. The fonts are inlined into the components, so they work behind any base href
-and nothing has to be copied to the assets.
+`brand-icons.scss` in addition.
+
+The components `m-mantic-lato-local`, `m-mantic-lato-ext-local`, `m-mantic-icons-local` and `m-mantic-brand-icons-local`
+are deprecated: they inline the fonts into the component styles, which puts them into `main.js` and makes every release
+download them again.
 
 ## Runtime theming
 

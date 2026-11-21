@@ -6,6 +6,13 @@
     <h3>Import the theme components in your AppComponent</h3>
     <m-example-code label="app.component.ts" [code]="appComponentCode" [languages]="['ts']" />
     <m-example-code label="app.component.html" [code]="appComponentHtml" [languages]="['html']" />
+    <h3>Add the fonts to the global styles</h3>
+    <p>
+        The Lato and icon fonts are stylesheets of their own. Listed in the global styles, the Angular builder emits the
+        fonts as separate, hashed files with relative URLs: they work behind any base href, stay cached across releases
+        and the browser only downloads the faces a page uses.
+    </p>
+    <m-example-code label="angular.json" [code]="angularJsonCode" [languages]="['json']" />
 
     <h3>Adjust the theme at runtime</h3>
     <p>

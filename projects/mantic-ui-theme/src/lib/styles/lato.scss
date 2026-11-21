@@ -1,0 +1,7 @@
+// Self-hosted Lato, meant for the global styles of the app (angular.json "styles" or @use from styles.scss). The Angular
+// builder emits the fonts as their own hashed files next to the stylesheet, with relative URLs, so they work behind any
+// base href and stay cached across releases. The browser only downloads the faces the page renders: unicode-range keeps
+// Latin Extended away from pages without such characters, and italic is only fetched for italic text.
+@use 'lato-latin';
+@use 'lato-latin-ext';
+@use 'lato-fallback';

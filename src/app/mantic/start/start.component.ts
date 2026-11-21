@@ -10,11 +10,11 @@ import { ExampleCodeComponent, NpmInstallComponent } from '@mantic-ui/angular-do
     styleUrls: ['./start.component.scss']
 })
 export class ManticStartComponent {
-    protected readonly appComponentCode = `import { ManticIconsLocalComponent, ManticLatoLocalComponent, ManticResetComponent, ManticSiteComponent, ManticThemeComponent } from '@mantic-ui/theme';
+    protected readonly appComponentCode = `import { ManticResetComponent, ManticSiteComponent, ManticThemeComponent } from '@mantic-ui/theme';
 
 @Component({
     selector: 'app-root',
-    imports: [ManticThemeComponent, ManticResetComponent, ManticSiteComponent, ManticLatoLocalComponent, ManticIconsLocalComponent],
+    imports: [ManticThemeComponent, ManticResetComponent, ManticSiteComponent],
     templateUrl: './app.component.html'
 })
 export class AppComponent {}`;
@@ -25,12 +25,17 @@ export class AppComponent {}`;
     <m-mantic-reset />
     <!-- Page colors, typography, links, focus and selection -->
     <m-mantic-site />
-    <!-- Self-hosted Lato font (Latin subset) -->
-    <m-mantic-lato-local />
-    <!-- Self-hosted icon font for icon names (not needed when you only use Font Awesome) -->
-    <m-mantic-icons-local />
-    <!-- Add <m-mantic-brand-icons-local /> for brand icons like "github" -->
 </m-mantic-theme>`;
+
+    protected readonly angularJsonCode = `"styles": [
+    // Self-hosted Lato (Latin and Latin Extended)
+    "@mantic-ui/theme/styles/lato.scss",
+    // Icon font for icon names (not needed when you only use Font Awesome)
+    "@mantic-ui/theme/styles/icons.scss",
+    // Brand icons like "github"
+    "@mantic-ui/theme/styles/brand-icons.scss",
+    "src/styles.scss"
+]`;
 
     protected readonly runtimeCode = `import { ThemeTokenService } from '@mantic-ui/theme';
 

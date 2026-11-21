@@ -9,6 +9,11 @@
             "input": "src/lib/styles",
             "glob": "**/*",
             "output": "styles"
+        },
+        {
+            "input": "src/lib/fonts",
+            "glob": "**/*",
+            "output": "fonts"
         }
     ]
 }
