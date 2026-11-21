@@ -171,13 +171,13 @@ export class TabGroupComponent extends InvertibleComponent implements OnInit, Af
         const segments: NamedUrlSegment[] = [];
         let current: ActivatedRoute | null = this.route;
         do {
-            if (current?.snapshot?.routeConfig) {
+            if (current.snapshot.routeConfig) {
                 const names = current.routeConfig?.path?.split('/').reverse();
                 for (const segment of [...current.snapshot.url].reverse()) {
                     segments.unshift(new NamedUrlSegment(names?.shift() ?? '', segment));
                 }
             }
-            current = current?.parent;
+            current = current.parent;
         }
         while (current);
         return segments;

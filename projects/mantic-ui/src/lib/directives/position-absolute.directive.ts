@@ -1,9 +1,11 @@
-import { AfterViewInit, Directive, ElementRef, OnDestroy, input } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, OnDestroy, input, inject } from '@angular/core';
 
 @Directive({
     selector: '[m-position-absolute]',
     })
 export class PositionAbsoluteDirective implements AfterViewInit, OnDestroy {
+    private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
     private readonly observer = new MutationObserver(() => this.refresh());
     private parent: HTMLElement | undefined;
 
@@ -14,10 +16,6 @@ export class PositionAbsoluteDirective implements AfterViewInit, OnDestroy {
     public readonly parentWidth = input<'none' | 'exact' | 'min' | 'max'>('none');
 
     public readonly minLeft = input<number | 'parent-left' | 'parent-center' | 'parent-right'>();
-
-    public constructor(
-        private readonly elementRef: ElementRef<HTMLElement>
-    ) {}
 
     public ngAfterViewInit(): void {
         this.parent = this.elementRef.nativeElement.parentElement ?? undefined;
@@ -133,16 +131,16 @@ export class PositionAbsoluteDirective implements AfterViewInit, OnDestroy {
 
     private setWidth(width: number): void {
         const style = this.elementRef.nativeElement.style;
-        style.width = width === undefined ? '' : width + 'px';
+        style.width = width + 'px';
     }
 
     private setMinWidth(width: number): void {
         const style = this.elementRef.nativeElement.style;
-        style.minWidth = width === undefined ? '' : width + 'px';
+        style.minWidth = width + 'px';
     }
 
     private setMaxWidth(width: number): void {
         const style = this.elementRef.nativeElement.style;
-        style.maxWidth = width === undefined ? '' : width + 'px';
+        style.maxWidth = width + 'px';
     }
 }

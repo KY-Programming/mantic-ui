@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { MarkdownRendererComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
@@ -7,7 +7,6 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
     selector: 'app-markdown-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, MarkdownRendererComponent],
     templateUrl: './markdown.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./markdown.component.scss']
 })
 export class MarkdownExampleComponent {

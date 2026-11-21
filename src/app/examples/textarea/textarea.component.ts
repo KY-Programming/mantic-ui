@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { ButtonComponent, FlexComponent, SegmentComponent, TabComponent, TabGroupComponent, TextareaComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
@@ -7,7 +7,6 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
     selector: 'app-textarea-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, TextareaComponent, SegmentComponent, FlexComponent, ButtonComponent],
     templateUrl: './textarea.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./textarea.component.scss']
 })
 export class TextareaExampleComponent {

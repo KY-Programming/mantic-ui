@@ -1,4 +1,4 @@
-import { Component, DoCheck, ElementRef, Input, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DoCheck, ElementRef, Input, OnDestroy, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 /**
@@ -7,12 +7,13 @@ import { Title } from '@angular/platform-browser';
 @Component({
     selector: 'm-document-title',
     templateUrl: './document-title.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./document-title.component.scss']
 })
 export class DocumentTitleComponent implements DoCheck, OnDestroy {
     public static globalPostfix = '';
     public static globalPrefix = '';
+    private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
+    private readonly titleService = inject(Title);
     private previousTitle: string | undefined;
     private value: string | undefined;
     private title: string | undefined;
@@ -34,11 +35,6 @@ export class DocumentTitleComponent implements DoCheck, OnDestroy {
     public set prefix(value: string) {
         DocumentTitleComponent.globalPrefix = value;
     }
-
-    public constructor(
-        private readonly element: ElementRef<HTMLElement>,
-        private readonly titleService: Title
-    ) {}
 
     public ngDoCheck(): void {
         const newValue = this.prefix + this.element.nativeElement.innerText + this.postfix;

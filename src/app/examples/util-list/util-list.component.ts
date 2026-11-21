@@ -1,6 +1,5 @@
-import { Component, HostBinding, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, HostBinding, inject } from '@angular/core';
 import { FrameworkService } from '../../services/framework.service';
-
 import { RouterLink } from '@angular/router';
 import { FillDirective, FlexDirective, HeaderDirective, SegmentComponent } from '@mantic-ui/angular';
 
@@ -8,7 +7,6 @@ import { FillDirective, FlexDirective, HeaderDirective, SegmentComponent } from 
     selector: 'app-util-list',
     imports: [RouterLink, SegmentComponent, HeaderDirective, FlexDirective, FillDirective],
     templateUrl: './util-list.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./util-list.component.scss']
 })
 export class UtilListExamplesComponent {

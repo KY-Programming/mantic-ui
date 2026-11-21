@@ -485,7 +485,7 @@
     <m-tab label="Events">
         <m-example header="Click event" description="A button with a subscribed click event" [code]="eventCode">
             <m-button (click)="onClick()">Click me</m-button>
-            <div>{{eventMessage}}</div>
+            <div>{{ eventMessage() }}</div>
         </m-example>
     </m-tab>
 </m-tab-group>

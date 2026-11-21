@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, effect, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ButtonComponent, ContextMenuComponent, ContextMenuItemComponent, FillComponent, FlexComponent, FlexDirective, IconComponent } from '@mantic-ui/angular';
 import { faChevronLeft } from '@fortawesome/pro-solid-svg-icons';
@@ -9,7 +9,6 @@ import { Framework, FrameworkService } from '../../services/framework.service';
     selector: 'app-navigation',
     imports: [RouterLink, RouterLinkActive, FlexComponent, IconComponent, FillComponent, FlexDirective, RouterOutlet, ButtonComponent, ContextMenuComponent, ContextMenuItemComponent],
     templateUrl: './navigation.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {

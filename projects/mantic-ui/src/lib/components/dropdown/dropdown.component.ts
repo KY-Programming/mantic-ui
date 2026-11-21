@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, contentChildren, effect, ElementRef, inject, input, model, NgZone, OnInit, output, signal, untracked, viewChild, viewChildren } from '@angular/core';
+import { Component, computed, contentChildren, effect, ElementRef, inject, input, model, NgZone, OnInit, output, signal, untracked, viewChild, viewChildren } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { fromEvent } from 'rxjs';
 import { filter, takeUntil } from 'rxjs';
@@ -20,7 +20,6 @@ import { DropdownValue } from './dropdown-value';
     templateUrl: './dropdown.component.html',
     styleUrls: ['./dropdown.component.scss'],
     imports: [FormsModule, IconComponent, DropdownItemComponent],
-    changeDetection: ChangeDetectionStrategy.Eager,
     providers: [...InvertibleComponent.providers, DropDownSelectionService],
     hostDirectives: [AttachedDirective.default],
     host: {
@@ -482,7 +481,7 @@ export class DropdownComponent<T = unknown> extends InvertibleComponent implemen
         const filterAction: (value: string | undefined) => boolean = this.filterType() === 'contains'
             ? value => !!value && !value.toLowerCase().includes(caseInsensitiveFilter)
             : value => !!value && !value.toLowerCase().startsWith(caseInsensitiveFilter);
-        const textContainsFilter = !this.filterText() || filterAction(item.element.nativeElement.innerText);
+        const textContainsFilter = !this.filterText() || filterAction(item.element.nativeElement.innerText.trim());
         const valueValue = DropdownComponent.readItemValue(item);
         const valueContainsFilter = !this.filterValue() || filterAction(valueValue && typeof valueValue.toString === 'function' ? valueValue.toString() : undefined);
         return textContainsFilter && valueContainsFilter;

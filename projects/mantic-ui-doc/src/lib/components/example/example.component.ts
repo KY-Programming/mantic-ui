@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, input, model } from '@angular/core';
+import { Component, Input, input, model } from '@angular/core';
 import { HeaderDirective } from '@mantic-ui/angular';
 import { HighlightAuto } from 'ngx-highlightjs';
 
@@ -6,7 +6,6 @@ import { HighlightAuto } from 'ngx-highlightjs';
     selector: 'm-example',
     templateUrl: './example.component.html',
     styleUrls: ['./example.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '[id]': 'id'
     },

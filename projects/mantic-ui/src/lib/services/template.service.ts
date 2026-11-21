@@ -10,7 +10,7 @@ export class TemplateService {
     private readonly templates = new Map<string, Template[]>();
 
     public show(names: string | string[], template: Template): void {
-        names = typeof names === 'string' ? [names] : names ?? [];
+        names = typeof names === 'string' ? [names] : names;
         const subscriptionSubject = new BehaviorSubject<Template | undefined>(template);
         for (const name of names) {
             let list = this.templates.get(name);
@@ -39,7 +39,7 @@ export class TemplateService {
     }
 
     public hide(names: string | string[], template: Template): void {
-        names = typeof names === 'string' ? [names] : names ?? [];
+        names = typeof names === 'string' ? [names] : names;
         for (const name of names) {
             const list = this.templates.get(name);
             if (!list) {
@@ -57,7 +57,7 @@ export class TemplateService {
     }
 
     public toggle(names: string | string[], template: Template): void {
-        names = typeof names === 'string' ? [names] : names ?? [];
+        names = typeof names === 'string' ? [names] : names;
         for (const name of names) {
             const list = this.templates.get(name);
             const index = list?.indexOf(template);
@@ -71,7 +71,7 @@ export class TemplateService {
     }
 
     public get(names: string | string[]): Observable<Template | undefined> {
-        names = typeof names === 'string' ? [names] : names ?? [];
+        names = typeof names === 'string' ? [names] : names;
         const existingSubject = names.map(name => this.subscriptions.get(name)).find(Boolean);
         const subject = existingSubject ?? new ReplaySubject<Template | undefined>(1);
         for (const name of names) {

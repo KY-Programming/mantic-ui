@@ -1,13 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input, model } from '@angular/core';
+import { Component, Input, model, inject } from '@angular/core';
 import { NpmApiService } from '../../services/npm-api.service';
 
 @Component({
     selector: 'm-npm',
     templateUrl: './npm.component.html',
-    styleUrls: ['./npm.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager
+    styleUrls: ['./npm.component.scss']
 })
 export class NpmComponent {
+    private readonly npmApiService = inject(NpmApiService);
+
     private packageValue: string | undefined;
     private searchVersionValue: string | undefined;
 
@@ -37,10 +38,6 @@ export class NpmComponent {
         const version = this.version();
         return version ? `https://www.npmjs.com/package/${this.package}/v/${version}` : `https://www.npmjs.com/package/${this.package}`;
     }
-
-    public constructor(
-        private readonly npmApiService: NpmApiService
-    ) {}
 
     private refreshVersion(): void {
         if (!this.searchVersion || !this.package) {

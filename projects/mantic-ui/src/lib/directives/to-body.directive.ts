@@ -1,15 +1,13 @@
-import { AfterViewInit, Directive, EmbeddedViewRef, OnDestroy, TemplateRef, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Directive, EmbeddedViewRef, OnDestroy, TemplateRef, ViewContainerRef, inject } from '@angular/core';
 
 @Directive({
     selector: '[m-to-body]',
     })
 export class ToBodyDirective implements AfterViewInit, OnDestroy {
-    private embeddedViewRef: EmbeddedViewRef<unknown> | undefined;
+    private readonly template = inject<TemplateRef<unknown>>(TemplateRef);
+    private readonly viewContainerRef = inject(ViewContainerRef);
 
-    public constructor(
-        private readonly template: TemplateRef<unknown>,
-        private readonly viewContainerRef: ViewContainerRef
-    ) {}
+    private embeddedViewRef: EmbeddedViewRef<unknown> | undefined;
 
     public ngAfterViewInit(): void {
         this.embeddedViewRef = this.viewContainerRef.createEmbeddedView(this.template);

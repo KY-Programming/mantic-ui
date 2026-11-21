@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faRocket } from '@fortawesome/pro-solid-svg-icons';
 import { IconComponent, TabComponent, TabGroupComponent, TableComponent } from '@mantic-ui/angular';
@@ -9,7 +9,6 @@ import { HeaderComponent } from '../../components/header/header.component';
     selector: 'app-icon-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, IconComponent, ExampleComponent, ExampleCodeComponent, FontAwesomeModule, TableComponent],
     templateUrl: './icon.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./icon.component.scss']
 })
 export class IconExampleComponent {

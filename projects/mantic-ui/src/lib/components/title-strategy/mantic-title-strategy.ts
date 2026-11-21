@@ -8,10 +8,10 @@ export const manticTitleStrategyConfigurationToken = new InjectionToken<string>(
 @Injectable()
 export class ManticTitleStrategy extends TitleStrategy {
     public constructor(
+        // eslint-disable-next-line @angular-eslint/prefer-inject -- also created with `new` outside an injection context (provideManticTitleStrategy, ManticTitleStrategyModule)
         @Inject(manticTitleStrategyConfigurationToken) public readonly configuration: ManticTitleStrategyConfiguration = {}
     ) {
         super();
-        this.configuration ??= {};
     }
 
     public override updateTitle(snapshot: RouterStateSnapshot): void {
@@ -28,7 +28,7 @@ export class ManticTitleStrategy extends TitleStrategy {
     }
 
     private matches(condition: ManticTitleStrategyCondition, url: string): boolean {
-        return typeof condition.condition === 'string' ? url?.toLowerCase()?.startsWith(condition.condition) : !!condition.condition.exec(url);
+        return typeof condition.condition === 'string' ? url.toLowerCase().startsWith(condition.condition) : !!condition.condition.exec(url);
     }
 }
 

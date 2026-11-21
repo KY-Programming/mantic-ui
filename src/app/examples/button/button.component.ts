@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { faArrowRight, faCloud, faPause } from '@fortawesome/pro-solid-svg-icons';
 import { AnimationComponent, ButtonComponent, ButtonDirective, ButtonGroupComponent, DividerComponent, FlexComponent, HeaderDirective, IconButtonComponent, IconComponent, InputComponent, LabelComponent, OrComponent, SegmentComponent, TabComponent, TabGroupComponent, ToggleButtonComponent, ToggleComponent } from '@mantic-ui/angular';
@@ -9,7 +9,6 @@ import { HeaderComponent } from '../../components/header/header.component';
     selector: 'app-button-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ButtonComponent, ButtonDirective, ExampleCodeComponent, RouterLink, IconButtonComponent, SegmentComponent, ToggleButtonComponent, ButtonGroupComponent, OrComponent, InputComponent, DividerComponent, ToggleComponent, LabelComponent, AnimationComponent, FlexComponent],
     templateUrl: './button.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./button.component.scss']
 })
 export class ButtonExampleComponent {
@@ -363,7 +362,7 @@ export class ButtonExampleComponent {
     private disabledValue = false;
     public text? = 'Click Me';
     public fluid = false;
-    public eventMessage?: string;
+    protected readonly eventMessage = signal<string | undefined>(undefined);
     public eventCode = `<m-button (click)="onClick()">Click me</m-button>`;
 
     public get loading(): boolean {
@@ -399,7 +398,7 @@ export class ButtonExampleComponent {
     }
 
     public onClick(): void {
-        this.eventMessage = 'Button was clicked';
-        setTimeout(() => this.eventMessage = undefined, 2000);
+        this.eventMessage.set('Button was clicked');
+        setTimeout(() => this.eventMessage.set(undefined), 2000);
     }
 }

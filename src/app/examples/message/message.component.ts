@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { ErrorComponent, InfoComponent, MessageComponent, TabComponent, TabGroupComponent, WarningComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
@@ -8,7 +8,6 @@ import { faRocket } from '@fortawesome/pro-solid-svg-icons';
     selector: 'app-message-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, MessageComponent, WarningComponent, InfoComponent, ErrorComponent],
     templateUrl: './message.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./message.component.scss']
 })
 export class MessageExampleComponent {

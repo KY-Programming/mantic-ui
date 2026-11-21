@@ -6,6 +6,5 @@ export interface FormValidation {
 }
 
 export function isFormValidation(value: unknown): value is FormValidation {
-    const validation = value as FormValidation;
-    return validation && typeof validation.valid === 'boolean';
+    return typeof value === 'object' && value !== null && typeof (value as FormValidation).valid === 'boolean';
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { faRocket } from '@fortawesome/pro-solid-svg-icons';
 import { ArrayPipe, ButtonComponent, DropdownComponent, DropdownItemComponent, FlexComponent, HeaderDirective, IconComponent, ModalComponent, ModalDefaultsComponent, ModalFooterComponent, ModalHeaderComponent, ModalSize, TabComponent, TabGroupComponent, ToBodyDirective } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
@@ -8,7 +8,6 @@ import { HeaderComponent } from '../../components/header/header.component';
     selector: 'app-modal-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, ExampleCodeComponent, ButtonComponent, ModalComponent, ModalHeaderComponent, ModalFooterComponent, ToBodyDirective, DropdownComponent, DropdownItemComponent, ModalDefaultsComponent, ArrayPipe, FlexComponent],
     templateUrl: './modal.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./modal.component.scss']
 })
 export class ModalExampleComponent {

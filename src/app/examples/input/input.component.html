@@ -381,7 +381,7 @@
     <m-tab label="Events">
         <m-example [code]="eventCode" description="A input with a subscribed change event. The event is triggered when focus is lost (click outside of the box)" header="Change event">
             <m-input placeholder="Search..." type="text" (valueChange)="valueChange($event)"></m-input>
-            <div>{{ inputMessage }}</div>
+            <div>{{ inputMessage() }}</div>
         </m-example>
     </m-tab>
 </m-tab-group>

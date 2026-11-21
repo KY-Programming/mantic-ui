@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FillDirective, FlexComponent, NotificationComponent } from '@mantic-ui/angular';
 import { SemanticUiIconsLocalComponent, SemanticUiLatoLocalComponent, SemanticUiResetComponent, SemanticUiSiteComponent, SemanticUiThemeComponent } from '@mantic-ui/semantic-ui-angular';
@@ -7,7 +7,6 @@ import { SemanticUiIconsLocalComponent, SemanticUiLatoLocalComponent, SemanticUi
     selector: 'app-semantic-layout',
     imports: [FlexComponent, FillDirective, RouterOutlet, SemanticUiThemeComponent, SemanticUiSiteComponent, SemanticUiResetComponent, SemanticUiLatoLocalComponent, SemanticUiIconsLocalComponent, NotificationComponent],
     templateUrl: './layout.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./layout.component.scss']
 })
 export class SemanticLayoutComponent {}

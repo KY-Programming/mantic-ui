@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, signal } from '@angular/core';
+import { Component, HostBinding, signal } from '@angular/core';
 import { ButtonComponent, ContextMenuComponent, ContextMenuGroupComponent, ContextMenuPosition, ContextMenuItemComponent, FillComponent, FillDirective, FlexComponent, FlexDirective, InfoComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
@@ -7,7 +7,6 @@ import { HeaderComponent } from '../../components/header/header.component';
     selector: 'app-context-menu',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, ButtonComponent, ContextMenuComponent, ContextMenuGroupComponent, ContextMenuItemComponent, FlexComponent, InfoComponent, FillComponent, FlexDirective, FillDirective],
     templateUrl: './context-menu.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./context-menu.component.scss']
 })
 export class ContextMenuExampleComponent {

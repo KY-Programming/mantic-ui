@@ -1,8 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ButtonComponent, ColorInputComponent, ColorPreset, DateInputComponent, DividerComponent, DropdownComponent, DropdownItemComponent, FileInputComponent, FlexComponent, IconComponent, InputComponent, InputIconPosition, InputType, LabelComponent, LabelDropdownComponent, NumericInputComponent, SegmentComponent, TabComponent, TabGroupComponent, TextareaComponent, TimeInputComponent, ToggleComponent, WarningComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent, ExampleDescriptionComponent } from '@mantic-ui/angular-doc';
-
 import { HeaderComponent } from '../../components/header/header.component';
 import { ValueComponent } from '../../components/value/value.component';
 
@@ -10,7 +9,6 @@ import { ValueComponent } from '../../components/value/value.component';
     selector: 'app-input-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, ButtonComponent, ColorInputComponent, IconComponent, ExampleComponent, ExampleCodeComponent, FlexComponent, InputComponent, ValueComponent, TextareaComponent, NumericInputComponent, DateInputComponent, TimeInputComponent, ToggleComponent, DropdownItemComponent, DropdownComponent, DividerComponent, SegmentComponent, FileInputComponent, WarningComponent, LabelComponent, LabelDropdownComponent, RouterLink, ExampleDescriptionComponent],
     templateUrl: './input.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./input.component.scss']
 })
 export class InputExampleComponent {
@@ -79,7 +77,7 @@ export class InputExampleComponent {
     }
 
     public fluid = false;
-    public inputMessage?: string;
+    protected readonly inputMessage = signal<string | undefined>(undefined);
 
     public textCode = `<m-input type="text" placeholder="Search..." [(value)]="value" />`;
     public textareaCode = `<m-textarea placeholder="Enter a text with line breaks..." [(value)]="value" />`;
@@ -199,8 +197,8 @@ export class InputExampleComponent {
     }
 
     public valueChange(event: string | undefined): void {
-        this.inputMessage = `Value changed to: ${event}`;
-        setTimeout(() => this.inputMessage = undefined, 2000);
+        this.inputMessage.set(`Value changed to: ${event}`);
+        setTimeout(() => this.inputMessage.set(undefined), 2000);
     }
 
     public getType(value: unknown): string {

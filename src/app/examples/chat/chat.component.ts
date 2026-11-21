@@ -1,14 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChatComponent, ChatMessage, ContextMenuItemComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
-
 import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-chat',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, ChatComponent, ContextMenuItemComponent, ExampleComponent, ExampleCodeComponent],
     templateUrl: './chat.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./chat.component.scss']
 })
 export class ChatExampleComponent implements OnInit {

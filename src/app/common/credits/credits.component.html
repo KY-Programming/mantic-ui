@@ -2,7 +2,7 @@
 
 <m-tab-group secondary pointing class="page" selectByRoute>
   <m-tab m-flex column label="3d party software">
-    @for (entry of licenses; track entry) {
+    @for (entry of licenses(); track entry) {
       <m-expander>
         <m-expander-header>
           {{entry.name}}
@@ -17,7 +17,7 @@
         }
       </m-expander>
     }
-    @if (isLoading) {
+    @if (!licenses()) {
       <m-loader></m-loader>
     }
   </m-tab>

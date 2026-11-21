@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, model } from '@angular/core';
-
+import { Component, Input, model, inject } from '@angular/core';
 import { TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { NugetApiService } from '../../services/nuget-api.service';
 
@@ -7,10 +6,11 @@ import { NugetApiService } from '../../services/nuget-api.service';
     selector: 'm-nuget-install',
     templateUrl: './nuget-install.component.html',
     styleUrls: ['./nuget-install.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [TabComponent, TabGroupComponent]
 })
 export class NugetInstallComponent {
+    private readonly nugetApiService = inject(NugetApiService);
+
     private packageValue: string | undefined;
     private searchVersionValue: string | undefined;
 
@@ -35,10 +35,6 @@ export class NugetInstallComponent {
         this.searchVersionValue = value;
         this.refreshVersion();
     }
-
-    public constructor(
-        private readonly nugetApiService: NugetApiService
-    ) {}
 
     private refreshVersion(): void {
         if (!this.searchVersion || !this.package) {

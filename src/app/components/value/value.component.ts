@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, computed, input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 
 @Component({
     selector: 'app-value',
@@ -7,7 +7,6 @@ import { Component, computed, input, ChangeDetectionStrategy } from '@angular/co
         JsonPipe
     ],
     templateUrl: './value.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./value.component.scss']
 })
 export class ValueComponent {

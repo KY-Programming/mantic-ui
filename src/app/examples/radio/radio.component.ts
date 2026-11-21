@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { DividerComponent, FieldComponent, FieldGroupComponent, FormComponent, InputComponent, RadioComponent, SegmentComponent, TabComponent, TabGroupComponent, ToggleComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
@@ -7,7 +7,6 @@ import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
     selector: 'app-radio-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, RadioComponent, FormComponent, FieldGroupComponent, FieldComponent, SegmentComponent, InputComponent, ToggleComponent, DividerComponent],
     templateUrl: './radio.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./radio.component.scss']
 })
 export class RadioExampleComponent {

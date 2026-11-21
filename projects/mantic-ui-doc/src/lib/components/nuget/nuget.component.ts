@@ -1,13 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input, model } from '@angular/core';
+import { Component, Input, model, inject } from '@angular/core';
 import { NugetApiService } from '../../services/nuget-api.service';
 
 @Component({
     selector: 'm-nuget',
     templateUrl: './nuget.component.html',
-    styleUrls: ['./nuget.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager
+    styleUrls: ['./nuget.component.scss']
 })
 export class NugetComponent {
+    private readonly nugetApiService = inject(NugetApiService);
+
     private packageValue: string | undefined;
     private searchVersionValue: string | undefined;
 
@@ -32,10 +33,6 @@ export class NugetComponent {
         this.searchVersionValue = value;
         this.refreshVersion();
     }
-
-    public constructor(
-        private readonly nugetApiService: NugetApiService
-    ) {}
 
     private refreshVersion(): void {
         if (!this.searchVersion || !this.package) {

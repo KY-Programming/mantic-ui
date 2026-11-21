@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, input, model } from '@angular/core';
+import { Component, Input, input, model, inject } from '@angular/core';
 import { BooleanLike, SegmentComponent, toBoolean } from '@mantic-ui/angular';
 import { NpmApiService } from '../../services/npm-api.service';
 
@@ -6,10 +6,11 @@ import { NpmApiService } from '../../services/npm-api.service';
     selector: 'm-npm-install',
     templateUrl: './npm-install.component.html',
     styleUrls: ['./npm-install.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [SegmentComponent]
 })
 export class NpmInstallComponent {
+    private readonly nugetApiService = inject(NpmApiService);
+
     private packageValue: string | undefined;
     private searchVersionValue: string | undefined;
 
@@ -36,10 +37,6 @@ export class NpmInstallComponent {
     }
 
     public readonly dev = input<boolean, BooleanLike>(false, { transform: toBoolean });
-
-    public constructor(
-        private readonly nugetApiService: NpmApiService
-    ) {}
 
     private refreshVersion(): void {
         if (!this.searchVersion || !this.package) {

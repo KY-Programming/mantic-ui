@@ -1,4 +1,4 @@
-import { Component, HostBinding, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, HostBinding, inject } from '@angular/core';
 import { FrameworkService } from '../../services/framework.service';
 
 import { RouterLink } from '@angular/router';
@@ -8,7 +8,6 @@ import { ButtonComponent, ChatMessage, ChatMessageComponent, ContextMenuComponen
     selector: 'app-special-list',
     imports: [RouterLink, SegmentComponent, ButtonComponent, ChatMessageComponent, ContextMenuComponent, ContextMenuItemComponent, DimmerComponent, HeaderDirective, FlexDirective, FillDirective, ModalComponent, ModalFooterComponent, InfoComponent, WarningComponent, ErrorComponent, MessageComponent],
     templateUrl: './special-list.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./special-list.component.scss']
 })
 export class SpecialListExamplesComponent {

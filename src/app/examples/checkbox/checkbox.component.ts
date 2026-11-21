@@ -1,14 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { CheckboxComponent, DividerComponent, InputComponent, SegmentComponent, TabComponent, TabGroupComponent, ToggleComponent } from '@mantic-ui/angular';
 import { DocIgnoreContentDirective, DocIgnoreDirective, ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
-
 import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
     selector: 'app-checkbox-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, CheckboxComponent, SegmentComponent, InputComponent, ToggleComponent, DividerComponent, DocIgnoreDirective, DocIgnoreContentDirective],
     templateUrl: './checkbox.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./checkbox.component.scss']
 })
 export class CheckboxExampleComponent {

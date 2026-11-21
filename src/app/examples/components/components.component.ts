@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FrameworkService } from '../../services/framework.service';
 import { HeaderComponent } from '../../components/header/header.component';
 import { HeaderDirective, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
@@ -12,7 +12,6 @@ import { UtilListExamplesComponent } from '../util-list/util-list.component';
     selector: 'app-components',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, HeaderDirective, ElementListExamplesComponent, RouterLink, LayoutListExamplesComponent, SpecialListExamplesComponent, UtilListExamplesComponent],
     templateUrl: './components.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./components.component.scss']
 })
 export class ComponentExamplesComponent {

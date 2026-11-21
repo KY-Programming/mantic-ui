@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ButtonGroupComponent, HeaderComponent, HeaderDirective, IconButtonComponent, InfoComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent as AppHeaderComponent } from '../../components/header/header.component';
@@ -7,7 +7,6 @@ import { HeaderComponent as AppHeaderComponent } from '../../components/header/h
     selector: 'app-header-example',
     imports: [AppHeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, InfoComponent, ButtonGroupComponent, IconButtonComponent, SegmentComponent, HeaderComponent, HeaderDirective],
     templateUrl: './header.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./header.component.scss']
 })
 export class HeaderExampleComponent {

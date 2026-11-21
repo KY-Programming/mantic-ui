@@ -32,7 +32,7 @@ export class NotificationService implements NotificationHandler {
 
     public get(group?: 'all' | 'empty' | string): Notification[] {
         group ||= 'all';
-        if (!this.messages[group]) {
+        if (!Object.hasOwn(this.messages, group)) {
             this.messages[group] = [];
         }
         return this.messages[group];
@@ -47,7 +47,7 @@ export class NotificationService implements NotificationHandler {
             this.messages['empty'].push(notification);
         }
         this.addedSubject.next(notification);
-        if (notification?.timeout && notification.timeout > 0) {
+        if (notification.timeout && notification.timeout > 0) {
             setTimeout(() => this.remove(notification), notification.timeout);
         }
         return new NotificationReference(notification, this);

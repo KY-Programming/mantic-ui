@@ -279,7 +279,7 @@ export class MarkdownParser {
         const elements: MarkdownElement[] = [];
         const blockParsers = areComponentsAllowed ? this.blockParsers : this.blockParsers.filter(parser => !this.componentBlockParsers.has(parser));
         for (let line of lines) {
-            line = line?.trimEnd();
+            line = line.trimEnd();
             let parsed = false;
             for (const parser of blockParsers) {
                 const regexResult = parser.regex.exec(line);

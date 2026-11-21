@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { setFavicon } from '../../helpers/favicon';
 
@@ -7,17 +7,15 @@ import { setFavicon } from '../../helpers/favicon';
     selector: 'app-intro',
     imports: [RouterLink],
     templateUrl: './intro.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./intro.component.scss']
 })
 export class IntroComponent implements OnInit {
     private static readonly versionPattern = /(\d+\.\d+\.\d+)/;
+    private readonly http = inject(HttpClient);
 
     public readonly version = signal('?.?.?');
 
-    public constructor(
-        private readonly http: HttpClient
-    ) {
+    public constructor() {
         setFavicon('/assets/mantic.png');
     }
 

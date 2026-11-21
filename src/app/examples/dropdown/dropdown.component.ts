@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { DividerComponent, DropdownComponent, DropdownGroupComponent, DropdownItemComponent, FillDirective, FlexComponent, InputComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
@@ -8,7 +8,6 @@ import { DemoData } from '../../helpers/demo-data';
     selector: 'app-dropdown-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, DropdownComponent, DropdownItemComponent, DropdownGroupComponent, HeaderComponent, SegmentComponent, DividerComponent, FillDirective, FlexComponent, InputComponent],
     templateUrl: './dropdown.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./dropdown.component.scss']
 })
 export class DropdownExampleComponent {

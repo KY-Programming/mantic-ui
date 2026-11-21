@@ -17,7 +17,7 @@ export class FormRendererComponent {
     private readonly dataSourceElements = contentChildren(DataSourceComponent);
     public readonly dataSources = computed(() => [...this.dataSourceElements()]);
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    public readonly dataInput = input<Record<string, unknown>>({}, { alias: 'data' });
+    public readonly dataInput = input<Record<string, unknown> | undefined>({}, { alias: 'data' });
     private readonly dataState = signal<Record<string, unknown>>({});
     public readonly data = this.dataState.asReadonly();
     public readonly dataChange = output<unknown>();
@@ -27,12 +27,9 @@ export class FormRendererComponent {
         effect(() => {
             const value = this.dataInput();
             untracked(() => {
-                this.dataState.set(value);
+                this.dataState.set(value ?? {});
                 if (!value) {
-                    setTimeout(() => {
-                        this.dataState.set({});
-                        this.dataChange.emit(this.dataState());
-                    });
+                    setTimeout(() => this.dataChange.emit(this.dataState()));
                 }
             });
         });

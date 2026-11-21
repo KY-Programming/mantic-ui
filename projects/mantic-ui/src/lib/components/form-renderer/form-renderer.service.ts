@@ -3,7 +3,7 @@ import { FormElementBase } from '../form-element-renderer/form-element-base';
 
 @Service()
 export class FormRendererService {
-    public static readonly formElements: Record<string, Type<FormElementBase>> = {};
+    public static readonly formElements: Partial<Record<string, Type<FormElementBase>>> = {};
 
     public register(type: Type<FormElementBase>, name: string): void {
         if (!name) {

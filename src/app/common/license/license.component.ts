@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FrameworkService } from '../../services/framework.service';
 import { RouterLink } from '@angular/router';
 import { InfoComponent, TabComponent, TabGroupComponent, TableComponent } from '@mantic-ui/angular';
@@ -9,7 +9,6 @@ import { HeaderComponent } from '../../components/header/header.component';
     selector: 'app-license',
     imports: [TabGroupComponent, TabComponent, NpmInstallComponent, ExampleCodeComponent, NpmComponent, InfoComponent, TableComponent, RouterLink, HeaderComponent],
     templateUrl: './license.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./license.component.scss']
 })
 export class LicenseComponent {

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { ButtonComponent, DimmerComponent, HeaderDirective, IconComponent, SegmentComponent, TabComponent, TabGroupComponent } from '@mantic-ui/angular';
 import { ExampleComponent } from '@mantic-ui/angular-doc';
@@ -7,7 +7,6 @@ import { ExampleComponent } from '@mantic-ui/angular-doc';
     selector: 'app-dimmer-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, IconComponent, HeaderDirective, ExampleComponent, SegmentComponent, DimmerComponent, ButtonComponent],
     templateUrl: './dimmer.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./dimmer.component.scss']
 })
 export class DimmerExampleComponent {

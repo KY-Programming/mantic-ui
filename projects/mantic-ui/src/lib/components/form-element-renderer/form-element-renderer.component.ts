@@ -161,9 +161,6 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
     }
 
     private applyDefaults(): void {
-        if (!this.data() || !this.elements()) {
-            return;
-        }
         for (const element of this.elements() as FormDataElement[]) {
             if (element.field && element.defaultValue) {
                 this.data()[element.field] ??= element.defaultValue;
@@ -179,7 +176,7 @@ export class FormElementRendererComponent extends BaseComponent implements DoChe
             let result = fieldFormatter;
             const matches = fieldFormatter.matchAll(/[^$]*(?<var>\$+\d+)/gm);
             for (const match of matches) {
-                const variable = match?.groups?.['var'];
+                const variable = match.groups?.['var'];
                 if (!variable || variable.startsWith('$$')) {
                     continue;
                 }

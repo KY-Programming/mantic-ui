@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs';
@@ -8,11 +8,9 @@ import { NpmPackageResponse } from '../models/npm-package-response';
     providedIn: 'root'
 })
 export class NpmApiService {
-    private readonly cache: Record<string, ReplaySubject<string[]>> = {};
+    private readonly http = inject(HttpClient);
 
-    public constructor(
-        private readonly http: HttpClient
-    ) {}
+    private readonly cache = new Map<string, ReplaySubject<string[]>>();
 
     public find(packageName: string, version?: string): Observable<string[]> {
         return this.get(packageName).pipe(
@@ -22,14 +20,17 @@ export class NpmApiService {
 
     public get(packageName: string): Observable<string[]> {
         packageName = packageName.toLowerCase();
-        if (!this.cache[packageName]) {
-            this.cache[packageName] = new ReplaySubject<string[]>(1);
+        let subject = this.cache.get(packageName);
+        if (!subject) {
+            const created = new ReplaySubject<string[]>(1);
+            subject = created;
+            this.cache.set(packageName, created);
             this.http.get<NpmPackageResponse>(`https://registry.npmjs.org/${packageName}`).subscribe(response => {
                 const versions: string[] = Object.keys(response.versions);
-                this.cache[packageName].next(versions.sort(sortByPackageVersionDesc));
+                created.next(versions.sort(sortByPackageVersionDesc));
             });
         }
-        return this.cache[packageName].asObservable();
+        return subject.asObservable();
     }
 }
 

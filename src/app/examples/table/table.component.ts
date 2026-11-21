@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { IconComponent, SegmentComponent, TabComponent, TabGroupComponent, TableComponent, WarningComponent } from '@mantic-ui/angular';
 import { ExampleCodeComponent, ExampleComponent } from '@mantic-ui/angular-doc';
 import { HeaderComponent } from '../../components/header/header.component';
@@ -7,7 +7,6 @@ import { HeaderComponent } from '../../components/header/header.component';
     selector: 'app-table-example',
     imports: [HeaderComponent, TabGroupComponent, TabComponent, ExampleComponent, ExampleCodeComponent, WarningComponent, TableComponent, IconComponent, SegmentComponent],
     templateUrl: './table.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./table.component.scss']
 })
 export class TableExampleComponent {
