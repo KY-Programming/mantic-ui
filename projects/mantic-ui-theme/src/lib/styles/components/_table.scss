@@ -487,6 +487,13 @@ $aligns: (left: start, center: center, right: end);
             :is(th, td):first-child {
                 font-weight: var(--m-font-weight-bold);
             }
+
+            // Very basic drops the start padding of the first cell and the end padding of the last, so the row lines up
+            // with the content around it. Stacked, those cells sit below each other: without the same inline padding
+            // on every cell the value would be indented against its label.
+            &.very.basic:not(.sortable, .striped) tr > :is(th, td) {
+                padding-inline: 0;
+            }
         }
     }
 }
