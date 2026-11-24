@@ -1,3 +1,9 @@
 :host {
     display: block;
 }
+
+// Images keep their natural size only as long as they fit: wider ones would push the page sideways on small screens
+img {
+    max-width: 100%;
+    height: auto;
+}
