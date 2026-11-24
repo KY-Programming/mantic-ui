@@ -2,3 +2,5 @@ User-agent: *
 Disallow: /iframe/
 Disallow: /test
 Disallow: /menu-fixed-1
+
+Sitemap: https://mantic-ui.ky-programming.de/sitemap.xml
