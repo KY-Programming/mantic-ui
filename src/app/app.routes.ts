@@ -1,4 +1,5 @@
 import { Route, Routes } from '@angular/router';
+import { manticMetaKey } from '@mantic-ui/angular';
 import { CreditsComponent } from './common/credits/credits.component';
 import { EslintComponent } from './common/eslint/eslint.component';
 import { FeatureComponent } from './common/help/feature/feature.component';
@@ -50,88 +51,89 @@ import { ManticLayoutComponent } from './mantic/layout.component';
 import { ManticStartComponent } from './mantic/start/start.component';
 import { ManticThemingComponent } from './mantic/theming/theming.component';
 import { SemanticLayoutComponent } from './semantic/layout.component';
+import { createExampleMeta, createPageMeta } from './page-meta';
 import { SemanticStartComponent } from './semantic/start/start.component';
 
 export const sharedRoutes: Route[] = [
     { path: 'help', redirectTo: 'help/', pathMatch: 'full' },
-    { path: 'help/feature', title: 'Missing a Feature?', component: FeatureComponent },
-    { path: 'help/:tab', title: 'How to get help?', component: HelpComponent },
+    { path: 'help/feature', title: 'Missing a Feature?', component: FeatureComponent, data: createPageMeta('How to ask for a feature that mantic UI is missing.') },
+    { path: 'help/:tab', title: 'How to get help?', component: HelpComponent, data: createPageMeta('Where to get help with mantic UI and how to report a bug.') },
     { path: 'license', redirectTo: 'license/', pathMatch: 'full' },
-    { path: 'license/:tab', title: 'License', component: LicenseComponent },
+    { path: 'license/:tab', title: 'License', component: LicenseComponent, data: createPageMeta('The license of mantic UI.') },
     { path: 'eslint', redirectTo: 'eslint/', pathMatch: 'full' },
-    { path: 'eslint/:tab', title: 'ESLint rules', component: EslintComponent },
+    { path: 'eslint/:tab', title: 'ESLint rules', component: EslintComponent, data: createPageMeta('The ESLint rules of @mantic-ui/eslint-config.') },
     { path: 'credits', redirectTo: 'credits/', pathMatch: 'full' },
-    { path: 'credits/:tab', title: 'Credits', component: CreditsComponent },
+    { path: 'credits/:tab', title: 'Credits', component: CreditsComponent, data: createPageMeta('The open source projects mantic UI is built on.') },
 
     { path: 'components', redirectTo: 'components/', pathMatch: 'full' },
-    { path: 'components/:tab', title: 'Components', component: ComponentExamplesComponent },
+    { path: 'components/:tab', title: 'Components', component: ComponentExamplesComponent, data: createPageMeta('Overview of the components of mantic UI for Angular.') },
     { path: 'elements', redirectTo: 'elements/', pathMatch: 'full' },
-    { path: 'elements/:tab', title: 'Elements', component: ElementExamplesComponent },
+    { path: 'elements/:tab', title: 'Elements', component: ElementExamplesComponent, data: createPageMeta('Overview of the elements of mantic UI for Angular.') },
     { path: 'layouts', redirectTo: 'layouts/', pathMatch: 'full' },
-    { path: 'layouts/:tab', title: 'Layout', component: LayoutExamplesComponent },
+    { path: 'layouts/:tab', title: 'Layout', component: LayoutExamplesComponent, data: createPageMeta('Overview of the layouts of mantic UI for Angular.') },
     { path: 'specials', redirectTo: 'specials/', pathMatch: 'full' },
-    { path: 'specials/:tab', title: 'Special', component: SpecialExamplesComponent },
+    { path: 'specials/:tab', title: 'Special', component: SpecialExamplesComponent, data: createPageMeta('Overview of the special components of mantic UI for Angular.') },
     { path: 'utils', redirectTo: 'utils/', pathMatch: 'full' },
-    { path: 'utils/:tab', title: 'Utils', component: UtilExamplesComponent },
+    { path: 'utils/:tab', title: 'Utils', component: UtilExamplesComponent, data: createPageMeta('Overview of the utilities of mantic UI for Angular.') },
     { path: 'button', redirectTo: 'button/', pathMatch: 'full' },
-    { path: 'button/:tab', title: 'Button', component: ButtonExampleComponent },
+    { path: 'button/:tab', title: 'Button', data: createExampleMeta('Button'), component: ButtonExampleComponent },
     { path: 'divider', redirectTo: 'divider/', pathMatch: 'full' },
-    { path: 'divider/:tab', title: 'Divider', component: DividerExampleComponent },
+    { path: 'divider/:tab', title: 'Divider', data: createExampleMeta('Divider'), component: DividerExampleComponent },
     { path: 'input', redirectTo: 'input/', pathMatch: 'full' },
-    { path: 'input/:tab', title: 'Input', component: InputExampleComponent },
+    { path: 'input/:tab', title: 'Input', data: createExampleMeta('Input'), component: InputExampleComponent },
     { path: 'dropdown', redirectTo: 'dropdown/', pathMatch: 'full' },
-    { path: 'dropdown/:tab', title: 'Dropdown', component: DropdownExampleComponent },
+    { path: 'dropdown/:tab', title: 'Dropdown', data: createExampleMeta('Dropdown'), component: DropdownExampleComponent },
     { path: 'tab', redirectTo: 'tab/', pathMatch: 'full' },
-    { path: 'tab/:tab', title: 'Tab', component: TabExampleComponent },
+    { path: 'tab/:tab', title: 'Tab', data: createExampleMeta('Tab'), component: TabExampleComponent },
     { path: 'markdown', redirectTo: 'markdown/', pathMatch: 'full' },
-    { path: 'markdown/:tab', title: 'Menu', component: MarkdownExampleComponent },
+    { path: 'markdown/:tab', title: 'Markdown', data: createExampleMeta('Markdown'), component: MarkdownExampleComponent },
     { path: 'menu', redirectTo: 'menu/', pathMatch: 'full' },
-    { path: 'menu/:tab', title: 'Menu', component: MenuExampleComponent },
+    { path: 'menu/:tab', title: 'Menu', data: createExampleMeta('Menu'), component: MenuExampleComponent },
     { path: 'segment', redirectTo: 'segment/', pathMatch: 'full' },
-    { path: 'segment/:tab', title: 'Segment', component: SegmentExampleComponent },
+    { path: 'segment/:tab', title: 'Segment', data: createExampleMeta('Segment'), component: SegmentExampleComponent },
     { path: 'container', redirectTo: 'container/', pathMatch: 'full' },
-    { path: 'container/:tab', title: 'Container', component: ContainerExampleComponent },
+    { path: 'container/:tab', title: 'Container', data: createExampleMeta('Container'), component: ContainerExampleComponent },
     { path: 'header', redirectTo: 'header/', pathMatch: 'full' },
-    { path: 'header/:tab', title: 'Header', component: HeaderExampleComponent },
+    { path: 'header/:tab', title: 'Header', data: createExampleMeta('Header'), component: HeaderExampleComponent },
     { path: 'layout', redirectTo: 'layout/', pathMatch: 'full' },
-    { path: 'layout/:tab', title: 'Layout', component: LayoutExampleComponent },
+    { path: 'layout/:tab', title: 'Layout', data: createExampleMeta('Layout'), component: LayoutExampleComponent },
     { path: 'modal', redirectTo: 'modal/', pathMatch: 'full' },
-    { path: 'modal/:tab', title: 'Modal', component: ModalExampleComponent },
+    { path: 'modal/:tab', title: 'Modal', data: createExampleMeta('Modal'), component: ModalExampleComponent },
     { path: 'dimmer', redirectTo: 'dimmer/', pathMatch: 'full' },
-    { path: 'dimmer/:tab', title: 'Dimmer', component: DimmerExampleComponent },
+    { path: 'dimmer/:tab', title: 'Dimmer', data: createExampleMeta('Dimmer'), component: DimmerExampleComponent },
     { path: 'checkbox', redirectTo: 'checkbox/', pathMatch: 'full' },
-    { path: 'checkbox/:tab', title: 'Checkbox', component: CheckboxExampleComponent },
+    { path: 'checkbox/:tab', title: 'Checkbox', data: createExampleMeta('Checkbox'), component: CheckboxExampleComponent },
     { path: 'toggle', redirectTo: 'toggle/', pathMatch: 'full' },
-    { path: 'toggle/:tab', title: 'Toggle', component: ToggleExampleComponent },
+    { path: 'toggle/:tab', title: 'Toggle', data: createExampleMeta('Toggle'), component: ToggleExampleComponent },
     { path: 'radio', redirectTo: 'radio/', pathMatch: 'full' },
-    { path: 'radio/:tab', title: 'Radio', component: RadioExampleComponent },
+    { path: 'radio/:tab', title: 'Radio', data: createExampleMeta('Radio'), component: RadioExampleComponent },
     { path: 'message', redirectTo: 'message/', pathMatch: 'full' },
-    { path: 'message/:tab', title: 'Message', component: MessageExampleComponent },
+    { path: 'message/:tab', title: 'Message', data: createExampleMeta('Message'), component: MessageExampleComponent },
     { path: 'slider', redirectTo: 'slider/', pathMatch: 'full' },
-    { path: 'slider/:tab', title: 'Slider', component: SliderExampleComponent },
+    { path: 'slider/:tab', title: 'Slider', data: createExampleMeta('Slider'), component: SliderExampleComponent },
     { path: 'grid', redirectTo: 'grid/', pathMatch: 'full' },
-    { path: 'grid/:tab', title: 'Grid', component: GridExampleComponent },
+    { path: 'grid/:tab', title: 'Grid', data: createExampleMeta('Grid'), component: GridExampleComponent },
     { path: 'flex', redirectTo: 'flex/', pathMatch: 'full' },
-    { path: 'flex/:tab', title: 'Flex', component: FlexExampleComponent },
+    { path: 'flex/:tab', title: 'Flex', data: createExampleMeta('Flex'), component: FlexExampleComponent },
     { path: 'form', redirectTo: 'form/', pathMatch: 'full' },
-    { path: 'form/:tab', title: 'Form', component: FormExampleComponent },
+    { path: 'form/:tab', title: 'Form', data: createExampleMeta('Form'), component: FormExampleComponent },
     { path: 'expander', redirectTo: 'expander/', pathMatch: 'full' },
-    { path: 'expander/:tab', title: 'Expander', component: ExpanderExampleComponent },
+    { path: 'expander/:tab', title: 'Expander', data: createExampleMeta('Expander'), component: ExpanderExampleComponent },
     { path: 'context-menu', redirectTo: 'context-menu/', pathMatch: 'full' },
-    { path: 'context-menu/:tab', title: 'Context Menu', component: ContextMenuExampleComponent },
+    { path: 'context-menu/:tab', title: 'Context Menu', data: createExampleMeta('Context Menu'), component: ContextMenuExampleComponent },
     { path: 'notification', redirectTo: 'notification/', pathMatch: 'full' },
-    { path: 'notification/:tab', title: 'Notification', component: NotificationExampleComponent },
+    { path: 'notification/:tab', title: 'Notification', data: createExampleMeta('Notification'), component: NotificationExampleComponent },
     { path: 'chat', redirectTo: 'chat/', pathMatch: 'full' },
-    { path: 'chat/:tab', title: 'Chat', component: ChatExampleComponent },
+    { path: 'chat/:tab', title: 'Chat', data: createExampleMeta('Chat'), component: ChatExampleComponent },
     { path: 'icon', redirectTo: 'icon/', pathMatch: 'full' },
-    { path: 'icon/:tab', title: 'Icon', component: IconExampleComponent },
+    { path: 'icon/:tab', title: 'Icon', data: createExampleMeta('Icon'), component: IconExampleComponent },
     { path: 'textarea', redirectTo: 'textarea/', pathMatch: 'full' },
-    { path: 'textarea/:tab', title: 'Icon', component: TextareaExampleComponent },
+    { path: 'textarea/:tab', title: 'Textarea', data: createExampleMeta('Textarea'), component: TextareaExampleComponent },
     { path: 'table', redirectTo: 'table/', pathMatch: 'full' },
-    { path: 'table/:tab', title: 'Icon', component: TableExampleComponent },
+    { path: 'table/:tab', title: 'Table', data: createExampleMeta('Table'), component: TableExampleComponent },
     { path: 'template', redirectTo: 'template/', pathMatch: 'full' },
-    { path: 'template/:tab', title: 'Icon', component: TemplateExampleComponent },
-    { path: 'test', title: 'Test', component: TestExampleComponent },
+    { path: 'template/:tab', title: 'Template', data: createExampleMeta('Template'), component: TemplateExampleComponent },
+    { path: 'test', title: 'Test', component: TestExampleComponent, data: { [manticMetaKey]: { isNoIndex: true } } },
     { path: '**', redirectTo: 'components/' }
 ];
 
@@ -150,20 +152,20 @@ export const routes: Routes = [
         path: '', component: NavigationComponent, children: [
             {
                 path: 'semantic', component: SemanticLayoutComponent, children: [
-                    { path: 'start', title: 'Getting Started', component: SemanticStartComponent },
+                    { path: 'start', title: 'Getting Started', component: SemanticStartComponent, data: createPageMeta('Getting started with mantic UI and the Semantic UI theme in an Angular app.') },
                     ...sharedRoutes
                 ]
             },
             {
                 path: 'fomantic', component: FomanticLayoutComponent, children: [
-                    { path: 'start', title: 'Getting Started', component: FomanticStartComponent },
+                    { path: 'start', title: 'Getting Started', component: FomanticStartComponent, data: createPageMeta('Getting started with mantic UI and the Fomantic UI theme in an Angular app.') },
                     ...sharedRoutes
                 ]
             },
             {
                 path: 'mantic', component: ManticLayoutComponent, children: [
-                    { path: 'start', title: 'Getting Started', component: ManticStartComponent },
-                    { path: 'theming', title: 'Theming', component: ManticThemingComponent },
+                    { path: 'start', title: 'Getting Started', component: ManticStartComponent, data: createPageMeta('Getting started with mantic UI and its native mantic theme in an Angular app.') },
+                    { path: 'theming', title: 'Theming', component: ManticThemingComponent, data: createPageMeta('How to adjust the native mantic theme of mantic UI at runtime.') },
                     ...sharedRoutes
                 ]
             }
@@ -171,12 +173,12 @@ export const routes: Routes = [
     },
     {
         // Rendered inside an <iframe> of the examples: the framework layout brings the theme, but no navigation
-        path: 'iframe', children: [
+        path: 'iframe', data: { [manticMetaKey]: { isNoIndex: true } }, children: [
             { path: 'semantic', component: SemanticLayoutComponent, children: iframeRoutes },
             { path: 'fomantic', component: FomanticLayoutComponent, children: iframeRoutes },
             { path: 'mantic', component: ManticLayoutComponent, children: iframeRoutes }
         ]
     },
-    { path: 'test', title: 'Test', component: TestExampleComponent },
+    { path: 'test', title: 'Test', component: TestExampleComponent, data: { [manticMetaKey]: { isNoIndex: true } } },
     { path: '**', redirectTo: '' }
 ];
