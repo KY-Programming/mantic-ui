@@ -13,6 +13,11 @@ export interface ManticMeta {
     description?: string;
     /** The og:image, absolute or relative to the base href. Default: the configuration's image */
     image?: string;
+    /**
+     * The twitter:card, e.g. 'summary_large_image' for a page with a wide picture of its own while the site's default
+     * image is a square logo. Default: the configuration's card
+     */
+    twitterCard?: 'summary' | 'summary_large_image';
     /** The og:type. Default: the configuration's type or 'website' */
     type?: string;
     /**

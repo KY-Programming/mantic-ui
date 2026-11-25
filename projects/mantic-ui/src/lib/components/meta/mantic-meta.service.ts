@@ -49,7 +49,7 @@ export class ManticMetaService {
         this.setTag('property', 'og:site_name', this.configuration.siteName);
         this.setTag('property', 'og:locale', this.configuration.locale);
         this.setAlternateLocales(this.configuration.alternateLocales ?? []);
-        this.setTag('name', 'twitter:card', this.configuration.twitterCard ?? (image ? 'summary_large_image' : 'summary'));
+        this.setTag('name', 'twitter:card', pageMeta.twitterCard ?? this.configuration.twitterCard ?? (image ? 'summary_large_image' : 'summary'));
     }
 
     /** The meta of every route from the root down to the active one, the deepest wins */

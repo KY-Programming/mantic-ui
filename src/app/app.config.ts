@@ -22,6 +22,9 @@ export const appConfig: ApplicationConfig = {
             siteName: 'mantic UI',
             description: 'Angular components for Semantic UI and Fomantic UI, with the native mantic theme.',
             locale: 'en_US',
+            // A square logo: the large card would crop it
+            image: './mantic-512.png',
+            twitterCard: 'summary',
             // /semantic/ and /fomantic/ show the examples of /mantic/ with another theme: the sitemap only lists /mantic/
             canonical: path => path.replace(/^\/(semantic|fomantic)(?=\/|$)/, '/mantic')
         }),

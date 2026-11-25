@@ -12,7 +12,10 @@ export interface ManticMetaConfiguration {
     locale?: string;
     /** The og:locale:alternate entries: the other languages the site is available in, e.g. ['en_US'] */
     alternateLocales?: string[];
-    /** The twitter:card. Default: 'summary_large_image' when there is an image, else 'summary' */
+    /**
+     * The twitter:card of pages without one of their own. Default: 'summary_large_image' when there is an image, else
+     * 'summary'. Set 'summary' for a square image (a logo): the large card would crop it to 2:1
+     */
     twitterCard?: 'summary' | 'summary_large_image';
     /**
      * Maps a page's canonical path (from the base href, without query and fragment) to the one search engines are to index,
