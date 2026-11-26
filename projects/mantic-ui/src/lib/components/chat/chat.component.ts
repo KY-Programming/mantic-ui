@@ -91,6 +91,8 @@ export class ChatComponent implements DoCheck {
     public readonly sendIcon = input<IconType>();
     public readonly sendIconSize = input<IconSize>();
     public readonly showSendIcon = input<boolean, BooleanLike>(false, { transform: toBoolean });
+    /** Sends without text and images too: the host attaches something of its own to the message (an error report, a file) */
+    public readonly canSendEmpty = input<boolean, BooleanLike>(false, { transform: toBoolean });
     public readonly attachIcon = input<IconType>();
     public readonly attachImageIcon = input<IconType>();
     public readonly screenshotIcon = input<IconType>();
@@ -185,7 +187,7 @@ export class ChatComponent implements DoCheck {
 
     protected sendMessage(): void {
         const images = this.attachments();
-        if (this.message || images.length > 0) {
+        if (this.message || images.length > 0 || this.canSendEmpty()) {
             this.sendSubject.next({
                 direction: 'out',
                 text: this.message ?? '',

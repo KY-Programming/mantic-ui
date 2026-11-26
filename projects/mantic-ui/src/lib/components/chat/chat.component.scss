@@ -15,6 +15,9 @@ $chat-drop-color: var(--m-primary, #2185d0) !default;
     flex-direction: column;
     flex: 1;
     overflow: hidden;
+    // Fills its container up to 900px and is centred beyond: the auto margins alone shrink it to its content in a flex
+    // column, and a content wider than a narrow container (a sidebar) pushed the send button out of it
+    width: 100%;
     max-width: 900px;
     margin: 0 auto;
 }
@@ -46,8 +49,16 @@ $chat-drop-color: var(--m-primary, #2185d0) !default;
     flex-direction: column;
     background-color: $chat-background;
 
+    // The input takes what the buttons leave: Semantic's input keeps its 20 characters' width otherwise (flex: 1 0 auto),
+    // wider than a narrow chat with a large font
     m-input {
         flex: 1;
+        min-width: 0;
+
+        ::ng-deep input {
+            flex: 1 1 0;
+            min-width: 0;
+        }
     }
 
     .input-row {
